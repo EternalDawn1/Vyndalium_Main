@@ -1,0 +1,30 @@
+@namespace GeneralGame.HUD
+@inherits Panel
+@using GeneralGame.HUD
+@using Sandbox;
+@using Sandbox.UI;
+
+@if (Player.Local is null)
+{
+    return;
+}
+<root>
+    
+
+    <div class="hold-container">
+        <InteractionHint FromHands=@true />
+    </div>
+	<InteractionHint/>
+
+	
+</root>
+
+@code
+{
+    public static InGameHud Instance { get; private set; }
+
+    public InGameHud() 
+    {
+        Instance = this;
+    }
+}

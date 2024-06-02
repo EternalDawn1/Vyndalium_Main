@@ -1,0 +1,128 @@
+{
+  "RootObject": {
+    "__guid": "787f8c63-b9be-4ef2-a5cb-29b10f563c85",
+    "Name": "m67",
+    "Scale": "1.5,1.5,1.5",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "Components": [
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "cae13d35-5bdb-49d7-a629-117664e88683",
+        "BodyGroups": 1,
+        "CreateBoneObjects": false,
+        "Model": "models/m67/w/m67.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      },
+      {
+        "__type": "GeneralGame.BaseThrow",
+        "__guid": "bfd46bb0-896d-42c1-acd0-ec8463401bf4",
+        "ActivateSound": "models/m67/m67_pinpull.sound",
+        "AimPos": "0,0,0",
+        "AimRotation": "0,0,0,0",
+        "Damage": 100,
+        "DamageForce": 5,
+        "DeploySound": "sounds/weapons/weapon_deploy3.sound",
+        "DeployTime": 0.5,
+        "DisplayName": "M67",
+        "FireRate": 3,
+        "HoldType": "Punch",
+        "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+        "IdlePos": "-10,0,0",
+        "IsDeployed": false,
+        "PrepareTime": 5,
+        "ReleaseTime": 1.2,
+        "RunRotation": "-0.00007615242,0.008726203,0.008726203,0.9999238",
+        "ThrowPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/weapons/m67_granade/granade_throw.prefab"
+        },
+        "ThrowSound": "models/m67/m67_safety.sound",
+        "ViewModelPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/weapons/m67_granade/vm_m67.prefab"
+        }
+      },
+      {
+        "__type": "Sandbox.SphereCollider",
+        "__guid": "2a24a538-ec51-4b7d-8f62-ca1d47e7e4ee",
+        "Center": "0,0,0",
+        "IsTrigger": true,
+        "Radius": 10,
+        "Static": false
+      },
+      {
+        "__type": "Sandbox.ModelCollider",
+        "__guid": "65600efa-6a77-4b1f-90c9-347f7837203e",
+        "IsTrigger": false,
+        "Model": "models/m67/w/m67.vmdl",
+        "Static": false
+      },
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "87cdf702-7e06-45db-b598-3edfaae14de1",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      },
+      {
+        "__type": "GeneralGame.ItemEquipment",
+        "__guid": "11e4c7b5-4abf-4b50-b78e-1013d0c4cf90",
+        "AbilityHaste": 0,
+        "Attachment": "hand_R",
+        "AttachmentTransform": {
+          "UniformScale": 1,
+          "Scale": "1,1,1",
+          "Rotation": "0,0,0,1"
+        },
+        "AttackPower": 0,
+        "AttackSpeed": 0,
+        "Count": 1,
+        "CritHitChance": 0,
+        "CritHitDamage": 0,
+        "DamageBalance": 100,
+        "DEX": 0,
+        "DMG": 0,
+        "Durability": 1000,
+        "HE": 0,
+        "HideBodygroups": "None",
+        "HoldType": "Item",
+        "Icon": {
+          "Model": "models/m67/w/m67.vmdl",
+          "MaterialGroup": "",
+          "Colour": "1,1,1,1",
+          "Position": "-2.4,0.15,-0.3",
+          "Rotation": "-0.1614773,-0.1635568,-0.7121617,0.663325",
+          "Guid": "128be284-73b4-4d94-9bc5-3d0f0694ffb4"
+        },
+        "INT": 0,
+        "ItemLevel": 0,
+        "Mana": 0,
+        "MaxStack": 5,
+        "MoveSpeed": 0,
+        "Name": "Grenade",
+        "PER": 0,
+        "SellPrice": -1,
+        "Slot": "Hand",
+        "STG": 0,
+        "Tier": "C",
+        "UpdatePosition": false,
+        "UseSkinTint": false,
+        "WeightInGrams": 0
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}

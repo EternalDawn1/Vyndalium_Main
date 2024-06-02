@@ -1,0 +1,164 @@
+@namespace GeneralGame.HUD
+@attribute [StyleSheet]
+@using Sandbox.Utility
+@inherits Panel
+
+<root>
+	<div class="scene-container">
+		<ScenePanel @ref=_scenePanel/>
+		<div class="scene-input-overlay" @ref=SceneInputOverlayPanel></div>
+	</div>
+	
+</root>
+
+@code {
+	private SceneWorld _sceneWorld;
+	private ScenePanel _scenePanel;
+	private SceneModel _character;
+	private SceneModel[] _clothes;
+	private SceneLight _sceneLight;
+	private SceneDirectionalLight _sceneDirectionalLight;
+	private const float HoverEffectDuration = 0.2f;
+	private TimeUntil _hoverEffectActivation = HoverEffectDuration;
+	private TimeUntil _hoverEffectDeactivation = HoverEffectDuration;
+
+	private static float _yaw = 0f;
+	private bool _isDragging = false;
+	private Panel SceneInputOverlayPanel { get; set; }
+
+	public bool IsHoveredByMouse() => SceneInputOverlayPanel.Box.Rect.IsInside( Mouse.Position );
+
+	protected override void OnAfterTreeRender( bool firstTime )
+	{
+		base.OnAfterTreeRender( firstTime );
+
+		_sceneWorld ??= new SceneWorld();
+		_sceneLight ??= new SceneLight( _sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 4f );
+		_sceneDirectionalLight ??= new SceneDirectionalLight( _sceneWorld, global::Rotation.From( 45, -45, 45 ), Color.White * 10f );
+		_character ??= new SceneModel( _sceneWorld, "models/citizen/citizen.vmdl", new Transform( Vector3.Zero, Rotation.From( 0, _yaw, 0 ) ) );
+		if ( firstTime ) Refresh();
+
+		_scenePanel.World = _sceneWorld;
+		_scenePanel.Camera.FieldOfView = 5f;
+		_scenePanel.Camera.ZNear = 3;
+		_scenePanel.Camera.FitModel( _character );
+		_scenePanel.Camera.OnRenderPostProcess = () =>
+		{
+		
+		};
+
+		_sceneLight.Position = _scenePanel.Camera.Position + _scenePanel.Camera.Rotation.Forward * 500f;
+	}
+
+	public void Refresh()
+	{
+
+		var inventory = Player.Local?.Inventory;
+		if ( inventory == null )
+			return;
+
+		if ( _clothes != null )
+			foreach ( var clothing in _clothes )
+			{
+				if ( !clothing.IsValid() )
+					continue;
+
+				_character.RemoveChild( clothing );
+				clothing.Delete();
+			}
+
+		var slots = Enum.GetValues<EquipSlot>();
+		var bodygroups = HiddenBodyGroup.None;
+		_clothes ??= new SceneModel[slots.Length];
+
+		for ( int i = 0; i < _clothes.Length; i++ )
+		{
+			if ( inventory?.EquippedItems?.ElementAtOrDefault( i ) is not ItemEquipment equipment )
+				continue;
+
+			var renderer = equipment?.Components?.Get<ModelRenderer>( FindMode.EverythingInSelfAndDescendants );
+			if ( renderer == null )
+				continue;
+
+			var cloth = _clothes[i] = new SceneModel( _sceneWorld, renderer.Model, global::Transform.Zero );
+			cloth.SetMaterialGroup( renderer.MaterialGroup );
+			bodygroups |= equipment.HideBodygroups;
+
+			_character.AddChild( $"clothing_{i}_{equipment.Name}", cloth );
+			
+		}
+
+		_character.SetBodyGroup( "head", bodygroups.HasFlag( HiddenBodyGroup.Head ) ? 1 : 0 );
+		_character.SetBodyGroup( "torso", bodygroups.HasFlag( HiddenBodyGroup.Torso ) ? 1 : 0 );
+		_character.SetBodyGroup( "hands", bodygroups.HasFlag( HiddenBodyGroup.Hands ) ? 1 : 0 );
+		_character.SetBodyGroup( "legs", bodygroups.HasFlag( HiddenBodyGroup.Legs ) ? 1 : 0 );
+		_character.SetBodyGroup( "feet", bodygroups.HasFlag( HiddenBodyGroup.Feet ) ? 1 : 0 );
+
+		Update();
+	}
+
+	private void Update()
+	{
+		var mousePos = MousePosition;
+        var headPos = _scenePanel.Camera.ToScreen( (_character.GetAttachment( "eyes" ) ?? Transform.Zero).Position );
+        var localPos = mousePos - headPos;
+
+        _character.SetAnimParameter( "lookat", new Vector3( 1000f, localPos.x, -localPos.y ) * _character.Rotation.Inverse );
+
+		_character.Update( RealTime.Delta );
+		_character.SetAnimParameter( "hold_type", (int)Player.Local.HoldType );
+		_character.Rotation = Rotation.From( 0, _yaw, 0 );
+
+
+		if ( _clothes != null )
+		{
+			if ( Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] is ItemEquipment hand && hand.UpdatePosition )
+				_clothes[(int)EquipSlot.Hand].Transform = (_character.GetAttachment( hand.Attachment, true ) ?? global::Transform.Zero)
+					.ToWorld( hand.AttachmentTransform )
+					.WithScale( 1 );
+
+			foreach ( var clothing in _clothes )
+				if ( clothing.IsValid() )
+					clothing?.Update( RealTime.Delta );
+		}
+
+		// i'm not sure how to make a fraction 0-1 where 0 is not hovered and 1 is hovered
+		// well i mean I'm doing it this way but I feel there's a better way
+		var isDropTarget = IsHoveredByMouse() && InventorySlot.CurrentDraggable != null && InventorySlot.CurrentDraggable.HasClass( "can-drop" );
+		float fraction;
+		if ( isDropTarget )
+		{
+			_hoverEffectDeactivation = HoverEffectDuration;
+			fraction = _hoverEffectActivation.Fraction;
+		}
+		else
+		{
+			_hoverEffectActivation = HoverEffectDuration;
+			fraction = 1 - _hoverEffectDeactivation.Fraction;
+		}
+
+		var multiplier = 4 + Easing.EaseIn( fraction ) * 55;
+		var sceneDirectionalLightColor = Color.White * multiplier;
+		_sceneDirectionalLight.LightColor = sceneDirectionalLightColor;
+	}
+
+	public override void OnButtonEvent( ButtonEvent e )
+	{
+		if ( e.Button == "mouseleft" )
+			_isDragging = e.Pressed;
+
+		base.OnButtonEvent( e );
+	}
+
+	public override void Tick()
+	{
+		if ( _character is null )
+			return;
+
+		if ( _isDragging )
+			_yaw += Mouse.Delta.x * 0.20f;
+
+		Update();
+	}
+
+}

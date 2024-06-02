@@ -1,0 +1,43 @@
+{
+  "RootObject": {
+    "__guid": "ce321d1d-faf8-47ba-b8fb-e4e272d0f776",
+    "Flags": 0,
+    "Name": "pickupammo",
+    "Scale": "0.3,0.3,0.3",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.ModelRenderer",
+        "__guid": "1871c88c-9fbd-46e0-bb7e-da3aca691d95",
+        "BodyGroups": 18446744073709551615,
+        "Model": "models/dev/box.vmdl",
+        "RenderType": "On",
+        "Tint": "0,1,0.18333,1"
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "adee1c79-9bd1-46d6-8767-edbf0565cb8c",
+        "Center": "0,0,0",
+        "IsTrigger": true,
+        "Scale": "50,50,50",
+        "Static": false
+      },
+      {
+        "__type": "GeneralGame.AmmoPickup",
+        "__guid": "c59bcd5a-7420-4af0-b5ee-0f39b257a660",
+        "AmmoTypen": "Rifle",
+        "Count": 30,
+        "TriggerSoundPath": "sounds/kenney/ui/ui.navigate.deny.sound"
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

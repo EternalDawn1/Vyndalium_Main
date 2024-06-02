@@ -1,0 +1,404 @@
+﻿Hud {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 1;
+
+	.ammo {
+		position: absolute;
+		font-family: Forte;
+		font-size: 48%;
+		color: white;
+		right: 5%;
+		bottom: 10%;
+		z-index: 5;
+
+
+		> .clip {
+			color: rgb(63, 253, 142);
+			
+		}
+
+		> .icon {
+			position: absolute;
+			background-image: url("/materials/bullet.png");
+			background-size: 100%;
+			position: absolute;
+			width: 55%;
+			height:100%;
+			left: 100%;
+			bottom: 15%;
+			z-index: 1;
+		}
+
+		
+	}
+
+
+	.center {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.crosshair1 {
+		position: absolute;
+		opacity: 1;
+		transition: transform 2.05s ease-in-out;
+		width: 25px;
+		height: 25px;
+		border: 2px solid white;
+		background-color: transparent;
+		border-radius: 55px;
+		border-right-color: transparent;
+		border-right-width: 5px;
+		border-left-width: 5px;
+		border-left-color: transparent;
+		border-top-width: 1px;
+		border-bottom-width: 1px;
+
+		
+		
+	}
+
+	&.hitmarker {
+		.crosshair1 {
+			background-color: red;
+			transition: transform 5.05s ease-in-out;
+			transform: scale( 2 );
+		}
+	}
+	.crosshair {
+		position: absolute;
+		border-radius: 50%;
+		background-color: white;
+		opacity: 1;
+		transition: transform 50.05s ease-in-out;
+		width: 4px;
+		height: 4px;
+	}
+
+	&.hitmarker {
+		.crosshair {
+			background-color: red;
+			transition: transform 5.05s ease-in-out;
+			transform: scale( 2 );
+		}
+	}
+	.crosshair2 {
+		position: absolute;
+		border-radius: 50%;
+		background-color: rgb(255, 0, 0);
+		opacity: 1;
+		transition: transform 50.05s ease-in-out;
+		width: 4px;
+		height: 4px;
+		left: 41.8%;
+		top: 46.1%;
+		
+		
+	}
+
+	&.hitmarker {
+		.crosshair2 {
+			background-color: red;
+			transition: transform 5.05s ease-in-out;
+			transform: scale( 2 );
+		}
+	}
+	
+	
+
+	.expbar{
+        position: absolute;
+        left: 65%;
+        bottom: 5%;
+        transition: opacity 1s ease-in-out;
+          
+    }
+	.expbar-show {
+		opacity: 1;
+		transition: opacity 1s ease-in-out;
+	}
+	
+	.expbar-hide {
+		opacity: 0;
+		transition: opacity 1s ease-in-out;
+	}
+	
+
+	.vyndalium{
+		position: absolute;
+		left: 3%;
+		bottom: 90%;
+		z-index: 1;
+		padding: 1%;
+		
+		
+		.vyndalium1{
+			
+			position: absolute;
+			flex-direction: column;
+			flex-direction: row-reverse;
+			
+			
+			
+			
+			.p{
+				color: rgb(255, 187, 0);
+				font-size: 36px;
+				font-family: Arial, Helvetica, sans-serif;
+				gap: 15px;
+				transition: opacity 0.5s ease-in-out;
+				opacity: 1;
+				
+				
+			
+				
+				
+				.icon1{
+					background-image: url("/ui/hud/vynd.png");
+					background-size: 100%;
+					width: 64px;
+					height: 64px;
+					
+					
+				}
+				#number{
+					animation: changeNumber 0.5s ease-in-out;
+					transition: opacity 0.5s ease-in-out;
+					opacity: 1;
+					
+				}
+				@keyframes changeNumber {
+					from 
+					{
+						transform: scale(1);
+					}
+					to 
+					{
+						transform: scale(1.5);
+					}
+				}
+			}
+			
+		}
+		
+		
+	}
+	.feed{
+		position: absolute;
+		left: 12%;
+		bottom: 10%;
+		width: 100%;
+		height: 100%;
+		
+	}
+	
+
+	.healthbar {
+		position: absolute;
+		left: 2%;
+		width: 29%;
+		height: 15%;
+		bottom: 15%;
+	
+		z-index: 0;
+		
+	
+		opacity: 1;	
+		transition: opacity 0.5s ease-in-out;
+				
+	
+		> .healthbar {
+			width: 400px;
+			height: 32px;
+			bottom: 25px;
+			left: 7%;
+			background-blend-mode:multiply;
+			background-size: 100%;
+			//background-position: center;
+			background-image: url("/ui/hud/hpbar2.png");
+			
+			padding: 5px;
+			border-radius: 100px;
+		
+		
+			
+	
+			> .inner {
+				
+				flex-grow: 10;
+	
+	
+				> .fill {
+					height: 100%;
+					border-right: 1px solid rgb(124, 124, 124);
+					border-right-width: -11px;
+					border: 4px rgba(0, 0, 0, 0.521);
+					
+					border-top-right-radius: -50px -50px;
+					border-top-width: 3px;
+					border-top-color: rgba(255, 255, 255, 0.219);
+					
+					border-bottom-right-radius: 50px;
+					border-bottom-width: 1px;
+					
+                	transition: width 0.5s ease-out;
+					
+					
+					
+					
+	
+					
+				}
+			}
+			
+		}
+		> p {
+			position: absolute;
+			left: 105%;
+			top: 0%;
+			color: white;
+			font-size: 22px;
+			border-radius: 10%;
+			font-family: Geneva;
+			font-weight: 1500;
+			transition: opacity 0.5s ease-in-out;
+			opacity: 1;
+			background-color: rgba(206, 206, 206, 0.384);
+			padding: 0px 5px;
+		}
+	}
+	
+	
+
+	.manabar{
+		position: absolute;
+		left: 12.5%;
+		bottom: 7.5%;
+		border-radius: 8px;
+		opacity: 1;
+		transition: opacity 2.05s ease-in;
+		transform: translateX(-50%);
+		margin: auto;
+		display: flex; // Hinzugefügt
+    	flex-direction: row-reverse; // Hinzugefügt
+    	justify-content: flex-end; // Hinzugefügt
+		background-blend-mode: multiply;
+		
+		
+
+		> .manabar
+		{
+			width: 370px;
+			height: 32px;
+			bottom: 60px;
+			left: 22px;
+			background-color: rgba(0, 0, 0, 0.774);
+			padding: 5px;
+			border-radius: 8px;
+			
+			
+			> .manainner
+			{
+				background-color: rgba(0, 0, 0, 0.774);
+				
+				flex-grow: 1;
+				> .manafill
+				{
+					height: 100%;
+					background-image: url("/ui/hud/manabar.png");
+					
+					background-position-x: center;
+					
+					border-radius: 0px;
+					border-right: 5px solid rgba(255, 255, 255, 0.795);
+					border-right-width: -11px;
+
+					border: 5px rgba(116, 116, 116, 0.356);
+					
+					border-top-right-radius: -50px -50px;
+					border-top-width: 3px;
+					border-top-color: rgba(255, 255, 255, 0.26);
+					
+					border-bottom-right-radius: 50px;
+					border-bottom-width: 1px;
+
+					transition: width 0.5s ease-out;
+					
+
+				}
+			}
+			> p
+					{
+						position: absolute;
+						left: 105%;
+						top: 0%;
+						color: white;
+						font-size: 22px;
+						border-radius: 10%;
+						font-family: Geneva;
+						font-weight: 1500;
+						transition: opacity 0.5s ease-in-out;
+						opacity: 1;
+						background-color: rgba(128, 128, 128, 0.24);
+						padding: 0px 5px;
+					}
+		}
+	}
+	
+
+	.staminabar {
+		position: absolute;
+		left: 49%;
+		bottom: 17%;
+		border-radius: 8%;
+		transition: opacity 8000ms ease-out;
+		transform: translateX(-50%);
+		margin: auto;
+
+		&hidden{
+			display: none;
+			
+			
+		}
+
+		> .staminabar {
+			width: 350px;
+			height: 16px;
+			margin: auto;
+			background-color: black;
+			padding: 3px;
+			border-radius: 8px;
+			justify-content: center;
+			
+			
+
+			> .staminainner {
+				background-color: black;
+				border-radius: 8px;
+				display: flex;
+				justify-content: space-between;
+				
+				> .fill {
+					height: 100%;
+					background-image: url("/ui/hud/stamina.png");
+					background-position: center;
+					border-radius: 8px;
+				
+					flex-grow: 1;
+					margin: 0 3px;
+					
+					.hidden {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}

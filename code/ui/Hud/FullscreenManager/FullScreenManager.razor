@@ -1,0 +1,105 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using GeneralGame.HUD
+@using GeneralGame
+@inherits Panel
+@namespace GeneralGame.HUD
+
+
+<root>
+    
+       
+
+        @switch (ActivePanel)
+        {
+			case FullScreenPanel.InGameHud:
+				<InGameHud/>
+				break;
+            case FullScreenPanel.CharacterMenu:
+                <CharacterMenu/>
+                break;
+            case FullScreenPanel.Inventory:
+                <Inventory/>
+                break;
+            case FullScreenPanel.Abilities:
+                
+                break;
+            case FullScreenPanel.PauseMenu:
+                <PauseMenu/>
+                break;
+            case FullScreenPanel.Confirm:
+                <Confirm/>
+                break;
+            
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    
+</root>
+
+@code
+{
+    public static FullScreenManager Instance { get; private set; }
+
+    public enum FullScreenPanel
+    {
+        InGameHud,
+        CharacterMenu,
+        Abilities,
+        Inventory,
+        PauseMenu,
+        Confirm,
+        
+    }
+
+    public FullScreenPanel ActivePanel { get; private set; } = FullScreenPanel.InGameHud;
+    
+
+    public FullScreenManager()
+    {
+        Instance = this;
+    }
+
+    public void Display(FullScreenPanel panel)
+    {
+        ActivePanel = panel;
+    }
+
+    public override void Tick()
+    {
+        
+
+        if (Input.EscapePressed) // Stellen Sie sicher, dass "Input" korrekt referenziert wird.
+        {
+            if (ActivePanel == FullScreenPanel.InGameHud)
+                Toggle(FullScreenPanel.PauseMenu);
+            else
+                Toggle(FullScreenPanel.InGameHud);
+        }
+
+        if (Input.Pressed(InputAction.Inventory)) // Stellen Sie sicher, dass "InputAction" korrekt referenziert wird.
+            Toggle(FullScreenPanel.Inventory);
+
+        if (Input.Pressed(InputAction.Character)) // Stellen Sie sicher, dass "InputAction" korrekt referenziert wird.
+            Toggle(FullScreenPanel.CharacterMenu);
+
+        if (Input.Pressed(InputAction.Abilities)) // Stellen Sie sicher, dass "InputAction" korrekt referenziert wird.
+            Toggle(FullScreenPanel.Abilities);
+
+        
+    }
+
+    private void Toggle(FullScreenPanel panel)
+    {
+        if (ActivePanel == panel)
+            ActivePanel = FullScreenPanel.InGameHud;
+        else
+            ActivePanel = panel;
+    }
+
+    public static bool Is(FullScreenPanel mode)
+		=> FullScreenManager.Instance?.ActivePanel == mode;
+
+    protected override int BuildHash()
+		=> HashCode.Combine(ActivePanel.GetHashCode()); // Ändern Sie "Hud" zu "Hudmaster"
+}

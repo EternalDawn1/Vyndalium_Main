@@ -1,0 +1,129 @@
+{
+  "RootObject": {
+    "__guid": "6962692b-0e46-4a82-9d3a-c70745852d86",
+    "Name": "machette",
+    "Scale": "1.5,1.5,1.5",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "Components": [
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "1ae5887b-84a3-4e92-b27f-d56bbd9b1f25",
+        "BodyGroups": 1,
+        "CreateBoneObjects": false,
+        "Model": "models/machette/w/w_machetelod0.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      },
+      {
+        "__type": "GeneralGame.BaseMele",
+        "__guid": "5d815f6c-11e3-48aa-a9eb-9017440aa3fe",
+        "AimPos": "0,0,0",
+        "AimRotation": "0,0,0,0",
+        "AttackSound": "models/machette/machete2.sound",
+        "Damage": 80,
+        "DamageForce": 5,
+        "DeploySound": "sounds/weapons/weapon_deploy3.sound",
+        "DeployTime": 0.5,
+        "DisplayName": "Machette",
+        "FireRate": 2,
+        "HitSound": "models/machette/knife_hit3.sound",
+        "HitWorldSound": "models/machette/knife_hitworld1.sound",
+        "HoldType": "Rifle",
+        "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+        "IdlePos": "-14,0,0",
+        "ImpactEffect": "particles/impact.generic.vpcf",
+        "IsDeployed": false,
+        "KillSound": "models/machette/knife_stab.sound",
+        "Punch": 0,
+        "Range": 100,
+        "RunRotation": "-0.00007615242,0.008726203,0.008726203,0.9999238",
+        "SeccondaryDamage": 110,
+        "SeccondaryFireRate": 1.5,
+        "ViewModelPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/weapons/machette/vm_machette.prefab"
+        }
+      },
+      {
+        "__type": "Sandbox.SphereCollider",
+        "__guid": "b6d23673-3cba-4488-ba9f-00da02c1b07e",
+        "Center": "0,0,0",
+        "IsTrigger": true,
+        "Radius": 10,
+        "Static": false
+      },
+      {
+        "__type": "Sandbox.ModelCollider",
+        "__guid": "2cedae9b-3b4e-4126-ad8b-a27833cfb628",
+        "IsTrigger": false,
+        "Model": "models/machette/w/w_machetelod0.vmdl",
+        "Static": false
+      },
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "a01ba4ad-8656-4e28-9a73-414fa6a61ecf",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      },
+      {
+        "__type": "GeneralGame.ItemEquipment",
+        "__guid": "3bbc148d-dd63-4d3a-a78a-4b86d869521d",
+        "AbilityHaste": 0,
+        "Attachment": "hand_R",
+        "AttachmentTransform": {
+          "UniformScale": 1,
+          "Scale": "1,1,1",
+          "Rotation": "0,0,0,1"
+        },
+        "AttackPower": 0,
+        "AttackSpeed": 0,
+        "Count": 0,
+        "CritHitChance": 0,
+        "CritHitDamage": 0,
+        "DamageBalance": 0,
+        "DEX": 0,
+        "DMG": 0,
+        "Durability": 0,
+        "HE": 0,
+        "HideBodygroups": "None",
+        "HoldType": "Item",
+        "Icon": {
+          "Model": "models/machette/w/w_machetelod0.vmdl",
+          "MaterialGroup": "",
+          "Colour": "1,1,1,1",
+          "Position": "5.4,-6.9,3.3",
+          "Rotation": "0.2740149,0.2740149,0.6518556,-0.6518556",
+          "Guid": "9999909e-1d1e-4b97-8100-e4dbeee94dfb"
+        },
+        "INT": 0,
+        "ItemLevel": 0,
+        "Mana": 0,
+        "MaxStack": 0,
+        "MoveSpeed": 0,
+        "Name": "Machete",
+        "PER": 0,
+        "SellPrice": -1,
+        "Slot": "Hand",
+        "STG": 0,
+        "Tier": "C",
+        "UpdatePosition": false,
+        "UseSkinTint": false,
+        "WeightInGrams": 0
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}

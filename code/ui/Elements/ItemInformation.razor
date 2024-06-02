@@ -1,0 +1,211 @@
+@namespace GeneralGame.HUD
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+	<div class="item-details">
+		<div class="top-row" style="@(!string.IsNullOrEmpty(Item.Description) ? "align-items: center;" : "")">
+			<text class="item-name">@Item.Name</text>
+			<div class="item-name"> <h2 class="tier @Item.Tier.ToString()">@Item.Tier</h2></div>
+			<div class="item-name"><h2 class="lvl @GetLevelColor(Item.ItemLevel)">+@Item.ItemLevel</h2></div>
+			<div style="flex-direction: column; align-items: flex-end; gap: 2px;"></div>
+		</div>
+		
+
+		@if (!string.IsNullOrEmpty(Item.Description))
+		{
+			<div class="item-description1">@Item.Description</div>
+			
+		}
+		@if (Item.DMG != default(float))
+		{
+			<div class="item-description">Attack Value: @Item.DMG</div>
+			
+		}
+		@if (Item.STG != default(float))
+		{
+			<div class="item-description">STG: @Item.STG</div>
+		}
+		@if (Item.HE != default(float))
+		{
+			<div class="item-description">HP+: @Item.HE</div>
+		}
+		@if (Item.DEX != default(int))
+		{
+			<div class="item-description">DEX: @Item.DEX</div>
+		}
+		@if (Item.PER != default(int))
+		{
+			<div class="item-description">PER: @Item.PER</div>
+		}
+		@if (Item.INT != default(float))
+		{
+			<div class="item-description">INT: @Item.INT</div>
+		}
+		@if (Item.Mana != default(float))
+		{
+			<div class="item-description">Mana: @Item.Mana</div>
+		}
+		@if (Item.CritHitDamage != default(float))
+		{
+			<div class="item-description">Crit Hit Damage: @Item.CritHitDamage</div>
+		}
+		@if (Item.CritHitChance != default(float))
+		{
+			<div class="item-description">Crit Hit Chance: @Item.CritHitChance</div>
+		}
+		@if (Item.AbilityHaste != default(float))
+		{
+			<div class="item-description">Ability Haste: @Item.AbilityHaste</div>
+		}
+		@if (Item.AttackPower != default(float))
+		{
+			<div class="item-description">Attack Power: @Item.AttackPower</div>
+		}
+		@if (Item.DamageBalance != default(int))
+		{
+			<div class="item-description">Damage Balance: @Item.DamageBalance</div>
+		}
+		@if (Item.Durability != default(int))
+		{
+			<div class="item-description">Durability: @Item.Durability</div>
+		}
+		@if (Item.AttackSpeed != default(float))
+		{
+			<div class="item-description">Attack Speed: @Item.AttackSpeed</div>
+		}
+		@if (Item.MoveSpeed != default(float))
+		{
+			<div class="item-description">Move Speed: @Item.MoveSpeed</div>
+		}
+		@if (Item.Armor != default(float))
+		{
+			<div class="item-description">Armor: @Item.Armor</div>
+		}
+		@if (Item.MagicDefense != default(float))
+		{
+			<div class="item-description">Magic Defense: @Item.MagicDefense</div>
+		}
+		@if (Item.Evasion != default(float))
+		{
+			<div class="item-description">Evasion: @Item.Evasion</div>
+		}
+		@if (Item.Cover != default(float))
+		{
+			<div class="item-description">Cover: @Item.Cover</div>
+		}
+		@if (Item.BonusEXP != default(float))
+		{
+			<div class="item-description">Bonus EXP: @Item.BonusEXP</div>
+		}
+		@if (Item.BonusScore != default(float))
+		{
+			<div class="item-description">Bonus Score: @Item.BonusScore</div>
+		}
+		@if (Item.BonusVyndalium != default(float))
+		{
+			<div class="item-description">Bonus Vyndalium: @Item.BonusVyndalium</div>
+		}
+		@if (Item.Tenacity != default(float))
+		{
+			<div class="item-description">Tenacity: @Item.Tenacity</div>
+		}
+		@if (Item.StunResistance != default(float))
+		{
+			<div class="item-description">Stun Resistance: @Item.StunResistance</div>
+		}
+		@if (Item.BlindResistance != default(float))
+		{
+			<div class="item-description">Blind Resistance: @Item.BlindResistance</div>
+		}
+		@if (Item.SlowResistence != default(float))
+		{
+			<div class="item-description">Slow Resistance: @Item.SlowResistence</div>
+		}
+		@if (Item.FireResistence != default(float))
+		{
+			<div class="item-description">Fire Resistance: @Item.FireResistence</div>
+		}
+		@if (Item.PoisonResistence != default(float))
+		{
+			<div class="item-description">Poison Resistance: @Item.PoisonResistence</div>
+		}
+		@if (Item.IceResistence != default(float))
+		{
+			<div class="item-description">Ice Resistance: @Item.IceResistence</div>
+		}
+		@if (Item.LightningResistence != default(float))
+		{
+			<div class="item-description">Lightning Resistance: @Item.LightningResistence</div>
+		}
+		@if (Item.HolyResistence != default(float))
+		{
+			<div class="item-description">Holy Resistance: @Item.HolyResistence</div>
+		}
+		@if (Item.ShadowResistence != default(float))
+		{
+			<div class="item-description">Shadow Resistance: @Item.ShadowResistence</div>
+		}
+
+
+	</div>
+</root>
+
+@code 
+{
+	public ItemComponent Item { get; set; }
+	public WeaponComponent Weapon {get; set; }
+	
+	
+
+
+	private string GetLevelColor(float level)
+	{
+
+		switch (level)
+    {
+		case 0: return "level-color-0";
+        case 1: return "level-color-1";
+        case 2: return "level-color-2";
+        case 3: return "level-color-3";
+        case 4: return "level-color-4";
+        case 5: return "level-color-5";
+        case 6: return "level-color-6";
+        case 7: return "level-color-7";
+        case 8: return "level-color-8";
+        case 9: return "level-color-9";
+        case 10: return "level-color-10";
+        case 11: return "level-color-11";
+        case 12: return "level-color-12";
+        case 13: return "level-color-13";
+        case 14: return "level-color-14";
+        case 15: return "level-color-15";
+        case 16: return "level-color-16";
+        case 17: return "level-color-17";
+        case 18: return "level-color-18";
+        case 19: return "level-color-19";
+        case 20: return "level-color-20";
+        case 21: return "level-color-21";
+        case 22: return "level-color-22";
+        case 23: return "level-color-23";
+        case 24: return "level-color-24";
+        case 25: return "level-color-25";
+        case 26: return "gold-color"; // Hellste Farbe vor Gold
+        case 27: return "black-color"; // Gold für das 27. Level
+        default: return "black-color"; // Für andere Fälle
+    }
+	}
+	protected override int BuildHash()
+	{
+		if (Player.Local is null)
+			return -1;
+
+		return HashCode.Combine(
+			Item.Tier,
+			Item.ItemLevel
+			
+
+		);
+	}
+	
+}

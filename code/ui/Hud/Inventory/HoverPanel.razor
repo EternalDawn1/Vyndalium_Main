@@ -1,0 +1,57 @@
+@namespace GeneralGame.HUD
+@using GeneralGame.HUD
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+	<ItemInformation Item=@_item style="max-width: 700px;" />
+</root>
+
+@code {
+	public static HoverPanel Instance { get; private set; }
+	private ItemComponent _item;
+
+	public static void Open(ItemComponent item)
+	{
+		Close();
+
+		var fraction = Mouse.Position / Screen.Size;
+
+		Instance = new();
+		Instance.Style.Left = Length.Fraction( fraction.x );
+		Instance.Style.Top = Length.Fraction( fraction.y );
+		Instance._item = item;
+		Hudmaster.Instance.Panel.AddChild(Instance);
+	}
+
+	public static void Close()
+	{
+		Instance?.Delete();
+		Instance = null;
+	}
+
+	public override void OnLayout( ref Rect layoutRect )
+	{
+		var padding = 20;
+		var h = Screen.Height - padding;
+		var w = Screen.Width - padding;
+
+		if ( layoutRect.Bottom > h )
+		{
+			layoutRect.Top -= layoutRect.Bottom - h;
+			layoutRect.Bottom -= layoutRect.Bottom - h;
+		}
+
+		if ( layoutRect.Right > w )
+		{
+			layoutRect.Left -= layoutRect.Right - w;
+			layoutRect.Right -= layoutRect.Right - w;
+		}
+	}
+
+	public override void Tick()
+	{
+		if (FullScreenManager.Instance.ActivePanel != FullScreenManager.FullScreenPanel.Inventory)
+			Close();
+	}
+}

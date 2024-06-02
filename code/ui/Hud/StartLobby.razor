@@ -1,0 +1,180 @@
+﻿@using System
+@using System.Collections.Generic
+@using System.Linq
+@using System.Threading.Tasks
+@using Sandbox;
+@using Sandbox.Network
+@inherits PanelComponent
+@namespace GeneralGame.HUD
+
+<root>
+	<div class="center">
+		<div class="left">
+			<div class="title">
+				Vyndalium
+			</div>
+
+			<div class="explanation">
+				<p>
+					an RPG Game from ViWi.
+				</p>
+			</div>
+			
+			<div class="button-list">
+				<div class="button" style="opacity: @(ShowCoopMenu ? 1 : 0)" onclick=@( () => ToggleMainMenu() )>
+					Main Menu
+				</div>
+				<div class="button" style="opacity: @(ShowCoopMenu ? 1 : 0)" onclick=@( () => CreateServer() )>
+					Start Coop
+				</div>
+				<div class="button" style="opacity: @(ShowCoopMenu ? 1 : 0)" onclick=@( () => ToggleMainMenu() )>
+					Coop Config
+				</div>
+				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => Singleplayer() )>
+					Singleplayer
+				</div>
+
+				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => ToggleMainMenu() )>
+					Coop
+				</div>
+	
+				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => Options() )>
+					Options
+				</div>
+
+				<div class="button"style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => Quit() )>
+					Quit
+				</div>
+			</div>
+		</div>
+
+		<div class="lobby-list" style="opacity: @(ShowCoopMenu ? 1 : 0)">
+			<div class="header">
+				<div class="title">Servers</div>
+			</div>
+
+			@if ( IsRefreshing )
+			{
+				<label>Refreshing the server list, please wait...</label>
+			}
+			else if ( List.Count == 0 )
+			{
+				<label>there are no server's online , create one'.</label>
+			}
+			else
+			{
+				<div class="button-list">
+					@foreach ( var lobby in List )
+					{
+						<div class="button" onclick=@( () => OpenLobby( lobby ) )>
+							<div class="title">
+								@lobby.Name
+							</div>
+
+							<div class="meta">
+								<div class="map">
+									@lobby.Map
+								</div>
+
+								<div class="count">
+									@lobby.Members / @lobby.MaxMembers
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			}
+		</div>
+		@if (ShowCoopMenu)
+{
+    <div>
+        <label>Max Players:</label>
+        <input type="range" min="1" max="4" @bind="@MaxPlayers" />
+        <span>@MaxPlayers</span>
+    </div>
+}
+	</div>
+</root>
+
+@code
+{
+	private int MaxPlayers { get; set; } = 1;
+	private bool IsRefreshing { get; set; }
+    private List<LobbyInformation> List { get; set; } = new();
+    private bool ShowMainMenu { get; set; } = true; // Variable hinzugefügt, um den Zustand des Hauptmenüs zu verfolgen
+    private bool ShowCoopMenu { get; set; } = false;
+
+	
+	protected override void OnFixedUpdate()
+	{
+
+	}
+
+	protected override void OnEnabled()
+	{
+		base.OnEnabled();
+
+		_ = RefreshLobbyList();
+	}
+
+	protected override void OnUpdate()
+	{
+
+	}
+
+	protected override int BuildHash() => HashCode.Combine( RealTime.Now );
+
+	private async Task RefreshLobbyList()
+	{
+		while ( true )
+		{
+			IsRefreshing = true;
+			StateHasChanged();
+
+			List = await Networking.QueryLobbies();
+
+			IsRefreshing = false;
+			StateHasChanged();
+
+			await Task.DelayRealtimeSeconds( 5f );
+		}
+	}
+
+	private void OpenLobby( LobbyInformation lobby )
+	{
+		GameNetworkSystem.Connect( lobby.LobbyId );
+	}
+
+	private void Singleplayer()
+	{
+		
+		Game.ActiveScene.LoadFromFile("scenes/startlobby.scene");
+	}
+	private void CreateServer()
+	{
+		
+		Game.ActiveScene.LoadFromFile("scenes/startlobby.scene");
+	}
+	private void Options()
+	{
+		
+		Log.Info("WORK IN PROGRESS");
+	}
+
+	private void Quit()
+	{
+		Game.Close();
+	}
+	private void ToggleMainMenu() // Neue Methode hinzugefügt, um zwischen Hauptmenü und Coop-Menü umzuschalten
+    {
+        ShowMainMenu = !ShowMainMenu;
+        ShowCoopMenu = !ShowMainMenu;
+        StateHasChanged();
+    }
+	private void ReturnToMainMenu()
+    {
+        ShowMainMenu = true;
+        ShowCoopMenu = false;
+        StateHasChanged();
+    }
+}

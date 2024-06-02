@@ -1,0 +1,27 @@
+@namespace GeneralGame.HUD
+@inherits PanelComponent
+@using Sandbox;
+@using Sandbox.UI;
+
+@if ( IsProxy )
+		return;
+<root>
+    <FullScreenManager />
+</root>
+
+@code
+{
+    public static Hudmaster Instance { get; private set; } // Ändern Sie "Hud" zu "Hudmaster"
+    public Hudmaster() // Ändern Sie "Hud" zu "Hudmaster"
+    {
+        Instance = this;
+    }
+    
+    
+
+    [ConCmd("new_hud_toggle")]
+    public static void ToggleHud()
+    {
+        Instance.Enabled = !Instance.Enabled;
+    }
+}

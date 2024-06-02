@@ -1,0 +1,66 @@
+@namespace GeneralGame
+@using GeneralGame.HUD
+@attribute [StyleSheet]
+@using System
+@using System.Collections.Generic
+@using System.Linq
+@using System.Threading.Tasks
+@using Sandbox;
+@using Sandbox.Network
+@using System.Diagnostics
+
+@if (Player.Local is null)
+    return;
+
+@if (ShowInteract)
+{
+    <div class="Interact" @onclick="OpenShop"> @TextInteract</div>
+    @if (ShowShop)
+    {
+        <Shop></Shop>
+    }
+}
+
+@code{
+    public string TextInteract { get; set; } = "click here to interact";
+    public bool PlayerIsNear { get; set; } = false;
+    public bool ShowInteract { get; set; } = false;
+    public bool ShowShop { get; set; } = false;
+   
+
+    
+
+    public void Interact()
+    {
+        if (Input.Pressed("Shop"))
+        {
+            ShowInteract = true;
+        }
+    }
+
+    public void OpenShop()
+    {
+        TextInteract = "Interacting...";
+        ShowShop = true;
+        Task.Delay(1000).ContinueWith(_ =>
+        {
+            TextInteract = "click here to interact";
+        });
+    }
+
+    public async Task CheckPlayerProximity()
+{
+    while (true)
+    {
+        var start = new Vector3(0, 0, 0); // Replace with the start point of the raycast
+        var end = new Vector3(10, 10, 10); // Replace with the end point of the raycast
+        var tr = Scene.Trace.Ray(start, end)
+        .WithAnyTags( "solid" )
+        .Run();
+
+        PlayerIsNear = tr.Hit == tr.Distance <= 100; // Replace 100 with the distance that is considered "near"
+
+        await Task.Delay(1000); // Check every second
+    }
+}
+}

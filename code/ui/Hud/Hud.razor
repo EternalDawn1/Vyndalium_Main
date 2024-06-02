@@ -1,0 +1,156 @@
+﻿@using System
+@using System.Linq
+@using Sandbox
+@inherits PanelComponent
+@namespace GeneralGame.HUD
+
+
+@if (Player.Local is null)
+	return;
+
+<root>
+	
+	@if (FullScreenManager.Instance?.ActivePanel != FullScreenManager.FullScreenPanel.InGameHud)
+	{
+		return; // Exit early if FullScreenManager is active
+	}
+
+		@{
+			if (player is null)
+   		 	return;
+		var weapon = player.Weapons.Deployed;
+
+		BaseGun bsGun = null;
+	}
+
+	@if (weapon.IsValid() && weapon.Components.GetInDescendantsOrSelf<BaseGun>(true).IsValid())
+	{
+		bsGun = weapon.Components.GetInDescendantsOrSelf<BaseGun>();
+	}
+
+
+	@if (bsGun.IsValid() && player.LifeState == LifeState.Alive)
+	{
+
+		<div class="ammo">
+			@{
+				var totalAmmo = player.Ammo.Get(bsGun.AmmoType);
+			}
+			<label class="clip">@bsGun.AmmoInClip</label>/<label class="total">@totalAmmo</label>
+			<div class="icon">
+			</div>
+		</div>
+		
+	}
+	
+	<div class="center">
+    @if (!weapon.IsValid() && player.IsValid())
+    {
+        <div class="crosshair1"></div>
+    }
+    else
+    {
+        @if (player.IsAiming && player.IsValid())
+        {
+            <div class="crosshair"></div>
+        }
+        else
+        {
+            <div class="crosshair1"></div>
+        }
+    }
+    
+   
+</div>
+	
+	
+				
+	
+
+	@if (player != null)
+	{
+		<div class="expbar">
+    		<ExperienceBar IsInventoryScreen=@true style="opacity: 1;"/>
+		</div>
+
+	<div class="vyndalium">
+		<div class="vyndalium1">
+			<div class="P">
+				@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))
+				<div class="icon1"></div>
+				
+			</div>
+		</div>
+		
+	</div>
+	<div class="feed">
+		Testinhalt
+		<Feed style="opacity: 1;" />
+	</div>
+
+
+	<div class="healthbar">
+		<div class="healthbar" style="background-color: @GetHealthBarColor();">
+			<div class="inner">
+				<div class="fill" style="width: @(player.Health/player.MaxHealth *  100f)%; background-color: @GetHealthBarColor();"></div>	
+			</div>
+			<p> @Math.Round(player.Health) / @Math.Round(player.MaxHealth)</p>
+		</div>
+			
+	</div>
+	
+
+	<div class="manabar">
+		<div class="manabar">
+			<div class="manainner">
+				<div class="manafill" style="width: @(player.Mana/ player.MaxMana *  100f)%">
+				</div>
+			</div>
+			<p>@Math.Round(player.Mana) / @Math.Round(player.MaxMana)</p>
+		</div>
+	</div>
+
+	<div class="staminabar" style="opacity: @(player.IsRunning ? 1 : 0);">
+		<div class="staminabar">
+			<div class="staminainner">
+				<div class="fill" style="width: @(player.Stamina/player.MaxStamina *  100f)%">
+				</div>
+			</div>
+		</div>
+	</div>
+	}
+	
+	
+
+
+</root>
+
+@code
+{
+	public Hud hud;
+
+	[Property] public Gradient HealthGradient { get; set; }
+	
+    private Player player { get; set; }
+
+    protected override void OnFixedUpdate()
+    {
+        if (player == null || !player.IsValid())
+        {
+            player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.OwnerConnection == Connection.Local);
+        }
+    }
+	private string GetHealthBarColor()
+	{
+		var healthPercentage = player.Health / player.MaxHealth;
+		return HealthGradient.Evaluate(healthPercentage).ToString();
+	}
+	
+	
+	
+
+    
+    
+
+    protected override int BuildHash() => HashCode.Combine(RealTime.Now,player?.Experience,player?.Level);
+}

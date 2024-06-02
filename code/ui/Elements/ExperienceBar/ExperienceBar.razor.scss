@@ -1,0 +1,74 @@
+@import "/ui/Hud/Style.scss";
+
+ExperienceBar {
+    .hud {
+        
+        padding: 25px 0px 20px 15px;
+        background: linear-gradient(to right, rgba($green, 0.7) 0%, rgba($green, 0.2) 70%, rgba($green, 0) 100%);
+        
+    }
+
+    .container {
+        width: 300px;
+        
+        flex-direction: column;
+        transition: all 1.4s ease-out;
+        position: absolute;
+        right: 210px;
+        bottom: 10px;
+        
+        
+        
+
+        .level-details {
+            width: 100%;
+            
+           
+            color: rgb(255, 255, 255);
+            
+            .level {
+                font-size: 15px;
+                font-family:  Verdana;
+                color: rgb(255, 255, 255);
+                bottom: 120%;
+                left: 5%;
+                
+                
+            }
+
+            .level-exp {
+                font-size: 15px;
+                font-family:  Verdana;
+                font-style: italic;
+                left: 45%;
+                bottom: 120%;
+            }
+        }
+
+        .exp-bar {
+            margin-top: 5px;
+            height: 27px;
+            border: 1px rgb(0, 0, 0);
+            border-radius: 10%;
+            box-shadow: 1px 1px 1px 1px #000000b4;
+            border-radius: 5px;
+
+            .progress {
+                padding: 1px;
+                height: 100%;
+                background-color: rgb(0, 153, 255);
+                border-radius: 10%;
+                transition: all 2.5s ease-out;
+                border-width: 1%;
+                border-color: rgb(255, 255, 255);
+                border-radius: 5px;
+                
+            }
+        }
+
+        &.inactive {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+    }
+}

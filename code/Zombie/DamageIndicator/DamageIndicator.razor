@@ -1,0 +1,18 @@
+// Razor-Code (.cshtml)
+@using Sandbox
+@inherits PanelComponent
+@namespace GeneralGame.HUD
+
+<div class="damage-indicator-container">
+    <div class="damage-indicator">@DamageAmount</div>
+</div>
+
+@code {
+    private float DamageAmount { get; set; }
+
+    // Diese Methode wird aufgerufen, um die Schadensanzeige zu aktualisieren
+    public void UpdateDamageIndicator(float damageAmount)
+    {
+        DamageAmount += damageAmount;
+    }
+}

@@ -1,0 +1,79 @@
+@namespace GeneralGame.HUD
+@inherits Panel
+@using Sandbox
+@attribute [StyleSheet]
+
+
+
+@if (Player.Local is null)
+	return;
+
+<root>
+	<SideButton 
+		Title="Exit" 
+		
+		OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud))
+		IsInverted=@(true)
+		ImagePath="ui/hud/goback.png"
+		style="position: absolute; top: 30px; right: 0px;" 
+	/>
+	<SideButton 
+		Title="Inventory" 
+		Subtitle="click for Inventory"
+		OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Inventory))
+		IsInverted=@(true)
+		ImagePath="ui/hud/player.png"
+		style="position: absolute; top: 150px; right: 0px;" 
+	/>
+	<SideButton 
+		Title="Status" 
+		Subtitle="click for Player Stats"
+		OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.CharacterMenu))
+		IsInverted=@(true)
+		ImagePath="ui/hud/muscles.png"
+		style="position: absolute; top: 270px; right: 0px; " 
+	/>
+
+	<h2 class="pause">
+		Pause Menu
+	</h2>
+	<div class="options">
+		<div class="button1" OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud))>
+			Resume
+		</div>
+		<div class="button" onclick=@ReturnToLobby> 
+			Return to Lobby
+		</div>
+		<div class="button" onclick=@OnQuit>
+			Exit Game
+		</div>
+		
+	</div>
+</root>
+
+@code {
+	
+	
+	public bool IsPaused { get; set; }
+	private Player player { get; set; }
+	
+    public static PauseMenu Instance {get;private set; }
+
+	public PauseMenu()
+	{
+		Instance = this;
+	}
+	void OnResume()
+	{
+		IsPaused = false;
+	}
+	private void OnQuit()
+	{
+		Game.Close();
+	}
+	private void ReturnToLobby()
+	{
+		Game.ActiveScene.LoadFromFile("scenes/lobby.scene");
+	}
+
+}

@@ -1,0 +1,27 @@
+@import "/ui/Hud/Style.scss";
+
+ContextMenu {
+    position: absolute;
+    flex-direction: column;
+    z-index: 500;
+    pointer-events: all;
+    gap: 2px;
+    background-color: #393a38;
+    transition: all 0.1s ease-out;
+    box-shadow: 4px 4px 0px black;
+    color: white;
+
+    &:intro {
+        transform: translateY(2);
+        opacity: 0;
+    }
+
+    &:outro {
+        
+        transform: translateY(4);
+        opacity: 0.01;
+        transition: all 0.5s ease-out;
+    }
+
+    
+}

@@ -1,0 +1,18 @@
+@import "/ui/Hud/Style.scss";
+
+HoverPanel {
+    position: absolute;
+    transition: all 0.2s ease-in;
+
+    &:intro {
+        transform: translateY(2);
+        opacity: 0;
+    }
+
+    &:outro {
+        
+        transform: translateY(4);
+        opacity: 0.01;
+        transition: all 0.5s ease-out;
+    }
+}

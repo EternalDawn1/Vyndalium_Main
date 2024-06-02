@@ -1,0 +1,95 @@
+﻿@import "/ui/Hud/Style.scss";
+
+CreatorOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    background-image: url(ui/hud/top.png);
+    background-image-tint: rgba(white, 0.85);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 69% 16%;
+    image-rendering: pixelated;
+    color: white;
+    font-family: BasicHandwriting;
+    text-shadow: 2px 2px 0px black;
+    font-smooth: always;
+    pointer-events: all;
+    image-rendering: pixelated;
+    transition: opacity 2s ease-in-out;
+
+    &:outro {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .note {
+        position: absolute;
+        right: 0px;
+        padding: 20px;
+        flex-direction: column;
+        bottom: 200px;
+        font-size: 24px;
+        max-width: 400px;
+        height: 200px;
+        gap: 20px;
+        background-color: rgba(black, 0.5);
+        backdrop-filter: blur(5px);
+        border-left: 4px red;
+
+        label {
+            flex-shrink: 0;
+        }
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .title {
+        margin-top: 20px;
+        font-size: 42px;
+    }
+
+    .stage {
+        font-family: HabboExtended;
+        font-size: 22px;
+    }
+
+    .stage-counter {
+        flex-direction: row;
+        gap: 5px;
+        align-items: center;
+
+        .box {
+            border: 3px white;
+            box-shadow: 4px 4px 0px black;
+            background-color: rgba(white, 0.5); // Shouldn't actually need this, but for some reason box-shadow is incorrect.
+            width: 28px;
+            aspect-ratio: 1;
+            padding: 4px;
+        }
+
+        .fill {
+            width: 100%;
+            aspect-ratio: 1;
+            background-color: white;
+            box-shadow: 3px 3px 0px black;
+        }
+
+        .spacer {
+            width: 18px;
+            height: 3px;
+            background-color: white;
+            box-shadow: 2px 2px 0px black;
+        }
+    }
+
+    .textentry {
+        position: absolute;
+        top: -99999px;
+    }
+}

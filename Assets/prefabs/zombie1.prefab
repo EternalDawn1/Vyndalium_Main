@@ -1,0 +1,128 @@
+{
+  "RootObject": {
+    "__guid": "0df09d64-db3e-49ad-b18d-59a02ba46afa",
+    "Flags": 0,
+    "Name": "zombie1",
+    "Tags": "bad",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.NavMeshAgent",
+        "__guid": "146cdc1d-0e5b-456a-b69e-578352cb7094",
+        "Acceleration": 500,
+        "Height": 64,
+        "MaxSpeed": 210,
+        "Radius": 16,
+        "Separation": 0,
+        "UpdatePosition": true,
+        "UpdateRotation": true
+      },
+      {
+        "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+        "__guid": "15c5d0db-6308-4225-a517-92bd533cba3d",
+        "BodyWeight": 1,
+        "EyeSource": {
+          "_type": "gameobject",
+          "go": "c4895870-d5d5-42bf-b0f5-9a2a11a4e2f8"
+        },
+        "EyesWeight": 1,
+        "HeadWeight": 1,
+        "Height": 1,
+        "LookAtEnabled": false,
+        "Target": {
+          "_type": "component",
+          "component_id": "f2320afa-7e49-40eb-a398-04ba4a7ccac7",
+          "go": "bfac4611-516b-4b0c-bf79-70e9f0987fb8",
+          "component_type": "SkinnedModelRenderer"
+        }
+      },
+      {
+        "__type": "GeneralGame.Zombie",
+        "__guid": "8065c2ec-907a-4d3b-916c-3f158aad0972",
+        "AnimationHelper": {
+          "_type": "component",
+          "component_id": "15c5d0db-6308-4225-a517-92bd533cba3d",
+          "go": "0df09d64-db3e-49ad-b18d-59a02ba46afa",
+          "component_type": "CitizenAnimationHelper"
+        },
+        "Body": {
+          "_type": "gameobject",
+          "go": "bfac4611-516b-4b0c-bf79-70e9f0987fb8"
+        },
+        "Eye": {
+          "_type": "gameobject",
+          "go": "c4895870-d5d5-42bf-b0f5-9a2a11a4e2f8"
+        },
+        "HitSounds": "sounds/grunt.sound",
+        "MaxHealth": 100,
+        "ZombieRagedol": {
+          "_type": "gameobject",
+          "prefab": "prefabs/ragdoll.prefab"
+        }
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "bfac4611-516b-4b0c-bf79-70e9f0987fb8",
+        "Flags": 0,
+        "Name": "body",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "f2320afa-7e49-40eb-a398-04ba4a7ccac7",
+            "AnimationGraph": "models/citizen/citizen.vanmgrph",
+            "BodyGroups": 341,
+            "CreateBoneObjects": false,
+            "MaterialGroup": "default",
+            "MaterialOverride": "models/citizen/skin/citizen_skin_zombie_02.vmat",
+            "Model": "models/citizen/citizen.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+            "__guid": "68f1f3f5-8fe6-487c-a592-ca39c8638071",
+            "BodyWeight": 1,
+            "EyesWeight": 1,
+            "HeadWeight": 1,
+            "Height": 1,
+            "LookAtEnabled": false,
+            "Target": {
+              "_type": "component",
+              "component_id": "f2320afa-7e49-40eb-a398-04ba4a7ccac7",
+              "go": "bfac4611-516b-4b0c-bf79-70e9f0987fb8",
+              "component_type": "SkinnedModelRenderer"
+            }
+          },
+          {
+            "__type": "Sandbox.ModelCollider",
+            "__guid": "4041f491-1568-4979-bbfa-afcf23059e8b",
+            "IsTrigger": false,
+            "Model": "models/citizen/citizen.vmdl",
+            "Static": false
+          }
+        ]
+      },
+      {
+        "__guid": "c4895870-d5d5-42bf-b0f5-9a2a11a4e2f8",
+        "Flags": 0,
+        "Name": "eye",
+        "Position": "0,0,64",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

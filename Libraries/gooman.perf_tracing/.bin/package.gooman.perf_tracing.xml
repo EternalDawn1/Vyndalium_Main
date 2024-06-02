@@ -1,0 +1,520 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>package.gooman.perf_tracing</name>
+    </assembly>
+    <members>
+        <member name="T:PerformanceTracing.Providers.Json.JsonStorageProvider">
+            <summary>
+            A provider to save traces in chromes trace event JSON format.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.Providers.Json.JsonStorageProvider.#ctor">
+            <summary>
+            Initializes a default instance of <see cref="T:PerformanceTracing.Providers.Json.JsonStorageProvider"/>.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.Providers.Json.JsonStorageProvider.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Initializes a new instance of <see cref="T:PerformanceTracing.Providers.Json.JsonStorageProvider"/> with custom serializer options.
+            </summary>
+            <param name="options">The custom serializer options to use.</param>
+        </member>
+        <member name="M:PerformanceTracing.Providers.Json.JsonStorageProvider.Start">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.Providers.Json.JsonStorageProvider.Stop">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.Providers.Json.JsonStorageProvider.AddMetaData``1(System.String,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.Providers.Json.JsonStorageProvider.AddEvent(PerformanceTracing.TraceEvent@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.Providers.Json.JsonStorageProvider.WriteToStream(System.IO.Stream)">
+            <inheritdoc/>
+        </member>
+        <member name="T:PerformanceTracing.SourceLocation">
+            <summary>
+            Represents a point to a referenced piece of text.
+            </summary>
+        </member>
+        <member name="F:PerformanceTracing.SourceLocation.None">
+            <summary>
+            Represents no referenced location.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.SourceLocation.FilePath">
+            <summary>
+            The absolute file path to the referenced location.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.SourceLocation.LineNumber">
+            <summary>
+            The line number inside the <see cref="P:PerformanceTracing.SourceLocation.FilePath"/> to the referenced location.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.SourceLocation.#ctor(System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of <see cref="T:PerformanceTracing.SourceLocation"/>.
+            </summary>
+            <param name="filePath">The absolute file path to the referenced location.</param>
+            <param name="lineNumber">The line number inside the <paramref name="filePath"/> to the referenced location.</param>
+        </member>
+        <member name="M:PerformanceTracing.SourceLocation.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.SourceLocation.Equals(PerformanceTracing.SourceLocation)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.SourceLocation.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.SourceLocation.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.SourceLocation.op_Equality(PerformanceTracing.SourceLocation,PerformanceTracing.SourceLocation)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.SourceLocation.op_Inequality(PerformanceTracing.SourceLocation,PerformanceTracing.SourceLocation)">
+            <inheritdoc/>
+        </member>
+        <member name="T:PerformanceTracing.TraceEvent">
+            <summary>
+            Contains all information in regards to an event that occurred during tracing.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.Name">
+            <summary>
+            The name of the trace.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.Categories">
+            <summary>
+            The categories that this trace fits into.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.Type">
+            <summary>
+            The type of trace that this is.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.ThreadId">
+            <summary>
+            The <see cref="P:System.Threading.Thread.ManagedThreadId"/> that this event came from.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.Location">
+            <summary>
+            The location in code to which this event came from.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.StackTrace">
+            <summary>
+            The stack trace that leads up to this event.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.Timestamp">
+            <summary>
+            The nanosecond timestamp relative to the <see cref="P:PerformanceTracing.Tracing.StartTimeTicks"/>.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.Duration">
+            <summary>
+            The nanosecond duration relative to <see cref="P:PerformanceTracing.TraceEvent.Timestamp"/>.
+            </summary>
+            <remarks>
+            This will only be set if <see cref="P:PerformanceTracing.TraceEvent.Type"/> is <see cref="F:PerformanceTracing.TraceType.Performance"/>.
+            </remarks>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.Value">
+            <summary>
+            An additional value attached to this event.
+            </summary>
+            <remarks>
+            This will be a <see cref="T:System.String"/> if <see cref="P:PerformanceTracing.TraceEvent.Type"/> is <see cref="F:PerformanceTracing.TraceType.Meta"/>.
+            <br/>
+            This will be a <see cref="T:System.Double"/> if <see cref="P:PerformanceTracing.TraceEvent.Type"/> is <see cref="F:PerformanceTracing.TraceType.Counter"/>.
+            <br/>
+            Otherwise, this will be null.
+            </remarks>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.ValueNumber">
+            <summary>
+            A shorthand getter to <see cref="P:PerformanceTracing.TraceEvent.Value"/> as a <see cref="T:System.Double"/>.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.TraceEvent.ValueString">
+            <summary>
+            A shorthand getter to <see cref="P:PerformanceTracing.TraceEvent.Value"/> as a <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.TraceEvent.#ctor">
+            <summary>
+            Initializes a default instance of <see cref="T:PerformanceTracing.TraceEvent"/>.
+            </summary>
+        </member>
+        <member name="T:PerformanceTracing.TraceStorageProvider">
+            <summary>
+            Provides a layer to store and serialize traces.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.TraceStorageProvider.Start">
+            <summary>
+            Initializes a new trace.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.TraceStorageProvider.Stop">
+            <summary>
+            Cleans up any existing trace.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.TraceStorageProvider.AddMetaData``1(System.String,``0)">
+            <summary>
+            Adds some metadata to the current trace.
+            </summary>
+            <typeparam name="T">The type of the value being added.</typeparam>
+            <param name="key">The key of the metadata.</param>
+            <param name="value">The value of the entry.</param>
+        </member>
+        <member name="M:PerformanceTracing.TraceStorageProvider.AddEvent(PerformanceTracing.TraceEvent@)">
+            <summary>
+            Adds an event to the current trace.
+            </summary>
+            <param name="traceEvent">The event to add.</param>
+        </member>
+        <member name="M:PerformanceTracing.TraceStorageProvider.WriteToStream(System.IO.Stream)">
+            <summary>
+            Writes the providers data to a stream.
+            </summary>
+            <param name="stream">The stream to write to.</param>
+            <exception cref="T:System.NotSupportedException">Thrown when the implementing provider does not override this method.</exception>
+        </member>
+        <member name="T:PerformanceTracing.TraceType">
+            <summary>
+            Defines every type of trace that is available.
+            </summary>
+        </member>
+        <member name="F:PerformanceTracing.TraceType.Counter">
+            <summary>
+            A counter for number values.
+            </summary>
+        </member>
+        <member name="F:PerformanceTracing.TraceType.Marker">
+            <summary>
+            Marks a point in time that something happened.
+            </summary>
+        </member>
+        <member name="F:PerformanceTracing.TraceType.Performance">
+            <summary>
+            An execution time log.
+            </summary>
+        </member>
+        <member name="F:PerformanceTracing.TraceType.Meta">
+            <summary>
+            A setter for metadata.
+            </summary>
+        </member>
+        <member name="T:PerformanceTracing.Traces.CounterTrace">
+            <summary>
+            A trace that logs changes to a value.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.Traces.CounterTrace.Update(System.Double)">
+            <summary>
+            Updates the value of the trace.
+            </summary>
+            <param name="newValue">The new value of the trace.</param>
+        </member>
+        <member name="M:PerformanceTracing.Traces.CounterTrace.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.Traces.CounterTrace.New(System.String,System.Double)">
+            <summary>
+            Creates a new <see cref="T:PerformanceTracing.Traces.CounterTrace"/>.
+            </summary>
+            <param name="name">The name of the trace.</param>
+            <param name="initialValue">The first value to log for the trace.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when exceeding the maximum amount of traces stored in the pool.</exception>
+        </member>
+        <member name="M:PerformanceTracing.Traces.CounterTrace.New(System.String,System.Collections.Generic.IEnumerable{System.String},System.Double)">
+            <summary>
+            Creates a new <see cref="T:PerformanceTracing.Traces.CounterTrace"/>.
+            </summary>
+            <param name="name">The name of the trace.</param>
+            <param name="categories">The categories to give the trace.</param>
+            <param name="initialValue">The first value to log for the trace.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when exceeding the maximum amount of traces stored in the pool.</exception>
+        </member>
+        <member name="M:PerformanceTracing.Traces.CounterTrace.New(System.Double,System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Creates a new <see cref="T:PerformanceTracing.Traces.CounterTrace"/>.
+            </summary>
+            <param name="initialValue">The first value to log for the trace.</param>
+            <param name="name">Do not use.</param>
+            <param name="filePath">Do not use.</param>
+            <param name="lineNumber">Do not use.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when exceeding the maximum amount of traces stored in the pool.</exception>
+        </member>
+        <member name="M:PerformanceTracing.Traces.CounterTrace.New(System.Collections.Generic.IEnumerable{System.String},System.Double,System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Creates a new <see cref="T:PerformanceTracing.Traces.CounterTrace"/>.
+            </summary>
+            <param name="categories">The categories to give the trace.</param>
+            <param name="initialValue">The first value to log for the trace.</param>
+            <param name="name">Do not use.</param>
+            <param name="filePath">Do not use.</param>
+            <param name="lineNumber">Do not use.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when exceeding the maximum amount of traces stored in the pool.</exception>
+        </member>
+        <member name="T:PerformanceTracing.Traces.PerformanceTrace">
+            <summary>
+            A trace that logs the duration of a block of code.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.Traces.PerformanceTrace.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:PerformanceTracing.Traces.PerformanceTrace.New(System.String)">
+            <summary>
+            Creates a new <see cref="T:PerformanceTracing.Traces.PerformanceTrace"/>.
+            </summary>
+            <param name="name">The name of the trace.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when exceeding the maximum amount of traces stored in the pool.</exception>
+        </member>
+        <member name="M:PerformanceTracing.Traces.PerformanceTrace.New(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:PerformanceTracing.Traces.PerformanceTrace"/>.
+            </summary>
+            <param name="name">The name of the trace.</param>
+            <param name="categories">The categories to give the trace.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when exceeding the maximum amount of traces stored in the pool.</exception>
+        </member>
+        <member name="M:PerformanceTracing.Traces.PerformanceTrace.New(System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Creates a new <see cref="T:PerformanceTracing.Traces.PerformanceTrace"/>.
+            </summary>
+            <param name="name">Do not use.</param>
+            <param name="filePath">Do not use.</param>
+            <param name="lineNumber">Do not use.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when exceeding the maximum amount of traces stored in the pool.</exception>
+        </member>
+        <member name="M:PerformanceTracing.Traces.PerformanceTrace.New(System.Collections.Generic.IEnumerable{System.String},System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Creates a new <see cref="T:PerformanceTracing.Traces.PerformanceTrace"/>.
+            </summary>
+            <param name="categories">The categories to give the trace.</param>
+            <param name="name">Do not use.</param>
+            <param name="filePath">Do not use.</param>
+            <param name="lineNumber">Do not use.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when exceeding the maximum amount of traces stored in the pool.</exception>
+        </member>
+        <member name="T:PerformanceTracing.Traces.TraceMarker">
+            <summary>
+            A trace that marks a point in time.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.Traces.TraceMarker.New(System.String)">
+            <summary>
+            Adds a marker in the current trace.
+            </summary>
+            <param name="name">The name of the marker.</param>
+        </member>
+        <member name="M:PerformanceTracing.Traces.TraceMarker.New(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Adds a marker in the current trace.
+            </summary>
+            <param name="name">The name of the marker.</param>
+            <param name="categories">The categories to give the marker.</param>
+        </member>
+        <member name="M:PerformanceTracing.Traces.TraceMarker.New(System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Adds a marker in the current trace.
+            </summary>
+            <param name="name">Do not use.</param>
+            <param name="filePath">Do not use.</param>
+            <param name="lineNumber">Do not use.</param>
+        </member>
+        <member name="M:PerformanceTracing.Traces.TraceMarker.New(System.Collections.Generic.IEnumerable{System.String},System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Adds a marker in the current trace.
+            </summary>
+            <param name="categories">The categories to give the marker.</param>
+            <param name="name">Do not use.</param>
+            <param name="filePath">Do not use.</param>
+            <param name="lineNumber">Do not use.</param>
+        </member>
+        <member name="M:PerformanceTracing.Traces.TraceMarker.AddMarker(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Nullable{System.Int32})">
+            <summary>
+            Adds a marker in the current trace.
+            </summary>
+            <param name="name">The name of the method invoking this method.</param>
+            <param name="categories">The categories to give the marker.</param>
+            <param name="filePath">The file path to the invoker.</param>
+            <param name="lineNumber">The line number of the invoker.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when trying to add a marker when no trace is running.</exception>
+        </member>
+        <member name="T:PerformanceTracing.Tracing">
+            <summary>
+            Provides logic to run performance tracing in your program.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.Tracing.IsRunning">
+            <summary>
+            Whether or not a trace is currently running.
+            </summary>
+        </member>
+        <member name="F:PerformanceTracing.Tracing.Version">
+            <summary>
+            The current version of the Performance Tracing library.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.Tracing.Start(PerformanceTracing.TracingOptions)">
+            <summary>
+            Starts a new trace. If one is already running, it is overwritten.
+            </summary>
+            <param name="options">The options to provide for the trace.</param>
+        </member>
+        <member name="M:PerformanceTracing.Tracing.Stop">
+            <summary>
+            Stops any active trace.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.Tracing.AddMetaData``1(System.String,``0)">
+            <summary>
+            Adds some metadata to the currently running trace.
+            </summary>
+            <typeparam name="T">The type of the value to add to metadata.</typeparam>
+            <param name="key">The key to insert the metadata at.</param>
+            <param name="value">The value to store.</param>
+        </member>
+        <member name="M:PerformanceTracing.Tracing.CopyToClipboard(System.Boolean)">
+            <summary>
+            Copies all trace data to the clients clipboard.
+            </summary>
+            <param name="stopTracing">Whether or not to stop tracing after copying the trace data to clipboard.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when trying to copy to clipboard when no trace is running.</exception>
+            <exception cref="T:System.NotSupportedException">Thrown when the storage provider does not support writing data to a stream.</exception>
+        </member>
+        <member name="M:PerformanceTracing.Tracing.SaveToFile(System.String,Sandbox.BaseFileSystem,System.Boolean)">
+            <summary>
+            Saves all trace data to a file in the given <see cref="T:Sandbox.FileSystem"/>.
+            </summary>
+            <param name="filePath">The path to the file to save.</param>
+            <param name="fs">The file system to save into. Defaults to <see cref="P:Sandbox.FileSystem.Data"/>.</param>
+            <param name="stopTracing">Whether or not to stop tracing after saving the trace data to the file.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when trying to save while there is no trace running.</exception>
+            <exception cref="T:System.NotSupportedException">Thrown when the storage provider does not support writing data to a stream.</exception>
+        </member>
+        <member name="M:PerformanceTracing.Tracing.GetStream(System.Boolean)">
+            <summary>
+            Gets a stream of trace data from the storage provider.
+            </summary>
+            <param name="stopTracing">Whether or not to stop tracing after retreiving the stream.</param>
+            <returns>An in-memory store of the data.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when trying to get a stream while there is no trace running.</exception>
+            <exception cref="T:System.NotSupportedException">Thrown when the storage provider does not support writing data to a stream.</exception>
+        </member>
+        <member name="T:PerformanceTracing.TracingOptions">
+            <summary>
+            Contains all options for configuring a trace.
+            </summary>
+        </member>
+        <member name="F:PerformanceTracing.TracingOptions.Default">
+            <summary>
+            The default options for tracing.
+            </summary>
+        </member>
+        <member name="P:PerformanceTracing.TracingOptions.AppendStackTrace">
+            <summary>
+            Whether or not to append stack traces to all applicable events.
+            </summary>
+            <remarks>
+            This can be very performance and storage intensive, if you are looking to limit overhead then set this to false.
+            </remarks>
+        </member>
+        <member name="P:PerformanceTracing.TracingOptions.AppendCallerPath">
+            <summary>
+            Whether or not to append caller paths to applicable events.
+            </summary>
+            <remarks>
+            This will display absolute paths, be careful about leaking your name if you code in your users directory.
+            </remarks>
+        </member>
+        <member name="P:PerformanceTracing.TracingOptions.UseSimpleNames">
+            <summary>
+            Whether or not to use simple method names.
+            If true, this will replace method names with its fully qualified name in a stack trace.
+            If false, this will just use the name of the method.
+            </summary>
+            <remarks>
+            This only applies to method invocations that take a parameter marked with the <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute"/>.
+            <br/>
+            This can be quite performance intensive, if you are looking to limit overhead then set this to true.
+            </remarks>
+        </member>
+        <member name="P:PerformanceTracing.TracingOptions.MaxConcurrentTraces">
+            <summary>
+            Contains hard limits for how many of each type of trace can exist at once.
+            </summary>
+            <remarks>
+            For <see cref="F:PerformanceTracing.TraceType.Marker"/> and <see cref="F:PerformanceTracing.TraceType.Meta"/> this has no effect.
+            </remarks>
+        </member>
+        <member name="P:PerformanceTracing.TracingOptions.StorageProvider">
+            <summary>
+            The provider to use to store and serialize traces.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.TracingOptions.#ctor">
+            <summary>
+            Initializes a default instance of <see cref="T:PerformanceTracing.TracingOptions"/>.
+            </summary>
+        </member>
+        <member name="M:PerformanceTracing.TracingOptions.#ctor(PerformanceTracing.TracingOptions)">
+            <summary>
+            Initializes a new instance of <see cref="T:PerformanceTracing.TracingOptions"/> and clones all of the options in <paramref name="other"/>.
+            </summary>
+            <param name="other">The options to clone to the new instance.</param>
+        </member>
+        <member name="M:PerformanceTracing.TracingOptions.WithAppendStackTrace(System.Boolean)">
+            <summary>
+            Sets the <see cref="P:PerformanceTracing.TracingOptions.AppendStackTrace"/> option.
+            </summary>
+            <returns>The same options instance.</returns>
+        </member>
+        <member name="M:PerformanceTracing.TracingOptions.WithAppendCallerPath(System.Boolean)">
+            <summary>
+            Sets the <see cref="P:PerformanceTracing.TracingOptions.AppendCallerPath"/> option.
+            </summary>
+            <returns>The same options instance.</returns>
+        </member>
+        <member name="M:PerformanceTracing.TracingOptions.WithUseSimpleNames(System.Boolean)">
+            <summary>
+            Sets the <see cref="P:PerformanceTracing.TracingOptions.UseSimpleNames"/> option.
+            </summary>
+            <returns>The same options instance.</returns>
+        </member>
+        <member name="M:PerformanceTracing.TracingOptions.WithMaxConcurrentTraces(PerformanceTracing.TraceType,System.Int32)">
+            <summary>
+            Sets the <see cref="P:PerformanceTracing.TracingOptions.MaxConcurrentTraces"/> for the provided <see cref="T:PerformanceTracing.TraceType"/>.
+            </summary>
+            <param name="type">The type of trace you are setting the limit for.</param>
+            <param name="max">The maximum amount of traces that can exist at once.</param>
+            <returns>The same options instance.</returns>
+        </member>
+        <member name="M:PerformanceTracing.TracingOptions.WithStorageProvider``1">
+            <summary>
+            Sets the <see cref="P:PerformanceTracing.TracingOptions.StorageProvider"/> option.
+            </summary>
+            <returns>The same options instance.</returns>
+        </member>
+        <member name="M:PerformanceTracing.TracingOptions.WithStorageProvider(PerformanceTracing.TraceStorageProvider)">
+            <summary>
+            Sets the <see cref="P:PerformanceTracing.TracingOptions.StorageProvider"/> option.
+            </summary>
+            <returns>The same options instance.</returns>
+        </member>
+    </members>
+</doc>

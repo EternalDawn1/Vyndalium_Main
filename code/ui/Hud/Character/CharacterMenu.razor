@@ -1,0 +1,527 @@
+﻿@inherits Panel
+@namespace GeneralGame.HUD
+@attribute [StyleSheet]
+@using GeneralGame
+@using System
+@using System.Linq
+@using Sandbox;
+
+
+@if (Player.Local is null)
+{
+    return;
+}
+
+<root>
+	
+
+	<SideButton 
+		Title="Exit" 
+		OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud))
+		IsInverted=@(true)
+		ImagePath="ui/hud/goback.png"
+		style="position: absolute; top: 30px; right: 0px;"
+		style="z-index: 100;"
+		
+	/>
+	<SideButton 
+		Title="Inventory" 
+		OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Inventory))
+		IsInverted=@(true)
+		ImagePath="ui/hud/player.png"
+		style="position: absolute; top: 150px; right: 0px;"
+		style="z-index: 100;"  
+	/>
+	<div class="sidehud">
+		<SideButton 
+			ImagePath="ui/hud/success.gif"
+			OnClick=@(() => ShowPanel(PanelType.Upgrade))
+			IsInverted=@(true)
+			IsDisabled=@(Player.Local.StatsPoints <= 0)
+			style="opacity : @(Player.Local.StatsPoints > 0 && currentpanel == PanelType.Attribute ? 1 : 0 );" 
+			style="background-color: green;"
+			
+		/>
+		<SideButton 
+			ImagePath="ui/hud/social.gif"
+			OnClick=@(() => ShowPanel(PanelType.Attribute))
+			IsInverted=@(true)
+			
+			style="opacity : @(currentpanel == PanelType.Upgrade ? 1 : 0 );"
+			
+		/>
+	</div>
+	
+	
+
+	<div class="section" style="opacity : @(currentpanel == PanelType.Attribute ? 1 : 1 )">
+		
+		
+		<div class="stats">
+			<h2 class="stats2">
+			<li>Health (HP)</li> <span class="n">@(Math.Round(Player.Local.MaxHealth))</span>
+			<div class="tooltip-text"> Max HP of the Player</div>
+			</h2>
+			<h2 class="stats2">
+			<li>Mana (MP)</li> <span class="n">@(Math.Round(Player.Local.MaxMana))</span>
+			<div class="tooltip-text"> Max MP of the Player</div>
+			</h2>
+			<h2 class="stats2">
+			<li>Stamina (STM)</li> <span class="n">@Math.Round(Player.Local.MaxStamina, 2)</span>
+			<div class="tooltip-text"> Max STM of the Player</div>
+			</h2>
+			<h2 class="stats2">
+			<li>Attack Power (AP)</li> <span class="n">@Math.Round(Player.Local.AttackPower)</span>
+			<div class="tooltip-text"> 
+				Overall AP of the Player
+				 Weapon AP not included!
+			</div>
+			</h2>
+			<h2 class="stats2">
+			<li>Magic Power (MAP)</li> <span class="n">@Math.Round(Player.Local.MagicPower)</span>
+			<div class="tooltip-text"> Max Magic Power of the Player</div>
+			</h2>
+			<h2 class="stats2">
+			<li>Armor (DEF)</li> <span class="n">@Math.Round(Player.Local.Armor)</span>
+			<div class="tooltip-text"> currently Armor of the Player</div>
+			</h2>
+			<h2 class="stats2">
+			<li>Magic Defense (MD)</li> <span class="n">@Math.Round(Player.Local.MagicDefense)</span>
+			<div class="tooltip-text"> currently Magic Defense of the Player</div>
+			</h2>
+			
+			
+		</div>
+		<div class="statsone">
+			<h2 class="stats4">
+			<li>Movement (Speed+)</li> <span class="n">@Math.Round(Player.Local.PlayerRunSpeed, 2)</span>
+			<div class="tooltip-text"> Max Running Speed of the Player</div>
+			</h2>
+			<h2 class="stats4">
+			<li>Attack Speed (ATS)</li> <span class="n">@Math.Round(Player.Local.AttackSpeed, 2)</span>
+			<div class="tooltip-text"> AttackSpeed of the Player ( Reload Speed , FireSpeed)</div>
+			</h2>
+			<h2 class="stats4">
+			<li>Evasion (EVA)</li> <span class="n">@Math.Round(Player.Local.Evasion, 2)</span>
+			<div class="tooltip-text"> Player is evading attacks in % </div>
+			</h2>
+			<h2 class="stats4">
+			<li>Cover (Block+)</li> <span class="n">@Math.Round(Player.Local.Block, 2)</span>
+			<div class="tooltip-text">How much the Player is blocking attacks in % ( Reducing DMG) </div>
+			</h2>
+			<h2 class="stats4">
+			<li>Crit Chance (Crit %)</li> <span class="n">@Math.Round(Player.Local.CritHitChance)</span>
+			<div class="tooltip-text">How much the Player do Crit% of the (Overall DMG) </div>
+			</h2>
+			<h2 class="stats4">
+			<li>Crit Damage (Crit DMG)</li> <span class="n">@Math.Round(Player.Local.CritHitDamage)</span>
+			<div class="tooltip-text">How much the Player do Crit DMG of the (Overall DMG ) </div>
+			</h2>
+			<h2 class="stats4">
+			<li>Bonus EXP Gain (EXP+)</li> <span class="n">@Math.Round(Player.Local.BonusEXPGain, 2)</span>
+			<div class="tooltip-text">How much % extra XP gets the Player  </div>
+			</h2>
+			<h2 class="stats4">
+			<li>Attack Value (ATK)</li> <span class="n">@Math.Round(Player.Local.AttackValue, 2)</span>
+			<div class="tooltip-text">Attack value of the player</div>
+			</h2>
+			
+
+		</div>
+
+		<div class="statstwo">
+			<h2 class="stats3">
+			<li>Tenacity (TEN)</li> <span class="n">@Math.Round(Player.Local.Tenacity, 2)</span>
+			<div class="tooltip-text"> How much -% the Player reduces incoming Damage</div>
+			</h2>
+			<h2 class="stats3">
+			<li>Stun Resistance</li> <span class="n">@Math.Round(Player.Local.StunResist, 2)</span>
+			<div class="tooltip-text"> How much -% the Player is reducing Stun-Effects</div>
+			</h2>
+			<h2 class="stats3">
+			<li>Blind Resistance</li> <span class="n">@Math.Round(Player.Local.BlindResist, 2)</span>
+			<div class="tooltip-text"> How much -% the Player is reducing Blind-Effects</div>
+			</h2>
+			<h2 class="stats3">
+			<li>Slow Resistance</li> <span class="n">@Math.Round(Player.Local.SlowResist, 2)</span>
+			<div class="tooltip-text"> How much -% the Player is reducing Slow-Effects</div>
+			</h2>
+			<h2 class="stats3">
+			<li>Fire Resistance</li> <span class="n">@Math.Round(Player.Local.FireResist, 2)</span>
+			</h2>
+			<h2 class="stats3">
+			<li>Poisen Resistance</li> <span class="n">@Math.Round(Player.Local.PoisonResist, 2)</span>
+			</h2>
+			<h2 class="stats3">
+			<li>Bleed Resistance</li> <span class="n">@Math.Round(Player.Local.BleedResist)</span>
+			</h2>
+			<h2 class="stats3">
+			<li>Freeze Resistance</li> <span class="n">@Math.Round(Player.Local.FreezeResist)</span>
+			</h2>
+			<h2 class="stats3">
+			<li>Ice Resistance</li> <span class="n">@Math.Round(Player.Local.IceResist)</span>
+			</h2>
+			<h2 class="stats3">
+			<li>Lightning Resistance</li> <span class="n">@Math.Round(Player.Local.LightningResist)</span>
+			</h2>
+			<h2 class="stats3">
+			<li>Shadow Resistance</li> <span class="n">@Math.Round(Player.Local.ShadowResist)</span>
+			</h2>
+			<h2 class="stats3">
+			<li>Light Resistance</li> <span class="n">@Math.Round(Player.Local.LightResist)</span>
+			</h2>
+		</div>
+		
+
+	</div>
+	<div class="items2" style="opacity : @(currentpanel == PanelType.Upgrade ? 1 : 0 )">
+					<h2 class="playe3">
+						<li class="title">Health </li>
+						<li class="title2">
+							[HE+]
+							<span class="tooltip-text2"> How much -% the Player is reducing Slow-Effects</span>
+						</li>
+						<div class="amount">@Math.Round(@Player.Local.MaxHealth)</div>
+						<button class="Button2" @onclick="@HealthUpgrade">
+							HP+
+							
+						</button>
+						
+					</h2>
+					<h2 class="playe3">
+						<li class="title">Strength</li>
+						<li class="title2">[STG+]</li>
+						<div class="amount">@Player.Local.STG</div>
+						<button class="Button2" @onclick ="@STGUpgrade">ATP+</button>
+						
+					</h2>
+					<h2 class="playe3">
+						<li class="title">Intelligence</li>
+						<li class="title2">[INT+]</li>
+						<div class="amount">@Player.Local.INT</div>
+						<button class="Button2" @onclick ="@INTUpgrade">MAP+</button> 
+						
+					</h2>
+					<h2 class="playe3">
+						<li class="title">Dexerity</li>
+						<li class="title2">[DEX+]</li>
+						<div class="amount">@Player.Local.DEX</div>
+						<button class="Button2" @onclick = "@DEXUpgrade">STM+</button> 
+						
+					</h2>
+					<h2 class="playe3">
+						<li class="title">Perception </li>
+						<li class="title2">[PER+]</li>
+						<div class="amount">@Player.Local.PER</div>
+						<button class="Button2" @onclick = "@PERUpgrade">EVA+</button> 
+						
+					</h2>
+				
+		</div>
+	<div class="character">
+		<CharacterRenderer @ref=_renderer/>
+		<div class="box">
+							
+							<div class = "EquippedItems">
+								<InventorySlot EquipSlotIndex=@EquipSlot.Head Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head]/>
+								<InventorySlot EquipSlotIndex=@EquipSlot.Body Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Body]/>
+								<InventorySlot EquipSlotIndex=@EquipSlot.Legs Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Legs]/>
+								<InventorySlot EquipSlotIndex=@EquipSlot.Feet Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Feet]/>
+							</div>
+							<div class="Access">
+								<InventorySlot EquipSlotIndex=@EquipSlot.Face Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face]/>
+								<InventorySlot EquipSlotIndex=@EquipSlot.Face Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face]/>	
+							
+							
+								<InventorySlot EquipSlotIndex=@EquipSlot.Belt Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt]/>
+								<InventorySlot EquipSlotIndex=@EquipSlot.Bracer Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Bracer]/>
+
+								<InventorySlot EquipSlotIndex=@EquipSlot.Back Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back]/>	
+							</div>
+							
+							<div class="Hands">
+								<InventorySlot EquipSlotIndex=@EquipSlot.Hand Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand]/>
+								<InventorySlot EquipSlotIndex=@EquipSlot.Hand Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand]/>
+
+							</div>
+										
+		</div>
+	</div>
+			<div class="section2">
+				<div class="items">
+					<h2 class="playe">
+						<h2 class="playe1">
+							@foreach (var entry in Connection.All)
+							{
+								var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.OwnerConnection == entry);
+								
+								
+
+								<div class="row-item">
+									@if (entry.IsHost)
+									{
+										<div>👑</div>
+									}
+
+									@entry.DisplayName
+								</div>
+							}
+						</h2>
+						<h2 class="playe1">
+							<li>Level</li> <span class="nu">@Player.Local.Level</span>
+						</h2>
+						<h2 class="playe4">
+							<li>Experience</li> <span class="nu"> @Player.Local.Experience / @Player.Local.ExpPerLevel </span>
+						</h2>
+						<h2 class="playe3">
+							<li>Stats Points</li> <span class="nu">@Player.Local.StatsPoints</span>
+						</h2>
+						<h2 class="playe2">
+							<li>🪙 Vyndalium</li>
+							<div class="playic"></div> 
+							<span class="Vyndn">@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
+						</h2>
+					</h2>
+				</div>
+			</div>
+			
+		
+		
+	
+	
+
+
+	
+
+</root>
+
+@code
+{
+	private Player Player { get; set; }
+
+	private enum PanelType
+	{
+		Attribute,
+		Upgrade,
+		Abilities,
+		CharacterStats
+	}
+	
+	CharacterRenderer _renderer;
+   public static CharacterMenu Instance {get;private set;}
+   public CharacterMenu() => Instance = this;
+   
+   private PanelType currentpanel = PanelType.Attribute;
+   private void ShowPanel(PanelType panel)
+   {
+	   currentpanel = panel;
+   }
+
+	public void OnChanged()
+	{
+		_renderer.Refresh();
+		
+	}
+
+	public void HealthUpgrade()
+	{
+		if (Player.Local.StatsPoints > 0 )
+		{
+			Player.Local.MaxHealth +=10;
+			Player.Local.MaxMana +=5;
+			Player.Local.PlayerRunSpeed +=20;
+			
+			
+			
+			if ( Player.Local.MaxHealth % 40 == 0)
+			{
+				Player.Local.AttackPower -=2;
+				Player.Local.PlayerRunSpeed -=2;
+				Player.Local.MaxMana +=20;
+			}
+			if (Player.Local.MaxHealth % 100 == 0)
+			{
+				Player.Local.PER +=4;
+				Player.Local.BonusEXPGain +=0.3;
+			}
+			Player.Local.StatsPoints--;
+
+			OnChanged();
+			
+		}
+
+	}
+
+	public void STGUpgrade()
+	{
+		if (Player.Local.StatsPoints > 0 )
+		{
+			Player.Local.STG +=1;
+			Player.Local.Armor +=5;
+			Player.Local.AttackPower +=5;
+			if( Player.Local.PER > 0 && Player.Local.DEX < Player.Local.STG )
+			{
+				Player.Local.Block += Player.Local.PER;
+				
+			}
+			if (Player.Local.Block != Player.Local.PER )
+			{
+				Player.Local.Block = Player.Local.PER;
+				Player.Local.Evasion = 0;
+			}
+
+			if (Player.Local.STG % 4 == 0)
+			{
+				Player.Local.MaxStamina -=2;
+				Player.Local.PlayerRunSpeed -=1;
+
+			}
+			if ( Player.Local.STG % 8 == 0)
+			{
+				Player.Local.MagicPower -=4;
+				Player.Local.MagicDefense +=20;
+			}
+			if (Player.Local.STG % 20 == 0)
+			{
+				Player.Local.PER +=8;
+				Player.Local.Tenacity +=10;
+			}
+			Player.Local.StatsPoints--;
+
+			OnChanged();
+			
+		}
+	}
+	public void INTUpgrade()
+	{
+		if (Player.Local.StatsPoints > 0 )
+		{
+			Player.Local.INT +=1;
+
+			if (Player.Local.INT % 4 == 0)
+			{
+				Player.Local.AttackPower -=2;
+				Player.Local.MagicPower +=5;
+			}
+			if ( Player.Local.INT % 8 == 0)
+			{
+				Player.Local.MaxHealth -=10;
+				Player.Local.CritHitChance +=6;
+			}
+			if (Player.Local.INT % 20 == 0)
+			{
+				Player.Local.PER +=8;
+				
+				Player.Local.CritHitDamage +=10;
+			}
+			Player.Local.StatsPoints--;
+
+			OnChanged();
+			
+		}
+	}
+	public void DEXUpgrade()
+	{
+		if (Player.Local.StatsPoints > 0 )
+		{
+			Player.Local.DEX +=1;
+			Player.Local.MaxStamina +=10;
+			if( Player.Local.PER > 0 && Player.Local.DEX > Player.Local.STG )
+			{
+				Player.Local.Evasion += Player.Local.PER;
+				
+			}
+			if (Player.Local.Evasion != Player.Local.PER )
+			{
+				Player.Local.Evasion = Player.Local.PER;
+				Player.Local.Block = 0;
+			}
+
+			if (Player.Local.DEX % 4 == 0)
+			{
+				Player.Local.AttackPower -=2;
+				Player.Local.CritHitDamage +=5;
+			}
+			if ( Player.Local.DEX % 8 == 0)
+			{
+				Player.Local.MaxHealth -=10;
+				Player.Local.PlayerRunSpeed +=2;
+			}
+			if (Player.Local.DEX % 20 == 0)
+			{
+				Player.Local.PER +=8;
+
+				Player.Local.AttackSpeed +=10;
+			}
+			Player.Local.StatsPoints--;
+
+			OnChanged();
+		}
+	}
+	
+	public void PERUpgrade()
+	{
+		if (Player.Local.StatsPoints > 0 )
+		{
+			Player.Local.PER +=1;
+			if( Player.Local.PER > 0 && Player.Local.DEX > Player.Local.STG )
+			{
+				Player.Local.Evasion += Player.Local.PER;
+				if (Player.Local.Evasion != Player.Local.PER )
+				{
+					Player.Local.Evasion = Player.Local.PER * 0.5;
+					Player.Local.Block = 0;
+					
+				}
+			}
+			
+			if( Player.Local.PER > 0 && Player.Local.DEX < Player.Local.STG )
+			{
+				Player.Local.Block += Player.Local.PER;
+				if (Player.Local.Block != Player.Local.PER )
+				{
+					Player.Local.Block = Player.Local.PER;
+					Player.Local.Evasion = 0;
+				}
+			}
+			
+			
+			
+			if ( Player.Local.PER % 8 == 0)
+			{
+				Player.Local.MaxHealth -=10;
+
+			}
+			if (Player.Local.PER % 20 == 0)
+			{
+				Player.Local.MaxStamina +=20;
+				Player.Local.CritHitChance +=4;
+				Player.Local.BlindResist +=20;
+				
+			}
+			Player.Local.StatsPoints--;
+
+			OnChanged();
+			
+		}
+	}
+
+	
+	protected override int BuildHash()
+	{
+
+		if (Player.Local is null)
+			return -1;
+
+		return HashCode.Combine(
+			Player.Local?.Health,
+			Player.Local?.Vyndalium,
+			Player.Local?.Level,
+			Player.Local?.StatsPoints,
+			Player.Local?.Experience,
+			Player.Local?.ExpPerLevel,
+			Player.Local.Inventory.BackpackItems.HashCombine(i => i?.GetHashCode() ?? -1),
+			Player.Local.Inventory.EquippedItems.HashCombine(i => i?.GetHashCode() ?? -1)
+		);
+	}
+}

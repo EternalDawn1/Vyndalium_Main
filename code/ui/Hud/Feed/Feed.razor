@@ -1,0 +1,51 @@
+@using System.Collections.Generic
+@using Sandbox;
+@using Sandbox.UI;
+@inherits Panel
+@namespace GeneralGame.HUD
+<root>
+    <div class="output">
+        @foreach (var entry in Entries)
+        {
+            <div class="pickup_entry">
+                <div class="item">@entry.item</div>
+                <div class="amount">@entry.amount</div>
+            </div>
+        }
+    </div>
+</root>
+@code
+{
+    public record Entry( string item, int amount, RealTimeSince timeSinceAdded );
+    
+    private List<Entry> Entries { get; set; } = new();
+    public void AddItemLocal( string item, int amount )
+    {
+        Log.Info( $"{item}: {amount}" );
+        Entries.Add( new ( item, amount, 0f ) );
+        StateHasChanged();
+    }
+    
+    public override void Tick()
+    {
+        base.Tick();
+
+        if (Entries.RemoveAll(x => x.timeSinceAdded > 30f) > 0)
+        {
+            StateHasChanged();
+        }
+    }
+    
+    public void OnVyndaliumAdded(int amount)
+    {
+        string message = $"Der Spieler hat {amount} Vyndalium erhalten.";
+        AddItemLocal("Vyndalium", amount);
+        Log.Info(message);
+    }
+    
+    public void OnItemAdded(string item, int amount)
+    {
+        AddItemLocal(item, amount);
+    }
+    
+}

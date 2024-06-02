@@ -1,0 +1,410 @@
+﻿using static GeneralGame.Event.EventTrigger;
+
+namespace GeneralGame.Event;
+
+[Icon( "free_cancellation" )]
+public class EventMaster : Component
+{
+	[Property]
+	public List<EventDefinition> CurrentEvents { get; set; } = new();
+	public IEnumerable<EventDefinition> AllEvents { get; set; }
+	public static EventMaster Instance { get; set; }
+
+	/// <summary>
+	/// Get how many events the player has triggered so far (From 0 to 1) - Fetching this runs a check so don't overuse it
+	/// </summary>
+	public float EventsTriggered
+	{
+		get
+		{
+			var allEvents = EventsProgression.Events;
+			float totalEvents = allEvents.Count();
+			float triggeredEvents = allEvents.Where( x => x.TimesTriggered > 0 ).Count();
+
+			return triggeredEvents / totalEvents;
+		}
+	}
+
+	/// <summary>
+	/// Get how many events the player has completed so far (From 0 to 1) - Fetching this runs a check so don't overuse it
+	/// </summary>
+	public float EventsCompleted
+	{
+		get
+		{
+			var allEvents = EventsProgression.Events;
+			float totalEvents = allEvents.Count();
+			float triggeredEvents = allEvents.Where( x => x.TimesCompleted > 0 ).Count();
+
+			return triggeredEvents / totalEvents;
+		}
+	}
+
+	public class EventCompletion
+	{
+		[JsonInclude]
+		public string Event { get; set; }
+		[JsonInclude]
+		public int TimesTriggered { get; set; }
+		[JsonInclude]
+		public int TimesCompleted { get; set; }
+
+		public EventCompletion( string @event, int timesTriggered = 0, int timesCompleted = 0 )
+		{
+			Event = @event; // Don't bug me on this ye?
+			TimesTriggered = timesTriggered;
+			TimesCompleted = timesCompleted;
+		}
+	}
+
+	public struct GeneralEventProgress
+	{
+		[JsonInclude]
+		public List<EventCompletion> Events = new();
+
+		public GeneralEventProgress() { }
+	}
+
+	public GeneralEventProgress EventsProgression { get; private set; } = new();
+
+	protected override void OnStart()
+	{
+		Instance = this;
+		AllEvents = Scene.Components.GetAll<EventDefinition>( FindMode.EverythingInSelfAndDescendants );
+		CurrentEvents = new();
+		LoadEventsProgression();
+	}
+
+	internal void AddEventProgression( string eventName, int timesTriggered = 0, int timesCompleted = 0 )
+	{
+		var newTaskCompletion = new EventCompletion( eventName, timesTriggered, timesCompleted );
+		EventsProgression.Events.Add( newTaskCompletion );
+	}
+
+	/// <summary>
+	/// Get the current stats on that event
+	/// </summary>
+	/// <param name="eventName"></param>
+	/// <returns></returns>
+	public EventCompletion GetEventProgression( string eventName )
+	{
+		var eventCompletionExists = EventsProgression.Events.Any( x => x.Event == eventName );
+
+		if ( eventCompletionExists )
+		{
+			var foundEventCompletion = EventsProgression.Events.Where( x => x.Event == eventName ).First();
+			foundEventCompletion.TimesTriggered++;
+
+			return foundEventCompletion;
+		}
+		else
+		{
+			var newEventCompletion = new EventCompletion( eventName, 0, 0 );
+			EventsProgression.Events.Add( newEventCompletion );
+
+			return newEventCompletion;
+		}
+	}
+
+	/// <summary>
+	/// Increase that events's total triggered amount
+	/// </summary>
+	/// <param name="eventName"></param>
+	public void EventTriggered( string eventName )
+	{
+		var eventCompletionExists = EventsProgression.Events.Any( x => x.Event == eventName );
+
+		if ( eventCompletionExists )
+		{
+			var foundEventCompletion = EventsProgression.Events.Where( x => x.Event == eventName ).First();
+			foundEventCompletion.TimesTriggered++;
+		}
+		else
+		{
+			AddEventProgression( eventName, 1, 0 );
+		}
+	}
+
+	/// <summary>
+	/// Increase that event's total completed amount
+	/// </summary>
+	/// <param name="eventName"></param>
+	public void EventCompleted( string eventName )
+	{
+		var eventCompletionExists = EventsProgression.Events.Any( x => x.Event == eventName );
+
+		if ( eventCompletionExists )
+		{
+			var foundEventCompletion = EventsProgression.Events.Where( x => x.Event == eventName ).First();
+			foundEventCompletion.TimesCompleted++;
+		}
+		else
+		{
+			AddEventProgression( eventName, 0, 1 );
+		}
+
+	}
+
+	public void LoadEventsProgression()
+	{
+		if ( FileSystem.OrganizationData.FileExists( "events.json" ) )
+			EventsProgression = FileSystem.OrganizationData.ReadJsonOrDefault<GeneralEventProgress>( "events.json" );
+		else
+		{
+			EventsProgression = new();
+
+			var allEvents = AllEvents
+				.DistinctBy( x => x.EventName ); // Avoid multiple event definitions
+
+			foreach ( var @event in allEvents )
+				AddEventProgression( @event.EventName );
+
+			SaveEventsProgression();
+		}
+	}
+
+	/// <summary>
+	/// Save the events current triggered and completion progress/amount
+	/// </summary>
+	public void SaveEventsProgression( bool print = true )
+	{
+		if ( !Connection.Local.IsHost )
+			return;
+
+		var allEvents = Scene.Components.GetAll<EventDefinition>()
+				.DistinctBy( x => x.EventName ); // Avoid multiple event definitions
+
+		// If future updates contain new events or we're live adding newer ones, save those to the file too
+		foreach ( var @event in allEvents )
+			if ( !EventsProgression.Events.Any( x => x.Event == @event.EventName ) )
+				AddEventProgression( @event.EventName );
+
+		if ( print )
+			Log.Info( "Events saved..." );
+
+		FileSystem.OrganizationData.WriteJson( "events.json", EventsProgression );
+	}
+
+	/// <summary>
+	/// Reset the events current triggered and completion progress/amount
+	/// </summary>
+	public void ResetEventsProgression()
+	{
+		EventsProgression.Events?.Clear();
+
+		var allEvents = Scene.Components.GetAll<EventDefinition>()
+				.DistinctBy( x => x.EventName ); // Avoid multiple event definitions
+
+		foreach ( var @event in allEvents )
+			AddEventProgression( @event.EventName );
+
+		Log.Info( "Events reset!" );
+
+
+		if ( FileSystem.OrganizationData.FileExists( "events.json" ) )
+			FileSystem.OrganizationData.DeleteFile( "events.json" );
+	}
+
+	public void UnloadAllEvents()
+	{
+		foreach ( var @event in AllEvents )
+			@event.Disable();
+
+		Log.Info( "Unloaded all events" );
+	}
+
+	protected override void OnFixedUpdate()
+	{
+		InvokePolledMethods();
+	}
+
+	void InvokePolledMethods()
+	{
+		// Get all the components that are active
+		var allEvents = Scene.GetAllComponents<EventTrigger>()
+			?.Where( x => x.Active )
+			?.Where( x => x.IsPolled )
+			?.OrderBy( x => x.LastPoll );
+
+		if ( !allEvents.Any() ) return; // Bail if we have no triggers
+
+		var firstEvent = allEvents.First();
+		firstEvent.PolledMethod();
+		firstEvent.LastPoll = 0;
+
+		foreach ( var polledEvent in allEvents )
+			polledEvent.LastPoll++;
+
+		// Get all events that went over their max poll rate
+		var eventsOverMaxPolling = allEvents.Where( x => x.LastPoll >= x.MaxPollingRate );
+
+		foreach ( var expiredEvent in eventsOverMaxPolling )
+		{
+			expiredEvent.PolledMethod();
+			expiredEvent.LastPoll = 0;
+		}
+	}
+
+	[Broadcast]
+	public static void InteractionInvoked( string interaction, Guid target, Guid player )
+	{
+		var allTriggers = Game.ActiveScene.GetAllComponents<EventInteractionTrigger>();
+		var foundTarget = Game.ActiveScene.GetAllObjects( true )
+			.Where( x => x.Id == target )
+			.FirstOrDefault();
+		var foundPlayer = Game.ActiveScene.GetAllObjects( true )
+			.Where( x => x.Id == player )
+			.FirstOrDefault();
+
+		foreach ( var trigger in allTriggers )
+		{
+			if ( trigger.TriggeringInteraction == interaction )
+			{
+				if ( !trigger.InsideArea )
+					trigger.CallTrigger( foundPlayer, foundTarget );
+				else
+				{
+					var expandedWorldBox = trigger.WorldBBox.Grow( 10f ); // Expand it a bit to make sure it's included even when on the edges
+
+					if ( expandedWorldBox.Contains( foundTarget.Transform.Position ) )
+						trigger.CallTrigger( foundPlayer, foundTarget );
+				}
+			}
+		}
+
+		var playerComponent = foundPlayer.Components.Get<Player>();
+
+		TaskMaster.SubmitTriggerSignal( interaction, playerComponent );
+	}
+
+	[ConCmd( "general_event_enable" )]
+	public static void DebugEnableEvent( string name )
+	{
+		var allEvents = Game.ActiveScene.GetAllComponents<EventDefinition>();
+		var foundEvent = allEvents.Where( definition =>
+		{
+			var toFind = name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+			var eventName = definition.EventName.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+			var parentName = definition.GameObject.Name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+
+			if ( eventName == toFind || parentName == toFind )
+				return true;
+
+			if ( eventName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) || parentName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) )
+				return true;
+
+			foreach ( var children in definition.GameObject.Children )
+			{
+				var childrenName = children.Name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+
+				if ( childrenName == toFind || childrenName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) )
+					return true;
+			}
+
+			return false;
+		} ).FirstOrDefault();
+
+
+		if ( foundEvent.IsValid() )
+		{
+			if ( EventMaster.Instance.CurrentEvents.Contains( foundEvent ) )
+			{
+				foundEvent.Restart();
+				foundEvent.Enable();
+
+				Log.Info( $"Event {foundEvent.EventName} was already enabled and has been restarted." );
+			}
+			else
+			{
+				foundEvent.Enable();
+				Log.Info( $"Event {foundEvent.EventName} has been enabled." );
+			}
+		}
+		else
+		{
+			Log.Info( $"The event was not found, here is a list of available events:" );
+
+			var availableEvents = "";
+
+			foreach ( var availableEvent in allEvents )
+				availableEvents += $"[{availableEvent.EventName}], ";
+
+			Log.Info( availableEvents );
+			Log.Info( "You may also use partial event names or any combination of words and letters, I'll try my best to find the event." );
+		}
+	}
+
+	[ConCmd( "general_event_disable" )]
+	public static void DebugDisableEvent( string name )
+	{
+		var allEvents = Game.ActiveScene.GetAllComponents<EventDefinition>();
+		var foundEvent = allEvents.Where( definition =>
+		{
+			var toFind = name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+			var eventName = definition.EventName.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+			var parentName = definition.GameObject.Name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+
+			if ( eventName == toFind || parentName == toFind )
+				return true;
+
+			if ( eventName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) || parentName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) )
+				return true;
+
+			foreach ( var children in definition.GameObject.Children )
+			{
+				var childrenName = children.Name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+
+				if ( childrenName == toFind || childrenName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) )
+					return true;
+			}
+
+			return false;
+		} ).FirstOrDefault();
+
+
+		if ( foundEvent.IsValid() )
+		{
+			if ( EventMaster.Instance.CurrentEvents.Contains( foundEvent ) )
+			{
+				foundEvent.Disable();
+
+				Log.Info( $"Event {foundEvent.EventName} was enabled and now is disabled. Some asynchronous logic may still be running." );
+			}
+			else
+			{
+				Log.Info( $"Event {foundEvent.EventName} wasn't enabled in the first place. Here is a list of all active events:" );
+
+				var activeEvents = "";
+
+				foreach ( var activeEvent in EventMaster.Instance.CurrentEvents )
+					activeEvents += $"[{activeEvent.EventName}], ";
+
+				Log.Info( activeEvents );
+			}
+		}
+		else
+		{
+			Log.Info( $"The event was not found, here is a list of available events:" );
+
+			var availableEvents = "";
+
+			foreach ( var availableEvent in allEvents )
+				availableEvents += $"[{availableEvent.EventName}], ";
+
+			Log.Info( availableEvents );
+			Log.Info( "You may also use partial event names or any combination of words and letters, I'll try my best to find the event." );
+		}
+	}
+
+
+	[ConCmd( "general_event_disableall" )]
+	public static void DebugDisableAllEvent()
+	{
+		var amount = EventMaster.Instance.CurrentEvents.Count();
+
+		foreach ( var toDisable in EventMaster.Instance.CurrentEvents.ToList() )
+			toDisable.Disable();
+
+		Log.Info( $"Disable a total of {amount} events. Some asynchronous logic may still be running." );
+	}
+}

@@ -1,0 +1,208 @@
+{
+  "__guid": "07652eda-70cd-4c3c-a988-29a0d7a47efb",
+  "GameObjects": [
+    {
+      "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
+      "Name": "MapObjects",
+      "Position": "-16.73947,-31.52794,131.4671",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Children": [
+        {
+          "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
+          "Name": "Map",
+          "Position": "767.2023,-2519.431,1584.684",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.MapInstance",
+              "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
+              "MapName": "maps/koruland.vmap",
+              "UseMapFromLaunch": false
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "__guid": "e47368dc-2aa1-43c7-9701-476845bc0e7d",
+      "Name": "GameManager",
+      "Position": "-4687.136,-3009.619,2645.524",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.PrefabInitializer",
+          "__guid": "5cfda952-13f4-4c3d-bb8f-acc675d405f4"
+        },
+        {
+          "__type": "GeneralGame.NetworkManager",
+          "__guid": "0a7811e2-8017-455f-b1cd-8602763c4d6d",
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "8f8e0bbb-0ebe-4d7e-b45a-d02855084809",
+      "Name": "Object",
+      "Position": "-112.513,702.8104,61.97736",
+      "Scale": "-0.7654113,0.9841333,0.6492278",
+      "Tags": "interactable",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "6c36f8e1-f0df-4a9b-a576-268e0bef9c20",
+          "BodyGroups": 18446744073709551615,
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.SceneChangeTrigger",
+          "__guid": "6ef3fc8d-e1b6-4c39-8a4a-20a3e6c1390a",
+          "SceneToLoad": "Game"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "4685e9fc-80dc-4ecc-a570-d952943882a9",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false
+        },
+        {
+          "__type": "GeneralGame.Interactable",
+          "__guid": "be34c202-820d-4778-9d07-63e2b5cd8a15"
+        }
+      ]
+    },
+    {
+      "__guid": "f753371b-1b8b-4cf8-93d4-7597e403ecc9",
+      "Name": "Object",
+      "Position": "510.4106,560.3522,62.47365",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.PickupSpawner",
+          "__guid": "06d4b090-2a5b-4715-a28e-6990032d98ef",
+          "__enabled": false,
+          "PickupPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/pickupammo.prefab"
+          },
+          "RespawnTime": 60
+        }
+      ]
+    },
+    {
+      "__guid": "019efa89-9489-4e8e-9c46-a0c22acfc0a4",
+      "Name": "Object (1)",
+      "Position": "464.0758,560.3522,62.47365",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "e21bde92-f3e4-4ec4-85bb-ff897ded1bcd",
+          "__enabled": false,
+          "RespawnTime": 5,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/zombie.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "d974ea0d-df4a-465b-bcc4-1e1f148b45e8",
+      "Name": "glock",
+      "Position": "598.1561,783.0393,40.00001",
+      "Rotation": "-0.00000002980232,0,0.9999999,0",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/weapons/pm/glock.prefab"
+    },
+    {
+      "__guid": "e1ad3f8c-2065-4a6b-8733-f1a46ba6e859",
+      "Name": "spawner",
+      "Position": "-1216.029,223.3884,128.2761",
+      "Rotation": "-0.08639657,0.08639652,0.7018088,0.7018089",
+      "Scale": "-0.7654113,0.9841333,0.6492278",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/spawner.prefab"
+    },
+    {
+      "__guid": "694484ef-4fb8-4dda-83c2-492f219b4202",
+      "Name": "aksu",
+      "Position": "471.2376,583.7712,52",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/weapons/aksu/aksu.prefab"
+    },
+    {
+      "__guid": "d71c2760-1c7f-4926-a57e-ff79e9db9fac",
+      "Name": "Shop",
+      "Position": "-135.8674,191.0689,99.79269",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.WorldPanel",
+          "__guid": "e16d33f3-3e95-42a2-863d-8fe23429c143",
+          "HorizontalAlign": "Center",
+          "LookAtCamera": false,
+          "PanelSize": "512,512",
+          "RenderScale": 1,
+          "VerticalAlign": "Center"
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 60,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": true,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "minimal",
+  "Description": "",
+  "LastSaved": "2024-05-05T13:23:29.6837181\u002B02:00",
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}

@@ -1,0 +1,166 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+
+@namespace GeneralGame
+@inherits Panel
+@attribute [StyleSheet]
+
+<root>
+	<div class="slot-container">
+		@{
+			var slots = Enum.GetValues<EquipSlot>();
+			if (clothes == null)
+				LoadClothes();
+			
+			
+			foreach (var slot in slots)
+			{
+				if (slot == EquipSlot.Hand)
+					continue;
+
+				<div class="equip-slot">
+					<div class="title">
+						<img src=@slot.GetIcon() />
+						<div>@slot.ToString()</div>
+						<div class="count">@(clothes[slot].Count) / @(counts[slot])</div>
+					</div>
+					<div class="row">
+						@* NONE *@
+						<div class="slot @(selections[slot] == -1 ? "selected" : "")" @onclick=@( () => { selections[slot] = -1; UpdateSelection(); })>
+							<div class="border" />
+							<div class="background" />
+
+							<img src="ui/hud/blocked.png" />
+						</div>
+
+						@for (int i = 0; i < Math.Max(4, ShowAll ? clothes[slot].Count : 4); i++)
+						{
+							var clothing = clothes?[slot].ElementAtOrDefault(i);
+							<div class="slot @(selections[slot] == i ? "selected" : "") @(clothing == null ? "disabled" : "")"
+								 onclick=@( () => {
+					 changed = slot;
+					 selections[slot] = clothes[slot].IndexOf( clothing );
+					 UpdateSelection();
+					 })>
+								<div class="border" />
+								<div class="background" />
+
+								@if (clothing != null)
+								{
+									<img src=@(clothing.Get<IconSettings>( "Icon" ).Path) />
+									<label class="equip">EQUIPPED</label>
+								}
+							</div>
+						}
+					</div>
+				</div>
+			}
+		}
+	</div>
+</root>
+
+@code {
+	private static bool _showAll = false;
+	public static bool ShowAll
+	{
+		get => _showAll;
+		set
+		{
+			_showAll = value;
+			clothes = null;
+		}
+	}
+
+	private static readonly Dictionary<EquipSlot, List<string>> defaultClothes = new()
+		{
+			[EquipSlot.Head] = new List<string>() { "prefabs/clothes/cap.prefab", "prefabs/clothes/cap_black.prefab", "prefabs/clothes/flat_cap.prefab", "prefabs/clothes/beanie.prefab" },
+			[EquipSlot.Face] = new List<string>() { "prefabs/clothes/glasses.prefab", "prefabs/clothes/round_glasses.prefab" },
+			[EquipSlot.Body] = new List<string>() { "prefabs/clothes/hoodie_zipper.prefab", "prefabs/clothes/tshirt_eagle.prefab", "prefabs/clothes/tshirt_rust.prefab", "prefabs/clothes/hoodie_fp.prefab" },
+			[EquipSlot.Legs] = new List<string>() { "prefabs/clothes/skinny_jeans.prefab", "prefabs/clothes/jammies_towel.prefab", "prefabs/clothes/shorts.prefab", "prefabs/clothes/khakis.prefab", },
+			[EquipSlot.Bracer] = new List<string>() { },
+			[EquipSlot.Belt] = new List<string>() { },
+			[EquipSlot.Feet] = new List<string>() { "prefabs/clothes/trainers.prefab", "prefabs/clothes/wellington_boots.prefab", "prefabs/clothes/socks.prefab", "prefabs/clothes/sandals.prefab", },
+		};
+
+	private static Dictionary<EquipSlot, int> counts = new();
+	private static Dictionary<EquipSlot, List<ComponentDefinition>> clothes;
+
+	private static Dictionary<EquipSlot, int> selections;
+	private static EquipSlot changed;
+
+	private static List<GameObject> clothingObjects = new();
+
+	public static Dictionary<EquipSlot, string> GetSelections()
+		=> selections
+			.Where(x => x.Value != -1)
+			.Select(x => (Slot: x.Key, Path: clothes[x.Key]?.ElementAt(x.Value)?.Prefab?.Path ?? defaultClothes[x.Key].First()))
+			.ToDictionary(x => x.Slot, x => x.Path);
+
+	private static void CreateClothing(Model model, string materialGroup = "", Color? color = null)
+	{
+		var obj = Game.ActiveScene.CreateObject();
+		var renderer = obj.Components.Create<SkinnedModelRenderer>();
+		renderer.Model = model;
+		renderer.Tint = (color ?? Color.White).WithAlpha(1);
+		renderer.MaterialGroup = materialGroup;
+		renderer.BoneMergeTarget = CreatorOverlay.Renderer;
+		obj.Parent = CreatorOverlay.Renderer.GameObject;
+
+		clothingObjects.Add(obj);
+	}
+
+	public static void UpdateSelection()
+	{
+		
+	}
+
+	private void LoadClothes()
+	{
+		var values = Enum.GetValues<EquipSlot>();
+		selections = values.ToDictionary(x => x, x => -1);
+		clothes = new();
+		counts.Clear();
+
+		var all = PrefabLibrary.FindByComponent<ItemEquipment>();
+		foreach (var prefab in all)
+		{
+			var component = prefab.GetComponent<ItemEquipment>();
+			if (component == null)
+				continue;
+
+			var slot = component.Get<EquipSlot>("Slot");
+			if (counts.ContainsKey(slot)) counts[slot]++;
+			else counts.Add(slot, 1);
+
+			if (ShowAll)
+			{
+				if (!clothes.TryGetValue(slot, out var list))
+					clothes.Add(slot, list = new());
+
+				list.Add(component);
+			}
+		}
+
+		if (ShowAll)
+			return;
+
+		foreach (var (slot, paths) in defaultClothes)
+		{
+			clothes.Add(slot, new());
+			foreach (var path in paths)
+			{
+				if (!ResourceLibrary.TryGet<PrefabFile>(path, out var prefab))
+					continue;
+
+				var definition = prefab.AsDefinition();
+				var equipment = definition?.GetComponent<ItemEquipment>();
+				if (equipment == null)
+					continue;
+
+				clothes[slot].Add(equipment);
+			}
+		}
+	}
+
+	
+}
