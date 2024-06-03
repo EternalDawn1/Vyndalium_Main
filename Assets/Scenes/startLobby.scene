@@ -130,7 +130,7 @@
       "__guid": "fda8f9e3-0ef2-47fd-bd0b-74d64ea16c1a",
       "Flags": 0,
       "Name": "Starting (2)",
-      "Position": "-16.51645,893.5159,158.3559",
+      "Position": "-16.51645,810.188,62.39156",
       "Scale": "-0.7654113,0.9841333,0.6492278",
       "Tags": "interactable",
       "Enabled": true,
@@ -155,323 +155,7 @@
         {
           "__type": "GeneralGame.SceneChangeTriggertest",
           "__guid": "6fcfb6e0-022d-49b2-9c59-5e76abeadae1",
-          "SceneToLoad": "Starting"
-        }
-      ]
-    },
-    {
-      "__guid": "d974ea0d-df4a-465b-bcc4-1e1f148b45e8",
-      "Flags": 0,
-      "Name": "glock",
-      "Position": "598.2107,783.0775,-352886.1",
-      "Rotation": "0.008330239,0.006182776,0.9999462,-0.00006787869",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SkinnedModelRenderer",
-          "__guid": "97c03b7a-fbed-4678-9c3f-a4a16bdc7a91",
-          "AnimationGraph": "models/glock/glock.vanmgrph",
-          "BodyGroups": 1,
-          "CreateBoneObjects": false,
-          "Model": "models/glock/w/w_glock20lod0.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1",
-          "UseAnimGraph": true
-        },
-        {
-          "__type": "GeneralGame.BaseGun",
-          "__guid": "b3934124-71b0-49eb-802d-8a7d607989ac",
-          "AimPos": "-1.5,1.8,1",
-          "AimRotation": "0,0,0,0",
-          "AmmoType": "Pistol",
-          "ClipSize": 15,
-          "Damage": 30,
-          "DamageForce": 5,
-          "DamageType": "Serious",
-          "DefaultAmmo": 60,
-          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
-          "DeployTime": 0.5,
-          "DisplayName": "Glock 20",
-          "EmptyClipSound": "sounds/weapons/empty_submachineguns.sound",
-          "EmptyReloadSoundSequence": "models/glock/glockemptyreload.sndseq",
-          "EmptyReloadTime": 3.05,
-          "FireRate": 7,
-          "FireSound": "models/glock/glock20_fire1.sound",
-          "HitForce": 300,
-          "HoldType": "Pistol",
-          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
-          "IdlePos": "-3,-0.4,-0.5",
-          "ImpactEffect": "particles/impact.generic.vpcf",
-          "IsAuto": false,
-          "IsDeployed": false,
-          "IsMagicWeapon": false,
-          "MuzzleFlash": "particles/pistol_muzzleflash.vpcf",
-          "Recoil": "-5,1,0",
-          "ReloadSoundSequence": "models/glock/glockreload.sndseq",
-          "ReloadTime": 2.7,
-          "RunRotation": "0.02017635,0.06330636,0.02387928,0.9975044",
-          "Spread": 0.01,
-          "Type": "Ranged",
-          "ViewModelPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/weapons/pm/vm_glock.prefab"
-          }
-        },
-        {
-          "__type": "Sandbox.SphereCollider",
-          "__guid": "01422c86-a073-4b68-a8d2-808f566de94b",
-          "Center": "0,0,0",
-          "IsTrigger": true,
-          "Radius": 10,
-          "Static": false
-        },
-        {
-          "__type": "Sandbox.ModelCollider",
-          "__guid": "a60aa12f-dbd1-4987-ab8e-7170454c401c",
-          "IsTrigger": false,
-          "Model": "models/glock/w/w_glock20lod0.vmdl",
-          "Static": false
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "7619f4f2-cfbb-487a-ac7e-b8be00160891",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
-          "__type": "GeneralGame.ItemEquipment",
-          "__guid": "bd6b33cc-43e0-41ed-bb61-23bcedf82483",
-          "AbilityHaste": 0,
-          "Armor": 0,
-          "Attachment": "hand_R",
-          "AttachmentTransform": {
-            "UniformScale": 1,
-            "IsValid": true,
-            "Scale": "1,1,1",
-            "Rotation": "0,0,0,1"
-          },
-          "AttackPower": 0,
-          "AttackSpeed": 0,
-          "BlindResistance": 0,
-          "BonusEXP": 0,
-          "BonusScore": 0,
-          "BonusVyndalium": 0,
-          "Count": 0,
-          "Cover": 0,
-          "CritHitChance": 0,
-          "CritHitDamage": 6.7,
-          "DamageBalance": 90,
-          "Description": "a weapon",
-          "DEX": 0,
-          "DMG": 200,
-          "Durability": 1000,
-          "Evasion": 0,
-          "FireResistence": 0,
-          "HE": 0,
-          "HideBodygroups": "None",
-          "HoldType": "Rifle",
-          "HolyResistence": 0,
-          "IceResistence": 0,
-          "Icon": {
-            "Model": "models/glock/w/w_glock20lod0.vmdl",
-            "MaterialGroup": "",
-            "Colour": "1,1,1,1",
-            "Position": "-2.85,2.85,0",
-            "Rotation": "0,0,0.7071068,0.7071068",
-            "Guid": "c10c943a-37a0-4183-8538-70c47b2c97c2"
-          },
-          "INT": 0,
-          "ItemLevel": 0,
-          "LightningResistence": 0,
-          "MagicDefense": 0,
-          "Mana": 2.35,
-          "MaxStack": 0,
-          "MoveSpeed": 0,
-          "Name": "Glock 20",
-          "PER": 0,
-          "PoisonResistence": 0,
-          "SellPrice": -1,
-          "ShadowResistence": 0,
-          "Slot": "Hand",
-          "SlowResistence": 0,
-          "STG": 0,
-          "StunResistance": 0,
-          "Tenacity": 0,
-          "Tier": "C",
-          "UpdatePosition": false,
-          "UseSkinTint": false,
-          "WeightInGrams": 0
-        },
-        {
-          "__type": "GeneralGame.Interactions",
-          "__guid": "2b073020-bdcb-47f0-9b0b-d3972b1f919a",
-          "HideOnEmpty": false,
-          "ObjectInteractions": []
-        }
-      ]
-    },
-    {
-      "__guid": "694484ef-4fb8-4dda-83c2-492f219b4202",
-      "Flags": 0,
-      "Name": "aksu",
-      "Position": "555.5247,572.5685,-352886",
-      "Rotation": "0.6314431,-0.07494307,-0.05976271,0.769475",
-      "Scale": "1.5,1.5,1.5",
-      "Tags": "interactable",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SkinnedModelRenderer",
-          "__guid": "1cf724ca-6110-40d9-94f1-35c7b275cebc",
-          "AnimationGraph": "models/aksu/aksu.vanmgrph",
-          "BodyGroups": 9493,
-          "CreateBoneObjects": false,
-          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1",
-          "UseAnimGraph": true
-        },
-        {
-          "__type": "GeneralGame.BaseGun",
-          "__guid": "6e305417-ec5a-4f88-ba94-13310d7b334f",
-          "AimPos": "-1,1.92,0.57",
-          "AimRotation": "0,0,0,0",
-          "AmmoType": "Rifle",
-          "ClipSize": 30,
-          "Damage": 20,
-          "DamageForce": 5,
-          "DamageType": "Bullet",
-          "DefaultAmmo": 360,
-          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
-          "DeployTime": 0.5,
-          "DisplayName": "Ak74U",
-          "EmptyClipSound": "models/aksu/ak74u_magout.sound",
-          "EmptyReloadSoundSequence": "models/aksu/aksu_reload_empty.sndseq",
-          "EmptyReloadTime": 3,
-          "FireRate": 9,
-          "FireSound": "models/aksu/ak74u shoot.sound",
-          "HitForce": 300,
-          "HoldType": "Rifle",
-          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
-          "IdlePos": "-3,0,0",
-          "ImpactEffect": "particles/impact.generic.vpcf",
-          "IsAuto": true,
-          "IsDeployed": false,
-          "IsMagicWeapon": false,
-          "Recoil": "-5,0,0",
-          "ReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
-          "ReloadTime": 3,
-          "RunRotation": "-0.02523804,0.1292066,0.0627908,0.9893059",
-          "Spread": 0.01,
-          "Type": "Ranged",
-          "ViewModelPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/weapons/aksu/vm_aksu.prefab"
-          }
-        },
-        {
-          "__type": "Sandbox.ModelCollider",
-          "__guid": "db03c438-6bd6-4446-a20a-393a1723e62b",
-          "IsTrigger": false,
-          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-          "Static": false
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "10d2e20a-8d42-49af-ab18-949e42fad189",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
-          "__type": "GeneralGame.ItemEquipment",
-          "__guid": "7646b380-5479-49b2-88ae-5f308db747c7",
-          "AbilityHaste": 0,
-          "Armor": 0,
-          "Attachment": "hand_R",
-          "AttachmentTransform": {
-            "UniformScale": 1,
-            "IsValid": true,
-            "Scale": "1,1,1",
-            "Rotation": "0,0,0,1"
-          },
-          "AttackPower": 0,
-          "AttackSpeed": 0,
-          "BlindResistance": 0,
-          "BonusEXP": 0,
-          "BonusScore": 0,
-          "BonusVyndalium": 0,
-          "Count": 0,
-          "Cover": 0,
-          "CritHitChance": 0,
-          "CritHitDamage": 0,
-          "DamageBalance": 0,
-          "Description": "An AK",
-          "DEX": 0,
-          "DMG": 200,
-          "Durability": 0,
-          "Evasion": 0,
-          "FireResistence": 0,
-          "HE": 0,
-          "HideBodygroups": "None",
-          "HoldType": "Rifle",
-          "HolyResistence": 0,
-          "IceResistence": 0,
-          "Icon": {
-            "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-            "MaterialGroup": "",
-            "Colour": "1,1,1,1",
-            "Position": "-1.8,4.5,0",
-            "Rotation": "0,0,0.7071068,0.7071068",
-            "Guid": "e23adcb4-7a59-4c04-92ce-88d76b9b52d2"
-          },
-          "INT": 0,
-          "ItemLevel": 0,
-          "LightningResistence": 0,
-          "MagicDefense": 0,
-          "Mana": 0,
-          "MaxStack": 0,
-          "MoveSpeed": 0,
-          "Name": "AKM",
-          "PER": 0,
-          "PoisonResistence": 0,
-          "SellPrice": -1,
-          "ShadowResistence": 0,
-          "Slot": "Hand",
-          "SlowResistence": 0,
-          "STG": 0,
-          "StunResistance": 0,
-          "Tenacity": 0,
-          "Tier": "C",
-          "UpdatePosition": false,
-          "UseSkinTint": false,
-          "WeightInGrams": 0
-        },
-        {
-          "__type": "GeneralGame.Interactable",
-          "__guid": "da884012-6b09-4501-b854-f8938aa05dfb"
-        },
-        {
-          "__type": "GeneralGame.Interactions",
-          "__guid": "9500d86a-815e-4f14-947d-1bea31158164",
-          "HideOnEmpty": false,
-          "ObjectInteractions": []
+          "SceneToLoad": "Game"
         }
       ]
     },
@@ -524,326 +208,6 @@
         {
           "__type": "GeneralGame.HUD.InteractWorldPanel",
           "__guid": "2f2ad8b0-b155-4c0d-9947-f3d525559684"
-        }
-      ]
-    },
-    {
-      "__guid": "b41ed9a9-10e9-4d08-885f-18282779b934",
-      "Flags": 0,
-      "Name": "glock (1)",
-      "Position": "-27.9584,896.2537,50.40633",
-      "Rotation": "0.1228819,0.7042658,0.6875597,0.1271666",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SkinnedModelRenderer",
-          "__guid": "732da3e3-d8ae-4911-b82b-fea6766bcd1f",
-          "AnimationGraph": "models/glock/glock.vanmgrph",
-          "BodyGroups": 1,
-          "CreateBoneObjects": false,
-          "Model": "models/glock/w/w_glock20lod0.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1",
-          "UseAnimGraph": true
-        },
-        {
-          "__type": "GeneralGame.BaseGun",
-          "__guid": "b7058cc9-86a7-42b1-9898-02e5c045c3b2",
-          "AimPos": "-1.5,1.8,1",
-          "AimRotation": "0,0,0,0",
-          "AmmoType": "Pistol",
-          "ClipSize": 15,
-          "Damage": 30,
-          "DamageForce": 5,
-          "DamageType": "Serious",
-          "DefaultAmmo": 60,
-          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
-          "DeployTime": 0.5,
-          "DisplayName": "Glock 20",
-          "EmptyClipSound": "sounds/weapons/empty_submachineguns.sound",
-          "EmptyReloadSoundSequence": "models/glock/glockemptyreload.sndseq",
-          "EmptyReloadTime": 3.05,
-          "FireRate": 7,
-          "FireSound": "models/glock/glock20_fire1.sound",
-          "HitForce": 300,
-          "HoldType": "Pistol",
-          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
-          "IdlePos": "-3,-0.4,-0.5",
-          "ImpactEffect": "particles/impact.generic.vpcf",
-          "IsAuto": false,
-          "IsDeployed": false,
-          "IsMagicWeapon": true,
-          "MuzzleFlash": "particles/pistol_muzzleflash.vpcf",
-          "Recoil": "-5,1,0",
-          "ReloadSoundSequence": "models/glock/glockreload.sndseq",
-          "ReloadTime": 2.7,
-          "RunRotation": "0.02017635,0.06330636,0.02387928,0.9975044",
-          "Spread": 0.01,
-          "Type": "Ranged",
-          "ViewModelPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/weapons/pm/vm_glock.prefab"
-          }
-        },
-        {
-          "__type": "Sandbox.SphereCollider",
-          "__guid": "68b806a9-a8a0-4112-8a89-e6413ccdb84b",
-          "Center": "0,0,0",
-          "IsTrigger": true,
-          "Radius": 10,
-          "Static": false
-        },
-        {
-          "__type": "Sandbox.ModelCollider",
-          "__guid": "c241f31d-b97d-4fc2-9320-211b3edaf631",
-          "IsTrigger": false,
-          "Model": "models/glock/w/w_glock20lod0.vmdl",
-          "Static": false
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "a9767a91-2bfc-4e64-9fa7-10550b7418e8",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
-          "__type": "GeneralGame.ItemEquipment",
-          "__guid": "931d8bae-701f-488f-9294-d4a127d37a3b",
-          "AbilityHaste": 0,
-          "Armor": 0,
-          "Attachment": "hand_R",
-          "AttachmentTransform": {
-            "UniformScale": 1,
-            "IsValid": true,
-            "Scale": "1,1,1",
-            "Rotation": "0,0,0,1"
-          },
-          "AttackPower": 0,
-          "AttackSpeed": 0,
-          "BlindResistance": 0,
-          "BonusEXP": 0,
-          "BonusScore": 0,
-          "BonusVyndalium": 0,
-          "Count": 0,
-          "Cover": 0,
-          "CritHitChance": 0,
-          "CritHitDamage": 6.7,
-          "DamageBalance": 90,
-          "Description": "a weapon",
-          "DEX": 0,
-          "DMG": 200,
-          "Durability": 1000,
-          "Evasion": 0,
-          "FireResistence": 0,
-          "HE": 0,
-          "HideBodygroups": "None",
-          "HoldType": "Rifle",
-          "HolyResistence": 0,
-          "IceResistence": 0,
-          "Icon": {
-            "Model": "models/glock/w/w_glock20lod0.vmdl",
-            "MaterialGroup": "",
-            "Colour": "1,1,1,1",
-            "Position": "-2.85,2.85,0",
-            "Rotation": "0,0,0.7071068,0.7071068",
-            "Guid": "7fe21cab-d417-44ef-9c28-f9634c1d942a"
-          },
-          "INT": 0,
-          "ItemLevel": 0,
-          "LightningResistence": 0,
-          "MagicDefense": 0,
-          "Mana": 2.35,
-          "MaxStack": 0,
-          "MoveSpeed": 0,
-          "Name": "Glock 20",
-          "PER": 0,
-          "PoisonResistence": 0,
-          "SellPrice": -1,
-          "ShadowResistence": 0,
-          "Slot": "Hand",
-          "SlowResistence": 0,
-          "STG": 0,
-          "StunResistance": 0,
-          "Tenacity": 0,
-          "Tier": "C",
-          "UpdatePosition": false,
-          "UseSkinTint": false,
-          "WeightInGrams": 0
-        },
-        {
-          "__type": "GeneralGame.Interactions",
-          "__guid": "7371a12d-ac27-4bb2-bce3-69ed26fce8a0",
-          "HideOnEmpty": false,
-          "ObjectInteractions": []
-        }
-      ]
-    },
-    {
-      "__guid": "bbe004dd-5fcd-4843-841b-f54209ec2634",
-      "Flags": 0,
-      "Name": "glock (2)",
-      "Position": "-63.53165,913.5707,56.60462",
-      "Rotation": "0.007971131,0.0009697052,0.9999666,-0.001593057",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SkinnedModelRenderer",
-          "__guid": "db10d6cb-4457-4297-8ca4-d84a6c435343",
-          "AnimationGraph": "models/glock/glock.vanmgrph",
-          "BodyGroups": 1,
-          "CreateBoneObjects": false,
-          "Model": "models/glock/w/w_glock20lod0.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1",
-          "UseAnimGraph": true
-        },
-        {
-          "__type": "GeneralGame.BaseGun",
-          "__guid": "6ceb0a6f-4f29-43fe-bcab-19b5ce8dba38",
-          "AimPos": "-1.5,1.8,1",
-          "AimRotation": "0,0,0,0",
-          "AmmoType": "Pistol",
-          "ClipSize": 15,
-          "Damage": 30,
-          "DamageForce": 5,
-          "DamageType": "Serious",
-          "DefaultAmmo": 60,
-          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
-          "DeployTime": 0.5,
-          "DisplayName": "Glock 20",
-          "EmptyClipSound": "sounds/weapons/empty_submachineguns.sound",
-          "EmptyReloadSoundSequence": "models/glock/glockemptyreload.sndseq",
-          "EmptyReloadTime": 3.05,
-          "FireRate": 7,
-          "FireSound": "models/glock/glock20_fire1.sound",
-          "HitForce": 300,
-          "HoldType": "Pistol",
-          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
-          "IdlePos": "-3,-0.4,-0.5",
-          "ImpactEffect": "particles/impact.generic.vpcf",
-          "IsAuto": false,
-          "IsDeployed": false,
-          "IsMagicWeapon": false,
-          "MuzzleFlash": "particles/pistol_muzzleflash.vpcf",
-          "Recoil": "-5,1,0",
-          "ReloadSoundSequence": "models/glock/glockreload.sndseq",
-          "ReloadTime": 2.7,
-          "RunRotation": "0.02017635,0.06330636,0.02387928,0.9975044",
-          "Spread": 0.01,
-          "Type": "Ranged",
-          "ViewModelPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/weapons/pm/vm_glock.prefab"
-          }
-        },
-        {
-          "__type": "Sandbox.SphereCollider",
-          "__guid": "f03fee06-0761-467e-b610-1711b8971227",
-          "Center": "0,0,0",
-          "IsTrigger": true,
-          "Radius": 10,
-          "Static": false
-        },
-        {
-          "__type": "Sandbox.ModelCollider",
-          "__guid": "dbf07e86-e14a-4857-826f-6c17b5458948",
-          "IsTrigger": false,
-          "Model": "models/glock/w/w_glock20lod0.vmdl",
-          "Static": false
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "646e7be4-7d17-4c90-9499-e8d5fa8bb5a8",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
-          "__type": "GeneralGame.ItemEquipment",
-          "__guid": "91e072df-762b-4721-87cf-f42f386f241b",
-          "AbilityHaste": 0,
-          "Armor": 0,
-          "Attachment": "hand_R",
-          "AttachmentTransform": {
-            "UniformScale": 1,
-            "IsValid": true,
-            "Scale": "1,1,1",
-            "Rotation": "0,0,0,1"
-          },
-          "AttackPower": 0,
-          "AttackSpeed": 0,
-          "BlindResistance": 0,
-          "BonusEXP": 0,
-          "BonusScore": 0,
-          "BonusVyndalium": 0,
-          "Count": 0,
-          "Cover": 0,
-          "CritHitChance": 0,
-          "CritHitDamage": 6.7,
-          "DamageBalance": 90,
-          "Description": "a weapon",
-          "DEX": 0,
-          "DMG": 200,
-          "Durability": 1000,
-          "Evasion": 0,
-          "FireResistence": 0,
-          "HE": 0,
-          "HideBodygroups": "None",
-          "HoldType": "Rifle",
-          "HolyResistence": 0,
-          "IceResistence": 0,
-          "Icon": {
-            "Model": "models/glock/w/w_glock20lod0.vmdl",
-            "MaterialGroup": "",
-            "Colour": "1,1,1,1",
-            "Position": "-2.85,2.85,0",
-            "Rotation": "0,0,0.7071068,0.7071068",
-            "Guid": "7fe21cab-d417-44ef-9c28-f9634c1d942a"
-          },
-          "INT": 0,
-          "ItemLevel": 0,
-          "LightningResistence": 0,
-          "MagicDefense": 0,
-          "Mana": 2.35,
-          "MaxStack": 0,
-          "MoveSpeed": 0,
-          "Name": "Glock 20",
-          "PER": 0,
-          "PoisonResistence": 0,
-          "SellPrice": -1,
-          "ShadowResistence": 0,
-          "Slot": "Hand",
-          "SlowResistence": 0,
-          "STG": 0,
-          "StunResistance": 0,
-          "Tenacity": 0,
-          "Tier": "C",
-          "UpdatePosition": false,
-          "UseSkinTint": false,
-          "WeightInGrams": 0
-        },
-        {
-          "__type": "GeneralGame.Interactions",
-          "__guid": "3f201754-a20f-45a9-95ef-ad59f094667d",
-          "HideOnEmpty": false,
-          "ObjectInteractions": []
         }
       ]
     },
@@ -1193,6 +557,200 @@
       ]
     },
     {
+      "__guid": "f386fca3-13e7-4dab-b8d5-a1c67f4e64e0",
+      "Flags": 0,
+      "Name": "Point Light (1)",
+      "Position": "339.2738,-554.3819,113.9235",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "b4a7f2a2-7725-4893-a63f-2c4a353b2058",
+          "Attenuation": 0.8,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 435.5983,
+          "Shadows": true
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "bd6e9508-5d0a-4ce8-80d1-c7211b1afb5b",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-758.1294,1311.542,205.0555",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "2a2701d0-a409-4aa1-b182-05d71a64b108",
+              "Attenuation": 10,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.91373,0.98039,1,1",
+              "Radius": 1021.1002,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "4dc4bce7-cf6a-4ed2-9755-2075139de4b5",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-2228.475,1293.21,267.2796",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "c0a15c9b-1892-4697-b8fc-7a2c78a2936e",
+              "Attenuation": 3.81,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "a020e908-2856-404f-b119-048c8abcac77",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-4086.944,1293.21,222.3008",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "4bbc48ec-5a38-4953-b7e6-86a17ba889d4",
+              "Attenuation": 0.12,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "0091d859-ad6e-418f-86df-0288281b9320",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-3224.155,1293.21,246.0805",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "6afd3582-4007-412a-a971-bacad2cc6fe8",
+              "Attenuation": 0.19,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.73023,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "b03b4b53-f2a7-4f98-a8b9-5700d2aa3528",
+      "Flags": 0,
+      "Name": "Point Light (2)",
+      "Position": "1016.974,-557.1262,123.0235",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "62b01790-c794-426f-922e-22a34709571a",
+          "Attenuation": 0.12,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 435.5983,
+          "Shadows": true
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "5343462d-fcf8-4342-94a7-1774505c8f93",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-758.1294,1311.542,205.0555",
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "2653d615-5a26-4f03-8545-56c52f6deb11",
+              "Attenuation": 0.31,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.91373,0.98039,1,1",
+              "Radius": 1021.1002,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "19d1a68e-ffb4-4f61-9294-76c389ba680b",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-4086.944,1293.21,222.3008",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "c78c5b71-841c-48c4-8013-43a35f91dc57",
+              "Attenuation": 3.95,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "2e7dd82c-46e9-4ae6-b558-191f094db999",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-3224.155,1293.21,246.0805",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "0b54f1e4-bb1a-45f3-8c9a-27b5c1342ebe",
+              "Attenuation": 0.19,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.73023,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
       "__guid": "4c0be62f-161d-4888-868d-b84f83352ec7",
       "Flags": 0,
       "Name": "Point Light",
@@ -1226,7 +784,7 @@
             {
               "__type": "Sandbox.PointLight",
               "__guid": "35b98158-3ec8-4be6-93b9-09d60a081020",
-              "Attenuation": 0,
+              "Attenuation": 0.53,
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.91373,0.98039,1,1",
@@ -1247,7 +805,7 @@
             {
               "__type": "Sandbox.PointLight",
               "__guid": "0926e0ac-f8d8-4149-87fa-64be6088c17b",
-              "Attenuation": 0.12,
+              "Attenuation": 7.77,
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "1,0,0,1",
@@ -1549,330 +1107,26 @@
       ]
     },
     {
-      "__guid": "7f5cabb1-6680-48a4-bd1b-7286726f49db",
+      "__guid": "1ee9be0f-890c-49ae-ad75-17afdd942e78",
       "Flags": 0,
-      "Name": "Object",
-      "Position": "-1241.97,818.9512,162.2469",
+      "Name": "Sun",
+      "Position": "396.6906,815.455,257.5706",
+      "Rotation": "0,0.258819,0,0.9659258",
+      "Tags": "light_directional,light",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "Components": [
         {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "4172ca81-aa51-4421-9d37-4c2bfab64d54",
-          "IsSpawning": false,
-          "MaxSpawns": 10,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 50,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/slime.prefab"
-          }
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "1ae14959-6e61-4b3c-ae8f-7a9095477c1e",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Shadows": true,
+          "SkyColor": "0.05882,0.07451,0.08235,1"
         }
       ]
-    },
-    {
-      "__guid": "ec1512ef-22fb-479a-b058-603fcd6bd1ae",
-      "Flags": 0,
-      "Name": "Object (2)",
-      "Position": "-1522.003,818.9512,162.2469",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "6a613e36-a215-40fc-ade3-5000987fad1b",
-          "IsSpawning": false,
-          "MaxSpawns": 10,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "27b6e40f-ac15-410a-acaa-28b5ba2e18c1",
-      "Flags": 0,
-      "Name": "Object (6)",
-      "Position": "-1724.201,818.9512,162.2469",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "4f6dcf28-2f55-4763-8ed0-cfc43578420a",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "cb4c61f0-a564-42c9-ac88-ffa3baa6da9b",
-      "Flags": 0,
-      "Name": "Object (4)",
-      "Position": "-1522.003,704.1631,162.2469",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "5359059b-ded8-4e15-b83a-0a103a79934e",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "89581176-dbe3-4954-9c84-29e1fd820649",
-      "Flags": 0,
-      "Name": "Object (7)",
-      "Position": "-1522.003,598.3412,162.2469",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "f0874212-c67d-42b9-a096-7ebafbff50ee",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "10a2ca90-cf4c-404d-8c28-e07d6d5238b4",
-      "Flags": 0,
-      "Name": "Object (5)",
-      "Position": "-1522.003,910.1612,162.2469",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "98ea8ae5-3fd4-4c5b-8a0c-58add59880ab",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "9a6a6d3c-e338-4ccf-a154-99e171d5d2f7",
-      "Flags": 0,
-      "Name": "Object",
-      "Position": "591.3328,981.2617,51.74246",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "189db2c0-862b-4107-9f56-e1f1f9838d7b",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/pickupammo.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "2635eb7a-35fe-491e-be70-afd5f0a6aec8",
-      "Flags": 0,
-      "Name": "Object (9)",
-      "Position": "335.4924,827.7781,60.23313",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "90e6c556-f3d3-4fa2-816f-ea6547a8b444",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/vyndalium.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "083ff555-04fd-4cb5-86d3-3d339c8a83d5",
-      "Flags": 0,
-      "Name": "Object (8)",
-      "Position": "690.9635,981.2617,51.74246",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "cef24ba0-6095-4924-aef4-1f61a3daecf4",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/pickupammo.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "ea0ea0e5-6754-4c09-b4c9-1be66be2e455",
-      "Flags": 0,
-      "Name": "aksu (3)",
-      "Position": "399.1405,471.3742,52.00001",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/aksu/aksu.prefab"
-    },
-    {
-      "__guid": "0ac9a0e4-36a1-4a5e-880a-e8370750ba5c",
-      "Flags": 0,
-      "Name": "aksu (4)",
-      "Position": "390.8046,498.0531,52.00001",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/aksu/aksu.prefab"
-    },
-    {
-      "__guid": "e8885372-23c0-41b7-8af2-9eb353d23263",
-      "Flags": 0,
-      "Name": "m67",
-      "Position": "380.8139,526.8961,38.00001",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/m67_granade/m67.prefab"
-    },
-    {
-      "__guid": "06f83bc2-99ed-48ac-869b-495ec4752a61",
-      "Flags": 0,
-      "Name": "m67 (1)",
-      "Position": "376.0957,553.6989,38.00002",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/m67_granade/m67.prefab"
-    },
-    {
-      "__guid": "9d38dc8d-ef3c-4a49-b1a1-9dbc65da07fb",
-      "Flags": 0,
-      "Name": "m67 (2)",
-      "Position": "405.197,519.7937,38.00001",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/m67_granade/m67.prefab"
-    },
-    {
-      "__guid": "bc34b882-4d87-457b-869a-5e443004d8a8",
-      "Flags": 0,
-      "Name": "m67 (3)",
-      "Position": "403.2051,541.943,38.00001",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/m67_granade/m67.prefab"
-    },
-    {
-      "__guid": "df0a6ed4-22b9-42ff-8e9d-4e15c44fe93d",
-      "Flags": 0,
-      "Name": "m67 (4)",
-      "Position": "421.7441,513.0515,38.00001",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/m67_granade/m67.prefab"
-    },
-    {
-      "__guid": "260dccaa-e16c-41f0-8fb2-2daabd0c3633",
-      "Flags": 0,
-      "Name": "m67 (5)",
-      "Position": "393.2003,495.2067,38.00001",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/m67_granade/m67.prefab"
-    },
-    {
-      "__guid": "5cc5eafa-51e7-423b-9a63-3999c94fe543",
-      "Flags": 0,
-      "Name": "glock (3)",
-      "Position": "356.5468,521.512,40.00001",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/pm/glock.prefab"
-    },
-    {
-      "__guid": "39cbd424-f656-4ca6-8abe-84a81a82d177",
-      "Flags": 0,
-      "Name": "glock (4)",
-      "Position": "346.1556,550.7762,40.00001",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/pm/glock.prefab"
-    },
-    {
-      "__guid": "5a13969f-dba5-47e1-b1ba-a9ba2fcc0b29",
-      "Flags": 0,
-      "Name": "glock (5)",
-      "Position": "320.0631,517.8307,40.00001",
-      "Scale": "1.5,1.5,1.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/pm/glock.prefab"
     }
   ],
   "SceneProperties": {
@@ -1898,7 +1152,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-02T17:11:54.9274137\u002B02:00",
+  "LastSaved": "2024-06-03T19:45:23.0465313\u002B02:00",
   "ResourceVersion": 1,
   "__references": [
     "baik.roadsign_stop",

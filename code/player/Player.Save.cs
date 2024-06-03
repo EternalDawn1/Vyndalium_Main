@@ -177,6 +177,7 @@ partial class Player
 			Experience = (int)player.Experience,
 			Level = (int)player.Level,
 			MaxHealth = player.MaxHealth,
+			MaxMana = player.MaxMana,
 			MaxStamina = player.MaxStamina,
 			AttackPower = player.AttackPower,
 			MagicPower = player.MagicPower,
@@ -247,8 +248,11 @@ partial class Player
 		var save = tuple.Save;
 
 		player.MaxHealth = save.MaxHealth;
+		player.MaxMana = save.MaxMana;
+		player.MaxStamina = save.MaxStamina;
 		player.Vyndalium = save.Vyndalium;
 		player.Experience = save.Experience;
+		
 		player.Level = save.Level;
 		player.StatsPoints = save.StatsPoints;
 		player.MaxStamina = save.MaxStamina;

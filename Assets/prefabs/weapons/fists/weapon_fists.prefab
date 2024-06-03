@@ -1,0 +1,92 @@
+{
+  "RootObject": {
+    "__guid": "15d7f9ad-748b-462a-8f00-4d9f7ed89bbd",
+    "Flags": 0,
+    "Name": "weapon_fists",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Fists",
+        "__guid": "cf2acbe6-4e73-4215-99d0-209771831afb",
+        "Damage": 10,
+        "DamageType": "Serious",
+        "FireRate": 3,
+        "fists": {
+          "_type": "component",
+          "component_id": "624a6f56-f5b7-4f36-8325-3ccf962a012e",
+          "go": "49f8df82-0c1e-4977-8652-fb5126e80ebd",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "HitForce": 300,
+        "Spread": 0.01,
+        "ViewModelCamera": {
+          "_type": "gameobject",
+          "go": "9cd5c768-5564-44ca-8fae-664a9f29bee1"
+        }
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "9cd5c768-5564-44ca-8fae-664a9f29bee1",
+        "Flags": 0,
+        "Name": "Viewmodel",
+        "Position": "-9.689691,-4.8022,9.835373",
+        "Tags": "viewmodel",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.CameraComponent",
+            "__guid": "bca2fb32-2bbd-42df-8941-21182fcdc331",
+            "BackgroundColor": "0.33333,0.46275,0.52157,1",
+            "ClearFlags": "Depth, Stencil",
+            "FieldOfView": 80,
+            "IsMainCamera": false,
+            "Orthographic": false,
+            "OrthographicHeight": 1204,
+            "Priority": 1,
+            "RenderExcludeTags": "",
+            "RenderTags": "viewmodel,light",
+            "TargetEye": "None",
+            "Viewport": "0,0,1,1",
+            "ZFar": 10000,
+            "ZNear": 0.1
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "49f8df82-0c1e-4977-8652-fb5126e80ebd",
+            "Flags": 0,
+            "Name": "fists",
+            "Position": "0,0,0",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.SkinnedModelRenderer",
+                "__guid": "624a6f56-f5b7-4f36-8325-3ccf962a012e",
+                "AnimationGraph": "models/first_person/first_person_arms_punching.vanmgrph",
+                "BodyGroups": 21,
+                "CreateBoneObjects": false,
+                "Model": "models/first_person/first_person_arms.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1",
+                "UseAnimGraph": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

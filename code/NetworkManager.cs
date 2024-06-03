@@ -17,6 +17,7 @@ namespace GeneralGame
             {
                 await Task.DelayRealtimeSeconds(0.1f);
                 GameNetworkSystem.CreateLobby();
+                return;
             }
             
         }
@@ -40,6 +41,8 @@ namespace GeneralGame
             playerComponent.SetupConnection(channel);
             Player._InternalPlayers?.Add(playerComponent);
             playerObject.NetworkSpawn(channel);
+            
+            
 
             AssignComponentsToAllPlayers(playerComponent);
 

@@ -103,7 +103,7 @@ public partial class Player : Component, IHealthComponent
 	[Property]public float HE { get; set; } // Fügen Sie diese Zeile hinzu
     [Property] public float AbilityHaste { get; set; } // Fügen Sie diese Zeile hinzu
 	
-	private bool isFirstSpawn = true;
+	private static bool isFirstSpawn = true;
 	
 	
 	private bool WantsToCrouch { get; set; }
@@ -114,7 +114,7 @@ public partial class Player : Component, IHealthComponent
 	
 
 	[Property] public bool ThirdPersonEnabled { get; set; } 
-	
+	protected BoxCollider Collider;
 
 	HiddenBodyGroup _hideBodygroups;
 
@@ -277,28 +277,44 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy )
 			return;
 
-		
 		Weapons.GiveDefault();
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
 		LifeState = LifeState.Alive;
 		Components.GetOrCreate<Interactions>();
-		
 
-		if (isFirstSpawn)
+		if ( isFirstSpawn )
 		{
 			MaxHealth = 50f;
+			Health = MaxHealth;
 			MaxStamina = 50f;
 			MaxMana = 100f;
 			PlayerRunSpeed = 220f;
 			isFirstSpawn = false; // Markiere den ersten Spawn als abgeschlossen
 		}
-
-		// Setze die Gesundheit auf die maximale Gesundheit und die Ausdauer auf die maximale Ausdauer
 		Health = MaxHealth;
+		// Setze die Gesundheit auf die maximale Gesundheit und die Ausdauer auf die maximale Ausdauer
+		MaxHealth = Health;
 		Stamina = MaxStamina;
 		Mana = MaxMana;
 
+		// Starte die Gesundheitsregeneration
+		StartHealthRegen( 500f, 5f );
+	}
+
+	public async void StartHealthRegen(float regenAmount, float duration)
+	{
+		float originalHealth = MaxHealth;
+		float endTime = Time.Now + duration;
+
+		// Erhöhe die Gesundheit des Spielers über die Dauer hinweg
+		while (Time.Now < endTime)
+		{
+			Health = Math.Min(MaxHealth, Health + regenAmount * Time.Delta);
+			await Task.Delay(1000/60);
+		}
+
+		
 	}
 
 	[Broadcast]
@@ -389,6 +405,7 @@ public partial class Player : Component, IHealthComponent
 		Inventory = Components.Get<Inventory>( FindMode.EverythingInSelfAndDescendants );
 
 		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>();
+		Collider = Components.Get<BoxCollider>( FindMode.EverythingInSelfAndDescendants );
 
 		CharacterController = Components.GetInDescendantsOrSelf<CharacterController>();
 		CharacterController.IgnoreLayers.Add( "player" );
@@ -420,11 +437,16 @@ public partial class Player : Component, IHealthComponent
 		if ( !Game.IsPlaying || Scene == GameObject )
 			return;
 
-
+		if ( !IsProxy ) // Load save.
+		{
+			
+			Setup( this );
+		}
 
 
 		base.OnStart();
 	}
+
 
 
 
@@ -443,14 +465,14 @@ public partial class Player : Component, IHealthComponent
 		if ( hasViewModel )
 		{
 			shadowRenderer.Enabled = false;
-
-			ModelRenderer.Enabled = Ragdoll.IsRagdolled;
+			
+			ModelRenderer.Destroy();
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
 
 			foreach ( var c in clothing )
 			{
-				c.ModelRenderer.Enabled = Ragdoll.IsRagdolled;
-				c.ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
+				c.Destroy();
+				
 			}
 
 			return;
@@ -482,6 +504,7 @@ public partial class Player : Component, IHealthComponent
 				c.ModelRenderer.RenderType = IsProxy ? Sandbox.ModelRenderer.ShadowRenderType.On : Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 			}
 		}
+		
 		
 	}
 
@@ -574,6 +597,7 @@ public partial class Player : Component, IHealthComponent
 			EyeAngles = angles.WithRoll( 0f );
 			IsRunning = Input.Down( "Run" ) && !IsAiming;
 			Recoil = Recoil.LerpTo( Angles.Zero, Time.Delta * 8f );
+			HoldType = (Inventory.EquippedItems[(int)EquipSlot.Hand] as ItemEquipment)?.HoldType ?? HoldType.Idle;
 		}
 		// Überprüfen Sie den Gesundheitszustand des Spielers
         // Check the player's health status

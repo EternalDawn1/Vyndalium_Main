@@ -67,7 +67,7 @@ public class Interaction
 	/// The max distance you can use this interaction from
 	/// </summary>
 	[Property, Category( "Optional" )]
-	public float InteractDistance { get; set; } = 75f;
+	public float InteractDistance { get; set; } = 175f;
 
 	/// <summary>
 	/// Where this interaction is accessible from
