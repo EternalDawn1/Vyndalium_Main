@@ -58,13 +58,21 @@ namespace GeneralGame
         {
             if (SpawnPoints != null && SpawnPoints.Count > 0)
             {
-                return Random.Shared.FromList(SpawnPoints, default).Transform.World;
+                var spawnPoint = Random.Shared.FromList(SpawnPoints, default);
+                if (spawnPoint != null)
+                {
+                    return spawnPoint.Transform.World;
+                }
             }
 
             var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
             if (spawnPoints.Length > 0)
             {
-                return Random.Shared.FromArray(spawnPoints).Transform.World;
+                var spawnPoint = Random.Shared.FromArray(spawnPoints);
+                if (spawnPoint != null)
+                {
+                    return spawnPoint.Transform.World;
+                }
             }
 
             return Transform.World;

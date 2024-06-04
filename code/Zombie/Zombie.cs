@@ -403,6 +403,10 @@ public partial class Npc : Component ,IHealthComponent
 			{
 				AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
 				agent.MoveTo( closestPlayer.Transform.Position );
+				if(!isPlayerNearby)
+				{
+					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
+				}
 				
 			}
 		}
@@ -492,7 +496,8 @@ public partial class Npc : Component ,IHealthComponent
 			if ( Ragdoll == null ) // If we are not ragdolled
 			{
 				if (!IsPlayerNearby())
-				 // Überprüfen, ob ein Spieler in der Nähe ist
+				
+			
                 return;
 				if ( TargetObject == null )
 				{
@@ -518,10 +523,18 @@ public partial class Npc : Component ,IHealthComponent
 		else
 		{
 			MoveHelper.WishVelocity = 0;
+
 		}
 		
 		
 		
+	}
+
+	
+	private void StopAnimations()
+	{
+		
+    	
 	}
 
 	
@@ -781,31 +794,29 @@ public partial class Npc : Component ,IHealthComponent
 			Log.Info($"Zombie killed by: {KillerId}"); // yes
 			
 			GameObject.Destroy();
-			
-			
-			var killer = Scene.Directory.FindByGuid( attackerId );
-			
-				Log.Info("Killer found" + killer);
-				
-				var killerPlayer = killer.Components.Get<Player>(FindMode.EverythingInSelfAndAncestors);
-				if (killer == null)
-				{
-					Log.Info($"Killer with the id {KillerId} not found");  // yes
-					return;
-				}
-				else
-				{
-					Log.Info($"Killer with the id {KillerId} is found"); // no
-					int vyndaliumPointsToAdd = new Random().Next(1, 500);
-					int xpPointsToAdd = new Random().Next(75, 125);
 
-				// Geben Sie dem Killer Vyndalium und XP
-					killerPlayer.GiveVyndalium(vyndaliumPointsToAdd);
-					killerPlayer.GiveXp(xpPointsToAdd);
-				}
-				
+			var killer = Scene.Directory.FindByGuid(attackerId);
 
-		};
+			if (killer == null)
+			{
+				Log.Info($"Killer with the id {KillerId} not found");  // yes
+				return;
+			}
+
+			Log.Info("Killer found" + killer);
+
+			var killerPlayer = killer.Components.Get<Player>(FindMode.EverythingInSelfAndAncestors);
+
+			Log.Info($"Killer with the id {KillerId} is found"); // no
+			int vyndaliumPointsToAdd = new Random().Next(1, 500);
+			int xpPointsToAdd = new Random().Next(75, 125);
+
+			// Geben Sie dem Killer Vyndalium und XP
+			killerPlayer.GiveVyndalium(vyndaliumPointsToAdd);
+			killerPlayer.GiveXp(xpPointsToAdd);
+						
+
+				};
 
 	}
 	

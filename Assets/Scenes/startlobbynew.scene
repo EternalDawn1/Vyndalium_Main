@@ -1,0 +1,1168 @@
+{
+  "__guid": "689e6437-b91a-40b2-a3b6-e9a4511cafef",
+  "GameObjects": [
+    {
+      "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
+      "Flags": 0,
+      "Name": "MapObjects",
+      "Position": "-16.73947,-31.52794,131.4671",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Children": [
+        {
+          "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
+          "Flags": 0,
+          "Name": "Map",
+          "Position": "767.2023,-2519.431,1584.684",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.MapInstance",
+              "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
+              "MapName": "maps/untitled_1.vmap",
+              "UseMapFromLaunch": false
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "__guid": "e47368dc-2aa1-43c7-9701-476845bc0e7d",
+      "Flags": 0,
+      "Name": "GameManager",
+      "Position": "-4687.136,-3009.619,2645.524",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.PrefabInitializer",
+          "__guid": "5cfda952-13f4-4c3d-bb8f-acc675d405f4"
+        },
+        {
+          "__type": "GeneralGame.NetworkManager",
+          "__guid": "fa171ab4-1bf0-4b91-a947-0fb928804480",
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          },
+          "SpawnPoints": [
+            {
+              "_type": "gameobject",
+              "go": "19487e25-24c9-437a-8332-17ed4a81294b"
+            }
+          ],
+          "StartServer": true
+        }
+      ]
+    },
+    {
+      "__guid": "8f8e0bbb-0ebe-4d7e-b45a-d02855084809",
+      "Flags": 0,
+      "Name": "Starting",
+      "Position": "-71.67389,1092.026,182.1559",
+      "Scale": "-0.7654113,0.9841333,0.6492278",
+      "Tags": "interactable",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "94ad274e-f3fb-49e8-a242-ed263b217efd",
+          "BodyGroups": 18446744073709551615,
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "21060743-0eb2-4afe-bb4d-4df4258b5248",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false
+        },
+        {
+          "__type": "GeneralGame.SceneChangeDungeon",
+          "__guid": "2851095b-e6c8-487c-86c7-7eb564566d1a",
+          "SceneToLoad": "Game"
+        }
+      ]
+    },
+    {
+      "__guid": "70cae0d8-53fe-41e0-9ed7-42c2f6f040bc",
+      "Flags": 0,
+      "Name": "Starting (1)",
+      "Position": "-62.72311,1019.366,198.8367",
+      "Scale": "-0.7654113,0.9841333,0.6492278",
+      "Tags": "interactable",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "1b70a170-ee60-4fdb-8bbb-44f1d7293175",
+          "BodyGroups": 18446744073709551615,
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "8f794720-3565-4c03-8a52-7b2a536c3f14",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false
+        },
+        {
+          "__type": "GeneralGame.SceneChangeTriggertest",
+          "__guid": "f7075f35-1e2c-4797-9543-216b56a290e6",
+          "SceneToLoad": "Game"
+        }
+      ]
+    },
+    {
+      "__guid": "fda8f9e3-0ef2-47fd-bd0b-74d64ea16c1a",
+      "Flags": 0,
+      "Name": "Starting (2)",
+      "Position": "-16.51645,810.188,166.9848",
+      "Scale": "-0.7654113,0.9841333,0.6492278",
+      "Tags": "interactable",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b0724159-3089-467b-9fa4-a7f4d44c8023",
+          "BodyGroups": 18446744073709551615,
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "80842f75-045b-4dd3-8a75-ea660187259f",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false
+        },
+        {
+          "__type": "GeneralGame.SceneChangeTriggertest",
+          "__guid": "6fcfb6e0-022d-49b2-9c59-5e76abeadae1",
+          "SceneToLoad": "Game"
+        }
+      ]
+    },
+    {
+      "__guid": "d71c2760-1c7f-4926-a57e-ff79e9db9fac",
+      "Flags": 0,
+      "Name": "Shop",
+      "Position": "606.2068,638.8074,114.163",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.WorldPanel",
+          "__guid": "e16d33f3-3e95-42a2-863d-8fe23429c143",
+          "HorizontalAlign": "Center",
+          "InteractionRange": 1000,
+          "LookAtCamera": false,
+          "PanelSize": "4904.1,2840.603",
+          "RenderScale": 1,
+          "VerticalAlign": "Center"
+        },
+        {
+          "__type": "GeneralGame.HUD.ShopWorldPanel",
+          "__guid": "62af8d0c-30d7-45fd-b62e-2e32a39430d6"
+        }
+      ]
+    },
+    {
+      "__guid": "cdd165a4-f026-4b82-83dc-2fbe837342e7",
+      "Flags": 0,
+      "Name": "Shop (1)",
+      "Position": "-776.1601,-293.9969,220.5923",
+      "Rotation": "0,0,1,-0.00000004371139",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.WorldPanel",
+          "__guid": "ff99258d-2225-4453-9976-72231cc3cac4",
+          "HorizontalAlign": "Center",
+          "InteractionRange": 1000,
+          "LookAtCamera": false,
+          "PanelSize": "1920,1048",
+          "RenderScale": 1,
+          "VerticalAlign": "Center"
+        },
+        {
+          "__type": "GeneralGame.HUD.InteractWorldPanel",
+          "__guid": "2f2ad8b0-b155-4c0d-9947-f3d525559684"
+        }
+      ]
+    },
+    {
+      "__guid": "fb523d4e-d999-45f2-9790-b09953f6d876",
+      "Flags": 0,
+      "Name": "vyndalium",
+      "Position": "267.9038,700.4773,40.00002",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/vyndalium.prefab"
+    },
+    {
+      "__guid": "39977245-bc58-4143-896d-90caff855242",
+      "Flags": 0,
+      "Name": "vyndalium (1)",
+      "Position": "276.1658,755.7661,40",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/vyndalium.prefab"
+    },
+    {
+      "__guid": "7148d314-0230-4d43-8048-f51b4b1520ad",
+      "Flags": 0,
+      "Name": "vyndalium (2)",
+      "Position": "153.1422,662.1309,40",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/vyndalium.prefab"
+    },
+    {
+      "__guid": "eeb49d66-8bde-4bd2-a17a-d96bad81b07f",
+      "Flags": 0,
+      "Name": "aksu (1)",
+      "Position": "426.1948,743.7094,40.0179",
+      "Rotation": "0.6313837,-0.07334033,-0.05778167,0.7698294",
+      "Scale": "1.5,1.5,1.5",
+      "Tags": "interactable",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "fee4e1cb-db71-40ba-a1ad-ac1c464892f6",
+          "AnimationGraph": "models/aksu/aksu.vanmgrph",
+          "BodyGroups": 9493,
+          "CreateBoneObjects": false,
+          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "GeneralGame.BaseGun",
+          "__guid": "3c2caccc-39e4-44df-bfe2-ea66aae56ad8",
+          "AimPos": "-1,1.92,0.57",
+          "AimRotation": "0,0,0,0",
+          "AmmoType": "Rifle",
+          "ClipSize": 30,
+          "Damage": 20,
+          "DamageForce": 5,
+          "DamageType": "Bullet",
+          "DefaultAmmo": 360,
+          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
+          "DeployTime": 0.5,
+          "DisplayName": "Ak74U",
+          "EmptyClipSound": "models/aksu/ak74u_magout.sound",
+          "EmptyReloadSoundSequence": "models/aksu/aksu_reload_empty.sndseq",
+          "EmptyReloadTime": 3,
+          "FireRate": 9,
+          "FireSound": "models/aksu/ak74u shoot.sound",
+          "HitForce": 300,
+          "HoldType": "Rifle",
+          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+          "IdlePos": "-3,0,0",
+          "ImpactEffect": "particles/impact.generic.vpcf",
+          "IsAuto": true,
+          "IsDeployed": false,
+          "IsMagicWeapon": false,
+          "Recoil": "-5,0,0",
+          "ReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
+          "ReloadTime": 3,
+          "RunRotation": "-0.02574534,0.1378373,0.06286959,0.9881222",
+          "Spread": 0.01,
+          "Type": "Ranged",
+          "ViewModelPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/aksu/vm_aksu.prefab"
+          }
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "94dbae8d-553c-42f3-9daf-8d11cc150e8c",
+          "IsTrigger": false,
+          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+          "Static": false
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "da506e5f-dc6f-45c0-b4bb-72158a9c7f97",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "c8f78392-785c-4e0c-8694-fa9e937309db",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 1,
+            "IsValid": true,
+            "Scale": "1,1,1",
+            "Rotation": "0,0,0,1"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "An AK",
+          "DEX": 0,
+          "DMG": 200,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Rifle",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+            "MaterialGroup": "",
+            "Colour": "1,1,1,1",
+            "Position": "-1.8,4.5,0",
+            "Rotation": "0,0,0.7071068,0.7071068",
+            "Guid": "e23adcb4-7a59-4c04-92ce-88d76b9b52d2"
+          },
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "Name": "AKM",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "Slot": "Hand",
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "UpdatePosition": false,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "GeneralGame.Interactable",
+          "__guid": "8bf3b351-c3b5-4a5e-a330-bf24ff20c926"
+        },
+        {
+          "__type": "GeneralGame.Interactions",
+          "__guid": "bf6008d9-9649-4b3e-80ab-5573c2919bdf",
+          "HideOnEmpty": false,
+          "ObjectInteractions": []
+        }
+      ]
+    },
+    {
+      "__guid": "062ac88f-360d-4340-8325-75fff4b469fc",
+      "Flags": 0,
+      "Name": "aksu (2)",
+      "Position": "418.3477,694.3129,34.88499",
+      "Rotation": "0.6313836,-0.0733403,-0.05778171,0.7698293",
+      "Scale": "1.5,1.5,1.5",
+      "Tags": "interactable",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "ef5a4367-d1a7-4852-a3d4-f94a2d728a01",
+          "AnimationGraph": "models/aksu/aksu.vanmgrph",
+          "BodyGroups": 9493,
+          "CreateBoneObjects": false,
+          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "GeneralGame.BaseGun",
+          "__guid": "7e591fb7-21e2-480f-bed9-d1fd691475c0",
+          "AimPos": "-1,1.92,0.57",
+          "AimRotation": "0,0,0,0",
+          "AmmoType": "Rifle",
+          "ClipSize": 30,
+          "Damage": 20,
+          "DamageForce": 5,
+          "DamageType": "Bullet",
+          "DefaultAmmo": 360,
+          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
+          "DeployTime": 0.5,
+          "DisplayName": "Ak74U",
+          "EmptyClipSound": "models/aksu/ak74u_magout.sound",
+          "EmptyReloadSoundSequence": "models/aksu/aksu_reload_empty.sndseq",
+          "EmptyReloadTime": 3,
+          "FireRate": 9,
+          "FireSound": "models/aksu/ak74u shoot.sound",
+          "HitForce": 300,
+          "HoldType": "Rifle",
+          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+          "IdlePos": "-3,0,0",
+          "ImpactEffect": "particles/impact.generic.vpcf",
+          "IsAuto": true,
+          "IsDeployed": false,
+          "IsMagicWeapon": false,
+          "Recoil": "-5,0,0",
+          "ReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
+          "ReloadTime": 3,
+          "RunRotation": "-0.02523804,0.1292066,0.0627908,0.9893059",
+          "Spread": 0.01,
+          "Type": "Ranged",
+          "ViewModelPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/aksu/vm_aksu.prefab"
+          }
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "a2aae4ec-d964-4829-b7ba-f382e2cf76d3",
+          "IsTrigger": false,
+          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+          "Static": false
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "f529fc22-718d-447d-94ab-9e12946594e2",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "f518f1b1-f21c-4dc1-8dcb-dbf8a785c609",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 1,
+            "IsValid": true,
+            "Scale": "1,1,1",
+            "Rotation": "0,0,0,1"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "An AK",
+          "DEX": 0,
+          "DMG": 200,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Rifle",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+            "MaterialGroup": "",
+            "Colour": "1,1,1,1",
+            "Position": "-1.8,4.5,0",
+            "Rotation": "0,0,0.7071068,0.7071068",
+            "Guid": "e23adcb4-7a59-4c04-92ce-88d76b9b52d2"
+          },
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "Name": "AKM",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "Slot": "Hand",
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "UpdatePosition": false,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "GeneralGame.Interactable",
+          "__guid": "93472640-58b7-47ad-a030-aa9620a62eed"
+        },
+        {
+          "__type": "GeneralGame.Interactions",
+          "__guid": "e1d90f1d-32be-4d23-9803-2cb740a879bf",
+          "HideOnEmpty": false,
+          "ObjectInteractions": []
+        }
+      ]
+    },
+    {
+      "__guid": "f386fca3-13e7-4dab-b8d5-a1c67f4e64e0",
+      "Flags": 0,
+      "Name": "Point Light (1)",
+      "Position": "339.2738,-554.3819,113.9235",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "b4a7f2a2-7725-4893-a63f-2c4a353b2058",
+          "Attenuation": 0.8,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 435.5983,
+          "Shadows": true
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "bd6e9508-5d0a-4ce8-80d1-c7211b1afb5b",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-758.1294,1311.542,205.0555",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "2a2701d0-a409-4aa1-b182-05d71a64b108",
+              "Attenuation": 10,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.91373,0.98039,1,1",
+              "Radius": 1021.1002,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "4dc4bce7-cf6a-4ed2-9755-2075139de4b5",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-2228.475,1293.21,267.2796",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "c0a15c9b-1892-4697-b8fc-7a2c78a2936e",
+              "Attenuation": 3.81,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "a020e908-2856-404f-b119-048c8abcac77",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-4086.944,1293.21,222.3008",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "4bbc48ec-5a38-4953-b7e6-86a17ba889d4",
+              "Attenuation": 0.12,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "0091d859-ad6e-418f-86df-0288281b9320",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-3224.155,1293.21,246.0805",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "6afd3582-4007-412a-a971-bacad2cc6fe8",
+              "Attenuation": 0.19,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.73023,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "b03b4b53-f2a7-4f98-a8b9-5700d2aa3528",
+      "Flags": 0,
+      "Name": "Point Light (2)",
+      "Position": "1016.974,-557.1262,123.0235",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "62b01790-c794-426f-922e-22a34709571a",
+          "Attenuation": 0.12,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 435.5983,
+          "Shadows": true
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "5343462d-fcf8-4342-94a7-1774505c8f93",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-758.1294,1311.542,205.0555",
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "2653d615-5a26-4f03-8545-56c52f6deb11",
+              "Attenuation": 0.31,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.91373,0.98039,1,1",
+              "Radius": 1021.1002,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "19d1a68e-ffb4-4f61-9294-76c389ba680b",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-4086.944,1293.21,222.3008",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "c78c5b71-841c-48c4-8013-43a35f91dc57",
+              "Attenuation": 3.95,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "2e7dd82c-46e9-4ae6-b558-191f094db999",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-3224.155,1293.21,246.0805",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "0b54f1e4-bb1a-45f3-8c9a-27b5c1342ebe",
+              "Attenuation": 0.19,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.73023,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "4c0be62f-161d-4888-868d-b84f83352ec7",
+      "Flags": 0,
+      "Name": "Point Light",
+      "Position": "1016.974,-490.8821,123.0235",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "48ad6eb9-aaad-4d98-97b6-cb872a4e1d89",
+          "Attenuation": 0.12,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 435.5983,
+          "Shadows": true
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "1bb5ea5a-0631-4b66-8c44-a3bd3f78e20a",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-758.1294,1311.542,205.0555",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "35b98158-3ec8-4be6-93b9-09d60a081020",
+              "Attenuation": 0.53,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.91373,0.98039,1,1",
+              "Radius": 1021.1002,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "8e6b2896-43ef-4f97-a26d-5541e61e1229",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-2228.475,1293.21,267.2796",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "0926e0ac-f8d8-4149-87fa-64be6088c17b",
+              "Attenuation": 7.77,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "46651bcf-be35-45e2-a317-8c2910740719",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-4086.944,1293.21,222.3008",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "b8acf8b1-fe3d-4043-9866-3614dc04b4a7",
+              "Attenuation": 0.12,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "b04948fc-7585-448d-87a4-06ddd855a827",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-3224.155,1293.21,246.0805",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "006f3c14-3041-46b3-99e0-f2b87fb26237",
+              "Attenuation": 0.19,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.73023,0,0,1",
+              "Radius": 980,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "24c309d9-5004-4628-bc77-2935bff5962d",
+      "Flags": 0,
+      "Name": "duck_decoration",
+      "Position": "303.2546,1249.628,32.01669",
+      "Rotation": "0,-0,-0.0897635,0.9959631",
+      "Scale": "15,15,15",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "6ac4f7a5-d353-438b-8ef2-7c16dcace5a9",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/duck_decoration/duck_decoration.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a008156a-d325-4a82-9791-a4c5c1d35e48",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "442.1743,1579.584,122.3604",
+      "Rotation": "0,-0,-0.8655882,0.5007564",
+      "Tags": "light_point,light,light_spot",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpotLight",
+          "__guid": "ae4877a8-aaf0-462b-9c10-91e9fb0e3aa1",
+          "Attenuation": 0.12,
+          "ConeInner": 77.09,
+          "ConeOuter": 89.65,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 388.99823,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "722ec834-74ae-4ef6-af5a-3fcdda69d1fa",
+      "Flags": 0,
+      "Name": "Object (1)",
+      "Position": "193.0218,983.5023,180.5139",
+      "Rotation": "-0.005665763,0.02555644,0.2163668,0.9759611",
+      "Tags": "light_point,light,light_spot",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpotLight",
+          "__guid": "3ca745a4-05c6-4419-b3cc-1cb7d67e7c2e",
+          "Attenuation": 1.05,
+          "ConeInner": 77.09,
+          "ConeOuter": 59.65,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 388.99823,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "2580598c-4f62-4938-884d-178e43bb2cc9",
+      "Flags": 0,
+      "Name": "cowboyhat",
+      "Position": "383.7094,1269.567,22.49698",
+      "Rotation": "0.1974681,0.01443192,-0.8848314,0.4217482",
+      "Scale": "3,3,3",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "d8a31bb5-0544-4c89-8ecd-4f417106b1ad",
+          "BodyGroups": 18446744073709551615,
+          "Model": "sugma_clothing/cowboyhat.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "44fc445f-aaf5-4f47-9e17-b81805d1b928",
+      "Flags": 0,
+      "Name": "roadsign_stop",
+      "Position": "318.7313,1136.706,122.7018",
+      "Rotation": "0,0,0.7071068,-0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "ce38b5f8-dbf5-470a-b251-c09e63571541",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/roadsign_stop.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "6c056841-d4ea-45fb-b00f-c7b13243f204",
+      "Flags": 0,
+      "Name": "iron_fence_64",
+      "Position": "175.4309,1134.208,32.00843",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "7208275c-dd99-4107-904c-674764bb3b3e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 100,
+          "IsStatic": false,
+          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "867b81f1-9a61-414b-ad3c-3df5fdeec000",
+      "Flags": 0,
+      "Name": "iron_fence_64 (1)",
+      "Position": "239.3329,1134.208,32.00843",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "d164facc-1323-43fb-8ecd-2cc47df2569b",
+          "BodyGroups": 18446744073709551615,
+          "Health": 100,
+          "IsStatic": false,
+          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a33b9f7c-384e-4b7d-a854-f7eb2b9206f1",
+      "Flags": 0,
+      "Name": "iron_fence_64 (2)",
+      "Position": "303.4326,1134.208,32.00843",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "5a92dc9a-6b34-4bec-8e16-37fb98386f9a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 100,
+          "IsStatic": false,
+          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3e34ba0b-eeb8-4a67-b6aa-a81a76e9118a",
+      "Flags": 0,
+      "Name": "iron_fence_64 (3)",
+      "Position": "367.7137,1134.208,32.00843",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "5509dd11-74bc-4d27-b9b9-e61ea9303af6",
+          "BodyGroups": 18446744073709551615,
+          "Health": 100,
+          "IsStatic": false,
+          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "caf3fd07-1a07-4c9c-a2a1-7e7eb036cf2c",
+      "Flags": 0,
+      "Name": "iron_fence_64 (4)",
+      "Position": "431.9501,1134.208,32.00843",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "8c7a9d11-7628-4591-82e7-a36283488169",
+          "BodyGroups": 18446744073709551615,
+          "Health": 100,
+          "IsStatic": false,
+          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "1ee9be0f-890c-49ae-ad75-17afdd942e78",
+      "Flags": 0,
+      "Name": "Sun",
+      "Position": "396.6906,815.455,257.5706",
+      "Rotation": "0,0.7071067,0,0.7071068",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "1ae14959-6e61-4b3c-ae8f-7a9095477c1e",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Shadows": true,
+          "SkyColor": "0.05882,0.07451,0.08235,1"
+        }
+      ]
+    },
+    {
+      "__guid": "07c7924d-8980-41df-8002-0629077b6d9f",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "472.9039,607.3915,6.698314",
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "04bf590e-504d-4aac-8da6-565e0e079922",
+          "IsSpawning": false,
+          "MaxSpawns": 1,
+          "PlayerProximityDistance": 896.50006,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/zombie.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "19487e25-24c9-437a-8332-17ed4a81294b",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "471.7641,1118.854,-131.1053",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "0972cd15-4501-4725-804f-58fd39757254",
+          "Color": "0.8902,0.31765,0.05098,1"
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 60,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": true,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 0.49989566,
+      "AgentStepSize": 23.700022,
+      "AgentMaxSlope": 1388.1989,
+      "ExcludedBodies": "npc,solid",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "minimal",
+  "Description": "",
+  "LastSaved": "2024-06-04T23:42:54.9697086\u002B02:00",
+  "ResourceVersion": 1,
+  "__references": [
+    "baik.roadsign_stop",
+    "duccsoft.duck_decoration",
+    "facepunch.iron_fence_64",
+    "sugmaclothing.cowboyhat"
+  ],
+  "__version": 1
+}

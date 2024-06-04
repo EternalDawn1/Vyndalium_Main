@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using GeneralGame;
 using Sandbox;
 
@@ -12,6 +13,8 @@ public sealed class Fists : Component
     [Property] public float FireRate { get; set; } = 3f;
     [Property, Category( "Parameters" )] public DamageType DamageType { get; set; } = DamageType.Serious;
     public TimeUntil NextAttackTime { get; set; }
+    [Property] public ParticleSystem ImpactEffect { get; set; }
+    [Property] public float DamageForce { get; set; } = 5f;
 
 	protected override void OnStart()
 	{
@@ -60,11 +63,12 @@ public sealed class Fists : Component
     var endPos = startPos + direction * 1000f;
     var trace = Scene.Trace.Ray(startPos, endPos)
         .IgnoreGameObjectHierarchy(GameObject.Root)
-        .IgnoreGameObject(playerController.GameObject)
+
         .UseHitboxes()
         .Run();
 
     var damage = Damage;
+ 
 
     IHealthComponent damageable = null;
 
@@ -73,8 +77,12 @@ public sealed class Fists : Component
 
     if (damageable is not null)
     {
-        damageable.TakeDamage(DamageType.Bullet, damage, trace.EndPosition, trace.Direction , GameObject.Id, GameObject.Id);
+        damageable.TakeDamage(DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce , GameObject.Id, GameObject.Id);
     }
+    else if ( trace.Hit )
+		{
+			SendImpactMessage( trace.EndPosition, trace.Normal );
+		}
     
 
     var target = trace.GameObject;
@@ -92,6 +100,16 @@ public sealed class Fists : Component
 
     
 }
+[Broadcast]
+	private void SendImpactMessage( Vector3 position, Vector3 normal )
+	{
+		if ( ImpactEffect is null ) return;
+
+		var p = new SceneParticles( Scene.SceneWorld, ImpactEffect );
+		p.SetControlPoint( 0, position );
+		p.SetControlPoint( 0, Rotation.LookAt( normal ) );
+		p.PlayUntilFinished( Task );
+	}
 
 	void UpdateAnimations()
 {
