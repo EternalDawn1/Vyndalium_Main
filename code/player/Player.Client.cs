@@ -50,28 +50,28 @@ namespace GeneralGame
             if (connection.IsHost)
             {
                 HostID = Guid.NewGuid();
-                Log.Info($"HostID gesetzt: {HostID}");
+                
             }
             else 
             {
                 LocalID = Guid.NewGuid();
-                Log.Info($"LocalID gesetzt: {LocalID}");
+                
             }
         }
 
         public static Player GetByID(Guid id)
 		{
-			Log.Info($"Suche nach Spieler mit der ID: {id}");
+			
 			foreach (var player in _InternalPlayers)
 			{
-				Log.Info($"Spieler gefunden mit der ID: {player.ConnectionID}");
+				
 				if (player.ConnectionID == id)
 				{
-					Log.Info("Spieler gefunden");
+					
 					return player;
 				}
 			}
-			Log.Info("Spieler nicht gefunden");
+			
 			return null;
 		}
 

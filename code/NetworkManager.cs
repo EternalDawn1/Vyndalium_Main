@@ -34,7 +34,7 @@ namespace GeneralGame
             var playerComponent = playerObject.Components.Get<Player>(FindMode.EverythingInSelfAndDescendants);
             if (playerComponent == null)
             {
-                Log.Error("Player component not found in prefab");
+                
                 return;
             }
             
@@ -50,7 +50,7 @@ namespace GeneralGame
             if (channel.IsHost)
             {
                 HostId = playerComponent.HostID;
-                Log.Info($"HostId gesetzt: {HostId}");
+                
             }
         }
 
