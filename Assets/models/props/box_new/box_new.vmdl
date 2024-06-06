@@ -1,0 +1,136 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "knopf1.vmat"
+								to = "models/props/box_new/knopf1_base.vmat"
+							},
+							{
+								from = "metal.vmat"
+								to = "models/props/box_new/metal_roughness.vmat"
+							},
+							{
+								from = "wood.vmat"
+								to = "models/props/box_new/wood_roughness.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = "materials/default.vmat"
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "models/props/box_new/box_new.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 0.5
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"Cube",
+								"Cube_001",
+								"Cube_002",
+								"Cube_003",
+								"Cube_004",
+								"Cube_006",
+								"Cube_007",
+								"Cube_008",
+								"Cube_009",
+								"Cube_010",
+								"Cube_011",
+								"Cube_012",
+								"Cube_014",
+								"Cube_015",
+								"Cube_016",
+								"Cube_017",
+								"Cube_018",
+								"Cube_019",
+								"Cube_020",
+								"Cube_021",
+								"Cube_022",
+								"Cube_023",
+								"Cube_024",
+								"Cube_025",
+								"Cube_026",
+								"Cube_027",
+								"Cube_028",
+								"Cube_029",
+								"Cube_030",
+								"Cube_031",
+								"Cube_032",
+								"Cube_005",
+								"Cube_013",
+								"Sphere",
+								"Sphere_001",
+								"Sphere_002",
+								"Sphere_003",
+								"Sphere_004",
+								"Sphere_005",
+								"Sphere_006",
+								"Sphere_007",
+								"Sphere_008",
+								"Sphere_009",
+								"Sphere_010",
+								"Sphere_011",
+								"Sphere_012",
+								"Sphere_013",
+								"Sphere_014",
+								"Sphere_015",
+								"Sphere_016",
+								"Sphere_017",
+								"Sphere_018",
+								"Sphere_019",
+								"Sphere_020",
+								"Sphere_021",
+								"Sphere_022",
+								"Sphere_023",
+								"Cylinder",
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsHullFromRender"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						faceMergeAngle = 20.0
+						maxHullVertices = 32
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+		base_model_name = ""
+	}
+}
