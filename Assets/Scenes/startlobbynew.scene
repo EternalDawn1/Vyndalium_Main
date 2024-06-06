@@ -1,5 +1,5 @@
 {
-  "__guid": "689e6437-b91a-40b2-a3b6-e9a4511cafef",
+  "__guid": "86e1041f-eac6-422a-b004-e656fb6f3dd5",
   "GameObjects": [
     {
       "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
@@ -881,31 +881,6 @@
       ]
     },
     {
-      "__guid": "a008156a-d325-4a82-9791-a4c5c1d35e48",
-      "Flags": 0,
-      "Name": "Object",
-      "Position": "442.1743,1579.584,122.3604",
-      "Rotation": "0,-0,-0.8655882,0.5007564",
-      "Tags": "light_point,light,light_spot",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SpotLight",
-          "__guid": "ae4877a8-aaf0-462b-9c10-91e9fb0e3aa1",
-          "Attenuation": 0.12,
-          "ConeInner": 77.09,
-          "ConeOuter": 89.65,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "Radius": 388.99823,
-          "Shadows": true
-        }
-      ]
-    },
-    {
       "__guid": "722ec834-74ae-4ef6-af5a-3fcdda69d1fa",
       "Flags": 0,
       "Name": "Object (1)",
@@ -1077,7 +1052,7 @@
       "Flags": 0,
       "Name": "Sun",
       "Position": "396.6906,815.455,257.5706",
-      "Rotation": "0.000000006855988,0.7071067,0.00000001490116,0.7071068",
+      "Rotation": "0.09229594,0.7010573,0.09229597,0.7010574",
       "Tags": "light_directional,light",
       "Enabled": true,
       "NetworkMode": 2,
@@ -1088,9 +1063,9 @@
           "__guid": "1ae14959-6e61-4b3c-ae8f-7a9095477c1e",
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
+          "LightColor": "1,1,1,1",
           "Shadows": true,
-          "SkyColor": "0.05882,0.07451,0.08235,1"
+          "SkyColor": "1,1,1,1"
         }
       ]
     },
@@ -1150,15 +1125,15 @@
           "LinearDamping": 0,
           "Locking": {},
           "MassOverride": 0,
-          "MotionEnabled": true,
+          "MotionEnabled": false,
           "RigidbodyFlags": 0,
-          "StartAsleep": true
+          "StartAsleep": false
         },
         {
           "__type": "Sandbox.ModelCollider",
           "__guid": "b1ae7300-7f72-4170-aa37-9aeeeb8cc1df",
           "IsTrigger": false,
-          "Static": true,
+          "Static": false,
           "Surface": "surfaces/metal.surface"
         },
         {
@@ -1168,6 +1143,67 @@
           "Model": "models/blade_moon/blade_moon.vmdl",
           "RenderType": "On",
           "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "88031577-896d-438c-816f-f99a90cf0d28",
+      "Flags": 0,
+      "Name": "blade_moon (1)",
+      "Position": "-509.2778,-541.4397,218.1712",
+      "Rotation": "-0.113039,-0.06526311,0.7010574,0.7010574",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "573aa618-ca13-4ecf-9ca8-e3a41cc63e48",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "d95dfa7d-a584-4e6b-88c8-c91da88488bb",
+          "IsTrigger": false,
+          "Static": false,
+          "Surface": "surfaces/metal.surface"
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "496877e0-f30b-4826-8e11-ba1200047d9a",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/new_moon_sword/fullmoon_sword_2.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "9110dcd9-f6a8-4380-ac4d-d1d5544b432d",
+      "Flags": 0,
+      "Name": "Point Light",
+      "Position": "-493.1255,-688.4564,148.6345",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "32257dc2-77f0-4ab2-a95f-9a75d3203ae2",
+          "Attenuation": 0.06,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 481.2,
+          "Shadows": true
         }
       ]
     }
@@ -1195,7 +1231,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-05T23:51:55.4427859\u002B02:00",
+  "LastSaved": "2024-06-06T13:43:34.8676254\u002B02:00",
   "ResourceVersion": 1,
   "__references": [
     "baik.roadsign_stop",
