@@ -862,7 +862,7 @@
       "__guid": "0b36a59c-6c71-4af6-8fcb-1267070d1f1f",
       "Flags": 0,
       "Name": "Object",
-      "Position": "688.3011,780.154,62.60479",
+      "Position": "662.7007,780.154,62.60479",
       "Rotation": "0,0,1,-0.00000004371139",
       "Enabled": true,
       "NetworkMode": 2,
@@ -1168,7 +1168,7 @@
       "__guid": "c40d886e-454d-4334-b76f-e6f23f9b4fd1",
       "Flags": 0,
       "Name": "box_new (1)",
-      "Position": "419.8134,-491.5841,19.97922",
+      "Position": "469.1135,-395.9845,5.113955",
       "Rotation": "0,0,0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
@@ -1180,8 +1180,54 @@
           "BodyGroups": 18446744073709551615,
           "Health": 0,
           "IsStatic": false,
-          "Model": "models/box_legendary/box_open.vmdl",
+          "Model": "models/props/box_legendary/box2_unwrapped.vmdl",
           "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "05c5e692-d66c-48b7-a384-93dd46369f64",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "354.7704,781.3884,72.80389",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "07aa7777-207e-44ed-a427-2bb58234dda4",
+          "IsSpawning": false,
+          "MaxSpawns": 10,
+          "PlayerProximityDistance": 1000,
+          "RespawnTime": 50,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/pickupammo.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "849b5b40-7d5f-484d-ae2c-1c7bbc934ff6",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-1359.127,750.6964,187.1959",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "abc63bdf-ff95-4fc3-b246-d4ced2ec35a8",
+          "IsSpawning": false,
+          "MaxSpawns": 100,
+          "PlayerProximityDistance": 1000,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/zombie.prefab"
+          }
         }
       ]
     }
@@ -1209,7 +1255,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-07T11:30:47.2313026\u002B02:00",
+  "LastSaved": "2024-06-08T08:33:26.4279837\u002B02:00",
   "ResourceVersion": 1,
   "__references": [
     "baik.roadsign_stop",
