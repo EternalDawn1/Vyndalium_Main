@@ -26,7 +26,7 @@
 							<text class="description" style="color: @(isActive ? @interaction.Color.Hex : "#883232")">@interaction.Text</text>
 						</div>
 
-						@if( interaction.Cooldown && !interaction.CooldownTimer )
+						@if( interaction.Cooldown && !interaction.CooldownTimer || IsAccessible(interaction) )
 						{
 							<img class="circle" src="ui/hud/circle/circle_@(TimerIndex(interaction)).png" />
 						}
@@ -162,7 +162,8 @@
 		if (playerHasWeaponEquipped && interaction.Accessibility.HasFlag(AccessibleFrom.Hands))
 			return false; // Return false if player has a weapon equipped and the interaction is accessible from hands
 		if (!playerHasWeaponEquipped && interaction.Accessibility.HasFlag(AccessibleFrom.World))
-			return true;
+			return true; // Return true if player does not have a weapon equipped and the interaction is accessible from world
+
 		return false;
 	}
 

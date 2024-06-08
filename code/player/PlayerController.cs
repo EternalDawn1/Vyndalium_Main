@@ -281,7 +281,7 @@ public partial class Player : Component, IHealthComponent
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
 		LifeState = LifeState.Alive;
-		Components.GetOrCreate<Interactions>();
+		
 
 		if ( isFirstSpawn )
 		{
@@ -867,6 +867,7 @@ public partial class Player : Component, IHealthComponent
 
 		OnJump?.Invoke();
 	}
+	
 
 	
 }
