@@ -21,10 +21,10 @@ namespace GeneralGame
             }
         }
 
-        private void ChangeScene(Player player)
+        private async void ChangeScene(Player player)
         {
-            // Fügen Sie hier den Code hinzu, der die Szene ändert
-            // Zum Beispiel:
+            Sound.Play("sounds/fart.sound");
+            await Task.DelaySeconds(.01f);
             SceneHandler.ChangeScene(SceneToLoad);
         }
 

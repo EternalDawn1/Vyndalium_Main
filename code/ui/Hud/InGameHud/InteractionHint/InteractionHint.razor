@@ -143,6 +143,10 @@
 
 	private bool ShowHint()
 	{
+		var equippedWeapon = Player.Local?.Inventory?.EquippedItems?[(int)EquipSlot.Hand]?.GameObject;
+		if (equippedWeapon != null && _targetObject == equippedWeapon)
+			return false; // Keine Interaktionshinweise anzeigen, wenn das Zielobjekt die ausgerüstete Waffe ist
+
 		if (!_targetObject.IsValid())
 			return false;
 
@@ -160,11 +164,10 @@
 	{
 		var playerHasWeaponEquipped = Player.Local?.Inventory?.EquippedItems?[(int)EquipSlot.Hand]?.GameObject != null;
 		if (playerHasWeaponEquipped && interaction.Accessibility.HasFlag(AccessibleFrom.Hands))
-			return false; // Return false if player has a weapon equipped and the interaction is accessible from hands
+			return true; // Return false if player has a weapon equipped and the interaction is accessible from hands
 		if (!playerHasWeaponEquipped && interaction.Accessibility.HasFlag(AccessibleFrom.World))
-			return true; // Return true if player does not have a weapon equipped and the interaction is accessible from world
-
-		return false;
+			return false; // Return true if player does not have a weapon equipped and the interaction is accessible from world
+		return true;
 	}
 
 	private bool WithinRange(Interaction interaction)

@@ -18,31 +18,10 @@ public class Inventory : Component
 
 	private readonly List<ItemComponent> _backpackItems;
 	private readonly List<ItemComponent> _equippedItems;
-	private int currentIndex = 0;
-    private ItemComponent currentEquippedItem = null;
+	
+   
 
-	public void ScrollThroughEquippedItems(int direction)
-    {
-		
-        // Nehmen wir an, dass 'currentIndex' der Index des derzeit ausgewählten Items ist
-        currentIndex += direction;
-
-        // Stellen Sie sicher, dass der Index innerhalb der Grenzen bleibt
-        if (currentIndex < 0) currentIndex = _equippedItems.Count - 1;
-        if (currentIndex >= _equippedItems.Count) currentIndex = 0;
-
-        // Durchlaufen Sie die ausgerüsteten Items, bis Sie ein gültiges finden
-        while (_equippedItems[currentIndex] == null || !_equippedItems[currentIndex].IsEquipped)
-        {
-            currentIndex += direction;
-
-            if (currentIndex < 0) currentIndex = _equippedItems.Count - 1;
-            if (currentIndex >= _equippedItems.Count) currentIndex = 0;
-        }
-
-        // Aktualisieren Sie das derzeit ausgewählte Item
-        currentEquippedItem = _equippedItems[currentIndex];
-    }
+	
 	
 	public Inventory()
 	{
@@ -211,7 +190,7 @@ public class Inventory : Component
 		Player.Local.Evasion -= item.Evasion;
 		Player.Local.Block -= item.Cover;
 		Player.Local.BonusEXPGain -= item.BonusEXP;
-		Player.Local.BonusScore += item.BonusScore;
+		Player.Local.BonusScore -= item.BonusScore;
 		Player.Local.BonusVyndalium -= item.BonusVyndalium;
 		Player.Local.Tenacity -= item.Tenacity;
 		Player.Local.StunResist -= item.StunResistance;
@@ -529,6 +508,7 @@ public class Inventory : Component
 	{
 		_equippedItems[(int)equipment.Slot] = null;
 		UpdateBodygroups();
+		
 
 		
 	}

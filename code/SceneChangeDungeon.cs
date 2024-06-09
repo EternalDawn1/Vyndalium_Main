@@ -37,11 +37,12 @@ namespace GeneralGame
             // Optional: Code hier hinzufügen, der ausgeführt wird, wenn der Spieler den Triggerbereich verlässt
         }
 
-		private void LoadSaveAndChangeScene( Player player )
+		private async void LoadSaveAndChangeScene( Player player )
         {
             
             
-            
+            Sound.Play("sounds/fart.sound");
+            await Task.DelaySeconds(.01f);
             SceneHandler.ChangeScene(GeneralScene.Game);
         }
     }
