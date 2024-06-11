@@ -18,6 +18,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public List<CitizenAnimationHelper> Animators { get; private set; } = new();
 	[Property] private CitizenAnimationHelper ShadowAnimator { get; set; }
 	[Property] public WeaponContainer Weapons { get; set; }
+	public WeaponComponent DeployedWeapon { get; set; }
 	[Property] public CameraComponent PlyCamera { get; set; }
 	[Property] public GameObject ViewModelRoot { get; set; }
 	[Property] public AmmoContainer Ammo { get; set; }
@@ -654,28 +655,28 @@ public partial class Player : Component, IHealthComponent
 	}
 
 	protected virtual void DoCrouchingInput()
-	{
-		WantsToCrouch = CharacterController.IsOnGround && Input.Down( "Duck" );
+{
+    WantsToCrouch = CharacterController.IsOnGround && Input.Down( "Duck" );
 
-		if ( WantsToCrouch == IsCrouching )
-			return;
+    if ( WantsToCrouch == IsCrouching )
+        return;
 
-		if ( WantsToCrouch )
-		{
+    if ( WantsToCrouch )
+    {
 
-			CharacterController.Height = DuckHeight;
-			IsCrouching = true;
-		}
-		else
-		{
-			if ( !CanUncrouch() )
-				return;
+        CharacterController.Height = DuckHeight;
+        IsCrouching = true;
+    }
+    else
+    {
+        if ( !CanUncrouch() )
+            return;
 
-			CharacterController.Height = StandHeight;
-			IsCrouching = false;
-		}
+        CharacterController.Height = StandHeight;
+        IsCrouching = false;
+    }
 
-	}
+}
 
 	protected virtual void DoMovementInput()
 	{

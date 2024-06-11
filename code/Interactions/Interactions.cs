@@ -56,6 +56,8 @@ public class Interaction
 	[Property, Category( "Requird" )]
 	public string Stats { get; set; }
 
+	
+
 	/// <summary>
 	/// The action that is performed when interacted with
 	/// </summary>

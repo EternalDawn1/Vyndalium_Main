@@ -48,6 +48,7 @@ public class BaseGun : WeaponComponent, IUse
         {
             return;
         }
+		
 
         // Führen Sie alle notwendigen Initialisierungen für die Waffe durch
         // Zum Beispiel könnten Sie hier die Munition der Waffe auf den maximalen Wert setzen

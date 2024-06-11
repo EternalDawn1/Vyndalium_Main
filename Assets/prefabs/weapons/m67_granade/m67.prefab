@@ -1,10 +1,12 @@
 {
   "RootObject": {
     "__guid": "787f8c63-b9be-4ef2-a5cb-29b10f563c85",
+    "Flags": 0,
     "Name": "m67",
     "Scale": "1.5,1.5,1.5",
     "Enabled": true,
     "NetworkMode": 2,
+    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
@@ -13,7 +15,8 @@
         "CreateBoneObjects": false,
         "Model": "models/m67/w/m67.vmdl",
         "RenderType": "On",
-        "Tint": "1,1,1,1"
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
       },
       {
         "__type": "GeneralGame.BaseThrow",
@@ -68,31 +71,42 @@
         "Locking": {},
         "MassOverride": 0,
         "MotionEnabled": true,
-        "RigidbodyFlags": 0,
+        "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
       },
       {
         "__type": "GeneralGame.ItemEquipment",
         "__guid": "11e4c7b5-4abf-4b50-b78e-1013d0c4cf90",
         "AbilityHaste": 0,
+        "Armor": 0,
         "Attachment": "hand_R",
         "AttachmentTransform": {
           "UniformScale": 1,
+          "IsValid": true,
           "Scale": "1,1,1",
           "Rotation": "0,0,0,1"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
-        "Count": 1,
+        "BlindResistance": 0,
+        "BonusEXP": 0,
+        "BonusScore": 0,
+        "BonusVyndalium": 0,
+        "Count": 5,
+        "Cover": 0,
         "CritHitChance": 0,
         "CritHitDamage": 0,
         "DamageBalance": 100,
         "DEX": 0,
         "DMG": 0,
         "Durability": 1000,
+        "Evasion": 0,
+        "FireResistence": 0,
         "HE": 0,
         "HideBodygroups": "None",
         "HoldType": "Item",
+        "HolyResistence": 0,
+        "IceResistence": 0,
         "Icon": {
           "Model": "models/m67/w/m67.vmdl",
           "MaterialGroup": "",
@@ -103,14 +117,21 @@
         },
         "INT": 0,
         "ItemLevel": 0,
+        "LightningResistence": 0,
+        "MagicDefense": 0,
         "Mana": 0,
         "MaxStack": 5,
         "MoveSpeed": 0,
         "Name": "Grenade",
         "PER": 0,
+        "PoisonResistence": 0,
         "SellPrice": -1,
+        "ShadowResistence": 0,
         "Slot": "Hand",
+        "SlowResistence": 0,
         "STG": 0,
+        "StunResistance": 0,
+        "Tenacity": 0,
         "Tier": "C",
         "UpdatePosition": false,
         "UseSkinTint": false,
@@ -123,6 +144,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

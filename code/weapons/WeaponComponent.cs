@@ -35,6 +35,7 @@ public  class WeaponComponent : Component
 	public ViewModel ViewModel { get; set; }
 	public TimeUntil NextAttackTime { get; set; }
 	public SkinnedModelRenderer EffectRenderer => ViewModel.IsValid() ? ViewModel.ModelRenderer : ModelRenderer;
+	public EquipSlot Slot { get; set; }
 	
 	
 	protected override void OnStart()

@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "5b1289f5-be73-4d66-934e-160bee0a8159",
+    "__guid": "e2275ecb-34e9-41b2-8319-6a321f010cf2",
     "Flags": 0,
     "Name": "glock",
     "Scale": "1.5,1.5,1.5",
@@ -10,17 +10,18 @@
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
-        "__guid": "3a39b1b5-c2dd-40c5-9327-2a667c7df4b6",
+        "__guid": "47a226ea-6b2c-43ea-998b-a36e2ff76764",
         "AnimationGraph": "models/glock/glock.vanmgrph",
         "BodyGroups": 1,
         "CreateBoneObjects": false,
         "Model": "models/glock/w/w_glock20lod0.vmdl",
         "RenderType": "On",
-        "Tint": "1,1,1,1"
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
       },
       {
         "__type": "GeneralGame.BaseGun",
-        "__guid": "58d692ee-64ae-4151-b8c3-186a5b7895ba",
+        "__guid": "2551fda6-b376-457d-8a3e-5454934b348b",
         "AimPos": "-1.5,1.8,1",
         "AimRotation": "0,0,0,0",
         "AmmoType": "Pistol",
@@ -45,7 +46,6 @@
         "IsAuto": false,
         "IsDeployed": false,
         "IsMagicWeapon": true,
-        "ManaWeaponUsageCoast": 5,
         "MuzzleFlash": "particles/pistol_muzzleflash.vpcf",
         "Recoil": "-5,1,0",
         "ReloadSoundSequence": "models/glock/glockreload.sndseq",
@@ -60,7 +60,7 @@
       },
       {
         "__type": "Sandbox.SphereCollider",
-        "__guid": "d7262f2d-2570-4394-a151-0cdf66967134",
+        "__guid": "be288fab-4da7-4d5d-affc-bf6d4bde9826",
         "Center": "0,0,0",
         "IsTrigger": true,
         "Radius": 10,
@@ -68,26 +68,26 @@
       },
       {
         "__type": "Sandbox.ModelCollider",
-        "__guid": "f8fa23ae-b628-4bb7-bbd3-3dd4974a457d",
+        "__guid": "221b6fca-e1c0-4b4f-a6f7-1a68b3a1b6ac",
         "IsTrigger": false,
         "Model": "models/glock/w/w_glock20lod0.vmdl",
         "Static": false
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "bd997ec1-47e3-451c-b2b8-16173397eba5",
+        "__guid": "2339ba52-9591-446a-bf1d-53f840d38b2d",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
         "Locking": {},
         "MassOverride": 0,
         "MotionEnabled": true,
-        "RigidbodyFlags": 0,
+        "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
       },
       {
         "__type": "GeneralGame.ItemEquipment",
-        "__guid": "c182fbbf-7ecd-41c9-8bb2-e306bec0838e",
+        "__guid": "979c76ed-8ed5-4be4-99f9-eb4eee17ae7d",
         "AbilityHaste": 0,
         "Armor": 0,
         "Attachment": "hand_R",
@@ -151,7 +151,7 @@
       },
       {
         "__type": "GeneralGame.Interactions",
-        "__guid": "d77dd340-40bf-4e03-9e54-e98e2faed9d1",
+        "__guid": "9300e9ae-fc0e-4961-b693-190ed3d8240d",
         "HideOnEmpty": false,
         "ObjectInteractions": []
       }

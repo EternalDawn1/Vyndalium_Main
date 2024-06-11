@@ -4,8 +4,11 @@
 @inherits Panel
 
 <root>
+	@if ( !FromHands )
+	{
+		<image src="ui/hud/interaction-pointer.png" class="icon" />
+	}
 	
-	<image src="ui/hud/interaction-pointer.png" class="icon" />
 	<div class="content">
 		<text class="title">@DisplayName</text>
 		<div class="interactions">
@@ -153,6 +156,8 @@
 		if (!_targetObject.Components.TryGet<Interactions>(out var interactions))
 			return false;
 
+		
+
 		var interactionsAvailable = interactions.AllInteractions.Any(i => WithinBounds(i) && WithinRange(i));
 		if (!interactionsAvailable && interactions.HideOnEmpty)
 			return false;
@@ -162,12 +167,12 @@
 
 	private bool IsAccessible(Interaction interaction)
 	{
+		if (interaction.Accessibility.HasFlag(AccessibleFrom.World))
+			return true; // Return true if the interaction is accessible from world
 		var playerHasWeaponEquipped = Player.Local?.Inventory?.EquippedItems?[(int)EquipSlot.Hand]?.GameObject != null;
 		if (playerHasWeaponEquipped && interaction.Accessibility.HasFlag(AccessibleFrom.Hands))
-			return true; // Return false if player has a weapon equipped and the interaction is accessible from hands
-		if (!playerHasWeaponEquipped && interaction.Accessibility.HasFlag(AccessibleFrom.World))
-			return false; // Return true if player does not have a weapon equipped and the interaction is accessible from world
-		return true;
+			return false; // Return true if player has a weapon equipped and the interaction is accessible from hands
+		return false;
 	}
 
 	private bool WithinRange(Interaction interaction)

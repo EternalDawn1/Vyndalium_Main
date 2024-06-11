@@ -244,6 +244,7 @@ public partial class Npc : Component ,IHealthComponent
 	public bool IsIdle { get; set; } = false;
 	public bool IsAttacking { get; set; } = false;
 	public bool IsDamaged { get; set; } = false;
+	
 	[Property] private float PlayerProximityDistance { get; set; } = 400f;
 	public Guid KillerId { get; set; } // Fügen Sie diese Eigenschaft hinzu
 	public float ForceMultiplier
@@ -447,6 +448,7 @@ public partial class Npc : Component ,IHealthComponent
 		if ( AnimationHelper.MoveStyle != moveStyle )
 		{
 			AnimationHelper.MoveStyle = moveStyle;
+			
 		}
 	}
 

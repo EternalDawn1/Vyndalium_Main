@@ -25,6 +25,7 @@ public partial class Player : Component ,Component.ExecuteInEditor
 
    
 	public Inventory Inventory { get; private set; }
+  
 
 
 }

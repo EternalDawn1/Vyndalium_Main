@@ -98,29 +98,35 @@ public  partial class WeaponContainer : Component
 	}
 	public void ScrollThroughEquippedItems(int direction)
 	{
-		if ( !HasAny ) return;
+		if (!HasAny) return;
 
-		var weapons = All.ToList(); // Nehmen Sie an, dass 'All' alle Waffen zurückgibt
-		var currentIndex = -1;
-		var deployed = Deployed; // Sie müssen diese Eigenschaft entsprechend Ihrer Anforderungen implementieren
+		var weapons = GetEquippedItems(EquipSlot.Hand, EquipSlot.Back).ToList();
+		if (!weapons.Any()) return; // Fügt eine Überprüfung hinzu, um sicherzustellen, dass 'weapons' Elemente enthält
 
-		if ( deployed != null )
+		var currentIndex = 0;
+		var deployed = Deployed;
+
+		if (deployed != null)
 		{
-			currentIndex = weapons.IndexOf( deployed );
+			currentIndex = weapons.IndexOf(deployed);
 		}
 
-		currentIndex = (currentIndex + direction + weapons.Count) % weapons.Count; // Stellen Sie sicher, dass 'weapons.Count' die Anzahl der Elemente in der Liste zurückgibt
+		currentIndex = (currentIndex + direction + weapons.Count) % weapons.Count;
 
 		var nextWeapon = weapons[currentIndex];
-		if ( nextWeapon == deployed )
+		if (nextWeapon == deployed)
 			return;
 
-		foreach ( var weapon in weapons.Where( weapon => weapon != nextWeapon ) )
+		foreach (var weapon in weapons.Where(weapon => weapon != nextWeapon))
 		{
-			weapon.Holster(); // Sie müssen diese Methode entsprechend Ihrer Anforderungen implementieren
+			weapon.Holster();
 		}
 
-		nextWeapon.Deploy(); // Sie müssen diese Methode entsprechend Ihrer Anforderungen implementieren
+		nextWeapon.Deploy();
+	}
+	public List<WeaponComponent> GetEquippedItems(params EquipSlot[] slots)
+	{
+		return All.Where(w => slots.Contains(w.Slot)).ToList();
 	}
 	
 }

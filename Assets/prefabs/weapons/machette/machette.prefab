@@ -1,10 +1,12 @@
 {
   "RootObject": {
     "__guid": "6962692b-0e46-4a82-9d3a-c70745852d86",
+    "Flags": 0,
     "Name": "machette",
     "Scale": "1.5,1.5,1.5",
     "Enabled": true,
     "NetworkMode": 2,
+    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
@@ -13,7 +15,8 @@
         "CreateBoneObjects": false,
         "Model": "models/machette/w/w_machetelod0.vmdl",
         "RenderType": "On",
-        "Tint": "1,1,1,1"
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
       },
       {
         "__type": "GeneralGame.BaseMele",
@@ -69,31 +72,42 @@
         "Locking": {},
         "MassOverride": 0,
         "MotionEnabled": true,
-        "RigidbodyFlags": 0,
+        "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
       },
       {
         "__type": "GeneralGame.ItemEquipment",
         "__guid": "3bbc148d-dd63-4d3a-a78a-4b86d869521d",
         "AbilityHaste": 0,
+        "Armor": 0,
         "Attachment": "hand_R",
         "AttachmentTransform": {
           "UniformScale": 1,
+          "IsValid": true,
           "Scale": "1,1,1",
           "Rotation": "0,0,0,1"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
+        "BlindResistance": 0,
+        "BonusEXP": 0,
+        "BonusScore": 0,
+        "BonusVyndalium": 0,
         "Count": 0,
+        "Cover": 0,
         "CritHitChance": 0,
         "CritHitDamage": 0,
         "DamageBalance": 0,
         "DEX": 0,
         "DMG": 0,
         "Durability": 0,
+        "Evasion": 0,
+        "FireResistence": 0,
         "HE": 0,
         "HideBodygroups": "None",
         "HoldType": "Item",
+        "HolyResistence": 0,
+        "IceResistence": 0,
         "Icon": {
           "Model": "models/machette/w/w_machetelod0.vmdl",
           "MaterialGroup": "",
@@ -104,14 +118,21 @@
         },
         "INT": 0,
         "ItemLevel": 0,
+        "LightningResistence": 0,
+        "MagicDefense": 0,
         "Mana": 0,
         "MaxStack": 0,
         "MoveSpeed": 0,
         "Name": "Machete",
         "PER": 0,
+        "PoisonResistence": 0,
         "SellPrice": -1,
+        "ShadowResistence": 0,
         "Slot": "Hand",
+        "SlowResistence": 0,
         "STG": 0,
+        "StunResistance": 0,
+        "Tenacity": 0,
         "Tier": "C",
         "UpdatePosition": false,
         "UseSkinTint": false,
@@ -124,6 +145,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }
