@@ -120,6 +120,11 @@ public  class WeaponComponent : Component
 
 	public virtual void SecondaryAction()
 	{
+		var weapon = Player.Local.Weapons.Deployed;
+		if (weapon != null && weapon.IsValid())
+		{
+			weapon.Holster();
+		}
 		
 	}
 	public virtual void SeccondaryActionRelease()
@@ -171,11 +176,19 @@ public  class WeaponComponent : Component
 	{
 		ModelRenderer.Enabled = false;
 		var player = Components.GetInAncestors<Player>();
-		var playerDresser = player.Components.Get<PlayerDresser>();
-        if (playerDresser != null)
-        {
-            playerDresser.RemoveClothing();
-        }
+		if (player != null)
+		{
+			var playerDresser = player.Components.Get<PlayerDresser>();
+			if (playerDresser != null)
+			{
+				playerDresser.RemoveClothing();
+			}
+		}
+		else
+		{
+			Log.Error("Spieler ist null in OnHolstered");
+		}
+
 		DestroyViewModel();
 	}
 	

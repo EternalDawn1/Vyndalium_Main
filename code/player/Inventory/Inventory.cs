@@ -32,8 +32,13 @@ public class Inventory : Component
 	}
 
 	public int IndexOf( ItemComponent item )
-		=> (item is ItemEquipment equipment && equipment.Equipped ? _equippedItems : _backpackItems).IndexOf( item );
-
+	{
+		if (item == null)
+		{
+			return -1;
+		}
+		return (item is ItemEquipment equipment && equipment.Equipped ? _equippedItems : _backpackItems).IndexOf( item );
+	}
 	public bool HasSpaceInBackpack()
 		=> _backpackItems.IndexOf( null ) != -1;
 
@@ -89,6 +94,12 @@ public class Inventory : Component
 
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
+
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
+        if (weaponContainer != null)
+        {
+            weaponContainer.Give(item.GameObject, true);
+        }
 
 		Player.Local.Health += item.HE;
 		Player.Local.Armor += item.Armor;
@@ -154,7 +165,7 @@ public class Inventory : Component
 
 		return true;
 	}
-	
+	public WeaponContainer Weapons { get; set; }
 	public bool UnequipItem( ItemComponent item )
 	{
 		if ( item is not ItemEquipment equipment || !equipment.Equipped )
@@ -165,7 +176,11 @@ public class Inventory : Component
 		if ( firstFreeSlot == -1 )
 			return false;
 		
-		
+		if (Weapons != null && Weapons.Deployed != null)
+		{
+			Weapons.Deployed.Holster();
+			// Hier ViewModel und Waffe zerstören
+		}
 
 		RemoveEquipmentItem( equipment );
 		GiveBackpackItem( equipment, firstFreeSlot );

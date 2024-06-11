@@ -98,18 +98,24 @@ public  partial class WeaponContainer : Component
 	}
 	public void ScrollThroughEquippedItems(int direction)
 	{
+		Log.Info("ScrollThroughEquippedItems wurde aufgerufen");
+
 		if (!HasAny) return;
 
-		var weapons = GetEquippedItems(EquipSlot.Hand, EquipSlot.Back).ToList();
-		if (!weapons.Any()) return; // Fügt eine Überprüfung hinzu, um sicherzustellen, dass 'weapons' Elemente enthält
+		var weapons = All.ToList();
+		if (!weapons.Any()) return;
 
-		var currentIndex = 0;
+		Log.Info($"Anzahl der Waffen: {weapons.Count}");
+
+		var currentIndex = -1;
 		var deployed = Deployed;
 
 		if (deployed != null)
 		{
 			currentIndex = weapons.IndexOf(deployed);
 		}
+
+		Log.Info($"Aktueller Index: {currentIndex}");
 
 		currentIndex = (currentIndex + direction + weapons.Count) % weapons.Count;
 
@@ -126,7 +132,9 @@ public  partial class WeaponContainer : Component
 	}
 	public List<WeaponComponent> GetEquippedItems(params EquipSlot[] slots)
 	{
+		
 		return All.Where(w => slots.Contains(w.Slot)).ToList();
+		
 	}
 	
 }
