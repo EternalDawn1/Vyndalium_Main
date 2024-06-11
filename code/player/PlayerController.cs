@@ -182,9 +182,10 @@ public partial class Player : Component, IHealthComponent
 
 	[Sync] public HoldType HoldType { get; set; } = HoldType.Idle;
 
+	
 	public void IncreaseMana(float amount)
     {
-        Mana += amount;
+        MaxMana += amount;
     }
 	public void IncreaseCritHitDamage(float amount)
     {

@@ -260,7 +260,14 @@ public class BaseGun : WeaponComponent, IUse
 
 		if ( damageable is not null )
 		{
+			var playerAttackValue = shooter.AttackValue;
+			var playerAttackPower = shooter.AttackPower;
+    
+    		damage += (int)(damage * (playerAttackValue / 300.0f));
+			damage += (int)(damage * (playerAttackPower / 50.0f));
+			
 			damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
+			LogDamage(damage);
 		}
 		else if ( trace.Hit )
 		{
@@ -290,7 +297,10 @@ public class BaseGun : WeaponComponent, IUse
 
 	}
 	
-
+	private void LogDamage(float damage)
+    {
+        Log.Info($"Der Spieler hat {damage} Schaden verursacht.");
+    }
 	
 
 
@@ -352,7 +362,7 @@ public class BaseGun : WeaponComponent, IUse
     }
 
 	[Broadcast]
-	private void SendImpactMessage( Vector3 position, Vector3 normal )
+	private void SendImpactMessage( Vector3 position, Vector3 normal  )
 	{
 		if ( ImpactEffect is null ) return;
 
@@ -387,5 +397,31 @@ public class BaseGun : WeaponComponent, IUse
 		{
 			Sound.Play( FireSound, startPos );
 		}
-	} 
+	}
+	public class DamageText : Panel
+	{
+		private Label label;
+
+		public DamageText(Vector3 position, float damage)
+		{
+			// Erstellen Sie das Text-Label und fügen Sie es dem RootPanel hinzu
+			label = Add.Label($"{damage}", "damage-text");
+
+			// Fügen Sie eine Ausblendanimation hinzu
+			label.AddClass("fade-out");
+
+			// Setzen Sie die Position des Panels
+			Style.Left = Length.Pixels(position.x);
+			Style.Top = Length.Pixels(position.y);
+		}
+
+		public static void Create(Vector3 position, float damage, float fadeDuration)
+		{
+			// Erstellen Sie eine neue Instanz von DamageText
+			var damageText = new DamageText(position, damage);
+
+			// Fügen Sie eine Ausblendanimation hinzu
+			damageText.label.Style.Set("animation-duration", $"{fadeDuration}s");
+		}
+	}
 }

@@ -46,6 +46,10 @@
 		{
 			<div class="item-description">Mana: @Item.Mana</div>
 		}
+		@if (Item.Health != default(float))
+		{
+			<div class="item-description">Health: @Item.Health</div>
+		}
 		@if (Item.CritHitDamage != default(float))
 		{
 			<div class="item-description">Crit Hit Damage: @Item.CritHitDamage</div>
@@ -77,6 +81,10 @@
 		@if (Item.MoveSpeed != default(float))
 		{
 			<div class="item-description">Move Speed: @Item.MoveSpeed</div>
+		}
+		@if (Item.MagicPower != default(float))
+		{
+			<div class="item-description">Magic Power: @Item.MagicPower</div>
 		}
 		@if (Item.Armor != default(float))
 		{
@@ -117,6 +125,10 @@
 		@if (Item.BlindResistance != default(float))
 		{
 			<div class="item-description">Blind Resistance: @Item.BlindResistance</div>
+		}
+		@if (Item.BleedResistance != default(float))
+		{
+			<div class="item-description">Bleed Resistance: @Item.BleedResistance</div>
 		}
 		@if (Item.SlowResistence != default(float))
 		{

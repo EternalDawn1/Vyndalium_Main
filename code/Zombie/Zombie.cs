@@ -769,6 +769,7 @@ public partial class Npc : Component ,IHealthComponent
 	{
 		if (LifeState == LifeState.Dead)
 			return;
+		
 
 		if (type == DamageType.Bullet || type == DamageType.Serious)
 		{
@@ -783,6 +784,7 @@ public partial class Npc : Component ,IHealthComponent
 			return;
 
 		Health = Math.Clamp(Health - amount, 0f, MaxHealth);
+		
 
 		if (Health <= 0f) // checks if zombie is dead
 		{	
@@ -822,7 +824,7 @@ public partial class Npc : Component ,IHealthComponent
 
 	}
 	
-		
+	
 			
 				
 		

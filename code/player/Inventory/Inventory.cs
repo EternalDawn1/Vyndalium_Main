@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeneralGame.Event;
+
 
 namespace GeneralGame;
 
@@ -88,17 +90,21 @@ public class Inventory : Component
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
 
+		Player.Local.Health += item.HE;
 		Player.Local.Armor += item.Armor;
 		Player.Local.STG += item.STG;
 		Player.Local.HE += item.HE;
 		Player.Local.DEX += item.DEX;
 		Player.Local.PER += item.PER;
 		Player.Local.INT += item.INT;
-		Player.Local.IncreaseMana(item.Mana);
+		Player.Local.MaxMana += item.Mana;
+		Player.Local.MaxHealth += item.Health;
+		
 		Player.Local.IncreaseCritHitDamage(item.CritHitDamage);
 		Player.Local.IncreaseCritHitChance(item.CritHitChance);
 		Player.Local.AbilityHaste += item.AbilityHaste;
 		Player.Local.AttackPower += item.AttackPower;
+		Player.Local.MagicPower += item.MagicPower;
 		Player.Local.AttackSpeed += item.AttackSpeed;
 		Player.Local.MoveSpeed += item.MoveSpeed;
 		Player.Local.Armor += item.Armor;
@@ -111,6 +117,7 @@ public class Inventory : Component
 		Player.Local.Tenacity += item.Tenacity;
 		Player.Local.StunResist += item.StunResistance;
 		Player.Local.BlindResist += item.BlindResistance;
+		Player.Local.BleedResist += item.BleedResistance;
 		Player.Local.SlowResist += item.SlowResistence;
 		Player.Local.FireResist += item.FireResistence;
 		Player.Local.PoisonResist += item.PoisonResistence;
@@ -118,18 +125,11 @@ public class Inventory : Component
 		Player.Local.LightningResist += item.LightningResistence;
 		Player.Local.LightResist += item.HolyResistence;
 		Player.Local.ShadowResist += item.ShadowResistence;
+		Player.Local.AttackValue += item.DMG;
 
 		return true;
 	}
-	public void UnholsterWeapon(EquipSlot slot)
-{
-    var item = GetItemInSlot(slot);
-    if (item != null)
-    {
-        UnequipItem(item);
-        // Hier können Sie den Code hinzufügen, um die Waffe in der Hand des Spielers zu entholstern
-    }
-}
+	
 	public bool EquipItemFromWorld( ItemComponent item, bool forceReplace = false )
 	{
 		if ( item is not ItemEquipment equipment )
@@ -150,8 +150,7 @@ public class Inventory : Component
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
 		TaskMaster.SubmitTriggerSignal( $"item.received.{item.Name}", Player );
-		Player.Local.Armor += item.Armor;
-		Player.Local.STG += item.STG;
+		
 
 		return true;
 	}
@@ -178,13 +177,16 @@ public class Inventory : Component
 		Player.Local.DEX -= item.DEX;
 		Player.Local.PER -= item.PER;
 		Player.Local.INT -= item.INT;
-		Player.Local.Mana -= item.Mana;
+		Player.Local.MaxMana -= item.Mana;
+		Player.Local.MaxHealth -= item.Health;
 		Player.Local.CritHitDamage -= item.CritHitDamage;
 		Player.Local.CritHitChance -= item.CritHitChance;
 		Player.Local.AbilityHaste -= item.AbilityHaste;
 		Player.Local.AttackPower -= item.AttackPower;
+		Player.Local.MagicPower -= item.MagicPower;
 		Player.Local.AttackSpeed -= item.AttackSpeed;
 		Player.Local.MoveSpeed -= item.MoveSpeed;
+		Player.Local.BleedResist -= item.BleedResistance;
 		Player.Local.Armor -= item.Armor;
 		Player.Local.MagicDefense -= item.MagicDefense;
 		Player.Local.Evasion -= item.Evasion;
@@ -194,14 +196,15 @@ public class Inventory : Component
 		Player.Local.BonusVyndalium -= item.BonusVyndalium;
 		Player.Local.Tenacity -= item.Tenacity;
 		Player.Local.StunResist -= item.StunResistance;
+		Player.Local.IceResist -= item.IceResistence;
 		Player.Local.BlindResist -= item.BlindResistance;
 		Player.Local.SlowResist -= item.SlowResistence;
 		Player.Local.FireResist -= item.FireResistence;
 		Player.Local.PoisonResist -= item.PoisonResistence;
-		Player.Local.IceResist -= item.IceResistence;
 		Player.Local.LightningResist -= item.LightningResistence;
 		Player.Local.LightResist -= item.HolyResistence;
 		Player.Local.ShadowResist -= item.ShadowResistence;
+		Player.Local.AttackValue -= item.DMG;
 
 		return true;
 

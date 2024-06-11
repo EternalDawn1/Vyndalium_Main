@@ -50,11 +50,13 @@ public class ItemComponent : Component
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public int PER { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public float INT { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public float Mana { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 100 )] public float Health { get; set; }
 	[Property, Range( 0, 27 )] public int ItemLevel { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 175 )] public float CritHitDamage { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 150 )] public float CritHitChance { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 46 )] public float AbilityHaste { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float AttackPower { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float MagicPower { get; set; }
 	[Property] public Tier Tier { get; set; } 
 	[Property, Range( 100, 0 )] public int DamageBalance { get; set; }
 	[Property, Range( 1000, 0 )] public int Durability { get; set; }
@@ -72,6 +74,7 @@ public class ItemComponent : Component
 	[Property,Group( "Accessory" ),  Range( 0, 100 )] public float BlindResistance { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float SlowResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float FireResistence { get; set; }
+	[Property, Group( "Accessory" ), Range( 0, 100 )] public float BleedResistance { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float PoisonResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float IceResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float LightningResistence { get; set; }

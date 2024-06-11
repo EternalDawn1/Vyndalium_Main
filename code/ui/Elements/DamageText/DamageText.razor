@@ -1,0 +1,13 @@
+@using GeneralGame.HUD
+
+
+<DamageText @ref="DamageText" />
+
+@code {
+    private DamageText DamageTextInstance;
+    private void ShowDamageText(float damage, bool isCrit)
+    {
+        DamageTextInstance.ShowDamageText(damage, isCrit);
+    }
+    
+}

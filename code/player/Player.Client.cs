@@ -75,10 +75,6 @@ namespace GeneralGame
 			return null;
 		}
 
-        
-
-        
-
-         
-    }
+		
+	}
 }
