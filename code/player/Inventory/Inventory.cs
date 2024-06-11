@@ -526,7 +526,16 @@ public class Inventory : Component
 	{
 		_equippedItems[(int)equipment.Slot] = null;
 		UpdateBodygroups();
-		
+
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
+		if (weaponContainer != null)
+		{
+			var weapon = weaponContainer.All.FirstOrDefault(w => w.GameObject == equipment.GameObject);
+			if (weapon != null)
+			{
+				weapon.Holster();
+			}
+		}
 
 		
 	}

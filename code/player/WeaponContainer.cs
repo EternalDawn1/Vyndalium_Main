@@ -102,12 +102,12 @@ public  partial class WeaponContainer : Component
 
 		if (!HasAny) return;
 
-		var weapons = All.ToList();
+		var weapons = GetEquippedItems(EquipSlot.Back, EquipSlot.Hand);
 		if (!weapons.Any()) return;
 
 		Log.Info($"Anzahl der Waffen: {weapons.Count}");
 
-		var currentIndex = -1;
+		var currentIndex = 0;
 		var deployed = Deployed;
 
 		if (deployed != null)
