@@ -1,0 +1,272 @@
+{
+  "RootObject": {
+    "__guid": "895e2a14-8e1a-4219-a0c4-76bf1c2fda61",
+    "Flags": 0,
+    "Name": "slime",
+    "Tags": "bad,npc",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.NavMeshAgent",
+        "__guid": "fbd77d52-cc3b-411f-be4e-a39a4ab517cc",
+        "Acceleration": 237.39967,
+        "Height": 31.700174,
+        "MaxSpeed": 71.49985,
+        "Radius": 19.400007,
+        "Separation": 1,
+        "UpdatePosition": true,
+        "UpdateRotation": true
+      },
+      {
+        "__type": "GeneralGame.MoveHelper",
+        "__guid": "83b7b44f-eab8-4a59-b4a2-7ea7222f4d6f",
+        "AccelerationCurve": [
+          {
+            "y": 0.38297874
+          },
+          {
+            "x": 0.89285713,
+            "y": 1
+          }
+        ],
+        "AirAcceleration": 400,
+        "AirFriction": 6.5,
+        "Bounce": 0.5,
+        "Collider": {
+          "_type": "component",
+          "component_id": "5a647e16-7c84-4f82-be50-cbe8960cc5b0",
+          "go": "eda9331e-66f9-422c-8159-309719348a0b",
+          "component_type": "ModelCollider"
+        },
+        "EnableUnstuck": false,
+        "Gravity": "0,0,850",
+        "GroundAcceleration": 2065,
+        "GroundAngle": 45,
+        "GroundFriction": 33.7,
+        "IgnoreTags": "",
+        "MaxUnstuckTries": 20,
+        "OnComponentUpdate": {
+          "__version": 7,
+          "__guid": "5a77d48a-dd5b-4b0e-ad8b-1e4de8b35dea",
+          "UserData": {
+            "Title": "On Component Update"
+          },
+          "Variables": [],
+          "Nodes": [
+            {
+              "Id": 0,
+              "Type": "input"
+            },
+            {
+              "Id": 1,
+              "Type": "output"
+            }
+          ],
+          "Links": [
+            {
+              "SrcId": 0,
+              "SrcName": "_signal",
+              "DstId": 1,
+              "DstName": "_signal"
+            }
+          ]
+        },
+        "StepHeight": 31,
+        "StickToGround": true,
+        "StopSpeed": 10,
+        "TraceHeight": 64,
+        "TraceRadius": 12,
+        "TraceType": "Capsule",
+        "UseCollider": true,
+        "UseSceneGravity": true
+      },
+      {
+        "__type": "HealthComponent",
+        "__guid": "5d152a76-0711-426c-b801-ffca1fdab912",
+        "AnimationHelper": {
+          "_type": "component",
+          "component_id": "cb7a5aeb-d128-4dd3-a25f-61db1c59b00c",
+          "go": "895e2a14-8e1a-4219-a0c4-76bf1c2fda61",
+          "component_type": "CitizenAnimationHelper"
+        },
+        "CanRegenerate": false,
+        "DamagedBy": "Bullet",
+        "DropOnDeath": [
+          null
+        ],
+        "Health": 100,
+        "Immortal": false,
+        "MaxHealth": 9,
+        "RegenerationCooldown": 2,
+        "RegenerationTimer": 5,
+        "StunnedBy": "Bullet",
+        "StunWhenDamaged": false
+      },
+      {
+        "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+        "__guid": "cb7a5aeb-d128-4dd3-a25f-61db1c59b00c",
+        "BodyWeight": 1,
+        "EyeSource": {
+          "_type": "gameobject",
+          "go": "e7aa80c3-bc6d-4c6b-8a2a-8f4e0bbce8fa"
+        },
+        "EyesWeight": 1,
+        "HeadWeight": 1,
+        "LookAtEnabled": false,
+        "Target": {
+          "_type": "component",
+          "component_id": "4934d72f-1567-42b7-a248-73fbe482f105",
+          "go": "eda9331e-66f9-422c-8159-309719348a0b",
+          "component_type": "SkinnedModelRenderer"
+        }
+      },
+      {
+        "__type": "Slime",
+        "__guid": "45b6cfb4-5bf1-4a25-a007-f574e7594f60",
+        "AlertOthers": true,
+        "AnimationHelper": {
+          "_type": "component",
+          "component_id": "cb7a5aeb-d128-4dd3-a25f-61db1c59b00c",
+          "go": "895e2a14-8e1a-4219-a0c4-76bf1c2fda61",
+          "component_type": "CitizenAnimationHelper"
+        },
+        "AttackCooldown": 5,
+        "AttackRange": 80,
+        "Body": {
+          "_type": "gameobject",
+          "go": "eda9331e-66f9-422c-8159-309719348a0b"
+        },
+        "DetectRange": 256,
+        "Eye": {
+          "_type": "gameobject",
+          "go": "e7aa80c3-bc6d-4c6b-8a2a-8f4e0bbce8fa"
+        },
+        "FaceTowardsVelocity": true,
+        "Health": 100,
+        "Healthone": {
+          "_type": "component",
+          "component_id": "5d152a76-0711-426c-b801-ffca1fdab912",
+          "go": "895e2a14-8e1a-4219-a0c4-76bf1c2fda61",
+          "component_type": "HealthComponent"
+        },
+        "HitSounds": "sounds/slimeattack/slimeattackone.sound",
+        "Idle": true,
+        "MaxHealth": 100,
+        "MaximumIdleCooldown": 6,
+        "MaxRunAnimationSpeed": 150,
+        "MinimumIdleCooldown": 4,
+        "Model": {
+          "_type": "component",
+          "component_id": "4934d72f-1567-42b7-a248-73fbe482f105",
+          "go": "eda9331e-66f9-422c-8159-309719348a0b",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "MoveHelper": {
+          "_type": "component",
+          "component_id": "83b7b44f-eab8-4a59-b4a2-7ea7222f4d6f",
+          "go": "895e2a14-8e1a-4219-a0c4-76bf1c2fda61",
+          "component_type": "MoveHelper"
+        },
+        "Name": "Slime",
+        "RunningType": "Smart",
+        "RunSpeed": 180,
+        "ScaleStats": true,
+        "Static": false,
+        "VisionRange": 512,
+        "WalkingType": "Dumb",
+        "WalkSpeed": 90,
+        "Weight": "Middle",
+        "ZombieRagedol": {
+          "_type": "gameobject",
+          "prefab": "models/npcs/slime/slime_burst.prefab"
+        }
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "eda9331e-66f9-422c-8159-309719348a0b",
+        "Flags": 0,
+        "Name": "body",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "4934d72f-1567-42b7-a248-73fbe482f105",
+            "AnimationGraph": "models/npcs/slime/slime.vanmgrph",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": false,
+            "MaterialOverride": "materials/corrugated_steel/corrugated_steel.vmat",
+            "Model": "models/npcs/slime/slime.vmdl",
+            "RenderType": "On",
+            "Tint": "0.73488,0.28028,0.28028,1",
+            "UseAnimGraph": true
+          },
+          {
+            "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+            "__guid": "67669b7f-7c3d-4336-a4f8-581f332b21ef",
+            "BodyWeight": 1,
+            "EyesWeight": 1,
+            "HeadWeight": 1,
+            "Height": 0.96,
+            "LookAtEnabled": false,
+            "Target": {
+              "_type": "component",
+              "component_id": "4934d72f-1567-42b7-a248-73fbe482f105",
+              "go": "eda9331e-66f9-422c-8159-309719348a0b",
+              "component_type": "SkinnedModelRenderer"
+            }
+          },
+          {
+            "__type": "Sandbox.ModelCollider",
+            "__guid": "5a647e16-7c84-4f82-be50-cbe8960cc5b0",
+            "IsTrigger": false,
+            "Model": "models/dev/error.vmdl",
+            "Static": false
+          }
+        ]
+      },
+      {
+        "__guid": "e7aa80c3-bc6d-4c6b-8a2a-8f4e0bbce8fa",
+        "Flags": 0,
+        "Name": "eye",
+        "Position": "0,0,64",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true
+      },
+      {
+        "__guid": "b21b55ea-d194-4e85-8cce-d8aaedd6c3e6",
+        "Flags": 0,
+        "Name": "World",
+        "Position": "-1.323636,-0.5550555,84.45752",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.WorldPanel",
+            "__guid": "b77cb686-8602-4283-a3ca-13c5bac690c3",
+            "HorizontalAlign": "Center",
+            "InteractionRange": 1000,
+            "LookAtCamera": false,
+            "PanelSize": "512,512",
+            "RenderScale": 1,
+            "VerticalAlign": "Center"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "steeldevgroup.corrugated_steel"
+  ],
+  "__version": 1
+}

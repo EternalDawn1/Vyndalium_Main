@@ -434,7 +434,7 @@ public partial class Npc : Component ,IHealthComponent
 		UpdateFootAnimations();
 	}
 
-	void UpdateAnimations( Player player )
+	 void UpdateAnimations( Player player )
 	{
 		AnimationHelper.WithWishVelocity( agent.WishVelocity );
 		AnimationHelper.WithVelocity( MoveHelper.Velocity );

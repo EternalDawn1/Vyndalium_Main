@@ -94,49 +94,51 @@ public class Inventory : Component
 
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
+		Player.Local.AttackValue += item.DMG;
+		Player.Local.Health += item.HE;
+			Player.Local.Armor += item.Armor;
+			Player.Local.STG += item.STG;
+			Player.Local.HE += item.HE;
+			Player.Local.DEX += item.DEX;
+			Player.Local.PER += item.PER;
+			Player.Local.INT += item.INT;
+			Player.Local.MaxMana += item.Mana;
+			Player.Local.MaxHealth += item.Health;
+			
+			Player.Local.IncreaseCritHitDamage(item.CritHitDamage);
+			Player.Local.IncreaseCritHitChance(item.CritHitChance);
+			Player.Local.AbilityHaste += item.AbilityHaste;
+			Player.Local.AttackPower += item.AttackPower;
+			Player.Local.MagicPower += item.MagicPower;
+			Player.Local.AttackSpeed += item.AttackSpeed;
+			Player.Local.MoveSpeed += item.MoveSpeed;
+			Player.Local.Armor += item.Armor;
+			Player.Local.MagicDefense += item.MagicDefense;
+			Player.Local.Evasion += item.Evasion;
+			Player.Local.Block += item.Cover;
+			Player.Local.BonusEXPGain += item.BonusEXP;
+			Player.Local.BonusScore += item.BonusScore;
+			Player.Local.BonusVyndalium += item.BonusVyndalium;
+			Player.Local.Tenacity += item.Tenacity;
+			Player.Local.StunResist += item.StunResistance;
+			Player.Local.BlindResist += item.BlindResistance;
+			Player.Local.BleedResist += item.BleedResistance;
+			Player.Local.SlowResist += item.SlowResistence;
+			Player.Local.FireResist += item.FireResistence;
+			Player.Local.PoisonResist += item.PoisonResistence;
+			Player.Local.IceResist += item.IceResistence;
+			Player.Local.LightningResist += item.LightningResistence;
+			Player.Local.LightResist += item.HolyResistence;
+			Player.Local.ShadowResist += item.ShadowResistence;
 
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
         if (weaponContainer != null)
         {
             weaponContainer.Give(item.GameObject, true);
+			
+			
         }
-
-		Player.Local.Health += item.HE;
-		Player.Local.Armor += item.Armor;
-		Player.Local.STG += item.STG;
-		Player.Local.HE += item.HE;
-		Player.Local.DEX += item.DEX;
-		Player.Local.PER += item.PER;
-		Player.Local.INT += item.INT;
-		Player.Local.MaxMana += item.Mana;
-		Player.Local.MaxHealth += item.Health;
 		
-		Player.Local.IncreaseCritHitDamage(item.CritHitDamage);
-		Player.Local.IncreaseCritHitChance(item.CritHitChance);
-		Player.Local.AbilityHaste += item.AbilityHaste;
-		Player.Local.AttackPower += item.AttackPower;
-		Player.Local.MagicPower += item.MagicPower;
-		Player.Local.AttackSpeed += item.AttackSpeed;
-		Player.Local.MoveSpeed += item.MoveSpeed;
-		Player.Local.Armor += item.Armor;
-		Player.Local.MagicDefense += item.MagicDefense;
-		Player.Local.Evasion += item.Evasion;
-		Player.Local.Block += item.Cover;
-		Player.Local.BonusEXPGain += item.BonusEXP;
-		Player.Local.BonusScore += item.BonusScore;
-		Player.Local.BonusVyndalium += item.BonusVyndalium;
-		Player.Local.Tenacity += item.Tenacity;
-		Player.Local.StunResist += item.StunResistance;
-		Player.Local.BlindResist += item.BlindResistance;
-		Player.Local.BleedResist += item.BleedResistance;
-		Player.Local.SlowResist += item.SlowResistence;
-		Player.Local.FireResist += item.FireResistence;
-		Player.Local.PoisonResist += item.PoisonResistence;
-		Player.Local.IceResist += item.IceResistence;
-		Player.Local.LightningResist += item.LightningResistence;
-		Player.Local.LightResist += item.HolyResistence;
-		Player.Local.ShadowResist += item.ShadowResistence;
-		Player.Local.AttackValue += item.DMG;
 
 		return true;
 	}
@@ -179,48 +181,49 @@ public class Inventory : Component
 		if (Weapons != null && Weapons.Deployed != null)
 		{
 			Weapons.Deployed.Holster();
-			// Hier ViewModel und Waffe zerstören
+			
+			
+			
 		}
 
 		RemoveEquipmentItem( equipment );
 		GiveBackpackItem( equipment, firstFreeSlot );
 		equipment.State = ItemState.Backpack;
 		TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
-		Player.Local.Armor -= item.Armor;
-		Player.Local.STG -= item.STG;
-		Player.Local.HE -= item.HE;
-		Player.Local.DEX -= item.DEX;
-		Player.Local.PER -= item.PER;
-		Player.Local.INT -= item.INT;
-		Player.Local.MaxMana -= item.Mana;
-		Player.Local.MaxHealth -= item.Health;
-		Player.Local.CritHitDamage -= item.CritHitDamage;
-		Player.Local.CritHitChance -= item.CritHitChance;
-		Player.Local.AbilityHaste -= item.AbilityHaste;
-		Player.Local.AttackPower -= item.AttackPower;
-		Player.Local.MagicPower -= item.MagicPower;
-		Player.Local.AttackSpeed -= item.AttackSpeed;
-		Player.Local.MoveSpeed -= item.MoveSpeed;
-		Player.Local.BleedResist -= item.BleedResistance;
-		Player.Local.Armor -= item.Armor;
-		Player.Local.MagicDefense -= item.MagicDefense;
-		Player.Local.Evasion -= item.Evasion;
-		Player.Local.Block -= item.Cover;
-		Player.Local.BonusEXPGain -= item.BonusEXP;
-		Player.Local.BonusScore -= item.BonusScore;
-		Player.Local.BonusVyndalium -= item.BonusVyndalium;
-		Player.Local.Tenacity -= item.Tenacity;
-		Player.Local.StunResist -= item.StunResistance;
-		Player.Local.IceResist -= item.IceResistence;
-		Player.Local.BlindResist -= item.BlindResistance;
-		Player.Local.SlowResist -= item.SlowResistence;
-		Player.Local.FireResist -= item.FireResistence;
-		Player.Local.PoisonResist -= item.PoisonResistence;
-		Player.Local.LightningResist -= item.LightningResistence;
-		Player.Local.LightResist -= item.HolyResistence;
-		Player.Local.ShadowResist -= item.ShadowResistence;
 		Player.Local.AttackValue -= item.DMG;
-
+		Player.Local.Armor -= item.Armor;
+			Player.Local.STG -= item.STG;
+			Player.Local.HE -= item.HE;
+			Player.Local.DEX -= item.DEX;
+			Player.Local.PER -= item.PER;
+			Player.Local.INT -= item.INT;
+			Player.Local.MaxMana -= item.Mana;
+			Player.Local.MaxHealth -= item.Health;
+			Player.Local.CritHitDamage -= item.CritHitDamage;
+			Player.Local.CritHitChance -= item.CritHitChance;
+			Player.Local.AbilityHaste -= item.AbilityHaste;
+			Player.Local.AttackPower -= item.AttackPower;
+			Player.Local.MagicPower -= item.MagicPower;
+			Player.Local.AttackSpeed -= item.AttackSpeed;
+			Player.Local.MoveSpeed -= item.MoveSpeed;
+			Player.Local.BleedResist -= item.BleedResistance;
+			Player.Local.Armor -= item.Armor;
+			Player.Local.MagicDefense -= item.MagicDefense;
+			Player.Local.Evasion -= item.Evasion;
+			Player.Local.Block -= item.Cover;
+			Player.Local.BonusEXPGain -= item.BonusEXP;
+			Player.Local.BonusScore -= item.BonusScore;
+			Player.Local.BonusVyndalium -= item.BonusVyndalium;
+			Player.Local.Tenacity -= item.Tenacity;
+			Player.Local.StunResist -= item.StunResistance;
+			Player.Local.IceResist -= item.IceResistence;
+			Player.Local.BlindResist -= item.BlindResistance;
+			Player.Local.SlowResist -= item.SlowResistence;
+			Player.Local.FireResist -= item.FireResistence;
+			Player.Local.PoisonResist -= item.PoisonResistence;
+			Player.Local.LightningResist -= item.LightningResistence;
+			Player.Local.LightResist -= item.HolyResistence;
+			Player.Local.ShadowResist -= item.ShadowResistence;
 		return true;
 
 		
