@@ -593,7 +593,7 @@ public partial class Player : Component, IHealthComponent
 			var angles = EyeAngles.Normal;
 			angles += Input.AnalogLook * 0.5f;
 			angles += Recoil * Time.Delta;
-			angles.pitch = angles.pitch.Clamp( -60f, 80f );
+			angles.pitch = angles.pitch.Clamp( -80f, 89.9f );
 			
 
 			EyeAngles = angles.WithRoll( 0f );
