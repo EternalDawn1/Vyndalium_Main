@@ -302,6 +302,8 @@ public partial class Player : Component, IHealthComponent
 
 		// Starte die Gesundheitsregeneration
 		StartHealthRegen( 500f, 5f );
+
+		
 	}
 
 	public async void StartHealthRegen(float regenAmount, float duration)

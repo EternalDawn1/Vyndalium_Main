@@ -132,6 +132,7 @@ public class Inventory : Component
 
 		return true;
 	}
+	
 
 	public bool GiveItem( PrefabFile prefabFile )
 	{
@@ -555,6 +556,13 @@ public class Inventory : Component
 		// Rüsten Sie die neue Waffe aus
 		_equippedItems[(int)equipment.Slot] = equipment;
 
+		// Entfernen Sie den Gegenstand aus dem Rucksack
+		int index = _backpackItems.IndexOf(equipment);
+		if (index != -1)
+		{
+			_backpackItems.RemoveAt(index);
+		}
+
 		// Fügen Sie die Statistiken der neuen Waffe hinzu
 		EquipItemStats(equipment);
 
@@ -571,15 +579,12 @@ public class Inventory : Component
 		UnequipItemStats(equipment);
 
 		_equippedItems[(int)equipment.Slot] = null;
+
+		// Fügen Sie den Gegenstand zum Rucksack hinzu
+		_backpackItems.Add(equipment);
+
 		UpdateBodygroups();
-
-		var weaponContainer = Player.Components.Get<WeaponContainer>();
-		if (weaponContainer != null)
-		{
-			// Rest des Codes...
-		}
 	}
-
 	private void UpdateBodygroups()
 	{
 		var bodygroups = HiddenBodyGroup.None;

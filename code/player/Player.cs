@@ -22,6 +22,7 @@ public partial class Player : Component ,Component.ExecuteInEditor
             return false;
         }
     }
+    
 
    
 	public Inventory Inventory { get; private set; }
