@@ -161,7 +161,7 @@ public class Inventory : Component
     {
         if (previouslyEquippedItem != item) // Check if the item is already equipped
         {
-            UnequipItemStats(previouslyEquippedItem); // Ensure stats are removed for the previously equipped item
+             // Ensure stats are removed for the previously equipped item
             RemoveEquipmentItem(previouslyEquippedItem as ItemEquipment);
             GiveBackpackItem(previouslyEquippedItem, index);
             previouslyEquippedItem.State = ItemState.Backpack;
@@ -170,7 +170,7 @@ public class Inventory : Component
 
     if (previouslyEquippedItem != item) // Check if the item is already equipped
     {
-        EquipItemStats(item); // Now equip the new item stats
+        // Now equip the new item stats
         GiveEquipmentItem(equipment);
         equipment.State = ItemState.Equipped;
     }
@@ -201,7 +201,7 @@ public class Inventory : Component
 		}
 
 		SetOwner( item );
-		EquipItemStats( item);
+		
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
 		TaskMaster.SubmitTriggerSignal( $"item.received.{item.Name}", Player );
@@ -232,7 +232,7 @@ public class Inventory : Component
 		GiveBackpackItem( equipment, firstFreeSlot );
 		equipment.State = ItemState.Backpack;
 		TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
-		UnequipItemStats( item);
+		
 
 
 		return true;
@@ -249,7 +249,7 @@ public class Inventory : Component
 
 		item.State = ItemState.None;
 		TaskMaster.SubmitTriggerSignal( $"item.dropped.{item.Name}", Player );
-		UnequipItemStats( item);
+		
 
 		item.GameObject.Parent = null;
 
@@ -293,14 +293,14 @@ public class Inventory : Component
 		var previouslyEquippedItem = _equippedItems[(int)slot];
 		if ( previouslyEquippedItem is not null )
 
-		{	UnequipItemStats(previouslyEquippedItem); 
+		{	
 			RemoveEquipmentItem( previouslyEquippedItem as ItemEquipment );
 			GiveBackpackItem( previouslyEquippedItem, index );
 			previouslyEquippedItem.State = ItemState.Backpack;
 			
 		}
 		
-		EquipItemStats( item);
+		
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
 		
@@ -384,15 +384,15 @@ public class Inventory : Component
 		if ( previousBackpackItem is not null )
 		{
 			RemoveBackpackItem( previousBackpackItem, index );
-			UnequipItemStats( item);
+			
 			GiveEquipmentItem( previousBackpackItem as ItemEquipment );
 			previousBackpackItem.State = ItemState.Equipped;
-			EquipItemStats( item);
+			
 		}
 
 		GiveBackpackItem( item, index );
 		item.State = ItemState.Backpack;
-		UnequipItemStats( item);
+		
 		
 
 		return true;

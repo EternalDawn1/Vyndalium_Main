@@ -656,28 +656,30 @@ public partial class Player : Component, IHealthComponent
 	}
 
 	protected virtual void DoCrouchingInput()
-{
-    WantsToCrouch = CharacterController.IsOnGround && Input.Down( "Duck" );
+	{
+		WantsToCrouch = CharacterController.IsOnGround && Input.Down("Duck");
 
-    if ( WantsToCrouch == IsCrouching )
-        return;
+		if (WantsToCrouch == IsCrouching)
+			return;
 
-    if ( WantsToCrouch )
-    {
+		if (WantsToCrouch)
+		{
+			CharacterController.Height = DuckHeight;
+			IsCrouching = true;
+			// Setzen Sie die Kameraposition auf die DuckHeight
+			PlyCamera.Transform.Position = new Vector3(PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, DuckHeight);
+		}
+		else
+		{
+			if (!CanUncrouch())
+				return;
 
-        CharacterController.Height = DuckHeight;
-        IsCrouching = true;
-    }
-    else
-    {
-        if ( !CanUncrouch() )
-            return;
-
-        CharacterController.Height = StandHeight;
-        IsCrouching = false;
-    }
-
-}
+			CharacterController.Height = StandHeight;
+			IsCrouching = false;
+			// Setzen Sie die Kameraposition auf die StandHeight
+			PlyCamera.Transform.Position = new Vector3(PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, StandHeight);
+		}
+	}
 
 	protected virtual void DoMovementInput()
 	{
