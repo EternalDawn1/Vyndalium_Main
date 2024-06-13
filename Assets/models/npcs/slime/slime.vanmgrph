@@ -88,12 +88,12 @@
 											m_comparisonOp = 0
 											m_paramID = 
 											{
-												m_id = 1188373963
+												m_id = 867420017
 											}
 											m_comparisonValue = 
 											{
-												m_nType = 2
-												m_data = 2
+												m_nType = 1
+												m_data = true
 											}
 										},
 									]
@@ -125,12 +125,12 @@
 											m_comparisonOp = 0
 											m_paramID = 
 											{
-												m_id = 1188373963
+												m_id = 685853463
 											}
 											m_comparisonValue = 
 											{
-												m_nType = 2
-												m_data = 3
+												m_nType = 1
+												m_data = true
 											}
 										},
 									]
@@ -188,17 +188,10 @@
 									m_conditions = 
 									[
 										{
-											_class = "CParameterAnimCondition"
+											_class = "CFinishedCondition"
 											m_comparisonOp = 0
-											m_paramID = 
-											{
-												m_id = 1188373963
-											}
-											m_comparisonValue = 
-											{
-												m_nType = 2
-												m_data = 0
-											}
+											m_option = "FinishedConditionOption_OnFinished"
+											m_bIsFinished = true
 										},
 									]
 									m_blendDuration = 0.2
@@ -255,17 +248,10 @@
 									m_conditions = 
 									[
 										{
-											_class = "CParameterAnimCondition"
+											_class = "CFinishedCondition"
 											m_comparisonOp = 0
-											m_paramID = 
-											{
-												m_id = 1188373963
-											}
-											m_comparisonValue = 
-											{
-												m_nType = 2
-												m_data = 3
-											}
+											m_option = "FinishedConditionOption_OnFinished"
+											m_bIsFinished = true
 										},
 									]
 									m_blendDuration = 0.2
@@ -438,23 +424,28 @@
 		m_Parameters = 
 		[
 			{
-				_class = "CEnumAnimParameter"
-				m_name = "State"
+				_class = "CBoolAnimParameter"
+				m_name = "slime_attack"
 				m_id = 
 				{
-					m_id = 1188373963
+					m_id = 867420017
 				}
 				m_previewButton = "ANIMPARAM_BUTTON_NONE"
 				m_bUseMostRecentValue = false
-				m_bAutoReset = false
-				m_defaultValue = 0
-				m_enumOptions = 
-				[
-					"idle",
-					"spawn",
-					"attack",
-					"damage",
-				]
+				m_bAutoReset = true
+				m_bDefaultValue = false
+			},
+			{
+				_class = "CBoolAnimParameter"
+				m_name = "slime_damage"
+				m_id = 
+				{
+					m_id = 685853463
+				}
+				m_previewButton = "ANIMPARAM_BUTTON_NONE"
+				m_bUseMostRecentValue = false
+				m_bAutoReset = true
+				m_bDefaultValue = false
 			},
 		]
 	}
@@ -529,7 +520,7 @@
 	}
 	m_previewModels = 
 	[
-		"models/slime/slime.vmdl",
+		"models/npcs/slime/slime.vmdl",
 	]
 	m_boneMergeModels = [  ]
 	m_cameraSettings = 

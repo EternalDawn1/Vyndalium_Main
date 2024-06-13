@@ -402,7 +402,7 @@ public partial class Player : Component, IHealthComponent
 
 		Deaths++;
 	}
-
+	public Inventory InventoryGet { get; set; }
 	protected override void OnAwake()
 	{
 
@@ -425,6 +425,7 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		ResetViewAngles();
+		
 		
 	}
 

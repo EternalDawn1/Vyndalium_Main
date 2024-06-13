@@ -7,7 +7,7 @@ namespace GeneralGame;
 
 public sealed class ZombieRagdoll : Component
 {
-	private TimeUntil? TimeUntilDestroy { get; set; } = 10;
+	private TimeUntil? TimeUntilDestroy { get; set; } = 1.8f;
 
 	protected override void OnFixedUpdate()
 	{
@@ -18,4 +18,6 @@ public sealed class ZombieRagdoll : Component
 			GameObject.Destroy();
 		}
 	}
+	
+
 }

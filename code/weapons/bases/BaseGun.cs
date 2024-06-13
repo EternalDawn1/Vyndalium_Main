@@ -37,7 +37,8 @@ public class BaseGun : WeaponComponent, IUse
 	public int MaxAmmo { get; set; } // Add this line
 
     public bool IsEquipped { get; set; }
-	
+
+	public bool isCriticalHit = false;
 	
 	[Property] public bool IsMagicWeapon { get; set; }
 
@@ -87,11 +88,13 @@ public class BaseGun : WeaponComponent, IUse
 		return baseDamage + bonusDamage + magicBonus;
 	}
 
-	
+	GameObject Hitprefab;
 	
 	protected override void OnStart()
 	{
-
+		
+		Hitprefab = SceneUtility.GetPrefabScene(ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ));
+		
 		Components.GetOrCreate<Interactions>();
 		
 		base.OnStart();
@@ -250,6 +253,8 @@ public class BaseGun : WeaponComponent, IUse
 		var damage = Damage;
 		var origin = attachment?.Position ?? startPos;
 
+
+
 		SendAttackMessage( origin, trace.EndPosition, trace.Distance );
 
 		IHealthComponent damageable = null;
@@ -262,12 +267,48 @@ public class BaseGun : WeaponComponent, IUse
 		{
 			var playerAttackValue = shooter.AttackValue;
 			var playerAttackPower = shooter.AttackPower;
+			var playerCritChance = shooter.CritHitChance;
+			var playerCritDamage = shooter.CritHitDamage;
     
     		damage += (int)(damage * (playerAttackValue / 300.0f));
-			damage += (int)(damage * (playerAttackPower / 50.0f));
+			Random random = new Random();
+			int calculatedDamage = (int)(damage * (playerAttackPower / 50.0f));
+			damage += random.Next(0, calculatedDamage + 1);
+
+			int critRoll = random.Next(0, 101);
+			{
+				if (critRoll <= playerCritChance)
+				{
+					damage += (int)(damage * 1.5f + playerCritDamage);
+					isCriticalHit = true;
+
+				}
+				else
+				{
+					isCriticalHit = false;
+				}
+			}
 			
 			damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
 			LogDamage(damage);
+			GameObject hitinfo = Hitprefab.Clone(trace.EndPosition);
+			FaceThing facething = hitinfo.Components.Get<FaceThing>();
+			facething.Thing = shooter.GameObject;
+			TextRenderer textRenderer = hitinfo.Components.Get<TextRenderer>();
+			if(isCriticalHit)
+			{
+				textRenderer.Color = Color.Red;
+			}
+			else
+			{
+				textRenderer.Color = Color.White;
+			}
+			textRenderer.Text = $"{damage}";
+			ScaleTextWithDistance scaleTextWithDistance = hitinfo.Components.Get<ScaleTextWithDistance>();
+			scaleTextWithDistance.Thing = shooter.GameObject;
+			/// <summary>
+			/// Made from TrollFaceReallife47 thanks <3
+			/// </summary>
 		}
 		else if ( trace.Hit )
 		{

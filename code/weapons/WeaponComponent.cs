@@ -98,12 +98,17 @@ public  class WeaponComponent : Component
 		if ( IsDeployed )
 		{
 			OnHolstered();
+			
 			IsDeployed = false;
 			if (Owner != null && Owner.ModelRenderer != null)
 			{
 				Owner.ModelRenderer.Enabled = false;
+				
 			}
+			
 		}
+		
+		
 	}
 
 	public virtual void PrimaryAction()

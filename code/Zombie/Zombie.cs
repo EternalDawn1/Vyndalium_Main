@@ -331,30 +331,7 @@ public partial class Npc : Component ,IHealthComponent
 
 		bool isPlayerNearby = IsPlayerNearby();	
 
-		if ( Model != null)
-		{
-			
-			if ( Spawner != null && Spawner.IsSpawning )
-			{
-				Model.Set("slime_spawn", true);
-			}
-			else if (!isPlayerNearby)
-			{
-				Model.Set("slime_idle", true);
-			}
-			else if (IsAttacking)
-			{
-				Model.Set("slime_attack", true);
-			}
-			else if (IsDamaged)
-			{
-				Model.Set("slime_damage", true);
-			}
-			else if (IsRunning)
-			{
-				Model.Set("slime_run", true);
-			}
-		}
+		
 			
 		
 
@@ -483,6 +460,8 @@ public partial class Npc : Component ,IHealthComponent
                 damageable.TakeDamage( DamageType.Bullet, 10, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
 
                 AnimationHelper.Target.Set( "b_attack", true );
+
+				if(Model != null)Model.Set("slime_attack", true);
                 timeSinceHit = 0;
 
                 Sound.Play( HitSounds, Transform.Position );
@@ -779,6 +758,7 @@ public partial class Npc : Component ,IHealthComponent
 			p.SetControlPoint(1, new Vector3(0.5f, 0.1f, 0.1f));
 			p.PlayUntilFinished(Task);
 		}
+		if(Model != null)Model.Set("slime_damage", true) ;
 
 		if (Network.IsProxy)
 			return;

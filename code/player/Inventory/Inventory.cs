@@ -148,22 +148,22 @@ public class Inventory : Component
 		return res;
 	}
 	public bool EquipItemFromBackpack(ItemComponent item)
-	{
-		var index = _backpackItems.IndexOf(item);
+{
+    var index = _backpackItems.IndexOf(item);
     if (index == -1)
         return false;
 
     if (item is not ItemEquipment equipment)
         return false;
 
-    var slotIndex = (int)equipment.Slot;
+    var slotIndex = equipment.IsBackable ? (int)EquipSlot.Back : (int)equipment.Slot;
     var previouslyEquippedItem = _equippedItems[slotIndex];
 
     if (previouslyEquippedItem != null)
     {
         if (previouslyEquippedItem != item) // Check if the item is already equipped
         {
-             // Ensure stats are removed for the previously equipped item
+            // Ensure stats are removed for the previously equipped item
             RemoveEquipmentItem(previouslyEquippedItem as ItemEquipment);
             GiveBackpackItem(previouslyEquippedItem, index);
             previouslyEquippedItem.State = ItemState.Backpack;
@@ -184,7 +184,7 @@ public class Inventory : Component
     }
 
     return true;
-	}
+}
 	
 	public bool EquipItemFromWorld( ItemComponent item, bool forceReplace = false )
 	{
@@ -230,10 +230,8 @@ public class Inventory : Component
 		if (Weapons != null && Weapons.Deployed != null)
 		{
 			Weapons.Deployed.Holster();
-			
-			
-			
 		}
+		
 
 		RemoveEquipmentItem( equipment );
 		GiveBackpackItem( equipment, firstFreeSlot );
@@ -246,6 +244,7 @@ public class Inventory : Component
 			if (weapon != null)
 			{
 				weapon.Holster();
+				
 			}
 		}
 

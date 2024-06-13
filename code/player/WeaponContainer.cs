@@ -44,7 +44,44 @@ public  partial class WeaponContainer : Component
 	public void Give( GameObject prefab, bool shouldDeploy = false )
 	{
 		if ( IsProxy ) return;
+		if (prefab == null)
+    {
+        Log.Error("Prefab is null in WeaponContainer.Give");
+        return;
+    }
+	
 
+    prefab.SetParent(WeaponBone);
+    
+    if (WeaponBone != null)
+    {
+        prefab.Transform.Position = WeaponBone.Transform.Position;
+        prefab.Transform.Rotation = WeaponBone.Transform.Rotation;
+    }
+    else
+    {
+        Log.Error("WeaponBone is null in WeaponContainer.Give");
+    }
+
+    var modelCollider = prefab.Components.Get<ModelCollider>();
+    if (modelCollider != null)
+    {
+        modelCollider.Destroy();
+    }
+    else
+    {
+        Log.Error("ModelCollider is null in WeaponContainer.Give");
+    }
+
+    var rigidBody = prefab.Components.Get<Rigidbody>();
+    if (rigidBody != null)
+    {
+        rigidBody.Destroy();
+    }
+    else
+    {
+        Log.Error("RigidBody is null in WeaponContainer.Give");
+    }
 		
 		var weaponGo = prefab.Clone();
 		var weapon = weaponGo.Components.GetInDescendantsOrSelf<WeaponComponent>( true );
@@ -85,8 +122,10 @@ public  partial class WeaponContainer : Component
 		weaponGo.NetworkSpawn();
 		weaponGo.Components.Get<ModelCollider>().Destroy();
 		weaponGo.Components.Get<Rigidbody>().Destroy();
+		
 	}
 	
+		
 	public void Next()
 	{
 		ScrollThroughEquippedItems(1);
@@ -136,5 +175,6 @@ public  partial class WeaponContainer : Component
 		return All.Where(w => slots.Contains(w.Slot)).ToList();
 		
 	}
+	
 	
 }
