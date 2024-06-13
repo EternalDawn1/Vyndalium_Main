@@ -59,6 +59,7 @@ public class Inventory : Component
 			Player.Local.LightResist += item.HolyResistence;
 			Player.Local.ShadowResist += item.ShadowResistence;
 	}
+	
 	public static void UnequipItemStats(ItemComponent item)
 	{
 		Player.Local.AttackValue -= item.DMG;
@@ -213,9 +214,14 @@ public class Inventory : Component
 	public WeaponContainer Weapons { get; set; }
 	public bool UnequipItem( ItemComponent item )
 	{
-		if ( item is not ItemEquipment equipment || !equipment.Equipped )
-			return false;
-			
+		
+		if (item is not ItemEquipment equipment)
+        return false;
+
+		var slotIndex = (int)equipment.Slot;
+		var equippedItem = _equippedItems[slotIndex];	
+		if (equippedItem != item) // Check if the item is the one equipped
+        return false;	
 		
 		var firstFreeSlot = _backpackItems.IndexOf( null );
 		if ( firstFreeSlot == -1 )
@@ -233,7 +239,15 @@ public class Inventory : Component
 		GiveBackpackItem( equipment, firstFreeSlot );
 		equipment.State = ItemState.Backpack;
 		TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
-		
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
+		if (weaponContainer != null)
+		{
+			var weapon = weaponContainer.All.FirstOrDefault(w => w.GameObject == item.GameObject);
+			if (weapon != null)
+			{
+				weapon.Holster();
+			}
+		}
 
 
 		return true;
@@ -552,6 +566,10 @@ public class Inventory : Component
 			// Wenn ja, entfernen Sie die Statistiken der ausgerüsteten Waffe
 			UnequipItemStats(_equippedItems[(int)equipment.Slot]);
 		}
+		if (equipment.IsBackable && _equippedItems[(int)EquipSlot.Back] == null)
+        {
+            _equippedItems[(int)EquipSlot.Back] = equipment;
+        }
 
 		// Rüsten Sie die neue Waffe aus
 		_equippedItems[(int)equipment.Slot] = equipment;
