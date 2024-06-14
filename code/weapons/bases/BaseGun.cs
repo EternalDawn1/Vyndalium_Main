@@ -40,7 +40,22 @@ public class BaseGun : WeaponComponent, IUse
 
 	public bool isCriticalHit = false;
 	
+	
 	[Property] public bool IsMagicWeapon { get; set; }
+
+	private  _hierarchyEditor;
+
+    public BaseGun(Widget parent) : base(parent)
+    {
+        // Initialisieren Sie den HierarchyEditor
+        _hierarchyEditor = new HierarchyEditor(parent);
+
+        // Fügen Sie Ihre Komponente zur Liste der Komponenten im HierarchyEditor hinzu
+        _hierarchyEditor.AddComponent(this);
+    }
+
+
+
 
 	public virtual void OnEquip(Player player)
     {
