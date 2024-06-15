@@ -48,7 +48,13 @@ public  partial class WeaponContainer : Component
     {
         Log.Error("Prefab is null in WeaponContainer.Give");
         return;
+		
     }
+	if (WeaponBone == null)
+	{
+		Log.Error("WeaponBone is null in WeaponContainer.Give");
+		return;
+	}
 	
 
     prefab.SetParent(WeaponBone);

@@ -527,12 +527,14 @@ public class Inventory : Component
 	/// <summary>
 	/// The item is given to the backpack.
 	/// </summary>
-	private void GiveBackpackItem( ItemComponent item, int index )
+	private void GiveBackpackItem(ItemComponent item, int index)
 	{
-		if ( index >= 0 && index < _backpackItems.Count )
-			_backpackItems[index] = item;
+		// Überprüfen Sie, ob das Item bereits in der Liste ist
+		if (_backpackItems.Contains(item))
+			return;
 
-		
+		if (index >= 0 && index < _backpackItems.Count)
+			_backpackItems[index] = item;
 	}
 
 	/// <summary>
