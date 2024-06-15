@@ -273,6 +273,17 @@ public partial class Player : Component, IHealthComponent
 		await Task.DelaySeconds( seconds );
 		Respawn();
 	}
+	public void EquipWeaponsOnSpawn()
+	{
+		foreach (var item in Inventory.EquippedItems)
+		{
+			if (item is ItemEquipment equipment)
+			{
+				Inventory.GiveEquipmentItem(equipment);
+			}
+		}
+	}
+	
 
 	public void Respawn()
 	{
@@ -280,6 +291,7 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		Weapons.GiveDefault();
+		EquipWeaponsOnSpawn();
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
 		LifeState = LifeState.Alive;

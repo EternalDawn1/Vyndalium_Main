@@ -35,10 +35,23 @@ public  partial class WeaponContainer : Component
 
 	public void GiveDefault()
 	{
-		if ( IsProxy ) return;
-		if ( !StartingWeapon.IsValid() ) return;
-		
-		Give( StartingWeapon, true );
+		if (IsProxy) return;
+
+		// Überprüfen Sie, ob ein Item im EquipSlot vorhanden ist
+		var equippedItem = Inventory.GetItemInSlot(EquipSlot.Hand); // Ersetzen Sie Primary durch den gewünschten Slot
+		if (equippedItem != null)
+		{
+			// Wenn ja, geben Sie das ausgerüstete Item
+			Give(equippedItem.GameObject, true);
+
+			// Rüsten Sie das Item automatisch aus
+			Inventory.EquipItemFromBackpack(equippedItem);
+		}
+		else if (StartingWeapon.IsValid())
+		{
+			// Wenn kein Item ausgerüstet ist, geben Sie das StartingWeapon
+			Give(StartingWeapon, true);
+		}
 	}
 	
 	public void Give( GameObject prefab, bool shouldDeploy = false )

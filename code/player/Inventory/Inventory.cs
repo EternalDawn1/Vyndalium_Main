@@ -214,24 +214,23 @@ public class Inventory : Component
 	public WeaponContainer Weapons { get; set; }
 	public bool UnequipItem( ItemComponent item )
 	{
-		
 		if (item is not ItemEquipment equipment)
-        return false;
+			return false;
 
 		var slotIndex = (int)equipment.Slot;
 		var equippedItem = _equippedItems[slotIndex];	
 		if (equippedItem != item) // Check if the item is the one equipped
-        return false;	
-		
+			return false;	
+			
 		var firstFreeSlot = _backpackItems.IndexOf( null );
 		if ( firstFreeSlot == -1 )
 			return false;
-		
+			
 		if (Weapons != null && Weapons.Deployed != null)
 		{
 			Weapons.Deployed.Holster();
 		}
-		
+			
 
 		RemoveEquipmentItem( equipment );
 		GiveBackpackItem( equipment, firstFreeSlot );
@@ -244,14 +243,10 @@ public class Inventory : Component
 			if (weapon != null)
 			{
 				weapon.Holster();
-				
 			}
 		}
 
-
 		return true;
-
-		
 	}
 	
 	public bool DropItem( ItemComponent item )
@@ -559,7 +554,7 @@ public class Inventory : Component
 	/// <summary>
 	/// The item is equipped.
 	/// </summary>
-	private void GiveEquipmentItem(ItemEquipment equipment)
+	public void GiveEquipmentItem(ItemEquipment equipment)
 	{
 		// Überprüfen Sie, ob bereits eine Waffe ausgerüstet ist
 		if (_equippedItems[(int)equipment.Slot] != null)
@@ -588,7 +583,7 @@ public class Inventory : Component
 		TaskMaster.SubmitTriggerSignal($"item.equipped.{equipment.Name}", Player);
 		UpdateBodygroups();
 	}
-
+	
 	/// <summary>
 	/// The item is unequipped.
 	/// </summary>
@@ -601,7 +596,7 @@ public class Inventory : Component
 
 		// Fügen Sie den Gegenstand zum Rucksack hinzu
 		_backpackItems.Add(equipment);
-
+		
 		UpdateBodygroups();
 	}
 	private void UpdateBodygroups()
