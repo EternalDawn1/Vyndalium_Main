@@ -301,8 +301,9 @@ public class BaseGun : WeaponComponent, IUse
 			FaceThing facething = hitinfo.Components.Get<FaceThing>();
 			facething.Thing = shooter.GameObject;
 			TextRenderer textRenderer = hitinfo.Components.Get<TextRenderer>();
+			
 			if(isCriticalHit)
-			{
+		{
 				textRenderer.Color = Color.Red;
 			}
 			else
