@@ -34,7 +34,8 @@ public class BaseGun : WeaponComponent, IUse
     private float SoundDuration { get; set; } = 0f;
 	 private const float EmptyClipSoundDuration = 1f;
 	public ItemComponent item { get; set; }
-	public int MaxAmmo { get; set; } // Add this line
+	[Sync]public int MaxAmmo { get; set; } // Add this line
+	
 
     public bool IsEquipped { get; set; }
 

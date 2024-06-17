@@ -8,7 +8,8 @@ Inventory {
     pointer-events: all;
     transition: opacity 0.13s ease;
     opacity: 1;
-    .sidehud{
+
+    .sidehud {
         position: absolute;
         right: 88%;
         top: 1%;
@@ -22,27 +23,30 @@ Inventory {
         border-radius: 10px;
         gap: 35%;
     }
-    .list{
-       
-        .inventory{
-          
-           flex-direction: row-reverse;
-           right: 20%;
-           padding: 10%;
-           gap: 30%;
-           margin-top: 20px;
+
+    .list {
+
+        .inventory {
+
+            flex-direction: row-reverse;
+            right: 20%;
+            padding: 10%;
+            gap: 30%;
+            margin-top: 20px;
             border-radius: 5px;
             background-color: rgba(0, 0, 0, 0);
-            .Hello{
+
+            .Hello {
                 position: absolute;
                 left: 50px;
-                top:40px;
+                top: 40px;
                 font-size: 32px;
                 font-family: Geneva;
-                color:white;
-                
+                color: white;
+
             }
-            .search-bar{
+
+            .search-bar {
                 position: absolute;
                 width: 50%;
                 height: 10%;
@@ -51,35 +55,36 @@ Inventory {
                 border-radius: 4px;
                 font-size: 16px;
             }
-            .section
-            {
+
+            .section {
                 flex-direction: column;
-                
-                
-                .box{
+
+
+                .box {
                     flex-direction: column;
-                    
-                    
+
+
                 }
             }
 
         }
-      
-       
+
+
     }
-    .section2{
-       
-        
+
+    .section2 {
+
+
         .items {
             flex-wrap: wrap;
             width: 700px;
             overflow-x: scroll;
-            
+
         }
     }
-    
 
-    
+
+
 }
 
 @keyframes blink {

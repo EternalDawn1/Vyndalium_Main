@@ -4,7 +4,7 @@
 @inherits Panel
 
 <root>
-	<img src=@texture.ResourcePath/>
+	<img src=@texture.ResourcePath />
 	<div class="title-container">
 		<label>@name</label>
 	</div>
@@ -30,7 +30,7 @@
 	private string name;
 	private Texture texture;
 
-	public DraggableItem( InventorySlot slot, Vector2 holdPoint )
+	public DraggableItem(InventorySlot slot, Vector2 holdPoint)
 	{
 		Style.ZIndex = 99;
 
@@ -40,8 +40,8 @@
 		var size = slot.Box.Rect.Size;
 		_holdPoint = size / 2;
 
-		SetPositionInScreenPixels( Mouse.Position );
-		SetSizeInScreenPixels( size );
+		SetPositionInScreenPixels(Mouse.Position);
+		SetSizeInScreenPixels(size);
 
 		ItemComponent = slot.Item;
 
@@ -49,16 +49,16 @@
 		name = slot.Item.Name;
 		texture = slot.Item.IconTexture;
 
-		PlaySound( "drag" );
+		PlaySound("drag");
 	}
 
-	private void SetSizeInScreenPixels( Vector2 v )
+	private void SetSizeInScreenPixels(Vector2 v)
 	{
-		Style.Width = Length.Pixels( v.x * ScaleFromScreen );
-		Style.Height = Length.Pixels( v.y * ScaleFromScreen );
+		Style.Width = Length.Pixels(v.x * ScaleFromScreen);
+		Style.Height = Length.Pixels(v.y * ScaleFromScreen);
 	}
 
-	public void SetPositionInScreenPixels( Vector2 v )
+	public void SetPositionInScreenPixels(Vector2 v)
 	{
 		var p = v;
 		var parentRect = Parent.Box.Rect;
@@ -75,54 +75,55 @@
 		_lastPosition = v;
 	}
 
-	private void UpdateVelocity( Vector2 delta )
+	private void UpdateVelocity(Vector2 delta)
 	{
 		_velocity += delta * 0.02f;
-		_velocity = _velocity.Clamp( -10, 10 );
+		_velocity = _velocity.Clamp(-10, 10);
 	}
 
-	public virtual void AddPositionDeltaInScreenPixels( Vector2 d )
+	public virtual void AddPositionDeltaInScreenPixels(Vector2 d)
 	{
-		UpdateVelocity( d );
-		SetPositionInScreenPixels( _lastPosition + d );
+		UpdateVelocity(d);
+		SetPositionInScreenPixels(_lastPosition + d);
 	}
 
 	private float _shakeValue;
-	
+
 	public override void Tick()
 	{
 		base.Tick();
 
-		if ( !InitialTransitionComplete )
+		if (!InitialTransitionComplete)
 		{
-			if ( !HasActiveTransitions )
+			if (!HasActiveTransitions)
 				InitialTransitionComplete = true;
 
 			return;
 		}
 
-		_velocity = Vector2.Lerp( _velocity, Vector2.Zero, Time.Delta * 10.0f );
+		_velocity = Vector2.Lerp(_velocity, Vector2.Zero, Time.Delta * 10.0f);
 
-		Style.TransformOriginX = Length.Fraction( _holdPoint.x / Box.Rect.Width );
-		Style.TransformOriginY = Length.Fraction( _holdPoint.y / Box.Rect.Height );
+		Style.TransformOriginX = Length.Fraction(_holdPoint.x / Box.Rect.Width);
+		Style.TransformOriginY = Length.Fraction(_holdPoint.y / Box.Rect.Height);
 
 		var transform = new PanelTransform();
-		var rotation = new Vector3( _velocity.y * XyMultiplier, -_velocity.x * XyMultiplier, _velocity.x * _velocity.y * ZMultiplier );
-		
+		var rotation = new Vector3(_velocity.y * XyMultiplier, -_velocity.x * XyMultiplier, _velocity.x * _velocity.y *
+		ZMultiplier);
+
 		// Add shaking if we're dropping the item
-		if ( HasClass( "should-trash" ) )
+		if (HasClass("should-trash"))
 		{
 			_shakeValue += 4.3f * Time.Delta;
-			if ( _shakeValue > 1 )
+			if (_shakeValue > 1)
 				_shakeValue = 0;
-			rotation.z += Easing.EaseInOut( _shakeValue ) * 30	;
+			rotation.z += Easing.EaseInOut(_shakeValue) * 30;
 		}
 
-		transform.AddRotation( rotation );
+		transform.AddRotation(rotation);
 
 		Style.Transform = transform;
 
 		StateHasChanged();
-	}	
+	}
 
 }

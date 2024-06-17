@@ -8,12 +8,12 @@ namespace GeneralGame
         public static List<Player> _InternalPlayers = new List<Player>();
 
         public static Player Local { get; set; }
-		System.UInt64 SteamId { get; set; }
+        System.UInt64 SteamId { get; set; }
         public FullScreenManager FullScreenManager { get; set; }
 
         private Guid _guid;
-        
-        
+
+
 
         [HostSync]
         public Guid ConnectionID
@@ -22,20 +22,20 @@ namespace GeneralGame
             set
             {
                 _guid = value;
-                Connection = Connection.Find(_guid);
+                Connection = Connection.Find( _guid );
 
-                if (_guid == Connection.Local.Id)
+                if ( _guid == Connection.Local.Id )
                 {
                     Local = this;
                     LocalID = Guid.NewGuid();
                 }
-                if (_guid == Connection.Host.Id)
+                if ( _guid == Connection.Host.Id )
                 {
                     HostID = Guid.NewGuid();
                 }
 
-                if (!_InternalPlayers.Contains(this))
-                    _InternalPlayers.Add(this);
+                if ( !_InternalPlayers.Contains( this ) )
+                    _InternalPlayers.Add( this );
             }
         }
 
@@ -43,38 +43,38 @@ namespace GeneralGame
         public Guid LocalID { get; set; }
         public Guid HostID { get; set; }
 
-        public void SetupConnection(Connection connection)
+        public void SetupConnection( Connection connection )
         {
             ConnectionID = connection.Id;
 
-            if (connection.IsHost)
+            if ( connection.IsHost )
             {
                 HostID = Guid.NewGuid();
-                
+
             }
-            else 
+            else
             {
                 LocalID = Guid.NewGuid();
-                
+
             }
         }
 
-        public static Player GetByID(Guid id)
-		{
-			
-			foreach (var player in _InternalPlayers)
-			{
-				
-				if (player.ConnectionID == id)
-				{
-					
-					return player;
-				}
-			}
-			
-			return null;
-		}
+        public static Player GetByID( Guid id )
+        {
 
-		
-	}
+            foreach ( var player in _InternalPlayers )
+            {
+
+                if ( player.ConnectionID == id )
+                {
+
+                    return player;
+                }
+            }
+
+            return null;
+        }
+
+
+    }
 }

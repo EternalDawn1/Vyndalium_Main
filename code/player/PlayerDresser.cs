@@ -15,8 +15,8 @@ public partial class PlayerDresser : Component, Component.INetworkSpawn
             return;
         }
 
-		var clothing = ClothingContainer.CreateFromLocalUser();
-		clothing.Apply( BodyRenderer );
+		//var clothing = ClothingContainer.CreateFromLocalUser();
+		//clothing.Apply( BodyRenderer );
 	}
     public void RemoveClothing()
     {

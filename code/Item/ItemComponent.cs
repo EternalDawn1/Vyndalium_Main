@@ -28,7 +28,7 @@ public class ItemComponent : Component
 	[Sync]
 	[Property]
 	public string Name { get; set; }
-
+	
 	/// <summary>
 	/// The icon to display.
 	/// </summary>

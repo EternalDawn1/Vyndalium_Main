@@ -13,7 +13,7 @@ public class Inventory : Component
 {
 	[Property] Player Player { get; set; }
 
-	public const int MAX_BACKPACK_SLOTS = 300;
+	public const int MAX_BACKPACK_SLOTS = 20;
 
 	public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
 	public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
@@ -135,56 +135,80 @@ public class Inventory : Component
 	}
 	
 
-	public bool GiveItem( PrefabFile prefabFile )
+	public bool GiveItem(PrefabFile prefabFile)
 	{
-		var obj = SceneUtility.GetPrefabScene( prefabFile ).Clone();
+		var obj = SceneUtility.GetPrefabScene(prefabFile).Clone();
 		obj.NetworkMode = NetworkMode.Object;
 		obj.NetworkSpawn();
 
-		var res = GiveItem( obj.Components.Get<ItemComponent>() );
-		if ( !res )
+		var itemComponent = obj.Components.Get<ItemComponent>();
+
+		// Überprüfen, ob das Item bereits im WeaponContainer vorhanden ist
+		if (Weapons.Contains(itemComponent))
+		{
+			// Wenn das Item bereits vorhanden ist, zerstören Sie das geklonte Objekt und geben Sie false zurück
+			obj.Destroy();
+			return false;
+		}
+
+		// Fügen Sie das Item zum WeaponContainer hinzu
+		Weapons.AddWeapon(itemComponent);
+
+		// Überprüfen, ob das Item erfolgreich hinzugefügt wurde
+		var res = Weapons.Contains(itemComponent);
+		if (!res)
 			obj.Destroy();
 
 		return res;
 	}
 	public bool EquipItemFromBackpack(ItemComponent item)
-{
-    var index = _backpackItems.IndexOf(item);
-    if (index == -1)
-        return false;
+	{
+		var index = _backpackItems.IndexOf(item);
+		if (index == -1)
+			return false;
 
-    if (item is not ItemEquipment equipment)
-        return false;
+		if (item is not ItemEquipment equipment)
+			return false;
+		
 
-    var slotIndex = equipment.IsBackable ? (int)EquipSlot.Back : (int)equipment.Slot;
-    var previouslyEquippedItem = _equippedItems[slotIndex];
+		var slotIndex = equipment.IsBackable ? (int)EquipSlot.Back : (int)equipment.Slot;
+		var previouslyEquippedItem = _equippedItems[slotIndex];
 
-    if (previouslyEquippedItem != null)
-    {
-        if (previouslyEquippedItem != item) // Check if the item is already equipped
-        {
-            // Ensure stats are removed for the previously equipped item
-            RemoveEquipmentItem(previouslyEquippedItem as ItemEquipment);
-            GiveBackpackItem(previouslyEquippedItem, index);
-            previouslyEquippedItem.State = ItemState.Backpack;
-        }
-    }
+		if (previouslyEquippedItem != null)
+		{
+			if (previouslyEquippedItem != item) // Check if the item is already equipped
+			{
+				
+				// Ensure stats are removed for the previously equipped item
+				RemoveEquipmentItem(previouslyEquippedItem as ItemEquipment);
+				GiveBackpackItem(previouslyEquippedItem, index);
+				previouslyEquippedItem.State = ItemState.Backpack;
+			}
+			
+		}
 
-    if (previouslyEquippedItem != item) // Check if the item is already equipped
-    {
-        // Now equip the new item stats
-        GiveEquipmentItem(equipment);
-        equipment.State = ItemState.Equipped;
-    }
+		if (previouslyEquippedItem != item) // Check if the item is already equipped
+		{
+			// Now equip the new item stats
+			GiveEquipmentItem(equipment);
+			equipment.State = ItemState.Equipped;
+		}
 
-    var weaponContainer = Player.Components.Get<WeaponContainer>();
-    if (weaponContainer != null)
-    {
-        weaponContainer.Give(item.GameObject, true);
-    }
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
+		if (weaponContainer != null)
+		{
+			weaponContainer.Give(item.GameObject, true);
+		}
+		else
+		{
+			// Handle the case when weaponContainer is null
+			Log.Info("WeaponContainer is null");
+		}
+		
 
-    return true;
-}
+		return true;
+	}
+
 	
 	public bool EquipItemFromWorld( ItemComponent item, bool forceReplace = false )
 	{
@@ -200,6 +224,8 @@ public class Inventory : Component
 			var placedInBackpack = UnequipItem( equippedItem );
 			if ( !placedInBackpack )
 				DropItem( equippedItem );
+
+			
 		}
 
 		SetOwner( item );
@@ -212,8 +238,10 @@ public class Inventory : Component
 		return true;
 	}
 	public WeaponContainer Weapons { get; set; }
+
 	public bool UnequipItem( ItemComponent item )
 	{
+		
 		if (item is not ItemEquipment equipment)
 			return false;
 
@@ -229,13 +257,17 @@ public class Inventory : Component
 		if (Weapons != null && Weapons.Deployed != null)
 		{
 			Weapons.Deployed.Holster();
+			
+			
 		}
+		
 			
 
 		RemoveEquipmentItem( equipment );
 		GiveBackpackItem( equipment, firstFreeSlot );
 		equipment.State = ItemState.Backpack;
 		TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
+
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
 		if (weaponContainer != null)
 		{
@@ -243,11 +275,14 @@ public class Inventory : Component
 			if (weapon != null)
 			{
 				weapon.Holster();
+				
 			}
 		}
+		
 
 		return true;
 	}
+	
 	
 	public bool DropItem( ItemComponent item )
 	{
@@ -606,8 +641,9 @@ public class Inventory : Component
 		{
 			if ( item is not ItemEquipment equipment || !equipment.Equipped )
 				continue;
-
+			
 			bodygroups |= equipment.HideBodygroups;
+			
 		}
 
 		Player.HideBodygroups = bodygroups;

@@ -93,14 +93,14 @@ public  partial class WeaponContainer : Component
     }
 
     var rigidBody = prefab.Components.Get<Rigidbody>();
-    if (rigidBody != null)
-    {
-        rigidBody.Destroy();
-    }
-    else
-    {
-        Log.Error("RigidBody is null in WeaponContainer.Give");
-    }
+	if (rigidBody != null)
+	{
+		rigidBody.Destroy();
+	}
+	else
+	{
+		Log.Error("RigidBody is null in WeaponContainer.Give");
+	}
 		
 		var weaponGo = prefab.Clone();
 		var weapon = weaponGo.Components.GetInDescendantsOrSelf<WeaponComponent>( true );
@@ -143,6 +143,29 @@ public  partial class WeaponContainer : Component
 		weaponGo.Components.Get<Rigidbody>().Destroy();
 		
 	}
+	private List<ItemComponent> weaponList = new List<ItemComponent>();
+
+    // Methode, um eine Waffe zur Liste hinzuzufügen
+    public void AddWeapon(ItemComponent weapon)
+    {
+        weaponList.Add(weapon);
+    }
+
+    // Methode, um zu überprüfen, ob eine bestimmte Waffe in der Liste ist
+    public bool Contains(ItemComponent item)
+    {
+        return weaponList.Contains(item);
+    }
+
+    // Methode, um durch alle Waffen in der Liste zu iterieren und eine Aktion auszuführen
+    public void CheckAllWeapons(Action<ItemComponent> action)
+    {
+        foreach (var weapon in weaponList)
+        {
+            action(weapon);
+        }
+    }
+	
 	
 		
 	public void Next()

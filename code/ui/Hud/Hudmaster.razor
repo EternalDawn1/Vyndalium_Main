@@ -3,8 +3,8 @@
 @using Sandbox;
 @using Sandbox.UI;
 
-@if ( IsProxy )
-		return;
+@if (IsProxy)
+    return;
 <root>
     <FullScreenManager />
 </root>
@@ -16,8 +16,8 @@
     {
         Instance = this;
     }
-    
-    
+
+
 
     [ConCmd("new_hud_toggle")]
     public static void ToggleHud()

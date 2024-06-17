@@ -57,11 +57,17 @@ public class ItemEquipment : ItemComponent
 			ToggleRenderer( Equipped );
 
 		// Bonemerge
-		if ( Renderer is SkinnedModelRenderer skinned && !UpdatePosition )
+		if (Renderer is SkinnedModelRenderer skinned && !UpdatePosition)
 		{
-			skinned.BoneMergeTarget = Equipped
-				? GameObject.Parent?.Components.Get<SkinnedModelRenderer>( FindMode.EverythingInChildren )
-				: null;
+			var parentRenderer = GameObject.Parent?.Components.Get<SkinnedModelRenderer>(FindMode.EverythingInChildren);
+			if (parentRenderer != null && Equipped)
+			{
+				skinned.BoneMergeTarget = parentRenderer;
+			}
+			else
+			{
+				skinned.BoneMergeTarget = null;
+			}
 		}
 		
 
@@ -168,7 +174,7 @@ public class ItemEquipment : ItemComponent
 		if ( !obj.IsValid() )
 			return;
 
-		
+		_model.RenderingEnabled = false;
 	}
 
 	#region GIZMO STUFF

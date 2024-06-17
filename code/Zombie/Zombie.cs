@@ -25,7 +25,7 @@ public enum WeightType
 
 
 
-public partial class Npc : Component ,IHealthComponent
+public partial class Npc : Component, IHealthComponent
 {
 	[Property]
 	public string Name { get; set; } = "Default";
@@ -33,9 +33,9 @@ public partial class Npc : Component ,IHealthComponent
 	[Property]
 	public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject ZombieRagedol { get; set; }
-	[Property]public SkinnedModelRenderer Model { get; set; }
+	[Property] public SkinnedModelRenderer Model { get; set; }
 	[Sync, Property] public float MaxHealth { get; private set; } = 100f;
-	[Sync,Property] public float Health { get; private set; } = 100f;
+	[Sync, Property] public float Health { get; private set; } = 100f;
 	[Property] public HealthComponent Healthone { get; set; }
 
 	[Property]
@@ -45,9 +45,9 @@ public partial class Npc : Component ,IHealthComponent
 	public NavigationType RunningType { get; set; } = NavigationType.Smart;
 
 	public NavigationType NavigationType => IsRunning ? RunningType : WalkingType;
-	public Guid LastAttackerId {get ; set;}
+	public Guid LastAttackerId { get; set; }
 
-	
+
 
 	/// <summary>
 	/// How much this creature weights (To handle ragdol force amount and duration)
@@ -238,13 +238,13 @@ public partial class Npc : Component ,IHealthComponent
 	private TimeSince timeSinceHit = 0;
 	public int VyndaliumPoints { get; private set; }
 	public int Experience { get; private set; }
-    public event Action<int> VyndaliumPointsChanged;
+	public event Action<int> VyndaliumPointsChanged;
 	public event Action<int> ExperienceChanged;
 	public ZombieSpawner Spawner { get; set; }
 	public bool IsIdle { get; set; } = false;
 	public bool IsAttacking { get; set; } = false;
 	public bool IsDamaged { get; set; } = false;
-	
+
 	[Property] private float PlayerProximityDistance { get; set; } = 400f;
 	public Guid KillerId { get; set; } // Fügen Sie diese Eigenschaft hinzu
 	public float ForceMultiplier
@@ -262,8 +262,8 @@ public partial class Npc : Component ,IHealthComponent
 			};
 		}
 	}
-	
-	
+
+
 
 	protected override void OnStart()
 	{
@@ -309,19 +309,19 @@ public partial class Npc : Component ,IHealthComponent
 		OnSpawn?.Invoke();
 	}
 	private bool IsPlayerNearby()
-        {
-            if (Network.IsProxy)
-        return false;
+	{
+		if ( Network.IsProxy )
+			return false;
 
 		var players = Scene.GetAllComponents<Player>();
-		foreach (var player in players)
+		foreach ( var player in players )
 		{
 			// Überprüfe, ob der Spieler in der Nähe ist
-			if ((player.Transform.Position - this.Transform.Position).Length < PlayerProximityDistance)
-            return true;
+			if ( (player.Transform.Position - this.Transform.Position).Length < PlayerProximityDistance )
+				return true;
 		}
-            return false; 
-        }
+		return false;
+	}
 
 	protected override void OnUpdate()
 	{
@@ -329,11 +329,11 @@ public partial class Npc : Component ,IHealthComponent
 		if ( Model == null || Static || (Healthone != null && !Healthone.Alive) )
 			return;
 
-		bool isPlayerNearby = IsPlayerNearby();	
+		bool isPlayerNearby = IsPlayerNearby();
 
-		
-			
-		
+
+
+
 
 		// Suchen Sie nach allen Spielern in der Szene
 		var players = Scene.GetAllComponents<Player>();
@@ -381,11 +381,11 @@ public partial class Npc : Component ,IHealthComponent
 			{
 				AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
 				agent.MoveTo( closestPlayer.Transform.Position );
-				if(!isPlayerNearby)
+				if ( !isPlayerNearby )
 				{
 					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 				}
-				
+
 			}
 		}
 		else
@@ -404,14 +404,14 @@ public partial class Npc : Component ,IHealthComponent
 
 				}
 			}
-			
+
 
 
 		}
 		UpdateFootAnimations();
 	}
 
-	 void UpdateAnimations( Player player )
+	void UpdateAnimations( Player player )
 	{
 		AnimationHelper.WithWishVelocity( agent.WishVelocity );
 		AnimationHelper.WithVelocity( MoveHelper.Velocity );
@@ -425,7 +425,7 @@ public partial class Npc : Component ,IHealthComponent
 		if ( AnimationHelper.MoveStyle != moveStyle )
 		{
 			AnimationHelper.MoveStyle = moveStyle;
-			
+
 		}
 	}
 
@@ -447,27 +447,27 @@ public partial class Npc : Component ,IHealthComponent
 		Model.Set( "move_y", newY );
 	}
 	public void NormalTrace()
-    {
-        var tr = Scene.Trace.Ray( Body.Transform.Position, Body.Transform.Position + Body.Transform.Rotation.Forward * 100 ).Run();
+	{
+		var tr = Scene.Trace.Ray( Body.Transform.Position, Body.Transform.Position + Body.Transform.Rotation.Forward * 100 ).Run();
 
-        if ( tr.Hit && timeSinceHit > 1.5f && GameObject != null )
-        {
-            IHealthComponent damageable =  tr.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+		if ( tr.Hit && timeSinceHit > 1.5f && GameObject != null )
+		{
+			IHealthComponent damageable = tr.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
 
-            if(tr.GameObject.Tags.Has("player") || tr.GameObject.Tags.Has("npc"))
-            {
-                // Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
-                damageable.TakeDamage( DamageType.Bullet, 10, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
+			if ( tr.GameObject.Tags.Has( "player" ) || tr.GameObject.Tags.Has( "npc" ) )
+			{
+				// Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
+				damageable.TakeDamage( DamageType.Bullet, 10, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
 
-                AnimationHelper.Target.Set( "b_attack", true );
+				AnimationHelper.Target.Set( "b_attack", true );
 
-				if(Model != null)Model.Set("slime_attack", true);
-                timeSinceHit = 0;
+				if ( Model != null ) Model.Set( "slime_attack", true );
+				timeSinceHit = 0;
 
-                Sound.Play( HitSounds, Transform.Position );
-            }
-        }
-    }
+				Sound.Play( HitSounds, Transform.Position );
+			}
+		}
+	}
 
 
 	protected override void OnFixedUpdate()
@@ -476,10 +476,10 @@ public partial class Npc : Component ,IHealthComponent
 		{
 			if ( Ragdoll == null ) // If we are not ragdolled
 			{
-				if (!IsPlayerNearby())
-				
-			
-                return;
+				if ( !IsPlayerNearby() )
+
+
+					return;
 				if ( TargetObject == null )
 				{
 					if ( Idle && NextIdle )
@@ -498,7 +498,7 @@ public partial class Npc : Component ,IHealthComponent
 					}
 				}
 
-				
+
 			}
 		}
 		else
@@ -506,27 +506,17 @@ public partial class Npc : Component ,IHealthComponent
 			MoveHelper.WishVelocity = 0;
 
 		}
-		
-		
-		
+
+
+
 	}
-
-	
-	private void StopAnimations()
-	{
-		
-    	
-	}
-
-	
-
 	[Broadcast]
 	private void BroadcastOnIdle()
 	{
 		OnIdle?.Invoke();
 	}
 
-	
+
 
 	/// <summary>
 	/// Get all provokers inside of its detect area
@@ -582,7 +572,7 @@ public partial class Npc : Component ,IHealthComponent
 		SetTarget( target );
 		BroadcastOnDetect();
 
-		
+
 
 		if ( alertOthers && AlertOthers )
 		{
@@ -674,7 +664,7 @@ public partial class Npc : Component ,IHealthComponent
 	public bool IsWithinRange( GameObject target, float range = 60f )
 	{
 		if ( !GameObject.IsValid() ) return false;
-		
+
 		return target.Transform.Position.Distance( Transform.Position ) <= range;
 	}
 
@@ -714,7 +704,7 @@ public partial class Npc : Component ,IHealthComponent
 		return hitPosition;
 	}
 
-	
+
 
 	/// <summary>
 	/// Where the NPC should find themselves when near the target
@@ -737,85 +727,85 @@ public partial class Npc : Component ,IHealthComponent
 			.IgnoreGameObjectHierarchy( GameObject )
 			.WithoutTags( "player", "npc", "trigger" )
 			.Run();
-		
+
 		return groundTrace.Hit && !groundTrace.StartedSolid ? groundTrace.HitPosition : (FollowingTargetObject ? targetPosition : targetPosition + offset);
 	}
 	public static Player Host { get; set; }
-	
-	
+
+
 	[Broadcast]
-	public void TakeDamage(DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId)
+	public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
-		if (LifeState == LifeState.Dead)
+		if ( LifeState == LifeState.Dead )
 			return;
-		
 
-		if (type == DamageType.Bullet || type == DamageType.Serious)
+
+		if ( type == DamageType.Bullet || type == DamageType.Serious )
 		{
-			var p = new SceneParticles(Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf");
-			p.SetControlPoint(0, hitPosition);
-			p.SetControlPoint(0, Rotation.LookAt(hitDirection.Normal * -1f));
-			p.SetControlPoint(1, new Vector3(0.5f, 0.1f, 0.1f));
-			p.PlayUntilFinished(Task);
+			var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
+			p.SetControlPoint( 0, hitPosition );
+			p.SetControlPoint( 0, Rotation.LookAt( hitDirection.Normal * -1f ) );
+			p.SetControlPoint( 1, new Vector3( 0.5f, 0.1f, 0.1f ) );
+			p.PlayUntilFinished( Task );
 		}
-		if(Model != null)Model.Set("slime_damage", true) ;
+		if ( Model != null ) Model.Set( "slime_damage", true );
 
-		if (Network.IsProxy)
+		if ( Network.IsProxy )
 			return;
 
-		Health = Math.Clamp(Health - amount, 0f, MaxHealth);
-		
+		Health = Math.Clamp( Health - amount, 0f, MaxHealth );
 
-		if (Health <= 0f) // checks if zombie is dead
-		{	
-			
+
+		if ( Health <= 0f ) // checks if zombie is dead
+		{
+
 			LifeState = LifeState.Dead;
-			var zombie = ZombieRagedol.Clone(this.GameObject.Transform.Position, this.GameObject.Transform.Rotation);
+			var zombie = ZombieRagedol.Clone( this.GameObject.Transform.Position, this.GameObject.Transform.Rotation );
 			zombie.NetworkSpawn();
 
-			Log.Info($"Killer attacker + {attackerId}");
+			Log.Info( $"Killer attacker + {attackerId}" );
 			KillerId = attackerId;
-			Log.Info($"Zombie killed by: {KillerId}"); // yes
-			
+			Log.Info( $"Zombie killed by: {KillerId}" ); // yes
+
 			GameObject.Destroy();
 
-			var killer = Scene.Directory.FindByGuid(attackerId);
+			var killer = Scene.Directory.FindByGuid( attackerId );
 
-			if (killer == null)
+			if ( killer == null )
 			{
-				Log.Info($"Killer with the id {KillerId} not found");  // yes
+				Log.Info( $"Killer with the id {KillerId} not found" );  // yes
 				return;
 			}
 
-			Log.Info("Killer found" + killer);
+			Log.Info( "Killer found" + killer );
 
-			var killerPlayer = killer.Components.Get<Player>(FindMode.EverythingInSelfAndAncestors);
+			var killerPlayer = killer.Components.Get<Player>( FindMode.EverythingInSelfAndAncestors );
 
-			Log.Info($"Killer with the id {KillerId} is found"); // no
-			int vyndaliumPointsToAdd = new Random().Next(1, 500);
-			int xpPointsToAdd = new Random().Next(75, 125);
+			Log.Info( $"Killer with the id {KillerId} is found" ); // no
+			int vyndaliumPointsToAdd = new Random().Next( 1, 500 );
+			int xpPointsToAdd = new Random().Next( 75, 125 );
 
 			// Geben Sie dem Killer Vyndalium und XP
-			killerPlayer.GiveVyndalium(vyndaliumPointsToAdd);
-			killerPlayer.GiveXp(xpPointsToAdd);
-						
+			killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );
+			killerPlayer.GiveXp( xpPointsToAdd );
 
-				};
+
+		};
 
 	}
-	
-	
-			
-				
-		
+
+
+
+
+
 	public event Action<int> VyndaliumAdded; // Declare the event "VyndaliumAdded"
 
 	public bool GiveVyndalium( int amount )
 	{
-		Log.Info($"Vyndalium-Punkte hinzugefügt: {amount}");
+		Log.Info( $"Vyndalium-Punkte hinzugefügt: {amount}" );
 		VyndaliumPoints += amount;
-		VyndaliumPointsChanged?.Invoke(VyndaliumPoints);
-		VyndaliumAdded?.Invoke(amount); // Benachrichtige alle Abonnenten über die Änderung der Vyndalium-Punkte
+		VyndaliumPointsChanged?.Invoke( VyndaliumPoints );
+		VyndaliumAdded?.Invoke( amount ); // Benachrichtige alle Abonnenten über die Änderung der Vyndalium-Punkte
 		return true;
 	}
 	public bool GiveXp( int amount )
@@ -824,7 +814,7 @@ public partial class Npc : Component ,IHealthComponent
 		ExperienceChanged?.Invoke( Experience );
 		return true;
 	}
-	
-		
+
+
 }
 

@@ -28,8 +28,8 @@ public partial class Player : Component, IHealthComponent
 	[Property] public GameObject Eye { get; set; }
 	[Property] public CitizenAnimationHelper AnimationHelper { get; set; }
 	[Property] public SoundEvent HurtSound { get; set; }
-	[Property] public SoundEvent HurtLowHP {get ; set;}
-	[Property] public SoundEvent HurtMidHP {get ; set;}
+	[Property] public SoundEvent HurtLowHP { get; set; }
+	[Property] public SoundEvent HurtMidHP { get; set; }
 	[Property] public bool SicknessMode { get; set; }
 	[Property] public float StandHeight { get; set; } = 64f;
 	[Property] public float DuckHeight { get; set; } = 28f;
@@ -46,75 +46,75 @@ public partial class Player : Component, IHealthComponent
 	private RealTimeSince LastGroundedTime { get; set; }
 	private RealTimeSince LastUngroundedTime { get; set; }
 	private RealTimeSince TimeSinceDamaged { get; set; }
-	private RealTimeSince TimeSinceManaUsed{ get; set; }
-	
+	private RealTimeSince TimeSinceManaUsed { get; set; }
+
 	/// <summary>
 	/// Character Stats
 	/// </summary>
-	[Sync, Property, Group( "CharacterStats" )] public float Health { get;  set; } = 100f;
+	[Sync, Property, Group( "CharacterStats" )] public float Health { get; set; } = 100f;
 	[Sync, Property, Group( "CharacterStats" )] public float Vyndalium { get; set; } = 25f;
-	[Sync, Property, Group( "CharacterStats" )] public float StatsPoints { get;  set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float StatsPoints { get; set; } = 0f;
 
-	[Sync, Property, Group( "CharacterStats" )] public float MaxHealth { get;  set; } 
-	[Sync, Property, Group( "CharacterStats" )] public float HealthRegenPerSecond { get;  set; } = 10f;
+	[Sync, Property, Group( "CharacterStats" )] public float MaxHealth { get; set; }
+	[Sync, Property, Group( "CharacterStats" )] public float HealthRegenPerSecond { get; set; } = 10f;
 
-	[Sync,Property, Group( "Movement" )]public float MoveSpeed { get;  set; } = 150f; // Normale Laufgeschwindigkeit
+	[Sync, Property, Group( "Movement" )] public float MoveSpeed { get; set; } = 150f; // Normale Laufgeschwindigkeit
 
 
-	[Sync, Property, Group( "CharacterStats" )] public float Mana { get;  set; } = 100f;
-	[Sync, Property, Group( "CharacterStats" )] public float MaxMana { get;  set; } = 100f;
-	[Sync, Property, Group( "CharacterStats" )] public float ManaRegenPerSecond { get;  set; } = 10f;
+	[Sync, Property, Group( "CharacterStats" )] public float Mana { get; set; } = 100f;
+	[Sync, Property, Group( "CharacterStats" )] public float MaxMana { get; set; } = 100f;
+	[Sync, Property, Group( "CharacterStats" )] public float ManaRegenPerSecond { get; set; } = 10f;
 
-	[Sync, Property, Group( "CharacterStats" )] public float Armor { get;  set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float Armor { get; set; } = 0f;
 
-	[Sync, Property, Group( "CharacterStats" )] public double AttackSpeed { get;  set; } = 1.1f;
-	[Sync, Property, Group( "CharacterStats" )] public float AttackPower { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float MagicPower { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public double Evasion { get;  set; } = 0.1f;
-	[Sync, Property, Group( "CharacterStats" )] public double Block { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float MagicDefense { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float CritHitChance { get;  set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public double AttackSpeed { get; set; } = 1.1f;
+	[Sync, Property, Group( "CharacterStats" )] public float AttackPower { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float MagicPower { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public double Evasion { get; set; } = 0.1f;
+	[Sync, Property, Group( "CharacterStats" )] public double Block { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float MagicDefense { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float CritHitChance { get; set; } = 0f;
 	[Sync, Property, Group( "CharacterStats" )] public float CritHitDamage { get; set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public double BonusEXPGain { get;  set; } = 0.1f;
+	[Sync, Property, Group( "CharacterStats" )] public double BonusEXPGain { get; set; } = 0.1f;
 
 
-	[Sync, Property, Group( "CharacterStats" )] public float SlowResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public double Tenacity { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public double StunResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float BlindResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float FireResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float PoisonResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float BleedResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float FreezeResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float IceResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float LightningResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float LightResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float ShadowResist { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float BonusVyndalium { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float BonusScore { get;  set; } = 0f;
-	[Sync, Property, Group( "CharacterStats" )] public float AttackValue { get;  set; } = 0f;
-	
+	[Sync, Property, Group( "CharacterStats" )] public float SlowResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public double Tenacity { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public double StunResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float BlindResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float FireResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float PoisonResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float BleedResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float FreezeResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float IceResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float LightningResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float LightResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float ShadowResist { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float BonusVyndalium { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float BonusScore { get; set; } = 0f;
+	[Sync, Property, Group( "CharacterStats" )] public float AttackValue { get; set; } = 0f;
 
-    
-	
+
+
+
 	[Property] public float STG { get; set; }
 	[Property] public float DEX { get; set; }
 	[Property] public float INT { get; set; }
 	[Property] public float PER { get; set; }
-	[Property]public float HE { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float AbilityHaste { get; set; } // Fügen Sie diese Zeile hinzu
-	
+	[Property] public float HE { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float AbilityHaste { get; set; } // Fügen Sie diese Zeile hinzu
+
 	private static bool isFirstSpawn = true;
-	
-	
+
+
 	private bool WantsToCrouch { get; set; }
 	private Angles Recoil { get; set; }
 	[Property] public float GroundControl { get; private set; } = 4.0f;
 	[Property] public float Aircontrol { get; private set; } = 0.1f;
 	public static bool DebugCamera { get; set; } = false;
-	
 
-	[Property] public bool ThirdPersonEnabled { get; set; } 
+
+	[Property] public bool ThirdPersonEnabled { get; set; }
 	protected BoxCollider Collider;
 
 	HiddenBodyGroup _hideBodygroups;
@@ -182,28 +182,28 @@ public partial class Player : Component, IHealthComponent
 
 	[Sync] public HoldType HoldType { get; set; } = HoldType.Idle;
 
-	
-	public void IncreaseMana(float amount)
-    {
-        MaxMana += amount;
-    }
-	public void IncreaseCritHitDamage(float amount)
-    {
-        CritHitDamage += amount;
-    }
-	public void DecreaseCritHitDamage(float amount)
-    {
-        CritHitDamage -= amount;
-    }
 
-    public void IncreaseCritHitChance(float amount)
-    {
-        CritHitChance += amount;
-    }
-	public void DecreaseCritHitChance(float amount)
-    {
-        CritHitChance -= amount;
-    }
+	public void IncreaseMana( float amount )
+	{
+		MaxMana += amount;
+	}
+	public void IncreaseCritHitDamage( float amount )
+	{
+		CritHitDamage += amount;
+	}
+	public void DecreaseCritHitDamage( float amount )
+	{
+		CritHitDamage -= amount;
+	}
+
+	public void IncreaseCritHitChance( float amount )
+	{
+		CritHitChance += amount;
+	}
+	public void DecreaseCritHitChance( float amount )
+	{
+		CritHitChance -= amount;
+	}
 
 	public static void GiveVyndaliumDebug( int money = 0 )
 	{
@@ -211,21 +211,21 @@ public partial class Player : Component, IHealthComponent
 		Log.Info( $"Given {money}mk" );
 	}
 
-	[ConCmd("newgame_give_statspoints")]
+	[ConCmd( "newgame_give_statspoints" )]
 	public static void GiveStatsPoints()
 	{
 		Player.Local.StatsPoints += 10;
 	}
-	public bool TrySpendVyndalium(int amount)
-    {
-        if (Vyndalium >= amount)
-        {
-            Vyndalium -= amount;
-            return true;
-        }
-        return false;
-    }
-	
+	public bool TrySpendVyndalium( int amount )
+	{
+		if ( Vyndalium >= amount )
+		{
+			Vyndalium -= amount;
+			return true;
+		}
+		return false;
+	}
+
 
 	public bool TakeVyndalium( int amount )
 	{
@@ -239,18 +239,18 @@ public partial class Player : Component, IHealthComponent
 	public void GiveVyndalium( int amount )
 	{
 		Vyndalium += amount;
-		
+
 	}
 	[Broadcast]
 	public void GiveXp( int amount )
 	{
 		AddExperience( amount );
-		
+
 	}
-	public void ChangeMana(float amount)
-    {
-        Mana += amount;
-    }
+	public void ChangeMana( float amount )
+	{
+		Mana += amount;
+	}
 
 
 	public void ApplyRecoil( Angles recoil )
@@ -275,15 +275,15 @@ public partial class Player : Component, IHealthComponent
 	}
 	public void EquipWeaponsOnSpawn()
 	{
-		foreach (var item in Inventory.EquippedItems)
+		foreach ( var item in Inventory.EquippedItems )
 		{
-			if (item is ItemEquipment equipment)
+			if ( item is ItemEquipment equipment )
 			{
-				Inventory.GiveEquipmentItem(equipment);
+				Inventory.GiveEquipmentItem( equipment );
 			}
 		}
 	}
-	
+
 
 	public void Respawn()
 	{
@@ -295,7 +295,7 @@ public partial class Player : Component, IHealthComponent
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
 		LifeState = LifeState.Alive;
-		
+
 
 		if ( isFirstSpawn )
 		{
@@ -315,26 +315,26 @@ public partial class Player : Component, IHealthComponent
 		// Starte die Gesundheitsregeneration
 		StartHealthRegen( 500f, 5f );
 
-		
+
 	}
 
-	public async void StartHealthRegen(float regenAmount, float duration)
+	public async void StartHealthRegen( float regenAmount, float duration )
 	{
 		float originalHealth = MaxHealth;
 		float endTime = Time.Now + duration;
 
 		// Erhöhe die Gesundheit des Spielers über die Dauer hinweg
-		while (Time.Now < endTime)
+		while ( Time.Now < endTime )
 		{
-			Health = Math.Min(MaxHealth, Health + regenAmount * Time.Delta);
-			await Task.Delay(1000/60);
+			Health = Math.Min( MaxHealth, Health + regenAmount * Time.Delta );
+			await Task.Delay( 1000 / 60 );
 		}
 
-		
+
 	}
 
 	[Broadcast]
-	public void TakeDamage(DamageType type, Single amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId)
+	public void TakeDamage( DamageType type, Single amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
 		if ( LifeState == LifeState.Dead )
 			return;
@@ -437,8 +437,8 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		ResetViewAngles();
-		
-		
+
+
 	}
 
 	protected override void OnStart()
@@ -456,7 +456,7 @@ public partial class Player : Component, IHealthComponent
 
 		if ( !IsProxy ) // Load save.
 		{
-			
+
 			Setup( this );
 		}
 
@@ -474,6 +474,7 @@ public partial class Player : Component, IHealthComponent
 
 		if ( IsProxy ) PlyCamera.Enabled = false;
 
+
 		var deployedWeapon = Weapons.Deployed;
 		var shadowRenderer = ShadowAnimator.Components.Get<SkinnedModelRenderer>( true );
 		var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
@@ -482,14 +483,14 @@ public partial class Player : Component, IHealthComponent
 		if ( hasViewModel )
 		{
 			shadowRenderer.Enabled = false;
-			
+
 			ModelRenderer.Destroy();
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
 
 			foreach ( var c in clothing )
 			{
 				c.Destroy();
-				
+
 			}
 
 			return;
@@ -521,8 +522,8 @@ public partial class Player : Component, IHealthComponent
 				c.ModelRenderer.RenderType = IsProxy ? Sandbox.ModelRenderer.ShadowRenderType.On : Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 			}
 		}
-		
-		
+
+
 	}
 
 	protected override void OnPreRender()
@@ -545,14 +546,14 @@ public partial class Player : Component, IHealthComponent
 			PlyCamera.Transform.Position = PlyCamera.Transform.Position.LerpTo( Eye.Transform.Position, Time.Delta * 32f );
 			PlyCamera.Transform.Rotation = Rotation.Lerp( PlyCamera.Transform.Rotation, Eye.Transform.Rotation, Time.Delta * 16f );
 			return;
-			
+
 		}
 
-		
+
 
 
 		if ( !IsProxy )
-		
+
 		{
 			PlyCamera.Transform.LocalPosition = Vector3.Zero;
 			var idealEyePos = Eye.Transform.Position;
@@ -591,15 +592,15 @@ public partial class Player : Component, IHealthComponent
 				PlyCamera.Transform.Position = PlyCamera.Transform.Position + SieatOffset;
 			}
 		}
-	
-}
+
+	}
 	bool isLowHealthSoundPlaying = false;
 
-    bool isMidHealthSoundPlaying = false;
+	bool isMidHealthSoundPlaying = false;
 
 	protected override void OnUpdate()
 	{
-		
+
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
 
@@ -609,7 +610,7 @@ public partial class Player : Component, IHealthComponent
 			angles += Input.AnalogLook * 0.5f;
 			angles += Recoil * Time.Delta;
 			angles.pitch = angles.pitch.Clamp( -80f, 89.9f );
-			
+
 
 			EyeAngles = angles.WithRoll( 0f );
 			IsRunning = Input.Down( "Run" ) && !IsAiming;
@@ -617,41 +618,41 @@ public partial class Player : Component, IHealthComponent
 			HoldType = (Inventory.EquippedItems[(int)EquipSlot.Hand] as ItemEquipment)?.HoldType ?? HoldType.Idle;
 		}
 		// Überprüfen Sie den Gesundheitszustand des Spielers
-        // Check the player's health status
+		// Check the player's health status
 		float healthPercentage = Health / MaxHealth * 100;
 		int healthRange = healthPercentage > 50 ? 2 : healthPercentage > 25 ? 1 : 0;
 
-		switch (healthRange)
+		switch ( healthRange )
 		{
 			case 0: // Gesundheit <= 25%
-				if (!isLowHealthSoundPlaying && HurtLowHP is not null)
+				if ( !isLowHealthSoundPlaying && HurtLowHP is not null )
 				{
-					Sound.Play(HurtLowHP, PlyCamera.Transform.Position);
+					Sound.Play( HurtLowHP, PlyCamera.Transform.Position );
 					isLowHealthSoundPlaying = true;
 				}
 				break;
 			case 1: // 25% < Gesundheit <= 50%
-				if (isLowHealthSoundPlaying)
+				if ( isLowHealthSoundPlaying )
 				{
-					Sound.StopAll(float.MaxValue);
+					Sound.StopAll( float.MaxValue );
 					isLowHealthSoundPlaying = false;
 				}
-				if (!isMidHealthSoundPlaying && HurtMidHP is not null)
+				if ( !isMidHealthSoundPlaying && HurtMidHP is not null )
 				{
-					Sound.Play(HurtMidHP, PlyCamera.Transform.Position);
+					Sound.Play( HurtMidHP, PlyCamera.Transform.Position );
 					isMidHealthSoundPlaying = true;
 				}
 				break;
 			case 2: // Gesundheit > 50%
-				if (isMidHealthSoundPlaying)
+				if ( isMidHealthSoundPlaying )
 				{
-					Sound.StopAll(float.MaxValue);
+					Sound.StopAll( float.MaxValue );
 					isMidHealthSoundPlaying = false;
 				}
 				break;
 		}
-		
-        
+
+
 
 		var weapon = Weapons.Deployed;
 
@@ -666,33 +667,33 @@ public partial class Player : Component, IHealthComponent
 			animator.WithLook( EyeAngles.Forward );
 			animator.MoveStyle = (IsRunning && !IsCrouching) ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
 		}
-		
+
 
 	}
 
 	protected virtual void DoCrouchingInput()
 	{
-		WantsToCrouch = CharacterController.IsOnGround && Input.Down("Duck");
+		WantsToCrouch = CharacterController.IsOnGround && Input.Down( "Duck" );
 
-		if (WantsToCrouch == IsCrouching)
+		if ( WantsToCrouch == IsCrouching )
 			return;
 
-		if (WantsToCrouch)
+		if ( WantsToCrouch )
 		{
 			CharacterController.Height = DuckHeight;
 			IsCrouching = true;
 			// Setzen Sie die Kameraposition auf die DuckHeight
-			PlyCamera.Transform.Position = new Vector3(PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, DuckHeight);
+			PlyCamera.Transform.Position = new Vector3( PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, DuckHeight );
 		}
 		else
 		{
-			if (!CanUncrouch())
+			if ( !CanUncrouch() )
 				return;
 
 			CharacterController.Height = StandHeight;
 			IsCrouching = false;
 			// Setzen Sie die Kameraposition auf die StandHeight
-			PlyCamera.Transform.Position = new Vector3(PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, StandHeight);
+			PlyCamera.Transform.Position = new Vector3( PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, StandHeight );
 		}
 	}
 
@@ -748,21 +749,21 @@ public partial class Player : Component, IHealthComponent
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
 
-		
+
 
 		if ( TimeSinceDamaged > 5f )
 		{
 			Health += HealthRegenPerSecond * Time.Delta;
 			Health = MathF.Min( Health, MaxHealth );
 		}
-		if(TimeSinceManaUsed > 5f)
+		if ( TimeSinceManaUsed > 5f )
 		{
 			Mana += ManaRegenPerSecond * Time.Delta;
 			Mana = MathF.Min( Mana, MaxMana );
 		}
 
 
-		
+
 		RegenerateStamina();
 		DoCrouchingInput();
 		DoMovementInput();
@@ -886,7 +887,7 @@ public partial class Player : Component, IHealthComponent
 
 		OnJump?.Invoke();
 	}
-	
 
-	
+
+
 }

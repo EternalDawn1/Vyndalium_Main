@@ -1,0 +1,1875 @@
+{
+  "__guid": "0b1e02e0-14e2-4aba-957c-bc4d78ea8871",
+  "GameObjects": [
+    {
+      "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
+      "Flags": 0,
+      "Name": "MapObjects",
+      "Position": "-16.73947,-31.52794,131.4671",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Children": [
+        {
+          "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
+          "Flags": 0,
+          "Name": "Map",
+          "Position": "767.2023,-2519.431,1584.684",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.MapInstance",
+              "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
+              "MapName": "maps/forest.vmap",
+              "UseMapFromLaunch": false
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "__guid": "e47368dc-2aa1-43c7-9701-476845bc0e7d",
+      "Flags": 0,
+      "Name": "GameManager",
+      "Position": "-4687.136,-3009.619,2645.524",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.PrefabInitializer",
+          "__guid": "5cfda952-13f4-4c3d-bb8f-acc675d405f4"
+        },
+        {
+          "__type": "GeneralGame.NetworkManager",
+          "__guid": "fa171ab4-1bf0-4b91-a947-0fb928804480",
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          },
+          "StartServer": true
+        }
+      ]
+    },
+    {
+      "__guid": "0b36a59c-6c71-4af6-8fcb-1267070d1f1f",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-3572.569,-3903.504,476.8719",
+      "Rotation": "0,0,1,-0.00000004371139",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "8eb38738-065f-4627-b1c4-6a7fb8fd5946",
+          "Color": "0.8902,0.31765,0.05098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "1ee9be0f-890c-49ae-ad75-17afdd942e78",
+      "Flags": 0,
+      "Name": "Sun",
+      "Position": "-24547.67,15266.53,21432.79",
+      "Rotation": "0.08952433,0.2446385,-0.331792,0.9066706",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "1ae14959-6e61-4b3c-ae8f-7a9095477c1e",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Shadows": true,
+          "SkyColor": "0.05882,0.07451,0.08235,1"
+        }
+      ]
+    },
+    {
+      "__guid": "0fff1bae-f9b8-4598-9237-3749f0f083c2",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a",
+      "Position": "-4076.147,-3905.525,443.0442",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "6d1cdfb2-c419-4db9-b9b5-bc0738296eed",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "71a22d6a-723c-4f57-8cc2-1bd5553fcaeb",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "02fae6d0-2686-46d3-a06a-ad4e2ed6745f",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "3c7abe6d-d2e7-4205-9142-5aca07e078a4",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (1)",
+      "Position": "-3595.93,-3443.955,444.4001",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "66e169ba-80d2-4d29-8545-1b79acf34a36",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "c158ba94-f40d-4293-8a4b-bd2817961008",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "f44af513-bf9c-413f-ac90-ff0e2cf293c1",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "dcc2f252-814b-41c6-a217-3c6822478772",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (2)",
+      "Position": "-3189.048,-4026.436,435.0836",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "41d67542-b717-4b03-bf21-5ccd77c82161",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "91f36f30-2468-48ba-9898-7216a96d8635",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "c10997de-e9c9-4107-87ee-2b45765505fb",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "6ec4f3d1-0065-48eb-95c4-30499c8e65f7",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (6)",
+      "Position": "-2896.99,-4444.541,419.437",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "8b8a7795-143c-4069-89b5-c27e7d8d4935",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "c0d658a0-b0e7-47de-820d-348069b7906b",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "04c24c86-3029-42be-a08b-be281dbb87e3",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "2e0b4f51-362f-43de-93e4-87925fbbd4e6",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (7)",
+      "Position": "-2586.876,-4888.495,267.3859",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ba0152db-ae98-4b1f-83a0-30c9d819303d",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "27767e6c-a271-4bff-8c6e-815295217469",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "e0f489f5-8efa-41b9-8d76-f3769ac82438",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "897f7807-fd09-431f-b633-acc9459bbef3",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (8)",
+      "Position": "-2042.958,-4050.037,272.315",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "928aa870-8b2a-47ba-9494-5359abb1bc11",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "0d4ebbb0-4dc9-4de9-bb69-d5eda9f171d5",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "9e8804e3-dedf-45e0-a47f-68a73632ddea",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "2d23adbb-2685-4eaf-8742-220ca7706070",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (9)",
+      "Position": "-2082.248,-3003.04,283.8648",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ee47335f-8474-4104-8227-6b2bfe339d93",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "daaacffa-8326-4d90-89db-e13c4710bd3c",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "bc4d437a-f8e2-4df9-8fb4-65f87ff5d8b9",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "046a8047-884a-4d1e-ba7f-ab63136487ef",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (14)",
+      "Position": "-4117.168,-3241.49,345.5584",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a2646a3a-7985-4325-b848-bf429702463a",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "5279a6d4-818e-48b1-b97d-78a9f092af0b",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "3ff56090-085f-4b66-a6eb-ace0f66b4912",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "b166b719-9fe8-4214-aaa1-7ee255243773",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (15)",
+      "Position": "-4496.198,-3506.252,345.5583",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "1.829498,1.829498,1.829498",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ec7c90cf-f9e9-4415-8856-ef4bb79e375c",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "2dd2543c-6362-4197-97ad-2637e29957d9",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "603fab79-e4cf-42e0-a54a-a1ef6b43ccfc",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "b81a9e69-cc64-4185-b22d-c349b367f1b1",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (16)",
+      "Position": "-5506.104,-4208.761,161.8856",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "1.829498,1.829498,1.829498",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "976c241d-1497-49e1-b453-0965d5cfa0b0",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "8a0fd868-5fe8-4174-8f3c-8883a33f143f",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "5a660172-f925-4ee6-93a9-8e0ba41c794c",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "5308408a-92ba-4165-8bc6-217705b84536",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (17)",
+      "Position": "-5282.77,-4528.48,156.7718",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "1.829498,1.829498,1.829498",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ed670c26-862d-4d9e-8183-37db547be5bc",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "818b42d9-396e-4cbe-acf2-dece9988af66",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "73073126-d177-482e-8680-eb34c1ac48e8",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "ce09009f-46a1-4c47-9431-c4c6fce082b6",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (18)",
+      "Position": "-4851.101,-5146.446,146.8877",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "1.829498,1.829498,1.829498",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a131aae6-5d6c-4675-98c8-84558f052ec9",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "c4410aeb-d873-48df-84e4-27c977db7e8a",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "4b668f5a-5c3b-4690-bf6f-d67ee49d2e5d",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "980f67f4-501e-417f-99b3-efc1ad7531af",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (19)",
+      "Position": "-4404.688,-5399.867,140.8116",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "1.829498,1.829498,1.829498",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "18d04322-470e-434b-85aa-42d9e5fcd4a7",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "51eb00dd-4969-4167-b19f-9f439ccc3e9a",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "079d6050-0299-4bbf-a505-08891a37c153",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "b8fd6c95-3ab2-45ca-ab6c-d016831ca35d",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (20)",
+      "Position": "-3720.503,-5404.855,135.6207",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "1.829498,1.829498,1.829498",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "52a40596-f1ec-4adc-8157-4a03f4157d52",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "a1dad5fb-bb73-43f6-a7df-1bc8d6154785",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "feead34f-338d-47c0-ad5b-94e76b6780de",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "8fbf5bb2-b77b-4819-bef9-130acb0b22b4",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (21)",
+      "Position": "-2842.607,-5330.54,129.828",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "1.829498,1.829498,1.829498",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a0c34ec3-c0d9-4f41-b7ef-f393f342074a",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "feb7d671-23c9-4135-95fd-55b805eac21f",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "2e737f07-4823-4d53-b817-6b856ba18422",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "cb89f99e-a756-4189-837a-71ce506ccfc6",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (22)",
+      "Position": "-2173.21,-5446.075,123.5597",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "1.829498,1.829498,1.829498",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "2ffd1fb9-bc67-4acb-b024-dcd1beb8d163",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "32e42a0c-8ae9-4f7f-95fe-a8c547e5c683",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "b91a245a-6f90-4355-af1a-67c21106dc35",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "47cb4db2-5dd3-4715-963f-6226974723e0",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (23)",
+      "Position": "-1639.432,-5141.787,122.8228",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "1.829498,1.829498,1.829498",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "317d3055-3139-4e34-8f74-ecd4f18d1ca5",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "397d66c3-8710-478d-bd44-99e344124c39",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "e30e2ac9-8364-4a0a-9cfa-95e384671ef8",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "7244c361-ffe7-4120-aa68-f3c497d524d8",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (24)",
+      "Position": "-1566.779,-4625.862,127.8232",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "427a9a9e-ab76-45d2-a371-f778e7acb001",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "ded12e3c-ceaa-4ad7-83bc-f88a0f7767e4",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "cc35c51a-193b-42d1-912f-00dd56d45dbb",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "bf2d3f82-218c-4cb8-834c-84589979f7c7",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (25)",
+      "Position": "-1156.952,-4615.77,124.8545",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "0f46cb85-4e5f-4ccb-a0cb-f77ee22b29bc",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "fbeec1e2-0667-4e39-89ad-3da262acaf08",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "424081f1-57f6-47cb-9042-aa3607477415",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "19408433-235c-442b-9b79-cc19be58703c",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (26)",
+      "Position": "-272.795,-3945.467,125.4219",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "061ef070-0c34-4d31-af14-d2aeb385fb26",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "30968ad0-1011-4649-bb20-f9d263713d97",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "fe8bbc9b-ca7e-4b7d-a51e-c2d413527ab0",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "78f0de03-bb48-4858-80d2-43c5e844c5a4",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (27)",
+      "Position": "-293.3506,-3390.965,131.5371",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "c6d90956-a619-489a-a567-e3b2bc69a96d",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "c35464d2-8b8c-4839-a3ea-33a73321e6ee",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "899b70dc-ab6f-420c-a45f-77f0d278bb0b",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "705bcbc0-963a-40af-8b9d-82546c0b79f2",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (28)",
+      "Position": "-317.5755,-2810.315,137.9613",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b9d70234-5393-4364-b105-84d5d7144713",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "645705e7-26aa-42d9-bc4f-33f2a71655cf",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "8f4715ed-6947-4b9e-b52c-627f4734908c",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "f85199c1-44ce-4760-a94a-5d12417a3dfb",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (29)",
+      "Position": "-318.0083,-2313.48,143.305",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a117211e-832e-4031-b72f-b89e2d94cf2b",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "3a0c3450-9dac-4515-a800-491f399e2a9c",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "3df9f9fa-db25-4f63-b1c3-d17ebe7ddc7b",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "78de4d35-9295-4782-86c3-93be7705913c",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (30)",
+      "Position": "-323.3689,-1750.565,149.3963",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "7035731f-ea3f-438d-bf00-61e3f76415ac",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "33650e1e-5c63-4b85-8d2c-69813fe6cb07",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "b727d6e5-1860-4b9a-85e6-895b154e564b",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "2d4220f1-52c2-425a-9d83-ab94ecf91daa",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (31)",
+      "Position": "-1138.904,-841.2769,165.2942",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "9a43e200-75e8-458c-93dd-809258248d04",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "254d908c-3ac9-4a91-a578-0bb3fae00707",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "e7bf28cb-390c-4297-ae49-b448f868fe96",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "ee35c59f-ff53-4819-a61b-4a90d6543291",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (32)",
+      "Position": "-1469.194,-400.5561,172.5117",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "0a37531c-fe36-416a-ba95-af497d38b8be",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "817ac86e-4d10-4a13-ab17-3100bdd6a7d2",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "a98a569a-6871-47fa-8029-4a4817655eeb",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "d5200fc9-c396-47c9-943a-68a74994a0e4",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (33)",
+      "Position": "-2310.973,-190.6021,181.0892",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "353efe42-dadf-49c6-91e6-dafcf3a6da1a",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "723cc935-afb0-40af-8cec-1410dfe2e860",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "8f7772b4-8aa8-43b1-85d7-240ec54f9c3d",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "51894d40-ab48-42ef-94a7-8ed13ed0c307",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (34)",
+      "Position": "-2902.829,-422.318,183.0423",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "86fac544-86a4-4bf7-aee8-e8842d40d123",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "69f0d0ab-f9bc-4f85-b5e6-1cd38150c941",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "494a817b-ab1e-407d-a0ef-1ce6e005bf98",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "4366df0c-6fda-4424-9e5e-5742b1cd1d1e",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (35)",
+      "Position": "-3424.82,-530.8345,185.7949",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "338d8b36-3b8c-403e-b2ba-48ba427bd185",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "3c74fccb-c50c-4f54-a6c3-805f90fe9b66",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "cc31ea6c-2c74-4d35-9516-bea5f5f77208",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "04d0025b-b14f-4410-bae8-bc08f8ad3ead",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (36)",
+      "Position": "-4048.354,-1010.654,185.3188",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b582bb4c-3e0f-4223-816f-056cddbf680b",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "335c92c8-d990-49ad-9c0b-6f952870c9e4",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "6e11dad7-e14d-46b5-941e-2c68945792fa",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "0ca38db0-fcad-4849-9bed-585e7d111fa4",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (41)",
+      "Position": "-4263.934,-1953.458,176.8026",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "7.877117,7.877117,7.877117",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "52499c30-dc19-4d69-bb1b-c481967bec01",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "0c5c3c4f-20d7-4fee-b1a2-f1bd25063544",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "40132d6d-b4c7-4ca6-b459-b10ae05611e7",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "b01c3955-71d9-49a8-8bf3-558db3bdb468",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (37)",
+      "Position": "-4642.054,-1276.226,186.9218",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "8340ab14-1a27-4793-92f1-f70ed3432465",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "1fc48a4b-ea45-486b-b198-bf46dfc14a05",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "30900a4f-a646-4daa-a243-3fb4e8bc278f",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "aeab06b7-b2a2-458f-9127-290b6f541aa6",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (38)",
+      "Position": "-5024.665,-1813.952,184.0143",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b8c3c108-2738-4bc4-b55f-25ebab0061e0",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "4fdb165f-cdb7-4007-bf04-45dc37efae8d",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "3e77df6e-80bc-4c06-9e31-09980398c1a8",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "b03d58f2-620e-4e35-8821-d0398cd96dde",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (39)",
+      "Position": "-5440.806,-2219.354,182.781",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "cd32ca36-a1ea-4588-802d-02ea8bf70333",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "5f39f169-af2c-4b95-a294-2ecc88a271f1",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "a1823bd7-a097-4f61-bb42-5730b9bd3a0b",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "efd00ab8-48fd-4997-bf3a-2d9712d8d9a6",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (40)",
+      "Position": "-5616.654,-2342.58,207.3479",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.9130341,0.9130341,0.9130341",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "d517ae63-36bb-48d5-b6db-eec1142e9299",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "e3df88cc-4d7b-4348-97aa-699e51b7116a",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "4ae134d0-84bb-4614-936c-f66726de4ea5",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "169e38db-fee1-4abc-86c5-2ac37c6ada2e",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (10)",
+      "Position": "-2639.374,-2205.475,112.2741",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "75a62944-0e60-42cb-a614-493483591d84",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "5e127a10-aba0-459e-96ca-78f38d74d7c7",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "ef4a4a9e-eeb5-4dc1-8a76-88685a71ffba",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "6cde4b5e-094d-4916-946c-1c1574bf256d",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (11)",
+      "Position": "-2223.866,-1915.227,112.2743",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "975f5110-531c-4fb3-ab5d-c8eb511ab584",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "28229e33-ccd8-438b-ba38-ecf4e291caad",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "9e782e6c-e67c-452f-80f6-953bd781ed90",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "9f052250-97d0-4df9-9563-7286e8a224b4",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (12)",
+      "Position": "-2000.899,-2234.421,107.1689",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "cffe7e16-54d8-4583-9c63-50da4d996c89",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "70380d35-b4a6-4580-848b-2607b4ae18f2",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "827f8738-98e0-4fa7-a9fd-2fbc24e05910",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "df62f14a-ab19-4228-b042-d364276a11ab",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (13)",
+      "Position": "-2279.378,-2429.648,151.1616",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ff3bfed6-8926-41aa-a6d2-0532859c7e52",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "9ad63ac6-2908-4593-a68d-5282b801c78a",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "114a8b7d-a7a0-438c-a8a6-fef9dbf4215f",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "706d6d7e-6661-4648-a82f-9fdced797727",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (5)",
+      "Position": "-2449.495,-3509.776,431.7749",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Scale": "0.7447124,0.7447124,0.7447124",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "740dc80f-b213-49d4-bff4-6e55331e6134",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "a0949b56-e24a-441e-85b3-9421bacc134e",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "d3b0ad01-b270-43c4-b8f6-d085e4a070b7",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "08697110-6d61-4e07-9871-47652483041c",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (3)",
+      "Position": "-3658.867,-4354.617,435.0834",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "110e0ac9-b18f-4611-a144-743578036dda",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "ebaa604f-2a44-4848-85e2-fc1e4b22615c",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "ff70b908-7471-49c5-a8be-829f4a51bd9d",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "5d5ccef9-c0f2-4709-8363-425325f2f12a",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (4)",
+      "Position": "-3305.648,-4860.277,426.9956",
+      "Rotation": "0.003030524,0.005813181,-0.4622371,0.8867323",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "9bdec55c-8ab8-4a04-a786-abc7fd487c35",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "74d72218-47d5-4a64-b51d-3d39a381ec86",
+          "IsTrigger": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Static": true
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "bb32b0ea-0f20-4909-96d1-7f0dd60f14dc",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "88e126a1-a8d0-4f9d-b2b3-b9cc1027e843",
+      "Flags": 0,
+      "Name": "tallgrass_a",
+      "Position": "-3222.815,-2008.583,67.34492",
+      "Scale": "3.685046,3.685046,3.685046",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "5d25bf0e-90cd-4f1b-adde-d30fed1c3bba",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/sbox_props/nature/tallgrass/tallgrass_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f0b2b307-dd65-49a8-8f8d-231170fca2bd",
+      "Flags": 0,
+      "Name": "tallgrass_a (1)",
+      "Position": "-3746.293,-2037.164,67.34489",
+      "Scale": "3.685046,3.685046,3.685046",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "1c349cd3-73b1-4e7a-9b5e-49e375e6b135",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/sbox_props/nature/tallgrass/tallgrass_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 60,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": true,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 0.49989566,
+      "AgentStepSize": 23.700022,
+      "AgentMaxSlope": 1388.1989,
+      "ExcludedBodies": "npc,solid",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "minimal",
+  "Description": "",
+  "LastSaved": "2024-06-17T20:33:42.6851535\u002B02:00",
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.tallgrass_a",
+    "facepunch.tree_oak_medium_a"
+  ],
+  "__version": 1
+}

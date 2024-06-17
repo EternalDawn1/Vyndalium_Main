@@ -5,122 +5,83 @@
 @if (Player.Local is null)
 	return;
 <root>
-	<SideButton 
-		
-		title="Exit"
-		OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud))
-		IsInverted=@(true)
-		ImagePath="ui/hud/goback.png"
-		style="position: absolute; top: 30px; right: 0px;" 
-		style="z-index: 100;" 
-	/>
-	<SideButton 
-	
-		title="Character Menu"
-		OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.CharacterMenu))
-		IsInverted=@(true)
-		ImagePath="ui/hud/muscles.png"
-		style="position: absolute; top: 270px; right: 0px; " 
-		style="z-index: 100;" 
-	/>
+	<SideButton title="Exit" OnClick=@(() =>
+		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud)) IsInverted=@(true)
+		ImagePath="ui/hud/goback.png" style="position: absolute; top: 30px; right: 0px;" style="z-index: 100;" />
+	<SideButton title="Character Menu" OnClick=@(() =>
+		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.CharacterMenu)) IsInverted=@(true)
+		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 270px; right: 0px; " style="z-index: 100;" />
 	<div class="sidehud">
-	<SideButton 
-		
-		OnClick=@(() => ShowPanel(PanelType.Inventory))
-		IsInverted=@(true)
-		ImagePath="ui/hud/inventory.png"
-		
-		/>
-		<SideButton 
-		
-			
-			OnClick=@(() => ShowPanel(PanelType.Food))
-			IsInverted=@(true)
-			ImagePath="ui/hud/food.png"
-			
-		/>
-		<SideButton 
-		
-			
-			OnClick=@(() => ShowPanel(PanelType.Weapons))
-			IsInverted=@(true)
-			ImagePath="ui/hud/weapons.png"
-			 
-		/>
-		<SideButton 
-
-			
-			OnClick=@(() => ShowPanel(PanelType.Armor))
-			IsInverted=@(true)
-			ImagePath="ui/hud/armor.png"
-			
-		/>
-		<SideButton 
-		
-		
-			OnClick=@(() => ShowPanel(PanelType.Materials))
-			IsInverted=@(true)
-			ImagePath="ui/hud/materials.png"
-			
-		/>
-		<SideButton 
-			
-			
-			OnClick=@(() => ShowPanel(PanelType.Potions))
-			IsInverted=@(true)
-			ImagePath="ui/hud/potions.png"
-			
-		/>
+		<SideButton OnClick=@(() => ShowPanel(PanelType.Inventory)) IsInverted=@(true)
+			ImagePath="ui/hud/inventory.png" />
+		<SideButton OnClick=@(() => ShowPanel(PanelType.Food)) IsInverted=@(true) ImagePath="ui/hud/food.png" />
+		<SideButton OnClick=@(() => ShowPanel(PanelType.Weapons)) IsInverted=@(true) ImagePath="ui/hud/weapons.png" />
+		<SideButton OnClick=@(() => ShowPanel(PanelType.Armor)) IsInverted=@(true) ImagePath="ui/hud/armor.png" />
+		<SideButton OnClick=@(() => ShowPanel(PanelType.Materials)) IsInverted=@(true)
+			ImagePath="ui/hud/materials.png" />
+		<SideButton OnClick=@(() => ShowPanel(PanelType.Potions)) IsInverted=@(true) ImagePath="ui/hud/potions.png" />
 	</div>
 	<div class="list">
-        <div class="inventory" style="opacity: @(currentPanel == PanelType.Inventory ? 1 : 0)">
-			<input type="search" class="search-bar" @bind="searchTerm" placeholder="Search..." @oninput="UpdateSearch" />
+		<div class="inventory" style="opacity: @(currentPanel == PanelType.Inventory ? 1 : 0)">
+			<input type="search" class="search-bar" @bind="searchTerm" placeholder="Search..."
+				@oninput="UpdateSearch" />
 			<div class="Hello">Inventory / All</div>
-			
+
 			<div class="section">
-						<div class="character">
-		<CharacterRenderer @ref=_renderer/>
+				<div class="character">
+					<CharacterRenderer @ref=_renderer />
 					<div class="box">
-										
-										<div class = "EquippedItems">
-											<InventorySlot EquipSlotIndex=@EquipSlot.Head Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head]/>
-											<InventorySlot EquipSlotIndex=@EquipSlot.Body Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Body]/>
-											<InventorySlot EquipSlotIndex=@EquipSlot.Legs Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Legs]/>
-											<InventorySlot EquipSlotIndex=@EquipSlot.Feet Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Feet]/>
-										</div>
-										<div class="Access">
-											<InventorySlot EquipSlotIndex=@EquipSlot.Face Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face]/>
-											<InventorySlot EquipSlotIndex=@EquipSlot.Face Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face]/>	
-										
-										
-											<InventorySlot EquipSlotIndex=@EquipSlot.Belt Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt]/>
-											<InventorySlot EquipSlotIndex=@EquipSlot.Bracer Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Bracer]/>
-										</div>
-										
-										<div class="Hands">
-											<InventorySlot EquipSlotIndex=@EquipSlot.Hand Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand]/>
-											<InventorySlot EquipSlotIndex=@EquipSlot.Hand Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand]/>
-											
-										</div>
-										<div class="back">
-											<InventorySlot EquipSlotIndex=@EquipSlot.Back Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back]/>	
-										</div>
-										
-										
-										
-										
-					
-										
-										
+
+						<div class="EquippedItems">
+							<InventorySlot EquipSlotIndex=@EquipSlot.Head
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head] />
+							<InventorySlot EquipSlotIndex=@EquipSlot.Body
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Body] />
+							<InventorySlot EquipSlotIndex=@EquipSlot.Legs
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Legs] />
+							<InventorySlot EquipSlotIndex=@EquipSlot.Feet
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Feet] />
+						</div>
+						<div class="Access">
+							<InventorySlot EquipSlotIndex=@EquipSlot.Face
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
+							<InventorySlot EquipSlotIndex=@EquipSlot.Face
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
+
+
+							<InventorySlot EquipSlotIndex=@EquipSlot.Belt
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt] />
+							<InventorySlot EquipSlotIndex=@EquipSlot.Bracer
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Bracer] />
+						</div>
+
+						<div class="Hands">
+							<InventorySlot EquipSlotIndex=@EquipSlot.Hand
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] />
+							<InventorySlot EquipSlotIndex=@EquipSlot.Hand
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] />
+
+						</div>
+						<div class="back">
+							<InventorySlot EquipSlotIndex=@EquipSlot.Back
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back] />
+						</div>
+
+
+
+
+
+
+
 					</div>
-	</div>
-				
+				</div>
+
 			</div>
 
 			<div class="section2">
-				
+
 				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
-					@for ( var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++ )
+					@for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
 					{
 						var item = Player.Local.Inventory.BackpackItems[index];
 						<InventorySlot Item=@item BackpackSlotIndex=@index />
@@ -128,10 +89,10 @@
 				</div>
 				<div style="align-items: center; margin: 20px 5px;"></div>
 			</div>
-        </div>
+		</div>
 
 		<div class="Food" style="opacity: @(currentPanel == PanelType.Food ? 1 : 0)">
-        
+
 		</div>
 		<div class="Weapons" style="opacity: @(currentPanel == PanelType.Weapons ? 1 : 0)">
 			<!-- Weapons Content -->
@@ -147,41 +108,41 @@
 		</div>
 
 
-       
-    </div>
-	
-		
-	
-	
+
+	</div>
+
+
+
+
 </root>
 
-@code 
+@code
 {
 	CharacterRenderer _renderer;
 
-    public void UpdateSearch()
-    {
-        // Hier können Sie Ihren Code hinzufügen, um das Inventar basierend auf searchTerm zu filtern
-    }
-	
+	public void UpdateSearch()
+	{
+		// Hier können Sie Ihren Code hinzufügen, um das Inventar basierend auf searchTerm zu filtern
+	}
+
 	public static Inventory Instance { get; private set; }
 	public static bool IsDragging { get; private set; }
 	public Inventory() => Instance = this;
 
 	public enum PanelType
-    {
-        Inventory,
-        Food,
-        Weapons,
-        Armor,
-        Materials,
-        Potions
-    }
+	{
+		Inventory,
+		Food,
+		Weapons,
+		Armor,
+		Materials,
+		Potions
+	}
 	private PanelType currentPanel = PanelType.Inventory;
-    public void ShowPanel(PanelType panel)
-    {
-        currentPanel = panel;
-    }
+	public void ShowPanel(PanelType panel)
+	{
+		currentPanel = panel;
+	}
 
 	public void Inspect(ItemComponent item)
 	{
@@ -190,7 +151,7 @@
 	}
 	public void OnChanged()
 	{
-		
+
 	}
 
 	protected override int BuildHash()
@@ -200,9 +161,9 @@
 			return -1;
 
 		return HashCode.Combine(
-			Player.Local.Level,
-			Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 ),
-			Player.Local.Inventory.EquippedItems.HashCombine( i => i?.GetHashCode() ?? -1 )
+		Player.Local.Level,
+		Player.Local.Inventory.BackpackItems.HashCombine(i => i?.GetHashCode() ?? -1),
+		Player.Local.Inventory.EquippedItems.HashCombine(i => i?.GetHashCode() ?? -1)
 		);
 	}
 
