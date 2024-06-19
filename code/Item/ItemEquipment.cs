@@ -25,7 +25,7 @@ public enum HoldType : byte
 
 public class ItemEquipment : ItemComponent
 {
-	
+
 	[Property, Category( "Equipment" )] public bool IsBackable { get; set; }
 	[Property, Category( "Equipment" )] public EquipSlot Slot { get; set; } = EquipSlot.Hand;
 	[Property, Category( "Equipment" )] public HiddenBodyGroup HideBodygroups { get; set; }
@@ -49,27 +49,12 @@ public class ItemEquipment : ItemComponent
 	public bool IsClothing => Slot != EquipSlot.Hand;
 	public bool Equipped => State == ItemState.Equipped;
 
-	
+
 
 	public void UpdateEquipped()
 	{
 		if ( Equipped )
 			ToggleRenderer( Equipped );
-
-		// Bonemerge
-		if (Renderer is SkinnedModelRenderer skinned && !UpdatePosition)
-		{
-			var parentRenderer = GameObject.Parent?.Components.Get<SkinnedModelRenderer>(FindMode.EverythingInChildren);
-			if (parentRenderer != null && Equipped)
-			{
-				skinned.BoneMergeTarget = parentRenderer;
-			}
-			else
-			{
-				skinned.BoneMergeTarget = null;
-			}
-		}
-		
 
 		// Toggle colliders and rigidbodies, update parcel
 		if ( !IsClothing )
@@ -100,7 +85,7 @@ public class ItemEquipment : ItemComponent
 		{
 			parcelRenderer ??= Components.Create<ModelRenderer>();
 			parcelRenderer.Enabled = true;
-			
+
 
 			parcelCollider ??= Components.Create<BoxCollider>();
 			parcelCollider.Center = Vector3.Up * 4.8f;

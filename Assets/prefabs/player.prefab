@@ -51,7 +51,7 @@
         "Bounciness": 0.3,
         "GroundAngle": 45,
         "Height": 64,
-        "IgnoreLayers": "player",
+        "IgnoreLayers": "",
         "Radius": 16,
         "StepHeight": 18,
         "UseCollisionRules": false
@@ -132,6 +132,18 @@
           "component_type": "CitizenAnimationHelper"
         },
         "Animators": [
+          {
+            "_type": "component",
+            "component_id": "91ec0fcd-b977-45d0-b380-ea826d06ba93",
+            "go": "6418cc4c-55ec-41b1-8cf9-bb39e48e8b40",
+            "component_type": "CitizenAnimationHelper"
+          },
+          {
+            "_type": "component",
+            "component_id": "9d147edc-5aae-4bf6-a544-f436916b1fec",
+            "go": "5fc0eef6-6276-44e7-af5d-6186ed3fafda",
+            "component_type": "CitizenAnimationHelper"
+          },
           {
             "_type": "component",
             "component_id": "91ec0fcd-b977-45d0-b380-ea826d06ba93",
@@ -436,9 +448,10 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "bd50c105-5a6a-41e6-9e1a-6093786e257f",
-            "BodyGroups": 272,
+            "AnimationGraph": "models/citizen/citizen.vanmgrph",
+            "BodyGroups": 340,
             "CreateBoneObjects": true,
-            "MaterialGroup": "Skin02",
+            "MaterialGroup": "default",
             "Model": "models/citizen/citizen.vmdl",
             "RenderType": "Off",
             "Tint": "1,1,1,1",
@@ -448,7 +461,7 @@
         "Children": [
           {
             "__guid": "f0823fb4-0de3-49e9-9a7b-0e235ebf5934",
-            "Flags": 1028,
+            "Flags": 4,
             "Name": "pelvis",
             "Position": "1.266582,0.000014907,31.0736",
             "Rotation": "-0.4999993,-0.4999994,-0.5000004,0.5000009",
@@ -458,7 +471,7 @@
             "Children": [
               {
                 "__guid": "8999f2cb-dab5-4937-bdd4-3abafeab74d1",
-                "Flags": 1028,
+                "Flags": 4,
                 "Name": "spine_0",
                 "Position": "3.921827,-0.002448082,-0.0001163057",
                 "Rotation": "0.0002582668,-0.0000002086403,-0.0000562668,1",
@@ -1204,7 +1217,7 @@
               },
               {
                 "__guid": "26d3a42a-ede2-404b-87fe-1f7286de0cfe",
-                "Flags": 1028,
+                "Flags": 4,
                 "Name": "leg_upper_R",
                 "Position": "-0.2881533,-0.4264439,-4.427378",
                 "Rotation": "-0.000001549721,1,0.0000001788139,-0.000000923872",
@@ -1307,7 +1320,7 @@
               },
               {
                 "__guid": "559cdd35-2dc4-43db-8ba1-ddc2869fb21c",
-                "Flags": 1028,
+                "Flags": 4,
                 "Name": "leg_upper_L",
                 "Position": "-0.2881297,-0.4264377,4.427379",
                 "Rotation": "-0.000001549721,1,0.0000001788139,-0.000001162291",
@@ -1775,7 +1788,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

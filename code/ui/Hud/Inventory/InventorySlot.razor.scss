@@ -1,6 +1,7 @@
 @import "/ui/Hud/Style.scss";
 
 InventorySlot {
+    position: relative;
     width: 100px;
     height: 100px;
     margin-left: 5px;
@@ -11,8 +12,8 @@ InventorySlot {
     opacity: 1;
     transform: translateY(0);
 
-   
-    
+
+
     .border {
         position: absolute;
         background-image: linear-gradient(rgb(36, 35, 35), #682020);
@@ -20,7 +21,7 @@ InventorySlot {
         width: 100%;
         mask-mode: alpha;
         mask-image: url('/ui/hud/slot_mask.png');
-      
+
         mask-size: 100%;
     }
 
@@ -30,7 +31,7 @@ InventorySlot {
         height: 100%;
         width: 100%;
         z-index: -10;
-        
+
     }
 
     .item {
@@ -38,7 +39,7 @@ InventorySlot {
         width: 90%;
         transition: background-color 1.5s ease-in-out;
         background-color: rgba(255, 255, 255, 0.205);
-        
+
 
         &.has-child-draggable {
             opacity: 0.3;
@@ -48,7 +49,7 @@ InventorySlot {
             cursor: pointer;
             sound-in: 'hover';
             background-color: rgba(255, 255, 255, 0.02);
-            
+
         }
 
         .count {
@@ -71,7 +72,7 @@ InventorySlot {
         height: 45px;
         width: 45px;
         justify-content: center;
-    
+
     }
 
     // Drop target stuff
@@ -81,15 +82,16 @@ InventorySlot {
     }
 
     transition: background-color 0.23s ease-in-out;
-    
+
     // Behaviour for when the draggable could be dropped here
     &.can-drop {
         background-color: rgba(255, 255, 255, 0.02);
     }
-    
+
     // Behaviour for when we are the drop target,
     &.is-drop-target {
         &.can-drop {
+
             // ... and the draggable can be dropped here
             .border {
                 transform: scale(1.1);

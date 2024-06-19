@@ -658,17 +658,27 @@ public partial class Player : Component, IHealthComponent
 
 		foreach ( var animator in Animators )
 		{
-			animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.None;
-			animator.WithVelocity( CharacterController.Velocity );
-			animator.WithWishVelocity( WishVelocity );
-			animator.IsGrounded = CharacterController.IsOnGround;
-			animator.MoveRotationSpeed = 0f;
-			animator.DuckLevel = IsCrouching ? 1f : 0f;
-			animator.WithLook( EyeAngles.Forward );
-			animator.MoveStyle = (IsRunning && !IsCrouching) ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
+			if ( animator != null )
+			{
+				animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.None;
+
+				if ( animator != null )
+				{
+					animator.WithWishVelocity( WishVelocity );
+				}
+
+				animator.IsGrounded = CharacterController.IsOnGround;
+				animator.MoveRotationSpeed = 0f;
+				animator.DuckLevel = IsCrouching ? 1f : 0f;
+				animator.WithLook( EyeAngles.Forward );
+				animator.MoveStyle = (IsRunning && !IsCrouching) ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
+			}
+			else
+			{
+				// Behandlung des Falls, dass animator null ist
+				Log.Info( "Animator is null" );
+			}
 		}
-
-
 	}
 
 	protected virtual void DoCrouchingInput()

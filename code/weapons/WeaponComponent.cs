@@ -11,7 +11,7 @@ public enum WeaponType
 }
 
 
-public  class WeaponComponent : Component
+public class WeaponComponent : Component
 {
 
 
@@ -36,8 +36,8 @@ public  class WeaponComponent : Component
 	public TimeUntil NextAttackTime { get; set; }
 	public SkinnedModelRenderer EffectRenderer => ViewModel.IsValid() ? ViewModel.ModelRenderer : ModelRenderer;
 	public EquipSlot Slot { get; set; }
-	
-	
+
+
 	protected override void OnStart()
 	{
 		if ( !Owner.IsValid() ) return;
@@ -45,13 +45,13 @@ public  class WeaponComponent : Component
 			OnDeployed();
 		else
 			OnHolstered();
-		
+
 
 		base.OnStart();
 
-		
+
 	}
-	
+
 
 	protected override void OnAwake()
 	{
@@ -68,14 +68,17 @@ public  class WeaponComponent : Component
 	{
 		if ( IsDeployed )
 		{
-			OnHolstered();
+			if ( ViewModel != null )
+			{
+				OnHolstered();
+			}
 			IsDeployed = false;
 		}
 
 		base.OnDestroy();
 	}
 
-	
+
 
 	[Broadcast]
 	public virtual void Deploy()
@@ -83,12 +86,11 @@ public  class WeaponComponent : Component
 		if ( !IsDeployed )
 		{
 			IsDeployed = true;
-			
+
 			OnDeployed();
-			if (Owner != null && Owner.ModelRenderer != null)
-			{
-				Owner.ModelRenderer.Enabled = false;
-			}
+
+
+
 		}
 	}
 
@@ -98,23 +100,19 @@ public  class WeaponComponent : Component
 		if ( IsDeployed )
 		{
 			OnHolstered();
-			
+
 			IsDeployed = false;
-			if (Owner != null && Owner.ModelRenderer != null)
-			{
-				Owner.ModelRenderer.Enabled = false;
-				
-			}
-			
+
+
 		}
-		
-		
+
+
 	}
 
 	public virtual void PrimaryAction()
 	{
-	
-		
+
+
 
 	}
 	public virtual void PrimaryActionRelease()
@@ -126,11 +124,11 @@ public  class WeaponComponent : Component
 	public virtual void SecondaryAction()
 	{
 		var weapon = Player.Local.Weapons.Deployed;
-		if (weapon != null && weapon.IsValid())
+		if ( weapon != null && weapon.IsValid() )
 		{
 			weapon.Holster();
 		}
-		
+
 	}
 	public virtual void SeccondaryActionRelease()
 	{
@@ -142,17 +140,17 @@ public  class WeaponComponent : Component
 	{
 
 	}
-	
+
 
 	protected virtual void OnDeployed()
 	{
 		var player = Components.GetInAncestors<Player>();
 		var playerDresser = player.Components.Get<PlayerDresser>();
-        if (playerDresser != null)
-        {
-            playerDresser.RemoveClothing();
-        }
-		
+		if ( playerDresser != null )
+		{
+			playerDresser.RemoveClothing();
+		}
+
 
 		if ( player.IsValid() )
 		{
@@ -161,9 +159,9 @@ public  class WeaponComponent : Component
 				animator.TriggerDeploy();
 			}
 		}
-		
+
 		ModelRenderer.Enabled = !HasViewModel;
-		
+
 		if ( DeploySound is not null )
 		{
 			Sound.Play( DeploySound, Transform.Position );
@@ -173,7 +171,7 @@ public  class WeaponComponent : Component
 		{
 			CreateViewModel();
 		}
-		
+
 		NextAttackTime = DeployTime;
 	}
 
@@ -181,25 +179,28 @@ public  class WeaponComponent : Component
 	{
 		ModelRenderer.Enabled = false;
 		var player = Components.GetInAncestors<Player>();
-		if (player != null)
+		if ( player != null )
 		{
 			var playerDresser = player.Components.Get<PlayerDresser>();
-			if (playerDresser != null)
+			if ( playerDresser != null )
 			{
 				playerDresser.RemoveClothing();
 			}
 		}
 		else
 		{
-			Log.Error("Spieler ist null in OnHolstered");
+			Log.Error( "Spieler ist null in OnHolstered" );
 		}
 
 		DestroyViewModel();
 	}
-	
+
 	private void DestroyViewModel()
 	{
-		ViewModel?.GameObject.Destroy();
+		if ( ViewModel != null && ViewModel.GameObject != null )
+		{
+			ViewModel.GameObject.Destroy();
+		}
 		ViewModel = null;
 	}
 
@@ -207,29 +208,29 @@ public  class WeaponComponent : Component
 	{
 		if ( !ViewModelPrefab.IsValid() )
 			return;
-		
+
 		var player = Components.GetInAncestors<Player>();
 		var character = player.Components.Get<Character>();
-		if (character != null)
+		if ( character != null )
 		{
-			character.CreatePreviewClothing(null);
+			character.CreatePreviewClothing( null );
 		}
 
 		var playerDresser = player.Components.Get<PlayerDresser>();
-		if (playerDresser != null)
+		if ( playerDresser != null )
 		{
 			playerDresser.RemoveClothing();
 		}
 
 		var viewModelGameObject = ViewModelPrefab.Clone();
 		viewModelGameObject.SetParent( player.ViewModelRoot, false );
-		
+
 		ViewModel = viewModelGameObject.Components.Get<ViewModel>();
 		ViewModel.SetWeaponComponent( this );
 		ViewModel.SetCamera( player.PlyCamera );
-		
+
 		ModelRenderer.Enabled = false;
 	}
 
-	
+
 }

@@ -2,46 +2,51 @@
 
 ExperienceBar {
     .hud {
-        
+
         padding: 25px 0px 20px 15px;
         background: linear-gradient(to right, rgba($green, 0.7) 0%, rgba($green, 0.2) 70%, rgba($green, 0) 100%);
-        
+
     }
 
     .container {
         width: 300px;
-        
         flex-direction: column;
         transition: all 1.4s ease-out;
         position: absolute;
         right: 210px;
         bottom: 10px;
-        
-        
-        
+
+
+
 
         .level-details {
             width: 100%;
-            
-           
+
+            justify-content: space-evenly;
+
             color: rgb(255, 255, 255);
-            
+
             .level {
+
                 font-size: 15px;
-                font-family:  Verdana;
+                font-family: Verdana;
                 color: rgb(255, 255, 255);
                 bottom: 120%;
-                left: 5%;
-                
-                
+
+
+
+
             }
 
             .level-exp {
+                position: relative;
                 font-size: 15px;
-                font-family:  Verdana;
+                font-family: Verdana;
                 font-style: italic;
-                left: 45%;
+                left: -11%;
                 bottom: 120%;
+                color: gold;
+
             }
         }
 
@@ -60,9 +65,9 @@ ExperienceBar {
                 border-radius: 10%;
                 transition: all 2.5s ease-out;
                 border-width: 1%;
-                border-color: rgb(255, 255, 255);
+                border-color: rgb(225, 222, 222);
                 border-radius: 5px;
-                
+
             }
         }
 
