@@ -699,7 +699,7 @@ public partial class Player : Component, IHealthComponent
 	{
 		BuildWishVelocity();
 
-		if ( CharacterController.IsOnGround && Input.Down( "Jump" ) )
+		if ( CharacterController.IsOnGround && Input.Pressed( "Jump" ) )
 		{
 			CharacterController.Punch( Vector3.Up * 300f );
 			SendJumpMessage();
