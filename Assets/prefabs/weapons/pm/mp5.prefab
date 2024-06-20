@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "e2275ecb-34e9-41b2-8319-6a321f010cf2",
     "Flags": 0,
-    "Name": "glock",
+    "Name": "mp5",
     "Scale": "1.5,1.5,1.5",
     "Enabled": true,
     "NetworkMode": 2,
@@ -11,10 +11,10 @@
       {
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "47a226ea-6b2c-43ea-998b-a36e2ff76764",
-        "AnimationGraph": "models/glock/glock.vanmgrph",
-        "BodyGroups": 1,
+        "AnimationGraph": "models/weapons/sbox_smg_mp5/v_mp5.vanmgrph",
+        "BodyGroups": 3,
         "CreateBoneObjects": false,
-        "Model": "models/glock/w/w_glock20lod0.vmdl",
+        "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
         "RenderType": "On",
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -24,28 +24,28 @@
         "__guid": "2551fda6-b376-457d-8a3e-5454934b348b",
         "AimPos": "-1.5,1.8,1",
         "AimRotation": "0,0,0,0",
-        "AmmoType": "Pistol",
-        "ClipSize": 15,
+        "AmmoType": "Rifle",
+        "ClipSize": 25,
         "Damage": 30,
         "DamageForce": 5,
         "DamageType": "Serious",
-        "DefaultAmmo": 60,
-        "DeploySound": "sounds/weapons/weapon_deploy3.sound",
+        "DefaultAmmo": 90,
+        "DeploySound": "sounds/weapons/weapon_deploy1.sound",
         "DeployTime": 0.5,
-        "DisplayName": "Glock 20",
+        "DisplayName": "Mp5",
         "EmptyClipSound": "sounds/weapons/empty_submachineguns.sound",
         "EmptyReloadSoundSequence": "models/glock/glockemptyreload.sndseq",
         "EmptyReloadTime": 3.05,
-        "FireRate": 7,
-        "FireSound": "models/glock/glock20_fire1.sound",
+        "FireRate": 15,
+        "FireSound": "models/aksu/ak74u_fire2.sound",
         "HitForce": 300,
-        "HoldType": "Pistol",
-        "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+        "HoldType": "Rifle",
+        "HolsterSound": "sounds/weapons/weapon_holster1.sound",
         "IdlePos": "-3,-0.4,-0.5",
         "ImpactEffect": "particles/impact.generic.vpcf",
-        "IsAuto": false,
+        "IsAuto": true,
         "IsDeployed": false,
-        "IsMagicWeapon": true,
+        "IsMagicWeapon": false,
         "MuzzleFlash": "particles/pistol_muzzleflash.vpcf",
         "Recoil": "-5,1,0",
         "ReloadSoundSequence": "models/glock/glockreload.sndseq",
@@ -55,7 +55,7 @@
         "Type": "Ranged",
         "ViewModelPrefab": {
           "_type": "gameobject",
-          "prefab": "prefabs/weapons/pm/vm_glock.prefab"
+          "prefab": "prefabs/weapons/pm/vm_mp5.prefab"
         }
       },
       {
@@ -70,7 +70,7 @@
         "__type": "Sandbox.ModelCollider",
         "__guid": "221b6fca-e1c0-4b4f-a6f7-1a68b3a1b6ac",
         "IsTrigger": false,
-        "Model": "models/glock/w/w_glock20lod0.vmdl",
+        "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
         "Static": false
       },
       {
@@ -94,11 +94,15 @@
         "AttachmentTransform": {
           "UniformScale": 1,
           "IsValid": true,
+          "ForwardRay": {
+            "Forward": "1,0,0"
+          },
           "Scale": "1,1,1",
           "Rotation": "0,0,0,1"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
+        "BleedResistance": 0,
         "BlindResistance": 0,
         "BonusEXP": 0,
         "BonusScore": 0,
@@ -115,26 +119,29 @@
         "Evasion": 0,
         "FireResistence": 0,
         "HE": 0,
+        "Health": 0,
         "HideBodygroups": "None",
         "HoldType": "Rifle",
         "HolyResistence": 0,
         "IceResistence": 0,
         "Icon": {
-          "Model": "models/glock/w/w_glock20lod0.vmdl",
+          "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
           "MaterialGroup": "",
           "Colour": "1,1,1,1",
-          "Position": "-2.85,2.85,0",
-          "Rotation": "0,0,0.7071068,0.7071068",
-          "Guid": "7fe21cab-d417-44ef-9c28-f9634c1d942a"
+          "Position": "4.35,6.45,3.75",
+          "Rotation": "0.5,-0.5,0.5,0.5",
+          "Guid": "011df10a-1bb1-4b57-b230-956166b7aad2"
         },
         "INT": 0,
+        "IsBackable": false,
         "ItemLevel": 0,
         "LightningResistence": 0,
         "MagicDefense": 0,
+        "MagicPower": 0,
         "Mana": 2.35,
         "MaxStack": 0,
         "MoveSpeed": 0,
-        "Name": "Glock 20",
+        "Name": "Mp5",
         "PER": 0,
         "PoisonResistence": 0,
         "SellPrice": -1,
@@ -156,12 +163,16 @@
         "ObjectInteractions": []
       }
     ],
-    "Children": []
+    "Children": [],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.v_mp5",
+    "facepunch.w_mp5"
+  ],
   "__version": 1
 }

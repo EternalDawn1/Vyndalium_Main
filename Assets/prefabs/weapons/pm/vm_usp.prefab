@@ -1,0 +1,73 @@
+{
+  "RootObject": {
+    "__guid": "cf993156-0b41-455c-a7f9-5292fc95eeb8",
+    "Flags": 0,
+    "Name": "vm_usp",
+    "Tags": "viewmodel",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "GeneralGame.ViewModel",
+        "__guid": "ebc5c9b0-efb6-4dda-9ad8-87db446dea15",
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "5bb6e01d-bf4e-4cb1-bcdb-7cdc60b08b71",
+          "go": "cf993156-0b41-455c-a7f9-5292fc95eeb8",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "UseSprintAnimation": false
+      },
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "5bb6e01d-bf4e-4cb1-bcdb-7cdc60b08b71",
+        "BodyGroups": 3,
+        "CreateBoneObjects": false,
+        "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+        "RenderType": "Off",
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "2547fb56-1c95-4be5-9e3d-4e6dc9985cca",
+        "Flags": 0,
+        "Name": "Arms",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "f27f1668-0f44-42e0-bb5e-6619a07ad67c",
+            "AnimationGraph": "models/weapons/sbox_smg_mp5/v_mp5.vanmgrph",
+            "BodyGroups": 21,
+            "BoneMergeTarget": {
+              "_type": "component",
+              "component_id": "5bb6e01d-bf4e-4cb1-bcdb-7cdc60b08b71",
+              "go": "cf993156-0b41-455c-a7f9-5292fc95eeb8",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "CreateBoneObjects": false,
+            "Model": "models/first_person/first_person_arms.vmdl",
+            "RenderType": "Off",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.v_mp5",
+    "facepunch.w_mp5"
+  ],
+  "__version": 1
+}

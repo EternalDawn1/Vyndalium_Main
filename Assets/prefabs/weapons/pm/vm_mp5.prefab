@@ -1,0 +1,61 @@
+{
+  "RootObject": {
+    "__guid": "17e28aa1-8bad-48cd-a56a-f9f335ebeba4",
+    "Flags": 0,
+    "Name": "vm_mp5",
+    "Tags": "player,viewmodel",
+    "Enabled": true,
+    "NetworkMode": 0,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "9c3d287b-f744-45ba-b63c-1e7691de7357",
+        "AnimationGraph": "models/weapons/sbox_smg_mp5/v_mp5.vanmgrph",
+        "BodyGroups": 18446744073709551599,
+        "CreateBoneObjects": false,
+        "Model": "models/weapons/sbox_smg_mp5/v_mp5.vmdl",
+        "RenderType": "Off",
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "0f247867-4f1d-4a63-b4f5-52bc679cb87d",
+        "Flags": 0,
+        "Name": "Object",
+        "Enabled": true,
+        "NetworkMode": 0,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "1cb854e9-37cc-43ce-b905-417311544c7d",
+            "BodyGroups": 18446744073709551383,
+            "BoneMergeTarget": {
+              "_type": "component",
+              "component_id": "9c3d287b-f744-45ba-b63c-1e7691de7357",
+              "go": "17e28aa1-8bad-48cd-a56a-f9f335ebeba4",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "CreateBoneObjects": false,
+            "Model": "models/first_person/first_person_arms.vmdl",
+            "RenderType": "Off",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.v_mp5"
+  ],
+  "__version": 1
+}

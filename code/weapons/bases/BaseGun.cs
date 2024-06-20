@@ -192,7 +192,7 @@ public class BaseGun : WeaponComponent, IUse
 
 		Owner.IsAiming = false;
 	}
-
+	
 	public override void ReloadAction()
 	{
 
@@ -215,7 +215,7 @@ public class BaseGun : WeaponComponent, IUse
 		SendReloadMessage();
 	}
 
-
+	
 	public virtual void FireBullet( Player shooter )
 	{
 		if ( shooter == null || Owner == null || EffectRenderer == null || Scene == null )
