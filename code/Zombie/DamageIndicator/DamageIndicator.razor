@@ -2,7 +2,8 @@
 @using Sandbox
 @inherits PanelComponent
 @namespace GeneralGame.HUD
-
+@if (IsProxy)
+    return;
 <div class="damage-indicator-container">
     <div class="damage-indicator">@DamageAmount</div>
 </div>

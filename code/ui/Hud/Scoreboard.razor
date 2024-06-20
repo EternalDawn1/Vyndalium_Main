@@ -3,7 +3,8 @@
 @using Sandbox;
 @inherits PanelComponent
 @namespace GeneralGame.HUD
-
+@if (IsProxy)
+	return;
 <root>
 	<div class="table">
 		<div class="table-row heading">
@@ -13,26 +14,26 @@
 			<div class="row-item">⏲️</div>
 		</div>
 
-		@foreach ( var entry in Connection.All )
+		@foreach (var entry in Connection.All)
 		{
 			var rowClass = string.Empty;
 			var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.OwnerConnection == entry);
 
-			if ( entry == Connection.Local )
+			if (entry == Connection.Local)
 				rowClass = "me";
 
 			<div class="table-row @rowClass">
 				<div class="row-item">
-					@if ( entry.IsHost )
+					@if (entry.IsHost)
 					{
 						<div>👑</div>
 					}
 
 					@entry.DisplayName
 				</div>
-				<div class="row-item">@( player.IsValid() ? player.Kills : 0)</div>
-				<div class="row-item">@( player.IsValid() ? player.Deaths : 0)</div>
-				<div class="row-item">@GetTime( entry )</div>
+				<div class="row-item">@(player.IsValid() ? player.Kills : 0)</div>
+				<div class="row-item">@(player.IsValid() ? player.Deaths : 0)</div>
+				<div class="row-item">@GetTime(entry)</div>
 			</div>
 		}
 	</div>
@@ -40,17 +41,17 @@
 
 @code
 {
-	private string GetTime( Connection c )
+	private string GetTime(Connection c)
 	{
 		var time = DateTime.UtcNow - c.ConnectionTime;
 
-		return time.ToString( time.TotalMinutes < 60f ? @"mm\m\ s\s" : @"hh\h\ \m\m" );
+		return time.ToString(time.TotalMinutes < 60f ? @"mm\m\ s\s" : @"hh\h\ \m\m");
 	}
 
 	protected override void OnUpdate()
 	{
-		SetClass( "hidden", !Input.Down( "score" )  );
+		SetClass("hidden", !Input.Down("score"));
 	}
-	
-	protected override int BuildHash() => HashCode.Combine( RealTime.Now.CeilToInt() );
+
+	protected override int BuildHash() => HashCode.Combine(RealTime.Now.CeilToInt());
 }

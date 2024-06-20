@@ -3,7 +3,8 @@
 @inherits Panel
 @using GeneralGame
 
-
+@if (Player.Local == null)
+	return;
 
 <root onclick=@(() => Close())>
 	@if (_item is ItemEquipment equipment)
@@ -24,8 +25,11 @@
 	private static ContextMenu _instance;
 	private ItemComponent _item;
 
+
 	public static void Open(ItemComponent item)
 	{
+		@if (Player.Local == null)
+			return;
 		Close();
 
 		var fraction = Mouse.Position / Screen.Size;

@@ -5,26 +5,27 @@
 @namespace GeneralGame
 @inherits PanelComponent
 @attribute [StyleSheet]
-
+@if (IsProxy)
+	return;
 <root>
 	@* Header *@
 	<div class="header-content">
-		@if( CreatorComponent.Current != CreatorStage.Confirmation )
+		@if (CreatorComponent.Current != CreatorStage.Confirmation)
 		{
 			<div class="title">Character Creation</div>
-			<div class="stage">Stage @stageInteger - @(CreatorComponent.Current.ToString().Replace( '_', ' ' ))</div>
+			<div class="stage">Stage @stageInteger - @(CreatorComponent.Current.ToString().Replace('_', ' '))</div>
 
 			<div class="stage-counter">
-				@for ( int i = 0; i < 3; i++ )
+				@for (int i = 0; i < 3; i++)
 				{
 					<div class="box">
-						@if ( stageInteger == i + 1 )
+						@if (stageInteger == i + 1)
 						{
 							<div class="fill" />
 						}
 					</div>
 
-					if ( i < 2 )
+					if (i < 2)
 					{
 						<div class="spacer" />
 					}
@@ -37,29 +38,19 @@
 		}
 	</div>
 
-	@if( stageInteger > 1)
+	@if (stageInteger > 1)
 	{
-		<SideButton 
-			Title="Go back" 
-			Subtitle="to Stage @(stageInteger  - 1)"
-			OnClick=@CreatorComponent.PreviousStage
-			style="position:absolute; left: 0px; top: 40px;"
-		/>
+		<SideButton Title="Go back" Subtitle="to Stage @(stageInteger  - 1)" OnClick=@CreatorComponent.PreviousStage
+			style="position:absolute; left: 0px; top: 40px;" />
 	}
 
 	@* Other related UI element. *@
-	@switch( CreatorComponent.Current )
+	@switch (CreatorComponent.Current)
 	{
 		case CreatorStage.Identification:
-			<SideButton 
-				Title="Continue" 
-				Subtitle="Use the enter key to swap between the fields."
-				ImagePath="ui/hud/confirm.png"
-				OnClick=@CreatorComponent.NextStage
-				IsDisabled=@disabled
-				IsInverted=@true
-				style="position:absolute; right: 0px; bottom: 50px;"
-			/>
+			<SideButton Title="Continue" Subtitle="Use the enter key to swap between the fields." ImagePath="ui/hud/confirm.png"
+				OnClick=@CreatorComponent.NextStage IsDisabled=@disabled IsInverted=@true
+				style="position:absolute; right: 0px; bottom: 50px;" />
 
 			break;
 
@@ -76,15 +67,9 @@
 				<label>Scroll to view all the different options.</label>
 			</div>
 
-			<SideButton 
-				Title="Confirm" 
-				Subtitle="Finish selecting clothes."
-				ImagePath="ui/hud/confirm.png"
-				OnClick=@CreatorComponent.NextStage
-				IsDisabled=@false
-				IsInverted=@true
-				style="position:absolute; right: 0px; bottom: 50px;"
-			/>
+			<SideButton Title="Confirm" Subtitle="Finish selecting clothes." ImagePath="ui/hud/confirm.png"
+				OnClick=@CreatorComponent.NextStage IsDisabled=@false IsInverted=@true
+				style="position:absolute; right: 0px; bottom: 50px;" />
 			break;
 
 		case CreatorStage.Confirmation:
@@ -93,15 +78,8 @@
 				<label>Do note that your full name and appearance cannot be changed, so choose wisely...</label>
 			</div>
 
-			<SideButton 
-				Title="Confirm" 
-				Subtitle="Begin your cottage story."
-				ImagePath="ui/hud/confirm.png"
-				OnClick=@Finish
-				IsDisabled=@false
-				IsInverted=@true
-				style="position:absolute; right: 0px; bottom: 50px;"
-			/>
+			<SideButton Title="Confirm" Subtitle="Begin your cottage story." ImagePath="ui/hud/confirm.png" OnClick=@Finish
+				IsDisabled=@false IsInverted=@true style="position:absolute; right: 0px; bottom: 50px;" />
 
 			break;
 	}
@@ -115,15 +93,15 @@
 	{
 		get
 		{
-			if ( renderer != null )
+			if (renderer != null)
 				return renderer;
 
 			renderer = CreatorComponent.All[CreatorStage.Appearance].GameObject
-				.Components.Get<SkinnedModelRenderer>( FindMode.EverythingInDescendants );
+			.Components.Get<SkinnedModelRenderer>(FindMode.EverythingInDescendants);
 
 			Penoid = renderer.GameObject.Children
-				.FirstOrDefault().Components.Get<SkinnedModelRenderer>( true )
-				.SceneModel;
+			.FirstOrDefault().Components.Get<SkinnedModelRenderer>(true)
+			.SceneModel;
 
 			return renderer;
 		}
@@ -134,9 +112,9 @@
 
 	private int stageInteger => (int)CreatorComponent.Current + 1;
 
-	private bool disabled => 
-		string.IsNullOrEmpty( PassportPanel.Firstname ) 
-		|| string.IsNullOrEmpty( PassportPanel.Lastname );
+	private bool disabled =>
+	string.IsNullOrEmpty(PassportPanel.Firstname)
+	|| string.IsNullOrEmpty(PassportPanel.Lastname);
 
 	private bool moving = false;
 
@@ -144,19 +122,20 @@
 	{
 		Panel.Delete();
 		MugshotPanel.Leave = true;
-		Renderer.Set( "mugshot", false );
-		Renderer.Set( "lookat", Vector3.Forward );
+		Renderer.Set("mugshot", false);
+		Renderer.Set("lookat", Vector3.Forward);
 
-		await GameTask.DelayRealtimeSeconds( 1 );
+		await GameTask.DelayRealtimeSeconds(1);
 
 		moving = true;
 
 		// todo @ceitine: walk off animation and fade out
 
-		var rand = new Random( (int)(Steam.SteamId % int.MaxValue) );
-		var size = rand.Next( 0, 100 ) / 100f;
-		Player.WriteSave( 
-			new() {
+		var rand = new Random((int)(Steam.SteamId % int.MaxValue));
+		var size = rand.Next(0, 100) / 100f;
+		Player.WriteSave(
+		new()
+			{
 				Firstname = PassportPanel.Firstname.ToLower().ToTitleCase(),
 				Lastname = PassportPanel.Lastname.ToLower().ToTitleCase(),
 				Vyndalium = 10,
@@ -164,16 +143,17 @@
 				Height = TabletPanel.Height,
 				SkinColor = TabletPanel.SkinColor,
 				Clothes = ClothingPanel.GetSelections()
-					.Select( x => new ItemSave {
-						Path = x.Value
-					} )
-					.ToArray()
-			} 
+			.Select(x => new ItemSave
+			{
+				Path = x.Value
+			})
+			.ToArray()
+			}
 		);
 
-		await GameTask.DelayRealtimeSeconds( 4 );
+		await GameTask.DelayRealtimeSeconds(4);
 
-		SceneHandler.ChangeScene( GeneralScene.Game, CreatorComponent.LobbyId );
+		SceneHandler.ChangeScene(GeneralScene.Game, CreatorComponent.LobbyId);
 		CreatorComponent.LobbyId = null;
 	}
 
@@ -188,9 +168,9 @@
 
 		var slots = Enum.GetValues<EquipSlot>();
 		panels = new BodypartPanel[slots.Length - 1];
-		for ( int i = 0; i < slots.Length; i++ )
+		for (int i = 0; i < slots.Length; i++)
 		{
-			if ( slots[i] == EquipSlot.Hand )
+			if (slots[i] == EquipSlot.Hand)
 				continue;
 
 			var pnl = panels[i] = Panel.AddChild<BodypartPanel>();
@@ -199,54 +179,56 @@
 		}
 	}
 
-	private int GetBone( EquipSlot slot ) // i love le hardcoding values!
-		=> slot switch
-		{
-			EquipSlot.Head => 7,
-			EquipSlot.Face => 6,
-			EquipSlot.Body => 4,
-			EquipSlot.Legs => 20,
-			EquipSlot.Feet => 0,
-			_ => 0
-		};
+	private int GetBone(EquipSlot slot) // i love le hardcoding values!
+	=> slot switch
+	{
+		EquipSlot.Head => 7,
+		EquipSlot.Face => 6,
+		EquipSlot.Body => 4,
+		EquipSlot.Legs => 20,
+		EquipSlot.Feet => 0,
+		_ => 0
+	};
 
-	private Vector3 GetOffset( EquipSlot slot )
-		=> slot switch
-		{
-			EquipSlot.Head => new Vector3( 0, -5, 1 ),
-			EquipSlot.Face => new Vector3( 0, 5, 4 ),
-			EquipSlot.Body => new Vector3( 0, -12, 0 ),
-			EquipSlot.Legs => new Vector3( 0, 15, 0 ),
-			EquipSlot.Feet => new Vector3( 0, -10, 2 ),
-			_ => 0
-		};
+	private Vector3 GetOffset(EquipSlot slot)
+	=> slot switch
+	{
+		EquipSlot.Head => new Vector3(0, -5, 1),
+		EquipSlot.Face => new Vector3(0, 5, 4),
+		EquipSlot.Body => new Vector3(0, -12, 0),
+		EquipSlot.Legs => new Vector3(0, 15, 0),
+		EquipSlot.Feet => new Vector3(0, -10, 2),
+		_ => 0
+	};
 
 	protected override void OnUpdate()
 	{
-		if ( moving && Renderer != null )
+		if (moving && Renderer != null)
 		{
-			Renderer.Set( "move_x", MathX.LerpTo( Renderer.GetFloat( "move_x" ), 0.4f, 5f * Time.Delta ) );
+			Renderer.Set("move_x", MathX.LerpTo(Renderer.GetFloat("move_x"), 0.4f, 5f * Time.Delta));
 			Renderer.GameObject.Transform.Position += Renderer.Transform.Rotation.Forward * 20f * Time.Delta;
 		}
 
-		if ( panels == null )
+		if (panels == null)
 			return;
 
-		foreach ( var panel in panels )
+		foreach (var panel in panels)
 		{
-			var worldPosition = Model.GetBoneWorldTransform( GetBone( panel.Slot ) ).Position;
-			var position = Scene.Camera.PointToScreenNormal( GetOffset( panel.Slot ) * Scene.Camera.Transform.Rotation.Inverse + worldPosition );
+			var worldPosition = Model.GetBoneWorldTransform(GetBone(panel.Slot)).Position;
+			var position = Scene.Camera.PointToScreenNormal(GetOffset(panel.Slot) * Scene.Camera.Transform.Rotation.Inverse +
+			worldPosition);
 
-			panel.Style.Opacity = CreatorComponent.Current == CreatorStage.Appearance || CreatorComponent.Current == CreatorStage.Dressing_up 
-				? 1 
-				: 0;
-			panel.Style.Left = Length.Fraction( position.x );
-			panel.Style.Top = Length.Fraction( position.y );
+			panel.Style.Opacity = CreatorComponent.Current == CreatorStage.Appearance || CreatorComponent.Current ==
+			CreatorStage.Dressing_up
+			? 1
+			: 0;
+			panel.Style.Left = Length.Fraction(position.x);
+			panel.Style.Top = Length.Fraction(position.y);
 		}
 	}
 
 	protected override int BuildHash()
 	{
-		return HashCode.Combine( stageInteger, disabled );
+		return HashCode.Combine(stageInteger, disabled);
 	}
 }

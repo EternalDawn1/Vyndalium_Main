@@ -5,6 +5,8 @@
 @implements Component.INetworkListener
 @namespace GeneralGame
 
+@if (IsProxy)
+	return;
 <root>
 	<div class="output">
 		@foreach (var entry in Entries)

@@ -4,11 +4,12 @@
 @namespace GeneralGame
 @inherits PanelComponent
 @attribute [StyleSheet]
-
+@if (IsProxy)
+	return;
 <root>
 	<div class="firstname">
 		<div>@Firstname</div>
-		@if ( onFirstname )
+		@if (onFirstname)
 		{
 			<div class="caret" />
 		}
@@ -16,7 +17,7 @@
 
 	<div class="lastname">
 		<div>@Lastname</div>
-		@if ( !onFirstname )
+		@if (!onFirstname)
 		{
 			<div class="caret" />
 		}
@@ -44,23 +45,23 @@
 
 	private string name => Sandbox.Utility.Steam.PersonaName;
 	private string steamid => Sandbox.Utility.Steam.SteamId.ToString();
-	private string footerText = ""; 
+	private string footerText = "";
 
 	private char[] garbage = new[] { '>', '<', 'X' };
-	private string generateGarbage( int count )
+	private string generateGarbage(int count)
 	{
 		var sb = new StringBuilder();
-		for ( int i = 0; i < count; i++)
-			sb.Append( Game.Random.FromArray( garbage ) );
+		for (int i = 0; i < count; i++)
+			sb.Append(Game.Random.FromArray(garbage));
 
 		return sb.ToString();
 	}
 
 	protected override void OnAwake()
 	{
-		footerText = $"P<FIN {name}> {generateGarbage( 34 - name.Length )}\n"
-							+ $"P<UID {steamid}> {generateGarbage( 34 - steamid.Length)}\n"
-							+ $"{generateGarbage(52 - steamid.Length)}><(((°>";
+		footerText = $"P<FIN {name}> {generateGarbage(34 - name.Length)}\n"
+		+ $"P<UID {steamid}> {generateGarbage(34 - steamid.Length)}\n"
+		+ $"{generateGarbage(52 - steamid.Length)}><(((°>";
 	}
 
 	private void Initialize()
@@ -68,50 +69,51 @@
 		Firstname = ""; // todo: Remove this, only needed due to static shit being fuckeedd!!
 		Lastname = "";
 
-		Overlay.Panel.AddChild( entry = new()
-		{
-			CharacterRegex = @"[a-zA-ZäöåÄÖÅ\- ]",
-			MaxLength = 14,
-			Text = Firstname
-		} );
+		Overlay.Panel.AddChild(entry = new()
+			{
+				CharacterRegex = @"[a-zA-ZäöåÄÖÅ\- ]",
+				MaxLength = 14,
+				Text = Firstname
+			});
 
-		entry.AddEventListener("onchange", () => {
+		entry.AddEventListener("onchange", () =>
+		{
 			entry.PlaySound("light_click");
 		});
 
-		entry.AddEventListener( "onsubmit", () =>
+		entry.AddEventListener("onsubmit", () =>
 		{
 			onFirstname = !onFirstname;
 			entry.Text = onFirstname ? Firstname : Lastname;
 			entry.PlaySound("drop");
-		} );
+		});
 
-		entry.AddClass( "textentry" );
+		entry.AddClass("textentry");
 	}
 
 	protected override void OnUpdate()
 	{
-		if ( CreatorComponent.Current != CreatorStage.Identification )
+		if (CreatorComponent.Current != CreatorStage.Identification)
 		{
-			if ( entry.HasFocus )
+			if (entry.HasFocus)
 				entry.Blur();
 			return;
 		}
 
-		if ( entry == null )
+		if (entry == null)
 		{
-			if ( Overlay.Panel != null )
+			if (Overlay.Panel != null)
 				Initialize();
 
 			return;
 		}
 
-		if ( !entry.HasFocus )
+		if (!entry.HasFocus)
 			entry.Focus();
 
-		if ( onFirstname )
+		if (onFirstname)
 			Firstname = entry.Text;
-		else 
+		else
 			Lastname = entry.Text;
 
 		entry.CaretPosition = entry.Text.Length;
@@ -119,6 +121,6 @@
 
 	protected override int BuildHash()
 	{
-		return HashCode.Combine( Firstname, Lastname, onFirstname );
+		return HashCode.Combine(Firstname, Lastname, onFirstname);
 	}
 }
