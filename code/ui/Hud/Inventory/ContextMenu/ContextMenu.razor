@@ -3,8 +3,7 @@
 @inherits Panel
 @using GeneralGame
 
-@if (Player.Local == null)
-	return;
+
 
 <root onclick=@(() => Close())>
 	@if (_item is ItemEquipment equipment)
@@ -28,8 +27,7 @@
 
 	public static void Open(ItemComponent item)
 	{
-		@if (Player.Local == null)
-			return;
+
 		Close();
 
 		var fraction = Mouse.Position / Screen.Size;
@@ -61,6 +59,7 @@
 
 	private void ToggleEquip(ItemEquipment equipment)
 	{
+
 		if (equipment.Equipped)
 			Player.Local.Inventory.UnequipItem(equipment);
 
@@ -76,6 +75,7 @@
 
 	public override void Tick()
 	{
+
 		var mousePosition = Mouse.Position;
 		var boxRect = Box.Rect.Grow(25f);
 

@@ -1,6 +1,13 @@
 @namespace GeneralGame.HUD
 @attribute [StyleSheet]
 @inherits Panel
+@using System
+@using Sandbox.UI
+@using System.Linq
+@using Sandbox
+
+@if (Player.Local == null)
+	return;
 
 <root @onrightclick=@( () => OpenContextMenu() ) class="@CurrentDropTargetClassSelectors">
 	<div class="border" />
@@ -204,6 +211,7 @@
 
 
 
+
 	private async void OnItemHover()
 
 	{
@@ -237,6 +245,7 @@
 
 
 	/// Update the ItemComponent instance from the Slot / SlotIndex properties
+
 	public void UpdateItem()
 
 	{

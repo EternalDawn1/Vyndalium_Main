@@ -252,7 +252,7 @@ public class BaseGun : WeaponComponent, IUse
 		var direction = Owner.PlyCamera.Transform.Rotation.Forward;
 		direction += Vector3.Random * Spread;
 
-		var endPos = startPos + direction * 1000f;
+		var endPos = startPos + direction * 5000f;
 		var trace = Scene.Trace.Ray( startPos, endPos )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
 
@@ -350,7 +350,7 @@ public class BaseGun : WeaponComponent, IUse
 
 	private void LogDamage( float damage )
 	{
-		Log.Info( $"Der Spieler hat {damage} Schaden verursacht." );
+		//Log.Info( $"Der Spieler hat {damage} Schaden verursacht." );
 	}
 
 
