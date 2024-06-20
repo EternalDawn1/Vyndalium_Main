@@ -1,91 +1,30 @@
 {
-  "__guid": "1f84626e-a906-45d4-968f-a857aecde2ff",
+  "__guid": "5982c19a-08d2-4ab5-a976-f9683e158d7c",
   "GameObjects": [
     {
-      "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
+      "__guid": "32ec3114-479c-43d1-95f5-7d6677648e2f",
       "Flags": 0,
-      "Name": "MapObjects",
-      "Position": "-16.73947,-31.52794,131.4671",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Children": [
-        {
-          "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
-          "Flags": 0,
-          "Name": "Map",
-          "Position": "767.2023,-2519.431,1584.684",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Sandbox.MapInstance",
-              "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
-              "MapName": "maps/forest.vmap",
-              "UseMapFromLaunch": false
-            }
-          ],
-          "Children": []
-        }
-      ]
-    },
-    {
-      "__guid": "e47368dc-2aa1-43c7-9701-476845bc0e7d",
-      "Flags": 0,
-      "Name": "GameManager",
-      "Position": "-4687.136,-3009.619,2645.524",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.PrefabInitializer",
-          "__guid": "5cfda952-13f4-4c3d-bb8f-acc675d405f4"
-        },
-        {
-          "__type": "GeneralGame.NetworkManager",
-          "__guid": "fa171ab4-1bf0-4b91-a947-0fb928804480",
-          "Prefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/player.prefab"
-          },
-          "SpawnPoints": [],
-          "StartServer": true
-        }
-      ]
-    },
-    {
-      "__guid": "0b36a59c-6c71-4af6-8fcb-1267070d1f1f",
-      "Flags": 0,
-      "Name": "Object",
-<<<<<<< Updated upstream
-      "Position": "-2989.242,-4101.479,476.8719",
-=======
-      "Position": "-2811.962,-4060.646,476.8719",
->>>>>>> Stashed changes
-      "Rotation": "0,0,1,-0.00000004371139",
+      "Name": "Map",
+      "Position": "521.83,-2708.633,1587.644",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "Components": [
         {
-          "__type": "Sandbox.SpawnPoint",
-          "__guid": "8eb38738-065f-4627-b1c4-6a7fb8fd5946",
-          "Color": "0.8902,0.31765,0.05098,1"
+          "__type": "Sandbox.MapInstance",
+          "__guid": "defb8bdc-1059-4d11-87aa-69efc3da0289",
+          "MapName": "maps/forest.vmap",
+          "UseMapFromLaunch": false
         }
-      ]
+      ],
+      "Children": []
     },
     {
-      "__guid": "1ee9be0f-890c-49ae-ad75-17afdd942e78",
+      "__guid": "c79327de-30cd-4c6e-8472-c55fc952b6be",
       "Flags": 0,
-      "Name": "Sun",
-      "Position": "-24547.67,15266.53,21432.79",
-<<<<<<< Updated upstream
-      "Rotation": "0.1936597,0.5292038,-0.2838951,0.7757853",
-=======
-      "Rotation": "0.000000005098259,0.5187735,-0.000000008401665,0.8549117",
->>>>>>> Stashed changes
+      "Name": "sun",
+      "Position": "521.83,-2708.633,1587.644",
+      "Rotation": "0,0.4555413,0,0.8902146",
       "Tags": "light_directional,light",
       "Enabled": true,
       "NetworkMode": 2,
@@ -93,124 +32,82 @@
       "Components": [
         {
           "__type": "Sandbox.DirectionalLight",
-          "__guid": "1ae14959-6e61-4b3c-ae8f-7a9095477c1e",
+          "__guid": "ed15e33d-30c2-4565-839b-f49e4bf6e3c6",
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "0.07645,0.68109,0.86512,1",
+          "LightColor": "0.91373,0.98039,1,1",
           "Shadows": true,
-<<<<<<< Updated upstream
-          "SkyColor": "0,0,0,1"
-        },
-        {
-          "__type": "Sandbox.GradientFog",
-          "__guid": "ce694d39-0db1-475b-8e30-ca6ae7c39b7a",
-          "Color": "1,1,1,0.12",
-          "EndDistance": 1024,
-          "FalloffExponent": 1,
-          "Height": 100,
-          "StartDistance": 0,
-          "VerticalFalloffExponent": 0.1
-=======
           "SkyColor": "0.05882,0.07451,0.08235,1"
-        },
-        {
-          "__type": "Sandbox.GradientFog",
-          "__guid": "e88caf6c-38a7-4f82-a5ce-d51b44e15609",
-          "Color": "0,0,0,1",
-          "EndDistance": 785.90106,
-          "FalloffExponent": 0.1,
-          "Height": 100,
-          "StartDistance": 0,
-          "VerticalFalloffExponent": 0
->>>>>>> Stashed changes
         }
       ]
     },
     {
-      "__guid": "a99b0e1e-2cc8-401a-8a59-928b17ae9a3b",
+      "__guid": "cb0921a8-254f-479c-b0e6-83afa549bdc2",
       "Flags": 0,
-      "Name": "Object",
-      "Position": "-2363.346,-4123.613,208.2332",
+      "Name": "networkmanager",
+      "Position": "-687.9598,-2265.02,1353.833",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.NetworkManager",
+          "__guid": "d138bbe0-b9b5-498a-830c-3a48aa160e54",
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          },
+          "SpawnPoints": [
+            {
+              "_type": "gameobject",
+              "go": "d784c8aa-d5da-482f-8d06-c2abe071758a"
+            }
+          ],
+          "StartServer": true
+        }
+      ]
+    },
+    {
+      "__guid": "d784c8aa-d5da-482f-8d06-c2abe071758a",
+      "Flags": 0,
+      "Name": "spawnpoint",
+      "Position": "-2661.658,-4211.917,154.4238",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "Components": [
         {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "05f50096-a504-4f93-874e-b747ac196e1b",
-          "IsSpawning": false,
-          "MaxSpawns": 10,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 10,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "b0c44e98-3cb6-4a48-910c-15f4819c51b3",
+          "Color": "0.8902,0.31765,0.05098,1"
         }
       ]
-    },
-    {
-      "__guid": "aaae1b60-da63-4649-9824-6d525bd8bf93",
-      "Flags": 0,
-      "Name": "glock",
-      "Position": "-2786.435,-4014.145,72",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/pm/glock.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "ea7faa3c-c380-4337-9d6b-6ef3396e236f",
-      "Flags": 0,
-      "Name": "glock (1)",
-      "Position": "-2787.323,-3964.957,72",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/pm/glock.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "6941f49b-deb7-4dda-ad05-2218c6a10f00",
-      "Flags": 0,
-      "Name": "glock (2)",
-      "Position": "-2781.031,-4050.246,71.99999",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/pm/glock.prefab",
-      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {
     "FixedUpdateFrequency": 50,
     "MaxFixedUpdates": 5,
-    "NetworkFrequency": 60,
+    "NetworkFrequency": 30,
     "NetworkInterpolation": true,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
     "NavMesh": {
-      "Enabled": true,
+      "Enabled": false,
       "IncludeStaticBodies": true,
       "IncludeKeyframedBodies": true,
       "EditorAutoUpdate": true,
       "AgentHeight": 64,
-      "AgentRadius": 0.49989566,
-      "AgentStepSize": 23.700022,
-      "AgentMaxSlope": 1388.1989,
-      "ExcludedBodies": "npc,solid",
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
       "IncludedBodies": ""
     }
   },
-  "Title": "minimal",
+  "Title": "forest",
   "Description": "",
-<<<<<<< Updated upstream
-  "LastSaved": "2024-06-18T19:59:53.9210993\u002B02:00",
-=======
-  "LastSaved": "2024-06-18T00:00:11.4371155\u002B02:00",
->>>>>>> Stashed changes
+  "LastSaved": "2024-06-20T12:55:18.3641914\u002B02:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

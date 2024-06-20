@@ -9,7 +9,7 @@ public sealed class ViewModel : Component
 {
 	[Property] public SkinnedModelRenderer ModelRenderer { get; set; }
 	[Property] public bool UseSprintAnimation { get; set; }
-	
+
 	private Rotation CurRotation { get; set; }
 	private Vector3 CurPos { get; set; }
 
@@ -27,14 +27,14 @@ public sealed class ViewModel : Component
 	private float ReturnSpeed => 40.0f;
 	private float MaxOffsetLength => 0.125f;
 	private float BobCycleTime => 1;
-	
+
 	private static Vector3 BobDirection => new( 0.0f, 0.125f, 0.125f );
 	private Rotation CurSmoothRotate { get; set; }
 	private Rotation LastCameraCalc { get; set; }
 
 	public float YawInertia { get; private set; }
 	public float PitchInertia { get; private set; }
-	
+
 
 	private Player PlayerController => Weapon.Components.GetInAncestors<Player>();
 	private CameraComponent Camera { get; set; }
@@ -44,12 +44,12 @@ public sealed class ViewModel : Component
 	{
 		Weapon = weapon;
 	}
-	
+
 	public void SetCamera( CameraComponent camera )
 	{
 		Camera = camera;
 	}
-	
+
 	protected override void OnStart()
 	{
 
@@ -60,10 +60,16 @@ public sealed class ViewModel : Component
 		CurRotation = Rotation.Identity;
 		CurSmoothRotate = Rotation.Identity;
 		LastCameraCalc = Camera.Transform.Rotation;
+
 		if ( PlayerController.IsValid() )
 		{
 			PlayerController.OnJump += OnPlayerJumped;
+
 		}
+	}
+	private void OnPlayerMoved()
+	{
+		ModelRenderer.Set( "b_run", true );
 	}
 
 	protected override void OnDestroy()
@@ -76,7 +82,7 @@ public sealed class ViewModel : Component
 		{
 			PlayerController.OnJump -= OnPlayerJumped;
 		}
-		
+
 		base.OnDestroy();
 	}
 
@@ -95,15 +101,15 @@ public sealed class ViewModel : Component
 
 	protected override void OnFixedUpdate()
 	{
-		
+
 		Vector3 plusPos = Vector3.Zero + Weapon.IdlePos;
 
 
 		if ( PlayerController.IsAiming )
-		{ 
+		{
 			CurPos = CurPos.LerpTo( plusPos + Weapon.AimPos, Time.Delta * 10f );
 			//Camera.FieldOfView = Screen.CreateVerticalFieldOfView( 20f );
-			
+
 		}
 		else
 		{
@@ -111,14 +117,14 @@ public sealed class ViewModel : Component
 			//Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Game.Preferences.FieldOfView );
 		}
 		ModelRenderer.Set( "b_aiming", PlayerController.IsAiming );
-		
 
-		
+
+
 		CalcShakeMoves();
 
 
 
-		
+
 		if ( PlayerController.MoveSpeed > 150f )
 		{
 			CurRotation = Rotation.Lerp( CurRotation, Rotation.Identity * Weapon.RunRotation, Time.Delta * 10f );
@@ -137,33 +143,33 @@ public sealed class ViewModel : Component
 	}
 
 	private void CalcRotateSmooth()
-{
-    float CurX;
-    float CurY;
+	{
+		float CurX;
+		float CurY;
 
-    Rotation curCameraCalc = Camera.Transform.Rotation;
+		Rotation curCameraCalc = Camera.Transform.Rotation;
 
-    CurX = Angles.NormalizeAngle(LastCameraCalc.Yaw() - curCameraCalc.Yaw());
-    CurY = Angles.NormalizeAngle(LastCameraCalc.Pitch() - curCameraCalc.Pitch());
+		CurX = Angles.NormalizeAngle( LastCameraCalc.Yaw() - curCameraCalc.Yaw() );
+		CurY = Angles.NormalizeAngle( LastCameraCalc.Pitch() - curCameraCalc.Pitch() );
 
-    if (PlayerController.IsAiming)
-    {
-        CurSmoothRotate = Rotation.From(0, 0, 0);
-    }
-    else
-    {
-        // Adjust the smoothing factor to reduce excessive trembling when turning
-        CurSmoothRotate = Rotation.From(Math.Clamp(CurY, -1.1f, 1.1f), Math.Clamp(CurX, -1.1f, 1.5f), 0);
-    }
+		if ( PlayerController.IsAiming )
+		{
+			CurSmoothRotate = Rotation.From( 0, 0, 0 );
+		}
+		else
+		{
+			// Adjust the smoothing factor to reduce excessive trembling when turning
+			CurSmoothRotate = Rotation.From( Math.Clamp( CurY, -1.1f, 1.1f ), Math.Clamp( CurX, -1.1f, 1.5f ), 0 );
+		}
 
-    CurRotation *= CurSmoothRotate;
+		CurRotation *= CurSmoothRotate;
 
-    LastCameraCalc = Rotation.Lerp(LastCameraCalc, curCameraCalc, Time.Delta * 30f);
-}
+		LastCameraCalc = Rotation.Lerp( LastCameraCalc, curCameraCalc, Time.Delta * 30f );
+	}
 
 	private void CalcShakeMoves()
 	{
-		var newPitch = CurRotation.Pitch(); 
+		var newPitch = CurRotation.Pitch();
 		var newYaw = CurRotation.Yaw();
 
 		var pitchDelta = Angles.NormalizeAngle( newPitch - lastPitch );
@@ -206,23 +212,23 @@ public sealed class ViewModel : Component
 		YawInertia = YawInertia.LerpTo( 0, Time.Delta * InertiaDamping );
 		PitchInertia = PitchInertia.LerpTo( 0, Time.Delta * InertiaDamping );
 	}
-	private Vector3 CalcSwingOffset(float pitchDelta, float yawDelta)
-{
-    var swingVelocity = new Vector3(0, yawDelta, pitchDelta);
+	private Vector3 CalcSwingOffset( float pitchDelta, float yawDelta )
+	{
+		var swingVelocity = new Vector3( 0, yawDelta, pitchDelta );
 
-    // Adjust the swing influence to reduce the impact of small movements on swing offset
-    swingVelocity *= 0.3f;
+		// Adjust the swing influence to reduce the impact of small movements on swing offset
+		swingVelocity *= 0.3f;
 
-    swingOffset -= swingOffset * ReturnSpeed * Time.Delta;
-    swingOffset += (swingVelocity * SwingInfluence);
+		swingOffset -= swingOffset * ReturnSpeed * Time.Delta;
+		swingOffset += (swingVelocity * SwingInfluence);
 
-    if (swingOffset.Length > MaxOffsetLength)
-    {
-        swingOffset = swingOffset.Normal * MaxOffsetLength;
-    }
+		if ( swingOffset.Length > MaxOffsetLength )
+		{
+			swingOffset = swingOffset.Normal * MaxOffsetLength;
+		}
 
-    return swingOffset;
-}
+		return swingOffset;
+	}
 
 	private Vector3 CalcBobbingOffset( float speed )
 	{
@@ -246,5 +252,6 @@ public sealed class ViewModel : Component
 	{
 		ModelRenderer.Set( "b_jump", true );
 	}
+
 
 }

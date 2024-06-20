@@ -172,14 +172,14 @@ public partial class WeaponContainer : Component
 	}
 	public void ScrollThroughEquippedItems( int direction )
 	{
-		Log.Info( "ScrollThroughEquippedItems wurde aufgerufen" );
+
 
 		if ( !HasAny ) return;
 
 		var weapons = GetEquippedItems( EquipSlot.Back, EquipSlot.Hand );
 		if ( !weapons.Any() ) return;
 
-		Log.Info( $"Anzahl der Waffen: {weapons.Count}" );
+
 
 		var currentIndex = 0;
 		var deployed = Deployed;

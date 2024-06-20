@@ -484,13 +484,13 @@ public partial class Player : Component, IHealthComponent
 		{
 			shadowRenderer.Enabled = false;
 
-			ModelRenderer.Destroy();
+			ModelRenderer.Enabled = Ragdoll.IsRagdolled;
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
 
 			foreach ( var c in clothing )
 			{
-				c.Destroy();
-
+				c.ModelRenderer.Enabled = Ragdoll.IsRagdolled;
+				c.ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
 			}
 
 			return;
@@ -658,26 +658,14 @@ public partial class Player : Component, IHealthComponent
 
 		foreach ( var animator in Animators )
 		{
-			if ( animator != null )
-			{
-				animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.None;
-
-				if ( animator != null )
-				{
-					animator.WithWishVelocity( WishVelocity );
-				}
-
-				animator.IsGrounded = CharacterController.IsOnGround;
-				animator.MoveRotationSpeed = 0f;
-				animator.DuckLevel = IsCrouching ? 1f : 0f;
-				animator.WithLook( EyeAngles.Forward );
-				animator.MoveStyle = (IsRunning && !IsCrouching) ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
-			}
-			else
-			{
-				// Behandlung des Falls, dass animator null ist
-				Log.Info( "Animator is null" );
-			}
+			animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.None;
+			animator.WithVelocity( CharacterController.Velocity );
+			animator.WithWishVelocity( WishVelocity );
+			animator.IsGrounded = CharacterController.IsOnGround;
+			animator.MoveRotationSpeed = 0f;
+			animator.DuckLevel = IsCrouching ? 1f : 0f;
+			animator.WithLook( EyeAngles.Forward );
+			animator.MoveStyle = (IsRunning && !IsCrouching) ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
 		}
 	}
 

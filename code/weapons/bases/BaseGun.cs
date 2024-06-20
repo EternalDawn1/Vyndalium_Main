@@ -31,55 +31,55 @@ public class BaseGun : WeaponComponent, IUse
 	public bool IsFiering { get; set; } = false;
 	public bool IsHeld { get; private set; }
 	private bool IsSoundPlaying { get; set; } = false;
-    private float SoundDuration { get; set; } = 0f;
-	 private const float EmptyClipSoundDuration = 1f;
+	private float SoundDuration { get; set; } = 0f;
+	private const float EmptyClipSoundDuration = 1f;
 	public ItemComponent item { get; set; }
-	[Sync]public int MaxAmmo { get; set; } // Add this line
-	
+	[Sync] public int MaxAmmo { get; set; } // Add this line
 
-    public bool IsEquipped { get; set; }
+
+	public bool IsEquipped { get; set; }
 
 	public bool isCriticalHit = false;
-	
-	
+
+
 	[Property] public bool IsMagicWeapon { get; set; }
 
-	
 
 
 
 
-	public virtual void OnEquip(Player player)
-    {
-        // Stellen Sie sicher, dass der Spieler gültig ist
-        if (player == null || !player.IsValid())
-        {
-            return;
-        }
-		
 
-        // Führen Sie alle notwendigen Initialisierungen für die Waffe durch
-        // Zum Beispiel könnten Sie hier die Munition der Waffe auf den maximalen Wert setzen
-        AmmoInClip = MaxAmmo;
+	public virtual void OnEquip( Player player )
+	{
+		// Stellen Sie sicher, dass der Spieler gültig ist
+		if ( player == null || !player.IsValid() )
+		{
+			return;
+		}
 
-        // Setzen Sie den Status der Waffe auf "ausgerüstet"
-        IsEquipped = true;
 
-        // Rufen Sie die OnStart Methode auf, um alle Komponenten der Waffe zu initialisieren
-        OnStart();
+		// Führen Sie alle notwendigen Initialisierungen für die Waffe durch
+		// Zum Beispiel könnten Sie hier die Munition der Waffe auf den maximalen Wert setzen
+		AmmoInClip = MaxAmmo;
 
-        // Rufen Sie die OnDeployed Methode auf, um die Waffe bereit zum Gebrauch zu machen
-        OnDeployed();
-    }
+		// Setzen Sie den Status der Waffe auf "ausgerüstet"
+		IsEquipped = true;
 
-	public float CalculateDamageWithPlayerStats(Player player)
+		// Rufen Sie die OnStart Methode auf, um alle Komponenten der Waffe zu initialisieren
+		OnStart();
+
+		// Rufen Sie die OnDeployed Methode auf, um die Waffe bereit zum Gebrauch zu machen
+		OnDeployed();
+	}
+
+	public float CalculateDamageWithPlayerStats( Player player )
 	{
 		float baseDamage = player.AttackValue; // Verwenden Sie die AttackValue des Spielers als Basis-Schaden
 		float bonusDamage = baseDamage * (player.AttackPower / 100.0f);
 		float magicBonus = baseDamage * (player.MagicPower / 100.0f);
 
 		// Anpassen des Schadens basierend auf dem Schadenstyp der Waffe
-		switch (DamageType)
+		switch ( DamageType )
 		{
 			case DamageType.fire:
 				// Feuerschaden könnte den Basis-Schaden erhöhen
@@ -89,88 +89,88 @@ public class BaseGun : WeaponComponent, IUse
 				// Eisschaden könnte den magischen Bonus erhöhen
 				magicBonus *= 1.5f;
 				break;
-			// Fügen Sie hier weitere Schadenstypen hinzu...
+				// Fügen Sie hier weitere Schadenstypen hinzu...
 		}
 
 		return baseDamage + bonusDamage + magicBonus;
 	}
 
 	GameObject Hitprefab;
-	
+
 	protected override void OnStart()
 	{
-		
-		Hitprefab = SceneUtility.GetPrefabScene(ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ));
-		
+
+		Hitprefab = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ) );
+
 		Components.GetOrCreate<Interactions>();
-		
+
 		base.OnStart();
 	}
 
 	[Broadcast]
-    public virtual void OnUse( Guid pickerId )
-    {
-        var picker = Scene.Directory.FindByGuid( pickerId );
-        if ( !picker.IsValid() ) return;
+	public virtual void OnUse( Guid pickerId )
+	{
+		var picker = Scene.Directory.FindByGuid( pickerId );
+		if ( !picker.IsValid() ) return;
 
-        var player = picker.Components.GetInDescendantsOrSelf<Player>();
-        if ( !player.IsValid() ) return;
+		var player = picker.Components.GetInDescendantsOrSelf<Player>();
+		if ( !player.IsValid() ) return;
 
-		
 
-        if ( player.IsProxy )
-            return;
 
-        // Überprüfen, ob die Waffe bereits gehalten wird
-        if (IsHeld)
-        {
-            // Wenn ja, die Interaktion verhindern
-            return;
-        }
-		
+		if ( player.IsProxy )
+			return;
 
-        if ( player.Weapons.Has( GameObject ) )
-        {
-            var ammoToGive = DefaultAmmo - player.Ammo.Get( AmmoType );
+		// Überprüfen, ob die Waffe bereits gehalten wird
+		if ( IsHeld )
+		{
+			// Wenn ja, die Interaktion verhindern
+			return;
+		}
 
-            if ( ammoToGive > 0 )
-            {
-                player.Ammo.Give( AmmoType, ammoToGive );
-            }
 
-            GameObject.Destroy();
-        }
-        else
-        {
-            player.Weapons.Give( GameObject, false );
-            GameObject.Destroy();
+		if ( player.Weapons.Has( GameObject ) )
+		{
+			var ammoToGive = DefaultAmmo - player.Ammo.Get( AmmoType );
 
-            // Die Waffe wird nun gehalten
-            IsHeld = true;
-        }
-    }
-	
+			if ( ammoToGive > 0 )
+			{
+				player.Ammo.Give( AmmoType, ammoToGive );
+			}
+
+			GameObject.Destroy();
+		}
+		else
+		{
+			player.Weapons.Give( GameObject, false );
+			GameObject.Destroy();
+
+			// Die Waffe wird nun gehalten
+			IsHeld = true;
+		}
+	}
+
 	protected override void OnDeployed()
 	{
 		base.OnDeployed();
 		EffectRenderer.Set( "b_empty", AmmoInClip == 0 );
 	}
-	 protected override void OnHolstered()
-    {
-        base.OnHolstered();
+	protected override void OnHolstered()
+	{
+		base.OnHolstered();
 
-        // Die Waffe wird nicht mehr gehalten
-        IsHeld = false;
+		// Die Waffe wird nicht mehr gehalten
+		IsHeld = false;
 
-        ReloadSound?.Stop();
+		ReloadSound?.Stop();
 
 		EffectRenderer.Set( "b_empty", false );
-    }
-	
+	}
+
 	public override void PrimaryAction()
 	{
 		IsFiering = true;
-		FireBullet(Player.Local);
+		FireBullet( Player.Local );
 	}
 
 	public override void PrimaryActionRelease()
@@ -184,17 +184,19 @@ public class BaseGun : WeaponComponent, IUse
 	}
 	public override void SeccondaryActionRelease()
 	{
-		
-		if (Owner == null)
+
+		if ( Owner == null )
 		{
 			return;
 		}
-		
+
 		Owner.IsAiming = false;
 	}
 
 	public override void ReloadAction()
 	{
+
+
 		var ammoToTake = ClipSize - AmmoInClip;
 		if ( ammoToTake <= 0 )
 			return;
@@ -214,9 +216,9 @@ public class BaseGun : WeaponComponent, IUse
 	}
 
 
-	public virtual void FireBullet(Player shooter)
+	public virtual void FireBullet( Player shooter )
 	{
-		if (shooter == null || Owner == null || EffectRenderer == null || Scene == null)
+		if ( shooter == null || Owner == null || EffectRenderer == null || Scene == null )
 		{
 			return;
 		}
@@ -229,19 +231,19 @@ public class BaseGun : WeaponComponent, IUse
 			NextAttackTime = 1f / FireRate;
 			return;
 		}
-		if (IsMagicWeapon && Player.Local.Mana < 10)
-        {
-            // Nicht genug Mana, um die magische Waffe abzufeuern
-            return;
-        }
+		if ( IsMagicWeapon && Player.Local.Mana < 10 )
+		{
+			// Nicht genug Mana, um die magische Waffe abzufeuern
+			return;
+		}
 
-        if (IsMagicWeapon)
-        {
-            // Verbrauche Mana
-            Player.Local.ChangeMana(-10);
-        }
+		if ( IsMagicWeapon )
+		{
+			// Verbrauche Mana
+			Player.Local.ChangeMana( -10 );
+		}
 
-		
+
 		if ( Owner.MoveSpeed > 150f ) return;
 		Owner.ApplyRecoil( Recoil );
 
@@ -253,7 +255,7 @@ public class BaseGun : WeaponComponent, IUse
 		var endPos = startPos + direction * 1000f;
 		var trace = Scene.Trace.Ray( startPos, endPos )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
-			
+
 			.UseHitboxes()
 			.Run();
 
@@ -276,15 +278,15 @@ public class BaseGun : WeaponComponent, IUse
 			var playerAttackPower = shooter.AttackPower;
 			var playerCritChance = shooter.CritHitChance;
 			var playerCritDamage = shooter.CritHitDamage;
-    
-    		damage += (int)(damage * (playerAttackValue / 300.0f));
+
+			damage += (int)(damage * (playerAttackValue / 300.0f));
 			Random random = new Random();
 			int calculatedDamage = (int)(damage * (playerAttackPower / 50.0f));
-			damage += random.Next(0, calculatedDamage + 1);
+			damage += random.Next( 0, calculatedDamage + 1 );
 
-			int critRoll = random.Next(0, 101);
+			int critRoll = random.Next( 0, 101 );
 			{
-				if (critRoll <= playerCritChance)
+				if ( critRoll <= playerCritChance )
 				{
 					damage += (int)(damage * 1.5f + playerCritDamage);
 					isCriticalHit = true;
@@ -295,16 +297,16 @@ public class BaseGun : WeaponComponent, IUse
 					isCriticalHit = false;
 				}
 			}
-			
+
 			damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
-			LogDamage(damage);
-			GameObject hitinfo = Hitprefab.Clone(trace.EndPosition);
+			LogDamage( damage );
+			GameObject hitinfo = Hitprefab.Clone( trace.EndPosition );
 			FaceThing facething = hitinfo.Components.Get<FaceThing>();
 			facething.Thing = shooter.GameObject;
 			TextRenderer textRenderer = hitinfo.Components.Get<TextRenderer>();
-			
-			if(isCriticalHit)
-		{
+
+			if ( isCriticalHit )
+			{
 				textRenderer.Color = Color.Red;
 			}
 			else
@@ -345,12 +347,12 @@ public class BaseGun : WeaponComponent, IUse
 
 
 	}
-	
-	private void LogDamage(float damage)
-    {
-        Log.Info($"Der Spieler hat {damage} Schaden verursacht.");
-    }
-	
+
+	private void LogDamage( float damage )
+	{
+		Log.Info( $"Der Spieler hat {damage} Schaden verursacht." );
+	}
+
 
 
 
@@ -365,22 +367,22 @@ public class BaseGun : WeaponComponent, IUse
 	}
 	protected override void OnUpdate()
 	{
-		if ( NextAttackTime && IsFiering && IsAuto ) FireBullet(Player.Local);
+		if ( NextAttackTime && IsFiering && IsAuto ) FireBullet( Player.Local );
 
 		if ( !IsProxy && ReloadFinishTime && IsReloading )
 		{
 			OnReloadEnd();
 		}
 		if ( IsSoundPlaying )
-        {
-            SoundDuration -= Time.Delta; // Reduzieren Sie die verbleibende Dauer des Sounds
+		{
+			SoundDuration -= Time.Delta; // Reduzieren Sie die verbleibende Dauer des Sounds
 
-            if ( SoundDuration <= 0 )
-            {
-                IsSoundPlaying = false;
-                SoundDuration = 0;
-            }
-        }
+			if ( SoundDuration <= 0 )
+			{
+				IsSoundPlaying = false;
+				SoundDuration = 0;
+			}
+		}
 
 		ReloadSound?.Update( Transform.Position );
 
@@ -400,18 +402,18 @@ public class BaseGun : WeaponComponent, IUse
 	}
 
 	[Broadcast]
-    private void SendEmptyClipMessage()
-    {
-        if ( EmptyClipSound is not null && !IsSoundPlaying )
-        {
-            Sound.Play( EmptyClipSound, Transform.Position );
-            IsSoundPlaying = true;
-            SoundDuration = EmptyClipSoundDuration; // Setzen Sie die Dauer des Sounds
-        }
-    }
+	private void SendEmptyClipMessage()
+	{
+		if ( EmptyClipSound is not null && !IsSoundPlaying )
+		{
+			Sound.Play( EmptyClipSound, Transform.Position );
+			IsSoundPlaying = true;
+			SoundDuration = EmptyClipSoundDuration; // Setzen Sie die Dauer des Sounds
+		}
+	}
 
 	[Broadcast]
-	private void SendImpactMessage( Vector3 position, Vector3 normal  )
+	private void SendImpactMessage( Vector3 position, Vector3 normal )
 	{
 		if ( ImpactEffect is null ) return;
 
@@ -451,26 +453,26 @@ public class BaseGun : WeaponComponent, IUse
 	{
 		private Label label;
 
-		public DamageText(Vector3 position, float damage)
+		public DamageText( Vector3 position, float damage )
 		{
 			// Erstellen Sie das Text-Label und fügen Sie es dem RootPanel hinzu
-			label = Add.Label($"{damage}", "damage-text");
+			label = Add.Label( $"{damage}", "damage-text" );
 
 			// Fügen Sie eine Ausblendanimation hinzu
-			label.AddClass("fade-out");
+			label.AddClass( "fade-out" );
 
 			// Setzen Sie die Position des Panels
-			Style.Left = Length.Pixels(position.x);
-			Style.Top = Length.Pixels(position.y);
+			Style.Left = Length.Pixels( position.x );
+			Style.Top = Length.Pixels( position.y );
 		}
 
-		public static void Create(Vector3 position, float damage, float fadeDuration)
+		public static void Create( Vector3 position, float damage, float fadeDuration )
 		{
 			// Erstellen Sie eine neue Instanz von DamageText
-			var damageText = new DamageText(position, damage);
+			var damageText = new DamageText( position, damage );
 
 			// Fügen Sie eine Ausblendanimation hinzu
-			damageText.label.Style.Set("animation-duration", $"{fadeDuration}s");
+			damageText.label.Style.Set( "animation-duration", $"{fadeDuration}s" );
 		}
 	}
 }
