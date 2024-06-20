@@ -615,7 +615,7 @@ public partial class Player : Component, IHealthComponent
 			EyeAngles = angles.WithRoll( 0f );
 			IsRunning = Input.Down( "Run" ) && !IsAiming;
 			Recoil = Recoil.LerpTo( Angles.Zero, Time.Delta * 8f );
-			HoldType = (Inventory.EquippedItems[(int)EquipSlot.Hand] as ItemEquipment)?.HoldType ?? HoldType.Idle;
+
 		}
 		// Überprüfen Sie den Gesundheitszustand des Spielers
 		// Check the player's health status
