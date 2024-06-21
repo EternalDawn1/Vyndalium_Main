@@ -1,0 +1,44 @@
+{
+  "RootObject": {
+    "__guid": "489aa148-fab4-47d6-a14a-c9bdf85def9b",
+    "Flags": 0,
+    "Name": "pistoleammo",
+    "Scale": "0.3,0.3,0.3",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.ModelRenderer",
+        "__guid": "3c66b98c-5289-4a0d-a88d-860489ad2cf1",
+        "BodyGroups": 18446744073709551615,
+        "Model": "models/props/ammo_box/ammobox.vmdl",
+        "RenderType": "On",
+        "Tint": "0.72558,0.29479,0.027,1"
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "c4ab9970-5513-4cbd-a3c5-6a0f318821c3",
+        "Center": "0,0,0",
+        "IsTrigger": true,
+        "Scale": "50,50,50",
+        "Static": false
+      },
+      {
+        "__type": "GeneralGame.AmmoPickup",
+        "__guid": "ffb0cf72-553d-4d34-9bfa-64edd48163b9",
+        "AmmoTypen": "Pistol",
+        "Count": 30,
+        "TriggerSoundPath": "sounds/kenney/ui/ui.navigate.deny.sound"
+      }
+    ],
+    "Children": [],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
