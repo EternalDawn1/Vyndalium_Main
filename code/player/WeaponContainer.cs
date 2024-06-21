@@ -121,12 +121,12 @@ public partial class WeaponContainer : Component
 
 				nextWeponGo.AmmoInClip = nextWeponGo.ClipSize;
 				nextWeponGo.IsDeployed = !Deployed.IsValid();
-
-				var ammoToGive = nextWeponGo.DefaultAmmo - Ammo.Get( nextWeponGo.AmmoType );
-
+				var player = Player.Local as Player;
+				var ammoToGive = player.Ammo.Get( nextWeponGo.AmmoType );
 				if ( ammoToGive > 0 )
 				{
-					Ammo.Give( nextWeponGo.AmmoType, ammoToGive );
+					player.Ammo.TryTake( nextWeponGo.AmmoType, ammoToGive, out var taken );
+					nextWeponGo.DefaultAmmo = Math.Min( nextWeponGo.DefaultAmmo + taken, nextWeponGo.MaxAmmo );
 				}
 			}
 
@@ -136,6 +136,7 @@ public partial class WeaponContainer : Component
 
 		}
 	}
+
 	private List<ItemComponent> weaponList = new List<ItemComponent>();
 
 	// Methode, um eine Waffe zur Liste hinzuzufügen
@@ -176,7 +177,7 @@ public partial class WeaponContainer : Component
 
 		if ( !HasAny ) return;
 
-		var weapons = GetEquippedItems( EquipSlot.Back, EquipSlot.Hand );
+		var weapons = All.ToList();
 		if ( !weapons.Any() ) return;
 
 

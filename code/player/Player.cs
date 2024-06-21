@@ -2,7 +2,7 @@ using GeneralGame.HUD;
 
 namespace GeneralGame;
 
-public partial class Player : Component ,Component.ExecuteInEditor
+public partial class Player : Component, Component.ExecuteInEditor
 {
     public bool HasShirt
     {
@@ -22,11 +22,11 @@ public partial class Player : Component ,Component.ExecuteInEditor
             return false;
         }
     }
-    
 
-   
-	public Inventory Inventory { get; private set; }
-  
+
+
+    public Inventory Inventory { get; private set; }
+
 
 
 }

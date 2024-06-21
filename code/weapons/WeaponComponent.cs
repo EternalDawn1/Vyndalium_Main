@@ -4,6 +4,7 @@ using System;
 using System.Numerics;
 namespace GeneralGame;
 
+
 public enum WeaponType
 {
 	Melee,
@@ -16,10 +17,10 @@ public class WeaponComponent : Component
 
 
 	[Property] public string DisplayName { get; set; }
-	[Property] public float DeployTime { get; set; } = 0.5f;
-	[Property] public float DamageForce { get; set; } = 5f;
-	[Property, Category( "Parameters" )] public int Damage { get; set; } = 5;
-	[Property] public float FireRate { get; set; } = 3f;
+	[Property, Category( "Weapon Properties" )] public float DeployTime { get; set; } = 0.5f;
+	[Property, Category( "Weapon Properties" )] public float DamageForce { get; set; } = 5f;
+	[Property, Category( "Weapon Properties" )] public int Damage { get; set; } = 5;
+	[Property, Category( "Weapon Properties" )] public float FireRate { get; set; } = 3f;
 	[Property] public GameObject ViewModelPrefab { get; set; }
 	[Property] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.Pistol;
 	[Property] public SoundEvent DeploySound { get; set; }
@@ -36,6 +37,7 @@ public class WeaponComponent : Component
 	public TimeUntil NextAttackTime { get; set; }
 	public SkinnedModelRenderer EffectRenderer => ViewModel.IsValid() ? ViewModel.ModelRenderer : ModelRenderer;
 	public EquipSlot Slot { get; set; }
+
 
 
 	protected override void OnStart()

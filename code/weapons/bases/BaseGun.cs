@@ -9,9 +9,9 @@ public class BaseGun : WeaponComponent, IUse
 
 	[Property, Category( "Parameters" )] public DamageType DamageType { get; set; } = DamageType.Serious;
 	[Property, Category( "Parameters" )] public WeaponType Type { get; set; }
-	[Property] public float ReloadTime { get; set; } = 2f;
-	[Property] public float EmptyReloadTime { get; set; } = 2f;
-	[Property] public float Spread { get; set; } = 0.01f;
+	[Property, Category( "Parameters" )] public float ReloadTime { get; set; } = 2f;
+	[Property, Category( "Parameters" )] public float EmptyReloadTime { get; set; } = 2f;
+	[Property, Category( "Parameters" )] public float Spread { get; set; } = 0.01f;
 	[Property, Category( "Parameters" )] public float HitForce { get; set; } = 300;
 	[Property] public Angles Recoil { get; set; }
 	[Property] public SoundEvent FireSound { get; set; }
@@ -22,8 +22,8 @@ public class BaseGun : WeaponComponent, IUse
 	[Property] public ParticleSystem MuzzleFlash { get; set; }
 	[Property] public ParticleSystem ImpactEffect { get; set; }
 	[Property] public AmmoType AmmoType { get; set; } = AmmoType.Pistol;
-	[Property] public int DefaultAmmo { get; set; } = 60;
-	[Property] public int ClipSize { get; set; } = 130;
+	[Property] public int DefaultAmmo { get; set; }
+	[Property] public int ClipSize { get; set; } = 15;
 	[Sync] public bool IsReloading { get; set; }
 	[Sync] public int AmmoInClip { get; set; }
 	public SoundSequence ReloadSound { get; set; }
@@ -60,7 +60,12 @@ public class BaseGun : WeaponComponent, IUse
 
 		// Führen Sie alle notwendigen Initialisierungen für die Waffe durch
 		// Zum Beispiel könnten Sie hier die Munition der Waffe auf den maximalen Wert setzen
-		AmmoInClip = MaxAmmo;
+		if ( player.AmmoReserve.ContainsKey( AmmoType ) )
+		{
+			var ammoToTake = Math.Min( ClipSize, player.AmmoReserve[AmmoType] );
+			AmmoInClip = ammoToTake;
+			player.AmmoReserve[AmmoType] -= ammoToTake;
+		}
 
 		// Setzen Sie den Status der Waffe auf "ausgerüstet"
 		IsEquipped = true;
@@ -113,7 +118,7 @@ public class BaseGun : WeaponComponent, IUse
 		var picker = Scene.Directory.FindByGuid( pickerId );
 		if ( !picker.IsValid() ) return;
 
-		var player = picker.Components.GetInDescendantsOrSelf<Player>();
+		var player = Scene.Directory.FindByGuid( pickerId ).Components.GetInDescendantsOrSelf<Player>();
 		if ( !player.IsValid() ) return;
 
 
@@ -131,6 +136,7 @@ public class BaseGun : WeaponComponent, IUse
 
 		if ( player.Weapons.Has( GameObject ) )
 		{
+
 			var ammoToGive = DefaultAmmo - player.Ammo.Get( AmmoType );
 
 			if ( ammoToGive > 0 )
@@ -192,7 +198,7 @@ public class BaseGun : WeaponComponent, IUse
 
 		Owner.IsAiming = false;
 	}
-	
+
 	public override void ReloadAction()
 	{
 
@@ -215,7 +221,7 @@ public class BaseGun : WeaponComponent, IUse
 		SendReloadMessage();
 	}
 
-	
+
 	public virtual void FireBullet( Player shooter )
 	{
 		if ( shooter == null || Owner == null || EffectRenderer == null || Scene == null )
