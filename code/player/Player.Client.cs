@@ -6,6 +6,7 @@ namespace GeneralGame
     {
         public static IReadOnlyList<Player> All => _InternalPlayers;
         public static List<Player> _InternalPlayers = new List<Player>();
+        public Dictionary<AmmoType, int> AmmoReserve { get; set; } = new Dictionary<AmmoType, int>();
 
         public static Player Local { get; set; }
         System.UInt64 SteamId { get; set; }

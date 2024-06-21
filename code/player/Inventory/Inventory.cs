@@ -9,8 +9,13 @@ using GeneralGame.Event;
 
 namespace GeneralGame;
 
-public class Inventory : Component
+public sealed class Inventory : Component
 {
+	protected override void OnStart()
+	{
+		if ( IsProxy ) return;
+		Player = Scene.GetAllComponents<Player>().FirstOrDefault( x => !x.IsProxy );
+	}
 	[Property] Player Player { get; set; }
 
 	public const int MAX_BACKPACK_SLOTS = 20;
@@ -20,86 +25,86 @@ public class Inventory : Component
 
 	private readonly List<ItemComponent> _backpackItems;
 	private readonly List<ItemComponent> _equippedItems;
-	
-    public static void EquipItemStats(ItemComponent item)
+
+	public static void EquipItemStats( ItemComponent item )
 	{
 		Player.Local.AttackValue += item.DMG;
 		Player.Local.Health += item.HE;
-			Player.Local.Armor += item.Armor;
-			Player.Local.STG += item.STG;
-			Player.Local.HE += item.HE;
-			Player.Local.DEX += item.DEX;
-			Player.Local.PER += item.PER;
-			Player.Local.INT += item.INT;
-			Player.Local.MaxMana += item.Mana;
-			Player.Local.MaxHealth += item.Health;
-			Player.Local.IncreaseCritHitDamage(item.CritHitDamage);
-			Player.Local.IncreaseCritHitChance(item.CritHitChance);
-			Player.Local.AbilityHaste += item.AbilityHaste;
-			Player.Local.AttackPower += item.AttackPower;
-			Player.Local.MagicPower += item.MagicPower;
-			Player.Local.AttackSpeed += item.AttackSpeed;
-			Player.Local.MoveSpeed += item.MoveSpeed;
-			Player.Local.Armor += item.Armor;
-			Player.Local.MagicDefense += item.MagicDefense;
-			Player.Local.Evasion += item.Evasion;
-			Player.Local.Block += item.Cover;
-			Player.Local.BonusEXPGain += item.BonusEXP;
-			Player.Local.BonusScore += item.BonusScore;
-			Player.Local.BonusVyndalium += item.BonusVyndalium;
-			Player.Local.Tenacity += item.Tenacity;
-			Player.Local.StunResist += item.StunResistance;
-			Player.Local.BlindResist += item.BlindResistance;
-			Player.Local.BleedResist += item.BleedResistance;
-			Player.Local.SlowResist += item.SlowResistence;
-			Player.Local.FireResist += item.FireResistence;
-			Player.Local.PoisonResist += item.PoisonResistence;
-			Player.Local.IceResist += item.IceResistence;
-			Player.Local.LightningResist += item.LightningResistence;
-			Player.Local.LightResist += item.HolyResistence;
-			Player.Local.ShadowResist += item.ShadowResistence;
+		Player.Local.Armor += item.Armor;
+		Player.Local.STG += item.STG;
+		Player.Local.HE += item.HE;
+		Player.Local.DEX += item.DEX;
+		Player.Local.PER += item.PER;
+		Player.Local.INT += item.INT;
+		Player.Local.MaxMana += item.Mana;
+		Player.Local.MaxHealth += item.Health;
+		Player.Local.IncreaseCritHitDamage( item.CritHitDamage );
+		Player.Local.IncreaseCritHitChance( item.CritHitChance );
+		Player.Local.AbilityHaste += item.AbilityHaste;
+		Player.Local.AttackPower += item.AttackPower;
+		Player.Local.MagicPower += item.MagicPower;
+		Player.Local.AttackSpeed += item.AttackSpeed;
+		Player.Local.MoveSpeed += item.MoveSpeed;
+		Player.Local.Armor += item.Armor;
+		Player.Local.MagicDefense += item.MagicDefense;
+		Player.Local.Evasion += item.Evasion;
+		Player.Local.Block += item.Cover;
+		Player.Local.BonusEXPGain += item.BonusEXP;
+		Player.Local.BonusScore += item.BonusScore;
+		Player.Local.BonusVyndalium += item.BonusVyndalium;
+		Player.Local.Tenacity += item.Tenacity;
+		Player.Local.StunResist += item.StunResistance;
+		Player.Local.BlindResist += item.BlindResistance;
+		Player.Local.BleedResist += item.BleedResistance;
+		Player.Local.SlowResist += item.SlowResistence;
+		Player.Local.FireResist += item.FireResistence;
+		Player.Local.PoisonResist += item.PoisonResistence;
+		Player.Local.IceResist += item.IceResistence;
+		Player.Local.LightningResist += item.LightningResistence;
+		Player.Local.LightResist += item.HolyResistence;
+		Player.Local.ShadowResist += item.ShadowResistence;
 	}
-	
-	public static void UnequipItemStats(ItemComponent item)
+
+	public static void UnequipItemStats( ItemComponent item )
 	{
 		Player.Local.AttackValue -= item.DMG;
 		Player.Local.Armor -= item.Armor;
-			Player.Local.STG -= item.STG;
-			Player.Local.HE -= item.HE;
-			Player.Local.DEX -= item.DEX;
-			Player.Local.PER -= item.PER;
-			Player.Local.INT -= item.INT;
-			Player.Local.MaxMana -= item.Mana;
-			Player.Local.MaxHealth -= item.Health;
-			Player.Local.CritHitDamage -= item.CritHitDamage;
-			Player.Local.CritHitChance -= item.CritHitChance;
-			Player.Local.AbilityHaste -= item.AbilityHaste;
-			Player.Local.AttackPower -= item.AttackPower;
-			Player.Local.MagicPower -= item.MagicPower;
-			Player.Local.AttackSpeed -= item.AttackSpeed;
-			Player.Local.MoveSpeed -= item.MoveSpeed;
-			Player.Local.BleedResist -= item.BleedResistance;
-			Player.Local.Armor -= item.Armor;
-			Player.Local.MagicDefense -= item.MagicDefense;
-			Player.Local.Evasion -= item.Evasion;
-			Player.Local.Block -= item.Cover;
-			Player.Local.BonusEXPGain -= item.BonusEXP;
-			Player.Local.BonusScore -= item.BonusScore;
-			Player.Local.BonusVyndalium -= item.BonusVyndalium;
-			Player.Local.Tenacity -= item.Tenacity;
-			Player.Local.StunResist -= item.StunResistance;
-			Player.Local.IceResist -= item.IceResistence;
-			Player.Local.BlindResist -= item.BlindResistance;
-			Player.Local.SlowResist -= item.SlowResistence;
-			Player.Local.FireResist -= item.FireResistence;
-			Player.Local.PoisonResist -= item.PoisonResistence;
-			Player.Local.LightningResist -= item.LightningResistence;
-			Player.Local.LightResist -= item.HolyResistence;
-			Player.Local.ShadowResist -= item.ShadowResistence;
+		Player.Local.STG -= item.STG;
+		Player.Local.HE -= item.HE;
+		Player.Local.DEX -= item.DEX;
+		Player.Local.PER -= item.PER;
+		Player.Local.INT -= item.INT;
+		Player.Local.MaxMana -= item.Mana;
+		Player.Local.MaxHealth -= item.Health;
+		Player.Local.CritHitDamage -= item.CritHitDamage;
+		Player.Local.CritHitChance -= item.CritHitChance;
+		Player.Local.AbilityHaste -= item.AbilityHaste;
+		Player.Local.AttackPower -= item.AttackPower;
+		Player.Local.MagicPower -= item.MagicPower;
+		Player.Local.AttackSpeed -= item.AttackSpeed;
+		Player.Local.MoveSpeed -= item.MoveSpeed;
+		Player.Local.BleedResist -= item.BleedResistance;
+		Player.Local.Armor -= item.Armor;
+		Player.Local.MagicDefense -= item.MagicDefense;
+		Player.Local.Evasion -= item.Evasion;
+		Player.Local.Block -= item.Cover;
+		Player.Local.BonusEXPGain -= item.BonusEXP;
+		Player.Local.BonusScore -= item.BonusScore;
+		Player.Local.BonusVyndalium -= item.BonusVyndalium;
+		Player.Local.Tenacity -= item.Tenacity;
+		Player.Local.StunResist -= item.StunResistance;
+		Player.Local.IceResist -= item.IceResistence;
+		Player.Local.BlindResist -= item.BlindResistance;
+		Player.Local.SlowResist -= item.SlowResistence;
+		Player.Local.FireResist -= item.FireResistence;
+		Player.Local.PoisonResist -= item.PoisonResistence;
+		Player.Local.LightningResist -= item.LightningResistence;
+		Player.Local.LightResist -= item.HolyResistence;
+		Player.Local.ShadowResist -= item.ShadowResistence;
 	}
 
-	
-	
+
+
 	public Inventory()
 	{
 		_backpackItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACK_SLOTS] );
@@ -108,7 +113,7 @@ public class Inventory : Component
 
 	public int IndexOf( ItemComponent item )
 	{
-		if (item == null)
+		if ( item == null )
 		{
 			return -1;
 		}
@@ -133,83 +138,69 @@ public class Inventory : Component
 
 		return true;
 	}
-	
 
-	public bool GiveItem(PrefabFile prefabFile)
+
+	public bool GiveItem( PrefabFile prefabFile )
 	{
-		var obj = SceneUtility.GetPrefabScene(prefabFile).Clone();
+		var obj = SceneUtility.GetPrefabScene( prefabFile ).Clone();
 		obj.NetworkMode = NetworkMode.Object;
 		obj.NetworkSpawn();
 
-		var itemComponent = obj.Components.Get<ItemComponent>();
-
-		// Überprüfen, ob das Item bereits im WeaponContainer vorhanden ist
-		if (Weapons.Contains(itemComponent))
-		{
-			// Wenn das Item bereits vorhanden ist, zerstören Sie das geklonte Objekt und geben Sie false zurück
-			obj.Destroy();
-			return false;
-		}
-
-		// Fügen Sie das Item zum WeaponContainer hinzu
-		Weapons.AddWeapon(itemComponent);
-
-		// Überprüfen, ob das Item erfolgreich hinzugefügt wurde
-		var res = Weapons.Contains(itemComponent);
-		if (!res)
+		var res = GiveItem( obj.Components.Get<ItemComponent>() );
+		if ( !res )
 			obj.Destroy();
 
 		return res;
 	}
-	public bool EquipItemFromBackpack(ItemComponent item)
+	public bool EquipItemFromBackpack( ItemComponent item )
 	{
-		var index = _backpackItems.IndexOf(item);
-		if (index == -1)
+		var index = _backpackItems.IndexOf( item );
+		if ( index == -1 )
 			return false;
 
-		if (item is not ItemEquipment equipment)
+		if ( item is not ItemEquipment equipment )
 			return false;
-		
+
 
 		var slotIndex = equipment.IsBackable ? (int)EquipSlot.Back : (int)equipment.Slot;
 		var previouslyEquippedItem = _equippedItems[slotIndex];
 
-		if (previouslyEquippedItem != null)
+		if ( previouslyEquippedItem != null )
 		{
-			if (previouslyEquippedItem != item) // Check if the item is already equipped
+			if ( previouslyEquippedItem != item ) // Check if the item is already equipped
 			{
-				
+
 				// Ensure stats are removed for the previously equipped item
-				RemoveEquipmentItem(previouslyEquippedItem as ItemEquipment);
-				GiveBackpackItem(previouslyEquippedItem, index);
+				RemoveEquipmentItem( previouslyEquippedItem as ItemEquipment );
+				GiveBackpackItem( previouslyEquippedItem, index );
 				previouslyEquippedItem.State = ItemState.Backpack;
 			}
-			
+
 		}
 
-		if (previouslyEquippedItem != item) // Check if the item is already equipped
+		if ( previouslyEquippedItem != item ) // Check if the item is already equipped
 		{
 			// Now equip the new item stats
-			GiveEquipmentItem(equipment);
+			GiveEquipmentItem( equipment );
 			equipment.State = ItemState.Equipped;
 		}
 
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
-		if (weaponContainer != null)
+		if ( weaponContainer != null )
 		{
-			weaponContainer.Give(item.GameObject, true);
+			weaponContainer.Give( item.GameObject, true );
 		}
 		else
 		{
 			// Handle the case when weaponContainer is null
-			Log.Info("WeaponContainer is null");
+			Log.Info( "WeaponContainer is null" );
 		}
-		
+
 
 		return true;
 	}
 
-	
+
 	public bool EquipItemFromWorld( ItemComponent item, bool forceReplace = false )
 	{
 		if ( item is not ItemEquipment equipment )
@@ -225,15 +216,15 @@ public class Inventory : Component
 			if ( !placedInBackpack )
 				DropItem( equippedItem );
 
-			
+
 		}
 
 		SetOwner( item );
-		
+
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
 		TaskMaster.SubmitTriggerSignal( $"item.received.{item.Name}", Player );
-		
+
 
 		return true;
 	}
@@ -241,27 +232,27 @@ public class Inventory : Component
 
 	public bool UnequipItem( ItemComponent item )
 	{
-		
-		if (item is not ItemEquipment equipment)
+
+		if ( item is not ItemEquipment equipment )
 			return false;
 
 		var slotIndex = (int)equipment.Slot;
-		var equippedItem = _equippedItems[slotIndex];	
-		if (equippedItem != item) // Check if the item is the one equipped
-			return false;	
-			
+		var equippedItem = _equippedItems[slotIndex];
+		if ( equippedItem != item ) // Check if the item is the one equipped
+			return false;
+
 		var firstFreeSlot = _backpackItems.IndexOf( null );
 		if ( firstFreeSlot == -1 )
 			return false;
-			
-		if (Weapons != null && Weapons.Deployed != null)
+
+		if ( Weapons != null && Weapons.Deployed != null )
 		{
 			Weapons.Deployed.Holster();
-			
-			
+
+
 		}
-		
-			
+
+
 
 		RemoveEquipmentItem( equipment );
 		GiveBackpackItem( equipment, firstFreeSlot );
@@ -269,21 +260,21 @@ public class Inventory : Component
 		TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
 
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
-		if (weaponContainer != null)
+		if ( weaponContainer != null )
 		{
-			var weapon = weaponContainer.All.FirstOrDefault(w => w.GameObject == item.GameObject);
-			if (weapon != null)
+			var weapon = weaponContainer.All.FirstOrDefault( w => w.GameObject == item.GameObject );
+			if ( weapon != null )
 			{
 				weapon.Holster();
-				
+
 			}
 		}
-		
+
 
 		return true;
 	}
-	
-	
+
+
 	public bool DropItem( ItemComponent item )
 	{
 		if ( item is ItemEquipment equipment && equipment.Equipped )
@@ -293,7 +284,7 @@ public class Inventory : Component
 
 		item.State = ItemState.None;
 		TaskMaster.SubmitTriggerSignal( $"item.dropped.{item.Name}", Player );
-		
+
 
 		item.GameObject.Parent = null;
 
@@ -317,7 +308,7 @@ public class Inventory : Component
 			item.GameObject.Enabled = false;
 			item.GameObject.Transform.Position = trace.EndPosition;
 			item.GameObject.Enabled = true;
-			modelPhysics.PhysicsGroup?.AddVelocity( velocity ); 
+			modelPhysics.PhysicsGroup?.AddVelocity( velocity );
 		}
 
 		return true;
@@ -332,23 +323,23 @@ public class Inventory : Component
 			return false;
 
 		RemoveBackpackItem( item, index );
-		
+
 
 		var previouslyEquippedItem = _equippedItems[(int)slot];
 		if ( previouslyEquippedItem is not null )
 
-		{	
+		{
 			RemoveEquipmentItem( previouslyEquippedItem as ItemEquipment );
 			GiveBackpackItem( previouslyEquippedItem, index );
 			previouslyEquippedItem.State = ItemState.Backpack;
-			
+
 		}
-		
-		
+
+
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
-		
-			
+
+
 
 		return true;
 	}
@@ -428,16 +419,16 @@ public class Inventory : Component
 		if ( previousBackpackItem is not null )
 		{
 			RemoveBackpackItem( previousBackpackItem, index );
-			
+
 			GiveEquipmentItem( previousBackpackItem as ItemEquipment );
 			previousBackpackItem.State = ItemState.Equipped;
-			
+
 		}
 
 		GiveBackpackItem( item, index );
 		item.State = ItemState.Backpack;
-		
-		
+
+
 
 		return true;
 	}
@@ -513,7 +504,7 @@ public class Inventory : Component
 			}
 		}
 
-		
+
 
 		return true;
 	}
@@ -535,35 +526,35 @@ public class Inventory : Component
 		}
 	}
 
-	
 
-	private void SetOwner(ItemComponent item)
-{
+
+	private void SetOwner( ItemComponent item )
+	{
 		if ( item.GameObject != null )
-    {
-        item.GameObject.SetupNetworking();
-        item.GameObject.Network.TakeOwnership();
-        item.GameObject.Parent = Player.GameObject;
-        item.GameObject.Transform.Position = Player.GameObject.Transform.Position;
-        item.GameObject.Transform.Rotation = Player.GameObject.Transform.Rotation;
-        item.LastOwner = Player;
-    }
-    else
-    {
-        // Handle the case where GameObject is null or not initialized
-    }
-}
+		{
+			item.GameObject.SetupNetworking();
+			item.GameObject.Network.TakeOwnership();
+			item.GameObject.Parent = Player.GameObject;
+			item.GameObject.Transform.Position = Player.GameObject.Transform.Position;
+			item.GameObject.Transform.Rotation = Player.GameObject.Transform.Rotation;
+			item.LastOwner = Player;
+		}
+		else
+		{
+			// Handle the case where GameObject is null or not initialized
+		}
+	}
 
 	/// <summary>
 	/// The item is given to the backpack.
 	/// </summary>
-	private void GiveBackpackItem(ItemComponent item, int index)
+	private void GiveBackpackItem( ItemComponent item, int index )
 	{
 		// Überprüfen Sie, ob das Item bereits in der Liste ist
-		if (_backpackItems.Contains(item))
+		if ( _backpackItems.Contains( item ) )
 			return;
 
-		if (index >= 0 && index < _backpackItems.Count)
+		if ( index >= 0 && index < _backpackItems.Count )
 			_backpackItems[index] = item;
 	}
 
@@ -575,63 +566,63 @@ public class Inventory : Component
 		if ( index >= 0 && index < _backpackItems.Count )
 			_backpackItems[index] = null;
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
-		if (weaponContainer != null)
+		if ( weaponContainer != null )
 		{
-			var weapon = weaponContainer.All.FirstOrDefault(w => w.GameObject == item.GameObject);
-			if (weapon != null)
+			var weapon = weaponContainer.All.FirstOrDefault( w => w.GameObject == item.GameObject );
+			if ( weapon != null )
 			{
 				weapon.Holster();
 			}
 		}
-		
+
 	}
 
 	/// <summary>
 	/// The item is equipped.
 	/// </summary>
-	public void GiveEquipmentItem(ItemEquipment equipment)
+	public void GiveEquipmentItem( ItemEquipment equipment )
 	{
 		// Überprüfen Sie, ob bereits eine Waffe ausgerüstet ist
-		if (_equippedItems[(int)equipment.Slot] != null)
+		if ( _equippedItems[(int)equipment.Slot] != null )
 		{
 			// Wenn ja, entfernen Sie die Statistiken der ausgerüsteten Waffe
-			UnequipItemStats(_equippedItems[(int)equipment.Slot]);
+			UnequipItemStats( _equippedItems[(int)equipment.Slot] );
 		}
-		if (equipment.IsBackable && _equippedItems[(int)EquipSlot.Back] == null)
-        {
-            _equippedItems[(int)EquipSlot.Back] = equipment;
-        }
+		if ( equipment.IsBackable && _equippedItems[(int)EquipSlot.Back] == null )
+		{
+			_equippedItems[(int)EquipSlot.Back] = equipment;
+		}
 
 		// Rüsten Sie die neue Waffe aus
 		_equippedItems[(int)equipment.Slot] = equipment;
 
 		// Entfernen Sie den Gegenstand aus dem Rucksack
-		int index = _backpackItems.IndexOf(equipment);
-		if (index != -1)
+		int index = _backpackItems.IndexOf( equipment );
+		if ( index != -1 )
 		{
-			_backpackItems.RemoveAt(index);
+			_backpackItems.RemoveAt( index );
 		}
 
 		// Fügen Sie die Statistiken der neuen Waffe hinzu
-		EquipItemStats(equipment);
+		EquipItemStats( equipment );
 
-		TaskMaster.SubmitTriggerSignal($"item.equipped.{equipment.Name}", Player);
+		TaskMaster.SubmitTriggerSignal( $"item.equipped.{equipment.Name}", Player );
 		UpdateBodygroups();
 	}
-	
+
 	/// <summary>
 	/// The item is unequipped.
 	/// </summary>
-	private void RemoveEquipmentItem(ItemEquipment equipment)
+	private void RemoveEquipmentItem( ItemEquipment equipment )
 	{
 		// Entfernen Sie die Statistiken der ausgerüsteten Waffe
-		UnequipItemStats(equipment);
+		UnequipItemStats( equipment );
 
 		_equippedItems[(int)equipment.Slot] = null;
 
 		// Fügen Sie den Gegenstand zum Rucksack hinzu
-		_backpackItems.Add(equipment);
-		
+		_backpackItems.Add( equipment );
+
 		UpdateBodygroups();
 	}
 	private void UpdateBodygroups()
@@ -641,9 +632,9 @@ public class Inventory : Component
 		{
 			if ( item is not ItemEquipment equipment || !equipment.Equipped )
 				continue;
-			
+
 			bodygroups |= equipment.HideBodygroups;
-			
+
 		}
 
 		Player.HideBodygroups = bodygroups;
@@ -666,7 +657,8 @@ public class Inventory : Component
 		return BackpackItems.Any( x => x.Name == name );
 	}
 
-	
+
+
 	[ConCmd]
 	public static void GiveItem( string name )
 	{
