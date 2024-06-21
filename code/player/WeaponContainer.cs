@@ -146,9 +146,9 @@ public partial class WeaponContainer : Component
 	}
 
 	// Methode, um zu überprüfen, ob eine bestimmte Waffe in der Liste ist
-	public bool Contains( ItemComponent item )
+	public bool Contains( WeaponComponent item )
 	{
-		return weaponList.Contains( item );
+		return weaponList.Any( weapon => weapon.Equals( item ) );
 	}
 
 	// Methode, um durch alle Waffen in der Liste zu iterieren und eine Aktion auszuführen
@@ -173,21 +173,27 @@ public partial class WeaponContainer : Component
 	}
 	public void ScrollThroughEquippedItems( int direction )
 	{
-
-
 		if ( !HasAny ) return;
 
 		var weapons = All.ToList();
 		if ( !weapons.Any() ) return;
 
-
-
 		var currentIndex = 0;
 		var deployed = Deployed;
+		var equipped = Inventory.EquipItemFromBackpack; // Angenommen, dies ist die Methode, die die ausgerüstete Waffe zurückgibt
 
 		if ( deployed != null )
 		{
 			currentIndex = weapons.IndexOf( deployed );
+		}
+		if ( equipped != null )
+		{
+
+			if ( currentIndex != -1 )
+			{
+				// Deploy the equipped item
+				weapons[currentIndex].Deploy();
+			}
 		}
 
 		Log.Info( $"Aktueller Index: {currentIndex}" );
