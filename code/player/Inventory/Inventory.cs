@@ -582,19 +582,22 @@ public sealed class Inventory : Component
 	/// </summary>
 	public void GiveEquipmentItem( ItemEquipment equipment )
 	{
-		// Überprüfen Sie, ob bereits eine Waffe ausgerüstet ist
+		// Überprüfen Sie, ob der Slot bereits belegt ist
 		if ( _equippedItems[(int)equipment.Slot] != null )
 		{
 			// Wenn ja, entfernen Sie die Statistiken der ausgerüsteten Waffe
 			UnequipItemStats( _equippedItems[(int)equipment.Slot] );
 		}
-		if ( equipment.IsBackable && _equippedItems[(int)EquipSlot.Back] == null )
+		else if ( equipment.IsBackable && _equippedItems[(int)EquipSlot.Back] == null )
 		{
+			// Wenn der Slot für den Rücken frei ist und die Waffe dort platziert werden kann
 			_equippedItems[(int)EquipSlot.Back] = equipment;
 		}
-
-		// Rüsten Sie die neue Waffe aus
-		_equippedItems[(int)equipment.Slot] = equipment;
+		else
+		{
+			// Rüsten Sie die neue Waffe aus
+			_equippedItems[(int)equipment.Slot] = equipment;
+		}
 
 		// Entfernen Sie den Gegenstand aus dem Rucksack
 		int index = _backpackItems.IndexOf( equipment );
@@ -655,6 +658,28 @@ public sealed class Inventory : Component
 	public bool HasItem( string name )
 	{
 		return BackpackItems.Any( x => x.Name == name );
+	}
+	protected override void OnUpdate()
+	{
+		if ( Player != null )
+			return;
+
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
+		if ( weaponContainer != null )
+		{
+			var equipped = weaponContainer.Equipped;
+			if ( equipped != null )
+			{
+				var weapon = weaponContainer.All.FirstOrDefault( w => w.GameObject == equipped.GameObject );
+				if ( weapon != null )
+				{
+					weapon.Deploy();
+				}
+			}
+		}
+
+
+		base.OnUpdate();
 	}
 
 
