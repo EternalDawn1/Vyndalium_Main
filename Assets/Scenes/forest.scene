@@ -184,7 +184,6 @@
           "Name": "Object",
           "Position": "222.3511,-430.4939,-3212.826",
           "Tags": "light_point,light",
-          "Enabled": true,
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "Components": [
@@ -206,7 +205,9 @@
                 "component_id": "b33c0711-c9ab-4a01-93e6-244a17091dd4",
                 "go": "20242be9-800f-4fa9-bdee-945e3ad218d2",
                 "component_type": "PointLight"
-              }
+              },
+              "flickerIntensity": 0,
+              "flickerSpeed": 0
             }
           ]
         },
@@ -299,6 +300,78 @@
           ]
         },
         {
+          "__guid": "fa5a0015-6f02-44c2-a7d7-57bcc8140902",
+          "Flags": 0,
+          "Name": "Flickering Flame",
+          "Position": "229.4758,-427.8542,-3209.656",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "b7c83094-68c5-434c-991c-65fb67168727",
+              "Attenuation": 0.58,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.41667,0,1",
+              "Radius": 130.09917,
+              "Shadows": true
+            },
+            {
+              "__type": "Flame",
+              "__guid": "f18610d1-66f6-4d5f-ac65-190ffe882b04",
+              "BaseLightColor": "0,0,0,0",
+              "FlickerFrequency": 11.83,
+              "FlickerIntensity": 0.4,
+              "IsLit": true,
+              "JitterAmount": "97.7,1,1",
+              "JitterFrequency": 18.62,
+              "TargetLight": {
+                "_type": "component",
+                "component_id": "b7c83094-68c5-434c-991c-65fb67168727",
+                "go": "fa5a0015-6f02-44c2-a7d7-57bcc8140902",
+                "component_type": "PointLight"
+              }
+            }
+          ]
+        },
+        {
+          "__guid": "2ad8094e-d513-4dc3-9b14-549d4e797af7",
+          "Flags": 0,
+          "Name": "Flickering Light",
+          "Position": "229.4758,-426.3711,-3194.608",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "e9b12100-0937-46ee-8594-c43ffc186901",
+              "Attenuation": 0.58,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.41667,0,1",
+              "Radius": 130.09917,
+              "Shadows": true
+            },
+            {
+              "__type": "GeneralGame.FlickeringLight",
+              "__guid": "4ca208fc-70be-4617-b679-46ea55714f76",
+              "pointLight": {
+                "_type": "component",
+                "component_id": "e9b12100-0937-46ee-8594-c43ffc186901",
+                "go": "2ad8094e-d513-4dc3-9b14-549d4e797af7",
+                "component_type": "PointLight"
+              },
+              "flickerIntensity": 0,
+              "flickerSpeed": 0
+            }
+          ]
+        },
+        {
           "__guid": "c7e9214c-da6b-4314-8fd3-5e7b8a73f216",
           "Flags": 0,
           "Name": "Object (4)",
@@ -324,7 +397,7 @@
           "__guid": "145e3178-1ac8-4177-8d35-c3ae834363dd",
           "Flags": 0,
           "Name": "Object (3)",
-          "Position": "721.3821,-430.4939,-3236.167",
+          "Position": "721.3821,-430.4939,-3033.291",
           "Tags": "light_point,light",
           "Enabled": true,
           "NetworkMode": 2,
@@ -333,10 +406,10 @@
             {
               "__type": "Sandbox.PointLight",
               "__guid": "018dd8f0-d5f6-4d93-babc-6af62fbd5eae",
-              "Attenuation": 0.49,
+              "Attenuation": 0.08,
               "FogMode": "Enabled",
               "FogStrength": 1,
-              "LightColor": "0.3814,0.24273,0.14369,1",
+              "LightColor": "1,1,1,1",
               "Radius": 770.79974,
               "Shadows": false
             }
@@ -721,9 +794,9 @@
               "__guid": "ed15e33d-30c2-4565-839b-f49e4bf6e3c6",
               "FogMode": "Enabled",
               "FogStrength": 1,
-              "LightColor": "0.08208,0.06966,0.16279,1",
+              "LightColor": "0,0,0,1",
               "Shadows": true,
-              "SkyColor": "0.02791,0.02791,0.02791,1"
+              "SkyColor": "1,1,1,1"
             }
           ]
         },
@@ -1276,7 +1349,7 @@
   },
   "Title": "forest",
   "Description": "",
-  "LastSaved": "2024-06-21T17:40:46.2968652\u002B02:00",
+  "LastSaved": "2024-06-22T15:14:36.6264448\u002B02:00",
   "ResourceVersion": 1,
   "__references": [
     "additionproject.sofa_03",

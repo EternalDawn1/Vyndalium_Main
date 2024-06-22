@@ -12,6 +12,7 @@ public partial class WeaponContainer : Component
 	[Property] public AmmoContainer Ammo { get; set; }
 	[Property] public Player PlayrControl { get; set; }
 	[Property] public Inventory Inventory { get; set; }
+	public BaseGun Equipped { get; set; }
 
 	public WeaponComponent Deployed => Components.GetAll<WeaponComponent>( FindMode.EverythingInSelfAndDescendants ).FirstOrDefault( c => c.IsDeployed );
 	public IEnumerable<WeaponComponent> All => Components.GetAll<WeaponComponent>( FindMode.EverythingInSelfAndDescendants );
@@ -92,11 +93,16 @@ public partial class WeaponContainer : Component
 			else
 			{
 				Log.Error( "RigidBody is null in WeaponContainer.Give" );
+
 			}
 
 			var weaponGo = prefab.Clone();
 			var weapon = weaponGo.Components.GetInDescendantsOrSelf<WeaponComponent>( true );
 			weapon.Owner = PlayrControl;
+			if ( weapon != null )
+			{
+				Log.Info( "Weapon is not null in WeaponContainer.Give" );
+			}
 			if ( !weapon.IsValid() )
 			{
 				weaponGo.DestroyImmediate();
