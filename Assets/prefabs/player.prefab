@@ -119,12 +119,6 @@
         "__guid": "fd4a62bf-1e7f-4479-b81c-938ec6211623",
         "AbilityHaste": 0,
         "Aircontrol": 0.1,
-        "Ammo": {
-          "_type": "component",
-          "component_id": "d6099511-b771-4df1-ab34-7adb3431953b",
-          "go": "6418cc4c-55ec-41b1-8cf9-bb39e48e8b40",
-          "component_type": "AmmoContainer"
-        },
         "AnimationHelper": {
           "_type": "component",
           "component_id": "91ec0fcd-b977-45d0-b380-ea826d06ba93",
@@ -132,6 +126,18 @@
           "component_type": "CitizenAnimationHelper"
         },
         "Animators": [
+          {
+            "_type": "component",
+            "component_id": "91ec0fcd-b977-45d0-b380-ea826d06ba93",
+            "go": "6418cc4c-55ec-41b1-8cf9-bb39e48e8b40",
+            "component_type": "CitizenAnimationHelper"
+          },
+          {
+            "_type": "component",
+            "component_id": "9d147edc-5aae-4bf6-a544-f436916b1fec",
+            "go": "5fc0eef6-6276-44e7-af5d-6186ed3fafda",
+            "component_type": "CitizenAnimationHelper"
+          },
           {
             "_type": "component",
             "component_id": "91ec0fcd-b977-45d0-b380-ea826d06ba93",
@@ -1732,6 +1738,13 @@
                 "__guid": "7da1210b-d5ec-437e-9523-c7e0ec0fd99d",
                 "LeftMouseAction": "use",
                 "RightMouseAction": "Attack2"
+              },
+              {
+                "__type": "Sandbox.AmbientOcclusion",
+                "__guid": "8fb8e7c9-082a-4460-b755-1ae30e47766a",
+                "Intensity": 8,
+                "Quality": "High",
+                "Radius": 32
               }
             ],
             "Children": [
