@@ -104,6 +104,9 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float PER { get; set; }
 	[Property] public float HE { get; set; } // Fügen Sie diese Zeile hinzu
 	[Property] public float AbilityHaste { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float AttackRange { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float ArmorPenetration { get; set; }
+	[Property] public float MagicPenetration { get; set; }// Fügen Sie diese Zeile hinzu
 
 	private static bool isFirstSpawn = true;
 
