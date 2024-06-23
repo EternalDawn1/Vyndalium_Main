@@ -38,7 +38,10 @@
 		<div class="stats">
 			<h2 class="stats2">
 				<li>Health (HP)</li> <span class="n">@(Math.Round(Player.Local.MaxHealth))</span>
-				<div class="tooltip-text"> Max HP of the Player</div>
+				<div class="tooltip-text">
+					<div class="header">Max HP of the Player</div>
+					<p> Health Regen : @Math.Round(Player.Local.HealthRegenPerSecond, 2)</p>
+				</div>
 			</h2>
 			<h2 class="stats2">
 				<li>Mana (MP)</li> <span class="n">@(Math.Round(Player.Local.MaxMana))</span>
@@ -65,7 +68,9 @@
 			</h2>
 			<h2 class="stats2">
 				<li>Magic Defense (MD)</li> <span class="n">@Math.Round(Player.Local.MagicDefense)</span>
-				<div class="tooltip-text"> currently Magic Defense of the Player</div>
+				<div class="tooltip-text">
+					<h1>currently Magic Defense of the Player</h1>
+				</div>
 			</h2>
 
 
