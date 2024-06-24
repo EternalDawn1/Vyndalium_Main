@@ -107,6 +107,19 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float AttackRange { get; set; } // Fügen Sie diese Zeile hinzu
 	[Property] public float ArmorPenetration { get; set; }
 	[Property] public float MagicPenetration { get; set; }// Fügen Sie diese Zeile hinzu
+	[Property] public float FireElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float IceElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float LightningElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float LightElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float ShadowElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float PoisonElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float BleedElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float FreezeElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float WaterElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float EarthElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float WindElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+	[Property] public float HolyElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+
 
 	private static bool isFirstSpawn = true;
 
