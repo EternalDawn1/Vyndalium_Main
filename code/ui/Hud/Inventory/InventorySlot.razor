@@ -70,10 +70,25 @@
 	}
 	public float GetOpacityBasedOnLevel()
 	{
+		if (Item == null)
+		{
+			// Standard-Opazität zurückgeben, wenn 'Item' null ist
+			return 1.0f; // oder einen anderen Standardwert
+		}
 		// Stellen Sie sicher, dass Item.Level zwischen 0 und 27 liegt
 		float clampedLevel = Math.Clamp(Item.ItemLevel, 0, 27);
-		// Berechnen Sie die Deckkraft. 0.1 bei Level 0 und 2.0 bei Level 27
-		float opacity = 0.1f + (clampedLevel / 27f) * (2.0f - 0.1f);
+		// Berechnen Sie die Deckkraft basierend auf den Level-Schritten
+		float opacity;
+		if (clampedLevel == 27)
+		{
+			// Stellen Sie sicher, dass die Deckkraft bei Level 27 genau 1.0 ist
+			opacity = 1.0f;
+		}
+		else
+		{
+			// Erhöhen Sie die Deckkraft alle 5 Levels um 0.2, beginnend mit 0.1 bei Level 0
+			opacity = 0.1f + ((int)(clampedLevel / 5) * 0.2f);
+		}
 		return opacity;
 	}
 
