@@ -58,7 +58,7 @@ public partial class Player
 		if ( oldLevel != Level )
 		{
 			OnLevelUp?.Invoke( Level );
-			
+
 		}
 	}
 }
