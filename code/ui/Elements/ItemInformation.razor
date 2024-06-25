@@ -6,21 +6,25 @@
 	<div class="item-details">
 		<div class="top-row" style="@(!string.IsNullOrEmpty(Item.Description) ? "align-items: center;" : "")">
 			<text class="item-name">@Item.Name</text>
-			<div class="item-name"> <h2 class="tier @Item.Tier.ToString()">@Item.Tier</h2></div>
-			<div class="item-name"><h2 class="lvl @GetLevelColor(Item.ItemLevel)">+@Item.ItemLevel</h2></div>
+			<div class="item-name">
+				<h2 class="tier @Item.Tier.ToString()">@Item.Tier</h2>
+			</div>
+			<div class="item-name">
+				<h2 class="lvl @GetLevelColor(Item.ItemLevel)">+@Item.ItemLevel</h2>
+			</div>
 			<div style="flex-direction: column; align-items: flex-end; gap: 2px;"></div>
 		</div>
-		
+
 
 		@if (!string.IsNullOrEmpty(Item.Description))
 		{
 			<div class="item-description1">@Item.Description</div>
-			
+
 		}
 		@if (Item.DMG != default(float))
 		{
 			<div class="item-description">Attack Value: @Item.DMG</div>
-			
+
 		}
 		@if (Item.STG != default(float))
 		{
@@ -158,55 +162,55 @@
 		{
 			<div class="item-description">Shadow Resistance: @Item.ShadowResistence</div>
 		}
-		
+
 
 
 	</div>
 </root>
 
-@code 
+@code
 {
 	public ItemComponent Item { get; set; }
-	public WeaponComponent Weapon {get; set; }
-	
-	
+	public WeaponComponent Weapon { get; set; }
+
+
 
 
 	private string GetLevelColor(float level)
 	{
 
 		switch (level)
-    {
-		case 0: return "level-color-0";
-        case 1: return "level-color-1";
-        case 2: return "level-color-2";
-        case 3: return "level-color-3";
-        case 4: return "level-color-4";
-        case 5: return "level-color-5";
-        case 6: return "level-color-6";
-        case 7: return "level-color-7";
-        case 8: return "level-color-8";
-        case 9: return "level-color-9";
-        case 10: return "level-color-10";
-        case 11: return "level-color-11";
-        case 12: return "level-color-12";
-        case 13: return "level-color-13";
-        case 14: return "level-color-14";
-        case 15: return "level-color-15";
-        case 16: return "level-color-16";
-        case 17: return "level-color-17";
-        case 18: return "level-color-18";
-        case 19: return "level-color-19";
-        case 20: return "level-color-20";
-        case 21: return "level-color-21";
-        case 22: return "level-color-22";
-        case 23: return "level-color-23";
-        case 24: return "level-color-24";
-        case 25: return "level-color-25";
-        case 26: return "gold-color"; // Hellste Farbe vor Gold
-        case 27: return "black-color"; // Gold für das 27. Level
-        default: return "black-color"; // Für andere Fälle
-    }
+		{
+			case 0: return "level-color-0";
+			case 1: return "level-color-1";
+			case 2: return "level-color-2";
+			case 3: return "level-color-3";
+			case 4: return "level-color-4";
+			case 5: return "level-color-5";
+			case 6: return "level-color-6";
+			case 7: return "level-color-7";
+			case 8: return "level-color-8";
+			case 9: return "level-color-9";
+			case 10: return "level-color-10";
+			case 11: return "level-color-11";
+			case 12: return "level-color-12";
+			case 13: return "level-color-13";
+			case 14: return "level-color-14";
+			case 15: return "level-color-15";
+			case 16: return "level-color-16";
+			case 17: return "level-color-17";
+			case 18: return "level-color-18";
+			case 19: return "level-color-19";
+			case 20: return "level-color-20";
+			case 21: return "level-color-21";
+			case 22: return "level-color-22";
+			case 23: return "level-color-23";
+			case 24: return "level-color-24";
+			case 25: return "level-color-25";
+			case 26: return "gold-color"; // Hellste Farbe vor Gold
+			case 27: return "black-color"; // Gold für das 27. Level
+			default: return "black-color"; // Für andere Fälle
+		}
 	}
 	protected override int BuildHash()
 	{
@@ -214,11 +218,11 @@
 			return -1;
 
 		return HashCode.Combine(
-			Item.Tier,
-			Item.ItemLevel
-			
+		Item.Tier,
+		Item.ItemLevel
+
 
 		);
 	}
-	
+
 }

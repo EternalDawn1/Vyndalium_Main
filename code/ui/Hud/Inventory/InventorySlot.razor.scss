@@ -16,21 +16,81 @@ InventorySlot {
 
     .border {
         position: absolute;
-        background-image: linear-gradient(rgb(36, 35, 35), #682020);
+        background-image: linear-gradient(rgb(0, 0, 0), #177175);
         height: 100%;
         width: 100%;
         mask-mode: alpha;
         mask-image: url('/ui/hud/slot_mask.png');
-
         mask-size: 100%;
     }
 
-    .background {
-        position: absolute;
-        background: radial-gradient(#ffffff0e, #000000);
+
+
+    .background-tier-c {
+
+        background: radial-gradient(#ffffffa0, #000000);
         height: 100%;
         width: 100%;
         z-index: -10;
+        position: absolute;
+    }
+
+    .background-tier-b {
+
+        background: radial-gradient(#02f2ff, #3258d3);
+        height: 100%;
+        width: 100%;
+        z-index: -10;
+        position: absolute;
+    }
+
+    .background-tier-a {
+        background: radial-gradient(#44ff00, #36d68e83);
+        height: 100%;
+        width: 100%;
+        z-index: -10;
+        position: absolute;
+
+
+
+    }
+
+    .background-tier-s {
+
+        background: radial-gradient(#ff0000, #fa00008f);
+        height: 100%;
+        width: 100%;
+        z-index: -10;
+        position: absolute;
+        background-image: url(/ui/hud/red.gif);
+    }
+
+    .background-tier-ss {
+
+        background: radial-gradient(#ff02dd, #fb0bd376);
+        height: 100%;
+        width: 100%;
+        z-index: -10;
+        position: absolute;
+        background-image: url(/ui/hud/pink.gif);
+
+        background-position: rotate(45deg);
+
+    }
+
+
+    .background-tier-sss {
+        background: radial-gradient(#ffd000, #ffeb0a);
+        height: 100%;
+        width: 100%;
+        z-index: -2;
+
+        position: absolute;
+        background-image: url(/ui/hud/gold3.gif);
+        background-size: 150%;
+        background-position: center;
+
+
 
     }
 
@@ -106,4 +166,5 @@ InventorySlot {
             background-color: rgba(255, 0, 0, 0.1);
         }
     }
+
 }

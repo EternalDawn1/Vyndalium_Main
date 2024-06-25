@@ -28,7 +28,7 @@ public class ItemComponent : Component
 	[Sync]
 	[Property]
 	public string Name { get; set; }
-	
+
 	/// <summary>
 	/// The icon to display.
 	/// </summary>
@@ -57,7 +57,7 @@ public class ItemComponent : Component
 	[Property, Group( "Weapon" ), Range( 0, 46 )] public float AbilityHaste { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float AttackPower { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float MagicPower { get; set; }
-	[Property] public Tier Tier { get; set; } 
+	[Property] public Tier Tier { get; set; }
 	[Property, Range( 100, 0 )] public int DamageBalance { get; set; }
 	[Property, Range( 1000, 0 )] public int Durability { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 60 )] public float AttackSpeed { get; set; }
@@ -70,8 +70,8 @@ public class ItemComponent : Component
 	[Property, Group( "Accessory" ), Range( 0, 500 )] public float BonusScore { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 200 )] public float BonusVyndalium { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 150 )] public float Tenacity { get; set; }
-	[Property, Group( "Armor" ),  Range( 0, 100 )] public float StunResistance { get; set; }
-	[Property,Group( "Accessory" ),  Range( 0, 100 )] public float BlindResistance { get; set; }
+	[Property, Group( "Armor" ), Range( 0, 100 )] public float StunResistance { get; set; }
+	[Property, Group( "Accessory" ), Range( 0, 100 )] public float BlindResistance { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float SlowResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float FireResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float BleedResistance { get; set; }
@@ -80,10 +80,10 @@ public class ItemComponent : Component
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float LightningResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float HolyResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float ShadowResistence { get; set; }
-	
+
 	public int Price { get; set; }
-    
-		
+
+
 	public bool IsEquipped { get; set; }
 
 	public class TierClass
@@ -93,8 +93,8 @@ public class ItemComponent : Component
 		public Tier Tier
 		{
 
-			get {return _tier;}
-			set {_tier = value;}
+			get { return _tier; }
+			set { _tier = value; }
 
 		}
 
@@ -103,7 +103,9 @@ public class ItemComponent : Component
 			throw new NotImplementedException();
 		}
 	}
-	
+
+
+
 
 	/// <summary>
 	/// The weight (in grams) of the item.
@@ -159,12 +161,12 @@ public class ItemComponent : Component
 	/// <summary>
 	/// The last player that had this item parented to them.
 	/// </summary>
-	[Property]public Player LastOwner { get; set; }
+	[Property] public Player LastOwner { get; set; }
 
 	private readonly SoundEvent _pickupSound = ResourceLibrary.Get<SoundEvent>( "sounds/misc/pickup.sound" );
 
 	private ItemState _state;
-	
+
 
 	/// <summary>
 	/// If the item is in the player's backpack (note not equipped!).
@@ -185,7 +187,7 @@ public class ItemComponent : Component
 		GameObject.Enabled = State != ItemState.Backpack;
 		if ( this is ItemEquipment equipment )
 			equipment.UpdateEquipped();
-			
+
 	}
 
 	protected override void OnAwake()

@@ -47,26 +47,26 @@ public partial class Player
     [Sync, Property, Group( "CharacterStats" )] public float BonusVyndalium { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public float BonusScore { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public float AttackValue { get; set; } = 0f;
-    [Property] public float STG { get; set; }
-    [Property] public float DEX { get; set; }
-    [Property] public float INT { get; set; }
-    [Property] public float PER { get; set; }
-    [Property] public float HE { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float AbilityHaste { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float AttackRange { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float ArmorPenetration { get; set; }
-    [Property] public float MagicPenetration { get; set; }// Fügen Sie diese Zeile hinzu
-    [Property] public float FireElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float IceElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float LightningElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float LightElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float ShadowElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float PoisonElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float BleedElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float FreezeElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float WaterElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float EarthElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float WindElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Property] public float HolyElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float STG { get; set; }
+    [Sync, Property, Group( "CharacterStats" )] public float DEX { get; set; }
+    [Sync, Property, Group( "CharacterStats" )] public float INT { get; set; }
+    [Sync, Property, Group( "CharacterStats" )] public float PER { get; set; }
+    [Sync, Property, Group( "CharacterStats" )] public float HE { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float AbilityHaste { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float AttackRange { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float ArmorPenetration { get; set; }
+    [Sync, Property, Group( "CharacterStats" )] public float MagicPenetration { get; set; }// Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float FireElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float IceElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float LightningElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float LightElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float ShadowElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float PoisonElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float BleedElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float FreezeElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float WaterElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float EarthElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float WindElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float HolyElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
 
 }
