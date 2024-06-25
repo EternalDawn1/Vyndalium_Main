@@ -1,7 +1,8 @@
 @import "/ui/Hud/Style.scss";
 
 ItemInformation {
-    background-color: #1b1c1b;
+    background-color: #1c1c1b;
+
     align-items: center;
     transition: all 0.08s ease-out;
     text-shadow: $text-shadow-sm;
@@ -16,9 +17,11 @@ ItemInformation {
         flex-direction: column;
         justify-content: center;
 
+
         .top-row {
             justify-content: space-between;
             align-items: center;
+
 
             .item-weight {
                 color: $orange;
@@ -43,103 +46,163 @@ ItemInformation {
                 color: white;
                 flex-direction: column;
 
-                .tier{
+
+                .tier {
                     font-size: 24px;
                     text-align: right;
 
-                    &.C{color:rgb(190, 190, 190);}
-                    &.B { color: rgb(85, 199, 228); } // Define color for Tier B
-                    &.A { color: rgb(52, 197, 52); } // Define color for Tier A
-                    &.S { color: rgb(233, 113, 1); } // Define color for Tier S
-                    &.SS { color: rgb(255, 0, 255); } // Define color for Tier SS
-                    &.SSS { color: #ffd900; } // Define color for Tier SSS
+                    &.C {
+                        color: rgb(190, 190, 190);
+                    }
+
+                    &.B {
+                        color: rgb(85, 199, 228);
+                    }
+
+                    // Define color for Tier B
+                    &.A {
+                        color: rgb(52, 197, 52);
+                    }
+
+                    // Define color for Tier A
+                    &.S {
+                        color: rgb(233, 113, 1);
+                    }
+
+                    // Define color for Tier S
+                    &.SS {
+                        color: rgb(255, 0, 255);
+                    }
+
+                    // Define color for Tier SS
+                    &.SSS {
+                        color: #ffd900;
+                    }
+
+                    // Define color for Tier SSS
                 }
-                .lvl
-                {
+
+                .lvl {
                     &.level-color-0 {
-                        color: #535353; /* Dunkelste Farbe (Dunkelgrau) */
+                        color: #535353;
+                        /* Dunkelste Farbe (Dunkelgrau) */
                     }
+
                     &.level-color-1 {
-                        color: #9e9e9e; /* Dunkelste Farbe (Dunkelgrau) */
+                        color: #9e9e9e;
+                        /* Dunkelste Farbe (Dunkelgrau) */
                     }
+
                     &.level-color-2 {
-                        color: #b4b4b4; /* Mittlere dunkle Farbe (Dunkelgrau) */
+                        color: #b4b4b4;
+                        /* Mittlere dunkle Farbe (Dunkelgrau) */
                     }
+
                     &.level-color-3 {
-                        color: #cecece; /* Mittlere Farbe (Grau) */
+                        color: #cecece;
+                        /* Mittlere Farbe (Grau) */
                     }
+
                     &.level-color-4 {
-                        color: #e4e4e4; /* Mittlere helle Farbe (Dunkelgrau) */
+                        color: #e4e4e4;
+                        /* Mittlere helle Farbe (Dunkelgrau) */
                     }
+
                     &.level-color-5 {
-                        color: #ffffff; /* Hellste Farbe vor Gold (Hellgrau) */
+                        color: #ffffff;
+                        /* Hellste Farbe vor Gold (Hellgrau) */
                     }
+
                     &.level-color-6 {
-                        color:  #00570e;
+                        color: #00570e;
                     }
+
                     &.level-color-7 {
-                        color:  #006d12;
+                        color: #006d12;
                     }
+
                     &.level-color-8 {
-                        color:  #008a17;
+                        color: #008a17;
                     }
+
                     &.level-color-9 {
-                        color:  #00a71c;
+                        color: #00a71c;
                     }
+
                     &.level-color-10 {
-                        color:  #00c220;
+                        color: #00c220;
                     }
+
                     &.level-color-11 {
-                        color:  #3f4f96;
+                        color: #3f4f96;
                     }
+
                     &.level-color-12 {
-                        color:  #4d5fb3;
+                        color: #4d5fb3;
                     }
+
                     &.level-color-13 {
-                        color:  #5d73d4;
+                        color: #5d73d4;
                     }
+
                     &.level-color-14 {
-                        color:  #6982f0;
+                        color: #6982f0;
                     }
+
                     &.level-color-15 {
-                        color:  #6f8aff;
+                        color: #6f8aff;
                     }
+
                     &.level-color-16 {
-                        color:  #6e3200;
+                        color: #6e3200;
                     }
+
                     &.level-color-17 {
-                        color:  #8d3f00;
+                        color: #8d3f00;
                     }
+
                     &.level-color-18 {
-                        color:  #ad4e00;
+                        color: #ad4e00;
                     }
+
                     &.level-color-19 {
-                        color:  #d15e00;
+                        color: #d15e00;
                     }
+
                     &.level-color-20 {
-                        color:  #f16d00;
+                        color: #f16d00;
                     }
+
                     &.level-color-21 {
-                        color:  #9c00a1;
+                        color: #9c00a1;
                     }
+
                     &.level-color-22 {
-                        color:  #ba00c0;
+                        color: #ba00c0;
                     }
+
                     &.level-color-23 {
-                        color:  #d900e0;
+                        color: #d900e0;
                     }
+
                     &.level-color-24 {
-                        color:  #990000;
+                        color: #990000;
                     }
+
                     &.level-color-25 {
-                        color:  #db0000;
+                        color: #db0000;
                     }
+
                     &.gold-color {
-                        color: #FFD700; /* Gold (Gold) */
+                        color: #FFD700;
+                        /* Gold (Gold) */
                     }
+
                     &.black-color {
-                        color: #000000; /* Schwarz (Schwarz) */
-                        text-shadow: 1px 1px 4px #FFD700; /* Schimmernde Umrandung in Gold */
+                        color: #000000;
+                        /* Schwarz (Schwarz) */
+                        text-shadow: 1px 1px 4px #FFD700;
+                        /* Schimmernde Umrandung in Gold */
                     }
                 }
             }
@@ -148,23 +211,24 @@ ItemInformation {
 
         .item-description {
             font-family: Geneva;
-            
+
             font-size: 14px;
             font-weight: bold;
-           
+
             padding-top: 8px;
             color: rgb(255, 255, 255);
             background-color: rgba(255, 255, 255, 0.048);
             border-radius: 3px;
             margin: 5px;
-            padding:5px;
+            padding: 5px;
 
-            .icon{
+            .icon {
                 background-image: url("/ui/hud/item/attack.png");
                 background-size: 100%;
-                color:white;
+                color: white;
             }
         }
+
         .item-description1 {
             font-family: HabboExtended;
             font-size: 16px;
@@ -172,6 +236,6 @@ ItemInformation {
             color: rgb(255, 134, 130);
         }
 
-        
+
     }
 }

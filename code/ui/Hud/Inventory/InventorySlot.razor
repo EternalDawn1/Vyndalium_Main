@@ -11,7 +11,7 @@
 
 <root @onrightclick=@( () => OpenContextMenu() ) class="@CurrentDropTargetClassSelectors">
 	<div class="border" />
-	<div class="background" />
+	<div class="@($"background {@GetBackgroundClass()}")" style="@($"opacity: {GetOpacityBasedOnLevel()}")" />
 	@if (Item is not null)
 
 	{
@@ -29,6 +29,54 @@
 </root>
 
 @code {
+	private string GetBackgroundClass()
+	{
+		if (Item is null)
+			return "background-tier-c"; // Standardhintergrund, wenn kein Item vorhanden ist
+
+		return Item.Tier switch
+		{
+			GeneralGame.Tier.C => "background-tier-c",
+			GeneralGame.Tier.B => "background-tier-b",
+			GeneralGame.Tier.A => "background-tier-a",
+			GeneralGame.Tier.S => "background-tier-s",
+			GeneralGame.Tier.SS => "background-tier-ss",
+			GeneralGame.Tier.SSS => "background-tier-sss",
+			_ => "background-tier-c", // Standardfall, falls keine Übereinstimmung gefunden wird
+		};
+	}
+	public enum ItemTier
+	{
+		C,
+		B,
+		A,
+		S,
+		SS,
+		SSS
+		// Fügen Sie weitere Stufen hinzu, falls notwendig
+	}
+	private GeneralGame.Tier ConvertToGeneralGameTier(ItemTier itemTier)
+	{
+		return itemTier switch
+		{
+			ItemTier.C => GeneralGame.Tier.C,
+			ItemTier.B => GeneralGame.Tier.B,
+			ItemTier.A => GeneralGame.Tier.A,
+			ItemTier.S => GeneralGame.Tier.S,
+			ItemTier.SS => GeneralGame.Tier.SS,
+			ItemTier.SSS => GeneralGame.Tier.SSS,
+			_ => throw new ArgumentOutOfRangeException(nameof(itemTier), $"Nicht unterstützter ItemTier: {itemTier}")
+		};
+	}
+	public float GetOpacityBasedOnLevel()
+	{
+		// Stellen Sie sicher, dass Item.Level zwischen 0 und 27 liegt
+		float clampedLevel = Math.Clamp(Item.ItemLevel, 0, 27);
+		// Berechnen Sie die Deckkraft. 0.1 bei Level 0 und 2.0 bei Level 27
+		float opacity = 0.1f + (clampedLevel / 27f) * (2.0f - 0.1f);
+		return opacity;
+	}
+
 	public ItemComponent Item { get; set; }
 
 	public EquipSlot? EquipSlotIndex { get; set; } = null;
