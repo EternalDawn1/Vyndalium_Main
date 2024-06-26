@@ -6,37 +6,55 @@ using Sandbox;
 
 public class Chest : BaseChest
 {
-    public Vector3 Position { get; set; }
-    public float InteractionDistance { get; set; } = 50.0f;
-    public ChestPanel chestPanel;
-    public ChestInteraction chestInteraction;
-    public Material HighlightMaterial;
+
     protected override void OnAwake()
     {
         base.OnAwake();
+        OnOpen += HandleOpen; // Ereignisabonnent hinzufügen
+        OnClose += HandleClose;
 
-        chestInteraction = new ChestInteraction( this );
     }
     protected override void OnStart()
     {
         base.OnStart();
 
     }
+    private void HandleOpen()
+    {
+        // Logik für das Öffnen der Truhe, z.B. visuelles Feedback
+        Highlight( true );
+    }
+
+    private void HandleClose()
+    {
+        // Logik für das Schließen der Truhe, z.B. visuelles Feedback entfernen
+        Highlight( false );
+    }
 
     public void Highlight( bool shouldHighlight )
     {
-        var chestObject = GameObject.Components.Get<Chest>();
-        if ( chestObject != null )
+        var chestObject = this; // Direkte Nutzung des aktuellen Objekts
+        var outline = chestObject.GameObject.Components.Get<HighlightOutline>();
+        if ( shouldHighlight )
         {
-            var outline = chestObject.GameObject.Components.Get<HighlightOutline>(); // Korrigiert von GameObject.Components.Get<HighlightOutline>();
             if ( outline == null )
             {
-                outline = chestObject.GameObject.Components.Create<HighlightOutline>(); // Korrigiert von GameObject<HighlightOutline>();
-
+                outline = chestObject.GameObject.Components.Create<HighlightOutline>();
                 outline.Color = Color.White;
-                outline.Width = 2f;
+                outline.Width = 1.3f;
             }
-            outline.Enabled = shouldHighlight;
+            // Erstelle die HighlightOutline-Komponente, wenn sie noch nicht existiert und Hervorhebung benötigt wird
+
+        }
+        else
+        {
+            if ( outline != null )
+            {
+                outline.Destroy();
+                outline.Enabled = shouldHighlight;
+            }
+            // Aktualisiere den Zustand der Hervorhebung basierend auf shouldHighlight
+
         }
     }
 

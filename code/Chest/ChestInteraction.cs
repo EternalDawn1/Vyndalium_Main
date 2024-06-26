@@ -4,39 +4,50 @@ using Sandbox;
 using System;
 using Sandbox.UI;
 using System.Collections.Generic;
-namespace GeneralGame.HUD;
-
-
-
 
 
 
 public sealed class ChestInteraction : Component
 {
-    public Chest chest;
-    public ChestPanel chestPanel;
-    private bool isPlayerNear = true;
+    [Property] public Chest Chest { get; set; }
 
-    protected override void OnFixedUpdate()
+    [Property] public float InteractionRange { get; set; } = 100.0f;
+
+    protected override void OnUpdate()
     {
-        base.OnFixedUpdate();
+        // Überprüfen, ob OnUpdate aufgerufen wird
 
-        // Aktualisiere den Zustand von isPlayerNear
-        isPlayerNear = IsPlayerNearby();
-        chest.Highlight( isPlayerNear );
+        if ( IsPlayerNearby() )
+        {
+            Chest?.Highlight( true );
+
+        }
+        else
+        {
+            Chest?.Highlight( false );
+
+
+        }
     }
-
-    public ChestInteraction( Chest chest )
-    {
-        this.chest = chest;
-    }
-
     private bool IsPlayerNearby()
     {
         var players = Scene.GetAllComponents<Player>();
+        if ( players == null || !players.Any() )
+        {
+
+            return false;
+        }
+
+        // Anzahl der erkannten Spieler loggen
+
         foreach ( var player in players )
         {
-            if ( (player.Transform.Position - this.Transform.Position).Length < chest.InteractionDistance )
+
+
+            var distance = (player.Transform.Position - this.Transform.Position).Length;
+
+
+            if ( distance < InteractionRange )
             {
                 return true;
             }
@@ -44,15 +55,5 @@ public sealed class ChestInteraction : Component
         return false;
     }
 
-    public void OnInteract( Player player )
-    {
-        if ( isPlayerNear )
-        {
-            if ( !chest.isOpen )
-            {
-                chest.Open();
-                chestPanel.Show();
-            }
-        }
-    }
+
 }

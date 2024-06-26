@@ -1,47 +1,43 @@
 using GeneralGame;
 using GeneralGame.HUD;
 using Sandbox;
-public class BaseChest : Component
+
+namespace GeneralGame
 {
-
-    public float inventorySize;
-
-
-    public bool isOpen;
-    public bool isLocked;
-
-
-
-    public void Open()
+    public class BaseChest : Component
     {
-        if ( isLocked )
+        [Property] public float inventorySize = 10f;
+        [Property] public bool isOpen;
+        [Property] public bool isLocked;
+        public event Action OnOpen;
+        public event Action OnClose;
+
+        protected override void OnAwake()
         {
-            return;
+            isOpen = false;
+            isLocked = false;
         }
-
-        isOpen = true;
+        protected override void OnStart()
+        {
+            inventorySize = 10f;
+        }
+        public void Open()
+        {
+            if ( isLocked || isOpen )
+            {
+                return;
+            }
+            isOpen = true;
+            OnOpen?.Invoke(); // Ereignis auslösen
+        }
+        public void Close()
+        {
+            if ( !isOpen )
+            {
+                return;
+            }
+            isOpen = false;
+            OnClose?.Invoke(); // Ereignis auslösen
+        }
     }
-    public void Close()
-    {
-        isOpen = false;
-    }
-    protected override void OnAwake()
-    {
-
-        inventorySize = 10;
-        isOpen = false;
-        isLocked = false;
-
-
-
-    }
-
-    protected override void OnStart()
-    {
-
-
-    }
-
-
-
 }
