@@ -57,7 +57,7 @@ public sealed class Axe : Component
 			{
 				if ( PrefabLibrary.TryGetByPath( "prefabs/items/split_wooden_log.prefab", out var log ) )
 				{
-					
+
 					var left = SceneUtility.GetPrefabScene( log.Prefab ).Clone( target.Transform.Position, target.Transform.Rotation );
 					var right = SceneUtility.GetPrefabScene( log.Prefab ).Clone( target.Transform.Position, target.Transform.Rotation.RotateAroundAxis( Vector3.Forward, 180f ) );
 
@@ -70,7 +70,7 @@ public sealed class Axe : Component
 
 					TaskMaster.SubmitTriggerSignal( "item.used_2.Axe", player );
 
-					
+
 				}
 			}
 		}
@@ -78,6 +78,6 @@ public sealed class Axe : Component
 		if ( target.Components.TryGet<Rigidbody>( out var body ) )
 			body.ApplyImpulseAt( player.InteractionTrace.HitPosition, player.InteractionTrace.Direction * 300f );
 
-		
+
 	}
 }

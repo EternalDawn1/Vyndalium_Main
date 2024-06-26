@@ -5,7 +5,7 @@ public enum GeneralScenetest
 	Creation,
 	Game,
 	MainMenu,
-    Starting
+	Starting
 }
 
 public static class SceneHandlertest
@@ -17,7 +17,7 @@ public static class SceneHandlertest
 			GeneralScene.Creation => "scenes/creation.scene",
 			GeneralScene.Game => "scenes/dom.scene",
 			GeneralScene.MainMenu => "scenes/lobby.scene",
-            GeneralScene.Starting => "scenes/startlobby.scene",
+			GeneralScene.Starting => "scenes/startlobby.scene",
 			_ => null
 		};
 
@@ -33,17 +33,17 @@ public static class SceneHandlertest
 		// If is game.
 		if ( lobby.HasValue )
 		{
-			var connected = await GameNetworkSystem.TryConnectSteamId(lobby.Value);
-			if (!connected)
-				return; 
+			var connected = await GameNetworkSystem.TryConnectSteamId( lobby.Value );
+			if ( !connected )
+				return;
 		}
-        
-		
-          
-		
-        
+
+
+
+
+
 		Game.ActiveScene.Load( resource );
 		return;
-        
+
 	}
 }

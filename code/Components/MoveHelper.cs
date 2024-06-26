@@ -15,7 +15,7 @@ public enum TraceType
 public class MoveHelper : Component
 {
 
-	
+
 	[Property]
 	[Category( "Collider" )]
 	public bool UseCollider { get; set; } = false;
@@ -310,9 +310,9 @@ public class MoveHelper : Component
 			CategorizePosition();
 		}
 
-		
+
 	}
-	
+
 	//	
 	// Summary:
 	//     Move from our current position to this target position, but using tracing an

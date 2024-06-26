@@ -7,7 +7,7 @@ namespace GeneralGame;
 public sealed partial class HealthEffects : Component
 {
 	[Property] public ColorAdjustments Adjustments { get; set; }
-	
+
 	private Player LocalPlayer { get; set; }
 	private Vignette Vignette { get; set; }
 
@@ -36,11 +36,11 @@ public sealed partial class HealthEffects : Component
 		Adjustments.Saturation = 1f - (1f - health) * 0.9f;
 		Vignette.Intensity = 0.6f * (1f - health);
 		Vignette.Color = Color.Lerp( Color.White, Color.Red, 1f - health );
-		
-        
 
-        // Apply the adjustments to the local player's camera
-    
+
+
+		// Apply the adjustments to the local player's camera
+
 		base.OnFixedUpdate();
 	}
 }
