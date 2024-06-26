@@ -1,5 +1,5 @@
 {
-  "__guid": "ed8c84b8-db48-464c-a49e-6e4139d09079",
+  "__guid": "1ba2444a-dcd3-4d52-bcfd-27032e293433",
   "GameObjects": [
     {
       "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
@@ -14,7 +14,7 @@
           "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
           "Flags": 0,
           "Name": "Map",
-          "Position": "767.2023,-2519.431,1584.684",
+          "Position": "498.2042,530.4957,-332.2879",
           "Enabled": true,
           "NetworkMode": 2,
           "NetworkInterpolation": true,
@@ -50,6 +50,9 @@
             "_type": "gameobject",
             "prefab": "prefabs/player.prefab"
           },
+          "SpawnPoints": [
+            null
+          ],
           "StartServer": true
         }
       ]
@@ -116,7 +119,7 @@
         {
           "__type": "GeneralGame.SceneChangeTriggertest",
           "__guid": "f7075f35-1e2c-4797-9543-216b56a290e6",
-          "SceneToLoad": "Starting"
+          "SceneToLoad": "Game"
         }
       ]
     },
@@ -124,7 +127,7 @@
       "__guid": "fda8f9e3-0ef2-47fd-bd0b-74d64ea16c1a",
       "Flags": 0,
       "Name": "Starting (2)",
-      "Position": "-16.51645,2.639824,40.2589",
+      "Position": "-16.51645,186.4763,40.2589",
       "Scale": "-0.7654113,0.9841333,0.6492278",
       "Tags": "interactable",
       "Enabled": true,
@@ -149,7 +152,7 @@
         {
           "__type": "GeneralGame.SceneChangeTriggertest",
           "__guid": "6fcfb6e0-022d-49b2-9c59-5e76abeadae1",
-          "SceneToLoad": "Game"
+          "SceneToLoad": "Starting"
         }
       ]
     },
@@ -330,6 +333,9 @@
           "AttachmentTransform": {
             "UniformScale": 1,
             "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
             "Scale": "1,1,1",
             "Rotation": "0,0,0,1"
           },
@@ -490,6 +496,9 @@
           "AttachmentTransform": {
             "UniformScale": 1,
             "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
             "Scale": "1,1,1",
             "Rotation": "0,0,0,1"
           },
@@ -1100,7 +1109,6 @@
       "__guid": "19487e25-24c9-437a-8332-17ed4a81294b",
       "Flags": 0,
       "Name": "Object",
-      "Position": "-508.15,-514.0391,276.0276",
       "Rotation": "0,0,-0.9978589,-0.06540331",
       "Enabled": true,
       "NetworkMode": 2,
@@ -1355,6 +1363,9 @@
           "AttachmentTransform": {
             "UniformScale": 1,
             "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
             "Scale": "1,1,1",
             "Rotation": "0,0,0,1"
           },
@@ -1516,6 +1527,9 @@
           "AttachmentTransform": {
             "UniformScale": 1,
             "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
             "Scale": "1,1,1",
             "Rotation": "0,0,0,1"
           },
@@ -1668,13 +1682,60 @@
       "__guid": "24e0af1e-00a0-407a-92e0-efd24adac1f0",
       "Flags": 0,
       "Name": "box_normal_small",
-      "Position": "-507.5579,-826.04,18",
-      "Rotation": "0,0,-0.5,0.8660254",
+      "Position": "-507.5458,-324.2168,-183.3374",
+      "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/entitys/box_normal_small.prefab",
-      "__PrefabVariables": {}
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "c70faa49-69ef-4a8d-a3d0-9319c9199a25",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/box_new/small.vmdl",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.Chest",
+          "__guid": "f5c9ca84-d6f6-4c64-8b7d-0a0580d38bfd"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "8d378a29-19ed-4084-ae80-56004d985133",
+          "Flags": 0,
+          "Name": "World",
+          "Position": "-0.9000006,0,78.95478",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.WorldPanel",
+              "__guid": "b9c6e912-43de-4d2c-880b-37d166c4a3af",
+              "HorizontalAlign": "Center",
+              "InteractionRange": 1000,
+              "LookAtCamera": false,
+              "PanelSize": "512,512",
+              "RenderScale": 1,
+              "VerticalAlign": "Center"
+            },
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "efdfac02-523c-4105-a4a0-a9f4926bb7b1",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 32,
+              "FontWeight": 800,
+              "Scale": 1,
+              "Text": "Hello! \u2764",
+              "TextAlignment": "Center"
+            }
+          ]
+        }
+      ]
     },
     {
       "__guid": "5dcf6dd8-198c-49ce-b645-de8e14fe75ce",
@@ -1773,6 +1834,9 @@
           "AttachmentTransform": {
             "UniformScale": 1,
             "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
             "Scale": "1,1,1",
             "Rotation": "0,0,0,1"
           },
@@ -1857,7 +1921,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-15T19:28:48.4976346\u002B02:00",
+  "LastSaved": "2024-06-26T14:22:14.8074348\u002B02:00",
   "ResourceVersion": 1,
   "__references": [
     "baik.roadsign_stop",

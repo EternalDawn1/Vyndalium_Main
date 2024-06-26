@@ -2,37 +2,37 @@
 @attribute [StyleSheet]
 @inherits Panel
 
-@if ( Player.Local == null )
+@if (Player.Local == null)
 	return;
 
 <root>
 	<div @ref=_container class="container @(!IsInventoryScreen ? "hud" : "") @(!IsInventoryScreen ? "inactive" : "")">
 		<div class="exp-bar">
-			<div class="progress" style="width: @( 100f * Player.Local.Experience / Player.Local.ExpPerLevel )%"/>
+			<div class="progress" style="width: @( 100f * Player.Local.Experience / Player.Local.ExpPerLevel )%" />
 		</div>
 		<div class="level-details">
 			<text class="level">@($"Lvl. {@Player.Local.Level}")</text>
 			<text class="level-exp">@($"{Player.Local.Experience} / {Player.Local.ExpPerLevel} Exp")</text>
 		</div>
-		
+
 	</div>
 </root>
 
 
 @code
 {
-	
+
 	public bool IsInventoryScreen { get; set; }
 	private Panel _container;
 	private const float TIME_ON_SCREEN = 3;
-	
+
 
 	public void Refresh()
-    {
-        StateHasChanged();
-    }
+	{
+		StateHasChanged();
+	}
 
-	protected override void OnAfterTreeRender( bool firstTime )
+	protected override void OnAfterTreeRender(bool firstTime)
 	{
 		if (Player.Local is null)
 			return;
@@ -42,44 +42,44 @@
 
 		Player.Local.OnExperienceEarned += OnExperienceEarned;
 		Player.Local.OnLevelUp += OnLevelUp;
-		
+
 	}
 
 	// For some reason these need to be static due to some weird s&box bug?
 	public void OnExperienceEarned(int delta)
-{
-    var expBar = InGameHud.Instance?.Descendants.OfType<ExperienceBar>().FirstOrDefault();
-    if (expBar is null)
-        return;
-
-    Player.Local.Experience += delta;
-
-    while (Player.Local?.Experience >= Player.Local?.ExpPerLevel)
-    {
-        Player.Local.Experience -= Player.Local.ExpPerLevel; // Remove the required experience for the current level
-        Player.Local.Level++; // Increase level by 1
-        expBar.Refresh(); // Refresh the experience bar
-        OnLevelUp(Player.Local.Level); // Notify about level up
-		
-    }
-    
-    expBar.Refresh(); // Refresh the experience bar if no level up occurred
-}
-
-	public static void OnLevelUp( int newLevel )
 	{
 		var expBar = InGameHud.Instance?.Descendants.OfType<ExperienceBar>().FirstOrDefault();
 		if (expBar is null)
 			return;
-		
-		
-		
+
+		Player.Local.Experience += delta;
+
+		while (Player.Local?.Experience >= Player.Local?.ExpPerLevel)
+		{
+			Player.Local.Experience -= Player.Local.ExpPerLevel; // Remove the required experience for the current level
+			Player.Local.Level++; // Increase level by 1
+			expBar.Refresh(); // Refresh the experience bar
+			OnLevelUp(Player.Local.Level); // Notify about level up
+
+		}
+
+		expBar.Refresh(); // Refresh the experience bar if no level up occurred
+	}
+
+	public static void OnLevelUp(int newLevel)
+	{
+		var expBar = InGameHud.Instance?.Descendants.OfType<ExperienceBar>().FirstOrDefault();
+		if (expBar is null)
+			return;
+
+
+
 		expBar.Refresh();
-		
+
 	}
 
 	protected override int BuildHash()
 	{
-		return HashCode.Combine( Player.Local?.Experience, Player.Local?.ExpPerLevel,Player.Local?.Level );
+		return HashCode.Combine(Player.Local?.Experience, Player.Local?.ExpPerLevel, Player.Local?.Level);
 	}
 }

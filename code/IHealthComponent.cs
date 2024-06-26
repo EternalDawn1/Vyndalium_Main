@@ -11,6 +11,6 @@ namespace GeneralGame
 		public float Health { get; }
 
 
-		public void TakeDamage(DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId);
+		public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId );
 	}
 }

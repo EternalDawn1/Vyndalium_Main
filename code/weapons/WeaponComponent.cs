@@ -38,7 +38,16 @@ public class WeaponComponent : Component
 	public SkinnedModelRenderer EffectRenderer => ViewModel.IsValid() ? ViewModel.ModelRenderer : ModelRenderer;
 	public EquipSlot Slot { get; set; }
 
+	public bool IsInitialized { get; private set; }
 
+	// Methode zum Initialisieren der Waffe, die auch IsInitialized setzt
+	public void Initialize()
+	{
+		// Initialisierungslogik hier...
+
+		// Nach erfolgreicher Initialisierung
+		IsInitialized = true;
+	}
 
 	protected override void OnStart()
 	{

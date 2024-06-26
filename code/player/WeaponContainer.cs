@@ -142,28 +142,15 @@ public partial class WeaponContainer : Component
 
 		}
 	}
-
-	private List<ItemComponent> weaponList = new List<ItemComponent>();
-
-	// Methode, um eine Waffe zur Liste hinzuzufügen
-	public void AddWeapon( ItemComponent weapon )
+	public List<WeaponComponent> GetInitializedEquippedWeapons()
 	{
-		weaponList.Add( weapon );
-	}
+		// Erhalten Sie alle ausgerüsteten Waffen von dieser Instanz
+		var equippedWeapons = this.GetEquippedItems( EquipSlot.Hand );
 
-	// Methode, um zu überprüfen, ob eine bestimmte Waffe in der Liste ist
-	public bool Contains( WeaponComponent item )
-	{
-		return weaponList.Any( weapon => weapon.Equals( item ) );
-	}
+		// Filtern Sie die Liste, um nur initialisierte Waffen zu behalten
+		var initializedEquippedWeapons = equippedWeapons.Where( weapon => weapon.IsInitialized ).ToList();
 
-	// Methode, um durch alle Waffen in der Liste zu iterieren und eine Aktion auszuführen
-	public void CheckAllWeapons( Action<ItemComponent> action )
-	{
-		foreach ( var weapon in weaponList )
-		{
-			action( weapon );
-		}
+		return initializedEquippedWeapons;
 	}
 
 

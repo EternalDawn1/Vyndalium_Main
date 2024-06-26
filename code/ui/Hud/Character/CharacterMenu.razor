@@ -37,71 +37,137 @@
 
 		<div class="stats">
 			<h2 class="stats2">
-				<li>Health (HP)</li> <span class="n">@(Math.Round(Player.Local.MaxHealth))</span>
-				<div class="tooltip-text"> Max HP of the Player</div>
-			</h2>
-			<h2 class="stats2">
-				<li>Mana (MP)</li> <span class="n">@(Math.Round(Player.Local.MaxMana))</span>
-				<div class="tooltip-text"> Max MP of the Player</div>
-			</h2>
-			<h2 class="stats2">
-				<li>Stamina (STM)</li> <span class="n">@Math.Round(Player.Local.MaxStamina, 2)</span>
-				<div class="tooltip-text"> Max STM of the Player</div>
-			</h2>
-			<h2 class="stats2">
-				<li>Attack Power (AP)</li> <span class="n">@Math.Round(Player.Local.AttackPower)</span>
+				<li>💘Health (HP)</li> <span class="n">@(Math.Round(Player.Local.MaxHealth))</span>
 				<div class="tooltip-text">
-					Overall AP of the Player
-					Weapon AP not included!
+					<div class="header">💘Max Health of the Player</div>
+					<p> Health Regen Per Second : @Math.Round(Player.Local.HealthRegenPerSecond, 2)/s</p>
 				</div>
 			</h2>
 			<h2 class="stats2">
-				<li>Magic Power (MAP)</li> <span class="n">@Math.Round(Player.Local.MagicPower)</span>
-				<div class="tooltip-text"> Max Magic Power of the Player</div>
+				<li>💙Mana (MP)</li> <span class="n">@(Math.Round(Player.Local.MaxMana))</span>
+				<div class="tooltip-text">
+					<div class="header">💙Max Mana of the Player</div>
+					<p> Mana Regen Per Second : @Math.Round(Player.Local.ManaRegenPerSecond, 2)/s</p>
+				</div>
 			</h2>
 			<h2 class="stats2">
-				<li>Armor (DEF)</li> <span class="n">@Math.Round(Player.Local.Armor)</span>
-				<div class="tooltip-text"> currently Armor of the Player</div>
+				<li>💦Stamina (STM)</li> <span class="n">@Math.Round(Player.Local.MaxStamina, 2)</span>
+				<div class="tooltip-text">
+					<div class="header">💦Max STM of the Player</div>
+					<p> Stamina Regen Per Second : @Math.Round(Player.Local.StaminaPerSecond, 2)/s</p>
+					<p> Player Walk Speed : @Math.Round(Player.Local.PlayerWalkSpeed, 2)/s</p>
+					<p> Player Run Speed : @Math.Round(Player.Local.PlayerRunSpeed, 2)/s</p>
+
+
+
+				</div>
 			</h2>
 			<h2 class="stats2">
-				<li>Magic Defense (MD)</li> <span class="n">@Math.Round(Player.Local.MagicDefense)</span>
-				<div class="tooltip-text"> currently Magic Defense of the Player</div>
+				<li>⚔️Attack Power (AP)</li> <span class="n">@Math.Round(Player.Local.AttackPower)</span>
+				<div class="tooltip-text">
+					<div class="header">⚔️Overall Attack Power</div>
+
+					<p> Armor Penetration : @Math.Round(Player.Local.ArmorPenetration, 2)</p>
+					<p> Max Health DMG : @Math.Round(Player.Local.ArmorPenetration, 2)</p>
+					<p> Additional Attack Range : @Math.Round(Player.Local.AttackRange, 2)</p>
+				</div>
+			</h2>
+			<h2 class="stats2">
+				<li>🪄Magic Power (MAP)</li> <span class="n">@Math.Round(Player.Local.MagicPower)</span>
+				<div class="tooltip-text">
+					<div class="header">🪄Max Magic Power of the Player</div>
+					<p> Magic Penetration : @Math.Round(Player.Local.MagicPenetration, 2)</p>
+					<p> Fire Elemental Damage : @Math.Round(Player.Local.FireElementalDamage, 2)</p>
+					<p> Ice Elemental Damage : @Math.Round(Player.Local.IceElementalDamage, 2)</p>
+					<p> Lightning Elemental Damage : @Math.Round(Player.Local.LightningElementalDamage, 2)</p>
+					<p> Light Elemental Damage : @Math.Round(Player.Local.LightElementalDamage, 2)</p>
+					<p> Shadow Elemental Damage : @Math.Round(Player.Local.ShadowElementalDamage, 2)</p>
+					<p> Poison Elemental Damage : @Math.Round(Player.Local.PoisonElementalDamage, 2)</p>
+					<p> Bleed Elemental Damage : @Math.Round(Player.Local.BleedElementalDamage, 2)</p>
+					<p> Freeze Elemental Damage : @Math.Round(Player.Local.FreezeElementalDamage, 2)</p>
+					<p> Water Elemental Damage : @Math.Round(Player.Local.WaterElementalDamage, 2)</p>
+					<p> Earth Elemental Damage : @Math.Round(Player.Local.EarthElementalDamage, 2)</p>
+					<p> Wind Elemental Damage : @Math.Round(Player.Local.WindElementalDamage, 2)</p>
+					<p> Holy Elemental Damage : @Math.Round(Player.Local.HolyElementalDamage, 2)</p>
+				</div>
+			</h2>
+			<h2 class="stats2">
+				<li>🛡️Armor (DEF)</li> <span class="n">@Math.Round(Player.Local.Armor)</span>
+				<div class="tooltip-text">
+					<div class="header">🛡️currently Armor of the Player</div>
+
+
+				</div>
+			</h2>
+			<h2 class="stats2">
+				<li>✨Magic Defense (MD)</li> <span class="n">@Math.Round(Player.Local.MagicDefense)</span>
+				<div class="tooltip-text">
+					<div class="header">✨currently Magic Defense of the Player</h1>
+					</div>
+			</h2>
+			<h2 class="stats2">
+				<li>🕧Ability Haste (AH)</li> <span class="n">@Math.Round(Player.Local.AbilityHaste)</span>
+				<div class="tooltip-text">
+					<div class="header">🕧currently Ability Haste of the Player</h1>
+					</div>
 			</h2>
 
 
 		</div>
 		<div class="statsone">
+
 			<h2 class="stats4">
-				<li>Movement (Speed+)</li> <span class="n">@Math.Round(Player.Local.PlayerRunSpeed, 2)</span>
-				<div class="tooltip-text"> Max Running Speed of the Player</div>
+				<li>⚔️Attack Speed (ATS)</li> <span class="n">@Math.Round(Player.Local.AttackSpeed, 2)</span>
+				<div class="tooltip-text">
+					<div class="header">⚔️AttackSpeed of the Player</div>
+
+
+
+				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>Attack Speed (ATS)</li> <span class="n">@Math.Round(Player.Local.AttackSpeed, 2)</span>
-				<div class="tooltip-text"> AttackSpeed of the Player ( Reload Speed , FireSpeed)</div>
+				<li>🔅Evasion (EVA)</li> <span class="n">@Math.Round(Player.Local.Evasion, 2)</span>
+				<div class="tooltip-text">
+					<div class="header">🔅Player is evading attacks in %</div>
+				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>Evasion (EVA)</li> <span class="n">@Math.Round(Player.Local.Evasion, 2)</span>
-				<div class="tooltip-text"> Player is evading attacks in % </div>
+				<li>🖐️Cover (Block+)</li> <span class="n">@Math.Round(Player.Local.Block, 2)</span>
+				<div class="tooltip-text">
+					<div class="header">🖐️How much the Player is blocking attacks in % ( Reducing DMG)</div>
+				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>Cover (Block+)</li> <span class="n">@Math.Round(Player.Local.Block, 2)</span>
-				<div class="tooltip-text">How much the Player is blocking attacks in % ( Reducing DMG) </div>
+				<li>🩸Crit Chance (Crit %)</li> <span class="n">@Math.Round(Player.Local.CritHitChance)</span>
+				<div class="tooltip-text">
+					<div class="header">🩸How much the Player do Crit% of the (Overall DMG)</div>
+				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>Crit Chance (Crit %)</li> <span class="n">@Math.Round(Player.Local.CritHitChance)</span>
-				<div class="tooltip-text">How much the Player do Crit% of the (Overall DMG) </div>
+				<li>🌀Crit Damage (Crit DMG)</li> <span class="n">@Math.Round(Player.Local.CritHitDamage)</span>
+				<div class="tooltip-text">
+					<div class="header">🌀How much the Player do Crit DMG of the (Overall DMG )</div>
+				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>Crit Damage (Crit DMG)</li> <span class="n">@Math.Round(Player.Local.CritHitDamage)</span>
-				<div class="tooltip-text">How much the Player do Crit DMG of the (Overall DMG ) </div>
+				<li>💸Bonus EXP Gain (EXP+)</li> <span class="n">@Math.Round(Player.Local.BonusEXPGain, 2)</span>
+				<div class="tooltip-text">
+					<div class="header">💸How much % extra XP gets the Player</div>
+				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>Bonus EXP Gain (EXP+)</li> <span class="n">@Math.Round(Player.Local.BonusEXPGain, 2)</span>
-				<div class="tooltip-text">How much % extra XP gets the Player </div>
+				<li>💰Bonus Vyndalium Gain (Vynd+)</li> <span class="n">@Math.Round(Player.Local.BonusVyndalium,
+					2)</span>
+				<div class="tooltip-text">
+					<div class="header">💰How much % extra Vyndalium gets the Player</div>
+				</div>
 			</h2>
+
 			<h2 class="stats4">
-				<li>Attack Value (ATK)</li> <span class="n">@Math.Round(Player.Local.AttackValue, 2)</span>
-				<div class="tooltip-text">Attack value of the player</div>
+				<li>💯Attack Value (ATK)</li> <span class="n">@Math.Round(Player.Local.AttackValue, 2)</span>
+				<div class="tooltip-text">
+					<div class="header">💯Attack value of the player</div>
+				</div>
 			</h2>
 
 
@@ -109,44 +175,55 @@
 
 		<div class="statstwo">
 			<h2 class="stats3">
-				<li>Tenacity (TEN)</li> <span class="n">@Math.Round(Player.Local.Tenacity, 2)</span>
-				<div class="tooltip-text"> How much -% the Player reduces incoming Damage</div>
+				<li>🤒Tenacity (TEN)</li> <span class="n">@Math.Round(Player.Local.Tenacity, 2)</span>
+				<div class="tooltip-text">
+					<div class="header">🤒How much -% the Player reduces incoming Damage</div>
+				</div>
 			</h2>
 			<h2 class="stats3">
-				<li>Stun Resistance</li> <span class="n">@Math.Round(Player.Local.StunResist, 2)</span>
-				<div class="tooltip-text"> How much -% the Player is reducing Stun-Effects</div>
+				<li>🦻Stun Resistance</li> <span class="n">@Math.Round(Player.Local.StunResist, 2)</span>
+				<div class="tooltip-text">
+					<div class="header">
+						🦻How much -% the Player is reducing Stun-Effects
+					</div>
+				</div>
 			</h2>
 			<h2 class="stats3">
-				<li>Blind Resistance</li> <span class="n">@Math.Round(Player.Local.BlindResist, 2)</span>
-				<div class="tooltip-text"> How much -% the Player is reducing Blind-Effects</div>
+				<li>👁️Blind Resistance</li> <span class="n">@Math.Round(Player.Local.BlindResist, 2)</span>
+				<div class="tooltip-text">
+					<div class="header">👁️How much -% the Player is reducing Blind-Effects</div>
+				</div>
 			</h2>
 			<h2 class="stats3">
-				<li>Slow Resistance</li> <span class="n">@Math.Round(Player.Local.SlowResist, 2)</span>
-				<div class="tooltip-text"> How much -% the Player is reducing Slow-Effects</div>
+				<li>🔐Slow Resistance</li> <span class="n">@Math.Round(Player.Local.SlowResist, 2)</span>
+				<div class="tooltip-text">
+					<div class="header">🔐How much -% the Player is reducing Slow-Effects</div>
+				</div>
 			</h2>
 			<h2 class="stats3">
-				<li>Fire Resistance</li> <span class="n">@Math.Round(Player.Local.FireResist, 2)</span>
+				<li>💙Freeze Resistance</li> <span class="n">@Math.Round(Player.Local.FreezeResist)</span>
 			</h2>
 			<h2 class="stats3">
-				<li>Poisen Resistance</li> <span class="n">@Math.Round(Player.Local.PoisonResist, 2)</span>
+				<li>🔥Fire Resistance</li> <span class="n">@Math.Round(Player.Local.FireResist, 2)</span>
 			</h2>
 			<h2 class="stats3">
-				<li>Bleed Resistance</li> <span class="n">@Math.Round(Player.Local.BleedResist)</span>
+				<li>💚Poisen Resistance</li> <span class="n">@Math.Round(Player.Local.PoisonResist, 2)</span>
 			</h2>
 			<h2 class="stats3">
-				<li>Freeze Resistance</li> <span class="n">@Math.Round(Player.Local.FreezeResist)</span>
+				<li>💖Bleed Resistance</li> <span class="n">@Math.Round(Player.Local.BleedResist)</span>
+			</h2>
+
+			<h2 class="stats3">
+				<li>💙Ice Resistance</li> <span class="n">@Math.Round(Player.Local.IceResist)</span>
 			</h2>
 			<h2 class="stats3">
-				<li>Ice Resistance</li> <span class="n">@Math.Round(Player.Local.IceResist)</span>
+				<li>⚡Lightning Resistance</li> <span class="n">@Math.Round(Player.Local.LightningResist)</span>
 			</h2>
 			<h2 class="stats3">
-				<li>Lightning Resistance</li> <span class="n">@Math.Round(Player.Local.LightningResist)</span>
+				<li>🖤Shadow Resistance</li> <span class="n">@Math.Round(Player.Local.ShadowResist)</span>
 			</h2>
 			<h2 class="stats3">
-				<li>Shadow Resistance</li> <span class="n">@Math.Round(Player.Local.ShadowResist)</span>
-			</h2>
-			<h2 class="stats3">
-				<li>Light Resistance</li> <span class="n">@Math.Round(Player.Local.LightResist)</span>
+				<li>🤍Light Resistance</li> <span class="n">@Math.Round(Player.Local.LightResist)</span>
 			</h2>
 		</div>
 
