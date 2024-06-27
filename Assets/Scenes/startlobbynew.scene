@@ -1716,7 +1716,7 @@
             "go": "24e0af1e-00a0-407a-92e0-efd24adac1f0",
             "component_type": "Chest"
           },
-          "InteractionRange": 97.2001
+          "InteractionRange": 125
         }
       ],
       "Children": [
@@ -1940,6 +1940,69 @@
           "WeightInGrams": 0
         }
       ]
+    },
+    {
+      "__guid": "ddaf08c2-f7b4-477c-9dc6-91647c30a97c",
+      "Flags": 0,
+      "Name": "door_single_dev",
+      "Position": "-1074.971,-104.2672,0.00002493421",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a821ec56-dce2-4f2d-82e5-7fe2ba2860ba",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/door/door_single_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "46125d75-4008-40fe-8a13-297a3ea5972c",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-0.3259277,-0.5293045,0.9319444",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.HingeJoint",
+              "__guid": "d7619820-6ac5-4fde-bb98-44173884be43",
+              "Angle": 0,
+              "Attachment": "Auto",
+              "Axis": "0,0,0",
+              "BreakForce": 0,
+              "BreakTorque": 0,
+              "DampingRatio": 1,
+              "EnableCollision": false,
+              "Fequency": 1,
+              "Friction": 0,
+              "LocalFrame1": {
+                "ForwardRay": {
+                  "Forward": "1,0,0"
+                }
+              },
+              "LocalFrame2": {
+                "ForwardRay": {
+                  "Forward": "1,0,0"
+                }
+              },
+              "MaxAngle": 0,
+              "MaxTorque": 0,
+              "MinAngle": 0,
+              "Motor": "Disabled",
+              "Speed": 0,
+              "TargetAngle": 0,
+              "TargetVelocity": 0
+            }
+          ]
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -1965,11 +2028,12 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-26T20:03:41.0639767\u002B02:00",
+  "LastSaved": "2024-06-27T13:04:09.9994349\u002B02:00",
   "ResourceVersion": 1,
   "__references": [
     "baik.roadsign_stop",
     "duccsoft.duck_decoration",
+    "facepunch.door_single_dev",
     "facepunch.iron_fence_64",
     "sugmaclothing.cowboyhat"
   ],

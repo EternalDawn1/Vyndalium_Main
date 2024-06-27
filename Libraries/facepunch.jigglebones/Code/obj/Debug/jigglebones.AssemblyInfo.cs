@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("new_game_two.editor")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("jigglebones")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6874bb24cfadd0c1127ba170c4169af42f77c41e")]
-[assembly: System.Reflection.AssemblyProductAttribute("new_game_two.editor")]
-[assembly: System.Reflection.AssemblyTitleAttribute("new_game_two.editor")]
+[assembly: System.Reflection.AssemblyProductAttribute("jigglebones")]
+[assembly: System.Reflection.AssemblyTitleAttribute("jigglebones")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Von der MSBuild WriteCodeFragment-Klasse generiert.

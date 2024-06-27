@@ -6,7 +6,40 @@ ChestPanel {
     height: 100%;
 
     .ChestHighlighted {
-        // Beispiel für einen Hervorhebungseffekt
-        border: 2px solid white;
+        position: relative;
+        flex-direction: column;
+        left: 100%;
+        top: 20%;
+        background-color: rgba(255, 255, 255, 0);
+        color: white;
+        gap: 20px;
+
+
+
+        .Open {
+            color: rgb(255, 255, 255);
+            font-size: 20%;
+            background-color: saddlebrown;
+        }
+
+        .Close {
+            color: rgb(255, 255, 255);
+            font-size: 20%;
+            background-color: saddlebrown;
+        }
+
+        .Search {
+            color: rgb(255, 255, 255);
+            font-size: 20%;
+            background-color: saddlebrown;
+        }
+
+
     }
+
+    .selectedAction {
+        background-color: white;
+    }
+
+
 }

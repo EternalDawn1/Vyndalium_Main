@@ -17,14 +17,14 @@ public sealed class ChestInteraction : Component
     {
         // Überprüfen, ob OnUpdate aufgerufen wird
 
-        if ( IsPlayerNearby() )
+        if (IsPlayerNearby())
         {
-            Chest?.Highlight( true );
+            Chest?.Highlight(true);
 
         }
         else
         {
-            Chest?.Highlight( false );
+            Chest?.Highlight(false);
 
 
         }
@@ -32,7 +32,7 @@ public sealed class ChestInteraction : Component
     private bool IsPlayerNearby()
     {
         var players = Scene.GetAllComponents<Player>();
-        if ( players == null || !players.Any() )
+        if (players == null || !players.Any())
         {
 
             return false;
@@ -40,14 +40,14 @@ public sealed class ChestInteraction : Component
 
         // Anzahl der erkannten Spieler loggen
 
-        foreach ( var player in players )
+        foreach (var player in players)
         {
 
 
             var distance = (player.Transform.Position - this.Transform.Position).Length;
 
 
-            if ( distance < InteractionRange )
+            if (distance < InteractionRange)
             {
                 return true;
             }

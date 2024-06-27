@@ -6,6 +6,10 @@ using Sandbox;
 
 public class Chest : BaseChest
 {
+    public event Action<bool> OnHighlightChanged;
+
+    public bool IsHighlighted { get; private set; }
+
 
     protected override void OnAwake()
     {
@@ -22,33 +26,35 @@ public class Chest : BaseChest
     private void HandleOpen()
     {
         // Logik für das Öffnen der Truhe, z.B. visuelles Feedback
-        Highlight( true );
+        Highlight(true);
     }
 
     private void HandleClose()
     {
         // Logik für das Schließen der Truhe, z.B. visuelles Feedback entfernen
-        Highlight( false );
+        Highlight(false);
     }
 
-    public void Highlight( bool shouldHighlight )
+    public void Highlight(bool shouldHighlight)
     {
         var chestObject = this; // Direkte Nutzung des aktuellen Objekts
         var outline = chestObject.GameObject.Components.Get<HighlightOutline>();
-        if ( shouldHighlight )
+        if (shouldHighlight)
         {
-            if ( outline == null )
+            if (outline == null)
             {
                 outline = chestObject.GameObject.Components.Create<HighlightOutline>();
                 outline.Color = Color.White;
                 outline.Width = 1.3f;
             }
-            // Erstelle die HighlightOutline-Komponente, wenn sie noch nicht existiert und Hervorhebung benötigt wird
+            IsHighlighted = shouldHighlight;
+            OnHighlightChanged?.Invoke(shouldHighlight);
+
 
         }
         else
         {
-            if ( outline != null )
+            if (outline != null)
             {
                 outline.Destroy();
                 outline.Enabled = shouldHighlight;

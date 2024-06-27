@@ -1,12 +1,70 @@
 @using GeneralGame
-@using GeneralGame.HUD
 @inherits PanelComponent
 @namespace GeneralGame.HUD
 
+<root>
+
+
+
+    <div class="ChestHighlighted">
+
+        <button class="Open" @onclick="() => SelectAction(" Open")">Open</button>
+        <button class="Close" @onclick="() => SelectAction(" Close")">Close</button>
+        <button class="Search" @onclick="() => SelectAction(" Search")">Search</button>
+    </div>
+
+
+
+
+</root>
 
 @code
 {
+    private string SelectedAction { get; set; }
 
+    public Chest Chest { get; set; }
+    private void SelectAction(string action)
+    {
+        SelectedAction = action;
+        switch (action)
+        {
+            case "Open":
+                OpenChest();
+                break;
+            case "Close":
+                CloseChest();
+                break;
+            case "Search":
+                SearchContents();
+                break;
+        }
+    }
+    private string GetButtonClass(string action)
+    {
+        return SelectedAction == action ? "selectedAction" : "";
+    }
+    private void OpenChest()
+    {
+        if (Chest?.IsHighlighted == true)
+        {
+            // Logik zum Öffnen der Kiste
+        }
+    }
 
+    private void CloseChest()
+    {
+        if (Chest?.IsHighlighted == false)
+        {
+            // Logik zum Schließen der Kiste
+        }
+    }
+
+    private void SearchContents()
+    {
+        if (Chest?.IsHighlighted == true)
+        {
+            // Logik zum Durchsuchen der Kiste
+        }
+    }
 
 }
