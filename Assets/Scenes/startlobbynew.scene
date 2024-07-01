@@ -1696,7 +1696,7 @@
           "__guid": "c70faa49-69ef-4a8d-a3d0-9319c9199a25",
           "BodyGroups": 18446744073709551615,
           "Health": 0,
-          "IsStatic": false,
+          "IsStatic": true,
           "Model": "models/props/box_new/small.vmdl",
           "Tint": "1,1,1,1"
         },
@@ -1708,9 +1708,9 @@
           "isOpen": true
         },
         {
-          "__type": "ChestInteraction",
-          "__guid": "038d3f24-4bec-4102-b559-126f01245e97",
-          "Chest": {
+          "__type": "GeneralGame.ChestInteraction",
+          "__guid": "c44d4821-d8bb-4a3e-a963-877a3cfcd426",
+          "chest": {
             "_type": "component",
             "component_id": "0f09ad86-e4eb-40a7-bf84-a8c4e02ddf6c",
             "go": "24e0af1e-00a0-407a-92e0-efd24adac1f0",
@@ -1780,9 +1780,9 @@
           "isOpen": false
         },
         {
-          "__type": "ChestInteraction",
-          "__guid": "6cab00db-4cc4-4654-80b1-65a4299aeef3",
-          "Chest": {
+          "__type": "GeneralGame.ChestInteraction",
+          "__guid": "89bff67c-aec7-43dc-bfa2-e7a10d4ecaf7",
+          "chest": {
             "_type": "component",
             "component_id": "7df6dd11-9e63-49f8-afbb-7e47f0ffe281",
             "go": "5dcf6dd8-198c-49ce-b645-de8e14fe75ce",
@@ -1983,14 +1983,22 @@
               "Fequency": 1,
               "Friction": 0,
               "LocalFrame1": {
+                "UniformScale": 1,
+                "IsValid": true,
                 "ForwardRay": {
                   "Forward": "1,0,0"
-                }
+                },
+                "Scale": "1,1,1",
+                "Rotation": "0,0,0,1"
               },
               "LocalFrame2": {
+                "UniformScale": 1,
+                "IsValid": true,
                 "ForwardRay": {
                   "Forward": "1,0,0"
-                }
+                },
+                "Scale": "1,1,1",
+                "Rotation": "0,0,0,1"
               },
               "MaxAngle": 0,
               "MaxTorque": 0,
@@ -2028,7 +2036,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-27T13:04:09.9994349\u002B02:00",
+  "LastSaved": "2024-06-30T15:17:57.5754188\u002B02:00",
   "ResourceVersion": 1,
   "__references": [
     "baik.roadsign_stop",

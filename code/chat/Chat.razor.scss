@@ -1,5 +1,4 @@
-Chat
-{
+Chat {
 	position: absolute;
 	left: 50px;
 	bottom: 200px;
@@ -13,24 +12,25 @@ Chat
 	font-size: 17px;
 	font-family: Poppins;
 	gap: 10px;
+	cursor: default;
 
-	.output
-	{
+
+	.output {
 		flex-grow: 1;
 		flex-direction: column;
 		justify-content: flex-end;
 		align-items: stretch;
 		gap: 5px;
 
-		.chat_entry
-		{
+
+		.chat_entry {
 			padding: 2px;
 			gap: 10px;
 			text-shadow: 2px 2px 2px #000a;
 			align-items: center;
 
-			.avatar
-			{
+
+			.avatar {
 				width: 32px;
 				height: 32px;
 				background-position: center;
@@ -38,30 +38,32 @@ Chat
 				border-radius: 100px;
 			}
 
-			.author
-			{
+			.author {
 				color: #2d95ce;
 				white-space: nowrap;
 				flex-shrink: 0;
 			}
 
-			.message
-			{
+			.message {
 				color: #fff;
 			}
 		}
 	}
 
-	.input
-	{
+	.input {
 		color: white;
+
 	}
 
-	&.open
-	{
-		.input
-		{
-			background-color: rgba(40, 37, 37, 0.5);
+	&.open {
+		cursor: none;
+
+
+		.input {
+			background-color: rgba(0, 0, 0, 0.5);
+			cursor: text;
+			pointer-events: all;
+
 		}
 	}
 }
