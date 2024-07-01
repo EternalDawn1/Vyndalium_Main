@@ -12,7 +12,7 @@ Chat {
 	font-size: 17px;
 	font-family: Poppins;
 	gap: 10px;
-	cursor: default;
+
 
 
 	.output {
@@ -20,7 +20,10 @@ Chat {
 		flex-direction: column;
 		justify-content: flex-end;
 		align-items: stretch;
-		gap: 5px;
+		gap: 6px;
+		max-height: 450px;
+		overflow-y: scroll;
+
 
 
 		.chat_entry {
@@ -30,12 +33,14 @@ Chat {
 			align-items: center;
 
 
+
 			.avatar {
 				width: 32px;
 				height: 32px;
 				background-position: center;
 				background-size: cover;
 				border-radius: 100px;
+
 			}
 
 			.author {
@@ -47,6 +52,7 @@ Chat {
 			.message {
 				color: #fff;
 			}
+
 		}
 	}
 
@@ -60,6 +66,7 @@ Chat {
 
 
 		.input {
+
 			background-color: rgba(0, 0, 0, 0.5);
 			cursor: text;
 			pointer-events: all;

@@ -12,8 +12,14 @@
 
 		{
 			<div class="chat_entry">
+				@if (entry.steamid > 0)
+
+				{
+					<div class="avatar" style="background-image: url( avatar:@entry.steamid )"></div>
+				}
 				<div class="author">@entry.author</div>
 				<div class="message">@entry.message</div>
+
 			</div>
 		}
 	</div>
@@ -26,7 +32,7 @@
 @code
 
 {
-	public record Entry(string author, string message, RealTimeSince timeSinceAdded);
+	public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded);
 
 
 
@@ -34,7 +40,7 @@
 
 	private TextEntry InputBox { get; set; }
 
-
+	[Broadcast]
 
 	public void AddTextLocal(string author, string message)
 
@@ -54,7 +60,19 @@
 
 
 
-		Entries.Add(new(author, message, 0f));
+		var steamid = Rpc.Caller.SteamId;
+
+
+
+		Entries.Add(new(steamid, author, message, 0f));
+
+		while (Entries.Count > 7)
+
+		{
+
+			Entries.RemoveAt(0); // Entfernt den ältesten Eintrag
+
+		}
 
 		StateHasChanged();
 
@@ -86,7 +104,7 @@
 
 
 
-		if (Entries.RemoveAll(x => x.timeSinceAdded > 30000f) > 0)
+		if (Entries.RemoveAll(x => x.timeSinceAdded > 999150f) > 0)
 
 		{
 
