@@ -18,7 +18,7 @@ public class FlickeringLight : Component
 
         if ( pointLight == null || flickeringLight == null )
         {
-            Log.Error( "PointLight oder FlickeringLight Komponente konnte nicht gefunden werden." );
+
             return;
         }
 
