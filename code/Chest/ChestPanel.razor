@@ -1,70 +1,132 @@
 @using GeneralGame
+@using GeneralGame.HUD
 @inherits PanelComponent
-@namespace GeneralGame.HUD
+@namespace GeneralGame
+
 
 <root>
+    @if (IsPanelVisible)
+    {
+        <div class="Panel">
+            <button class="Open"> Open </button>
+            <div class="font">Hello</div>
+        </div>
 
-
-
-    <div class="ChestHighlighted">
-
-        <button class="Open" @onclick="() => SelectAction(" Open")">Open</button>
-        <button class="Close" @onclick="() => SelectAction(" Close")">Close</button>
-        <button class="Search" @onclick="() => SelectAction(" Search")">Search</button>
-    </div>
-
+    }
 
 
 
 </root>
 
+
+
 @code
 {
-    private string SelectedAction { get; set; }
+    private bool IsPanelVisible { get; set; } = false;
 
-    public Chest Chest { get; set; }
-    private void SelectAction(string action)
+
+    private List<ChestAction> actions = new List<ChestAction> { ChestAction.Open, ChestAction.Close, ChestAction.Search };
+    private Chest chest { get; set; }
+
+    private ChestAction SelectedAction { get; set; } = ChestAction.Open;
+
+    private void TogglePanelVisibility()
+    {
+        IsPanelVisible = !IsPanelVisible;
+        StateHasChanged();
+        Log.Info("Panel Visibility toggled to " + IsPanelVisible);
+    }
+    public void TogglePanelVisibilityBasedOnChestState(bool isChestHighlighted)
+    {
+        // Annahme, dass IsPanelVisible eine Eigenschaft von ChestPanel ist
+        TogglePanelVisibility();
+        StateHasChanged();
+        // Entferne die Zeile, die IsPanelVisible erneut umschaltet
+        Log.Info("Panel Visibility toggled to " + IsPanelVisible); // Protokollierung
+    }
+
+
+    public enum ChestAction
+    {
+        Open,
+        Close,
+        Search
+    }
+
+
+
+
+    private void SelectAction(ChestAction action)
     {
         SelectedAction = action;
         switch (action)
         {
-            case "Open":
+            case ChestAction.Open:
                 OpenChest();
                 break;
-            case "Close":
+            case ChestAction.Close:
                 CloseChest();
                 break;
-            case "Search":
+            case ChestAction.Search:
                 SearchContents();
                 break;
         }
     }
-    private string GetButtonClass(string action)
+
+
+
+
+
+    public void HandleWeaponScroll()
+    {
+        // Annahme: Input.MouseWheel.y gibt einen Wert zurück, der die vertikale Mausradbewegung repräsentiert.
+        var scrollDelta = Input.MouseWheel.y;
+        if (scrollDelta < 0)
+        {
+            SelectNextAction();
+            Log.Info("Nach unten gescrollt");
+        }
+        else if (scrollDelta > 0)
+        {
+            SelectPreviousAction();
+            Log.Info("Nach oben gescrollt");
+        }
+    }
+
+
+    private void SelectNextAction()
+    {
+        var currentIndex = actions.IndexOf(SelectedAction);
+        currentIndex = (currentIndex + 1) % actions.Count;
+        SelectedAction = actions[currentIndex];
+    }
+
+    private void SelectPreviousAction()
+    {
+        var currentIndex = actions.IndexOf(SelectedAction);
+        currentIndex = (currentIndex - 1 + actions.Count) % actions.Count;
+        SelectedAction = actions[currentIndex];
+    }
+    private string GetButtonClass(ChestAction action)
     {
         return SelectedAction == action ? "selectedAction" : "";
     }
     private void OpenChest()
     {
-        if (Chest?.IsHighlighted == true)
-        {
-            // Logik zum Öffnen der Kiste
-        }
-    }
 
+    }
     private void CloseChest()
     {
-        if (Chest?.IsHighlighted == false)
-        {
-            // Logik zum Schließen der Kiste
-        }
+
     }
 
     private void SearchContents()
     {
-        if (Chest?.IsHighlighted == true)
-        {
-            // Logik zum Durchsuchen der Kiste
-        }
+
+    }
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(SelectedAction, chest?.GetHashCode());
     }
 
 }
