@@ -32,13 +32,22 @@
 @code
 
 {
+
 	public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded);
 
-
+	private bool Open => InputBox.HasFocus;
 
 	private List<Entry> Entries { get; set; } = new();
 
 	private TextEntry InputBox { get; set; }
+
+	protected override int BuildHash()
+
+	{
+
+		return HashCode.Combine(Open);
+
+	}
 
 	[Broadcast]
 
@@ -56,17 +65,19 @@
 
 
 
-		Log.Info($"{author}: {message}");
-
-
-
 		var steamid = Rpc.Caller.SteamId;
+
+		var author = Rpc.Caller.DisplayName;
+
+
+
+
 
 
 
 		Entries.Add(new(steamid, author, message, 0f));
 
-		while (Entries.Count > 7)
+		while (Entries.Count > 30)
 
 		{
 
@@ -104,13 +115,15 @@
 
 
 
-		if (Entries.RemoveAll(x => x.timeSinceAdded > 999150f) > 0)
+		if (Entries.RemoveAll(x => x.timeSinceAdded > 120f) > 0)
 
 		{
 
 			StateHasChanged();
 
 		}
+
+		Entries = Entries.TakeLast(7).ToList();
 
 
 
