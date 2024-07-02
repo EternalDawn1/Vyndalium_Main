@@ -50,6 +50,7 @@ public class Chest : BaseChest
                 outline.Color = Color.White;
                 outline.Width = 1.3f;
 
+
             }
         }
         else

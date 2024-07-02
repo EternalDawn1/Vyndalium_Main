@@ -1,132 +1,36 @@
 @using GeneralGame
 @using GeneralGame.HUD
 @inherits PanelComponent
-@namespace GeneralGame
+@namespace GeneralGame.HUD
 
+@if (IsProxy) return;
 
 <root>
+
     @if (IsPanelVisible)
     {
         <div class="Panel">
             <button class="Open"> Open </button>
             <div class="font">Hello</div>
         </div>
-
     }
-
-
-
 </root>
 
 
 
 @code
 {
+
     private bool IsPanelVisible { get; set; } = false;
 
-
-    private List<ChestAction> actions = new List<ChestAction> { ChestAction.Open, ChestAction.Close, ChestAction.Search };
     private Chest chest { get; set; }
-
-    private ChestAction SelectedAction { get; set; } = ChestAction.Open;
-
-    private void TogglePanelVisibility()
+    public void TogglePanel()
     {
         IsPanelVisible = !IsPanelVisible;
         StateHasChanged();
-        Log.Info("Panel Visibility toggled to " + IsPanelVisible);
-    }
-    public void TogglePanelVisibilityBasedOnChestState(bool isChestHighlighted)
-    {
-        // Annahme, dass IsPanelVisible eine Eigenschaft von ChestPanel ist
-        TogglePanelVisibility();
-        StateHasChanged();
-        // Entferne die Zeile, die IsPanelVisible erneut umschaltet
-        Log.Info("Panel Visibility toggled to " + IsPanelVisible); // Protokollierung
+        Log.Info("Toggle 2Panel Visibility toggled to " + IsPanelVisible); // Protokollierung
     }
 
 
-    public enum ChestAction
-    {
-        Open,
-        Close,
-        Search
-    }
-
-
-
-
-    private void SelectAction(ChestAction action)
-    {
-        SelectedAction = action;
-        switch (action)
-        {
-            case ChestAction.Open:
-                OpenChest();
-                break;
-            case ChestAction.Close:
-                CloseChest();
-                break;
-            case ChestAction.Search:
-                SearchContents();
-                break;
-        }
-    }
-
-
-
-
-
-    public void HandleWeaponScroll()
-    {
-        // Annahme: Input.MouseWheel.y gibt einen Wert zurück, der die vertikale Mausradbewegung repräsentiert.
-        var scrollDelta = Input.MouseWheel.y;
-        if (scrollDelta < 0)
-        {
-            SelectNextAction();
-            Log.Info("Nach unten gescrollt");
-        }
-        else if (scrollDelta > 0)
-        {
-            SelectPreviousAction();
-            Log.Info("Nach oben gescrollt");
-        }
-    }
-
-
-    private void SelectNextAction()
-    {
-        var currentIndex = actions.IndexOf(SelectedAction);
-        currentIndex = (currentIndex + 1) % actions.Count;
-        SelectedAction = actions[currentIndex];
-    }
-
-    private void SelectPreviousAction()
-    {
-        var currentIndex = actions.IndexOf(SelectedAction);
-        currentIndex = (currentIndex - 1 + actions.Count) % actions.Count;
-        SelectedAction = actions[currentIndex];
-    }
-    private string GetButtonClass(ChestAction action)
-    {
-        return SelectedAction == action ? "selectedAction" : "";
-    }
-    private void OpenChest()
-    {
-
-    }
-    private void CloseChest()
-    {
-
-    }
-
-    private void SearchContents()
-    {
-
-    }
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(SelectedAction, chest?.GetHashCode());
-    }
 
 }

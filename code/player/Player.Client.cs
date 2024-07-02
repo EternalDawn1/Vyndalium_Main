@@ -4,6 +4,8 @@ namespace GeneralGame
 {
     partial class Player
     {
+        public static bool DevsAreAdmins { get; set; } = true;
+        public static ulong ETERNAL_STEAM_ID { get; set; } = 76561198040689780;
         public static IReadOnlyList<Player> All => _InternalPlayers;
         public static List<Player> _InternalPlayers = new List<Player>();
         public Dictionary<AmmoType, int> AmmoReserve { get; set; } = new Dictionary<AmmoType, int>();
@@ -40,6 +42,7 @@ namespace GeneralGame
             }
         }
 
+
         public Connection Connection { get; private set; }
         public Guid LocalID { get; set; }
         public Guid HostID { get; set; }
@@ -47,6 +50,7 @@ namespace GeneralGame
         public void SetupConnection( Connection connection )
         {
             ConnectionID = connection.Id;
+            GameObject.Name = $"{Local} / {SteamId}";
 
             if ( connection.IsHost )
             {
@@ -58,6 +62,15 @@ namespace GeneralGame
                 LocalID = Guid.NewGuid();
 
             }
+            if ( connection.IsAdmin() )
+            {
+                Log.Info( $"{Local} is an admin{SteamId}" );
+            }
+            else
+            {
+                Log.Info( $"{Local} is not an admin{SteamId}" );
+            }
+
         }
 
         public static Player GetByID( Guid id )

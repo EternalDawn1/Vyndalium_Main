@@ -12,7 +12,7 @@ public sealed class ChestInteraction : Component
     [Property] public Chest chest { get; set; }
     [Property] public float InteractionRange { get; set; } = 100.0f;
 
-    public ChestPanel chestPanel { get; set; } = new ChestPanel();
+    public ChestPanel ChestPanelRef { get; set; }
 
 
     protected override void OnUpdate()
@@ -24,7 +24,7 @@ public sealed class ChestInteraction : Component
             if ( chest != null && chest.IsHighlighted && Input.Pressed( "use" ) )
             {
                 chest.Open();
-                chestPanel?.TogglePanelVisibilityBasedOnChestState( chest.IsHighlighted );
+                ChestPanelRef.TogglePanel(); // Stellen Sie sicher, dass chestPanel korrekt initialisiert wurde
                 Log.Info( "Chest opened" );
             }
         }

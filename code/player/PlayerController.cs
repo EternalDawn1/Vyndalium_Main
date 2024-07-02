@@ -156,7 +156,7 @@ public partial class Player : Component, IHealthComponent
 		Log.Info( $"Given {money}mk" );
 	}
 
-	[ConCmd( "newgame_give_statspoints" )]
+	[ConCmd( "newgame_give_statspoints" ), AdminAttribute]
 	public static void GiveStatsPoints()
 	{
 		Player.Local.StatsPoints += 10;
@@ -545,6 +545,7 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnUpdate()
 	{
+
 
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
