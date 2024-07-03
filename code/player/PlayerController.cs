@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
 using Sandbox.Citizen;
-using GeneralGame;
-using GeneralGame.HUD;
+
 
 
 namespace GeneralGame;
@@ -412,6 +411,7 @@ public partial class Player : Component, IHealthComponent
 
 
 
+
 	private void UpdateModelVisibility()
 	{
 		if ( !ModelRenderer.IsValid() )
@@ -467,9 +467,39 @@ public partial class Player : Component, IHealthComponent
 				c.ModelRenderer.RenderType = IsProxy ? Sandbox.ModelRenderer.ShadowRenderType.On : Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 			}
 		}
+		if ( !PlyCamera.IsValid() || !Eye.IsValid() )
+			return;
+
+		var cameraPosition = PlyCamera.Transform.Position;
+		var cameraDirection = PlyCamera.Transform.Rotation.Forward;
+		var fieldOfView = PlyCamera.FieldOfView;
+		IEnumerable<SceneObject> sceneObjects = GetSceneObjects(); // Annahme: PlyCamera hat eine Eigenschaft FieldOfView
+
+		foreach ( var obj in sceneObjects ) // Pseudocode: Iteriere über alle Objekte in der Szene
+		{
+			var directionToObject = (obj.Transform.Position - cameraPosition).Normal;
+			var angleToObject = Vector3Extensions.AngleBetween( cameraDirection, directionToObject );
+
+			if ( angleToObject <= fieldOfView / 2 )
+			{
+				// Das Objekt ist im Sichtfeld der Kamera
+				obj.SetVisibility( true ); // Pseudocode: Setze die Sichtbarkeit des Objekts
+			}
+			else
+			{
+				// Das Objekt ist außerhalb des Sichtfelds der Kamera
+				obj.SetVisibility( false ); // Pseudocode: Setze die Sichtbarkeit des Objekts
+			}
+		}
 
 
 	}
+	public IEnumerable<SceneObject> GetSceneObjects()
+	{
+		// Implementierung abhängig von der spezifischen Logik Ihrer Anwendung
+		return new List<SceneObject>(); // Beispielrückgabe
+	}
+
 
 	protected override void OnPreRender()
 	{
@@ -597,7 +627,7 @@ public partial class Player : Component, IHealthComponent
 				}
 				break;
 		}
-
+		UpdateModelVisibility();
 
 
 		var weapon = Weapons.Deployed;

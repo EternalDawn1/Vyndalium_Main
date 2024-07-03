@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("new_game_two.editor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0db9989945ae2c59a8ff023951571676e9ef9402")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fe4325acfe005bbc999ce7e27c74501b8be4a46d")]
 [assembly: System.Reflection.AssemblyProductAttribute("new_game_two.editor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("new_game_two.editor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
