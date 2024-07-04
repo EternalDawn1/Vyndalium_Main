@@ -4,7 +4,7 @@ using Sandbox;
 
 
 
-public class Chest : BaseChest
+public class ItemInteractable : BaseInteraction
 {
 
 

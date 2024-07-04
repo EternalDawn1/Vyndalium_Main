@@ -4,7 +4,7 @@ using Sandbox;
 
 namespace GeneralGame;
 
-public class BaseChest : Component
+public class BaseInteraction : Component
 {
     [Property] public float inventorySize = 10f;
     [Property] public bool isOpen;

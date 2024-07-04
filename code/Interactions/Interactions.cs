@@ -56,7 +56,7 @@ public class Interaction
 	[Property, Category( "Requird" )]
 	public string Stats { get; set; }
 
-	
+
 
 	/// <summary>
 	/// The action that is performed when interacted with
@@ -75,7 +75,7 @@ public class Interaction
 	/// Where this interaction is accessible from
 	/// </summary>
 	[Property, Category( "Optional" )]
-    public AccessibleFrom Accessibility { get; set; } = AccessibleFrom.All;
+	public AccessibleFrom Accessibility { get; set; } = AccessibleFrom.All;
 
 	/// <summary>
 	/// Whether or not the interaction can be performed.

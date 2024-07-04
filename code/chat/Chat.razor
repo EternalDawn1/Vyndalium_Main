@@ -1,25 +1,21 @@
 ﻿@using System.Collections.Generic
-@using Sandbox;
-@using Sandbox.UI;
+@using Sandbox
+@using Sandbox.UI
 @inherits PanelComponent
 @implements Component.INetworkListener
 @namespace GeneralGame
 
-
 <root>
 	<div class="output">
 		@foreach (var entry in Entries)
-
 		{
 			<div class="chat_entry">
 				@if (entry.steamid > 0)
-
 				{
 					<div class="avatar" style="background-image: url( avatar:@entry.steamid )"></div>
 				}
 				<div class="author">@entry.author</div>
 				<div class="message">@entry.message</div>
-
 			</div>
 		}
 	</div>
@@ -29,10 +25,7 @@
 	</div>
 </root>
 
-@code
-
-{
-
+@code {
 	public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded);
 
 	private bool Open => InputBox.HasFocus;
@@ -42,158 +35,81 @@
 	private TextEntry InputBox { get; set; }
 
 	protected override int BuildHash()
-
 	{
-
 		return HashCode.Combine(Open);
-
 	}
 
 	[Broadcast]
-
 	public void AddTextLocal(string author, string message)
-
 	{
-
 		message = message.Truncate(300);
 
-
-
 		if (string.IsNullOrWhiteSpace(message))
-
 			return;
 
-
-
 		var steamid = Rpc.Caller.SteamId;
-
 		var author = Rpc.Caller.DisplayName;
-
-
-
-
-
-
 
 		Entries.Add(new(steamid, author, message, 0f));
 
 		while (Entries.Count > 30)
-
 		{
-
 			Entries.RemoveAt(0); // Entfernt den ältesten Eintrag
-
 		}
 
 		StateHasChanged();
-
 	}
 
-
-
 	protected override void OnUpdate()
-
 	{
-
 		if (InputBox is null)
-
 			return;
-
-
 
 		Panel.AcceptsFocus = false;
 
-
-
 		if (Input.Pressed("chat"))
-
 		{
-
 			InputBox.Focus();
-
 		}
 
-
-
 		if (Entries.RemoveAll(x => x.timeSinceAdded > 120f) > 0)
-
 		{
-
 			StateHasChanged();
-
 		}
 
 		Entries = Entries.TakeLast(7).ToList();
 
-
-
 		SetClass("open", InputBox.HasFocus);
-
 	}
-
-
 
 	private void ChatFinished()
-
 	{
-
 		var text = InputBox.Text;
-
 		InputBox.Text = "";
 
-
-
 		if (string.IsNullOrWhiteSpace(text))
-
 			return;
 
-
-
 		SendText(Sandbox.Utility.Steam.PersonaName, text);
-
-
-
-
-
 	}
-
-
 
 	[Broadcast]
-
 	private void SendText(string author, string message)
-
 	{
-
 		AddTextLocal(author, message);
-
 	}
-
-
 
 	void INetworkListener.OnConnected(Connection channel)
-
 	{
-
 		if (IsProxy) return;
-
-
 
 		SendText("🛎️", $"{channel.DisplayName} has joined the game");
-
 	}
 
-
-
 	void INetworkListener.OnDisconnected(Connection channel)
-
 	{
-
 		if (IsProxy) return;
 
-
-
 		SendText("💨", $"{channel.DisplayName} has left the game");
-
 	}
 }

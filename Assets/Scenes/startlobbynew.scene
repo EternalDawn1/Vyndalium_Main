@@ -1235,7 +1235,6 @@
         {
           "__type": "GeneralGame.ZombieSpawner",
           "__guid": "46f12122-e848-424f-a946-3e885c10441f",
-          "__enabled": false,
           "IsSpawning": false,
           "MaxSpawns": 100,
           "PlayerProximityDistance": 1000,
@@ -1259,7 +1258,6 @@
         {
           "__type": "GeneralGame.ZombieSpawner",
           "__guid": "c5a03bf6-1474-4d3a-b113-59361c77b5de",
-          "__enabled": false,
           "IsSpawning": false,
           "MaxSpawns": 100,
           "PlayerProximityDistance": 1000,
@@ -1642,7 +1640,6 @@
       "Flags": 0,
       "Name": "Object (3)",
       "Position": "-1172.545,-243.2437,59.24139",
-      "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "Components": [
@@ -1650,9 +1647,76 @@
           "__type": "GeneralGame.ZombieSpawner",
           "__guid": "75e38e41-4a1b-4138-aac0-5062afc218a0",
           "IsSpawning": false,
-          "MaxSpawns": 10,
+          "MaxSpawns": 10000,
           "PlayerProximityDistance": 1000,
-          "RespawnTime": 50,
+          "RespawnTime": 5,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/pickupammo.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "ed0935e8-91c1-415d-895e-4d8afdabeb37",
+      "Flags": 0,
+      "Name": "Object (4)",
+      "Position": "-1172.545,-183.2117,59.24139",
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "3a626424-4922-48a1-a0f8-942d2fb8b572",
+          "IsSpawning": false,
+          "MaxSpawns": 10000,
+          "PlayerProximityDistance": 1000,
+          "RespawnTime": 5,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/pickupammo.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "b499313a-b5ff-4877-9102-320414985679",
+      "Flags": 0,
+      "Name": "Object (5)",
+      "Position": "-1172.545,-93.01651,59.24139",
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "41e5e053-30a4-45f1-acd1-4a2a0fd4cc04",
+          "IsSpawning": false,
+          "MaxSpawns": 10000,
+          "PlayerProximityDistance": 1000,
+          "RespawnTime": 5,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/pickupammo.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "d6c5518e-8264-4594-9abd-db9efa591b56",
+      "Flags": 0,
+      "Name": "Object (6)",
+      "Position": "-1172.545,-28.14858,59.24139",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "9720a9c7-1efe-4307-abf2-598c708d33fc",
+          "IsSpawning": false,
+          "MaxSpawns": 10000,
+          "PlayerProximityDistance": 1000,
+          "RespawnTime": 100000,
           "ZombiePrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/pickupammo.prefab"
@@ -1703,11 +1767,22 @@
           "Tint": "1,1,1,1"
         },
         {
-          "__type": "GeneralGame.Chest",
-          "__guid": "0f09ad86-e4eb-40a7-bf84-a8c4e02ddf6c",
-          "inventorySize": 0,
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "36cad2c5-f403-45e9-aa9f-02cdc757f50f",
+          "inventorySize": 10,
           "isLocked": false,
-          "isOpen": true
+          "isOpen": false
+        },
+        {
+          "__type": "GeneralGame.MasterInteraction",
+          "__guid": "7f743abb-7e21-4618-87c7-8bae49d82884",
+          "chest": {
+            "_type": "component",
+            "component_id": "36cad2c5-f403-45e9-aa9f-02cdc757f50f",
+            "go": "24e0af1e-00a0-407a-92e0-efd24adac1f0",
+            "component_type": "ItemInteractable"
+          },
+          "InteractionRange": 100
         }
       ],
       "Children": [
@@ -1746,6 +1821,14 @@
       ]
     },
     {
+      "__guid": "b068ed78-39e4-47b7-a5a6-e2b921c7d368",
+      "Flags": 0,
+      "Name": "GameObject",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true
+    },
+    {
       "__guid": "5dcf6dd8-198c-49ce-b645-de8e14fe75ce",
       "Flags": 0,
       "Name": "box_legendary_small",
@@ -1762,13 +1845,6 @@
           "IsStatic": false,
           "Model": "models/props/box_legendary/box_opening_small.vmdl",
           "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "GeneralGame.Chest",
-          "__guid": "7df6dd11-9e63-49f8-afbb-7e47f0ffe281",
-          "inventorySize": 10,
-          "isLocked": false,
-          "isOpen": false
         }
       ]
     },
@@ -2016,7 +2092,6 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-07-02T19:11:56.1469599\u002B02:00",
   "ResourceVersion": 1,
   "__references": [
     "baik.roadsign_stop",
