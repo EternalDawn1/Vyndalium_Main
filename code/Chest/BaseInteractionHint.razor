@@ -1,79 +1,57 @@
 @using GeneralGame
 @using GeneralGame.HUD
-@inherits PanelComponent
+@inherits Panel
 @namespace GeneralGame.HUD
 
-@if (IsProxy) return;
+
 
 <root>
-
-
-    @if (IsPanelVisible)
+    @if (IsVisible)
     {
         <div class="Panel">
             <button class="Open">Open</button>
             <div>Hello</div>
         </div>
     }
-
 </root>
 
-@code {
-    private bool IsPanelVisible { get; set; } = false;
-    private ItemInteractable chest { get; set; }
-    public new GameObject GameObject { get; private set; }
-    public BaseInteractionHint()
+@code
+{
+    public bool FromHands { get; set; }
+    private static Dictionary<string, Interaction> priorityList = new();
+    private bool isVisible = false;
+    private void ToggleVisibility()
     {
-        InitializeGameObject();
+        TogglePanel(!isVisible); // Umschalten der Sichtbarkeit
+    }
+    public ItemInteractable chest { get; set; }
+
+    public override void Tick()
+    {
+        if (FromHands) priorityList.Clear();
+
+        TogglePanel(isVisible); // Umschalten der Sichtbarkeit ohne Rückgabewert
+        SetClass("visible", isVisible); // Verwenden des aktualisierten Zustands von isVisible
+
+        if (!HasClass("visible"))
+            return;
+    }
+    protected override int BuildHash()
+    {
+        // Kombinieren der HashCodes der relevanten Eigenschaften
+        int hash = HashCode.Combine(isVisible, priorityList);
+
+        // Optional: Weitere relevante Eigenschaften hinzufügen
+        // Beispiel: hash = HashCode.Combine(hash, eineAndereEigenschaft);
+
+        return hash;
     }
 
-    private void InitializeGameObject()
+    public void TogglePanel(bool isVisibleArgument)
     {
-        // Initialisieren Sie Ihr GameObject hier
-        GameObject = new GameObject();
-        Log.Info("Hallo"); // Beispielinitialisierung
+        isVisible = isVisibleArgument; // Direktes Setzen des Zustands basierend auf dem Argument
+        StateHasChanged(); // Aktualisieren des UI-Zustands
+        Log.Info($"Panel Visibility set to {isVisible}");
     }
-    public void TogglePanel()
-    {
-        // Umschalten der Sichtbarkeit des Panels
-        IsPanelVisible = !IsPanelVisible;
-        StateHasChanged();
-        Log.Info("Panel Visibility toggled to " + IsPanelVisible);
-
-        // Stellen Sie sicher, dass GameObject und Components existieren
-        if (this.GameObject != null && this.GameObject.Components != null)
-        {
-            var panel = this.GameObject.Components.Get<BaseInteractionHint>();
-            // Entscheidung, ob das Highlight-Outline erstellt oder zerstört werden soll
-            if (IsPanelVisible)
-            {
-                Log.Info("Panel Visibility is true");
-            }
-            else
-            {
-                if (panel != null)
-                {
-                    panel.Destroy();
-                }
-            }
-        }
-        else
-        {
-            if (GameObject == null)
-            {
-                Log.Error("GameObject ist null.");
-                InitializeGameObject();
-            }
-            else if (Components == null)
-            {
-                Log.Error("Components ist null.");
-            }
-            else
-            {
-                Log.Error("Unbekannter Fehler: Sowohl GameObject als auch Components sollten nicht null sein.");
-            }
-        }
-    }
-
 
 }

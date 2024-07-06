@@ -39,6 +39,9 @@ public class ItemInteractable : BaseInteraction
 
     public void Highlight( bool shouldHighlight )
     {
+        if ( IsProxy )
+            return;
+
         isHighlighted = shouldHighlight;
         var chestObject = this; // Direkte Nutzung des aktuellen Objekts
         var outline = chestObject.GameObject.Components.Get<HighlightOutline>();
@@ -47,8 +50,9 @@ public class ItemInteractable : BaseInteraction
             if ( outline == null )
             {
                 outline = chestObject.GameObject.Components.Create<HighlightOutline>();
-                outline.Color = Color.White;
+                outline.Color = Color.Red;
                 outline.Width = 1.3f;
+                outline.ObscuredColor = Color.Red;
 
 
             }

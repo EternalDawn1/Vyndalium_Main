@@ -1,6 +1,6 @@
 ﻿@using System.Collections.Generic
-@using Sandbox
-@using Sandbox.UI
+@using Sandbox;
+@using Sandbox.UI;
 @inherits PanelComponent
 @implements Component.INetworkListener
 @namespace GeneralGame
@@ -10,10 +10,6 @@
 		@foreach (var entry in Entries)
 		{
 			<div class="chat_entry">
-				@if (entry.steamid > 0)
-				{
-					<div class="avatar" style="background-image: url( avatar:@entry.steamid )"></div>
-				}
 				<div class="author">@entry.author</div>
 				<div class="message">@entry.message</div>
 			</div>
@@ -25,21 +21,13 @@
 	</div>
 </root>
 
-@code {
-	public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded);
-
-	private bool Open => InputBox.HasFocus;
+@code
+{
+	public record Entry(string author, string message, RealTimeSince timeSinceAdded);
 
 	private List<Entry> Entries { get; set; } = new();
-
 	private TextEntry InputBox { get; set; }
 
-	protected override int BuildHash()
-	{
-		return HashCode.Combine(Open);
-	}
-
-	[Broadcast]
 	public void AddTextLocal(string author, string message)
 	{
 		message = message.Truncate(300);
@@ -47,16 +35,9 @@
 		if (string.IsNullOrWhiteSpace(message))
 			return;
 
-		var steamid = Rpc.Caller.SteamId;
-		var author = Rpc.Caller.DisplayName;
+		Log.Info($"{author}: {message}");
 
-		Entries.Add(new(steamid, author, message, 0f));
-
-		while (Entries.Count > 30)
-		{
-			Entries.RemoveAt(0); // Entfernt den ältesten Eintrag
-		}
-
+		Entries.Add(new(author, message, 0f));
 		StateHasChanged();
 	}
 
@@ -72,12 +53,10 @@
 			InputBox.Focus();
 		}
 
-		if (Entries.RemoveAll(x => x.timeSinceAdded > 120f) > 0)
+		if (Entries.RemoveAll(x => x.timeSinceAdded > 30f) > 0)
 		{
 			StateHasChanged();
 		}
-
-		Entries = Entries.TakeLast(7).ToList();
 
 		SetClass("open", InputBox.HasFocus);
 	}
@@ -91,6 +70,8 @@
 			return;
 
 		SendText(Sandbox.Utility.Steam.PersonaName, text);
+
+
 	}
 
 	[Broadcast]

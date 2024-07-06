@@ -9,21 +9,22 @@
     return;
 }
 <root>
-    
+
 
     <div class="hold-container">
         <InteractionHint FromHands=@true />
     </div>
-	<InteractionHint />
+    <InteractionHint />
+    <BaseInteractionHint />
 
-	
+
 </root>
 
 @code
 {
     public static InGameHud Instance { get; private set; }
 
-    public InGameHud() 
+    public InGameHud()
     {
         Instance = this;
     }

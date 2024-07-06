@@ -9,6 +9,7 @@ public class BaseInteraction : Component
     [Property] public float inventorySize = 10f;
     [Property] public bool isOpen;
     [Property] public bool isLocked;
+    public bool IsPanelVisible { get; set; }
     public event Action OnOpen;
     public event Action OnClose;
     public bool isHighlighted = false;
@@ -32,6 +33,7 @@ public class BaseInteraction : Component
             return;
         }
         isOpen = true;
+        IsPanelVisible = true;
         OnOpen?.Invoke();
 
 
