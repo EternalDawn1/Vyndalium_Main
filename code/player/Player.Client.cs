@@ -62,14 +62,6 @@ namespace GeneralGame
                 LocalID = Guid.NewGuid();
 
             }
-            if ( connection.IsAdmin() )
-            {
-                Log.Info( $"{Local} is an admin{SteamId}" );
-            }
-            else
-            {
-                Log.Info( $"{Local} is not an admin{SteamId}" );
-            }
 
         }
 

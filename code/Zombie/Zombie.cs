@@ -299,15 +299,11 @@ public partial class Npc : Component, IHealthComponent
 			MoveHelper.StopSpeed *= Scale;
 		}
 
-		BroadcastOnSpawn();
+
 	}
 
 
-	[Broadcast]
-	private void BroadcastOnSpawn()
-	{
-		OnSpawn?.Invoke();
-	}
+
 	private bool IsPlayerNearby()
 	{
 		if ( Network.IsProxy )
@@ -763,9 +759,8 @@ public partial class Npc : Component, IHealthComponent
 			var zombie = ZombieRagedol.Clone( this.GameObject.Transform.Position, this.GameObject.Transform.Rotation );
 			zombie.NetworkSpawn();
 
-			Log.Info( $"Killer attacker + {attackerId}" );
 			KillerId = attackerId;
-			Log.Info( $"Zombie killed by: {KillerId}" ); // yes
+
 
 			GameObject.Destroy();
 
@@ -773,15 +768,15 @@ public partial class Npc : Component, IHealthComponent
 
 			if ( killer == null )
 			{
-				Log.Info( $"Killer with the id {KillerId} not found" );  // yes
+				// yes
 				return;
 			}
 
-			Log.Info( "Killer found" + killer );
+
 
 			var killerPlayer = killer.Components.Get<Player>( FindMode.EverythingInSelfAndAncestors );
 
-			Log.Info( $"Killer with the id {KillerId} is found" ); // no
+
 			int vyndaliumPointsToAdd = new Random().Next( 1, 500 );
 			int xpPointsToAdd = new Random().Next( 75, 125 );
 
@@ -802,7 +797,7 @@ public partial class Npc : Component, IHealthComponent
 
 	public bool GiveVyndalium( int amount )
 	{
-		Log.Info( $"Vyndalium-Punkte hinzugefügt: {amount}" );
+
 		VyndaliumPoints += amount;
 		VyndaliumPointsChanged?.Invoke( VyndaliumPoints );
 		VyndaliumAdded?.Invoke( amount ); // Benachrichtige alle Abonnenten über die Änderung der Vyndalium-Punkte
