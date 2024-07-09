@@ -215,7 +215,7 @@ public class WeaponComponent : Component
 		ViewModel = null;
 	}
 
-	private void CreateViewModel()
+	public void CreateViewModel()
 	{
 		if ( !ViewModelPrefab.IsValid() )
 			return;

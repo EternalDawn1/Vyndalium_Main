@@ -23,6 +23,7 @@
 				if ( canInteract || interaction.ShowWhenDisabled() )
 				{
                     var isActive = HasPriority(interaction.Keybind) && canInteract;
+					
 					<div class="interaction">
 						<div>
 							<inputhint class="hint" input=@interaction.Keybind DarkMode=@(!isActive) />
@@ -41,7 +42,8 @@
 </root>
 
 @code {
-	public bool FromHands { get; set; }
+	public bool FromHands { get; set; } 
+
 
 	
 	private string DisplayName => _targetObject?.Components?.Get<ItemComponent>()?.Name ?? _targetObject?.Name;
@@ -146,33 +148,42 @@
 
 	private bool ShowHint()
 	{
-		var equippedWeapon = Player.Local?.Inventory?.EquippedItems?[(int)EquipSlot.Hand]?.GameObject;
-		if (equippedWeapon != null && _targetObject == equippedWeapon)
-			return false; // Keine Interaktionshinweise anzeigen, wenn das Zielobjekt die ausgerüstete Waffe ist
-
+		// Prüfen, ob das Zielobjekt gültig ist
 		if (!_targetObject.IsValid())
 			return false;
 
+		// Prüfen, ob Interaktionen vorhanden sind
 		if (!_targetObject.Components.TryGet<Interactions>(out var interactions))
 			return false;
 
-		
-
+		// Hier prüfen wir, ob Interaktionen verfügbar sind oder ein ViewModel vorhanden ist
 		var interactionsAvailable = interactions.AllInteractions.Any(i => WithinBounds(i) && WithinRange(i));
 		if (!interactionsAvailable && interactions.HideOnEmpty)
 			return false;
 
-		return interactionsAvailable;
+		// Zusätzliche Prüfung, ob ein ViewModel vorhanden ist
+		// Diese Funktion muss entsprechend Ihrer Implementierung angepasst werden
+		var viewModelPresent = HasViewModel();
+
+		// Anzeigen, wenn Interaktionen verfügbar sind oder ein ViewModel vorhanden ist
+		return interactionsAvailable || viewModelPresent;
 	}
 
 	private bool IsAccessible(Interaction interaction)
 	{
 		if (interaction.Accessibility.HasFlag(AccessibleFrom.World))
-			return true; // Return true if the interaction is accessible from world
+			return true;
+
 		var playerHasWeaponEquipped = Player.Local?.Inventory?.EquippedItems?[(int)EquipSlot.Hand]?.GameObject != null;
 		if (playerHasWeaponEquipped && interaction.Accessibility.HasFlag(AccessibleFrom.Hands))
-			return false; // Return true if player has a weapon equipped and the interaction is accessible from hands
-		return false;
+			return true;
+
+		return HasViewModel();
+	}
+	private bool HasViewModel()
+	{
+		var viewModel = _targetObject?.Components.Get<ViewModel>();
+		return viewModel != null; // Korrigieren Sie dies, um mit der Deklaration übereinzustimmen.
 	}
 
 	private bool WithinRange(Interaction interaction)

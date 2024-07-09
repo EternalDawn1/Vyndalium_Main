@@ -6,7 +6,7 @@ namespace GeneralGame;
 
 public class BaseInteraction : Component
 {
-    [Property] public float inventorySize = 10f;
+
     [Property] public bool isOpen;
     [Property] public bool isLocked;
     public bool IsPanelVisible { get; set; }
@@ -21,11 +21,10 @@ public class BaseInteraction : Component
     {
         isOpen = false;
         isLocked = false;
+
+
     }
-    protected override void OnStart()
-    {
-        inventorySize = 10f;
-    }
+
     public void Open()
     {
         if ( isLocked || isOpen )

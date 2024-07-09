@@ -37,10 +37,11 @@ namespace GeneralGame
 
                 return;
             }
-
+            
             playerComponent.SetupConnection( channel );
             Player._InternalPlayers?.Add( playerComponent );
             playerObject.NetworkSpawn( channel );
+            Player.Setup();
 
 
 

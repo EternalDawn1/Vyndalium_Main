@@ -227,7 +227,8 @@ public partial class Player : Component, IHealthComponent
 			}
 		}
 	}
-
+	public Transform GetAttachment( string attachment, bool world = true )
+	=> ModelRenderer.GetAttachment( attachment, world ) ?? global::Transform.Zero;
 
 	public void Respawn()
 	{
@@ -238,6 +239,7 @@ public partial class Player : Component, IHealthComponent
 		EquipWeaponsOnSpawn();
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
+
 		LifeState = LifeState.Alive;
 
 
@@ -261,7 +263,7 @@ public partial class Player : Component, IHealthComponent
 
 
 	}
-
+	[AdminAttribute]
 	public async void StartHealthRegen( float regenAmount, float duration )
 	{
 		float originalHealth = MaxHealth;
@@ -387,12 +389,14 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnStart()
 	{
-		Animators.Add( ShadowAnimator );
-		Animators.Add( AnimationHelper );
+		
 
 		if ( !IsProxy )
 		{
 			Respawn();
+			Animators.Clear(); // Entfernt alle vorherigen Einträge
+			Animators.Add( ShadowAnimator );
+			Animators.Add( AnimationHelper );
 
 		}
 		if ( !Game.IsPlaying || Scene == GameObject )
@@ -634,7 +638,7 @@ public partial class Player : Component, IHealthComponent
 
 		foreach ( var animator in Animators )
 		{
-			animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.None;
+			animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.HoldItem;
 			animator.WithVelocity( CharacterController.Velocity );
 			animator.WithWishVelocity( WishVelocity );
 			animator.IsGrounded = CharacterController.IsOnGround;
@@ -737,7 +741,7 @@ public partial class Player : Component, IHealthComponent
 		}
 
 
-
+		UpdateInteractions();
 		RegenerateStamina();
 		DoCrouchingInput();
 		DoMovementInput();
@@ -806,7 +810,7 @@ public partial class Player : Component, IHealthComponent
 
 		if ( IsProxy )
 			return;
-		UpdateInteractions();
+		
 	}
 
 	public void MoveToSpawnPoint()

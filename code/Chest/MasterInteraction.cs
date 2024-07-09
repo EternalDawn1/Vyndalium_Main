@@ -12,27 +12,22 @@ public sealed class MasterInteraction : Component
     [Property] public ItemInteractable chest { get; set; }
     [Property] public float InteractionRange { get; set; } = 100.0f;
 
-    public BaseInteractionHint Interaction { get; set; }
+    
+  
 
     protected override void OnUpdate()
     {
         if ( IsPlayerNearby() )
         {
             chest?.Highlight( true );
+            
 
-            if ( chest != null && chest.IsHighlighted && Input.Pressed( "use" ) )
-            {
-                chest.Open();
-                Log.Info( "Chest opened" );
-                // Verwenden Sie hier `Interaction` anstelle von `baseInteractionHint`
-                Interaction?.TogglePanel( true );
-            }
+
         }
         else
         {
             chest?.Highlight( false );
-            // Verwenden Sie hier `Interaction` anstelle von `baseInteractionHint`
-            Interaction?.TogglePanel( false );
+
         }
     }
 
@@ -68,6 +63,7 @@ public sealed class MasterInteraction : Component
         }
         return false;
     }
+    
 
 
 }

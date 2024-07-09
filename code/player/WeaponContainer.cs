@@ -60,7 +60,11 @@ public partial class WeaponContainer : Component
 		if ( IsProxy ) return;
 
 		{
-
+			if ( prefab == null )
+			{
+				// Behandeln Sie den Fall, dass das prefab null ist
+				return;
+			}
 
 
 			prefab.SetParent( WeaponBone );

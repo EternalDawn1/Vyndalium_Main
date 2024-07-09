@@ -19,8 +19,30 @@ public class ItemInteractable : BaseInteraction
     }
     protected override void OnStart()
     {
-        base.OnStart();
 
+        var interactions = Components.GetOrCreate<Interactions>();
+        interactions.AddInteraction( new Interaction()
+        {
+            Identifier = "item.pickup",
+            Keybind = "use",
+            Description = "Take",
+            Stats = "Take",
+            Disabled = () => !Player.Local.Inventory.HasSpaceInBackpack(),
+            ShowWhenDisabled = () => true,
+            Accessibility = AccessibleFrom.All,
+
+        } );
+        interactions.AddInteraction( new Interaction()
+        {
+            Identifier = "item.drop",
+            Keybind = "use2",
+            Description = "Drop",
+            Stats = "Drop",
+            ShowWhenDisabled = () => true,
+            Accessibility = AccessibleFrom.All,
+
+        } );
+        base.OnStart();
 
     }
 

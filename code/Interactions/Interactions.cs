@@ -46,6 +46,7 @@ public class Interaction
 	[Property, Category( "Required" )]
 	[InputAction]
 	public string Keybind { get; set; } = HUD.InputAction.Use;
+	
 
 	/// <summary>
 	/// The UI description displayed when interacting
