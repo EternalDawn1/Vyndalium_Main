@@ -261,7 +261,7 @@ public class BaseGun : WeaponComponent, IUse
 		var endPos = startPos + direction * 5000f;
 		var trace = Scene.Trace.Ray( startPos, endPos )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
-
+			.WithoutTags( "player" )
 			.UseHitboxes()
 			.Run();
 
@@ -305,7 +305,7 @@ public class BaseGun : WeaponComponent, IUse
 			}
 
 			damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
-			LogDamage( damage );
+			
 			GameObject hitinfo = Hitprefab.Clone( trace.EndPosition );
 			FaceThing facething = hitinfo.Components.Get<FaceThing>();
 			facething.Thing = shooter.GameObject;
@@ -354,10 +354,7 @@ public class BaseGun : WeaponComponent, IUse
 
 	}
 
-	private void LogDamage( float damage )
-	{
-		//Log.Info( $"Der Spieler hat {damage} Schaden verursacht." );
-	}
+	
 
 
 
