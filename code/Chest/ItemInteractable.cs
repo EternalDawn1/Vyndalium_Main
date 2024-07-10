@@ -25,7 +25,7 @@ public class ItemInteractable : BaseInteraction
         {
             Identifier = "item.pickup",
             Keybind = "use",
-            Description = "Take",
+            Description = "Open",
             Stats = "Take",
             Disabled = () => !Player.Local.Inventory.HasSpaceInBackpack(),
             ShowWhenDisabled = () => true,
@@ -36,7 +36,7 @@ public class ItemInteractable : BaseInteraction
         {
             Identifier = "item.drop",
             Keybind = "use2",
-            Description = "Drop",
+            Description = "Loot",
             Stats = "Drop",
             ShowWhenDisabled = () => true,
             Accessibility = AccessibleFrom.All,
