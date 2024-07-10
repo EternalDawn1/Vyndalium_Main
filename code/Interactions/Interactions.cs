@@ -70,7 +70,7 @@ public class Interaction
 	/// The max distance you can use this interaction from
 	/// </summary>
 	[Property, Category( "Optional" )]
-	public float InteractDistance { get; set; } = 175f;
+	public float InteractDistance { get; set; } = 105f;
 
 	/// <summary>
 	/// Where this interaction is accessible from
@@ -193,7 +193,7 @@ public class Interaction
 
 public class Interactions : Component
 {
-	public float InteractDistance { get; set; } = 100f;
+	public float InteractDistance { get; set; } = 105f;
 	[Property]
 	public List<Interaction> ObjectInteractions { get; set; }
 
@@ -298,7 +298,7 @@ public class Interactions : Component
 	}
 	protected override void OnUpdate()
 	{
-		if ( IsPlayerNearby() )
+		if ( IsPlayerNearby() && IsProxy )
 		{
 			Highlight( true );
 
@@ -310,10 +310,14 @@ public class Interactions : Component
 		}
 	}
 
-
+	
 	private bool IsPlayerNearby()
 	{
-
+		if(IsProxy)
+		{
+			return false;
+		}
+		
 
 		var players = Scene.GetAllComponents<Player>();
 		if ( players == null || !players.Any() )

@@ -4,7 +4,7 @@ namespace GeneralGame;
 
 public partial class Player
 {
-	private const float INTERACTION_DISTANCE = 100f;
+	private const float INTERACTION_DISTANCE = 105f;
 	private const float INTERACTION_SIZE = 10f;
 
 	public Ray ViewRay => new( PlyCamera.Transform.Position, PlyCamera.Transform.Rotation.Forward );

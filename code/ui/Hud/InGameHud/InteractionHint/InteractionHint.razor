@@ -153,18 +153,23 @@
 		StateHasChanged();
 	}
 	private Interactions _lastHighlightedInteraction;
-
+	
+	
 	private void HighlightObject()
 	{
+		
+		
+		bool shouldHighlight = ShowHint();
 		if (_targetObject.IsValid())
 		{
-			bool shouldHighlight = ShowHint();
+			
 			var Interactionz = _targetObject.Components.Get<Interactions>();
 			if (shouldHighlight)
 			{
 				_lastHighlightedInteraction = Interactionz;
 			}
 			Interactionz.Highlight(shouldHighlight);
+			
 		}
 		else if (_lastHighlightedInteraction != null)
 		{
@@ -172,9 +177,10 @@
 			_lastHighlightedInteraction.Highlight(false);
 			_lastHighlightedInteraction = null; // Setzen Sie die Referenz zurück, nachdem das Highlight entfernt wurde.
 		}
+		
 	}
 	
-
+	
 	private bool ShowHint()
 	{
 		// Prüfen, ob das Zielobjekt gültig ist
@@ -218,7 +224,10 @@
 
 	private bool WithinRange(Interaction interaction)
 	{
-		return FromHands || Player.Local.ViewRay.Position.Distance(_targetObject.Transform.Position) < interaction.InteractDistance;
+		// Berechnet die Distanz zwischen dem Spieler und dem Zielobjekt
+		var distance = Player.Local.ViewRay.Position.Distance(_targetObject.Transform.Position);
+		// Überprüft, ob die Distanz innerhalb der Interaktionsdistanz liegt
+		return FromHands || distance < interaction.InteractDistance;
 	}
 
 	protected override int BuildHash()
