@@ -4,46 +4,50 @@
 @inherits Panel
 
 <root>
-	@if ( !FromHands )
-	{
-		<image src="ui/hud/interaction-pointer.png" class="icon" />
-	}
-	
-	<div class="content">
-		<text class="title">@DisplayName</text>
-		<div class="interactions">
-			@foreach(var interaction in _interactions)
-			{
-				if (interaction is null || !WithinBounds(interaction) || !IsAccessible(interaction) )
-					continue;
+    @if (!FromHands)
+    {
+        <image src="ui/hud/interaction-pointer.png" class="icon" />
+    }
+    
+    <div class="content">
+        <text class="title">@DisplayName</text>
+        <div class="interactions">
+            @foreach(var interaction in _interactions) // Stellen Sie sicher, dass _interactions korrekt initialisiert ist
+            {
+                if (interaction is null || !WithinBounds(interaction) || !IsAccessible(interaction))
+                    continue;
 
                 var coolDown = !interaction.Cooldown || interaction.CooldownTimer;
                 var canInteract = !interaction.Disabled.InvokeOrDefault() && coolDown && !Player.Local.BlockInputs;
 
-				if ( canInteract || interaction.ShowWhenDisabled() )
-				{
-                    var isActive = HasPriority(interaction.Keybind) && canInteract;
-					
-					<div class="interaction">
-						<div>
-							<inputhint class="hint" input=@interaction.Keybind DarkMode=@(!isActive) />
-							<text class="description" style="color: @(isActive ? @interaction.Color.Hex : "#883232")">@interaction.Text</text>
-						</div>
+                // Annahme: shouldHighlight ist eine boolsche Variable, die bestimmt, ob hervorgehoben werden soll oder nicht // Diese Logik muss entsprechend Ihrer Anforderungen angepasst werden
 
-						@if( interaction.Cooldown && !interaction.CooldownTimer || IsAccessible(interaction) )
-						{
-							<img class="circle" src="ui/hud/circle/circle_@(TimerIndex(interaction)).png" />
-						}
-					</div>
-				}
-			}
-		</div>
-	</div>
+                // Ändern Sie den Aufruf von Highlight, um korrekt mit Ihrer Implementierung zu arbeiten
+                // Beispiel: if (canInteract || interaction.ShowWhenDisabled() || HighlightProperty) // Angenommen, Highlight ist eine Eigenschaft
+                if (canInteract || interaction.ShowWhenDisabled()) // Angenommen, Highlight ist nicht erforderlich oder bereits berücksichtigt
+                {
+                    var isActive = HasPriority(interaction.Keybind) && canInteract;
+                    
+                    <div class="interaction">
+                        <div>
+                            <inputhint class="hint" input=@interaction.Keybind DarkMode=@(!isActive) />
+                            <text class="description" style="color: @(isActive ? @interaction.Color.Hex : "#883232")">@interaction.Text</text>
+                        </div>
+
+                        @if(interaction.Cooldown && !interaction.CooldownTimer || IsAccessible(interaction))
+                        {
+                            <img class="circle" src="ui/hud/circle/circle_@(TimerIndex(interaction)).png" />
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </root>
 
 @code {
 	public bool FromHands { get; set; } 
-
+	
 
 	
 	private string DisplayName => _targetObject?.Components?.Get<ItemComponent>()?.Name ?? _targetObject?.Name;
@@ -94,8 +98,10 @@
 				continue;
 
 			var canInteract = !interaction.Disabled.InvokeOrDefault();
+			HighlightObject();
 			if (canInteract)
 				AddToPriority(interaction);
+				
 
 			if (!HasPriority(interaction.Keybind))
 				continue;
@@ -133,6 +139,7 @@
 				);
 			}
 		}
+		
 
 		
 
@@ -145,6 +152,28 @@
 
 		StateHasChanged();
 	}
+	private Interactions _lastHighlightedInteraction;
+
+	private void HighlightObject()
+	{
+		if (_targetObject.IsValid())
+		{
+			bool shouldHighlight = ShowHint();
+			var Interactionz = _targetObject.Components.Get<Interactions>();
+			if (shouldHighlight)
+			{
+				_lastHighlightedInteraction = Interactionz;
+			}
+			Interactionz.Highlight(shouldHighlight);
+		}
+		else if (_lastHighlightedInteraction != null)
+		{
+			// Entfernt das Highlight vom zuletzt hervorgehobenen Objekt, wenn _targetObject nicht mehr gültig ist.
+			_lastHighlightedInteraction.Highlight(false);
+			_lastHighlightedInteraction = null; // Setzen Sie die Referenz zurück, nachdem das Highlight entfernt wurde.
+		}
+	}
+	
 
 	private bool ShowHint()
 	{
@@ -185,6 +214,7 @@
 		var viewModel = _targetObject?.Components.Get<ViewModel>();
 		return viewModel != null; // Korrigieren Sie dies, um mit der Deklaration übereinzustimmen.
 	}
+	
 
 	private bool WithinRange(Interaction interaction)
 	{

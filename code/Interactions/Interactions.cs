@@ -193,6 +193,7 @@ public class Interaction
 
 public class Interactions : Component
 {
+	public float InteractDistance { get; set; } = 100f;
 	[Property]
 	public List<Interaction> ObjectInteractions { get; set; }
 
@@ -266,4 +267,80 @@ public class Interactions : Component
 			}
 		}
 	}
+	
+	public void Highlight( bool shouldHighlight )
+	{
+		if ( IsProxy )
+			return;
+
+		var chestObject = this; // Direkte Nutzung des aktuellen Objekts
+		var outline = chestObject.GameObject.Components.Get<HighlightOutline>();
+		if ( shouldHighlight )
+		{
+			if ( outline == null )
+			{
+				outline = chestObject.GameObject.Components.Create<HighlightOutline>();
+				outline.Color = Color.White;
+				outline.Width = 0.5f;
+				outline.ObscuredColor = Color.White;
+
+
+			}
+		}
+		else
+		{
+			if ( outline != null )
+			{
+				outline.Destroy();
+
+			}
+		}
+	}
+	protected override void OnUpdate()
+	{
+		if ( IsPlayerNearby() )
+		{
+			Highlight( true );
+
+		}
+		else
+		{
+			Highlight( false );
+
+		}
+	}
+
+
+	private bool IsPlayerNearby()
+	{
+
+
+		var players = Scene.GetAllComponents<Player>();
+		if ( players == null || !players.Any() )
+		{
+
+			return false;
+		}
+
+		// Anzahl der erkannten Spieler loggen
+
+		foreach ( var player in players )
+		{
+
+
+			var distance = (player.Transform.Position - this.Transform.Position).Length;
+
+
+
+			if ( distance < InteractDistance )
+			{
+
+				return true;
+
+
+			}
+		}
+		return false;
+	}
+
 }

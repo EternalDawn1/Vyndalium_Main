@@ -638,7 +638,7 @@ public partial class Player : Component, IHealthComponent
 
 		foreach ( var animator in Animators )
 		{
-			animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.HoldItem;
+			animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.None;
 			animator.WithVelocity( CharacterController.Velocity );
 			animator.WithWishVelocity( WishVelocity );
 			animator.IsGrounded = CharacterController.IsOnGround;
@@ -727,7 +727,7 @@ public partial class Player : Component, IHealthComponent
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
 
-
+		UpdateInteractions();
 
 		if ( TimeSinceDamaged > 5f )
 		{
@@ -741,7 +741,7 @@ public partial class Player : Component, IHealthComponent
 		}
 
 
-		UpdateInteractions();
+		
 		RegenerateStamina();
 		DoCrouchingInput();
 		DoMovementInput();
