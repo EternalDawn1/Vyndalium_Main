@@ -22,7 +22,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public GameObject ViewModelRoot { get; set; }
 	public int DefaultAmmo { get; set; }
 	[Property] public AmmoContainer Ammo { get; } = new AmmoContainer();
-	[Property] public CharacterController CharacterController { get; set; }
+	[Property] public CharacterController2 CharacterController { get; set; }
 	[Property] public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject Head { get; set; }
 	[Property] public GameObject Eye { get; set; }
@@ -369,7 +369,7 @@ public partial class Player : Component, IHealthComponent
 		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>();
 		Collider = Components.Get<BoxCollider>( FindMode.EverythingInSelfAndDescendants );
 
-		CharacterController = Components.GetInDescendantsOrSelf<CharacterController>();
+		CharacterController = Components.GetInDescendantsOrSelf<CharacterController2>();
 		CharacterController.IgnoreLayers.Add( "player" );
 
 		Ragdoll = Components.GetInDescendantsOrSelf<RagdollController>();
