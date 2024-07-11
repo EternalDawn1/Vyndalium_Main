@@ -64,19 +64,25 @@ public class ItemInteractable : BaseInteraction
         if ( IsProxy )
             return;
 
-        isHighlighted = shouldHighlight;
         var chestObject = this; // Direkte Nutzung des aktuellen Objekts
         var outline = chestObject.GameObject.Components.Get<HighlightOutline>();
+
+        // Überprüfen, ob der aktuelle Highlight-Zustand sich vom gewünschten Zustand unterscheidet
+        bool isCurrentlyHighlighted = outline != null;
+        if ( shouldHighlight == isCurrentlyHighlighted )
+        {
+            // Keine Änderung notwendig, da der gewünschte Zustand bereits erreicht ist
+            return;
+        }
+
         if ( shouldHighlight )
         {
             if ( outline == null )
             {
                 outline = chestObject.GameObject.Components.Create<HighlightOutline>();
-                outline.Color = Color.Red;
-                outline.Width = 1.3f;
-                outline.ObscuredColor = Color.Red;
-
-
+                outline.Color = Color.White;
+                outline.Width = 0.5f;
+                outline.ObscuredColor = Color.White;
             }
         }
         else
@@ -84,7 +90,6 @@ public class ItemInteractable : BaseInteraction
             if ( outline != null )
             {
                 outline.Destroy();
-
             }
         }
     }

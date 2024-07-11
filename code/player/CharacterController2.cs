@@ -35,35 +35,35 @@ public  class CharacterController2 : Component
 
     [Range( 0f, 200f, 0.01f, true, true )]
     [Property]
-    [DefaultValue( 16f )]
+
 
     public float Radius { get; set; } = 16f;
 
 
     [Range( 0f, 200f, 0.01f, true, true )]
     [Property]
-    [DefaultValue( 64f )]
+
 
     public float Height { get; set; } = 64f;
 
 
     [Range( 0f, 50f, 0.01f, true, true )]
     [Property]
-    [DefaultValue( 18f )]
+
 
     public float StepHeight { get; set; } = 18f;
 
 
     [Range( 0f, 90f, 0.01f, true, true )]
     [Property]
-    [DefaultValue( 45f )]
+
 
     public float GroundAngle { get; set; } = 45f;
 
 
     [Range( 0f, 64f, 0.01f, true, true )]
     [Property]
-    [DefaultValue( 10f )]
+  
 
     public float Acceleration { get; set; } = 10f;
 
@@ -73,7 +73,7 @@ public  class CharacterController2 : Component
     //     When jumping into walls, should we bounce off or just stop dead?
     [Range( 0f, 1f, 0.01f, true, true )]
     [Property]
-    [DefaultValue( 0.3f )]
+  
     [Description( "When jumping into walls, should we bounce off or just stop dead?" )]
 
     public float Bounciness { get; set; } = 0.3f;
@@ -86,7 +86,7 @@ public  class CharacterController2 : Component
     [Property]
     [Group( "Collision" )]
     [Title( "Use Project Collision Rules" )]
-    [DefaultValue( false )]
+  
     [Description( "If enabled, determine what to collide with using current project's collision rules for the <see cref=\"P:Sandbox.GameObject.Tags\" /> of the containing <see cref=\"T:Sandbox.GameObject\" />." )]
 
     public bool UseCollisionRules { get; set; } = false;
@@ -117,7 +117,7 @@ public  class CharacterController2 : Component
                 TypeName = "Sandbox.CharacterController",
                 PropertyName = "Velocity",
                 MemberIdent = -906778246,
-                Attributes = __Velocity__Attrs
+                Attributes = __Velocity__Attrs2
             } );
         }
         set
@@ -134,7 +134,7 @@ public  class CharacterController2 : Component
                 TypeName = "Sandbox.CharacterController",
                 PropertyName = "Velocity",
                 MemberIdent = -906778246,
-                Attributes = __Velocity__Attrs
+                Attributes = __Velocity__Attrs2
             } );
         }
     }
@@ -154,7 +154,7 @@ public  class CharacterController2 : Component
                 TypeName = "Sandbox.CharacterController",
                 PropertyName = "IsOnGround",
                 MemberIdent = 353074387,
-                Attributes = __IsOnGround__Attrs
+                Attributes = __IsOnGround__Attrs2
             } );
         }
         set
@@ -171,7 +171,7 @@ public  class CharacterController2 : Component
                 TypeName = "Sandbox.CharacterController",
                 PropertyName = "IsOnGround",
                 MemberIdent = 353074387,
-                Attributes = __IsOnGround__Attrs
+                Attributes = __IsOnGround__Attrs2
             } );
         }
     }

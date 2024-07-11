@@ -1,5 +1,7 @@
 ﻿
 
+using GeneralGame.HUD;
+
 namespace GeneralGame;
 
 public enum InputMode
@@ -70,7 +72,7 @@ public class Interaction
 	/// The max distance you can use this interaction from
 	/// </summary>
 	[Property, Category( "Optional" )]
-	public float InteractDistance { get; set; } = 105f;
+	public float InteractDistance { get; set; } = 125f;
 
 	/// <summary>
 	/// Where this interaction is accessible from
@@ -193,7 +195,7 @@ public class Interaction
 
 public class Interactions : Component
 {
-	public float InteractDistance { get; set; } = 105f;
+	public float InteractDistance { get; set; } = 125f;
 	[Property]
 	public List<Interaction> ObjectInteractions { get; set; }
 
@@ -267,7 +269,7 @@ public class Interactions : Component
 			}
 		}
 	}
-	
+
 	public void Highlight( bool shouldHighlight )
 	{
 		if ( IsProxy )
@@ -275,30 +277,47 @@ public class Interactions : Component
 
 		var chestObject = this; // Direkte Nutzung des aktuellen Objekts
 		var outline = chestObject.GameObject.Components.Get<HighlightOutline>();
+
+		// Überprüfen, ob der aktuelle Highlight-Zustand sich vom gewünschten Zustand unterscheidet
+		bool isCurrentlyHighlighted = outline != null;
+		if ( shouldHighlight == isCurrentlyHighlighted )
+		{
+			// Zusätzliche Überprüfung, ob die Eigenschaften des Outline-Objekts bereits den gewünschten Werten entsprechen
+			if ( outline != null && outline.Color == Color.White && outline.Width == 0.5f && outline.ObscuredColor == Color.White )
+			{
+				// Keine Änderung notwendig, da der gewünschte Zustand bereits erreicht ist
+				return;
+			}
+		}
+
 		if ( shouldHighlight )
 		{
 			if ( outline == null )
 			{
 				outline = chestObject.GameObject.Components.Create<HighlightOutline>();
-				outline.Color = Color.White;
-				outline.Width = 0.5f;
-				outline.ObscuredColor = Color.White;
-
-
 			}
+			// Setzen oder Aktualisieren der Eigenschaften des Outline-Objekts
+			outline.Color = Color.White;
+			outline.Width = 0.5f;
+			outline.ObscuredColor = Color.White;
 		}
 		else
 		{
-			if ( outline != null )
+			if ( outline != null && shouldHighlight == false)
 			{
 				outline.Destroy();
-
 			}
 		}
 	}
+	public bool IsHighlighted()
+	{
+		var outline = this.GameObject.Components.Get<HighlightOutline>();
+		return outline != null;
+	}
 	protected override void OnUpdate()
 	{
-		if ( IsPlayerNearby() && IsProxy )
+		
+		if (  IsProxy )
 		{
 			Highlight( true );
 
@@ -306,7 +325,7 @@ public class Interactions : Component
 		else
 		{
 			Highlight( false );
-
+			
 		}
 	}
 

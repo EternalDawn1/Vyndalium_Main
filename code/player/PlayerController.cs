@@ -661,7 +661,7 @@ public partial class Player : Component, IHealthComponent
 			CharacterController.Height = DuckHeight;
 			IsCrouching = true;
 			// Setzen Sie die Kameraposition auf die DuckHeight
-			PlyCamera.Transform.Position = new Vector3( PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, DuckHeight );
+			
 		}
 		else
 		{
@@ -671,7 +671,7 @@ public partial class Player : Component, IHealthComponent
 			CharacterController.Height = StandHeight;
 			IsCrouching = false;
 			// Setzen Sie die Kameraposition auf die StandHeight
-			PlyCamera.Transform.Position = new Vector3( PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, StandHeight );
+			
 		}
 	}
 

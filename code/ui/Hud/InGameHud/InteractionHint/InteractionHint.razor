@@ -98,10 +98,12 @@
 				continue;
 
 			var canInteract = !interaction.Disabled.InvokeOrDefault();
-			HighlightObject();
+			
 			if (canInteract)
+				HighlightObject();
 				AddToPriority(interaction);
 				
+			
 
 			if (!HasPriority(interaction.Keybind))
 				continue;
@@ -157,19 +159,33 @@
 	
 	private void HighlightObject()
 	{
-		
-		
 		bool shouldHighlight = ShowHint();
 		if (_targetObject.IsValid())
 		{
-			
 			var Interactionz = _targetObject.Components.Get<Interactions>();
 			if (shouldHighlight)
 			{
-				_lastHighlightedInteraction = Interactionz;
+				// Überprüfen, ob _lastHighlightedInteraction bereits gesetzt ist, um unnötige Zuweisungen zu vermeiden
+				if (_lastHighlightedInteraction == null)
+				{
+					_lastHighlightedInteraction = Interactionz;
+				}
+				// Überprüfen, ob die Highlight-Komponente bereits existiert, bevor sie erneut erstellt wird
+				if (!_lastHighlightedInteraction.IsHighlighted())
+				{
+					Interactionz.Highlight(true);
+				}
 			}
-			Interactionz.Highlight(shouldHighlight);
-			
+			else
+			{
+				// Wenn shouldHighlight false ist, aber _lastHighlightedInteraction nicht null ist,
+				// entfernen Sie das Highlight nur, wenn es tatsächlich gesetzt wurde.
+				if (_lastHighlightedInteraction != null && _lastHighlightedInteraction.IsHighlighted())
+				{
+					_lastHighlightedInteraction.Highlight(false);
+					_lastHighlightedInteraction = null; // Setzen Sie die Referenz zurück, nachdem das Highlight entfernt wurde.
+				}
+			}
 		}
 		else if (_lastHighlightedInteraction != null)
 		{
@@ -177,8 +193,8 @@
 			_lastHighlightedInteraction.Highlight(false);
 			_lastHighlightedInteraction = null; // Setzen Sie die Referenz zurück, nachdem das Highlight entfernt wurde.
 		}
-		
 	}
+	
 	
 	
 	private bool ShowHint()
@@ -186,20 +202,19 @@
 		// Prüfen, ob das Zielobjekt gültig ist
 		if (!_targetObject.IsValid())
 			return false;
-
 		// Prüfen, ob Interaktionen vorhanden sind
 		if (!_targetObject.Components.TryGet<Interactions>(out var interactions))
 			return false;
-
-		// Hier prüfen wir, ob Interaktionen verfügbar sind oder ein ViewModel vorhanden ist
+		// Prüfen, ob die Liste der Interaktionen leer ist
+		if (!interactions.AllInteractions.Any())
+			return false; // Keine Interaktionen vorhanden, also kein Hinweis
+								// Hier prüfen wir, ob Interaktionen verfügbar sind oder ein ViewModel vorhanden ist
 		var interactionsAvailable = interactions.AllInteractions.Any(i => WithinBounds(i) && WithinRange(i));
 		if (!interactionsAvailable && interactions.HideOnEmpty)
 			return false;
-
 		// Zusätzliche Prüfung, ob ein ViewModel vorhanden ist
 		// Diese Funktion muss entsprechend Ihrer Implementierung angepasst werden
 		var viewModelPresent = HasViewModel();
-
 		// Anzeigen, wenn Interaktionen verfügbar sind oder ein ViewModel vorhanden ist
 		return interactionsAvailable || viewModelPresent;
 	}
