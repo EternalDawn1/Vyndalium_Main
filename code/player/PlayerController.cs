@@ -679,7 +679,7 @@ public partial class Player : Component, IHealthComponent
 	{
 		BuildWishVelocity();
 
-		if ( CharacterController.IsOnGround && Input.Pressed( "Jump" ) )
+		if ( CharacterController.IsOnGround && Input.Pressed( "Jump" ) && TryJump() )
 		{
 			CharacterController.Punch( Vector3.Up * 300f );
 			SendJumpMessage();
@@ -751,7 +751,7 @@ public partial class Player : Component, IHealthComponent
 		else if ( Input.MouseWheel.y < 0 )
 			Weapons.Previous();
 
-		if ( Input.Pressed( "use" ) )
+		if ( Input.Pressed( "use3" ) )
 		{
 			var startPos = PlyCamera.Transform.Position;
 			var direction = PlyCamera.Transform.Rotation.Forward;

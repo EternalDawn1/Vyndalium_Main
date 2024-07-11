@@ -68,10 +68,26 @@ public partial class Player : Component
     }
 
     wasRunning = IsRunning;
-
+    
     
 
     // Versuche, erneut zu sprinten, wenn genügend Zeit vergangen ist und die Ausdauer ausreichend ist
     
 }
+    public bool TryJump()
+    {
+        const float staminaCostForJump = 5f;
+        if ( Stamina >= staminaCostForJump )
+        {
+            Stamina -= staminaCostForJump;
+            // Optional: Fügen Sie hier Logik für den Sprung hinzu, z.B. Animation, Bewegung, etc.
+            return true;
+        }
+        else
+        {
+            // Optional: Benachrichtigung, dass nicht genug Ausdauer zum Springen vorhanden ist
+            Log.Info( "Nicht genügend Ausdauer zum Springen." );
+            return false;
+        }
+    }
 }
