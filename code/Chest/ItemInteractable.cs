@@ -7,23 +7,47 @@ using Sandbox;
 public class ItemInteractable : BaseInteraction
 {
 
+    public ItemStorage Storage { get; set; }
 
-
-
+    
     protected override void OnAwake()
     {
         base.OnAwake();
         OnOpen += HandleOpen; // Ereignisabonnent hinzufügen
         OnClose += HandleClose;
+      
 
     }
+    
     protected override void OnStart()
     {
 
         var interactions = Components.GetOrCreate<Interactions>();
         interactions.AddInteraction( new Interaction()
         {
-            Identifier = "item.pickup",
+            Identifier = "item.openloot",
+            Action = ( Player interactor, GameObject obj ) =>
+            {
+                Log.Error( "Action Lambda aufgerufen" );
+                var itemInteractable = obj.Components.Get<ItemInteractable>();
+                if ( itemInteractable != null )
+                {
+                    Log.Error( "ItemInteractable-Komponente gefunden" );
+                    if ( itemInteractable.Storage != null )
+                    {
+                        Log.Error( "Storage gefunden, versuche OpenInventory aufzurufen" );
+                        itemInteractable.Storage.OpenInventory();
+                    }
+                    else
+                    {
+                        Log.Error( "Kein Storage-Objekt gefunden" );
+                    }
+                }
+                else
+                {
+                    Log.Error( "Keine ItemInteractable-Komponente im GameObject gefunden" );
+                }
+            },
             Keybind = "use",
             Description = "Open",
             Stats = "Take",

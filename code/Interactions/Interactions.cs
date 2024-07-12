@@ -56,7 +56,7 @@ public class Interaction
 	[Property, Category( "Required" )]
 	public string Description { get; set; } = "";
 
-	[Property, Category( "Requird" )]
+	[Property, Category( "Required" )]
 	public string Stats { get; set; }
 
 

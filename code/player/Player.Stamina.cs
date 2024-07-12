@@ -86,7 +86,7 @@ public partial class Player : Component
         else
         {
             // Optional: Benachrichtigung, dass nicht genug Ausdauer zum Springen vorhanden ist
-            Log.Info( "Nicht genügend Ausdauer zum Springen." );
+         
             return false;
         }
     }
