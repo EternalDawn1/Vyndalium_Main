@@ -4,7 +4,7 @@ using Sandbox;
 
 namespace GeneralGame;
 
-public class BaseInteraction : Component
+public class BaseInteraction : ItemComponent
 {
 
     [Property] public bool isOpen;
