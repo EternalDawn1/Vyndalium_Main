@@ -35,25 +35,24 @@ public class ItemInteractable : BaseInteraction
                 Identifier = "item.openloot",
                 Action = ( Player interactor, GameObject obj ) =>
                 {
-                    Log.Error( "Action Lambda aufgerufen" );
+                    
                     var itemInteractable = obj.Components.Get<ItemInteractable>();
                     if ( itemInteractable != null )
                     {
-                        Log.Error( "ItemInteractable-Komponente gefunden" );
+                     
                         if ( itemInteractable.Storage != null )
                         {
-                            Log.Error( "Storage gefunden, versuche OpenInventory aufzurufen" );
+                           
                             itemInteractable.Storage.OpenInventory();
                         }
-                        else
-                        {
-                            Log.Error( "Kein Storage-Objekt gefunden" );
-                        }
+						else
+						{
+							itemInteractable.Storage.CloseInventory();
+						}
+						
+                        
                     }
-                    else
-                    {
-                        Log.Error( "Keine ItemInteractable-Komponente im GameObject gefunden" );
-                    }
+                    
                 },
                 Keybind = "use",
                 Description = "Open",
@@ -75,7 +74,7 @@ public class ItemInteractable : BaseInteraction
             } );
         
         
-        base.OnStart();
+       
 
     }
 

@@ -3,40 +3,105 @@ namespace GeneralGame.HUD
     [StyleSheet]
     public partial class StorageBox : PanelComponent
     {
-        public bool IsVisible { get; set; }
+		public static bool IsVisible { get; set; }
        
-        private ItemStorage itemStorage;
+        private  ItemStorage itemStorage;
         private bool visibilityChanged = false;
+		private bool isInitialized = false;
 
-        
-        protected override void OnUpdate()
-        {
-            bool isOpened = itemStorage?.IsOpened ?? false;
+		public StorageBox()
+		{
+			// Initialisierung von itemStorage
+			itemStorage = GetItemStorageInstance();
+			IsVisible = false; // Stellen Sie sicher, dass die StorageBox anfangs nicht sichtbar ist
+		}
+		public StorageBox( ItemStorage itemStorage )
+		{
+			this.itemStorage = itemStorage;
+			IsVisible = false; // Stellen Sie sicher, dass die StorageBox anfangs nicht sichtbar ist
+		}
 
-            if ( isOpened != IsVisible ) // Prüft, ob der Zustand synchronisiert werden muss
-            {
-                ToggleVisibility( isOpened ); // Aktualisiert IsVisible basierend auf dem Zustand von IsOpened
-                visibilityChanged = isOpened;
-            }
-        }
-        
-        public void ToggleVisibility( bool isOpened )
-        {
-            // Direkte Anpassung der Sichtbarkeit basierend auf dem Parameter
-            IsVisible = isOpened;
-            if ( itemStorage != null )
-            {
-                itemStorage.IsOpened = isOpened; // Direktes Setzen basierend auf dem Parameter
-            }
-        }
-        
-        public void OpenStorage()
-        {
-            IsVisible = true;
-            StateHasChanged();
-            Log.Info( $"StorageBox opened" );
-        }
-        protected override int BuildHash()
+		// Beispielmethoden
+		private ItemStorage GetItemStorageInstance()
+		{
+			// Implementieren Sie die Logik, um eine Instanz von ItemStorage zu erhalten.
+			// Dies könnte das Abrufen einer bestehenden Instanz aus einem Manager oder das Erstellen einer neuen Instanz sein.
+			return new ItemStorage();
+		}
+		protected override void OnAwake()
+		{
+
+			base.OnAwake();
+			if ( itemStorage != null )
+			{
+				itemStorage.IsOpened = false; // Stellen Sie sicher, dass itemStorage anfangs geschlossen ist
+				IsVisible = false; // Stellen Sie sicher, dass die Komponente anfangs nicht sichtbar ist
+			}
+		}
+
+
+		protected override void OnUpdate()
+		{
+			if ( !isInitialized )
+			{
+				// Entfernen Sie die Initialisierung von itemStorage.IsOpened und IsVisible auf true
+				// und setzen Sie sie stattdessen auf false, wenn das Ihr gewünschtes Anfangsverhalten ist.
+				itemStorage.IsOpened = false;
+				IsVisible = false;
+				isInitialized = true; // Markieren Sie, dass die Initialisierung erfolgt ist
+				StateHasChanged(); // Aktualisieren Sie die UI
+			}
+			else
+			{
+				bool isOpened = itemStorage?.IsOpened ?? false;
+
+				if ( isOpened != IsVisible ) // Prüft, ob der Zustand synchronisiert werden muss
+				{
+					ToggleVisibility(); // Aktualisiert IsVisible basierend auf dem Zustand von IsOpened
+					visibilityChanged = isOpened;
+				}
+			}
+		}
+
+		public void ToggleVisibility()
+		{
+			if ( itemStorage == null )
+			{
+				
+				return;
+			}
+
+			// Umschalten des Zustands
+			bool newState = !itemStorage.IsOpened;
+			itemStorage.IsOpened = newState;
+			IsVisible = newState;
+
+			// Optional: Aufrufen von StateHasChanged(), wenn Sie in einer Blazor-Komponente sind, um die UI zu aktualisieren
+			StateHasChanged();
+
+			
+		}
+
+		public void OpenStorage()
+		{
+			if ( itemStorage != null && !itemStorage.IsOpened )
+			{
+				itemStorage.IsOpened = true;
+				IsVisible = true;
+				// Optional: UI aktualisieren
+			}
+		}
+
+		public void CloseStorage()
+		{
+			if ( itemStorage != null && itemStorage.IsOpened )
+			{
+				itemStorage.IsOpened = false;
+				IsVisible = false;
+				// Optional: UI aktualisieren
+			}
+		}
+		protected override int BuildHash()
         {
             
             return HashCode.Combine(

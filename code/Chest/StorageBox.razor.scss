@@ -2,10 +2,41 @@ StorageBox {
     position: absolute;
     width: 100%;
     height: 100%;
+   
+    pointer-events: all;
     /* Weitere Stilisierungen */
 
-    .red{
+    .hiddenContent {
         color: red;
-        
+        font-size: 99;
+    }
+
+    .Panel {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        left: 25%;
+        top: 25%;
+        background-color: #09e52513;
+
+        .buttons {
+            position: absolute;
+            left: 90%;
+            top: 2%;
+            color: red;
+            background-color: blue;
+            font-size: 32px;
+            border-radius: 10px;
+        }
+
+        .section2 {
+            z-index:100;
+
+            .items {
+                flex-wrap: wrap;
+                width: 700px;
+                overflow-x: scroll;
+            }
+        }
     }
 }

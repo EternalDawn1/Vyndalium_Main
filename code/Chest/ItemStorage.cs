@@ -7,18 +7,15 @@ namespace GeneralGame;
 public class ItemStorage
 {
 
-    public bool IsOpened { get; set; }
-   
-    
+    public bool IsOpened { get;  set; }
 
-    
     private StorageBox storageBox;
     private List<ItemStorage> StorageInteraction;
-   
-    
-    
-    
-    
+
+
+
+
+
     protected void OnAwake()
     {
         Log.Info( "OnAwake aufgerufen." );
@@ -26,19 +23,41 @@ public class ItemStorage
         storageBox = new StorageBox();
     }
 
-    public void OpenInventory()
-    {
-        if ( !IsOpened )
-        {
-            Log.Info( "Öffne Inventar." );
-            IsOpened = true;
+	private DateTime lastOpenedTime;
 
-            if ( storageBox == null )
-            {
-                storageBox = new StorageBox();
-            }
-            storageBox.ToggleVisibility( IsOpened ); // Stellt sicher, dass IsVisible in StorageBox aktualisiert wird
-            Log.Info( "Inventory opened" );
-        }
-    }
+	public void OpenInventory()
+	{
+		if ( !IsOpened )
+		{
+			Log.Info( "Öffne Inventar." );
+			IsOpened = true;
+			lastOpenedTime = DateTime.Now;
+
+			if ( storageBox == null )
+			{
+				storageBox = new StorageBox();
+			}
+			storageBox.ToggleVisibility();
+
+			Log.Info( "Inventory opened" );
+		}
+		else
+		{
+			// Optional: Feedback geben, dass das Inventar bereits geöffnet ist
+			Log.Info( "Inventar ist bereits geöffnet." );
+		}
+	}
+
+	public void CloseInventory()
+	{
+		if ( IsOpened )
+		{
+			Log.Info( "Inventar geschlossen." );
+			IsOpened = false;
+			if ( storageBox != null )
+			{
+				storageBox.ToggleVisibility();
+			}
+		}
+	}
 }

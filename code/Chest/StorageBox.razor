@@ -7,12 +7,26 @@ return;
 <root>
        @if (IsVisible)
         {
-        <div>Openend box </div>
+        <div class="Panel">Box Has Been Openend
+			<button class="buttons">Close</button>
+			<div class="section2">
+
+				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
+					@for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+					{
+						var item = Player.Local.Inventory.BackpackItems[index];
+						<InventorySlot Item=@item BackpackSlotIndex=@index />
+					}
+				</div>
+				<div style="align-items: center; margin: 20px 5px;"></div>
+			</div>
+		</div>
+		
         }
         else
         {
             <div class="hiddenContent">
-                False ? not opened
+                The Box Not Showing UP
             </div>
         }
         
