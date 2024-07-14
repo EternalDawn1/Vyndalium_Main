@@ -29,6 +29,13 @@
 </root>
 
 @code {
+	public enum SlotType
+	{
+		Backpack,
+		Chest,
+		// Weitere Typen nach Bedarf
+	}
+	public SlotType Type { get; set; } = SlotType.Backpack;
 
 	private string GetBackgroundClass()
 	{
@@ -100,6 +107,8 @@
 	public int? BackpackSlotIndex { get; set; } = null;
 
 	public int? IndependentSlotIndex { get; set; } = null;
+
+	public bool IsChestSlot { get; set; } = false;
 
 	//TODO: Add a way to set the slot index from the outside
 

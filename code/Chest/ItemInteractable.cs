@@ -7,7 +7,7 @@ using Sandbox;
 public class ItemInteractable : BaseInteraction
 {
 
-    public ItemStorage Storage { get; private set; }
+	public ItemStorage Storage { get; private set; }
   
    
 
@@ -16,9 +16,10 @@ public class ItemInteractable : BaseInteraction
         base.OnAwake();
         OnOpen += HandleOpen; // Ereignisabonnent hinzufügen
         OnClose += HandleClose;
-      
+		
 
-    }
+
+	}
     
     
     
@@ -37,31 +38,22 @@ public class ItemInteractable : BaseInteraction
                 {
                     
                     var itemInteractable = obj.Components.Get<ItemInteractable>();
-                    if ( itemInteractable != null )
+                    if ( itemInteractable != null && itemInteractable.Storage != null )
                     {
-                     
-                        if ( itemInteractable.Storage != null )
-                        {
-                           
                             itemInteractable.Storage.OpenInventory();
-                        }
-						else
-						{
-							itemInteractable.Storage.CloseInventory();
-						}
-						
-                        
                     }
                     
                 },
                 Keybind = "use",
-                Description = "Open",
+                Description = "Open/Close",
                 Stats = "Take",
                 Disabled = () => !Player.Local.Inventory.HasSpaceInBackpack(),
                 ShowWhenDisabled = () => true,
                 Accessibility = AccessibleFrom.All,
 
             } );
+
+
             interactions.AddInteraction( new Interaction()
             {
                 Identifier = "item.drop",

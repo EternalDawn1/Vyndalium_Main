@@ -2,12 +2,10 @@ StorageBox {
     position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 100;
     /* Weitere Stilisierungen */
 
-    .hiddenContent {
-        color: red;
-        font-size: 99;
-    }
+
 
     .Panel {
         pointer-events: all;
@@ -16,7 +14,8 @@ StorageBox {
         height: 50%;
         left: 25%;
         top: 25%;
-        background-color: #09e52513;
+        background-color: #09501712;
+        
 
         .buttons {
             position: absolute;
@@ -32,10 +31,26 @@ StorageBox {
             z-index: 100;
 
             .items {
+                padding:10px;
                 flex-wrap: wrap;
-                width: 700px;
+                width: 900px;
                 overflow-x: scroll;
+                border: 1px solid #ccc;
             }
+        }
+
+        .chest-inventory {
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color:rgb(228, 223, 192);
+             /* Stellen Sie sicher, dass es vom Spielerinventar getrennt ist */
+        }
+
+        .items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            
         }
     }
 }

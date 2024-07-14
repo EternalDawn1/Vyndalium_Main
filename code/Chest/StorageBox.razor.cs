@@ -6,7 +6,8 @@ namespace GeneralGame.HUD
 		public static bool IsVisible { get; set; }
        
         private  ItemStorage itemStorage;
-        private bool visibilityChanged = false;
+		private InventorySlot inventorySlots;
+		private bool visibilityChanged = false;
 		private bool isInitialized = false;
 
 		public StorageBox()
@@ -35,7 +36,9 @@ namespace GeneralGame.HUD
 			if ( itemStorage != null )
 			{
 				itemStorage.IsOpened = false; // Stellen Sie sicher, dass itemStorage anfangs geschlossen ist
-				IsVisible = false; // Stellen Sie sicher, dass die Komponente anfangs nicht sichtbar ist
+				IsVisible = false;
+				itemStorage = GetItemStorageInstance();
+				itemStorage.InitializeSlots( 10 );// Stellen Sie sicher, dass die Komponente anfangs nicht sichtbar ist
 			}
 		}
 
@@ -120,13 +123,7 @@ namespace GeneralGame.HUD
 			IsVisible = false;
 			StateHasChanged(); // Aktualisiert die UI
 		}
-		public void ResetPanel()
-		{
-			if ( itemStorage != null )
-			{
-				itemStorage.ResetStorage();
-			}
-		}
+		
 
 	}
     
