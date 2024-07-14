@@ -7,8 +7,10 @@ return;
 <root>
        @if (IsVisible)
         {
-        <div class="Panel">Box Has Been Openend
-			<button class="buttons">Close</button>
+        <div class="Panel">
+			<button class="buttons" @onclick="@ClosePanel">Close</button>
+			
+
 			<div class="section2">
 
 				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
@@ -23,12 +25,7 @@ return;
 		</div>
 		
         }
-        else
-        {
-            <div class="hiddenContent">
-                The Box Not Showing UP
-            </div>
-        }
+        
         
 </root>
 

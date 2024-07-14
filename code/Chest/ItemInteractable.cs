@@ -79,6 +79,7 @@ public class ItemInteractable : BaseInteraction
     }
 
 
+
     private void HandleOpen()
     {
         // Logik für das Öffnen der Truhe, z.B. visuelles Feedback

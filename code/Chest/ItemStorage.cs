@@ -60,4 +60,16 @@ public class ItemStorage
 			}
 		}
 	}
+	public void ResetStorage()
+	{
+		// Setzen Sie hier den Zustand zurück, z.B.:
+		IsOpened = false;
+		// Fügen Sie weitere Zurücksetzungen hinzu, falls nötig
+
+		// Optional: Benachrichtigen Sie die StorageBox, dass sie ihre Sichtbarkeit aktualisieren soll
+		if ( storageBox != null )
+		{
+			storageBox.ResetVisibility();
+		}
+	}
 }

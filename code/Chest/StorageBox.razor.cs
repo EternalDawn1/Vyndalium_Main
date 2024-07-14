@@ -98,7 +98,7 @@ namespace GeneralGame.HUD
 			{
 				itemStorage.IsOpened = false;
 				IsVisible = false;
-				// Optional: UI aktualisieren
+				StateHasChanged(); // Aktualisiert die UI
 			}
 		}
 		protected override int BuildHash()
@@ -111,7 +111,23 @@ namespace GeneralGame.HUD
             );
             
         }
-        
-    }
+		public void ClosePanel()
+		{
+			CloseStorage(); // Ruft die Methode zum Schließen des Speichers auf
+		}
+		public void ResetVisibility()
+		{
+			IsVisible = false;
+			StateHasChanged(); // Aktualisiert die UI
+		}
+		public void ResetPanel()
+		{
+			if ( itemStorage != null )
+			{
+				itemStorage.ResetStorage();
+			}
+		}
+
+	}
     
 }
