@@ -166,6 +166,7 @@ public class ItemComponent : Component
 	private readonly SoundEvent _pickupSound = ResourceLibrary.Get<SoundEvent>( "sounds/misc/pickup.sound" );
 
 	private ItemState _state;
+	[Property] public bool IsItem;
 
 
 	/// <summary>
@@ -199,21 +200,40 @@ public class ItemComponent : Component
 	protected override void OnStart()
 	{
 		GameObject.SetupNetworking();
-
-		// Pickup
 		var interactions = Components.GetOrCreate<Interactions>();
-		interactions.AddInteraction( new Interaction()
+		if ( IsItem != true )
 		{
-			Identifier = "item.pickup",
-			Action = ( Player interactor, GameObject obj ) => interactor.Inventory.GiveItem( this ),
-			Keybind = "use",
-			Description = "Take",
-			Stats = "Take",
-			Disabled = () => !Player.Local.Inventory.HasSpaceInBackpack(),
-			ShowWhenDisabled = () => true,
-			Accessibility = AccessibleFrom.All,
-			Sound = () => _pickupSound,
-		} );
+			interactions.AddInteraction( new Interaction()
+			{
+				Identifier = "item.pickup",
+				Action = ( Player interactor, GameObject obj ) => interactor.Inventory.GiveItem( this ),
+				Keybind = "use",
+				Description = "Take",
+				Stats = "Take",
+				Disabled = () => !Player.Local.Inventory.HasSpaceInBackpack(),
+				ShowWhenDisabled = () => true,
+				Accessibility = AccessibleFrom.All,
+
+			} );
+		}
+		else
+		{
+			// Pickup
+			
+			interactions.AddInteraction( new Interaction()
+			{
+				Identifier = "item.pickup",
+				Action = ( Player interactor, GameObject obj ) => interactor.Inventory.GiveItem( this ),
+				Keybind = "use",
+				Description = "Take",
+				Stats = "Take",
+				Disabled = () => !Player.Local.Inventory.HasSpaceInBackpack(),
+				ShowWhenDisabled = () => true,
+				Accessibility = AccessibleFrom.All,
+				Sound = () => _pickupSound,
+			} );
+		}
+		
 	}
 
 	protected override void OnDestroy()

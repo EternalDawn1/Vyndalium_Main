@@ -1,0 +1,20 @@
+@inherits PanelComponent
+@namespace GeneralGame.HUD
+
+@if(IsProxy)
+return;
+
+<root>
+       @if (IsVisible)
+        {
+        <div>Openend box </div>
+        }
+        else
+        {
+            <div class="hiddenContent">
+                False ? not opened
+            </div>
+        }
+        
+</root>
+

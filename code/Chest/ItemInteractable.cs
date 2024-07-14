@@ -7,9 +7,10 @@ using Sandbox;
 public class ItemInteractable : BaseInteraction
 {
 
-    public ItemStorage Storage { get; set; }
+    public ItemStorage Storage { get; private set; }
+  
+   
 
-    
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -19,53 +20,61 @@ public class ItemInteractable : BaseInteraction
 
     }
     
+    
+    
     protected override void OnStart()
     {
-
+        
         var interactions = Components.GetOrCreate<Interactions>();
-        interactions.AddInteraction( new Interaction()
-        {
-            Identifier = "item.openloot",
-            Action = ( Player interactor, GameObject obj ) =>
+        
+        
+        
+            Storage = new ItemStorage();
+            interactions.AddInteraction( new Interaction()
             {
-                Log.Error( "Action Lambda aufgerufen" );
-                var itemInteractable = obj.Components.Get<ItemInteractable>();
-                if ( itemInteractable != null )
+                Identifier = "item.openloot",
+                Action = ( Player interactor, GameObject obj ) =>
                 {
-                    Log.Error( "ItemInteractable-Komponente gefunden" );
-                    if ( itemInteractable.Storage != null )
+                    Log.Error( "Action Lambda aufgerufen" );
+                    var itemInteractable = obj.Components.Get<ItemInteractable>();
+                    if ( itemInteractable != null )
                     {
-                        Log.Error( "Storage gefunden, versuche OpenInventory aufzurufen" );
-                        itemInteractable.Storage.OpenInventory();
+                        Log.Error( "ItemInteractable-Komponente gefunden" );
+                        if ( itemInteractable.Storage != null )
+                        {
+                            Log.Error( "Storage gefunden, versuche OpenInventory aufzurufen" );
+                            itemInteractable.Storage.OpenInventory();
+                        }
+                        else
+                        {
+                            Log.Error( "Kein Storage-Objekt gefunden" );
+                        }
                     }
                     else
                     {
-                        Log.Error( "Kein Storage-Objekt gefunden" );
+                        Log.Error( "Keine ItemInteractable-Komponente im GameObject gefunden" );
                     }
-                }
-                else
-                {
-                    Log.Error( "Keine ItemInteractable-Komponente im GameObject gefunden" );
-                }
-            },
-            Keybind = "use",
-            Description = "Open",
-            Stats = "Take",
-            Disabled = () => !Player.Local.Inventory.HasSpaceInBackpack(),
-            ShowWhenDisabled = () => true,
-            Accessibility = AccessibleFrom.All,
+                },
+                Keybind = "use",
+                Description = "Open",
+                Stats = "Take",
+                Disabled = () => !Player.Local.Inventory.HasSpaceInBackpack(),
+                ShowWhenDisabled = () => true,
+                Accessibility = AccessibleFrom.All,
 
-        } );
-        interactions.AddInteraction( new Interaction()
-        {
-            Identifier = "item.drop",
-            Keybind = "use2",
-            Description = "Loot",
-            Stats = "Drop",
-            ShowWhenDisabled = () => true,
-            Accessibility = AccessibleFrom.All,
+            } );
+            interactions.AddInteraction( new Interaction()
+            {
+                Identifier = "item.drop",
+                Keybind = "use2",
+                Description = "Loot",
+                Stats = "Drop",
+                ShowWhenDisabled = () => true,
+                Accessibility = AccessibleFrom.All,
 
-        } );
+            } );
+        
+        
         base.OnStart();
 
     }

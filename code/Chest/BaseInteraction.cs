@@ -9,6 +9,7 @@ public class BaseInteraction : Component
 
     [Property] public bool isOpen;
     [Property] public bool isLocked;
+    
     public bool IsPanelVisible { get; set; }
     public event Action OnOpen;
     public event Action OnClose;

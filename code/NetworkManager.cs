@@ -1,3 +1,5 @@
+using GeneralGame.HUD;
+
 namespace GeneralGame
 {
     public sealed class NetworkManager : Component, Component.INetworkListener
@@ -7,7 +9,8 @@ namespace GeneralGame
         [HostSync] public static Guid HostId { get; set; }
         [Property] public bool StartServer { get; set; } = true;
         [Property] public List<GameObject> SpawnPoints { get; set; }
-
+       
+       
         protected override async Task OnLoad()
         {
             if ( Scene.IsEditor )
@@ -89,5 +92,15 @@ namespace GeneralGame
                 }
             }
         }
+        
+
+       
+       
+
+    }
+    
+    public class PlayerInfo
+    {
+        public string Name { get; set; }
     }
 }
