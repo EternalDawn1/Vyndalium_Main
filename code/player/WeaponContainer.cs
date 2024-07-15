@@ -60,26 +60,26 @@ public partial class WeaponContainer : Component
 		if ( IsProxy ) return;
 
 		{
-			if ( prefab == null )
+			if ( IsProxy || prefab == null ) return;
+
+			// Stellen Sie sicher, dass WeaponBone nicht null ist, bevor Sie fortfahren
+			if ( WeaponBone == null )
 			{
-				// Behandeln Sie den Fall, dass das prefab null ist
+				Log.Error( "WeaponBone is null in WeaponContainer.Give" );
 				return;
 			}
 
+			// Überprüfen, ob bereits eine Waffe im WeaponBone vorhanden ist und entfernen Sie diese
+			ClearWeaponBone();
 
-			prefab.SetParent( WeaponBone );
+			// Klonen Sie das prefab, um eine neue Instanz zu erstellen
+			var weaponGo = prefab.Clone();
+			weaponGo.SetParent( WeaponBone );
+			weaponGo.Transform.Position = WeaponBone.Transform.Position;
+			weaponGo.Transform.Rotation = WeaponBone.Transform.Rotation;
 
-			if ( WeaponBone != null )
-			{
-				prefab.Transform.Position = WeaponBone.Transform.Position;
-				prefab.Transform.Rotation = WeaponBone.Transform.Rotation;
-			}
-			else
-			{
-				Log.Error( "WeaponBone is null in WeaponContainer.Give" );
-			}
-
-			var modelCollider = prefab.Components.Get<ModelCollider>();
+			// Entfernen Sie unnötige Komponenten vom geklonten Objekt
+			var modelCollider = weaponGo.Components.Get<ModelCollider>();
 			if ( modelCollider != null )
 			{
 				modelCollider.Destroy();
@@ -89,7 +89,7 @@ public partial class WeaponContainer : Component
 				Log.Error( "ModelCollider is null in WeaponContainer.Give" );
 			}
 
-			var rigidBody = prefab.Components.Get<Rigidbody>();
+			var rigidBody = weaponGo.Components.Get<Rigidbody>();
 			if ( rigidBody != null )
 			{
 				rigidBody.Destroy();
@@ -97,17 +97,24 @@ public partial class WeaponContainer : Component
 			else
 			{
 				Log.Error( "RigidBody is null in WeaponContainer.Give" );
-
 			}
 
-			var weaponGo = prefab.Clone();
+			// Holen Sie sich die WeaponComponent vom geklonten Objekt
 			var weapon = weaponGo.Components.GetInDescendantsOrSelf<WeaponComponent>( true );
 			weapon.Owner = PlayrControl;
-			if ( weapon != null )
+
+			if ( weapon != null && weapon.IsValid() )
 			{
-				Log.Info( "Weapon is not null in WeaponContainer.Give" );
+				Log.Info( "Weapon is not null and valid in WeaponContainer.Give" );
+				if ( shouldDeploy )
+				{
+					foreach ( var w in All )
+					{
+						w.Holster();
+					}
+				}
 			}
-			if ( !weapon.IsValid() )
+			else
 			{
 				weaponGo.DestroyImmediate();
 				return;
@@ -140,10 +147,25 @@ public partial class WeaponContainer : Component
 				}
 			}
 
+
 			weaponGo.NetworkSpawn();
 			weaponGo.Components.Get<ModelCollider>().Destroy();
 			weaponGo.Components.Get<Rigidbody>().Destroy();
 
+
+		}
+	}
+	private void ClearWeaponBone()
+	{
+		if ( WeaponBone == null )
+		{
+			Log.Error( "WeaponBone ist null." );
+			return;
+		}
+
+		foreach ( var child in WeaponBone.Children.ToList() )
+		{
+			child.Destroy();
 		}
 	}
 	public List<WeaponComponent> GetInitializedEquippedWeapons()

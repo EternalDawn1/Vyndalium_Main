@@ -181,34 +181,35 @@ public sealed class Inventory : Component
 		var slotIndex = equipment.IsBackable ? (int)EquipSlot.Back : (int)equipment.Slot;
 		var previouslyEquippedItem = _equippedItems[slotIndex];
 
-		// Überprüfen, ob das Item bereits ausgerüstet ist
 		if ( previouslyEquippedItem == item )
 		{
-			// Das Item ist bereits ausgerüstet, keine weiteren Aktionen erforderlich
-			return true;
+			return true; // Das Item ist bereits ausgerüstet
 		}
 
 		if ( previouslyEquippedItem != null )
 		{
-			// Entfernen der Stats des zuvor ausgerüsteten Items und Hinzufügen zum Rucksack
 			RemoveEquipmentItem( previouslyEquippedItem as ItemEquipment );
-			GiveBackpackItem( previouslyEquippedItem, index );
+			// Hier wird der Index des zuvor ausgerüsteten Items übergeben
+			GiveBackpackItem( previouslyEquippedItem, index ); // Angenommen, der Index ist hier relevant
 			previouslyEquippedItem.State = ItemState.Backpack;
 		}
 
-		// Ausrüsten des neuen Items
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
+
+		index = _backpackItems.IndexOf( item ); // Erneutes Ermitteln des Indexes, falls notwendig
+		if ( index != -1 )
+		{
+			_backpackItems.RemoveAt( index );
+		}
 
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
 		if ( weaponContainer != null )
 		{
-			// Hinzufügen des Items zum weaponContainer, nur wenn es neu ausgerüstet wird
 			weaponContainer.Give( item.GameObject, true );
 		}
 		else
 		{
-			// Behandlung, falls weaponContainer null ist
 			Log.Info( "WeaponContainer is null" );
 		}
 
