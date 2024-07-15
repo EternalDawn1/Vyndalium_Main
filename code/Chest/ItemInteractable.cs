@@ -86,7 +86,7 @@ public class ItemInteractable : BaseInteraction
 
     public void Highlight( bool shouldHighlight )
     {
-        if ( IsProxy )
+        if ( !IsProxy )
             return;
 
         var chestObject = this; // Direkte Nutzung des aktuellen Objekts
