@@ -39,6 +39,8 @@ public sealed class ViewModel : Component
 	private Player PlayerController => Weapon.Components.GetInAncestors<Player>();
 	private CameraComponent Camera { get; set; }
 	private WeaponComponent Weapon { get; set; }
+	private Rotation targetRotation; // Zielrotation, die erreicht werden soll
+	private float rotationDamping = 0.1f;
 
 	public void SetWeaponComponent( WeaponComponent weapon )
 	{
@@ -154,16 +156,18 @@ public sealed class ViewModel : Component
 
 		if ( PlayerController.IsAiming )
 		{
-			CurSmoothRotate = Rotation.From( 0, 0, 0 );
+			targetRotation = Rotation.Identity;
 		}
 		else
 		{
-			// Adjust the smoothing factor to reduce excessive trembling when turning
-			CurSmoothRotate = Rotation.From( Math.Clamp( CurY, -1.1f, 1.1f ), Math.Clamp( CurX, -1.1f, 1.5f ), 0 );
+			// Berechnen Sie die Zielrotation basierend auf den aktuellen Kamerabewegungen
+			targetRotation = Rotation.From( Math.Clamp( CurY, -1.1f, 1.1f ), Math.Clamp( CurX, -1.1f, 1.5f ), 0 );
 		}
 
-		CurRotation *= CurSmoothRotate;
+		// Anwenden der Dämpfung auf die Rotation, um eine sanfte Bewegung zu erreichen
+		CurRotation = Rotation.Slerp( CurRotation, CurRotation * targetRotation, Time.Delta * rotationDamping );
 
+		// Aktualisieren der letzten Kameraberechnung für den nächsten Durchlauf
 		LastCameraCalc = Rotation.Lerp( LastCameraCalc, curCameraCalc, Time.Delta * 30f );
 	}
 
