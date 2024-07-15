@@ -1,3 +1,5 @@
+using Sandbox.UI;
+
 namespace GeneralGame.HUD
 {
     [StyleSheet]
@@ -45,13 +47,15 @@ namespace GeneralGame.HUD
 
 		protected override void OnUpdate()
 		{
+			
 			if ( !isInitialized )
 			{
 				// Entfernen Sie die Initialisierung von itemStorage.IsOpened und IsVisible auf true
 				// und setzen Sie sie stattdessen auf false, wenn das Ihr gewünschtes Anfangsverhalten ist.
 				itemStorage.IsOpened = false;
 				IsVisible = false;
-				isInitialized = true; // Markieren Sie, dass die Initialisierung erfolgt ist
+				isInitialized = true;
+				// Markieren Sie, dass die Initialisierung erfolgt ist
 				StateHasChanged(); // Aktualisieren Sie die UI
 			}
 			else
@@ -62,6 +66,7 @@ namespace GeneralGame.HUD
 				{
 					ToggleVisibility(); // Aktualisiert IsVisible basierend auf dem Zustand von IsOpened
 					visibilityChanged = isOpened;
+					
 				}
 			}
 		}
@@ -123,7 +128,13 @@ namespace GeneralGame.HUD
 			IsVisible = false;
 			StateHasChanged(); // Aktualisiert die UI
 		}
-		
+		public void SetPanelVisibility( bool isVisible )
+		{
+			if ( Player.Local.BlockMovements )
+			{
+				return; // Frühzeitiger Rückkehr, um Bewegung zu verhindern
+			}
+		}
 
 	}
     
