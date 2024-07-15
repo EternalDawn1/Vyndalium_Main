@@ -256,6 +256,18 @@ public sealed class ViewModel : Component
 	{
 		ModelRenderer.Set( "b_jump", true );
 	}
+	private void ApplyRecoil()
+	{
+		// Beispielwerte für Rückstoßeffekte
+		float recoilAmount = 5.0f; // Stärke des Rückstoßes
+		float recoilRecoverySpeed = 1.5f; // Geschwindigkeit der Rückkehr
+
+		// Anwendung des Rückstoßes auf die Rotation
+		CurRotation *= Rotation.FromPitch( -recoilAmount );
+
+		// Glätten der Rückkehr zur ursprünglichen Rotation
+		CurRotation = Rotation.Slerp( CurRotation, Rotation.Identity, Time.Delta * recoilRecoverySpeed );
+	}
 
 
 }

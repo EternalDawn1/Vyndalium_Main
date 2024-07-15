@@ -2,8 +2,7 @@
 @namespace GeneralGame.HUD
 @attribute [StyleSheet]
 
-@if (Player.Local is null)
-	return;
+
 <root>
 	<SideButton title="Exit" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud)) IsInverted=@(true)

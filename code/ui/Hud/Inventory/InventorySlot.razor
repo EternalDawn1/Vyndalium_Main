@@ -6,8 +6,7 @@
 @using System.Linq
 @using Sandbox
 
-@if (Player.Local == null)
-	return;
+
 
 <root @onrightclick=@( () => OpenContextMenu() ) class="@CurrentDropTargetClassSelectors">
 	<div class="border" />
@@ -29,6 +28,7 @@
 </root>
 
 @code {
+	public bool IsProxy { get; set; } = false;
 	public enum SlotType
 	{
 		Backpack,
@@ -273,7 +273,7 @@
 	}
 
 
-
+	
 	private void OpenContextMenu()
 
 	{
