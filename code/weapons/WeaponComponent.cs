@@ -208,11 +208,11 @@ public class WeaponComponent : Component
 
 	private void DestroyViewModel()
 	{
-		if ( ViewModel != null && ViewModel.GameObject != null )
-		{
-			ViewModel.GameObject.Destroy();
-		}
-		ViewModel = null;
+		if (ViewModel != null && ViewModel.GameObject != null)
+    {
+        ViewModel.GameObject.Destroy();
+        ViewModel = null;
+    }
 	}
 
 	public void CreateViewModel()

@@ -193,8 +193,8 @@ public partial class WeaponContainer : Component
 	public void ScrollThroughEquippedItems( int direction )
 	{
 		if ( !HasAny ) return;
-
-		var weapons = All.ToList();
+		EquipSlot[] slots = { EquipSlot.Hand, EquipSlot.Back };
+		var weapons = GetEquippedItems( slots );
 		if ( !weapons.Any() ) return;
 
 		var currentIndex = 0;

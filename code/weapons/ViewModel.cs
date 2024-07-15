@@ -36,7 +36,17 @@ public sealed class ViewModel : Component
 	public float PitchInertia { get; private set; }
 
 
-	private Player PlayerController => Weapon.Components.GetInAncestors<Player>();
+	private Player PlayerController
+	{
+		get
+		{
+			if ( Weapon == null || Weapon.Components == null )
+			{
+				return null;
+			}
+			return Weapon.Components.GetInAncestors<Player>();
+		}
+	}
 	private CameraComponent Camera { get; set; }
 	private WeaponComponent Weapon { get; set; }
 	private Rotation targetRotation; // Zielrotation, die erreicht werden soll
@@ -83,6 +93,11 @@ public sealed class ViewModel : Component
 		if ( PlayerController.IsValid() )
 		{
 			PlayerController.OnJump -= OnPlayerJumped;
+		}
+		if ( Weapon != null && Weapon.Components != null )
+		{
+			Weapon.Components.Get<ModelCollider>().Destroy();
+			Weapon.Components.Get<Rigidbody>().Destroy();
 		}
 
 		base.OnDestroy();
@@ -164,10 +179,10 @@ public sealed class ViewModel : Component
 			targetRotation = Rotation.From( Math.Clamp( CurY, -1.1f, 1.1f ), Math.Clamp( CurX, -1.1f, 1.5f ), 0 );
 		}
 
-		// Anwenden der Dämpfung auf die Rotation, um eine sanfte Bewegung zu erreichen
+		// Anwenden der Dï¿½mpfung auf die Rotation, um eine sanfte Bewegung zu erreichen
 		CurRotation = Rotation.Slerp( CurRotation, CurRotation * targetRotation, Time.Delta * rotationDamping );
 
-		// Aktualisieren der letzten Kameraberechnung für den nächsten Durchlauf
+		// Aktualisieren der letzten Kameraberechnung fï¿½r den nï¿½chsten Durchlauf
 		LastCameraCalc = Rotation.Lerp( LastCameraCalc, curCameraCalc, Time.Delta * 30f );
 	}
 
@@ -258,14 +273,14 @@ public sealed class ViewModel : Component
 	}
 	private void ApplyRecoil()
 	{
-		// Beispielwerte für Rückstoßeffekte
-		float recoilAmount = 5.0f; // Stärke des Rückstoßes
-		float recoilRecoverySpeed = 1.5f; // Geschwindigkeit der Rückkehr
+		// Beispielwerte fï¿½r Rï¿½ckstoï¿½effekte
+		float recoilAmount = 5.0f; // Stï¿½rke des Rï¿½ckstoï¿½es
+		float recoilRecoverySpeed = 1.5f; // Geschwindigkeit der Rï¿½ckkehr
 
-		// Anwendung des Rückstoßes auf die Rotation
+		// Anwendung des Rï¿½ckstoï¿½es auf die Rotation
 		CurRotation *= Rotation.FromPitch( -recoilAmount );
 
-		// Glätten der Rückkehr zur ursprünglichen Rotation
+		// Glï¿½tten der Rï¿½ckkehr zur ursprï¿½nglichen Rotation
 		CurRotation = Rotation.Slerp( CurRotation, Rotation.Identity, Time.Delta * recoilRecoverySpeed );
 	}
 

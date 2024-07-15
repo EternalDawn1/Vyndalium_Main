@@ -214,9 +214,9 @@
 			return false;
 		// Zusätzliche Prüfung, ob ein ViewModel vorhanden ist
 		// Diese Funktion muss entsprechend Ihrer Implementierung angepasst werden
-		var viewModelPresent = HasViewModel();
+		
 		// Anzeigen, wenn Interaktionen verfügbar sind oder ein ViewModel vorhanden ist
-		return interactionsAvailable || viewModelPresent;
+		return interactionsAvailable;
 	}
 
 	private bool IsAccessible(Interaction interaction)
@@ -228,13 +228,9 @@
 		if (playerHasWeaponEquipped && interaction.Accessibility.HasFlag(AccessibleFrom.Hands))
 			return true;
 
-		return HasViewModel();
+		return false;
 	}
-	private bool HasViewModel()
-	{
-		var viewModel = _targetObject?.Components.Get<ViewModel>();
-		return viewModel != null; // Korrigieren Sie dies, um mit der Deklaration übereinzustimmen.
-	}
+	
 	
 
 	private bool WithinRange(Interaction interaction)

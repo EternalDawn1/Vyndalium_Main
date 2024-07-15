@@ -249,6 +249,7 @@ public sealed class Inventory : Component
 
 	public bool UnequipItem( ItemComponent item )
 	{
+		
 
 		if ( item is not ItemEquipment equipment )
 			return false;
@@ -268,6 +269,7 @@ public sealed class Inventory : Component
 
 
 		}
+
 
 
 
@@ -684,6 +686,7 @@ public sealed class Inventory : Component
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
 		if ( weaponContainer != null )
 		{
+			var equippedItems = weaponContainer.GetEquippedItems( new EquipSlot[] { EquipSlot.Hand, EquipSlot.Back } );
 			var equipped = weaponContainer.Equipped;
 			if ( equipped != null )
 			{
