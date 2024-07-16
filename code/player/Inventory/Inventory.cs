@@ -214,10 +214,7 @@ public sealed class Inventory : Component
 		{
 			weaponContainer.Give( item.GameObject, true );
 		}
-		else
-		{
-			Log.Info( "WeaponContainer is null" );
-		}
+		
 
 		return true;
 	}
@@ -269,7 +266,7 @@ public sealed class Inventory : Component
 		{
 			if ( item == null )
 			{
-				Log.Error( "Versuch, ein null ItemComponent zu unequipen." );
+				
 				return false;
 			}
 			var slotIndex = (int)equipment.Slot;

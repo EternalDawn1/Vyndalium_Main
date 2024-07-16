@@ -158,10 +158,10 @@ public partial class WeaponContainer : Component
 	}
 	public void RemoveWeapon( GameObject prefab, bool shouldDeploy = false )
 	{
-		Log.Info("RemoveWeapon");
+		
 		if ( prefab != null )
 		{
-			Log.Info("Equipped != null && Equipped.GameObject == prefab");
+			
 			ClearWeaponBone();
 
 			// Zerstöre alle Komponenten der Waffe, die nicht mehr benötigt werden
@@ -178,7 +178,7 @@ public partial class WeaponContainer : Component
 
 			// Setze Equipped auf null
 			prefab = null;
-			Log.Info( "Waffe wurde entfernt und alle Komponenten zerstört." );
+			
 
 			// Aktualisiere Deployed, falls notwendig
 			if ( shouldDeploy && Deployed != null )
