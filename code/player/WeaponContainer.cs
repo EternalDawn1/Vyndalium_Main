@@ -57,10 +57,17 @@ public partial class WeaponContainer : Component
 
 	public void Give( GameObject prefab, bool shouldDeploy = false )
 	{
+		if ( prefab == null )
+		{
+			Log.Error( "GameObject prefab ist null." );
+			return;
+		}  
 		if ( IsProxy ) return;
 
 		{
 			if ( IsProxy || prefab == null ) return;
+
+			
 
 			// Stellen Sie sicher, dass WeaponBone nicht null ist, bevor Sie fortfahren
 			if ( WeaponBone == null )
@@ -84,20 +91,14 @@ public partial class WeaponContainer : Component
 			{
 				modelCollider.Destroy();
 			}
-			else
-			{
-				Log.Error( "ModelCollider is null in WeaponContainer.Give" );
-			}
+			
 
 			var rigidBody = weaponGo.Components.Get<Rigidbody>();
 			if ( rigidBody != null )
 			{
 				rigidBody.Destroy();
 			}
-			else
-			{
-				Log.Error( "RigidBody is null in WeaponContainer.Give" );
-			}
+			
 
 			// Holen Sie sich die WeaponComponent vom geklonten Objekt
 			var weapon = weaponGo.Components.GetInDescendantsOrSelf<WeaponComponent>( true );
@@ -105,7 +106,7 @@ public partial class WeaponContainer : Component
 
 			if ( weapon != null && weapon.IsValid() )
 			{
-				Log.Info( "Weapon is not null and valid in WeaponContainer.Give" );
+				
 				if ( shouldDeploy )
 				{
 					foreach ( var w in All )
@@ -149,12 +150,53 @@ public partial class WeaponContainer : Component
 
 
 			weaponGo.NetworkSpawn();
-			weaponGo.Components.Get<ModelCollider>().Destroy();
-			weaponGo.Components.Get<Rigidbody>().Destroy();
+			//weaponGo.Components.Get<ModelCollider>().Destroy();
+			//weaponGo.Components.Get<Rigidbody>().Destroy();
 
 
 		}
 	}
+	public void RemoveWeapon( GameObject prefab, bool shouldDeploy = false )
+	{
+		Log.Info("RemoveWeapon");
+		if ( prefab != null )
+		{
+			Log.Info("Equipped != null && Equipped.GameObject == prefab");
+			ClearWeaponBone();
+
+			// Zerstöre alle Komponenten der Waffe, die nicht mehr benötigt werden
+			var modelCollider = prefab.Components.Get<ModelCollider>();
+			if ( modelCollider != null )
+			{
+				modelCollider.Destroy();
+			}
+
+			var rigidBody = prefab.Components.Get<Rigidbody>();
+			if ( rigidBody != null )
+			{
+				rigidBody.Destroy();
+			}
+			var viewModel = prefab.Components.Get<ViewModel>();
+			if ( viewModel != null )
+			{
+				viewModel.Destroy();
+			} 
+
+			// Setze alle relevanten Zustände zurück
+			// (Beispiel: Munitionszustand zurücksetzen könnte hier implementiert werden, falls erforderlich)
+
+			// Setze Equipped auf null
+			prefab = null;
+			Log.Info( "Waffe wurde entfernt und alle Komponenten zerstört." );
+
+			// Aktualisiere Deployed, falls notwendig
+			if ( shouldDeploy && Deployed != null )
+			{
+				// Implementiere Logik zum Aktualisieren von Deployed hier, falls erforderlich
+			}
+		}
+	}
+	
 	private void ClearWeaponBone()
 	{
 		if ( WeaponBone == null )
@@ -168,16 +210,7 @@ public partial class WeaponContainer : Component
 			child.Destroy();
 		}
 	}
-	public List<WeaponComponent> GetInitializedEquippedWeapons()
-	{
-		// Erhalten Sie alle ausgerüsteten Waffen von dieser Instanz
-		var equippedWeapons = this.GetEquippedItems( EquipSlot.Hand );
-
-		// Filtern Sie die Liste, um nur initialisierte Waffen zu behalten
-		var initializedEquippedWeapons = equippedWeapons.Where( weapon => weapon.IsInitialized ).ToList();
-
-		return initializedEquippedWeapons;
-	}
+	
 
 
 

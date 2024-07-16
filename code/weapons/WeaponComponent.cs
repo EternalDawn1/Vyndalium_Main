@@ -119,6 +119,13 @@ public class WeaponComponent : Component
 
 
 	}
+	public readonly WeaponContainer weaponcontainer;
+	[Broadcast]
+	public virtual void RemoveWeaponComponents(ItemComponent item)
+	{
+		weaponcontainer.RemoveWeapon( item.GameObject, true );
+	}
+
 
 	public virtual void PrimaryAction()
 	{
@@ -206,7 +213,7 @@ public class WeaponComponent : Component
 		DestroyViewModel();
 	}
 
-	private void DestroyViewModel()
+	public void DestroyViewModel()
 	{
 		if (ViewModel != null && ViewModel.GameObject != null)
     {

@@ -60,18 +60,18 @@
 
 	private void ToggleEquip(ItemEquipment equipment)
 	{
+		if (equipment == null)
+		{
+			Log.Error("Versuch, ein null ItemEquipment zu togglen.");
+			return;
+		}
 
 		if (equipment.Equipped)
-			Player.Local.Inventory.UnequipItem(equipment);
-
+			Player.Local.Inventory?.UnequipItem(equipment);
 		else
-			Player.Local.Inventory.EquipItemFromBackpack(equipment);
-
-
+			Player.Local.Inventory?.EquipItemFromBackpack(equipment);
 
 		Inventory.Instance?.OnChanged();
-
-
 	}
 
 	public override void Tick()

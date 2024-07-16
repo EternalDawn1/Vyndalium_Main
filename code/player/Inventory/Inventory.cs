@@ -171,6 +171,11 @@ public sealed class Inventory : Component
 	}
 	public bool EquipItemFromBackpack( ItemComponent item )
 	{
+		if ( item == null )
+		{
+			Log.Error( "ItemComponent ist null." );
+			return false;
+		}
 		var index = _backpackItems.IndexOf( item );
 		if ( index == -1 )
 			return false;
@@ -193,6 +198,7 @@ public sealed class Inventory : Component
 			GiveBackpackItem( previouslyEquippedItem, index ); // Angenommen, der Index ist hier relevant
 			previouslyEquippedItem.State = ItemState.Backpack;
 		}
+		
 
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
@@ -242,54 +248,53 @@ public sealed class Inventory : Component
 		equipment.State = ItemState.Equipped;
 		TaskMaster.SubmitTriggerSignal( $"item.received.{item.Name}", Player );
 
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
+		if ( weaponContainer != null )
+		{
+			weaponContainer.Give( item.GameObject, true );
+		}
+		else
+		{
+			Log.Info( "WeaponContainer is null" );
+		}
 
 		return true;
 	}
 	public WeaponContainer Weapons { get; set; }
 
+
 	public bool UnequipItem( ItemComponent item )
 	{
-		
-
-		if ( item is not ItemEquipment equipment )
-			return false;
-
-		var slotIndex = (int)equipment.Slot;
-		var equippedItem = _equippedItems[slotIndex];
-		if ( equippedItem != item ) // Check if the item is the one equipped
-			return false;
-
-		var firstFreeSlot = _backpackItems.IndexOf( null );
-		if ( firstFreeSlot == -1 )
-			return false;
-
-		if ( Weapons != null && Weapons.Deployed != null )
+		if ( item is ItemEquipment equipment && equipment.Equipped )
 		{
-			Weapons.Deployed.Holster();
-
-
-		}
-
-
-
-
-		RemoveEquipmentItem( equipment );
-		GiveBackpackItem( equipment, firstFreeSlot );
-		equipment.State = ItemState.Backpack;
-		TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
-
-		var weaponContainer = Player.Components.Get<WeaponContainer>();
-		if ( weaponContainer != null )
-		{
-			var weapon = weaponContainer.All.FirstOrDefault( w => w.GameObject == item.GameObject );
-			if ( weapon != null )
+			if ( item == null )
 			{
-				weapon.Holster();
-
+				Log.Error( "Versuch, ein null ItemComponent zu unequipen." );
+				return false;
 			}
+			var slotIndex = (int)equipment.Slot;
+			var equippedItem = _equippedItems[slotIndex];
+			if ( equippedItem != item ) // Check if the item is the one equipped
+				return false;
+
+			var firstFreeSlot = _backpackItems.IndexOf( null );
+			if ( firstFreeSlot == -1 )
+				return false;
+
+			
+			RemoveEquipmentItem( equipment );
+			GiveBackpackItem( equipment, firstFreeSlot );
+			equipment.State = ItemState.Backpack;
+			TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
+
+			var weaponContainer = Player.Components.Get<WeaponContainer>();
+			if ( weaponContainer != null )
+			{
+				weaponContainer.RemoveWeapon( item.GameObject, false );
+				
+			}
+			
 		}
-
-
 		return true;
 	}
 

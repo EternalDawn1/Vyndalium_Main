@@ -44,7 +44,9 @@ public sealed class ViewModel : Component
 			{
 				return null;
 			}
+
 			return Weapon.Components.GetInAncestors<Player>();
+
 		}
 	}
 	private CameraComponent Camera { get; set; }
@@ -86,6 +88,7 @@ public sealed class ViewModel : Component
 
 	protected override void OnDestroy()
 	{
+		
 		if ( IsProxy )
 		{
 			return;
@@ -94,10 +97,19 @@ public sealed class ViewModel : Component
 		{
 			PlayerController.OnJump -= OnPlayerJumped;
 		}
-		if ( Weapon != null && Weapon.Components != null )
+		if ( Weapon != null && Weapon.Components != null || PlayerController != null )
 		{
-			Weapon.Components.Get<ModelCollider>().Destroy();
-			Weapon.Components.Get<Rigidbody>().Destroy();
+			var modelCollider = Weapon.Components.Get<ModelCollider>();
+			if ( modelCollider != null ) // Überprüfen, ob modelCollider nicht null ist
+			{
+				modelCollider.Destroy();
+			}
+
+			var rigidBody = Weapon.Components.Get<Rigidbody>();
+			if ( rigidBody != null ) // Überprüfen, ob rigidBody nicht null ist
+			{
+				rigidBody.Destroy();
+			}
 		}
 
 		base.OnDestroy();

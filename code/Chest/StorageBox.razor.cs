@@ -8,7 +8,7 @@ namespace GeneralGame.HUD
 		public static bool IsVisible { get; set; }
        
         private  ItemStorage itemStorage;
-		private InventorySlot inventorySlots;
+		
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;
 
