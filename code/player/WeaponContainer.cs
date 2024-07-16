@@ -166,21 +166,12 @@ public partial class WeaponContainer : Component
 
 			// Zerstöre alle Komponenten der Waffe, die nicht mehr benötigt werden
 			var modelCollider = prefab.Components.Get<ModelCollider>();
-			if ( modelCollider != null )
-			{
-				modelCollider.Destroy();
-			}
+			modelCollider?.Destroy();
 
 			var rigidBody = prefab.Components.Get<Rigidbody>();
-			if ( rigidBody != null )
-			{
-				rigidBody.Destroy();
-			}
+			rigidBody?.Destroy();
 			var viewModel = prefab.Components.Get<ViewModel>();
-			if ( viewModel != null )
-			{
-				viewModel.Destroy();
-			} 
+			viewModel?.Destroy(); 
 
 			// Setze alle relevanten Zustände zurück
 			// (Beispiel: Munitionszustand zurücksetzen könnte hier implementiert werden, falls erforderlich)

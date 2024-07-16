@@ -86,34 +86,7 @@ public sealed class ViewModel : Component
 		ModelRenderer.Set( "b_run", true );
 	}
 
-	protected override void OnDestroy()
-	{
-		
-		if ( IsProxy )
-		{
-			return;
-		}
-		if ( PlayerController.IsValid() )
-		{
-			PlayerController.OnJump -= OnPlayerJumped;
-		}
-		if ( Weapon != null && Weapon.Components != null || PlayerController != null )
-		{
-			var modelCollider = Weapon.Components.Get<ModelCollider>();
-			if ( modelCollider != null ) // Überprüfen, ob modelCollider nicht null ist
-			{
-				modelCollider.Destroy();
-			}
-
-			var rigidBody = Weapon.Components.Get<Rigidbody>();
-			if ( rigidBody != null ) // Überprüfen, ob rigidBody nicht null ist
-			{
-				rigidBody.Destroy();
-			}
-		}
-
-		base.OnDestroy();
-	}
+	
 
 	protected override void OnAwake()
 	{
