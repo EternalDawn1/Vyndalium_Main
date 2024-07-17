@@ -136,10 +136,9 @@ public partial class WeaponContainer : Component
 			var nextWeponGo = weaponGo.Components.GetInDescendantsOrSelf<BaseGun>( true );
 			if ( nextWeponGo.IsValid() )
 			{
-
 				nextWeponGo.AmmoInClip = nextWeponGo.ClipSize;
 				nextWeponGo.IsDeployed = !Deployed.IsValid();
-				var player = Player.Local as Player;
+				var player = Player.Local;
 				var ammoToGive = player.Ammo.Get( nextWeponGo.AmmoType );
 				if ( ammoToGive > 0 )
 				{
@@ -150,8 +149,7 @@ public partial class WeaponContainer : Component
 
 
 			weaponGo.NetworkSpawn();
-			//weaponGo.Components.Get<ModelCollider>().Destroy();
-			//weaponGo.Components.Get<Rigidbody>().Destroy();
+			
 
 
 		}

@@ -25,7 +25,7 @@ public class WeaponComponent : Component
 	[Property] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.Pistol;
 	[Property] public SoundEvent DeploySound { get; set; }
 	[Property] public SoundEvent HolsterSound { get; set; }
-	[Property] public bool IsDeployed { get; set; }
+	[Property] public bool IsDeployed { get; set; } = false;
 	[Property] public Vector3 IdlePos { get; set; }
 	[Property] public Vector3 AimPos { get; set; }
 	[Property] public Rotation AimRotation { get; set; }
@@ -70,10 +70,7 @@ public class WeaponComponent : Component
 		base.OnAwake();
 	}
 
-	protected override void OnUpdate()
-	{
-		base.OnUpdate();
-	}
+	
 
 	protected override void OnDestroy()
 	{
