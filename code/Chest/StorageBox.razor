@@ -11,7 +11,7 @@ return;
         <div class="Panel">
 			<div class="section2">
 
-				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
+				<div class="items2 @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
 					@for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
 					{
 						var item = Player.Local.Inventory.BackpackItems[index];

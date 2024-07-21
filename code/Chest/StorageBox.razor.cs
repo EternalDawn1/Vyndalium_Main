@@ -11,7 +11,7 @@ namespace GeneralGame.HUD
 		
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;
-		
+		private static bool IsDragging { get;  set; }
 
 		public StorageBox()
 		{

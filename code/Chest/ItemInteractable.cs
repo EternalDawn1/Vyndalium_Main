@@ -8,18 +8,18 @@ public class ItemInteractable : BaseInteraction
 {
 
 	public ItemStorage Storage { get; private set; }
-  
    
+
 
     protected override void OnAwake()
     {
         base.OnAwake();
-        OnOpen += HandleOpen; // Ereignisabonnent hinzufügen
-        OnClose += HandleClose;
+        
 		
 
 
 	}
+    
     
     
     
@@ -69,55 +69,12 @@ public class ItemInteractable : BaseInteraction
        
 
     }
+    
 
 
 
-    private void HandleOpen()
-    {
-        // Logik für das Öffnen der Truhe, z.B. visuelles Feedback
-        Highlight( true );
-    }
 
-    private void HandleClose()
-    {
-        // Logik für das Schließen der Truhe, z.B. visuelles Feedback entfernen
-        Highlight( false );
-    }
-
-    public void Highlight( bool shouldHighlight )
-    {
-        if ( !IsProxy )
-            return;
-
-        var chestObject = this; // Direkte Nutzung des aktuellen Objekts
-        var outline = chestObject.GameObject.Components.Get<HighlightOutline>();
-
-        // Überprüfen, ob der aktuelle Highlight-Zustand sich vom gewünschten Zustand unterscheidet
-        bool isCurrentlyHighlighted = outline != null;
-        if ( shouldHighlight == isCurrentlyHighlighted )
-        {
-            // Keine Änderung notwendig, da der gewünschte Zustand bereits erreicht ist
-            return;
-        }
-
-        if ( shouldHighlight )
-        {
-            if ( outline == null )
-            {
-                outline = chestObject.GameObject.Components.Create<HighlightOutline>();
-                outline.Color = Color.Red;
-                outline.Width = 0.5f;
-                outline.ObscuredColor = Color.Red;
-            }
-        }
-        else
-        {
-            if ( outline != null )
-            {
-                outline.Destroy();
-            }
-        }
-    }
+   
 
 
 

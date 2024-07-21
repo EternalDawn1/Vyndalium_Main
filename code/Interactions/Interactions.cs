@@ -193,6 +193,8 @@ public class Interaction
 	}
 }
 
+
+
 public class Interactions : Component
 {
 	public float InteractDistance { get; set; } = 125f;
@@ -201,7 +203,7 @@ public class Interactions : Component
 
 	[Property]
 	public bool HideOnEmpty { get; set; } = false;
-
+	
 	public IEnumerable<Interaction> AllInteractions => ObjectInteractions.Concat( programmedInteractions ?? new List<Interaction>() );
 
 	private List<Interaction> programmedInteractions;
@@ -269,7 +271,20 @@ public class Interactions : Component
 			}
 		}
 	}
-
+	private Color GetColorBasedOnTier( Tier tier )
+	{
+		return tier switch
+		{
+			Tier.C => Color.Gray,
+			Tier.B => Color.Blue,
+			Tier.A => Color.Green,
+			Tier.S => Color.Red,
+			Tier.SS => Color.Magenta, // Orange
+			Tier.SSS => Color.Yellow,
+			_ => Color.White, // Standardfarbe, falls keine Übereinstimmung gefunden wird
+		};
+	}
+	public Tier Tier { get; set; }
 	public void Highlight( bool shouldHighlight )
 	{
 		if ( IsProxy )
@@ -296,14 +311,18 @@ public class Interactions : Component
 			{
 				outline = chestObject.GameObject.Components.Create<HighlightOutline>();
 			}
+			var itemInteractable = chestObject.GameObject.Components.Get<ItemInteractable>();
+			// Annahme: chestObject hat eine Eigenschaft Tier, die den Tier-Typ angibt
+			Color tierColor = GetColorBasedOnTier( itemInteractable.Tier );
+
 			// Setzen oder Aktualisieren der Eigenschaften des Outline-Objekts
-			outline.Color = Color.Yellow;
-			outline.Width = 1.5f;
-			outline.ObscuredColor = Color.Yellow;
+			outline.Color = tierColor;
+			outline.Width = 0.8f;
+			outline.ObscuredColor = tierColor; // Oder eine andere Logik für ObscuredColor, falls gewünscht
 		}
 		else
 		{
-			if ( outline != null && shouldHighlight == false)
+			if ( outline != null && shouldHighlight == false )
 			{
 				outline.Destroy();
 			}
