@@ -731,9 +731,9 @@
               "__guid": "ed15e33d-30c2-4565-839b-f49e4bf6e3c6",
               "FogMode": "Enabled",
               "FogStrength": 1,
-              "LightColor": "0,0,0,1",
+              "LightColor": "4.06,4.06,4.06,1",
               "Shadows": true,
-              "SkyColor": "0.4093,0.3065,0.3065,1"
+              "SkyColor": "1,1,1,1"
             }
           ]
         },
@@ -766,7 +766,7 @@
           "__guid": "d784c8aa-d5da-482f-8d06-c2abe071758a",
           "Flags": 0,
           "Name": "spawnpoint",
-          "Position": "1591.723,-668.002,-3172.833",
+          "Position": "3521.999,3406.889,-2648.969",
           "Rotation": "0,0,0.9914448,0.1305264",
           "Enabled": true,
           "Components": [
@@ -785,6 +785,28 @@
           "Enabled": true,
           "__Prefab": "prefabs/weapons/pm/mp5.prefab",
           "__PrefabVariables": {}
+        },
+        {
+          "__guid": "0c180452-ed47-4127-83c8-c88fd177d574",
+          "Flags": 0,
+          "Name": "HUD",
+          "Position": "-2277.891,-4061.719,-21.7404",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ScreenPanel",
+              "__guid": "9ae2a2f7-37ae-4803-a22a-6b2da95d461f",
+              "AutoScreenScale": true,
+              "Opacity": 1,
+              "Scale": 1,
+              "ZIndex": 100
+            },
+            {
+              "__type": "GeneralGame.HUD.Hudmaster",
+              "__guid": "eaf1d173-ea85-48ef-8007-6c280109ddb0"
+            }
+          ]
         }
       ]
     },
@@ -1272,7 +1294,49 @@
           "__guid": "a4a787bc-3953-49c5-9e14-c2a052f9cff9",
           "IsItem": false,
           "isLocked": false,
-          "isOpen": false
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "WeightInGrams": 0
         }
       ]
     },
@@ -1305,7 +1369,7 @@
           "BonusEXP": 0,
           "BonusScore": 0,
           "BonusVyndalium": 0,
-          "Count": 1,
+          "Count": 50,
           "Cover": 0,
           "CritHitChance": 0,
           "CritHitDamage": 0,
@@ -1378,7 +1442,7 @@
           "BonusEXP": 0,
           "BonusScore": 0,
           "BonusVyndalium": 0,
-          "Count": 1,
+          "Count": 50,
           "Cover": 0,
           "CritHitChance": 0,
           "CritHitDamage": 0,
@@ -1451,7 +1515,7 @@
           "BonusEXP": 0,
           "BonusScore": 0,
           "BonusVyndalium": 0,
-          "Count": 1,
+          "Count": 50,
           "Cover": 0,
           "CritHitChance": 0,
           "CritHitDamage": 0,
@@ -1524,7 +1588,7 @@
           "BonusEXP": 0,
           "BonusScore": 0,
           "BonusVyndalium": 0,
-          "Count": 1,
+          "Count": 50,
           "Cover": 0,
           "CritHitChance": 0,
           "CritHitDamage": 0,
@@ -1565,6 +1629,31 @@
           "Tenacity": 0,
           "Tier": "C",
           "WeightInGrams": 1
+        }
+      ]
+    },
+    {
+      "__guid": "914a9094-fda2-497b-8932-ce55f4231f91",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "0,-0.000003236242,166.1423",
+      "Rotation": "-0.7071067,0,0,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "SpriteTools.SpriteComponent",
+          "__guid": "02379979-7519-4e0f-97d5-4a5dead48d3f",
+          "__version": 1,
+          "BroadcastEvents": {},
+          "CastShadows": "On",
+          "CreateAttachPoints": false,
+          "FlashTint": "1,1,1,0",
+          "PlaybackSpeed": 1.5000001,
+          "Sprite": "sprite/untitled.sprite",
+          "SpriteFlags": "None",
+          "StartingAnimationName": "animation_01",
+          "Tint": "1000,1000,1000,1",
+          "UpDirection": "YPositive"
         }
       ]
     }

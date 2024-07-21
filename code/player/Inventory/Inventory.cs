@@ -290,6 +290,7 @@ public sealed class Inventory : Component
 				weaponContainer.RemoveWeapon( item.GameObject, false );
 				
 			}
+
 			
 		}
 		return true;

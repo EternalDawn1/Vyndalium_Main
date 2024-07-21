@@ -11,6 +11,7 @@ namespace GeneralGame.HUD
 		
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;
+		
 
 		public StorageBox()
 		{

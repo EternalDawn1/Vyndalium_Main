@@ -297,9 +297,9 @@ public class Interactions : Component
 				outline = chestObject.GameObject.Components.Create<HighlightOutline>();
 			}
 			// Setzen oder Aktualisieren der Eigenschaften des Outline-Objekts
-			outline.Color = Color.White;
-			outline.Width = 0.5f;
-			outline.ObscuredColor = Color.White;
+			outline.Color = Color.Yellow;
+			outline.Width = 1.5f;
+			outline.ObscuredColor = Color.Yellow;
 		}
 		else
 		{

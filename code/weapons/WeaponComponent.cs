@@ -235,6 +235,7 @@ public class WeaponComponent : Component
 		if ( playerDresser != null )
 		{
 			playerDresser.RemoveClothing();
+			playerDresser.Destroy();
 		}
 
 		var viewModelGameObject = ViewModelPrefab.Clone();

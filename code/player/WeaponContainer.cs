@@ -98,7 +98,13 @@ public partial class WeaponContainer : Component
 			{
 				rigidBody.Destroy();
 			}
-			
+			var dress = weaponGo.Components.Get<PlayerDresser>();
+			if ( dress != null )
+			{
+				dress.RemoveClothing();
+			}
+
+
 
 			// Holen Sie sich die WeaponComponent vom geklonten Objekt
 			var weapon = weaponGo.Components.GetInDescendantsOrSelf<WeaponComponent>( true );

@@ -105,9 +105,9 @@ public class ItemInteractable : BaseInteraction
             if ( outline == null )
             {
                 outline = chestObject.GameObject.Components.Create<HighlightOutline>();
-                outline.Color = Color.White;
+                outline.Color = Color.Red;
                 outline.Width = 0.5f;
-                outline.ObscuredColor = Color.White;
+                outline.ObscuredColor = Color.Red;
             }
         }
         else

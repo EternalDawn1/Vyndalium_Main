@@ -396,7 +396,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 	/// <param name="network"></param>
 	public static void SubmitTriggerSignal( string signalIdentifier, Player triggerer, bool network = true )
 	{
-		Log.Info( signalIdentifier );
+		
 		if ( signalIdentifier == null || signalIdentifier == "" || signalIdentifier == String.Empty || signalIdentifier == "null" ) return;
 
 
