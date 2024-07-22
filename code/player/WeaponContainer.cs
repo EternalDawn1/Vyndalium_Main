@@ -86,23 +86,7 @@ public partial class WeaponContainer : Component
 			weaponGo.Transform.Rotation = WeaponBone.Transform.Rotation;
 
 			// Entfernen Sie unnötige Komponenten vom geklonten Objekt
-			var modelCollider = weaponGo.Components.Get<ModelCollider>();
-			if ( modelCollider != null )
-			{
-				modelCollider.Destroy();
-			}
-			
-
-			var rigidBody = weaponGo.Components.Get<Rigidbody>();
-			if ( rigidBody != null )
-			{
-				rigidBody.Destroy();
-			}
-			var dress = weaponGo.Components.Get<PlayerDresser>();
-			if ( dress != null )
-			{
-				dress.RemoveClothing();
-			}
+			RemoveUnnecessaryComponents( weaponGo );
 
 
 
@@ -139,18 +123,31 @@ public partial class WeaponContainer : Component
 			weaponGo.Transform.Position = WeaponBone.Transform.Position;
 			weaponGo.Transform.Rotation = WeaponBone.Transform.Rotation;
 
-			var nextWeponGo = weaponGo.Components.GetInDescendantsOrSelf<BaseGun>( true );
-			if ( nextWeponGo.IsValid() )
+			var nextWeaponGo = weaponGo.Components.GetInDescendantsOrSelf<BaseGun>( true );
+			if ( nextWeaponGo.IsValid() )
 			{
-				nextWeponGo.AmmoInClip = nextWeponGo.ClipSize;
-				nextWeponGo.IsDeployed = !Deployed.IsValid();
 				var player = Player.Local;
-				var ammoToGive = player.Ammo.Get( nextWeponGo.AmmoType );
+				// Überprüfe, ob im globalen AmmoContainer des Spielers Munition für den Typ vorhanden ist
+				var ammoToGive = player.Ammo.Get( nextWeaponGo.AmmoType );
 				if ( ammoToGive > 0 )
 				{
-					player.Ammo.TryTake( nextWeponGo.AmmoType, ammoToGive, out var taken );
-					nextWeponGo.DefaultAmmo = Math.Min( nextWeponGo.DefaultAmmo + taken, nextWeponGo.MaxAmmo );
+					// Berechne, wie viel Munition der Waffe hinzugefügt werden kann
+					var ammoToAdd = Math.Min( ammoToGive, nextWeaponGo.MaxAmmo - nextWeaponGo.DefaultAmmo );
+					// Überprüfe, ob die Waffe bereits Munition hat
+					if ( nextWeaponGo.DefaultAmmo < nextWeaponGo.MaxAmmo )
+					{
+						// Füge die berechnete Munition der Waffe hinzu
+						nextWeaponGo.DefaultAmmo += ammoToAdd;
+						// Entferne die hinzugefügte Munition aus dem globalen AmmoContainer
+						player.Ammo.TryTake( nextWeaponGo.AmmoType, ammoToAdd, out var taken );
+					}
 				}
+				// Setze die Munition im Magazin auf die maximale Größe, falls notwendig
+				if ( nextWeaponGo.AmmoInClip < nextWeaponGo.ClipSize )
+				{
+					nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;
+				}
+				nextWeaponGo.IsDeployed = !Deployed.IsValid();
 			}
 
 
@@ -158,6 +155,26 @@ public partial class WeaponContainer : Component
 			
 
 
+		}
+	}
+	private void RemoveUnnecessaryComponents( GameObject weaponGo )
+	{
+		var modelCollider = weaponGo.Components.Get<ModelCollider>();
+		if ( modelCollider != null )
+		{
+			modelCollider.Destroy();
+		}
+
+		var rigidBody = weaponGo.Components.Get<Rigidbody>();
+		if ( rigidBody != null )
+		{
+			rigidBody.Destroy();
+		}
+
+		var dress = weaponGo.Components.Get<PlayerDresser>();
+		if ( dress != null )
+		{
+			dress.RemoveClothing();
 		}
 	}
 	public void RemoveWeapon( GameObject prefab, bool shouldDeploy = false )

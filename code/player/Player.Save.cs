@@ -9,6 +9,7 @@ public struct ItemSave
 	[JsonInclude] public int Index;
 }
 
+
 public struct PlayerSave
 {
 	public const string FILE_PATH = "viwis.json";
@@ -16,7 +17,8 @@ public struct PlayerSave
 	[JsonInclude] public string Firstname;
 	[JsonInclude] public string Lastname;
 	[JsonInclude] public string AuthToken {get ; set;}
-
+	[JsonInclude] public AmmoContainer AmmoContainerData;
+	[JsonInclude] public int AmmoCount;
 	[JsonInclude] public int Vyndalium;
 	[JsonInclude] public int Experience;
 	[JsonInclude] public int Level;
@@ -63,6 +65,7 @@ public struct PlayerSave
 
 }
 
+
 public class ValidateAuthTokenResponse
 {
     public long SteamId { get; set; }
@@ -75,13 +78,15 @@ public class TargetSaveAttribute : Attribute
 	public object IgnoreIf { get; set; }
 }
 
+
 partial class Player
 {
+	public AmmoContainer AmmoContainerData { get; set; }
 	private static readonly JsonSerializerOptions options = new JsonSerializerOptions()
 	{
 		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 	};
-
+	
 	private static PlayerSave? _saveData;
 
 	/// <summary>
@@ -115,7 +120,7 @@ partial class Player
 	public static void Save( Player player = null )
 	{
 		player ??= Local;
-
+		
 		// Get the data that sticks.
 		var data = GetSave();
 		var save = data.Has
@@ -126,7 +131,7 @@ partial class Player
 			};
 
 		var items = PrefabLibrary.FindByComponent<ItemComponent>();
-
+		
 		// Save dynamic data.
 		ItemSave Serialize( ItemComponent item )
 		{
@@ -170,9 +175,10 @@ partial class Player
 				Index = player.Inventory.IndexOf( item )
 			};
 		}
-
+		
 		_saveData = save with
 		{
+			
 			Vyndalium = (int)player.Vyndalium,
 			Experience = (int)player.Experience,
 			Level = (int)player.Level,
@@ -208,6 +214,7 @@ partial class Player
 			DEX = (int)player.DEX,
 			PER = (int)player.PER,
 			
+			
 			Clothes = player.Inventory.EquippedItems
 			
 			
@@ -220,9 +227,11 @@ partial class Player
 				.ToArray(),
 			
 		};
-
+		Log.Info( $"Speichere Daten: {_saveData.Value}" );
+		save.AmmoContainerData = player.AmmoContainer;
 		// Write save.
 		WriteSave( _saveData.Value );
+		Log.Info( "Spielerdaten erfolgreich gespeichert." );
 	}
 
 	[ConCmd("newgame_save")]
@@ -246,6 +255,31 @@ partial class Player
 
 		// Setup basic player information.
 		var save = tuple.Save;
+		// Stellen Sie sicher, dass save.AmmoContainerData initialisiert wurde
+		if ( save.AmmoContainerData == null )
+		{
+			Log.Error( "save.AmmoContainerData ist null. Initialisierung erforderlich." );
+			// Initialisieren Sie save.AmmoContainerData mit einem Standardwert oder einem neuen Objekt
+			 // Beispiel für eine Initialisierung
+		}
+
+		// Stellen Sie sicher, dass player.AmmoContainer initialisiert wurde
+		if ( player.AmmoContainer == null )
+		{
+			Log.Error( "player.AmmoContainer ist null. Initialisierung erforderlich." );
+			// Initialisieren Sie player.AmmoContainer oder brechen Sie den Vorgang ab
+			player.AmmoContainer = new AmmoContainer(); // Beispiel für eine Initialisierung
+		}
+
+		// Wenn beide nicht null sind, führen Sie die Zuweisung durch
+		if ( player.AmmoContainer != null && save.AmmoContainerData != null )
+		{
+			player.AmmoContainer = save.AmmoContainerData;
+		}
+		else
+		{
+			Log.Error( "Die Zuweisung von AmmoContainerData kann nicht durchgeführt werden, da eines der Objekte null ist." );
+		}
 
 		player.MaxHealth = save.MaxHealth;
 		player.MaxMana = save.MaxMana;

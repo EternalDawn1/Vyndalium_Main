@@ -50,32 +50,28 @@ public class BaseGun : WeaponComponent, IUse
 
 
 	public virtual void OnEquip( Player player )
-	{
-		// Stellen Sie sicher, dass der Spieler gültig ist
-		if ( player == null || !player.IsValid() )
-		{
-			return;
-		}
+    {
+		
+        // Stellen Sie sicher, dass der Spieler gültig ist
+        if ( player == null || !player.IsValid() || player.AmmoContainer == null )
+        {
+            return;
+        }
 
+        // Nehmen Sie Munition aus dem AmmoContainer des Spielers
+        var ammoToTake = Math.Min(ClipSize, player.AmmoContainer.GetAmmoCount(AmmoType));
+        AmmoInClip = ammoToTake;
+        player.AmmoContainer.RemoveAmmo(AmmoType, ammoToTake);
 
-		// Führen Sie alle notwendigen Initialisierungen für die Waffe durch
-		// Zum Beispiel könnten Sie hier die Munition der Waffe auf den maximalen Wert setzen
-		if ( player.AmmoReserve.ContainsKey( AmmoType ) )
-		{
-			var ammoToTake = Math.Min( ClipSize, player.AmmoReserve[AmmoType] );
-			AmmoInClip = ammoToTake;
-			player.AmmoReserve[AmmoType] -= ammoToTake;
-		}
+        // Setzen Sie den Status der Waffe auf "ausgerüstet"
+        IsEquipped = true;
 
-		// Setzen Sie den Status der Waffe auf "ausgerüstet"
-		IsEquipped = true;
+        // Rufen Sie die OnStart Methode auf, um alle Komponenten der Waffe zu initialisieren
+        OnStart();
 
-		// Rufen Sie die OnStart Methode auf, um alle Komponenten der Waffe zu initialisieren
-		OnStart();
-
-		// Rufen Sie die OnDeployed Methode auf, um die Waffe bereit zum Gebrauch zu machen
-		OnDeployed();
-	}
+        // Rufen Sie die OnDeployed Methode auf, um die Waffe bereit zum Gebrauch zu machen
+        OnDeployed();
+    }
 
 	public float CalculateDamageWithPlayerStats( Player player )
 	{

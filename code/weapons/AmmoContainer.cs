@@ -9,8 +9,26 @@ namespace GeneralGame;
 public sealed class AmmoContainer : Component
 {
 	private Dictionary<AmmoType, int> AmmoCount { get; set; } = new();
-	
-	
+	public int GetAmmoCount( AmmoType type )
+	{
+		return Get( type ); // Nutzt die vorhandene Get-Methode, um die Munitionsanzahl zurückzugeben
+	}
+	public void RemoveAmmo( AmmoType type, int amount )
+	{
+		if ( AmmoCount.ContainsKey( type ) && AmmoCount[type] >= amount )
+		{
+			AmmoCount[type] -= amount;
+			if ( AmmoCount[type] < 0 )
+			{
+				AmmoCount[type] = 0; // Stellen Sie sicher, dass der Munitionszähler nicht negativ wird
+			}
+		}
+		else
+		{
+			// Optional: Behandeln Sie den Fall, wenn nicht genug Munition vorhanden ist
+			// Dies könnte eine Warnung ausgeben oder einfach nichts tun
+		}
+	}
 
 	public void Give( AmmoType type, int ammo )
 	{

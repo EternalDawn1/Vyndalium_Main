@@ -363,7 +363,7 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnAwake()
 	{
-
+		AmmoContainer = new AmmoContainer();
 		Inventory = Components.Get<Inventory>( FindMode.EverythingInSelfAndDescendants );
 
 		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>();
