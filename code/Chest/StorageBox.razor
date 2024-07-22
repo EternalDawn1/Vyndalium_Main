@@ -22,7 +22,7 @@ return;
 			</div>
 
 			<div class="chest-inventory">
-				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
+				<div class="items @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
 					<div class="items">
 						@for (var index = 0; index < itemStorage.Items.Count; index++)
 						{

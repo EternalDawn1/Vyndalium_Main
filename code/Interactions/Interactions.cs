@@ -287,20 +287,16 @@ public class Interactions : Component
 	public Tier Tier { get; set; }
 	public void Highlight( bool shouldHighlight )
 	{
-		if ( IsProxy )
+		if ( IsProxy || GameObject == null || GameObject.Components == null )
 			return;
 
-		var chestObject = this; // Direkte Nutzung des aktuellen Objekts
-		var outline = chestObject.GameObject.Components.Get<HighlightOutline>();
+		var outline = GameObject.Components.Get<HighlightOutline>();
 
-		// Überprüfen, ob der aktuelle Highlight-Zustand sich vom gewünschten Zustand unterscheidet
 		bool isCurrentlyHighlighted = outline != null;
 		if ( shouldHighlight == isCurrentlyHighlighted )
 		{
-			// Zusätzliche Überprüfung, ob die Eigenschaften des Outline-Objekts bereits den gewünschten Werten entsprechen
 			if ( outline != null && outline.Color == Color.White && outline.Width == 0.5f && outline.ObscuredColor == Color.White )
 			{
-				// Keine Änderung notwendig, da der gewünschte Zustand bereits erreicht ist
 				return;
 			}
 		}
@@ -309,20 +305,23 @@ public class Interactions : Component
 		{
 			if ( outline == null )
 			{
-				outline = chestObject.GameObject.Components.Create<HighlightOutline>();
+				outline = GameObject.Components.Create<HighlightOutline>();
+				if ( outline == null ) // Überprüfen, ob die Erstellung erfolgreich war
+					return;
 			}
-			var itemInteractable = chestObject.GameObject.Components.Get<ItemInteractable>();
-			// Annahme: chestObject hat eine Eigenschaft Tier, die den Tier-Typ angibt
+			var itemInteractable = GameObject.Components.Get<ItemInteractable>();
+			if ( itemInteractable == null ) // Überprüfen, ob itemInteractable null ist
+				return;
+
 			Color tierColor = GetColorBasedOnTier( itemInteractable.Tier );
 
-			// Setzen oder Aktualisieren der Eigenschaften des Outline-Objekts
 			outline.Color = tierColor;
 			outline.Width = 0.8f;
-			outline.ObscuredColor = tierColor; // Oder eine andere Logik für ObscuredColor, falls gewünscht
+			outline.ObscuredColor = tierColor;
 		}
 		else
 		{
-			if ( outline != null && shouldHighlight == false )
+			if ( outline != null )
 			{
 				outline.Destroy();
 			}
