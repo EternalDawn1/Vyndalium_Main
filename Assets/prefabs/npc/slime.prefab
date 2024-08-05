@@ -6,7 +6,6 @@
     "Tags": "bad,npc",
     "Enabled": true,
     "NetworkMode": 1,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.NavMeshAgent",
@@ -190,8 +189,6 @@
         "Flags": 0,
         "Name": "body",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -234,28 +231,47 @@
         "Flags": 0,
         "Name": "eye",
         "Position": "0,0,64",
-        "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true
+        "Enabled": true
       },
       {
         "__guid": "b21b55ea-d194-4e85-8cce-d8aaedd6c3e6",
         "Flags": 0,
         "Name": "World",
-        "Position": "-1.323636,-0.5550555,84.45752",
+        "Position": "-1.323636,-0.5550555,59.80241",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.WorldPanel",
             "__guid": "b77cb686-8602-4283-a3ca-13c5bac690c3",
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
-            "LookAtCamera": false,
+            "LookAtCamera": true,
             "PanelSize": "512,512",
-            "RenderScale": 1,
+            "RenderScale": 4.5999985,
             "VerticalAlign": "Center"
+          },
+          {
+            "__type": "GeneralGame.HUD.UI",
+            "__guid": "5d96eacf-bf83-4a81-9221-df4b072fe8c6"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "fafa8664-5bda-45ef-8f78-4c5568f6dfc8",
+            "Flags": 0,
+            "Name": "Screen",
+            "Position": "2.794104,2.111025,-64.55153",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ScreenPanel",
+                "__guid": "7d5fb52f-b326-4bf3-b64b-2a38433b147a",
+                "AutoScreenScale": true,
+                "Opacity": 1,
+                "Scale": 1,
+                "ZIndex": 100
+              }
+            ]
           }
         ]
       }

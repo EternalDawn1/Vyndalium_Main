@@ -28,8 +28,9 @@ public enum WeightType
 public partial class Npc : Component, IHealthComponent
 {
 	[Property]
-	public string Name { get; set; } = "Default";
-
+	public string Name { get; set; }
+	
+	
 	[Property]
 	public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject ZombieRagedol { get; set; }
@@ -280,6 +281,7 @@ public partial class Npc : Component, IHealthComponent
 
 	protected override void OnAwake()
 	{
+		
 		var spawnTrace = Scene.Trace.Ray( Transform.Position + Vector3.Up * 30f, Transform.Position - Vector3.Up * 200f )
 			.Size( 5f )
 			.IgnoreGameObjectHierarchy( GameObject )
@@ -290,6 +292,7 @@ public partial class Npc : Component, IHealthComponent
 		agent = Components.Get<NavMeshAgent>();
 
 		SpawnPosition = spawnTrace.Hit ? spawnTrace.HitPosition : Transform.Position;
+
 
 		if ( MoveHelper != null )
 		{
