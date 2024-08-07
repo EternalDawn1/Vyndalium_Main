@@ -10,23 +10,13 @@
 @using GeneralGame
 
 <root>
-    <div class="npc">
-        <div class="npc-name">@npc.Name</div>
-        <div class="zombie-healthbar-container">
-            <div class="zombie-healthbar">
-                <div class="inner">
-                    <div class="fill" style="width: @(npc.Health/npc.MaxHealth * 100f)%"></div>
-                </div>
-            </div>
-            <p>@Math.Round(npc.Health) / @Math.Round(npc.MaxHealth)</p>
-        </div>
-    </div>
+    
 </root>
 
 
 @code
 {
-   private Npc npc { get; set; }
+  
   
 
     

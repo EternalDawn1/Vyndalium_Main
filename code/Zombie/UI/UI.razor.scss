@@ -1,10 +1,117 @@
-UI
-{
-    
+UI {
     position: absolute;
     width: 100%;
     height: 100%;
-    
-    
+
+    .npc-name{
+        position: absolute;
+        top: 100px;
+        left: 0;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .zombie-healthbar-container {
+        position: absolute;
         
+        width: 100%;
+        height: 15%;
+        bottom: 0%;
+        
+        border: 1px solid rgba(238, 238, 238, 0);
+        z-index: 0;
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+
+        .zombie-healthbar {
+            position: absolute;
+            background-color: rgba(0, 0, 255, 0);
+            
+            
+            width: 200px;
+            height: 32px;
+            bottom: 0px;
+            left: 7%;
+            background-blend-mode: multiply;
+            background-size: 100%;
+
+            padding: 5px;
+            border-radius: 100px;
+
+            .inner {
+                flex-grow: 10;
+                
+
+                .fill {
+                    
+                    background-color: rgb(255, 230, 0);
+                    height: 100%;
+                    border-right: 1px solid rgb(255, 255, 255);
+                    border-right-width: -11px;
+                    border: 4px rgba(0, 0, 0, 0.521);
+                    border-top-right-radius: -20px -50px;
+                    border-top-width: 3px;
+                    border-top-color: rgba(255, 255, 255, 0.219);
+                    border-bottom-right-radius: 50px;
+                    border-bottom-width: 1px;
+                    
+                    transition: width 1s ease-out;
+                }
+            }
+        }
+        .zombie-backbar {
+            position: absolute;
+            z-index: 0;
+            background-color: rgba(0, 0, 255, 0);
+            width: 200px;
+            height: 32px;
+            bottom: 0px;
+            left: 7%;
+            background-blend-mode: multiply;
+            background-size: 100%;
+            
+            padding: 5px;
+            border-radius: 100px;
+
+            .inner {
+                flex-grow: 10;
+                
+
+                .fill {
+                    
+                    background-color: rgb(255, 0, 0);
+                    height: 100%;
+                   
+                    border-right: 1px solid rgb(255, 255, 255);
+                    border-right-width: -11px;
+                    border: 4px rgba(0, 0, 0, 0.521);
+                    border-top-right-radius: -20px -50px;
+                    border-top-width: 3px;
+                    border-top-color: rgba(255, 255, 255, 0.219);
+                    border-bottom-right-radius: 50px;
+                    border-bottom-width: 1px;
+                    
+                }
+            }
+        }
+
+        >p {
+            position: absolute;
+            left: 1%;
+            top: -100%;
+            color: rgb(0, 0, 0);
+            font-size: 22px;
+            border-radius: 10%;
+            font-family: Geneva;
+            font-weight: 1500;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1;
+            background-color: rgba(206, 206, 206, 0.384);
+            padding: 0px 5px;
+        }
+    }
 }

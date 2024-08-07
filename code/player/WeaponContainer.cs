@@ -23,6 +23,32 @@ public partial class WeaponContainer : Component
 
 		return All.Any( w => w.GameObject.Components.GetInDescendantsOrSelf<WeaponComponent>( true ).DisplayName == prefab.Components.GetInDescendantsOrSelf<WeaponComponent>( true ).DisplayName );
 	}
+	protected override void OnAwake()
+	{
+		var player = Player.Local;
+		var weapon = Equipped;
+
+		if ( weapon != null && player != null )
+		{
+			var ammoToGive = player.Ammo.Get( weapon.AmmoType );
+			if ( ammoToGive > 0 )
+			{
+				var ammoToAdd = Math.Min( ammoToGive, weapon.MaxAmmo - weapon.DefaultAmmo );
+				if ( weapon.DefaultAmmo < weapon.MaxAmmo )
+				{
+					weapon.DefaultAmmo += ammoToAdd;
+					player.Ammo.TryTake( weapon.AmmoType, ammoToAdd, out var taken );
+				}
+			}
+
+			if ( weapon.AmmoInClip < weapon.ClipSize )
+			{
+				weapon.AmmoInClip = weapon.ClipSize;
+			}
+		}
+	}
+
+	
 
 	public void Clear()
 	{

@@ -306,7 +306,13 @@ public sealed class Inventory : Component
 
 		item.State = ItemState.None;
 		TaskMaster.SubmitTriggerSignal( $"item.dropped.{item.Name}", Player );
+		
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
+		if ( weaponContainer != null )
+		{
+			weaponContainer.RemoveWeapon( item.GameObject, false );
 
+		}
 
 		item.GameObject.Parent = null;
 
@@ -332,6 +338,7 @@ public sealed class Inventory : Component
 			item.GameObject.Enabled = true;
 			modelPhysics.PhysicsGroup?.AddVelocity( velocity );
 		}
+		
 
 		return true;
 	}
@@ -356,11 +363,22 @@ public sealed class Inventory : Component
 			previouslyEquippedItem.State = ItemState.Backpack;
 
 		}
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
+		if ( weaponContainer != null )
+		{
+			weaponContainer.RemoveWeapon( item.GameObject, false );
 
+		}
+
+		
 
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
-
+		
+		if ( weaponContainer != null )
+		{
+			weaponContainer.Give( item.GameObject, true );
+		}
 
 
 		return true;
@@ -446,6 +464,7 @@ public sealed class Inventory : Component
 			previousBackpackItem.State = ItemState.Equipped;
 
 		}
+		
 
 		GiveBackpackItem( item, index );
 		item.State = ItemState.Backpack;
