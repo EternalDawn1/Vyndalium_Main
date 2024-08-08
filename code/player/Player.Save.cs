@@ -265,7 +265,7 @@ partial class Player
 		var save = tuple.Save;
 
 		// Stellen Sie sicher, dass save.AmmoContainerData initialisiert wurde
-		if ( save.AmmoContainerData != null )
+		if ( save.AmmoContainerData == null )
 		{
 			Log.Error( "save.AmmoContainerData ist null. Initialisierung erforderlich." );
 			save.AmmoContainerData = new AmmoContainer(); // Initialisierung
@@ -284,13 +284,14 @@ partial class Player
 		}
 
 		// Wenn beide nicht null sind, führen Sie die Zuweisung durch
-		if ( player.AmmoContainer != null  )
+		if ( player.AmmoContainer != null && save.AmmoContainerData != null )
 		{
 			player.AmmoContainer = save.AmmoContainerData;
 		}
 		else
 		{
 			Log.Error( "Die Zuweisung von AmmoContainerData kann nicht durchgeführt werden, da eines der Objekte null ist." );
+			player.AmmoContainer = new AmmoContainer();
 		}
 
 		player.MaxHealth = save.MaxHealth;
