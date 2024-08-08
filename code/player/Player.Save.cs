@@ -227,8 +227,16 @@ partial class Player
 				.ToArray(),
 			
 		};
-		Log.Info( $"Speichere Daten: {_saveData.Value}" );
+
+		if ( player.AmmoContainer == null )
+		{
+			player.AmmoContainer = new AmmoContainer();
+		}
+
 		save.AmmoContainerData = player.AmmoContainer;
+
+		Log.Info( $"Speichere Daten: {_saveData.Value}" );
+
 		// Write save.
 		WriteSave( _saveData.Value );
 		Log.Info( "Spielerdaten erfolgreich gespeichert." );
@@ -255,24 +263,28 @@ partial class Player
 
 		// Setup basic player information.
 		var save = tuple.Save;
+
 		// Stellen Sie sicher, dass save.AmmoContainerData initialisiert wurde
-		if ( save.AmmoContainerData == null )
+		if ( save.AmmoContainerData != null )
 		{
 			Log.Error( "save.AmmoContainerData ist null. Initialisierung erforderlich." );
-			// Initialisieren Sie save.AmmoContainerData mit einem Standardwert oder einem neuen Objekt
-			 // Beispiel für eine Initialisierung
+			save.AmmoContainerData = new AmmoContainer(); // Initialisierung
 		}
 
-		// Stellen Sie sicher, dass player.AmmoContainer initialisiert wurde
+		if ( player == null )
+		{
+			// Logik, um den Spieler zu initialisieren, falls er null ist
+			player = new Player();
+		}
+
+		// Initialisiere den AmmoContainer, falls er noch nicht initialisiert ist
 		if ( player.AmmoContainer == null )
 		{
-			Log.Error( "player.AmmoContainer ist null. Initialisierung erforderlich." );
-			// Initialisieren Sie player.AmmoContainer oder brechen Sie den Vorgang ab
-			player.AmmoContainer = new AmmoContainer(); // Beispiel für eine Initialisierung
+			player.AmmoContainer = new AmmoContainer();
 		}
 
 		// Wenn beide nicht null sind, führen Sie die Zuweisung durch
-		if ( player.AmmoContainer != null && save.AmmoContainerData != null )
+		if ( player.AmmoContainer != null  )
 		{
 			player.AmmoContainer = save.AmmoContainerData;
 		}

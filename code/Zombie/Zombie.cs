@@ -29,7 +29,7 @@ public partial class Npc : Component, IHealthComponent
 {
 	[Property]
 	public string Name { get; set; }
-	
+	public int Level { get; set; }
 	
 	[Property]
 	public MoveHelper MoveHelper { get; set; }
@@ -753,7 +753,7 @@ public partial class Npc : Component, IHealthComponent
 			return;
 
 		Health = Math.Clamp( Health - amount, 0f, MaxHealth );
-
+		
 
 		if ( Health <= 0f ) // checks if zombie is dead
 		{

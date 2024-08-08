@@ -9,10 +9,12 @@ namespace GeneralGame;
 public sealed class AmmoContainer : Component
 {
 	private Dictionary<AmmoType, int> AmmoCount { get; set; } = new();
+
 	public int GetAmmoCount( AmmoType type )
 	{
-		return Get( type ); // Nutzt die vorhandene Get-Methode, um die Munitionsanzahl zurückzugeben
+		return Get( type );
 	}
+
 	public void RemoveAmmo( AmmoType type, int amount )
 	{
 		if ( AmmoCount.ContainsKey( type ) && AmmoCount[type] >= amount )
@@ -22,11 +24,6 @@ public sealed class AmmoContainer : Component
 			{
 				AmmoCount[type] = 0; // Stellen Sie sicher, dass der Munitionszähler nicht negativ wird
 			}
-		}
-		else
-		{
-			// Optional: Behandeln Sie den Fall, wenn nicht genug Munition vorhanden ist
-			// Dies könnte eine Warnung ausgeben oder einfach nichts tun
 		}
 	}
 
@@ -82,4 +79,18 @@ public sealed class AmmoContainer : Component
 	{
 		return CollectionExtensions.GetValueOrDefault( AmmoCount, type, 0 );
 	}
+
+	// Serialisierungsmethoden
+	public string Serialize()
+	{
+		return JsonSerializer.Serialize( this );
+	}
+
+	public static AmmoContainer Deserialize( string jsonString )
+	{
+		return JsonSerializer.Deserialize<AmmoContainer>( jsonString );
+	}
+
+	// Fehlerbehandlung für Nullreferenzen
+	
 }
