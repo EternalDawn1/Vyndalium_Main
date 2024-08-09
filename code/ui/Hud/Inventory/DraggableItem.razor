@@ -21,8 +21,8 @@
 
 	public InventorySlot LastHoveredSlot { get; internal set; }
 
-	private static float XyMultiplier => -6.3f;
-	private static float ZMultiplier => 6.9f;
+	private static float XyMultiplier => -1.3f;
+	private static float ZMultiplier => 1.9f;
 
 	private Vector2 _velocity = Vector2.Zero;
 	private Vector2 _holdPoint = Vector2.Zero;
@@ -113,10 +113,10 @@
 		// Add shaking if we're dropping the item
 		if (HasClass("should-trash"))
 		{
-			_shakeValue += 4.3f * Time.Delta;
-			if (_shakeValue > 1)
+			_shakeValue += 1.3f * Time.Delta;
+			if (_shakeValue > 50)
 				_shakeValue = 0;
-			rotation.z += Easing.EaseInOut(_shakeValue) * 30;
+			rotation.z += Easing.EaseInOut(_shakeValue) * 90;
 		}
 
 		transform.AddRotation(rotation);

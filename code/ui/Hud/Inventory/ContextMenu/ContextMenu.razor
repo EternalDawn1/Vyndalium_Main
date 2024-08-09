@@ -9,9 +9,9 @@
 	@if (_item is ItemEquipment equipment)
 	{
 		<ContextMenuOption ] Description=@(equipment.Equipped ? "Unequip" : "Equip")
-			ImagePath="ui/hud/inv_actions_equip.png" onclick=@(() => ToggleEquip(equipment)) />
+			ImagePath="ui/hud/hand_slot.png" onclick=@(() => ToggleEquip(equipment)) />
 	}
-	<ContextMenuOption ] Description="Inspect" ImagePath="ui/hud/inv_actions_inspect.png" onclick=@(() =>
+	<ContextMenuOption ] Description="View" ImagePath="ui/hud/inv_actions_inspect.png" onclick=@(() =>
 		Inspect(_item)) />
 	<ContextMenuOption ] Description="Drop" ImagePath="ui/hud/inv_actions_drop.png" onclick=@(() => {
 		Player.Local.Inventory.DropItem(_item); Inventory.Instance?.OnChanged(); }) />

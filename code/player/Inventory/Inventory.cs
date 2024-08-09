@@ -307,12 +307,7 @@ public sealed class Inventory : Component
 		item.State = ItemState.None;
 		TaskMaster.SubmitTriggerSignal( $"item.dropped.{item.Name}", Player );
 		
-		var weaponContainer = Player.Components.Get<WeaponContainer>();
-		if ( weaponContainer != null )
-		{
-			weaponContainer.RemoveWeapon( item.GameObject, false );
-
-		}
+		
 
 		item.GameObject.Parent = null;
 
