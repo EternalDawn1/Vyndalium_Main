@@ -17,8 +17,8 @@ public struct PlayerSave
 	[JsonInclude] public string Firstname;
 	[JsonInclude] public string Lastname;
 	[JsonInclude] public string AuthToken {get ; set;}
-	[JsonInclude] public AmmoContainer AmmoContainerData;
-	[JsonInclude] public int AmmoCount;
+	
+	[JsonInclude] public Dictionary<AmmoType, int> AmmoCount;
 	[JsonInclude] public int Vyndalium;
 	[JsonInclude] public int Experience;
 	[JsonInclude] public int Level;
@@ -81,7 +81,7 @@ public class TargetSaveAttribute : Attribute
 
 partial class Player
 {
-	public AmmoContainer AmmoContainerData { get; set; }
+	
 	private static readonly JsonSerializerOptions options = new JsonSerializerOptions()
 	{
 		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
@@ -228,12 +228,8 @@ partial class Player
 			
 		};
 
-		if ( player.AmmoContainer == null )
-		{
-			player.AmmoContainer = new AmmoContainer();
-		}
-
-		save.AmmoContainerData = player.AmmoContainer;
+		
+		save.AmmoCount = player.AmmoContainer.AmmoCount;
 
 		Log.Info( $"Speichere Daten: {_saveData.Value}" );
 
@@ -263,32 +259,12 @@ partial class Player
 		var save = tuple.Save;
 
 		// Stellen Sie sicher, dass save.AmmoContainerData initialisiert wurde
-		if ( save.AmmoContainerData == null )
-		{
-			save.AmmoContainerData = new AmmoContainer();
-			Log.Error( "save.AmmoContainerData ist null. Initialisierung erforderlich." );
-		}
-
-		if ( player == null )
-		{
-			player = new Player();
-		}
-
 		if ( player.AmmoContainer == null )
 		{
 			player.AmmoContainer = new AmmoContainer();
-			Log.Info( "AmmoContainer wurde initialisiert." );
 		}
-
-		if ( player.AmmoContainer != null && save.AmmoContainerData != null )
-		{
-			player.AmmoContainer = save.AmmoContainerData;
-		}
-		else
-		{
-			Log.Error( "Die Zuweisung von AmmoContainerData kann nicht durchgeführt werden, da eines der Objekte null ist." );
-			player.AmmoContainer = new AmmoContainer();
-		}
+		player.AmmoContainer.AmmoCount = save.AmmoCount ?? new Dictionary<AmmoType, int>();
+		
 
 		player.MaxHealth = save.MaxHealth;
 		player.MaxMana = save.MaxMana;

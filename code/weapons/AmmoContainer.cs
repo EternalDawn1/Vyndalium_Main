@@ -8,7 +8,7 @@ namespace GeneralGame;
 [Title( "Ammo Container" )]
 public  class AmmoContainer : Component
 {
-	private Dictionary<AmmoType, int> AmmoCount { get; set; } = new();
+	public Dictionary<AmmoType, int> AmmoCount { get; set; } = new();
 
 	public int GetAmmoCount( AmmoType type )
 	{
@@ -22,7 +22,7 @@ public  class AmmoContainer : Component
 			AmmoCount[type] -= amount;
 			if ( AmmoCount[type] < 0 )
 			{
-				AmmoCount[type] = 0; // Stellen Sie sicher, dass der Munitionszähler nicht negativ wird
+				AmmoCount[type] = 0;
 			}
 		}
 	}
@@ -92,5 +92,5 @@ public  class AmmoContainer : Component
 	}
 
 	// Fehlerbehandlung für Nullreferenzen
-	
+
 }

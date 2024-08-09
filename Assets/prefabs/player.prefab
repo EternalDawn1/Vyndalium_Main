@@ -106,6 +106,12 @@
         "__guid": "fd4a62bf-1e7f-4479-b81c-938ec6211623",
         "AbilityHaste": 0,
         "Aircontrol": 0.1,
+        "Ammo": {
+          "_type": "component",
+          "component_id": "d6099511-b771-4df1-ab34-7adb3431953b",
+          "go": "6418cc4c-55ec-41b1-8cf9-bb39e48e8b40",
+          "component_type": "AmmoContainer"
+        },
         "AnimationHelper": {
           "_type": "component",
           "component_id": "91ec0fcd-b977-45d0-b380-ea826d06ba93",
@@ -678,7 +684,7 @@
                                           },
                                           {
                                             "__guid": "3f68084d-d728-4329-9c84-612b8f8abc23",
-                                            "Flags": 0,
+                                            "Flags": 4,
                                             "Name": "hand_R_to_L_ikrule",
                                             "Position": "-28.15186,11.30968,27.26414",
                                             "Rotation": "-0.2772722,-0.690174,-0.00000002229325,0.6684158",
@@ -923,7 +929,7 @@
                                           },
                                           {
                                             "__guid": "9809a7ab-38c2-472d-a679-de955b5c6b17",
-                                            "Flags": 0,
+                                            "Flags": 4,
                                             "Name": "hand_L_to_R_ikrule",
                                             "Position": "-28.15179,11.30985,-27.26431",
                                             "Rotation": "0.2772729,0.6901739,0.0000003121058,0.6684159",
@@ -1158,14 +1164,14 @@
           },
           {
             "__guid": "a8b71581-3cba-4c2d-8845-96169f252c80",
-            "Flags": 0,
+            "Flags": 4,
             "Name": "root_IK",
             "Position": "1.266575,0.0000071965,0",
             "Enabled": true,
             "Children": [
               {
                 "__guid": "7432f1ce-730d-40ec-b1ac-1416d72afa0f",
-                "Flags": 0,
+                "Flags": 4,
                 "Name": "hand_R_IK_target",
                 "Position": "0.6939846,-20.39473,39.24799",
                 "Rotation": "0.2871271,0.2142481,-0.5281312,0.7698917",
@@ -1173,7 +1179,7 @@
               },
               {
                 "__guid": "3fc73d01-5bab-4152-a041-164a6948ef62",
-                "Flags": 0,
+                "Flags": 4,
                 "Name": "hand_L_IK_target",
                 "Position": "0.6941153,20.3947,39.24792",
                 "Rotation": "0.7698929,0.5281296,-0.2142482,0.2871266",
@@ -1181,14 +1187,14 @@
               },
               {
                 "__guid": "df964a2a-b139-44e5-babf-2785320f87bf",
-                "Flags": 0,
+                "Flags": 4,
                 "Name": "aim_matrix_02a",
                 "Position": "4.638925,-0.0000008343597,9.8425",
                 "Enabled": true,
                 "Children": [
                   {
                     "__guid": "2b8a740d-e216-4d2c-a898-047ae3e92f14",
-                    "Flags": 0,
+                    "Flags": 4,
                     "Name": "aim_matrix_02b",
                     "Position": "3.937001,-0.0000004822493,-0.00000143021",
                     "Enabled": true
@@ -1197,14 +1203,14 @@
               },
               {
                 "__guid": "78db8eab-c263-48cb-af85-983a5dc43fc5",
-                "Flags": 0,
+                "Flags": 4,
                 "Name": "aim_matrix_01",
                 "Position": "4.638925,-0.0000008343597,11.811",
                 "Enabled": true
               },
               {
                 "__guid": "16a06770-6f07-4aa5-b4ff-75218f65862e",
-                "Flags": 0,
+                "Flags": 4,
                 "Name": "foot_R_IK_target",
                 "Position": "-0.8840668,-4.427395,3.807913",
                 "Rotation": "0.6508947,0.2762884,-0.2762876,0.6508964",
@@ -1212,7 +1218,7 @@
               },
               {
                 "__guid": "76688a6f-e0e3-47da-b50a-e69c4ab77f67",
-                "Flags": 0,
+                "Flags": 4,
                 "Name": "foot_L_IK_target",
                 "Position": "-0.884093,4.427404,3.807924",
                 "Rotation": "0.650896,0.276287,-0.2762895,0.6508948",
@@ -1347,7 +1353,8 @@
                 "HeightStart": 2000,
                 "HeightWidth": 0,
                 "Sky": "materials/error.vmat",
-                "StartDistance": 10
+                "StartDistance": 10,
+                "Tint": "1,1,1,1"
               },
               {
                 "__type": "Sandbox.ColorAdjustments",
@@ -1411,6 +1418,7 @@
               {
                 "__type": "Sandbox.AmbientOcclusion",
                 "__guid": "8fb8e7c9-082a-4460-b755-1ae30e47766a",
+                "FalloffDistance": 1,
                 "Intensity": 8,
                 "Quality": "High",
                 "Radius": 32

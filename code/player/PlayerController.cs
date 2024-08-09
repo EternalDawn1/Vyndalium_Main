@@ -21,7 +21,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public CameraComponent PlyCamera { get; set; }
 	[Property] public GameObject ViewModelRoot { get; set; }
 	public int DefaultAmmo { get; set; }
-	[Property] public AmmoContainer Ammo { get; private set; } = new AmmoContainer();
+	[Property] public AmmoContainer Ammo { get; set; } = new AmmoContainer();
 	[Property] public CharacterController2 CharacterController { get; set; }
 	[Property] public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject Head { get; set; }
@@ -370,7 +370,7 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnAwake()
 	{
-		AmmoContainerData = new AmmoContainer();
+		
 		Inventory = Components.Get<Inventory>( FindMode.EverythingInSelfAndDescendants );
 
 		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>();

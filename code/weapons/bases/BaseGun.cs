@@ -34,9 +34,9 @@ public class BaseGun : WeaponComponent, IUse
 	private float SoundDuration { get; set; } = 0f;
 	private const float EmptyClipSoundDuration = 1f;
 	public ItemComponent item { get; set; }
-	[Sync] public int MaxAmmo { get; set; } // Add this line
+	[Sync] public int MaxAmmo { get; set; }// Add this line
 
-
+	private int AmmoCount;
 	public bool IsEquipped { get; set; }
 
 	public bool isCriticalHit = false;
@@ -54,17 +54,20 @@ public class BaseGun : WeaponComponent, IUse
 		// Stellen Sie sicher, dass der Spieler gültig ist
 		if ( player == null || !player.IsValid() || player.AmmoContainer == null )
 		{
+			Log.Info( "Ungültiger Spieler oder AmmoContainer ist null." );
 			return;
 		}
 
-		// Überprüfen Sie, ob die Waffe bereits Munition hat
-		if ( AmmoInClip == 0 )
-		{
-			// Nehmen Sie Munition aus dem AmmoContainer des Spielers
-			var ammoToTake = Math.Min( ClipSize, player.AmmoContainer.GetAmmoCount( AmmoType ) );
-			AmmoInClip = ammoToTake;
-			player.AmmoContainer.RemoveAmmo( AmmoType, ammoToTake );
-		}
+		// Debugging-Ausgabe: Überprüfen Sie den AmmoCount des Spielers
+		Log.Info( $"AmmoCount vor dem Ausrüsten: {player.AmmoContainer.GetAmmoCount( AmmoType )}" );
+
+		// Setzen Sie die Munition der Waffe auf die verfügbare Munition des Spielers
+		var ammoToTake = Math.Min( ClipSize, player.AmmoContainer.GetAmmoCount( AmmoType ) );
+		AmmoInClip = ammoToTake;
+		player.AmmoContainer.RemoveAmmo( AmmoType, ammoToTake );
+
+		// Debugging-Ausgabe: Überprüfen Sie den AmmoCount nach dem Entfernen der Munition
+		Log.Info( $"AmmoCount nach dem Entfernen: {player.AmmoContainer.GetAmmoCount( AmmoType )}" );
 
 		// Setzen Sie den Status der Waffe auf "ausgerüstet"
 		IsEquipped = true;
@@ -98,12 +101,31 @@ public class BaseGun : WeaponComponent, IUse
 
 		return baseDamage + bonusDamage + magicBonus;
 	}
+	public void IncreaseAmmo( int amount )
+	{
+		AmmoCount += amount;
+	}
+	public void DecreaseAmmo( int amount )
+	{
+		if ( AmmoCount - amount >= 0 )
+		{
+			AmmoCount -= amount;
+		}
+		else
+		{
+			AmmoCount = 0;
+		}
+	}
+	public int GetAmmoCount()
+	{
+		return AmmoCount;
+	}
 
 	GameObject Hitprefab;
 
 	protected override void OnStart()
 	{
-
+		AmmoCount = DefaultAmmo;
 		Hitprefab = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ) );
 
 		Components.GetOrCreate<Interactions>();
