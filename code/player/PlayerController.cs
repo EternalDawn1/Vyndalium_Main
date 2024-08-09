@@ -21,7 +21,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public CameraComponent PlyCamera { get; set; }
 	[Property] public GameObject ViewModelRoot { get; set; }
 	public int DefaultAmmo { get; set; }
-	[Property] public AmmoContainer Ammo { get; } = new AmmoContainer();
+	[Property] public AmmoContainer Ammo { get; private set; } = new AmmoContainer();
 	[Property] public CharacterController2 CharacterController { get; set; }
 	[Property] public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject Head { get; set; }
@@ -56,7 +56,14 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float GroundControl { get; private set; } = 4.0f;
 	[Property] public float Aircontrol { get; private set; } = 0.1f;
 	public static bool DebugCamera { get; set; } = false;
-
+	public void InitializeAmmo()
+	{
+		if ( Ammo == null )
+		{
+			Ammo = new AmmoContainer(); // Ersetzen Sie AmmoContainer durch den tatsächlichen Typ
+			Log.Info( "AmmoContainer wurde initialisiert." );
+		}
+	}
 
 	[Property] public bool ThirdPersonEnabled { get; set; }
 	protected BoxCollider Collider;
@@ -363,7 +370,7 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnAwake()
 	{
-		AmmoContainer = new AmmoContainer();
+		AmmoContainerData = new AmmoContainer();
 		Inventory = Components.Get<Inventory>( FindMode.EverythingInSelfAndDescendants );
 
 		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>();

@@ -23,6 +23,8 @@ public partial class WeaponContainer : Component
 
 		return All.Any( w => w.GameObject.Components.GetInDescendantsOrSelf<WeaponComponent>( true ).DisplayName == prefab.Components.GetInDescendantsOrSelf<WeaponComponent>( true ).DisplayName );
 	}
+
+
 	protected override void OnAwake()
 	{
 		var player = Player.Local;
@@ -30,6 +32,9 @@ public partial class WeaponContainer : Component
 
 		if ( weapon != null && player != null )
 		{
+			// Initialisieren Sie die Ammo-Eigenschaft des Players
+			player.InitializeAmmo();
+
 			var ammoToGive = player.Ammo.Get( weapon.AmmoType );
 			if ( ammoToGive > 0 )
 			{
@@ -48,7 +53,7 @@ public partial class WeaponContainer : Component
 		}
 	}
 
-	
+
 
 	public void Clear()
 	{

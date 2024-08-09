@@ -256,34 +256,30 @@ partial class Player
 	public static bool Setup( Player player = null )
 	{
 		player ??= Local;
-
 		var tuple = GetSave();
 		if ( !tuple.Has )
 			return false;
 
-		// Setup basic player information.
 		var save = tuple.Save;
 
 		// Stellen Sie sicher, dass save.AmmoContainerData initialisiert wurde
 		if ( save.AmmoContainerData == null )
 		{
+			save.AmmoContainerData = new AmmoContainer();
 			Log.Error( "save.AmmoContainerData ist null. Initialisierung erforderlich." );
-			save.AmmoContainerData = new AmmoContainer(); // Initialisierung
 		}
 
 		if ( player == null )
 		{
-			// Logik, um den Spieler zu initialisieren, falls er null ist
 			player = new Player();
 		}
 
-		// Initialisiere den AmmoContainer, falls er noch nicht initialisiert ist
 		if ( player.AmmoContainer == null )
 		{
 			player.AmmoContainer = new AmmoContainer();
+			Log.Info( "AmmoContainer wurde initialisiert." );
 		}
 
-		// Wenn beide nicht null sind, führen Sie die Zuweisung durch
 		if ( player.AmmoContainer != null && save.AmmoContainerData != null )
 		{
 			player.AmmoContainer = save.AmmoContainerData;

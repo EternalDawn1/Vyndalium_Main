@@ -6,7 +6,7 @@ namespace GeneralGame;
 
 [Group( "Arena" )]
 [Title( "Ammo Container" )]
-public sealed class AmmoContainer : Component
+public  class AmmoContainer : Component
 {
 	private Dictionary<AmmoType, int> AmmoCount { get; set; } = new();
 

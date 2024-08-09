@@ -749,6 +749,8 @@ public partial class Npc : Component, IHealthComponent
 		}
 		if ( Model != null ) Model.Set( "slime_damage", true );
 
+		
+
 		if ( Network.IsProxy )
 			return;
 
