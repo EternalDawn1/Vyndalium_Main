@@ -53,20 +53,68 @@ Inventory {
 
 
 
-            .section {
+            .section 
+            {
+                
                 position: relative;
+                
 
+                .character
+                {
+                    position: relative;
+                    
+                    
+                    .box
+                    {
 
-
-
-
-
-                .box {
                     flex-direction: column;
 
+                    .char 
+                    {
+                            position: relative;
+                            width: 100%;
+                            height: 100%;
+                            left: 10px;
+                            top:-40px;
+                            
+                    
+                    
+                        }
+            
+                    .equippeditems
+                    {
+                        position: absolute;
+                        flex-direction: column;
+                        gap: 30px;
+                    }
+                    .Access
+                    {
+                        position: relative;
+                        top: -10px;
+                        gap: 20px;
+                       
+                        
+                    }
+                    .hands{
+                        position: relative;
+                        top: -86px;
+                        right: -500px;
+                    }
+                    .back{
+                        position: relative;
+                        top: -296px;
+                        right: -500px;
+                    }
+
+                    
+                    
 
 
                 }
+                
+                    
+                }
+                
             }
 
         }
@@ -75,11 +123,11 @@ Inventory {
     }
 
     .section2 {
-
+    
 
         .items {
             flex-wrap: wrap;
-            width: 700px;
+            width: 800px;
             overflow-x: scroll;
 
         }

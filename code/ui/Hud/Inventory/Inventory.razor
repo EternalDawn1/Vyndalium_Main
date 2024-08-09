@@ -22,15 +22,16 @@
 	</div>
 	<div class="list">
 		<div class="inventory" style="opacity: @(currentPanel == PanelType.Inventory ? 1 : 0)">
-			<input type="search" class="search-bar" @bind="searchTerm" placeholder="Search..."
-				@oninput="UpdateSearch" />
+			
 			<div class="Hello">Inventory / All</div>
 
 			<div class="section">
 				<div class="character">
-					<CharacterRenderer @ref=_renderer />
+					
 					<div class="box">
-
+						<div class="char">
+							<CharacterRenderer @ref=_renderer />
+						</div>
 						<div class="EquippedItems">
 							<InventorySlot EquipSlotIndex=@EquipSlot.Head
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head] />
@@ -64,13 +65,9 @@
 							<InventorySlot EquipSlotIndex=@EquipSlot.Back
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back] />
 						</div>
-
-
-
-
-
-
-
+						
+						
+						
 					</div>
 				</div>
 

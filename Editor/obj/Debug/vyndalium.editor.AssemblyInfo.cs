@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("vyndalium.editor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3995bb3cd2c4cde208e3d23f78868a87ab86231")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc705bcac63223dfa8fc6a5952f5166ab74a6a9a")]
 [assembly: System.Reflection.AssemblyProductAttribute("vyndalium.editor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("vyndalium.editor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
