@@ -18,6 +18,9 @@
 	<SideButton Title="Inventory" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Inventory)) IsInverted=@(true)
 		ImagePath="ui/hud/player.png" style="position: absolute; top: 150px; right: 0px;" style="z-index: 100;" />
+	<SideButton Title="Abilities" OnClick=@(() =>
+		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Abilities)) IsInverted=@(true)
+		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 270px; right: 0px; " style="z-index: 100;" />
 	<div class="sidehud">
 		<SideButton ImagePath="ui/hud/success.gif" OnClick=@(() => ShowPanel(PanelType.Upgrade)) IsInverted=@(true)
 			IsDisabled=@(Player.Local.StatsPoints <= 0)

@@ -1,0 +1,53 @@
+@namespace GeneralGame.HUD
+@inherits Panel
+@using Sandbox
+@attribute [StyleSheet]
+
+
+
+<root>
+    <SideButton 
+        Title="Exit" 
+        
+        OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud))
+        IsInverted=@(true)
+        ImagePath="ui/hud/goback.png"
+        style="position: absolute; top: 30px; right: 0px;" 
+    />
+    <SideButton 
+        Title="Inventory" 
+        Subtitle="click for Inventory"
+        OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Inventory))
+        IsInverted=@(true)
+        ImagePath="ui/hud/player.png"
+        style="position: absolute; top: 150px; right: 0px;" 
+    />
+    <SideButton 
+        Title="Status" 
+        Subtitle="click for Player Stats"
+        OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.CharacterMenu))
+        IsInverted=@(true)
+        ImagePath="ui/hud/muscles.png"
+        style="position: absolute; top: 270px; right: 0px; " 
+    />
+
+    
+        
+    
+</root>
+@code{
+    public static Abilities Instance { get; private set; }
+    public Abilities()
+    {
+        Instance = this;
+    }
+    public void Display()
+    {
+        FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Abilities);
+    }
+    public void Hide()
+    {
+        FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud);
+    }
+    
+}

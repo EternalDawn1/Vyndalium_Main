@@ -178,7 +178,8 @@ partial class Player
 		
 		_saveData = save with
 		{
-			
+
+			AmmoCount = player.AmmoContainer.AmmoCount,
 			Vyndalium = (int)player.Vyndalium,
 			Experience = (int)player.Experience,
 			Level = (int)player.Level,
@@ -229,7 +230,7 @@ partial class Player
 		};
 
 		
-		save.AmmoCount = player.AmmoContainer.AmmoCount;
+		
 
 		Log.Info( $"Speichere Daten: {_saveData.Value}" );
 
@@ -264,8 +265,10 @@ partial class Player
 			player.AmmoContainer = new AmmoContainer();
 		}
 		player.AmmoContainer.AmmoCount = save.AmmoCount ?? new Dictionary<AmmoType, int>();
-		
-
+		foreach ( var ammo in save.AmmoCount )
+		{
+			player.AmmoContainer.SetAmmoCount( ammo.Key, ammo.Value );
+		}
 		player.MaxHealth = save.MaxHealth;
 		player.MaxMana = save.MaxMana;
 		player.MaxStamina = save.MaxStamina;

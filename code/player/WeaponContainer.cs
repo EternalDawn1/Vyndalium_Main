@@ -92,56 +92,34 @@ public partial class WeaponContainer : Component
 		{
 			Log.Error( "GameObject prefab ist null." );
 			return;
-		}  
+		}
 		if ( IsProxy ) return;
 
+		// Stellen Sie sicher, dass WeaponBone nicht null ist, bevor Sie fortfahren
+		if ( WeaponBone == null )
 		{
-			if ( IsProxy || prefab == null ) return;
+			Log.Error( "WeaponBone is null in WeaponContainer.Give" );
+			return;
+		}
 
-			
+		// Überprüfen, ob bereits eine Waffe im WeaponBone vorhanden ist und entfernen Sie diese
+		ClearWeaponBone();
 
-			// Stellen Sie sicher, dass WeaponBone nicht null ist, bevor Sie fortfahren
-			if ( WeaponBone == null )
-			{
-				Log.Error( "WeaponBone is null in WeaponContainer.Give" );
-				return;
-			}
+		// Klonen Sie das prefab, um eine neue Instanz zu erstellen
+		var weaponGo = prefab.Clone();
+		weaponGo.SetParent( WeaponBone );
+		weaponGo.Transform.Position = WeaponBone.Transform.Position;
+		weaponGo.Transform.Rotation = WeaponBone.Transform.Rotation;
 
-			// Überprüfen, ob bereits eine Waffe im WeaponBone vorhanden ist und entfernen Sie diese
-			ClearWeaponBone();
+		// Entfernen Sie unnötige Komponenten vom geklonten Objekt
+		RemoveUnnecessaryComponents( weaponGo );
 
-			// Klonen Sie das prefab, um eine neue Instanz zu erstellen
-			var weaponGo = prefab.Clone();
-			weaponGo.SetParent( WeaponBone );
-			weaponGo.Transform.Position = WeaponBone.Transform.Position;
-			weaponGo.Transform.Rotation = WeaponBone.Transform.Rotation;
+		// Holen Sie sich die WeaponComponent vom geklonten Objekt
+		var weapon = weaponGo.Components.GetInDescendantsOrSelf<WeaponComponent>( true );
+		weapon.Owner = PlayrControl;
 
-			// Entfernen Sie unnötige Komponenten vom geklonten Objekt
-			RemoveUnnecessaryComponents( weaponGo );
-
-
-
-			// Holen Sie sich die WeaponComponent vom geklonten Objekt
-			var weapon = weaponGo.Components.GetInDescendantsOrSelf<WeaponComponent>( true );
-			weapon.Owner = PlayrControl;
-
-			if ( weapon != null && weapon.IsValid() )
-			{
-				
-				if ( shouldDeploy )
-				{
-					foreach ( var w in All )
-					{
-						w.Holster();
-					}
-				}
-			}
-			else
-			{
-				weaponGo.DestroyImmediate();
-				return;
-			}
-
+		if ( weapon != null && weapon.IsValid() )
+		{
 			if ( shouldDeploy )
 			{
 				foreach ( var w in All )
@@ -149,44 +127,54 @@ public partial class WeaponContainer : Component
 					w.Holster();
 				}
 			}
-
-			weaponGo.SetParent( WeaponBone );
-			weaponGo.Transform.Position = WeaponBone.Transform.Position;
-			weaponGo.Transform.Rotation = WeaponBone.Transform.Rotation;
-
-			var nextWeaponGo = weaponGo.Components.GetInDescendantsOrSelf<BaseGun>( true );
-			if ( nextWeaponGo.IsValid() )
-			{
-				var player = Player.Local;
-				// Überprüfe, ob im globalen AmmoContainer des Spielers Munition für den Typ vorhanden ist
-				var ammoToGive = player.Ammo.Get( nextWeaponGo.AmmoType );
-				if ( ammoToGive > 0 )
-				{
-					// Berechne, wie viel Munition der Waffe hinzugefügt werden kann
-					var ammoToAdd = Math.Min( ammoToGive, nextWeaponGo.MaxAmmo - nextWeaponGo.DefaultAmmo );
-					// Überprüfe, ob die Waffe bereits Munition hat
-					if ( nextWeaponGo.DefaultAmmo < nextWeaponGo.MaxAmmo )
-					{
-						// Füge die berechnete Munition der Waffe hinzu
-						nextWeaponGo.DefaultAmmo += ammoToAdd;
-						// Entferne die hinzugefügte Munition aus dem globalen AmmoContainer
-						player.Ammo.TryTake( nextWeaponGo.AmmoType, ammoToAdd, out var taken );
-					}
-				}
-				// Setze die Munition im Magazin auf die maximale Größe, falls notwendig
-				if ( nextWeaponGo.AmmoInClip < nextWeaponGo.ClipSize )
-				{
-					nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;
-				}
-				nextWeaponGo.IsDeployed = !Deployed.IsValid();
-			}
-
-
-			weaponGo.NetworkSpawn();
-			
-
-
 		}
+		else
+		{
+			weaponGo.DestroyImmediate();
+			return;
+		}
+
+		if ( shouldDeploy )
+		{
+			foreach ( var w in All )
+			{
+				w.Holster();
+			}
+		}
+
+		weaponGo.SetParent( WeaponBone );
+		weaponGo.Transform.Position = WeaponBone.Transform.Position;
+		weaponGo.Transform.Rotation = WeaponBone.Transform.Rotation;
+
+		var nextWeaponGo = weaponGo.Components.GetInDescendantsOrSelf<BaseGun>( true );
+		if ( nextWeaponGo.IsValid() )
+		{
+			var player = Player.Local;
+			var saveData = Player.GetSave().Save;
+
+			// Überprüfe, ob im AmmoCount des gespeicherten Spielers Munition für den Typ vorhanden ist
+			if ( saveData.AmmoCount.TryGetValue( nextWeaponGo.AmmoType, out var ammoToGive ) && ammoToGive > 0 )
+			{
+				// Berechne, wie viel Munition der Waffe hinzugefügt werden kann
+				var ammoToAdd = Math.Min( ammoToGive, nextWeaponGo.MaxAmmo - nextWeaponGo.DefaultAmmo );
+				// Überprüfe, ob die Waffe bereits Munition hat
+				if ( nextWeaponGo.DefaultAmmo < nextWeaponGo.MaxAmmo )
+				{
+					// Füge die berechnete Munition der Waffe hinzu
+					nextWeaponGo.DefaultAmmo += ammoToAdd;
+					// Entferne die hinzugefügte Munition aus dem AmmoCount des gespeicherten Spielers
+					saveData.AmmoCount[nextWeaponGo.AmmoType] -= ammoToAdd;
+				}
+			}
+			// Setze die Munition im Magazin auf die maximale Größe, falls notwendig
+			if ( nextWeaponGo.AmmoInClip < nextWeaponGo.ClipSize )
+			{
+				nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;
+			}
+			nextWeaponGo.IsDeployed = !Deployed.IsValid();
+		}
+
+		weaponGo.NetworkSpawn();
 	}
 	private void RemoveUnnecessaryComponents( GameObject weaponGo )
 	{

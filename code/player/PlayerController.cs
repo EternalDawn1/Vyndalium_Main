@@ -20,7 +20,7 @@ public partial class Player : Component, IHealthComponent
 	public WeaponComponent DeployedWeapon { get; set; }
 	[Property] public CameraComponent PlyCamera { get; set; }
 	[Property] public GameObject ViewModelRoot { get; set; }
-	public int DefaultAmmo { get; set; }
+	[Property]public int DefaultAmmo { get; set; }
 	[Property] public AmmoContainer Ammo { get; set; } = new AmmoContainer();
 	[Property] public CharacterController2 CharacterController { get; set; }
 	[Property] public MoveHelper MoveHelper { get; set; }
@@ -50,7 +50,7 @@ public partial class Player : Component, IHealthComponent
 
 	private static bool isFirstSpawn = true;
 
-
+	
 	private bool WantsToCrouch { get; set; }
 	private Angles Recoil { get; set; }
 	[Property] public float GroundControl { get; private set; } = 4.0f;
