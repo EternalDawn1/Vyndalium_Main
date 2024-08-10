@@ -6,25 +6,30 @@ namespace GeneralGame;
 
 [Group( "Arena" )]
 [Title( "Ammo Container" )]
-public  class AmmoContainer : Component
+public class AmmoContainer : Component
 {
-	public Dictionary<AmmoType, int> AmmoCount { get; set; } = new();
+	public Dictionary<AmmoType, int> AmmoCount = new Dictionary<AmmoType, int>();
 
-	public int GetAmmoCount( AmmoType type )
+	public int GetAmmoCount( AmmoType ammoType )
 	{
-		return Get( type );
+		if ( AmmoCount.TryGetValue( ammoType, out int count ) )
+		{
+			return count;
+		}
+		return 0;
 	}
 
-	public void RemoveAmmo( AmmoType type, int amount )
+	public void RemoveAmmo( AmmoType ammoType, int count )
 	{
-		if ( AmmoCount.ContainsKey( type ) && AmmoCount[type] >= amount )
+		if ( AmmoCount.ContainsKey( ammoType ) )
 		{
-			AmmoCount[type] -= amount;
-			if ( AmmoCount[type] < 0 )
-			{
-				AmmoCount[type] = 0;
-			}
+			AmmoCount[ammoType] = Math.Max( 0, AmmoCount[ammoType] - count );
 		}
+	}
+
+	public void SetAmmoCount( AmmoType ammoType, int count )
+	{
+		AmmoCount[ammoType] = count;
 	}
 
 	public void Give( AmmoType type, int ammo )
@@ -90,7 +95,4 @@ public  class AmmoContainer : Component
 	{
 		return JsonSerializer.Deserialize<AmmoContainer>( jsonString );
 	}
-
-	// Fehlerbehandlung für Nullreferenzen
-
 }

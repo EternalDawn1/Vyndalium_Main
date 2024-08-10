@@ -22,7 +22,7 @@ public class BaseGun : WeaponComponent, IUse
 	[Property] public ParticleSystem MuzzleFlash { get; set; }
 	[Property] public ParticleSystem ImpactEffect { get; set; }
 	[Property] public AmmoType AmmoType { get; set; } = AmmoType.Pistol;
-	[Property] public int DefaultAmmo { get; set; }
+	[Property] public int DefaultAmmo { get; set; } = 1;
 	[Property] public int ClipSize { get; set; } = 15;
 	[Sync] public bool IsReloading { get; set; }
 	[Sync] public int AmmoInClip { get; set; }
@@ -44,38 +44,35 @@ public class BaseGun : WeaponComponent, IUse
 
 	[Property] public bool IsMagicWeapon { get; set; }
 
-
+	public void InitializeAmmo( AmmoContainer ammoContainer )
+	{
+		if ( ammoContainer != null )
+		{
+			AmmoCount = ammoContainer.GetAmmoCount( AmmoType );
+		}
+	}
 
 
 
 
 	public virtual void OnEquip( Player player )
 	{
-		// Stellen Sie sicher, dass der Spieler gültig ist
 		if ( player == null || !player.IsValid() || player.AmmoContainer == null )
 		{
 			Log.Info( "Ungültiger Spieler oder AmmoContainer ist null." );
 			return;
 		}
 
-		// Debugging-Ausgabe: Überprüfen Sie den AmmoCount des Spielers
-		Log.Info( $"AmmoCount vor dem Ausrüsten: {player.AmmoContainer.GetAmmoCount( AmmoType )}" );
+		Log.Info( $"AmmoCount vor dem Ausrüsten: {player.AmmoContainer.GetAmmoCount( AmmoType.Rifle )}" );
 
-		// Setzen Sie die Munition der Waffe auf die verfügbare Munition des Spielers
-		var ammoToTake = Math.Min( ClipSize, player.AmmoContainer.GetAmmoCount( AmmoType ) );
+		var ammoToTake = Math.Min( ClipSize, player.AmmoContainer.GetAmmoCount( AmmoType.Rifle) );
 		AmmoInClip = ammoToTake;
-		player.AmmoContainer.RemoveAmmo( AmmoType, ammoToTake );
+		player.AmmoContainer.RemoveAmmo( AmmoType.Rifle, ammoToTake );
 
-		// Debugging-Ausgabe: Überprüfen Sie den AmmoCount nach dem Entfernen der Munition
-		Log.Info( $"AmmoCount nach dem Entfernen: {player.AmmoContainer.GetAmmoCount( AmmoType )}" );
+		Log.Info( $"AmmoCount nach dem Entfernen: {player.AmmoContainer.GetAmmoCount( AmmoType.Rifle )}" );
 
-		// Setzen Sie den Status der Waffe auf "ausgerüstet"
 		IsEquipped = true;
-
-		// Rufen Sie die OnStart Methode auf, um alle Komponenten der Waffe zu initialisieren
 		OnStart();
-
-		// Rufen Sie die OnDeployed Methode auf, um die Waffe bereit zum Gebrauch zu machen
 		OnDeployed();
 	}
 
@@ -136,6 +133,7 @@ public class BaseGun : WeaponComponent, IUse
 	[Broadcast]
 	public virtual void OnUse( Guid pickerId )
 	{
+		
 		var picker = Scene.Directory.FindByGuid( pickerId );
 		if ( !picker.IsValid() ) return;
 
