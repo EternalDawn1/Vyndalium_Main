@@ -1,0 +1,1324 @@
+{
+  "__guid": "4f1e547d-7e89-44df-be85-fe9992e06e8e",
+  "GameObjects": [
+    {
+      "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
+      "Flags": 0,
+      "Name": "MapObjects",
+      "Position": "-16.73947,-31.52794,131.4671",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
+          "Flags": 0,
+          "Name": "Map",
+          "Position": "498.2042,530.4957,103.5412",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.MapInstance",
+              "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
+              "__version": 1,
+              "EnableCollision": true,
+              "MapName": "maps/untitled_3.vmap",
+              "NoOrigin": true,
+              "UseMapFromLaunch": false
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "__guid": "e47368dc-2aa1-43c7-9701-476845bc0e7d",
+      "Flags": 0,
+      "Name": "GameManager",
+      "Position": "-4687.136,-3009.619,2645.524",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "GeneralGame.PrefabInitializer",
+          "__guid": "5cfda952-13f4-4c3d-bb8f-acc675d405f4"
+        },
+        {
+          "__type": "GeneralGame.NetworkManager",
+          "__guid": "fa171ab4-1bf0-4b91-a947-0fb928804480",
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          },
+          "SpawnPoints": [
+            null
+          ],
+          "StartServer": true
+        },
+        {
+          "__type": "GeneralGame.AdminPanel",
+          "__guid": "455f5741-447b-443d-b0f2-9cac9e59d7e9"
+        }
+      ]
+    },
+    {
+      "__guid": "252c9332-957d-4473-b4ab-860bad446d3b",
+      "Flags": 0,
+      "Name": "HUD",
+      "Position": "88.89172,-21.8606,20.02541",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "GeneralGame.HUD.Hudmaster",
+          "__guid": "bae3682a-2933-42b6-ad4a-a1d29d60ef22"
+        },
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "c9a8dcc6-bb02-4d63-a6a6-4c6eb90f815e",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ZIndex": 100
+        }
+      ]
+    },
+    {
+      "__guid": "fda8f9e3-0ef2-47fd-bd0b-74d64ea16c1a",
+      "Flags": 0,
+      "Name": "Starting (2)",
+      "Position": "7.439829,-18.3952,54.49461",
+      "Scale": "-0.7654113,0.9841333,0.6492278",
+      "Tags": "interactable",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b0724159-3089-467b-9fa4-a7f4d44c8023",
+          "BodyGroups": 18446744073709551615,
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "80842f75-045b-4dd3-8a75-ea660187259f",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "594db7ab-d280-4c1f-99e6-ce68600c6c27",
+      "Flags": 0,
+      "Name": "Starting (1)",
+      "Position": "7.439829,-206.3844,32.83138",
+      "Scale": "-0.7654113,0.9841333,0.6492278",
+      "Tags": "interactable",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a9ed4b84-a171-4b29-bb7f-91eeda29dc8d",
+          "BodyGroups": 18446744073709551615,
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "aa698a99-2cf4-4cf0-a9f1-c0657e6d9622",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false
+        },
+        {
+          "__type": "GeneralGame.SceneChangeTrigger",
+          "__guid": "e02c7cd9-cc77-49d5-85b8-1c97ba3f0d07",
+          "SceneToLoad": "Starting"
+        }
+      ]
+    },
+    {
+      "__guid": "d71c2760-1c7f-4926-a57e-ff79e9db9fac",
+      "Flags": 0,
+      "Name": "Shop",
+      "Position": "-588.8522,84.81239,82.75571",
+      "Rotation": "0,-0,-0.7071068,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.WorldPanel",
+          "__guid": "e16d33f3-3e95-42a2-863d-8fe23429c143",
+          "HorizontalAlign": "Center",
+          "InteractionRange": 1000,
+          "LookAtCamera": false,
+          "PanelSize": "4904.1,2840.603",
+          "RenderScale": 1,
+          "VerticalAlign": "Center"
+        },
+        {
+          "__type": "GeneralGame.HUD.ShopWorldPanel",
+          "__guid": "62af8d0c-30d7-45fd-b62e-2e32a39430d6"
+        }
+      ]
+    },
+    {
+      "__guid": "fb523d4e-d999-45f2-9790-b09953f6d876",
+      "Flags": 0,
+      "Name": "vyndalium",
+      "Position": "-51.10669,-28.42902,39.99983",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/vyndalium.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "39977245-bc58-4143-896d-90caff855242",
+      "Flags": 0,
+      "Name": "vyndalium (1)",
+      "Position": "-292.276,-7.606445,39.99995",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/vyndalium.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "7148d314-0230-4d43-8048-f51b4b1520ad",
+      "Flags": 0,
+      "Name": "vyndalium (2)",
+      "Position": "-172.2532,-17.5899,40.00019",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/vyndalium.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "19487e25-24c9-437a-8332-17ed4a81294b",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "334.3612,286.7861,34.64038",
+      "Rotation": "0,0,-0.9978589,-0.06540331",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "0972cd15-4501-4725-804f-58fd39757254",
+          "Color": "0.8902,0.31765,0.05098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b73c2389-9827-4083-9286-7d556311c860",
+      "Flags": 0,
+      "Name": "blade_moon",
+      "Position": "-885.7775,-499.1809,160.8589",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "b496a258-292f-4be6-aed5-9f063061156f",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "b1ae7300-7f72-4170-aa37-9aeeeb8cc1df",
+          "IsTrigger": false,
+          "Static": false,
+          "Surface": "surfaces/metal.surface"
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "c53a0476-95ad-4f38-bcfd-177bbc9b4be0",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/blade_moon/blade_moon.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "9110dcd9-f6a8-4380-ac4d-d1d5544b432d",
+      "Flags": 0,
+      "Name": "Point Light",
+      "Position": "-520.7572,-498.6373,241.1213",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "32257dc2-77f0-4ab2-a95f-9a75d3203ae2",
+          "Attenuation": 0,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 1275.4998,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "14b6f429-737f-48db-b239-70b220d40671",
+      "Flags": 0,
+      "Name": "Point Light (6)",
+      "Position": "355.5284,251.4596,241.1213",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "857304ba-370c-4f47-ae89-2230a59488f9",
+          "Attenuation": 0,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 1275.4998,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "73fa6197-9ea7-4b06-a34a-bf0ddd1f7878",
+      "Flags": 0,
+      "Name": "Point Light (1)",
+      "Position": "-1023.924,-498.6373,241.1213",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "441a342b-3705-4cd0-aa67-4716ff61494e",
+          "Attenuation": 0,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 1275.4998,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "973a20cb-c207-4b51-a8c1-29f1e9a44b13",
+      "Flags": 0,
+      "Name": "Point Light (2)",
+      "Position": "-1743.846,-498.6373,241.1213",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "cf21f138-c466-48d5-8ebc-5373f457f6f9",
+          "Attenuation": 0,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 1275.4998,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "e803251b-149f-42dd-bf36-0e90fefc21e7",
+      "Flags": 0,
+      "Name": "Point Light (3)",
+      "Position": "-2345.059,-498.6373,241.1213",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "9a0486e8-4bc6-4a1b-bbfb-fc0db66bc337",
+          "Attenuation": 0,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 1275.4998,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "4736b8cb-26b4-4ff4-a77f-3546875b7b13",
+      "Flags": 0,
+      "Name": "Point Light (4)",
+      "Position": "-2055.114,570.7561,285.8022",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "75339d72-8dd0-49ac-933e-0a1c659a7479",
+          "Attenuation": 0,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 1275.4998,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "9a0b61e6-db37-4fe8-b692-59d05652298f",
+      "Flags": 0,
+      "Name": "Point Light (5)",
+      "Position": "-2388.991,-1778.978,285.8022",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "828ce292-852b-4bdd-acfc-6bf65969c36a",
+          "Attenuation": 0,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 1275.4998,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "168d678b-c868-4a6c-adac-4a40523bb512",
+      "Flags": 0,
+      "Name": "Object (2)",
+      "Position": "-2204.581,519.1354,170.0358",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "c5a03bf6-1474-4d3a-b113-59361c77b5de",
+          "IsSpawning": false,
+          "MaxSpawns": 1000,
+          "PlayerProximityDistance": 1000,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "763176ca-ee49-41fe-a274-075085f47e17",
+      "Flags": 0,
+      "Name": "Object (4)",
+      "Position": "-2204.581,588.6277,170.0358",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "27219b0e-b32a-4fa9-b528-33911d4e7c3c",
+          "IsSpawning": false,
+          "MaxSpawns": 1000,
+          "PlayerProximityDistance": 1000,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/slime_new.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "60cbc683-b86b-489c-8270-0f6f74a4e331",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-940.3445,-693.1257,59.24139",
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "9284cc03-802b-4c3d-bfda-903761b9613b",
+          "IsSpawning": false,
+          "MaxSpawns": 1000,
+          "PlayerProximityDistance": 1000,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/pickupammo.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "c49b502c-101b-467d-bd14-18cc3dc532a6",
+      "Flags": 0,
+      "Name": "box_new (1)",
+      "Position": "-950.8048,-873.3379,-28.33604",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/box_legendary.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "6261f1d9-0814-4151-9711-02205f1ec060",
+      "Flags": 0,
+      "Name": "box_new",
+      "Position": "-589.0711,-1001.653,-25.83516",
+      "Rotation": "0,0,-0.7071067,0.7071068",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/box_normal.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "24e0af1e-00a0-407a-92e0-efd24adac1f0",
+      "Flags": 0,
+      "Name": "box_normal_small",
+      "Position": "-507.5456,-324.2166,-20.77558",
+      "Rotation": "0,0,-0.7071067,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "c70faa49-69ef-4a8d-a3d0-9319c9199a25",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/box_new/small.vmdl",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "ad18ed91-4005-4852-8200-b0344866870e",
+          "IsItem": false,
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/props/box_new/small.vmdl",
+            "MaterialGroup": "",
+            "Colour": "1,1,1,1",
+            "Position": "-34.05,37.65,37.95",
+            "Rotation": "0.7071068,0,0,0.7071068",
+            "Guid": "bde0d1c7-cb05-4cde-adc0-a6f84623fc0f"
+          },
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "Name": "Normal Chest",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SS",
+          "WeightInGrams": 0
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "8d378a29-19ed-4084-ae80-56004d985133",
+          "Flags": 0,
+          "Name": "World",
+          "Position": "-0.9000549,0.00006119609,160.1179",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.WorldPanel",
+              "__guid": "b9c6e912-43de-4d2c-880b-37d166c4a3af",
+              "HorizontalAlign": "Center",
+              "InteractionRange": 1000,
+              "LookAtCamera": false,
+              "PanelSize": "512,512",
+              "RenderScale": 1,
+              "VerticalAlign": "Center"
+            },
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "efdfac02-523c-4105-a4a0-a9f4926bb7b1",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 32,
+              "FontWeight": 800,
+              "Scale": 1,
+              "Text": "Hello! \u2764",
+              "TextAlignment": "Center"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "95af3975-1ae3-4f87-8526-15591605088f",
+      "Flags": 0,
+      "Name": "drawer",
+      "Position": "-645.2026,-306.0925,-5.85038",
+      "Rotation": "0,0,-0.9999999,0.0000001490116",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "88b180ce-b202-45d5-ba15-5379bc48138d",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/wood_table/table.vmdl",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "3df6f61b-4316-4cec-98b8-605d9fe392cb",
+          "IsItem": false,
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "Table",
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "Name": "Table",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "B",
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "ec895887-f01a-470c-b397-f9993fb93379",
+      "Flags": 0,
+      "Name": "drawer (3)",
+      "Position": "-742.2823,-306.0925,-5.85038",
+      "Rotation": "0,0,-0.9999999,0.0000001490116",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "392846be-32a7-4412-8f18-038fedb39d3c",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/wood_table/drawer_small/drawer_small.vmdl",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "6ad6d617-9c16-4fcf-927e-0d7d23b3681b",
+          "IsItem": false,
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "Table",
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "Name": "Table",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "A",
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "89152bb4-a329-4dd0-bb30-e314efc04f16",
+      "Flags": 0,
+      "Name": "drawer (4)",
+      "Position": "-796.1011,-238.1118,-5.85038",
+      "Rotation": "0,0,-0.7933531,0.6087614",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "05c65c96-9fe6-47a4-bdbf-f61ad006dc12",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/wood_table/drawer_big/drawer_big_v2.vmdl",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "bc106672-6d7b-4b79-bc32-186842340dbe",
+          "IsItem": false,
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "Table",
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "Name": "Table",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "S",
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "7058f84e-a03b-4731-bb1e-338ba76ba01a",
+      "Flags": 0,
+      "Name": "drawer (1)",
+      "Position": "-700.3022,-412.3162,-5.8504",
+      "Rotation": "0,0,-0.9999999,0.0000001490116",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/drawer.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "bedd2f13-0a4f-45d8-ba59-6a43cf909549",
+      "Flags": 0,
+      "Name": "drawer (2)",
+      "Position": "-800.1979,-412.3162,-5.8504",
+      "Rotation": "0,0,-0.9999999,0.0000001490116",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/drawer.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "6b7a8873-bdd5-46ae-ad13-36956d627419",
+      "Flags": 0,
+      "Name": "box_normal_small (2)",
+      "Position": "-876.3853,-361.1325,-5.85038",
+      "Rotation": "0,0,-0.0000003437187,-0.9999999",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "e4d8a7a9-9f13-42ca-8ba4-ef4c3be5dcb1",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/box_legendary/legendary chest.vmdl",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "93cc3a4c-afc8-4ad1-bab2-25ae081847f8",
+          "IsItem": false,
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "Name": "Legendary Chest",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SSS",
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "6d296d43-453b-42ab-84b8-a87c0e476ac9",
+      "Flags": 0,
+      "Name": "GameObject",
+      "Enabled": true
+    },
+    {
+      "__guid": "5dcf6dd8-198c-49ce-b645-de8e14fe75ce",
+      "Flags": 0,
+      "Name": "box_legendary_small",
+      "Position": "-965.1687,-355.0105,8.000015",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "453b4721-dcca-4a17-b68b-dff40bc79ae1",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/error.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "8907034e-16fd-4420-bcf0-e32d6a88f9f1",
+      "Flags": 0,
+      "Name": "test",
+      "Position": "-986.4608,-536.574,194.4914",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "__Prefab": "prefabs/vms.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "ddaf08c2-f7b4-477c-9dc6-91647c30a97c",
+      "Flags": 0,
+      "Name": "door_single_dev",
+      "Position": "-1074.971,-104.2672,0.00002493421",
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a821ec56-dce2-4f2d-82e5-7fe2ba2860ba",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/door/door_single_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "46125d75-4008-40fe-8a13-297a3ea5972c",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-0.3259277,-0.5293045,0.9319444",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.HingeJoint",
+              "__guid": "d7619820-6ac5-4fde-bb98-44173884be43",
+              "Attachment": "Auto",
+              "BreakForce": 0,
+              "BreakTorque": 0,
+              "DampingRatio": 1,
+              "EnableCollision": false,
+              "Fequency": 1,
+              "Friction": 0,
+              "LocalFrame1": {
+                "UniformScale": 1,
+                "IsValid": true,
+                "ForwardRay": {
+                  "Forward": "1,0,0"
+                },
+                "Scale": "1,1,1",
+                "Rotation": "0,0,0,1"
+              },
+              "LocalFrame2": {
+                "UniformScale": 1,
+                "IsValid": true,
+                "ForwardRay": {
+                  "Forward": "1,0,0"
+                },
+                "Scale": "1,1,1",
+                "Rotation": "0,0,0,1"
+              },
+              "MaxAngle": 0,
+              "MaxTorque": 0,
+              "MinAngle": 0,
+              "Motor": "Disabled",
+              "TargetAngle": 0,
+              "TargetVelocity": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "8b4c8334-821b-4ac1-a5b3-4340901ddf1e",
+      "Flags": 0,
+      "Name": "aksu",
+      "Position": "-498.1985,-149.2133,20",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/aksu/aksu.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "ae0c1f65-5486-4d7d-836d-8b9fb673e977",
+      "Flags": 0,
+      "Name": "aksu (1)",
+      "Position": "-660.2313,-67.69144,20",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/aksu/aksu.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "1ce12cdb-5bc7-49be-9f6d-08f0b4ee211a",
+      "Flags": 0,
+      "Name": "aksu (2)",
+      "Position": "-981.4119,-270.9587,20",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/aksu/aksu.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "aece25e4-3945-455c-a87b-269bca78ca4e",
+      "Flags": 0,
+      "Name": "woody",
+      "Position": "-353.6854,-220.4016,9.290839",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "57c5330e-d4f3-4331-9026-28e017c63a76",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/wood/woody.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "0592f920-4ce3-45f8-978a-f8930abe088a",
+      "Flags": 0,
+      "Name": "woody",
+      "Position": "-352.5413,-179.4241,9.29087",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "5b1666f8-1171-4249-a7af-87c7708b9fe6",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/wood/woody.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b1223456-249c-4cfe-9e58-d6c520ba9b9a",
+      "Flags": 0,
+      "Name": "woody",
+      "Position": "-386.3203,-134.5592,9.29087",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "e670ed98-e032-45fa-89f9-9ac5130f47d0",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/wood/woody.vmdl",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "c9fe1254-8911-46f4-9a99-8c15e1b82b83",
+          "IsItem": true,
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "264c760d-f599-4d54-9fe0-0156b17f375d",
+      "Flags": 0,
+      "Name": "woody (1)",
+      "Position": "-386.3203,-99.40497,9.29087",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a1b3662a-9827-4c02-919b-702bc5d77d5b",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/wood/woody.vmdl",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "42b7087f-4ccc-45b6-bcbb-90ba27b24877",
+          "IsItem": true,
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "A",
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "f5580359-0a8e-4f97-b2b4-6c835e3fa814",
+      "Flags": 0,
+      "Name": "woody (2)",
+      "Position": "-386.3203,-69.57939,9.29087",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ItemComponent",
+          "__guid": "342693a5-5ca3-4da1-95c1-98f553e98927",
+          "IsItem": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/props/wood/woody.vmdl",
+            "MaterialGroup": "",
+            "Colour": "1,1,1,1",
+            "Position": "-30,3.75,0",
+            "Rotation": "0,0,0.6930873,0.7208536",
+            "Guid": "63e1b220-7fee-4083-9877-434a180204e0"
+          },
+          "INT": 0,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "PER": 0,
+          "PoisonResistence": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SS",
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "34edb6c4-8093-4828-b470-53d31772b3bb",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "Model": "models/props/wood/woody.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "64d6d0ff-8e12-4fe6-8c0e-a8325f70e744",
+          "IsTrigger": false,
+          "Model": "models/props/wood/woody.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "9eb4f250-2726-413c-9959-1c30937304a6",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-1132.243,-329.8271,64.57167",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "9f4d4421-3b7d-410b-882e-2df0f426034c",
+          "IsSpawning": false,
+          "MaxSpawns": 10,
+          "PlayerProximityDistance": 1000,
+          "RespawnTime": 50,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/pickupammo.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "ad9e3962-6279-4f25-969b-6399d2793673",
+      "Flags": 0,
+      "Name": "zombie",
+      "Position": "-1191.814,-88.4501,111.0219",
+      "Tags": "bad,npc",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "__Prefab": "prefabs/npc/zombie_new_1.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "3696bb3e-2a51-4cce-92c4-f927afc48143",
+      "Flags": 0,
+      "Name": "slime",
+      "Position": "-1113,-161.0557,148.6265",
+      "Tags": "npc,bad",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "__Prefab": "prefabs/npc/slime_new.prefab",
+      "__PrefabVariables": {}
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 128,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": true,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 0.49989566,
+      "AgentStepSize": 23.700022,
+      "AgentMaxSlope": 1388.1989,
+      "ExcludedBodies": "npc,solid",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "minimal",
+  "Description": "",
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.door_single_dev"
+  ],
+  "__version": 1
+}

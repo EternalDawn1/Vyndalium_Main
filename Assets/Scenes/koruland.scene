@@ -3,24 +3,25 @@
   "GameObjects": [
     {
       "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
+      "Flags": 0,
       "Name": "MapObjects",
       "Position": "-16.73947,-31.52794,131.4671",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Children": [
         {
           "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
+          "Flags": 0,
           "Name": "Map",
           "Position": "767.2023,-2519.431,1584.684",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MapInstance",
               "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
+              "__version": 1,
+              "EnableCollision": true,
               "MapName": "maps/koruland.vmap",
+              "NoOrigin": true,
               "UseMapFromLaunch": false
             }
           ],
@@ -30,11 +31,11 @@
     },
     {
       "__guid": "e47368dc-2aa1-43c7-9701-476845bc0e7d",
+      "Flags": 0,
       "Name": "GameManager",
       "Position": "-4687.136,-3009.619,2645.524",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "GeneralGame.PrefabInitializer",
@@ -46,19 +47,20 @@
           "Prefab": {
             "_type": "gameobject",
             "prefab": "prefabs/player.prefab"
-          }
+          },
+          "SpawnPoints": [],
+          "StartServer": true
         }
       ]
     },
     {
       "__guid": "8f8e0bbb-0ebe-4d7e-b45a-d02855084809",
+      "Flags": 0,
       "Name": "Object",
       "Position": "-112.513,702.8104,61.97736",
       "Scale": "-0.7654113,0.9841333,0.6492278",
       "Tags": "interactable",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ModelRenderer",
@@ -88,11 +90,11 @@
     },
     {
       "__guid": "f753371b-1b8b-4cf8-93d4-7597e403ecc9",
+      "Flags": 0,
       "Name": "Object",
       "Position": "510.4106,560.3522,62.47365",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "GeneralGame.PickupSpawner",
@@ -108,16 +110,19 @@
     },
     {
       "__guid": "019efa89-9489-4e8e-9c46-a0c22acfc0a4",
+      "Flags": 0,
       "Name": "Object (1)",
       "Position": "464.0758,560.3522,62.47365",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "GeneralGame.ZombieSpawner",
           "__guid": "e21bde92-f3e4-4ec4-85bb-ff897ded1bcd",
           "__enabled": false,
+          "IsSpawning": false,
+          "MaxSpawns": 10,
+          "PlayerProximityDistance": 1000,
           "RespawnTime": 5,
           "ZombiePrefab": {
             "_type": "gameobject",
@@ -128,52 +133,78 @@
     },
     {
       "__guid": "d974ea0d-df4a-465b-bcc4-1e1f148b45e8",
+      "Flags": 0,
       "Name": "glock",
       "Position": "598.1561,783.0393,40.00001",
       "Rotation": "-0.00000002980232,0,0.9999999,0",
       "Scale": "1.5,1.5,1.5",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/pm/glock.prefab"
+      "__Prefab": "prefabs/weapons/pm/glock.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "e1ad3f8c-2065-4a6b-8733-f1a46ba6e859",
+      "Flags": 0,
       "Name": "spawner",
       "Position": "-1216.029,223.3884,128.2761",
       "Rotation": "-0.08639657,0.08639652,0.7018088,0.7018089",
       "Scale": "-0.7654113,0.9841333,0.6492278",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/spawner.prefab"
+      "__Prefab": "prefabs/spawner.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "694484ef-4fb8-4dda-83c2-492f219b4202",
+      "Flags": 0,
       "Name": "aksu",
       "Position": "471.2376,583.7712,52",
       "Scale": "1.5,1.5,1.5",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/aksu/aksu.prefab"
+      "__Prefab": "prefabs/weapons/aksu/aksu.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "d71c2760-1c7f-4926-a57e-ff79e9db9fac",
+      "Flags": 0,
       "Name": "Shop",
       "Position": "-135.8674,191.0689,99.79269",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.WorldPanel",
           "__guid": "e16d33f3-3e95-42a2-863d-8fe23429c143",
           "HorizontalAlign": "Center",
+          "InteractionRange": 1000,
           "LookAtCamera": false,
           "PanelSize": "512,512",
           "RenderScale": 1,
           "VerticalAlign": "Center"
+        }
+      ]
+    },
+    {
+      "__guid": "4a3fa0b7-ba65-49dc-b4d6-a4472c95e4f0",
+      "Flags": 0,
+      "Name": "GameObject",
+      "Enabled": true
+    },
+    {
+      "__guid": "955674bc-23a9-470a-952b-13a485ef51a0",
+      "Flags": 0,
+      "Name": "GameObject",
+      "Enabled": true
+    },
+    {
+      "__guid": "8d1d476b-b824-4d2b-b40e-47aaef06ac08",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-343.645,-1287.86,1253.814",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "136cbaba-333f-4d4e-85d5-e1472b685a8c",
+          "Color": "0.8902,0.31765,0.05098,1"
         }
       ]
     }
@@ -201,8 +232,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-05-05T13:23:29.6837181\u002B02:00",
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

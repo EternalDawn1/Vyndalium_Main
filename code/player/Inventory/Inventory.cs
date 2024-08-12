@@ -169,6 +169,8 @@ public sealed class Inventory : Component
 
 		return res;
 	}
+
+
 	public bool EquipItemFromBackpack( ItemComponent item )
 	{
 		if ( item == null )
@@ -176,12 +178,25 @@ public sealed class Inventory : Component
 			Log.Error( "ItemComponent ist null." );
 			return false;
 		}
+
+		if ( _backpackItems == null )
+		{
+			Log.Error( "Backpack items list is null." );
+			return false;
+		}
+
 		var index = _backpackItems.IndexOf( item );
 		if ( index == -1 )
 			return false;
 
 		if ( item is not ItemEquipment equipment )
 			return false;
+
+		if ( _equippedItems == null )
+		{
+			Log.Error( "Equipped items list is null." );
+			return false;
+		}
 
 		var slotIndex = equipment.IsBackable ? (int)EquipSlot.Back : (int)equipment.Slot;
 		var previouslyEquippedItem = _equippedItems[slotIndex];
@@ -198,7 +213,6 @@ public sealed class Inventory : Component
 			GiveBackpackItem( previouslyEquippedItem, index ); // Angenommen, der Index ist hier relevant
 			previouslyEquippedItem.State = ItemState.Backpack;
 		}
-		
 
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
@@ -209,16 +223,24 @@ public sealed class Inventory : Component
 			_backpackItems.RemoveAt( index );
 		}
 
-		var weaponContainer = Player.Components.Get<WeaponContainer>();
+		if ( Player == null )
+		{
+			Log.Error( "Player is null." );
+			return false;
+		}
+
+		var weaponContainer = Player.Components?.Get<WeaponContainer>();
 		if ( weaponContainer != null )
 		{
 			weaponContainer.Give( item.GameObject, true );
 		}
-		
+		else
+		{
+			Log.Error( "WeaponContainer is null." );
+		}
 
 		return true;
 	}
-
 
 
 	public bool EquipItemFromWorld( ItemComponent item, bool forceReplace = false )

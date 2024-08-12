@@ -11,25 +11,87 @@
         
         OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud))
         IsInverted=@(true)
-        ImagePath="ui/hud/goback.png"
+        ImagePath="ui/hud/exit.gif"
         style="position: absolute; top: 30px; right: 0px;" 
     />
     <SideButton 
         Title="Inventory" 
-        Subtitle="click for Inventory"
+      
         OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Inventory))
         IsInverted=@(true)
         ImagePath="ui/hud/player.png"
         style="position: absolute; top: 150px; right: 0px;" 
     />
     <SideButton 
-        Title="Status" 
-        Subtitle="click for Player Stats"
+        Title="Character Menu" 
+      
         OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.CharacterMenu))
         IsInverted=@(true)
         ImagePath="ui/hud/muscles.png"
         style="position: absolute; top: 270px; right: 0px; " 
     />
+    <div class="sidehud">
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Abilities)) IsInverted=@(true)
+			ImagePath="ui/hud/Tree.png" />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Endurance)) IsInverted=@(true) ImagePath="ui/hud/shield.png" />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Strength)) IsInverted=@(true) ImagePath="ui/hud/strength.png" />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Agility)) IsInverted=@(true) ImagePath="ui/hud/running.png" />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Intelligence)) IsInverted=@(true) ImagePath="ui/hud/brain.png" />
+
+            
+    </div>
+    <div class="main">
+        <div class="panel">
+            <div class="panel-header" style="opacity: @(currentPanel == PanelType.Abilities ? 1 : 0)">
+                <button class="panel-header-text"
+                >Abilities</button>
+            </div>
+            <div class="panel-header" style="opacity: @(currentPanel == PanelType.Endurance ? 1 : 0)">
+                <button class="panel-header-text" 
+                    >Endurance</button>
+            </div>
+            <div class="panel-header" style="opacity: @(currentPanel == PanelType.Strength ? 1 : 0)">
+                <button class="panel-header-text">Strength</button>
+            </div>
+            <div class="panel-header" style="opacity: @(currentPanel == PanelType.Agility ? 1 : 0)">
+                <button class="panel-header-text">Agility</button>
+            </div>
+            <div class="panel-header" style="opacity: @(currentPanel == PanelType.Intelligence ? 1 : 0)">
+                <button class="panel-header-text">Intelligence</button>
+            </div>
+
+
+            <div class="panel-content" style="opacity: @(currentPanel == PanelType.Abilities ? 1 : 0)">
+                
+                    <div class="panel-content-text">
+                        <p>Abilities</p>
+                    </div>
+            </div>
+            <div class="panel-content" style="opacity: @(currentPanel == PanelType.Endurance ? 1 : 0)">
+                
+                    <div class="panel-content-text">
+                        <p>Endurance</p>
+                    </div>
+            </div>
+            <div class="panel-content" style="opacity: @(currentPanel == PanelType.Strength ? 1 : 0)">
+                
+                    <div class="panel-content-text">
+                        <p>Strength</p>
+                    </div>
+            </div>
+            <div class="panel-content" style="opacity: @(currentPanel == PanelType.Agility ? 1 : 0)">
+                    
+                        <div class="panel-content-text">
+                            <p>Agility</p>
+                        </div>
+            </div>
+            <div class="panel-content" style="opacity: @(currentPanel == PanelType.Intelligence ? 1 : 0)">
+                        <div class="panel-content-text">
+                            <p>Intelligence</p>
+                        </div>
+            </div>
+    </div>
+        
 
     
         
@@ -37,10 +99,7 @@
 </root>
 @code{
     public static Abilities Instance { get; private set; }
-    public Abilities()
-    {
-        Instance = this;
-    }
+    public Abilities() => Instance = this;
     public void Display()
     {
         FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Abilities);
@@ -48,6 +107,32 @@
     public void Hide()
     {
         FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud);
+    }
+   private enum PanelType
+    {
+        Abilities,
+        Endurance,
+        Strength,
+        Agility,
+        Intelligence
+    }
+    private PanelType currentPanel = PanelType.Abilities;
+    
+    private void ShowPanel(PanelType panel)
+    {
+        currentPanel = panel;
+    }
+    protected override int BuildHash()
+    {
+
+        if (Player.Local is null || Player.Local.Inventory == null)
+            return -1;
+
+        return HashCode.Combine(
+        Player.Local.Level,
+        Player.Local.Inventory.BackpackItems.HashCombine(i => i?.GetHashCode() ?? -1),
+        Player.Local.Inventory.EquippedItems.HashCombine(i => i?.GetHashCode() ?? -1)
+        );
     }
     
 }
