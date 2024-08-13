@@ -67,6 +67,15 @@ public partial class Player
     [Sync, Property, Group( "CharacterStats" )] public float WaterElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
     [Sync, Property, Group( "CharacterStats" )] public float EarthElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
     [Sync, Property, Group( "CharacterStats" )] public float WindElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
-    [Sync, Property, Group( "CharacterStats" )] public float HolyElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
+    [Sync, Property, Group( "CharacterStats" )] public float HolyElementalDamage { get; set; }
+    public int StrengthCost { get; set; } 
+    public int AttackPowerCost { get; set; } 
+    public int ArmorPenetrationCost { get; set; } 
+    public int AttackRangeCost { get; set; } 
+    public int AttackSpeedCost { get; set; } 
+    public int CriticalChanceCost { get; set; } 
+    public int CriticalDamageCost { get; set; } 
+    
+
 
 }

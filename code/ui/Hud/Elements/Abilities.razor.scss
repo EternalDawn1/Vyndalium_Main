@@ -27,6 +27,39 @@ Abilities{
        
         
         }
+        .playe3 {
+            position: absolute;
+            left: 15%;
+            top:5%;
+            width: 10%;
+            background-color: rgba(0, 0, 0, 0);
+            color:white;
+            font-size: 25px;
+            font-weight: 1000;
+            border-radius: 10px;
+            padding:10px;
+            border-color: rgb(255, 255, 255);
+            border-width:1px;
+            
+            .playe2{
+                position: relative;
+                width: 100%;
+                color: rgb(0, 245, 33);
+                
+            }
+            
+            
+            
+            
+            .nu {
+            font-size: 25px;
+            color: rgb(0, 255, 64);
+            font-weight: 1000;
+            animation: blink 1s linear infinite;
+            
+            
+            }
+        }
 
         .main{
             position: relative;
@@ -34,6 +67,7 @@ Abilities{
             top: 15%;
             width: 60%;
             height: 70%;
+            
             
             
             
@@ -45,7 +79,7 @@ Abilities{
                 border-radius: 10px;
                 border-color: black;
                 border-width: 1px;
-                
+                font-family: Geneva;
                 .panel-header{
                     position: relative;
                     width: 100%;
@@ -65,7 +99,7 @@ Abilities{
                         position: relative;
                         width: 100%;
                         height: 100%;
-                        
+                        font-family: Geneva;
                         text-align: center;
                         font-size: 25px;
                         font-weight: bold;
@@ -100,14 +134,117 @@ Abilities{
                     position: absolute;
                     width: 100%;
                     height: 90%;
-                    margin-top: 10%;
+                    font-family: Geneva;
+                    flex-direction: row;
+                    padding: 10px;
+                    
+                    .panel-content-text{
+                        position: relative;
+                        width: 100%;
+                       
+                        
+                    }
+
+                    .panel-content-layout{
+                        position: relative;
+                        width: 80%;
+                        background-color: rgb(70, 62, 62);
+                        border-radius: 10px;
+                        border-color: rgb(255, 255, 255);
+                        border-width:4px;
+                        padding: 15px;
+                        color:white;
+                        font-size: 23px;
+                        margin-left:5px;
+                        margin-bottom:5px;
+                        overflow-x: scroll;
+                        
+                        
+                        
+                       
+                        .panel-button-layout{
+                            position: relative;
+                            gap: 20px;
+                            flex-direction: column;
+                            width: 100%;
+                            align-content: center;
+                            
+                            
+                            .box{
+                                justify-content: space-evenly;
+                            }
+                            
+                            .amount{
+                                position: relative;
+                                width: 50%;
+                                justify-content: space-evenly;
+                                color: rgb(0, 255, 64);
+                            
+                                
+                                
+                            }
+                            .coast{
+                                position: relative;
+                                width: 50%;
+                                justify-content: space-evenly;
+                                color: rgb(255, 0, 0);
+                            }
+                            .txt{
+                               width: 50%; 
+                                
+                            } 
+                            .Button2 {
+                            position: relative;
+                            width: 12%;
+                            height: 100%;
+                            color: rgb(59, 156, 75);
+                            font-weight: 1000;
+
+                            :hover:not(.disabled) {
+                                    background-color: rgba(0, 255, 136, 0.397);
+                                    cursor: pointer;
+                                    sound-in: 'hover';
+                                    padding: 0 1%;
+                                    border-radius: 5%;
+                                    transform: scale(1.1);
+                                }
+                            
+                                &:active:not(.disabled) {
+                                    sound-in: 'light_click';
+                                    background-color: rgb(250, 134, 39);
+                                    padding: 0 1%;
+                                    border-radius: 5%;
+                                }
+                        }
+                        
+                        
+
+                        
+
+                        
+
+                        }
+                        
+                        
+                    }
+                    .panel-content-context{
+                            position: relative;
+                            width: 50%;
+                            height: 100%;
+                            background-color: rgb(70, 62, 62);
+                            border-radius: 10px;
+                            border-color: rgb(255, 255, 255);
+                            border-width: 4px;
+                            color:white;
+                            padding: 1%;
+                            font-size: 23px;
+                            font-family: Geneva;
+                            overflow-x: scroll;
+                                
+                        }
+                    
                 }
-               
-             
-               
-              
-              
-               
+  
             }
             
         }

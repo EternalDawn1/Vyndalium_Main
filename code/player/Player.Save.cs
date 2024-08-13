@@ -13,7 +13,7 @@ public struct ItemSave
 public struct PlayerSave
 {
 	public const string FILE_PATH = "viwis.json";
-
+	
 	[JsonInclude] public string Firstname;
 	[JsonInclude] public string Lastname;
 	[JsonInclude] public string AuthToken {get ; set;}
@@ -52,6 +52,13 @@ public struct PlayerSave
 	[JsonInclude] public int INT;
 	[JsonInclude] public int DEX;
 	[JsonInclude] public int PER;
+	[JsonInclude] public int StrengthCost;
+	[JsonInclude] public int AttackPowerCost;
+	[JsonInclude] public int ArmorPenetrationCost;
+	[JsonInclude] public int AttackRangeCost;
+	[JsonInclude] public int AttackSpeedCost;
+	[JsonInclude] public int CriticalChanceCost;
+	[JsonInclude] public int CriticalDamageCost;
 
 	[JsonInclude] public int StatsPoints;
 
@@ -178,7 +185,7 @@ partial class Player
 		
 		_saveData = save with
 		{
-
+			
 			AmmoCount = player.AmmoContainer.AmmoCount,
 			Vyndalium = (int)player.Vyndalium,
 			Experience = (int)player.Experience,
@@ -214,8 +221,16 @@ partial class Player
 			INT = (int)player.INT,
 			DEX = (int)player.DEX,
 			PER = (int)player.PER,
-			
-			
+			StrengthCost = player.StrengthCost,
+			AttackPowerCost = player.AttackPowerCost,
+			ArmorPenetrationCost = player.ArmorPenetrationCost,
+			AttackRangeCost = player.AttackRangeCost,
+			AttackSpeedCost = player.AttackSpeedCost,
+			CriticalChanceCost = player.CriticalChanceCost,
+			CriticalDamageCost = player.CriticalDamageCost,
+
+
+
 			Clothes = player.Inventory.EquippedItems
 			
 			
@@ -305,8 +320,16 @@ partial class Player
 		player.INT = save.INT;
 		player.DEX = save.DEX;
 		player.PER = save.PER;
+		player.StrengthCost = save.StrengthCost;
+        player.AttackPowerCost = save.AttackPowerCost;
+         player.ArmorPenetrationCost = save.ArmorPenetrationCost;
+		player.AttackRangeCost = save.AttackRangeCost;
+		player.AttackSpeedCost = save.AttackSpeedCost;
+		player.CriticalChanceCost = save.CriticalChanceCost;
+		player.CriticalDamageCost = save.CriticalDamageCost;
 
-		
+
+
 
 		void ReadData( ItemSave data, GameObject obj )
 		{
