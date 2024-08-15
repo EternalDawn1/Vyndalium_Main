@@ -12,6 +12,7 @@
           "__type": "Sandbox.MapInstance",
           "__guid": "defb8bdc-1059-4d11-87aa-69efc3da0289",
           "__version": 1,
+          "EnableCollision": true,
           "MapName": "maps/forest.vmap",
           "NoOrigin": true,
           "UseMapFromLaunch": false
@@ -27,50 +28,10 @@
       "Enabled": true,
       "Children": [
         {
-          "__guid": "4ec42690-f7ad-4b39-9b53-782887b3f4b8",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "1235.877,-541.9719,-3234.271",
-          "Components": [
-            {
-              "__type": "GeneralGame.ZombieSpawner",
-              "__guid": "38f21239-9b5d-410f-988c-eef7651852cc",
-              "IsSpawning": false,
-              "MaxSpawns": 10,
-              "PlayerProximityDistance": 1000,
-              "RespawnTime": 10,
-              "ZombiePrefab": {
-                "_type": "gameobject",
-                "prefab": "prefabs/pistoleammo.prefab"
-              }
-            }
-          ]
-        },
-        {
-          "__guid": "8012a5c2-bbaf-43a7-9863-71f4cf5c941a",
-          "Flags": 0,
-          "Name": "Object (1)",
-          "Position": "1235.877,-586.4849,-3234.271",
-          "Components": [
-            {
-              "__type": "GeneralGame.ZombieSpawner",
-              "__guid": "a96df9f5-1113-428c-97a7-edb266883b3e",
-              "IsSpawning": false,
-              "MaxSpawns": 10,
-              "PlayerProximityDistance": 1000,
-              "RespawnTime": 10,
-              "ZombiePrefab": {
-                "_type": "gameobject",
-                "prefab": "prefabs/pickupammo.prefab"
-              }
-            }
-          ]
-        },
-        {
           "__guid": "fa6d1be0-81a3-4a3c-8800-23ace5bc7a90",
           "Flags": 0,
           "Name": "fireparticle",
-          "Position": "217.2061,-429.064,-3221.996",
+          "Position": "440.3756,-422.4711,-3241.008",
           "Tags": "particles",
           "Enabled": true,
           "Components": [
@@ -88,7 +49,7 @@
           "__guid": "0458e7f5-5df5-4fe7-970f-7b8d969e6123",
           "Flags": 0,
           "Name": "fireparticle (1)",
-          "Position": "217.2061,-421.5491,-3231.442",
+          "Position": "440.3756,-422.4711,-3241.008",
           "Tags": "particles",
           "Enabled": true,
           "Components": [
@@ -106,7 +67,7 @@
           "__guid": "6efc544a-3acb-44a6-a30b-bbc06a3214ef",
           "Flags": 0,
           "Name": "fireparticle (2)",
-          "Position": "217.2061,-436.7629,-3229.778",
+          "Position": "440.3756,-422.4711,-3241.008",
           "Tags": "particles",
           "Enabled": true,
           "Components": [
@@ -124,7 +85,7 @@
           "__guid": "66f579cf-fc34-48fe-8ad0-3d691539c229",
           "Flags": 0,
           "Name": "saunalog",
-          "Position": "218.949,-430.8569,-3234.243",
+          "Position": "440.3757,-422.4712,-3241.008",
           "Rotation": "0,0,-0.3826834,0.9238796",
           "Scale": "1.327412,1.327412,1.327412",
           "Enabled": true,
@@ -144,7 +105,7 @@
           "__guid": "a689289f-87e6-469c-93b5-c0b31248c09a",
           "Flags": 0,
           "Name": "saunalog (1)",
-          "Position": "221.396,-429.563,-3229.239",
+          "Position": "440.3757,-422.4712,-3241.008",
           "Rotation": "-0.3535534,0.1464466,0.3535534,0.8535535",
           "Scale": "1.327412,1.327412,1.327412",
           "Enabled": true,
@@ -161,101 +122,10 @@
           ]
         },
         {
-          "__guid": "20242be9-800f-4fa9-bdee-945e3ad218d2",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "222.3511,-430.4939,-3212.826",
-          "Tags": "light_point,light",
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "b33c0711-c9ab-4a01-93e6-244a17091dd4",
-              "Attenuation": 0.49,
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "1,0.41667,0,1",
-              "Radius": 250.39912,
-              "Shadows": true
-            },
-            {
-              "__type": "GeneralGame.FlickeringLight",
-              "__guid": "f6916755-185c-44c8-b70e-2f8d26ab789e",
-              "pointLight": {
-                "_type": "component",
-                "component_id": "b33c0711-c9ab-4a01-93e6-244a17091dd4",
-                "go": "20242be9-800f-4fa9-bdee-945e3ad218d2",
-                "component_type": "PointLight"
-              },
-              "flickerIntensity": 0,
-              "flickerSpeed": 0
-            }
-          ]
-        },
-        {
-          "__guid": "eb26bd0a-b5a7-45d8-ab6c-919b43ac46ca",
-          "Flags": 0,
-          "Name": "Object (5)",
-          "Position": "222.5271,-991.6797,-2898.825",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "e0e6f00d-cc41-426a-adac-caf36e8fdb01",
-              "Attenuation": 3.35,
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "0.3907,0.18823,0.04361,1",
-              "Radius": 1099.2,
-              "Shadows": true
-            }
-          ]
-        },
-        {
-          "__guid": "a8fc76c2-b2d5-4b44-aca9-cd50de15ebaf",
-          "Flags": 0,
-          "Name": "Object (6)",
-          "Position": "222.5271,-408.6675,-2663.429",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "13a2fd19-2773-44d5-9428-1d2650cde228",
-              "Attenuation": 0.25,
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "1,0.31667,0,1",
-              "Radius": 1099.2,
-              "Shadows": true
-            }
-          ]
-        },
-        {
-          "__guid": "f3e86127-2b03-45df-9d75-b260e83d00fb",
-          "Flags": 0,
-          "Name": "Object (7)",
-          "Position": "577.7424,-83.81494,-2644.619",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "6c2f5e40-763c-456a-84b2-c6f9b0c68dc6",
-              "Attenuation": 0.25,
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "1,0.31667,0,1",
-              "Radius": 1099.2,
-              "Shadows": true
-            }
-          ]
-        },
-        {
           "__guid": "fe1a31bd-fe6c-4869-9936-969f549255d1",
           "Flags": 0,
           "Name": "Object (4)",
-          "Position": "188.9563,-195.532,-3193.353",
+          "Position": "437.2769,-195.532,-3193.353",
           "Tags": "light_point,light",
           "Enabled": true,
           "Components": [
@@ -275,7 +145,7 @@
           "__guid": "fa5a0015-6f02-44c2-a7d7-57bcc8140902",
           "Flags": 0,
           "Name": "Flickering Flame",
-          "Position": "229.4758,-427.8542,-3209.656",
+          "Position": "440.3756,-422.4711,-3241.008",
           "Tags": "light_point,light",
           "Enabled": true,
           "Components": [
@@ -311,7 +181,7 @@
           "__guid": "2ad8094e-d513-4dc3-9b14-549d4e797af7",
           "Flags": 0,
           "Name": "Flickering Light",
-          "Position": "229.4758,-426.3711,-3194.608",
+          "Position": "440.3756,-422.4711,-3241.008",
           "Tags": "light_point,light",
           "Enabled": true,
           "Components": [
@@ -340,30 +210,10 @@
           ]
         },
         {
-          "__guid": "c7e9214c-da6b-4314-8fd3-5e7b8a73f216",
-          "Flags": 0,
-          "Name": "Object (4)",
-          "Position": "327.936,108.6348,-2869.271",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "5f687d0a-3048-4b2e-94ff-62a041a79523",
-              "Attenuation": 0.16,
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "1,0.41667,0,1",
-              "Radius": 130.09917,
-              "Shadows": true
-            }
-          ]
-        },
-        {
           "__guid": "145e3178-1ac8-4177-8d35-c3ae834363dd",
           "Flags": 0,
           "Name": "Object (3)",
-          "Position": "721.3821,-430.4939,-3033.291",
+          "Position": "866.325,-430.4939,-3033.291",
           "Tags": "light_point,light",
           "Enabled": true,
           "Components": [
@@ -383,7 +233,7 @@
           "__guid": "a3790feb-57b1-41d8-b761-5fd158204441",
           "Flags": 0,
           "Name": "Object (2)",
-          "Position": "1094.249,12.104,-3177.643",
+          "Position": "826.2131,-197.2522,-3177.643",
           "Tags": "light_point,light",
           "Enabled": true,
           "Components": [
@@ -403,7 +253,7 @@
           "__guid": "d514a834-592a-4f85-9d26-1b74398f2055",
           "Flags": 0,
           "Name": "sofa_03",
-          "Position": "947.603,-0.4638672,-3247.225",
+          "Position": "679.5671,-209.8201,-3247.225",
           "Enabled": true,
           "Components": [
             {
@@ -430,7 +280,7 @@
           "__guid": "b01474e5-78c2-461b-8d5d-843fc83bcb6d",
           "Flags": 0,
           "Name": "sofa_03 (1)",
-          "Position": "1084.147,101.75,-3247.225",
+          "Position": "816.1111,-107.6062,-3247.225",
           "Rotation": "0,0,-0.7071067,0.7071068",
           "Enabled": true,
           "Components": [
@@ -449,7 +299,7 @@
           "__guid": "a69adfce-11fe-46b9-a8b6-df7561124252",
           "Flags": 0,
           "Name": "small_pokertable",
-          "Position": "1088.208,11.65796,-3247.105",
+          "Position": "820.1721,-197.6982,-3247.105",
           "Enabled": true,
           "Components": [
             {
@@ -467,7 +317,7 @@
           "__guid": "e5c2079a-c746-47f0-a1a5-8113d6c0fff1",
           "Flags": 0,
           "Name": "lamp_02",
-          "Position": "1090.026,11.88599,-3213.19",
+          "Position": "821.5823,-182.6394,-3213.19",
           "Rotation": "0,0.000000000000006744512,0.9999999,0.00000000000002023354",
           "Enabled": true,
           "Components": [
@@ -486,7 +336,7 @@
           "__guid": "3de138b9-5e05-40c2-ab48-9099b0fbca1a",
           "Flags": 0,
           "Name": "the_matrix_red_chesterfield_chair",
-          "Position": "358.3481,-506.1169,-3213.155",
+          "Position": "562.8479,-506.1169,-3213.155",
           "Rotation": "0,0,-0.3826835,0.9238795",
           "Enabled": true,
           "Components": [
@@ -505,7 +355,7 @@
           "__guid": "0fab2662-ec71-43e2-a425-dc6e8b1fd7c7",
           "Flags": 0,
           "Name": "cupboard_01",
-          "Position": "195.0554,-259.123,-3188.554",
+          "Position": "440.0828,-328.5955,-3188.554",
           "Rotation": "0,0,-0.7071068,0.7071068",
           "Scale": "1.453503,1.453503,1.453503",
           "Enabled": true,
@@ -525,7 +375,7 @@
           "__guid": "6eb818a3-3e2b-40c8-88b2-68f5a809ca4d",
           "Flags": 0,
           "Name": "cupboard_01 (1)",
-          "Position": "195.0554,-173.5933,-3188.554",
+          "Position": "440.0828,-243.0657,-3188.554",
           "Rotation": "0,0,-0.7071068,0.7071068",
           "Scale": "1.453503,1.453503,1.453503",
           "Enabled": true,
@@ -545,7 +395,7 @@
           "__guid": "483cc81e-f8c8-43d8-943d-db05f4b8eb9d",
           "Flags": 0,
           "Name": "cupboard_01 (2)",
-          "Position": "195.0554,-89.90576,-3188.554",
+          "Position": "440.0828,-159.3782,-3188.554",
           "Rotation": "0,0,-0.7071068,0.7071068",
           "Scale": "1.453503,1.453503,1.453503",
           "Enabled": true,
@@ -565,7 +415,7 @@
           "__guid": "4a1784d5-ba56-4587-bcb4-6b28e8341738",
           "Flags": 0,
           "Name": "cabinet_bottom_drawers",
-          "Position": "179.9106,-269.4514,-3247.257",
+          "Position": "428.2312,-269.4514,-3247.257",
           "Enabled": true,
           "Components": [
             {
@@ -583,7 +433,7 @@
           "__guid": "b7ab7fc9-39a4-425b-bf95-465e741947a7",
           "Flags": 0,
           "Name": "kitchen",
-          "Position": "194.3027,-211.3235,-3247.257",
+          "Position": "442.6233,-211.3235,-3247.257",
           "Scale": "1,1.016613,0.6491759",
           "Enabled": true,
           "Components": [
@@ -602,7 +452,7 @@
           "__guid": "0de359c5-0f06-4384-8871-0f14cec51ffd",
           "Flags": 0,
           "Name": "cabinet_bottom_sink",
-          "Position": "174.925,-155.0159,-3247.257",
+          "Position": "423.2456,-155.0159,-3247.257",
           "Scale": "1,1,0.8117556",
           "Enabled": true,
           "Components": [
@@ -621,7 +471,7 @@
           "__guid": "3ca8c602-921f-4765-8b75-42fb3cfc7688",
           "Flags": 0,
           "Name": "duck_decoration",
-          "Position": "198.802,-213.6116,-3217.795",
+          "Position": "447.1226,-213.6116,-3217.795",
           "Rotation": "-0.01566724,0.0337849,0.4204085,0.9065703",
           "Enabled": true,
           "Components": [
@@ -637,34 +487,10 @@
           ]
         },
         {
-          "__guid": "d830f021-60ea-410d-8127-e6b390e48f92",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "299.3257,173.2529,-3132.331",
-          "Rotation": "0,0,-0.7071067,0.7071068",
-          "Scale": "0.7178732,0.4826334,0.4826334",
-          "Components": [
-            {
-              "__type": "GeneralGame.HUD.ShopWorldPanel",
-              "__guid": "26364484-8a5b-429b-bbb1-b5f8c2c203fa"
-            },
-            {
-              "__type": "Sandbox.WorldPanel",
-              "__guid": "00210e12-0cb6-49f2-9718-b935d24f0f17",
-              "HorizontalAlign": "Center",
-              "InteractionRange": 1000,
-              "LookAtCamera": false,
-              "PanelSize": "6165.1,5433.706",
-              "RenderScale": 1,
-              "VerticalAlign": "Center"
-            }
-          ]
-        },
-        {
           "__guid": "2b07ba52-db6f-4959-88b2-3fb17f21c234",
           "Flags": 0,
           "Name": "bed",
-          "Position": "286.7905,-486.822,-2927.257",
+          "Position": "530.2798,-486.822,-3066.412",
           "Rotation": "0,0,0.7071067,0.7071068",
           "Enabled": true,
           "Components": [
@@ -683,7 +509,7 @@
           "__guid": "0ef61ba3-ea47-41db-9653-79ac5dd013b7",
           "Flags": 0,
           "Name": "bed (1)",
-          "Position": "286.7905,-358.0876,-2927.257",
+          "Position": "513.3188,-334.417,-3064.646",
           "Rotation": "0,0,0.7071067,0.7071068",
           "Enabled": true,
           "Components": [
@@ -699,41 +525,22 @@
           ]
         },
         {
-          "__guid": "f73a93d2-ce78-4824-9537-9a933f3e83d8",
-          "Flags": 0,
-          "Name": "tsarbomba",
-          "Position": "533.5862,-85.86938,-2926.154",
-          "Scale": "3.155797,3.155797,3.155797",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.Prop",
-              "__guid": "2d78ecf6-a726-442f-adf0-66e55ec13b1a",
-              "BodyGroups": 18446744073709551615,
-              "Health": 50,
-              "IsStatic": false,
-              "Model": "models/bombs/tsarbomba.vmdl",
-              "Tint": "1,1,1,1"
-            }
-          ]
-        },
-        {
           "__guid": "c79327de-30cd-4c6e-8472-c55fc952b6be",
           "Flags": 0,
           "Name": "sun",
-          "Position": "2639.883,835.282,-1739.613",
-          "Rotation": "0,0.9633951,0,0.2680854",
+          "Position": "2640.682,-509.2031,-3055.256",
+          "Rotation": "-0.02243284,-0.2671452,0.08061493,-0.9600164",
           "Tags": "light_directional,light",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.DirectionalLight",
               "__guid": "ed15e33d-30c2-4565-839b-f49e4bf6e3c6",
-              "FogMode": "Enabled",
+              "FogMode": "Disabled",
               "FogStrength": 1,
-              "LightColor": "4.06,4.06,4.06,1",
+              "LightColor": "4.06,4.06,4.06,0",
               "Shadows": true,
-              "SkyColor": "1,1,1,1"
+              "SkyColor": "1,0.5,0,0.55"
             }
           ]
         },
@@ -766,8 +573,8 @@
           "__guid": "d784c8aa-d5da-482f-8d06-c2abe071758a",
           "Flags": 0,
           "Name": "spawnpoint",
-          "Position": "3521.999,3406.889,-2648.969",
-          "Rotation": "0,0,0.9914448,0.1305264",
+          "Position": "1500.731,-478.033,-3254.253",
+          "Rotation": "0,0,-0.0157077,0.9998766",
           "Enabled": true,
           "Components": [
             {
@@ -820,12 +627,12 @@
         {
           "__type": "Sandbox.GradientFog",
           "__guid": "1d48c9d1-881e-4f09-b8e7-460936bb4393",
-          "Color": "0,0,0,1",
+          "Color": "0,0,0,0.83",
           "EndDistance": 3058.3027,
-          "FalloffExponent": 0.4999999,
-          "Height": 128,
-          "StartDistance": 131.00032,
-          "VerticalFalloffExponent": 2
+          "FalloffExponent": 5.4999967,
+          "Height": 187.4001,
+          "StartDistance": 1801.2518,
+          "VerticalFalloffExponent": 27.599964
         }
       ]
     },
@@ -913,9 +720,12 @@
             "Constants": "2.6,11.2,0,0"
           },
           "MaxParticles": 5000,
+          "OrbitalForce": {},
+          "OrbitalPull": {},
           "PerParticleTimeScale": {
             "Constants": "1,0.4,0,0"
           },
+          "Pitch": {},
           "PreWarm": 0,
           "PushStrength": {},
           "Roll": {
@@ -956,6 +766,7 @@
           },
           "SheetSequence": false,
           "Space": "World",
+          "StartDelay": {},
           "StartVelocity": {
             "Type": "Range",
             "Evaluation": "Particle",
@@ -963,12 +774,14 @@
           },
           "Stretch": {},
           "TimeScale": 0.24,
-          "Tint": "1,1,1,1"
+          "Tint": "1,1,1,1",
+          "Yaw": {}
         },
         {
           "__type": "Sandbox.ParticleSpriteRenderer",
           "__guid": "70d93555-29cf-4e48-b8cb-6f02abb96fba",
           "Additive": false,
+          "Alignment": "LookAtCamera",
           "BlurAmount": 0.5,
           "BlurOpacity": 0.91,
           "BlurSpacing": 0.73,
@@ -976,6 +789,7 @@
           "FaceVelocity": false,
           "FogStrength": 1,
           "LeadingTrail": true,
+          "Lighting": false,
           "MotionBlur": false,
           "Opaque": false,
           "RotationOffset": 0,
@@ -997,7 +811,8 @@
           "InVolume": false,
           "Loop": true,
           "OnEdge": false,
-          "Rate": 500
+          "Rate": 500,
+          "RateOverDistance": 0
         }
       ]
     },
@@ -1085,9 +900,12 @@
             "Constants": "2.6,11.2,0,0"
           },
           "MaxParticles": 5000,
+          "OrbitalForce": {},
+          "OrbitalPull": {},
           "PerParticleTimeScale": {
             "Constants": "1,0.4,0,0"
           },
+          "Pitch": {},
           "PreWarm": 0,
           "PushStrength": {},
           "Roll": {
@@ -1128,6 +946,7 @@
           },
           "SheetSequence": false,
           "Space": "World",
+          "StartDelay": {},
           "StartVelocity": {
             "Type": "Range",
             "Evaluation": "Particle",
@@ -1135,12 +954,14 @@
           },
           "Stretch": {},
           "TimeScale": 0.24,
-          "Tint": "1,1,1,1"
+          "Tint": "1,1,1,1",
+          "Yaw": {}
         },
         {
           "__type": "Sandbox.ParticleSpriteRenderer",
           "__guid": "6e52a244-a426-42a2-8dc6-f8c90de5cbc4",
           "Additive": false,
+          "Alignment": "LookAtCamera",
           "BlurAmount": 0.5,
           "BlurOpacity": 0.91,
           "BlurSpacing": 0.73,
@@ -1148,6 +969,7 @@
           "FaceVelocity": false,
           "FogStrength": 1,
           "LeadingTrail": true,
+          "Lighting": false,
           "MotionBlur": false,
           "Opaque": false,
           "RotationOffset": 0,
@@ -1169,43 +991,8 @@
           "InVolume": false,
           "Loop": true,
           "OnEdge": false,
-          "Rate": 500
-        }
-      ]
-    },
-    {
-      "__guid": "c6f56c2f-7792-43ad-8ef0-08c0ef1cd883",
-      "Flags": 0,
-      "Name": "tree_oak_medium_a",
-      "Position": "-2147.075,-3087.56,109.0863",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "023d2aa9-4a96-4d97-bb1f-1e11c3a3f63d",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": false,
-          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
-          "Tint": "1,1,1,1"
-        }
-      ]
-    },
-    {
-      "__guid": "b94029ed-7146-4ed4-9463-3f9c895890ee",
-      "Flags": 0,
-      "Name": "tree_oak_medium_a (1)",
-      "Position": "-1912.444,-3087.56,109.0863",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "f75bdf14-683b-4279-9306-3b84ad283e5e",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": false,
-          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
-          "Tint": "1,1,1,1"
+          "Rate": 500,
+          "RateOverDistance": 0
         }
       ]
     },
@@ -1213,7 +1000,7 @@
       "__guid": "e3059226-548c-4d6a-bc0e-77199469daf9",
       "Flags": 0,
       "Name": "tree_oak_medium_a (2)",
-      "Position": "-1770.451,-3087.56,109.0863",
+      "Position": "-862.9053,-3296.916,109.0863",
       "Enabled": true,
       "Components": [
         {
@@ -1222,24 +1009,749 @@
           "BodyGroups": 18446744073709551615,
           "Health": 0,
           "IsStatic": false,
+          "MaterialGroup": "dry",
           "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
           "Tint": "1,1,1,1"
         }
       ]
     },
     {
-      "__guid": "841c5b10-c3bf-4562-9687-e3447bfed3bf",
+      "__guid": "dfa403a2-d13a-4b36-9e89-1fc54b23f833",
       "Flags": 0,
-      "Name": "tree_oak_medium_a (3)",
-      "Position": "-1770.451,-4541.99,109.0863",
+      "Name": "tree_oak_medium_a (1)",
+      "Position": "-1181.102,-3296.916,109.0863",
       "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.Prop",
-          "__guid": "aaa48717-9f4a-46a6-96ee-55b0f4cfd9a0",
+          "__guid": "00fda4c1-7920-4e2c-93dd-e67276a2f481",
           "BodyGroups": 18446744073709551615,
           "Health": 0,
           "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "63a7633c-6002-4232-b19f-a14fc5eeb644",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (31)",
+      "Position": "259.4087,-2771.468,109.0865",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "e8044109-1204-49d9-b897-6711b3bd63c0",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "90dd9a61-c92b-451e-8a1d-b59414830e2a",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (32)",
+      "Position": "1862.759,-3162.682,109.0865",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "45214df6-9400-4d24-99f9-7566569e40d4",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5aa80eba-088c-4543-8620-5090930307e4",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (33)",
+      "Position": "2145.641,-2608.98,109.086",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "8af66a86-cdb7-437b-99df-bc5f9df707b6",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b88b5465-09c7-4b53-a65b-efb584c398ed",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (34)",
+      "Position": "3774.199,-2866.495,109.0861",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "ab580af3-a28c-4e3d-841e-5b421ff36e9e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "4a562b91-7d5f-4e32-b160-cd96c8bd7881",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (72)",
+      "Position": "5095.028,-4743.813,109.0862",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "289462ab-3625-4dbb-a67c-c7b9be1aefde",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "caf5b376-cc11-401d-98ce-244a97ab21ed",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (73)",
+      "Position": "3834.721,-4701.905,109.0861",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a64958be-8ae8-4909-9848-9da893495739",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "57575863-5593-4965-a260-a610ab187c2d",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (74)",
+      "Position": "2620.29,-4682.284,109.0849",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "eef7af59-14af-4196-99a4-bcec42df6404",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7e5b7146-e0ab-478c-a7c6-0d786e992275",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (35)",
+      "Position": "3656.871,-1833.424,109.0861",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "1c6a054d-4769-4e9a-bfd7-795c8d132a94",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e108df73-6faa-405e-9b10-b4a6b26a4a92",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (36)",
+      "Position": "4583.319,-2729.29,109.0861",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "d501911c-f892-4456-a5fa-a03c55733ed1",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c1f68958-3c16-4966-a5aa-1e28678e9b50",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (37)",
+      "Position": "4550.51,-1465.546,109.0861",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "2225d39b-3385-463d-bc33-584943134a5e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f96fc212-aa3b-477b-b811-e40d89a17b2a",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (38)",
+      "Position": "5482.121,-2564.225,109.0862",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "ebc1fdf7-1a28-4d9e-ade0-70184fe2d393",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "507658ec-9bad-48e5-a93e-e67278f5cb6c",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (39)",
+      "Position": "5408.842,-1730.224,109.0862",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "2deb3dbd-14f0-49e6-879f-41f84767be53",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "140109f1-4df1-47b3-bad5-b4b80eb16840",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (40)",
+      "Position": "5848.464,-1479.36,109.0862",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "5400730f-9329-420b-858d-c4f7d2faa072",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a39d9f28-d291-4520-ae5a-4fa6483d25e1",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (41)",
+      "Position": "3255.844,-954.2852,109.086",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "52dd9d66-ce12-42a0-b730-e62a0e2f5046",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e07b6d64-73bd-4dd0-abc1-74f94692ed75",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (42)",
+      "Position": "1787.405,-1420.955,109.0856",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "da8f2d6b-02d1-4f1f-98db-6542802016ee",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e965ef4f-ac5f-4a08-812d-d9069f0ed620",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (43)",
+      "Position": "342.2769,-1245.037,109.0865",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "8c1be24f-30a9-419b-b13f-8800b8ad9294",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "896d2d23-5afc-4c27-b07a-fb8cb052f009",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (44)",
+      "Position": "-155.0298,-2064.848,109.0879",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "2edf29da-2d4e-4526-8907-64b81c6408ac",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "1adc7d76-3ef2-4270-b06d-03e8fbdd8d2d",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (45)",
+      "Position": "844.5283,-2161.234,109.0853",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "6168f875-a0d9-42e6-9e4d-d6fcaff4377b",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "caa27bc0-bc37-4d8c-82cc-2b5e27deb7b6",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (46)",
+      "Position": "2004.117,-2090.355,109.0854",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a73b7923-b4e9-46a0-988f-97ce274c8d97",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "0c897c7b-7863-4d1e-9c9a-374fccee5965",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (47)",
+      "Position": "911.9246,-2929.661,109.0857",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "1a5ebf7d-e5b5-49a1-a3e6-63c0881659e1",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "13378d98-7980-4fa9-94c6-7793a67ec497",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (48)",
+      "Position": "2473.77,-3104.443,109.0864",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "75e7d5e7-8b14-43ca-aee4-f382a42727c0",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "cdb213d2-2fa0-4729-a41d-d14a5f4dc9f8",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (49)",
+      "Position": "3474.896,-2624.194,109.0862",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "17d5bd47-b785-4ec5-ab46-4152b303ad15",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "53406555-19ce-4b0e-b238-fbf5abc6f2ae",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (50)",
+      "Position": "4246.353,-2284.855,109.0862",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "65e53d9b-1dd8-433b-ad52-fe5c24290f31",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "cc41c843-b250-4379-ae3b-7ecb51a3fa12",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (51)",
+      "Position": "5573.827,-3220.364,109.0863",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "74c0caa2-d821-420d-b214-702c89c7829a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c7211f51-8b90-488f-8448-940e2642d144",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (52)",
+      "Position": "4878.383,-3194.721,109.0863",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "00811044-04be-4a8e-83dc-1b26ecd4bf2b",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7a2d1a60-52f0-47f7-ac81-ee048c917a39",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (53)",
+      "Position": "4667.529,-2212.664,109.0863",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "7b515372-e29c-4655-9e67-ac1c1a37ce46",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3cf9f53f-0718-4730-a332-601148492e26",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (54)",
+      "Position": "4895.894,-1224.854,109.0863",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "b73c2b5c-7168-478b-926c-4dee03cfb48d",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "fa91fa6b-acfd-4c27-8f3d-adde8826aa4e",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (55)",
+      "Position": "5867.88,-2356.22,109.0863",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "df0b7670-3441-45e9-8102-46b12a5c835c",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c8d9c077-2be8-4ca2-9790-779068b1d9f4",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (56)",
+      "Position": "6056.874,-2920.961,109.0863",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "271e7000-c700-4b95-ba30-62b1850e9264",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "07477aba-2628-4488-b2e3-5ee189ff55be",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (57)",
+      "Position": "5897.847,-4849.528,109.0874",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "6c9bdf52-2ff8-4fa7-bef1-427b9a0fb31a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "0802919e-7d99-4b92-9527-4f1e1acd4ebb",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (58)",
+      "Position": "5612.262,-5832.861,109.0869",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "eaa99a9b-d3cb-4728-b7bf-c1fbf38f10df",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a6451e8c-c0f9-4857-b1e3-a55fc195208c",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (59)",
+      "Position": "4234.298,-6439.899,109.0891",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "d9efe003-ab76-49f0-ad89-78858559e7a3",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "1a62a921-8e8b-4800-8d65-9ca0fbaa46b7",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (60)",
+      "Position": "2995.711,-6973.815,109.0887",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "406e1a26-f1a4-45b4-865b-890a497fd0e4",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "44bc9562-5024-4bad-85dc-f5e835641601",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (61)",
+      "Position": "2043.492,-6986.995,109.0882",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "0e96184b-fc97-4577-965f-eb67610b3ce5",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5fcb6152-0f7e-4a28-947d-0ffdecd43e58",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (62)",
+      "Position": "1121.229,-5064.688,109.0867",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "3d9f0e47-c2b2-45c1-a869-4ec0965e9445",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "64f2d7eb-cf83-467d-af8c-ac7f73db6b4d",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (63)",
+      "Position": "2258.324,-4812.38,109.086",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "2a7b5a3c-9fbc-49a9-9493-c15f4a3e8098",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "0f9d8e3f-3c27-4c9f-9d98-8434af6fc7ec",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (64)",
+      "Position": "1575.202,-4677.451,109.0846",
+      "Scale": "0.4976326,0.4976326,0.4976326",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "2822458f-9865-4c8b-9fea-c0bf5ec5afd9",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": "dry",
           "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
           "Tint": "1,1,1,1"
         }
@@ -1249,7 +1761,7 @@
       "__guid": "64094230-edaa-41c7-ba1f-d4fae832bb8e",
       "Flags": 0,
       "Name": "tree_oak_medium_a (4)",
-      "Position": "-2123.17,-4541.99,109.0863",
+      "Position": "-1285.991,-4541.99,109.0863",
       "Enabled": true,
       "Components": [
         {
@@ -1264,19 +1776,635 @@
       ]
     },
     {
-      "__guid": "90581f2d-fc0d-433b-9e47-d4b401fc3fd9",
+      "__guid": "e185f1df-dba3-4dfb-aa09-8a486be4863c",
       "Flags": 0,
-      "Name": "box_legendary_small",
-      "Position": "-2073.146,-3945.344,72",
+      "Name": "tree_oak_medium_a (3)",
+      "Position": "-429.9642,-4541.99,109.0863",
       "Enabled": true,
-      "__Prefab": "prefabs/entitys/box_legendary_small.prefab",
-      "__PrefabVariables": {}
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "4029924a-314c-49dd-ab8d-ace3b2262195",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "17507e7b-6a43-4c97-9daf-12b4eb730d70",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (5)",
+      "Position": "-429.9642,-5284.567,109.0863",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "0c84b052-9c6a-41a6-9af8-a2bd2bd60b6a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b13ccdfc-4ea7-4f5d-a9e7-e1585d0deaac",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (6)",
+      "Position": "-429.9642,-5867.676,109.0863",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "5d142d75-c4fc-450d-8f30-02a19bd626fb",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "4c692b75-41e6-4b0b-a14a-a64f0795f13a",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (7)",
+      "Position": "-429.9642,-6804.137,109.0863",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "28e90709-e41f-4f0d-ac83-2a8b381e4bbd",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "61ac9109-8731-4e4b-b283-e690e0b2e678",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (8)",
+      "Position": "2108.201,-5606.803,109.0868",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "9e69e4a6-6313-49b4-8da7-1121cc009a46",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "44b89dd4-81e5-41d5-b43b-45539697a1c0",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (9)",
+      "Position": "328.2973,-5272.83,109.0866",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "3c311ea9-fa91-489f-b335-18aede852c60",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "155aef38-1e33-45a9-8fed-a883c8b189bf",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (10)",
+      "Position": "823.962,-6006.16,109.0863",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "2a624d10-311c-42c0-a781-4fc5c1d88d87",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c9bef828-21b1-48fe-90c2-ecec06f77f0f",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (11)",
+      "Position": "396.3787,-6939.391,109.0857",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a815271b-7ab3-4ab4-b0e5-499ecbbccf13",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d071cc6e-31f1-41b5-bd1e-67e8c0ad87ce",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (12)",
+      "Position": "1595.506,-6927.442,109.0863",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "e5dd3b04-c6e7-49bb-85a4-0435ba611cf8",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3e383110-4a22-45c8-a2d0-e7353549422a",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (13)",
+      "Position": "1868.292,-6208.959,109.0863",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "691d9e63-c300-44f6-b821-22343dc20cf2",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3db8b0aa-2a3b-4d51-9ae5-ca2f7f861992",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (14)",
+      "Position": "2640.867,-6790.431,109.0863",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "75a8781b-7af1-4552-93ff-4a91e9e5bdff",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "426bc887-1f7f-4db3-9409-9422d2132519",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (24)",
+      "Position": "2397.972,-6428.77,109.0863",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "80d20a42-2afd-48fb-9ca9-76cae9232993",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "6415a354-fd9d-45fe-aa07-5f62c085234f",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (25)",
+      "Position": "3212.365,-5322.984,109.0864",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a1a052f4-0b54-4d81-9645-ca0ead9afa04",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a9321776-df6d-44b6-ae6f-9605043e69d8",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (26)",
+      "Position": "2140.361,-5160.843,109.0861",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "562cda8d-6d54-48de-a161-590e62736a4a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "84a0496b-d5ae-4df9-bd11-ac868f1a80e4",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (27)",
+      "Position": "3359.258,-4661.717,109.0856",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "269cf524-3a4b-468a-9bc3-7a64ea3854bb",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "4610d203-7a9e-4e2e-b8d7-577a0557ba15",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (65)",
+      "Position": "2690.668,-2232.42,109.0864",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "eb08cc80-46e6-48a3-8357-4d342b515741",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "892915a2-a1e5-4772-acad-bb6799eadf39",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (66)",
+      "Position": "2248.017,-1440.033,109.086",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "6f5ad2ec-7048-4434-9609-f90330dcd2ec",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3ff24c13-34e7-434a-9a84-d138b564a8f6",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (67)",
+      "Position": "1771.424,-962.7341,109.0879",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "ee88622a-a4af-461c-a940-ec7f8d71ba06",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "67b6a60d-348e-4d16-9e62-d51ce1776044",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (68)",
+      "Position": "1018.322,-1601.153,109.0878",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "0b71c6f4-ea7c-4080-9351-e305d3949a6b",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5c79f2c1-f459-46eb-9c53-82ccc043f987",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (69)",
+      "Position": "3560.067,-2491.894,109.0881",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a2634e4a-67b6-4878-9e9f-d5bcd549dd50",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "51609d97-cb94-4907-96ad-3d13316350fe",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (28)",
+      "Position": "4354.147,-5426.249,109.086",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "c25cb144-fabf-44ad-b0e6-7a30d51c931e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d8c0ccf1-5c42-41f3-b039-6a4ae7bfa3aa",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (29)",
+      "Position": "4091.282,-4918.243,109.0862",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "918d17ff-e568-4cf6-9059-a0d09da87c80",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "44534504-269c-4e1b-aa4d-95fa5a286d92",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (30)",
+      "Position": "4430.942,-4830.84,109.0862",
+      "Scale": "0.5067632,0.5067632,0.5067632",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "b6bef329-96e6-4f98-ab8a-8aca9af11434",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "10205f18-ce9b-432a-91f7-88966a1fd0c6",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (15)",
+      "Position": "3818.273,-5843.67,109.0864",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "eed5d708-49ce-41bc-a9e4-c388d5fef45a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c4acadb0-b455-4600-9419-88be23b9de88",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (16)",
+      "Position": "3849.665,-6623.46,109.0864",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "c3cc1b1e-06b2-470e-b0c9-d6e2c5355c33",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "30206425-7d11-446f-abf4-31807467d4b7",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (17)",
+      "Position": "5128.474,-6148.396,109.0865",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "9ed14e68-c952-4e9b-a59b-122b47994b49",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "97e4fff0-0b21-4971-b5b4-029aa42ca812",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (18)",
+      "Position": "5130.879,-5381.334,109.0865",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "f409852b-c21f-459e-8fce-d314dadadae7",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e865e4e1-18ca-4e76-bcda-86c789fee2b1",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (70)",
+      "Position": "4063.936,-1068.858,109.0864",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "ea6bc3df-4e74-4513-bc8f-93008c2aa53b",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b8a93d96-8bfe-46e8-bc64-f5d12395384b",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (71)",
+      "Position": "5064.181,-2194.166,109.0865",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "bdb96360-e47a-4855-b01d-e230ac0c62ef",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d6b4c4f0-feb0-4de9-ad07-0db339e65001",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (19)",
+      "Position": "5753.402,-6714.268,109.0865",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "0f5501d8-43fa-42e2-8d99-6a4286795f1d",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7c935904-a81a-4dcc-b4e8-758bb0aaabd8",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (20)",
+      "Position": "4801.951,-6714.268,109.0865",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "af9b3e63-1568-4bed-9fd3-663dccc8636a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5b209f5f-919e-4a1d-b2ae-70ccf5c368e6",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (21)",
+      "Position": "2966.696,-5959.416,109.0864",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "6ecfa65b-2ee0-4ab7-b740-602eecf7884f",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b5303068-a511-4d58-8423-62c5aeba9f0c",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (22)",
+      "Position": "2678.433,-5113.66,109.0864",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "5852a206-11b6-42ba-9dea-417c50f20794",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "636a45b8-2757-4f28-ae6b-03069d8d5ac7",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (23)",
+      "Position": "1498.347,-5232.284,109.0863",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "cdbee876-4c65-435d-a401-cbc10d0b47bf",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
     },
     {
       "__guid": "107fd948-0609-4ee6-b2d9-0fc2390883e3",
       "Flags": 0,
       "Name": "box_normal_small",
-      "Position": "-1977.114,-3948.548,81.99998",
+      "Position": "-2062.953,-3835.371,50.67481",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
       "Components": [
@@ -1344,7 +2472,7 @@
       "__guid": "f63609d3-8065-465f-b0d1-1fb86003429d",
       "Flags": 0,
       "Name": "woody",
-      "Position": "-2129.423,-4014.559,73.29087",
+      "Position": "-2129.423,-3776.032,73.29087",
       "Enabled": true,
       "Components": [
         {
@@ -1417,7 +2545,7 @@
       "__guid": "7c580e56-1706-43cc-bd7b-d302e817bf39",
       "Flags": 0,
       "Name": "woody (1)",
-      "Position": "-2129.423,-3980.964,73.29087",
+      "Position": "-2129.423,-3729.09,73.29087",
       "Enabled": true,
       "Components": [
         {
@@ -1490,7 +2618,7 @@
       "__guid": "88009fc4-22df-4af5-b6c7-769f062a7683",
       "Flags": 0,
       "Name": "woody (2)",
-      "Position": "-2129.423,-3936.927,73.29087",
+      "Position": "-2129.423,-3670.829,73.29087",
       "Enabled": true,
       "Components": [
         {
@@ -1563,7 +2691,7 @@
       "__guid": "5bdb5137-be06-48d7-9478-95617f4d83de",
       "Flags": 0,
       "Name": "woody (3)",
-      "Position": "-2129.423,-3903.12,73.29087",
+      "Position": "-2129.423,-3621.27,73.29087",
       "Enabled": true,
       "Components": [
         {
@@ -1631,31 +2759,6 @@
           "WeightInGrams": 1
         }
       ]
-    },
-    {
-      "__guid": "914a9094-fda2-497b-8932-ce55f4231f91",
-      "Flags": 0,
-      "Name": "Object",
-      "Position": "0,-0.000003236242,166.1423",
-      "Rotation": "-0.7071067,0,0,0.7071068",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "SpriteTools.SpriteComponent",
-          "__guid": "02379979-7519-4e0f-97d5-4a5dead48d3f",
-          "__version": 1,
-          "BroadcastEvents": {},
-          "CastShadows": "On",
-          "CreateAttachPoints": false,
-          "FlashTint": "1,1,1,0",
-          "PlaybackSpeed": 1.5000001,
-          "Sprite": "sprite/untitled.sprite",
-          "SpriteFlags": "None",
-          "StartingAnimationName": "animation_01",
-          "Tint": "1000,1000,1000,1",
-          "UpDirection": "YPositive"
-        }
-      ]
     }
   ],
   "SceneProperties": {
@@ -1695,7 +2798,6 @@
     "fish.saunalog",
     "fpopium.lamp_02",
     "limit.red_chesterfield_chair",
-    "nukebox.tsar_bomba",
     "sugmagaming.fireparticle"
   ],
   "__version": 1

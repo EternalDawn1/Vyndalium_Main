@@ -367,6 +367,7 @@ public partial class Player : Component, IHealthComponent
 
 		Deaths++;
 	}
+	
 
 	protected override void OnAwake()
 	{
@@ -390,6 +391,7 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		ResetViewAngles();
+		
 
 
 	}

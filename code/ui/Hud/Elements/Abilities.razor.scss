@@ -188,6 +188,21 @@ Abilities{
                                 width: 50%;
                                 justify-content: space-evenly;
                                 color: rgb(255, 0, 0);
+                                
+                            }
+                            .info{
+                                font-size: 24px;
+                                :hover:not(.disabled) {
+                                    position: relative;
+                                    cursor: pointer;
+                                    sound-in: 'hover';
+                                    
+                                }
+                                &:active:not(.disabled) {
+                                    sound-in: 'light_click';
+                                    
+                                }
+                                
                             }
                             .txt{
                                width: 50%; 

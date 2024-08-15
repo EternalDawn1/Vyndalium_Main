@@ -71,6 +71,7 @@
                 
                     <div class="panel-content-text">
                         <p>Abilities</p>
+                        <p>You suck</p>
                     </div>
             </div>
             <div class="panel-content" style="opacity: @(currentPanel == PanelType.Endurance ? 1 : 0)">
@@ -88,50 +89,52 @@
                                 <p class="txt">Strength</p>
                                 <div class="amount">@Player.Local.STG</div>
                                 <button class="Button2" @onclick="@STGUpgrade">ATP+</button>
-                                <div class="coast">Coast: @strengthCost</div>
+                                <div class="coast">Coast: @StrengthCost</div>
+                                <button class="info" @onclick=" => (ShowPanelText(PanelTypeText.Strength))">?</button>
                             </div>
 
                             <div class="box">
                                 <p class="txt">Attack Power</p>
                                 <div class="amount">@Player.Local.AttackPower</div>
                                 <button class="Button2" @onclick="@AP">AP+</button>
-                                <div class="coast">Coast: @attackPowerCost</div>
+                                <div class="coast">Coast: @AttackPowerCost</div>
+                                <button class="info" @onclick=" => (ShowPanelText(PanelTypeText.AttackPower))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Armor Penetration</p>
                                 <div class="amount">@Player.Local.ArmorPenetration</div>
                                 <button class="Button2" @onclick="@ArmorPenetration">AP+</button>
-                                <div class="coast">Coast: @armorPenetrationCost</div>
+                                <div class="coast">Coast: @ArmorPenetrationCost</div>
                             </div>
                             <div class="box">
                                 <p class="txt">Attack Range</p>
                                 <div class="amount">@Player.Local.AttackRange</div>
                                 <button class="Button2" @onclick="@AttackRange">AR+</button>
-                                <div class="coast">Coast: @attackRangeCost</div>
+                                <div class="coast">Coast: @AttackRangeCost</div>
                             </div>
                             <div class="box">
                                 <p class="txt">Attack Speed</p>
                                 <div class="amount">@Math.Round(Player.Local.AttackSpeed)</div>
                                 <button class="Button2" @onclick="@AttackSpeed">AS+</button>
-                                <div class="coast">Coast: @attackSpeedCost</div>
+                                <div class="coast">Coast: @AttackSpeedCost</div>
                             </div>
                             <div class="box">
                                 <p class="txt">Critical Chance</p>
                                 <div class="amount">@Player.Local.CritHitChance</div>
                                 <button class="Button2" @onclick="@CriticalChance">CC+</button>
-                                <div class="coast">Coast: @criticalChanceCost</div>
+                                <div class="coast">Coast: @CriticalChanceCost</div>
                             </div>
                             <div class="box">
                                 <p class="txt">Critical Damage</p>
                                 <div class="amount">@Player.Local.CritHitDamage</div>
                                 <button class="Button2" @onclick="@CriticalDamage">CD+</button>
-                                <div class="coast">Coast: @criticalDamageCost</div>
+                                <div class="coast">Coast: @CriticalDamageCost</div>
                                             </div>
                         </div>
                         
                     </div>
                 <div class="panel-content-context">
-                    Information:
+                        Information: <p>@GetPanelText(currentPanelText)</p>
                 </div>
             </div>   
             <div class="panel-content" style="opacity: @(currentPanel == PanelType.Agility ? 1 : 0)">
@@ -153,6 +156,7 @@
     
 </root>
 @code{
+    
     public static Abilities Instance { get; private set; }
     public Abilities() => Instance = this;
     public void Display()
@@ -172,12 +176,46 @@
         Agility,
         Intelligence
     }
-    
+    private enum PanelTypeText
+    {
+        Strength,
+        AttackPower,
+        ArmorPenetration,
+        AttackRange,
+        AttackSpeed,
+        CriticalChance,
+        CriticalDamage
+    }
+    private string GetPanelText(PanelTypeText panelText)
+    {
+        return panelText switch
+        {
+            PanelTypeText.Strength => "Strength increases your physical power.",
+            PanelTypeText.AttackPower => "Attack Power boosts your damage output.",
+            PanelTypeText.ArmorPenetration => "Armor Penetration allows you to bypass enemy defenses.",
+            PanelTypeText.AttackRange => "Attack Range extends the distance you can hit enemies.",
+            PanelTypeText.AttackSpeed => "Attack Speed increases the rate at which you can attack.",
+            PanelTypeText.CriticalChance => "Critical Chance increases the likelihood of landing critical hits.",
+            PanelTypeText.CriticalDamage => "Critical Damage boosts the damage of your critical hits.",
+            _ => "Unknown panel text."
+        };
+    }
     private PanelType currentPanel = PanelType.Abilities;
+    private PanelTypeText currentPanelText;
     
     private void ShowPanel(PanelType panel)
     {
         currentPanel = panel;
+    }
+   
+    
+    private void ShowPanelText(PanelTypeText panelText)
+    {
+        currentPanelText = panelText;
+        StateHasChanged();
+      
+        Log.Info("Panel Text: " + GetPanelText(panelText));
+        
     }
     protected override int BuildHash()
     {
@@ -187,34 +225,22 @@
 
         return HashCode.Combine(
         Player.Local.Level,
+        PanelTypeText.Strength,
+        PanelTypeText.AttackPower,
         Player.Local.Inventory.BackpackItems.HashCombine(i => i?.GetHashCode() ?? -1),
         Player.Local.Inventory.EquippedItems.HashCombine(i => i?.GetHashCode() ?? -1)
         );
     }
-    public void AbilitiesChange()
-    {
-        StrengthCost = strengthCost;
-        AttackPowerCost = attackPowerCost;
-        ArmorPenetrationCost = armorPenetrationCost;
-        AttackRangeCost = attackRangeCost;
-        AttackSpeedCost = attackSpeedCost;
-        CriticalChanceCost = criticalChanceCost;
-        CriticalDamageCost = criticalDamageCost;
-    }
-    public int StrengthCost { get; set; }
-    public int AttackPowerCost { get; set; }
-    public int ArmorPenetrationCost { get; set; }
-    public int AttackRangeCost { get; set; }
-    public int AttackSpeedCost { get; set; }
-    public int CriticalChanceCost { get; set; }
-    public int CriticalDamageCost { get; set; }
-    public int strengthCost = 1;
-    public int attackPowerCost = 1;
-    public int armorPenetrationCost = 1;
-    public int attackRangeCost = 1;
-    public int attackSpeedCost = 1;
-    public int criticalChanceCost = 1;
-    public  int criticalDamageCost  = 1;
+   
+    
+    public int StrengthCost { get; set; } = 5;
+    public int AttackPowerCost { get; set; } = 1;
+    public int ArmorPenetrationCost { get; set; } = 2;
+    public int AttackRangeCost { get; set; } = 2;
+    public int AttackSpeedCost { get; set; } = 1;
+    public int CriticalChanceCost { get; set; } = 5;
+    public int CriticalDamageCost { get; set; } = 3;
+   
     public void STGUpgrade()
     {
         if (Player.Local.StatsPoints >= StrengthCost)
@@ -250,64 +276,64 @@
                 Player.Local.PER += 8;
                 Player.Local.Tenacity += 10;
             }
-            Player.Local.StatsPoints -= strengthCost;
-            strengthCost++;
+            Player.Local.StatsPoints -= StrengthCost;
+            StrengthCost++;
             
 
         }
     }
     public void AP()
     {
-        if (Player.Local.StatsPoints >= attackPowerCost)
+        if (Player.Local.StatsPoints >= AttackPowerCost)
         {
             Player.Local.AttackPower += 5;
-            Player.Local.StatsPoints -= attackPowerCost;
-            attackPowerCost++;
+            Player.Local.StatsPoints -= AttackPowerCost;
+            AttackPowerCost++;
         }
     }
     public void ArmorPenetration()
     {
-        if (Player.Local.StatsPoints >= armorPenetrationCost)
+        if (Player.Local.StatsPoints >= ArmorPenetrationCost)
         {
             Player.Local.ArmorPenetration += 5;
-            Player.Local.StatsPoints -= armorPenetrationCost;
-            armorPenetrationCost++;
+            Player.Local.StatsPoints -= ArmorPenetrationCost;
+            ArmorPenetrationCost++;
         }
     }
     public void AttackRange()
     {
-        if (Player.Local.StatsPoints >= attackRangeCost)
+        if (Player.Local.StatsPoints >= AttackRangeCost)
         {
             Player.Local.AttackRange += 5;
-            Player.Local.StatsPoints -= attackRangeCost;
-            attackRangeCost++;
+            Player.Local.StatsPoints -= AttackRangeCost;
+            AttackRangeCost++;
         }
     }
     public void AttackSpeed()
     {
-        if (Player.Local.StatsPoints >= attackSpeedCost)
+        if (Player.Local.StatsPoints >= AttackSpeedCost)
         {
             Player.Local.AttackSpeed += 5;
-            Player.Local.StatsPoints -= attackSpeedCost;
-            attackSpeedCost++;
+            Player.Local.StatsPoints -= AttackSpeedCost;
+            AttackSpeedCost++;
         }
     }
     public void CriticalChance()
     {
-        if (Player.Local.StatsPoints >= criticalChanceCost)
+        if (Player.Local.StatsPoints >= CriticalChanceCost)
         {
             Player.Local.CritHitChance += 5;
-            Player.Local.StatsPoints -= criticalChanceCost;
-            criticalChanceCost++;
+            Player.Local.StatsPoints -= CriticalChanceCost;
+            CriticalChanceCost++;
         }
     }
     public void CriticalDamage()
     {
-        if (Player.Local.StatsPoints >= criticalDamageCost)
+        if (Player.Local.StatsPoints >= CriticalDamageCost)
         {
             Player.Local.CritHitDamage += 5;
-            Player.Local.StatsPoints -= criticalDamageCost;
-            criticalDamageCost++;
+            Player.Local.StatsPoints -= CriticalDamageCost;
+            CriticalDamageCost++;
         }
     }
     

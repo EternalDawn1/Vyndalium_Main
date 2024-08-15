@@ -5,7 +5,9 @@ public enum GeneralScene
 	Creation,
 	Game,
 	MainMenu,
-	Starting
+	Starting,
+	Forest,
+
 }
 
 public static class SceneHandler
@@ -18,6 +20,8 @@ public static class SceneHandler
 			GeneralScene.Game => "scenes/dom.scene",
 			GeneralScene.MainMenu => "scenes/lobby.scene",
 			GeneralScene.Starting => "scenes/startlobby.scene",
+			GeneralScene.Forest => "scenes/forest.scene",
+			
 			_ => null
 		};
 
@@ -50,5 +54,20 @@ public static class SceneHandler
 
 	}
 
+}
+public static class GeneralSceneExtensions
+{
+	public static int GetRequiredLevel( this GeneralScene scene )
+	{
+		return scene switch
+		{
+			GeneralScene.Creation => 1,
+			GeneralScene.Game => 5,
+			GeneralScene.MainMenu => 0,
+			GeneralScene.Starting => 2,
+			GeneralScene.Forest => 10,
+			_ => 0
+		};
+	}
 }
 

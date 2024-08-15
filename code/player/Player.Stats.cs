@@ -22,7 +22,7 @@ public partial class Player
     [Sync, Property, Group( "CharacterStats" )] public float Armor { get; set; } = 0f;
 
     [Sync, Property, Group( "CharacterStats" )] public double AttackSpeed { get; set; } = 1.1f;
-    [Sync, Property, Group( "CharacterStats" )] public float AttackPower { get; set; } = 0f;
+    [Sync, Property, Group( "CharacterStats" )] public float AttackPower { get;  } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public float MagicPower { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public double Evasion { get; set; } = 0.1f;
     [Sync, Property, Group( "CharacterStats" )] public double Block { get; set; } = 0f;
@@ -68,14 +68,15 @@ public partial class Player
     [Sync, Property, Group( "CharacterStats" )] public float EarthElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
     [Sync, Property, Group( "CharacterStats" )] public float WindElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
     [Sync, Property, Group( "CharacterStats" )] public float HolyElementalDamage { get; set; }
-    public int StrengthCost { get; set; } 
-    public int AttackPowerCost { get; set; } 
-    public int ArmorPenetrationCost { get; set; } 
-    public int AttackRangeCost { get; set; } 
-    public int AttackSpeedCost { get; set; } 
-    public int CriticalChanceCost { get; set; } 
-    public int CriticalDamageCost { get; set; } 
-    
+    [Sync]public float StrengthCost { get; set; } = 0f;
+    [Sync] public float AttackPowerCost { get; set; } = 0f;
+    [Sync] public float ArmorPenetrationCost { get; set; } = 0f;
+    [Sync] public float AttackRangeCost { get; set; } = 0f;
+    [Sync] public float AttackSpeedCost { get; set; } = 0f;
+    [Sync] public float CriticalChanceCost { get; set; } = 0f;
+    [Sync] public float CriticalDamageCost { get; set; } = 0f;
+
+
 
 
 }

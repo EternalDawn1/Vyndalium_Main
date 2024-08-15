@@ -1,4 +1,4 @@
-﻿
+
 
 namespace GeneralGame;
 
@@ -217,17 +217,19 @@ partial class Player
 			ShadowResist = player.ShadowResist,
 			LightResist = player.LightResist,
 			StatsPoints = (int)player.StatsPoints,
+			
 			STG = (int)player.STG,
 			INT = (int)player.INT,
 			DEX = (int)player.DEX,
 			PER = (int)player.PER,
-			StrengthCost = player.StrengthCost,
-			AttackPowerCost = player.AttackPowerCost,
-			ArmorPenetrationCost = player.ArmorPenetrationCost,
-			AttackRangeCost = player.AttackRangeCost,
-			AttackSpeedCost = player.AttackSpeedCost,
-			CriticalChanceCost = player.CriticalChanceCost,
-			CriticalDamageCost = player.CriticalDamageCost,
+			
+			StrengthCost = (int)player.StrengthCost,
+			AttackPowerCost = (int)player.AttackPowerCost,
+			ArmorPenetrationCost = (int)player.ArmorPenetrationCost,
+			AttackRangeCost = (int)player.AttackRangeCost,
+			AttackSpeedCost = (int)player.AttackSpeedCost,
+			CriticalChanceCost = (int)player.CriticalChanceCost,
+			CriticalDamageCost = (int)player.CriticalDamageCost,
 
 
 
@@ -320,9 +322,10 @@ partial class Player
 		player.INT = save.INT;
 		player.DEX = save.DEX;
 		player.PER = save.PER;
+		
 		player.StrengthCost = save.StrengthCost;
         player.AttackPowerCost = save.AttackPowerCost;
-         player.ArmorPenetrationCost = save.ArmorPenetrationCost;
+        player.ArmorPenetrationCost = save.ArmorPenetrationCost;
 		player.AttackRangeCost = save.AttackRangeCost;
 		player.AttackSpeedCost = save.AttackSpeedCost;
 		player.CriticalChanceCost = save.CriticalChanceCost;
