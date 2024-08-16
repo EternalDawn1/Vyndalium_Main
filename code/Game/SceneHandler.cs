@@ -14,6 +14,12 @@ public static class SceneHandler
 {
 	public static async void ChangeScene( GeneralScene scene, ulong? lobby = null, bool stopSound = true )
 	{
+		if ( !HasRequiredLevel( scene ) )
+		{
+			// Handle insufficient level
+			Log.Info( "Level zu niedrig, um diese Szene zu wechseln." );
+			return;
+		}
 		var path = scene switch
 		{
 			GeneralScene.Creation => "scenes/creation.scene",
@@ -52,6 +58,11 @@ public static class SceneHandler
 		Player.Setup();
 		return;
 
+	}
+	public static bool HasRequiredLevel( GeneralScene scene )
+	{
+		int playerLevel = Player.Local.GetLevel(); // Annahme: Es gibt eine Methode, um das Spielerlevel zu bekommen
+		return playerLevel >= scene.GetRequiredLevel();
 	}
 
 }

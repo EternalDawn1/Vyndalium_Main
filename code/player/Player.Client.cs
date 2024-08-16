@@ -15,8 +15,27 @@ namespace GeneralGame
         public FullScreenManager FullScreenManager { get; set; }
 
         private Guid _guid;
-
-
+        public bool IsHost()
+        {
+            return Connection != null && Connection.IsHost;
+        }
+      
+        public void SetReadyStatus( bool readyStatus )
+        {
+            IsReady = readyStatus;
+            Log.Info( $"Spieler {this} Bereitschaftsstatus gesetzt auf: {IsReady}" );
+        }
+        public static bool AreAllPlayersReady( bool readyStatus )
+        {
+            foreach ( var player in _InternalPlayers )
+            {
+                if ( player.IsReady != readyStatus )
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         [HostSync]
         public Guid ConnectionID
@@ -41,12 +60,15 @@ namespace GeneralGame
                     _InternalPlayers.Add( this );
             }
         }
-
+        public static void RemoveAllPlayers()
+        {
+            _InternalPlayers.Clear();
+        }
 
         public Connection Connection { get; private set; }
         public Guid LocalID { get; set; }
         public Guid HostID { get; set; }
-
+        public bool IsReady { get; set; }
         public void SetupConnection( Connection connection )
         {
             ConnectionID = connection.Id;

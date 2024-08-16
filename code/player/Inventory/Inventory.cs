@@ -18,7 +18,7 @@ public sealed class Inventory : Component
 	}
 	[Property] Player Player { get; set; }
 
-	public const int MAX_BACKPACK_SLOTS = 20;
+	
 
 	public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
 	public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
@@ -124,7 +124,7 @@ public sealed class Inventory : Component
 
 	public Inventory()
 	{
-		_backpackItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACK_SLOTS] );
+		_backpackItems = new List<ItemComponent>( new ItemComponent[Player.Local.MAX_BACKPACK_SLOTS] );
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 	}
 

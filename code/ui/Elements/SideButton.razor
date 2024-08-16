@@ -18,7 +18,7 @@
 	<image src=@ImagePath />
 	<div class="text-container">
 		<text class="text-title">@Title</text>
-		<text class="text-subtitle">@Subtitle</text>
+		<text class="text-subtitle" style="@SubtitleStyle">@Subtitle</text>
 	</div>
 </root>
 
@@ -29,7 +29,7 @@
 	public bool IsDisabled { get; set; } = false;
 	public bool IsInverted { get; set; } = false;
 	new public Action OnClick { get; set; }
-
+	public string SubtitleStyle { get; set; }
 	protected override int BuildHash()
 	{
 		return HashCode.Combine(IsDisabled, IsInverted);

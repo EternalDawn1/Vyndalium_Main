@@ -49,8 +49,8 @@ public partial class Player : Component, IHealthComponent
 	private RealTimeSince TimeSinceManaUsed { get; set; }
 
 	private static bool isFirstSpawn = true;
+	[Property]public int MAX_BACKPACK_SLOTS = 20;
 
-	
 	private bool WantsToCrouch { get; set; }
 	private Angles Recoil { get; set; }
 	[Property] public float GroundControl { get; private set; } = 4.0f;
@@ -133,7 +133,10 @@ public partial class Player : Component, IHealthComponent
 
 	[Sync] public HoldType HoldType { get; set; } = HoldType.Idle;
 
-
+	public int GetLevel()
+	{
+		return Level;
+	}
 	public void IncreaseMana( float amount )
 	{
 		MaxMana += amount;

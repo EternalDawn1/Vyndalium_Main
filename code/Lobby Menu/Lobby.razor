@@ -9,16 +9,144 @@
 @using Sandbox.Network
 @using GeneralGame
 
-
 <root>
     <div class="main-panel">
-        <div class="side-panel"></div>
+        <div class="side-panel">
+            <SideButton 
+                Title="@(isReady ? "Ready" : "Not Ready")"
+                Subtitle="@((isReady ? "Ready" : "not Ready"))" 
+                OnClick="@ToggleReady" 
+                ImagePath="@(isReady ? "ui/hud/success.gif" : "ui/hud/close.png")"
+                SubtitleStyle="color: @(isReady ? "green" : "red");" 
+                style="position: absolute; top: 0px; right: 0px; width: 100%;" 
+            />
+                {
+                    <p>Debug Info: Player Count = @Player.All.Count, All Players Ready = @Player.AreAllPlayersReady(true)</p>
+                }
+        </div>
         <div class="center-panel">
             <div class="map-panel">
-                <div class="maps"></div>
+                @if (Player.Local != null && Player.Local.IsHost() && (Player.All.Count >= 1 && Player.AreAllPlayersReady(true)))
+                {
+                    <div class="side">
+                        <SideButton 
+                            Title="Forest" 
+                            Subtitle="min. lvl. 25" 
+                            OnClick=@(() => ChangeScene2(GeneralScene2.Forest)) 
+                            ImagePath="ui/hud/tree.png" 
+                            style="position: absolute; top: 450px; right: 500px;" 
+                        />
+                        <SideButton 
+                            Title="Dungeon" 
+                            Subtitle="min lvl. 1" 
+                            OnClick=@(() => ChangeScene2(GeneralScene2.Game)) 
+                            ImagePath="ui/hud/hpball.png" 
+                            style="position: absolute; top: 600px; right: 500px;" 
+                        />
+                        <SideButton 
+                            Title="Start" 
+                            Subtitle="Home_Base" 
+                            OnClick=@(() => ChangeScene2(GeneralScene2.Starting)) 
+                            ImagePath="ui/hud/storage.png" 
+                            style="position: absolute; top: 300px; right: 500px;" 
+                        />
+                    </div>
+                }
+                
             </div>
         </div>
-            
-                
     </div>
 </root>
+
+@code {
+   
+    private GeneralScene2? sceneToConfirm;
+    private bool isSceneChanging = false;
+    private static bool isReady = false;
+    
+    private void ToggleReady()
+    {
+        isReady = !isReady;
+        StateHasChanged();
+        Log.Info("Bereitschaftsstatus geändert auf: " + isReady);
+        ToggleReadyStatusOnServer(isReady); // Neue Methode zum Senden des Status an den Server
+    }
+    private void ToggleReadyStatus()
+    {
+        isReady = !isReady;
+        GeneralGame.Player.AreAllPlayersReady(isReady);
+    }
+    public static void ToggleReadyStatusOnServer( bool readyStatus )
+        {
+            var player = Player.Local;
+            if ( player != null )
+            {
+                player.SetReadyStatus( readyStatus );
+            }
+        }
+    
+   
+
+   
+
+    
+
+    private void ChangeScene2(GeneralScene2 scene)
+    {
+        if (isSceneChanging)
+        {
+            Log.Info("Szenenwechsel bereits im Gange, Abbruch.");
+            return;
+        }
+        if (!SceneHandler2.HasRequiredLevel2(scene))
+    {
+        int playerLevel = Player.Local.GetLevel();
+        int requiredLevel = scene.GetRequiredLevel2();
+        Log.Info($"Spielerlevel ({playerLevel}) ist niedriger als erforderliches Level ({requiredLevel}). Szenenwechsel abgebrochen.");
+        return;
+    }
+
+        isSceneChanging = true;
+        Log.Info($"ChangeScene2 aufgerufen mit Szene: {scene}");
+
+        // Hier die Logik zum tatsächlichen Wechsel der Szene hinzufügen
+        // Beispiel:
+        switch (scene)
+        {
+            case GeneralScene2.Forest:
+                // Logik zum Wechseln zur Forest-Szene
+                Log.Info("Wechsel zur Forest-Szene");
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            case GeneralScene2.Game:
+                // Logik zum Wechseln zur Game-Szene
+                Log.Info("Wechsel zur Game-Szene");
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            case GeneralScene2.Starting:
+                // Logik zum Wechseln zur Starting-Szene
+                Log.Info("Wechsel zur Starting-Szene");
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            default:
+                Log.Info("Unbekannte Szene");
+                break;
+        }
+
+        isSceneChanging = false;
+    }
+    private int GetPlayerLevel()
+    {
+        return Player.Local.GetLevel(); // Annahme: Es gibt eine Methode, um das Spielerlevel zu bekommen
+    }
+    protected override int BuildHash()
+        {
+            
+            return HashCode.Combine(
+                
+            isReady
+            
+            );
+            
+        }
+}

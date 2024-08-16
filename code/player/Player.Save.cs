@@ -17,7 +17,7 @@ public struct PlayerSave
 	[JsonInclude] public string Firstname;
 	[JsonInclude] public string Lastname;
 	[JsonInclude] public string AuthToken {get ; set;}
-	
+	[JsonInclude] public int MAX_BACKPACK_SLOTS;
 	[JsonInclude] public Dictionary<AmmoType, int> AmmoCount;
 	[JsonInclude] public int Vyndalium;
 	[JsonInclude] public int Experience;
@@ -185,7 +185,7 @@ partial class Player
 		
 		_saveData = save with
 		{
-			
+			MAX_BACKPACK_SLOTS = player.MAX_BACKPACK_SLOTS,
 			AmmoCount = player.AmmoContainer.AmmoCount,
 			Vyndalium = (int)player.Vyndalium,
 			Experience = (int)player.Experience,
@@ -291,7 +291,7 @@ partial class Player
 		player.MaxStamina = save.MaxStamina;
 		player.Vyndalium = save.Vyndalium;
 		player.Experience = save.Experience;
-		
+		player.MAX_BACKPACK_SLOTS = save.MAX_BACKPACK_SLOTS;
 		player.Level = save.Level;
 		player.StatsPoints = save.StatsPoints;
 		player.MaxStamina = save.MaxStamina;
