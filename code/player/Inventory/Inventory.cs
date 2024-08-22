@@ -11,14 +11,10 @@ namespace GeneralGame;
 
 public sealed class Inventory : Component
 {
-	protected override void OnStart()
-	{
-		if ( IsProxy ) return;
-		Player = Scene.GetAllComponents<Player>().FirstOrDefault( x => !x.IsProxy );
-	}
+	
 	[Property] Player Player { get; set; }
 
-	
+	public const int MAX_BACKPACK_SLOTS = 20;
 
 	public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
 	public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
@@ -124,7 +120,9 @@ public sealed class Inventory : Component
 
 	public Inventory()
 	{
-		_backpackItems = new List<ItemComponent>( new ItemComponent[Player.Local.MAX_BACKPACK_SLOTS] );
+		
+
+		_backpackItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACK_SLOTS] );
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 	}
 
@@ -173,19 +171,15 @@ public sealed class Inventory : Component
 
 	public bool EquipItemFromBackpack( ItemComponent item )
 	{
+	
+
 		if ( item == null )
 		{
-			Log.Error( "ItemComponent ist null." );
+			Log.Error( "Item is null." );
 			return false;
 		}
 
-		if ( _backpackItems == null )
-		{
-			Log.Error( "Backpack items list is null." );
-			return false;
-		}
-
-		var index = _backpackItems.IndexOf( item );
+		var index = _backpackItems?.IndexOf( item ) ?? -1;
 		if ( index == -1 )
 			return false;
 
@@ -216,28 +210,13 @@ public sealed class Inventory : Component
 
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
-
-		index = _backpackItems.IndexOf( item ); // Erneutes Ermitteln des Indexes, falls notwendig
-		if ( index != -1 )
-		{
-			_backpackItems.RemoveAt( index );
-		}
-
-		if ( Player == null )
-		{
-			Log.Error( "Player is null." );
-			return false;
-		}
-
-		var weaponContainer = Player.Components?.Get<WeaponContainer>();
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
 		if ( weaponContainer != null )
 		{
 			weaponContainer.Give( item.GameObject, true );
 		}
-		else
-		{
-			Log.Error( "WeaponContainer is null." );
-		}
+
+		index = _backpackItems?.IndexOf( item ) ?? -1; // Erneutes Ermitteln des Indexes, falls notwendig
 
 		return true;
 	}
@@ -245,6 +224,11 @@ public sealed class Inventory : Component
 
 	public bool EquipItemFromWorld( ItemComponent item, bool forceReplace = false )
 	{
+		if ( item == null )
+			return false;
+		if (IsProxy)
+			return true;
+			
 		if ( item is not ItemEquipment equipment )
 			return false;
 
@@ -288,34 +272,39 @@ public sealed class Inventory : Component
 		{
 			if ( item == null )
 			{
-				
 				return false;
 			}
+
 			var slotIndex = (int)equipment.Slot;
 			var equippedItem = _equippedItems[slotIndex];
-			if ( equippedItem != item ) // Check if the item is the one equipped
+			if ( equippedItem != item ) // Überprüfen Sie, ob das Item das ausgerüstete ist
 				return false;
 
 			var firstFreeSlot = _backpackItems.IndexOf( null );
 			if ( firstFreeSlot == -1 )
 				return false;
 
-			
 			RemoveEquipmentItem( equipment );
 			GiveBackpackItem( equipment, firstFreeSlot );
 			equipment.State = ItemState.Backpack;
-			TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
 
+			// Sicherstellen, dass das Item nicht zerstört wird, wenn es unequipped wird
 			var weaponContainer = Player.Components.Get<WeaponContainer>();
 			if ( weaponContainer != null )
 			{
 				weaponContainer.RemoveWeapon( item.GameObject, false );
-				
+			}
+			else
+			{
+				Log.Info( "WeaponContainer ist null" );
 			}
 
-			
+			// Trigger-Signal senden, nachdem das Item erfolgreich unequipped wurde
+			TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
+
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 
@@ -613,7 +602,15 @@ public sealed class Inventory : Component
 			return;
 
 		if ( index >= 0 && index < _backpackItems.Count )
+		{
 			_backpackItems[index] = item;
+			item.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des Items
+			Log.Info( $"Item {item.Name} wurde dem Rucksack an Position {index} hinzugefügt." );
+		}
+		else
+		{
+			Log.Info( $"Ungültiger Index {index} für das Hinzufügen des Items {item.Name} zum Rucksack." );
+		}
 	}
 
 	/// <summary>

@@ -19,6 +19,10 @@ namespace GeneralGame
                 ChangeScene(player);
                 sceneChanged = true;
             }
+            else
+            {
+                Log.Error("Player not found");
+            }
         }
 
         private async void ChangeScene(Player player)

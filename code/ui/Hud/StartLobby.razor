@@ -9,6 +9,10 @@
 @if (IsProxy)
 	return;
 <root>
+	<div class="video-container @(_state != IntroState.Logo ? "hidden" : "")">
+		
+		<VideoPanel Source="ui/hud/intro/vyndalium.mp4"/>
+	</div>
 	<div class="center">
 		<div class="left">
 			<div class="title">
@@ -99,6 +103,16 @@
 
 @code
 {
+	private IntroState _state = IntroState.Logo;
+	
+	private RealTimeUntil _introIsOver = IntroTime;
+	private const float IntroTime = 7f;
+	private enum IntroState
+	{
+		Logo,
+		Disclaimer,
+		Next
+	}
 	private int MaxPlayers { get; set; } = 1;
 	private bool IsRefreshing { get; set; }
 	private List<LobbyInformation> List { get; set; } = new();
@@ -118,10 +132,7 @@
 		_ = RefreshLobbyList();
 	}
 
-	protected override void OnUpdate()
-	{
-
-	}
+	
 
 	protected override int BuildHash() => HashCode.Combine(RealTime.Now);
 

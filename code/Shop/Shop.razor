@@ -46,6 +46,22 @@
         ImagePath="ui/hud/confirm.png"
         style="position: absolute; top: -150px; right: 300px;" 
         />
+        <SideButton
+        Title="Forge"
+        Subtitle="Forge"
+        OnClick=@(() => ShowPanel(PanelType.Forge))
+        IsInverted=@(true)
+        ImagePath="ui/hud/forge.png"
+        style="position: absolute; top: -1200px; right: 300px;"
+        />
+        <SideButton
+        Title="Factory"
+        Subtitle="Factory"
+        OnClick=@(() => ShowPanel(PanelType.Factory))
+        IsInverted=@(true)
+        ImagePath="ui/hud/factory.png"
+        style="position: absolute; top: -500px; right: 300px;"
+        />
     </div>
 
     <div class="list">
@@ -117,18 +133,28 @@
         <div class="Forge" style="opacity: @(currentPanel == PanelType.Forge ? 1 : 0)">
             Forge Content
         </div>
+        <div class="Factory" style="opacity: @(currentPanel == PanelType.Factory ? 1 : 0);">
+            Factory Content
+            <div class="Printer">
+                
+            </div>
+        </div>
     </div>
 </root>
 
 @code
 {
     
+
+
+    /////
     Action<ItemComponent> buyItemAction;
     private Inventory Inventory { get; set; }
     private Shop shop { get; set; }
     public List<ItemComponent> items { get; set; }
     bool isBuyPanelOpen = false;
     bool isSellPanelOpen = false;
+    
 
     private void OpenBuyPanel() {
         isBuyPanelOpen = true;
@@ -146,7 +172,8 @@
         Shop,
         Storage,
         Refinement,
-        Forge
+        Forge,
+        Factory
     }
     private PanelType currentPanel = PanelType.Shop;
 

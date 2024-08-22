@@ -76,7 +76,7 @@
                                 <p class="txt2">Endurance</p>
                                 <div class="amount">@Player.Local.PER</div>
                                 <button class="Button2" @onclick="@EnduranceUpgrade">END+</button>
-                                <div class="coast">Coast: @EnduranceCost</div>
+                                <div class="coast">Coast: @Player.Local.EnduranceCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.Endurance))">?</button>
                             </div>
@@ -85,7 +85,7 @@
                                 <p class="txt">Slow Resistance</p>
                                 <div class="amount">@Player.Local.SlowResist</div>
                                 <button class="Button2" @onclick="@SlowResistanceUpgrade">SR+</button>
-                                <div class="coast">Coast: @SlowResistanceCost</div>
+                                <div class="coast">Coast: @Player.Local.SlowResistanceCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.SlowResistance))">?</button>
                             </div>
@@ -93,7 +93,7 @@
                                 <p class="txt">Blind Resistance</p>
                                 <div class="amount">@Player.Local.BlindResist</div>
                                 <button class="Button2" @onclick="@BlindResistanceUpgrade">BR+</button>
-                                <div class="coast">Coast: @BlindResistanceCost</div>
+                                <div class="coast">Coast: @Player.Local.BlindResistanceCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.BlindResistance))">?</button>
                             </div>
@@ -101,7 +101,7 @@
                                 <p class="txt">Stun Resistance</p>
                                 <div class="amount">@Player.Local.StunResist</div>
                                 <button class="Button2" @onclick="@StunResistanceUpgrade">SR+</button>
-                                <div class="coast">Coast: @StunResistanceCost</div>
+                                <div class="coast">Coast: @Player.Local.StunResistanceCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.StunResistance))">?</button>
                             </div>
@@ -109,7 +109,7 @@
                                 <p class="txt">Tenacity (TEN)</p>
                                 <div class="amount">@Player.Local.Tenacity</div>
                                 <button class="Button2" @onclick="@TenacityUpgrade">TEN+</button>
-                                <div class="coast">Coast: @TenacityCost</div>
+                                <div class="coast">Coast: @Player.Local.TenacityCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.Tenacity))">?</button>
                             </div>
@@ -117,14 +117,14 @@
                                 <p class="txt">Cover (Block+)</p>
                                 <div class="amount">@Player.Local.Block</div>
                                 <button class="Button2" @onclick="@CoverUpgrade">COV+</button>
-                                <div class="coast">Coast: @CoverCost</div>
+                                <div class="coast">Coast: @Player.Local.CoverCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Cover))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Magic Defense (MD)</p>
                                 <div class="amount">@Player.Local.MagicDefense</div>
                                 <button class="Button2" @onclick="@MagicDefenseUpgrade">MD+</button>
-                                <div class="coast">Coast: @MagicDefenseCost</div>
+                                <div class="coast">Coast: @Player.Local.MagicDefenseCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.MagicDefense))">?</button>
                             </div>
@@ -132,14 +132,14 @@
                                 <p class="txt">Armor (DEF)</p>
                                 <div class="amount">@Player.Local.Armor</div>
                                 <button class="Button2" @onclick="@ArmorUpgrade">DEF+</button>
-                                <div class="coast">Coast: @ArmorCost</div>
+                                <div class="coast">Coast: @Player.Local.ArmorCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Armor))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Health (HP)</p>
                                 <div class="amount">@Player.Local.MaxHealth</div>
                                 <button class="Button2" @onclick="@HealthUpgrade">HP+</button>
-                                <div class="coast">Coast: @HealthCost</div>
+                                <div class="coast">Coast: @Player.Local.HealthCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Health))">?</button>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                                 <p class="txt2">Strength</p>
                                 <div class="amount">@Player.Local.STG</div>
                                 <button class="Button2" @onclick="@STGUpgrade">ATP+</button>
-                                <div class="coast">Coast: @StrengthCost</div>
+                                <div class="coast">Coast: @Player.Local.StrengthCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Strength))">?</button>
                             </div>
 
@@ -170,14 +170,14 @@
                                 <p class="txt">Attack Power</p>
                                 <div class="amount">@Player.Local.AttackPower</div>
                                 <button class="Button2" @onclick="@AP">AP+</button>
-                                <div class="coast">Coast: @AttackPowerCost</div>
+                                <div class="coast">Coast: @Player.Local.AttackPowerCost</div>
                                 <button class="info"@onclick="@(() => ShowPanelText(PanelTypeText.AttackPower))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Armor Penetration</p>
                                 <div class="amount">@Player.Local.ArmorPenetration</div>
                                 <button class="Button2" @onclick="@ArmorPenetration">AP+</button>
-                                <div class="coast">Coast: @ArmorPenetrationCost</div>
+                                <div class="coast">Coast: @Player.Local.ArmorPenetrationCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.ArmorPenetration))">?</button>
                             </div>
@@ -185,7 +185,7 @@
                                 <p class="txt">Attack Range</p>
                                 <div class="amount">@Player.Local.AttackRange</div>
                                 <button class="Button2" @onclick="@AttackRange">AR+</button>
-                                <div class="coast">Coast: @AttackRangeCost</div>
+                                <div class="coast">Coast: @Player.Local.AttackRangeCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.AttackRange))">?</button>
                             </div>
@@ -193,7 +193,7 @@
                                 <p class="txt">Attack Speed</p>
                                 <div class="amount">@Math.Round(Player.Local.AttackSpeed)</div>
                                 <button class="Button2" @onclick="@AttackSpeed">AS+</button>
-                                <div class="coast">Coast: @AttackSpeedCost</div>
+                                <div class="coast">Coast: @Player.Local.AttackSpeedCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.AttackSpeed))">?</button>
                             </div>
@@ -201,7 +201,7 @@
                                 <p class="txt">Critical Chance</p>
                                 <div class="amount">@Player.Local.CritHitChance</div>
                                 <button class="Button2" @onclick="@CriticalChance">CC+</button>
-                                <div class="coast">Coast: @CriticalChanceCost</div>
+                                <div class="coast">Coast: @Player.Local.CriticalChanceCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.CriticalChance))">?</button>
                             </div>
@@ -209,7 +209,7 @@
                                 <p class="txt">Critical Damage</p>
                                 <div class="amount">@Player.Local.CritHitDamage</div>
                                 <button class="Button2" @onclick="@CriticalDamage">CD+</button>
-                                <div class="coast">Coast: @CriticalDamageCost</div>
+                                <div class="coast">Coast: @Player.Local.CriticalDamageCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.CriticalDamage))">?</button>
                             </div>
@@ -233,7 +233,7 @@
                                 <p class="txt2">Dexterity</p>
                                 <div class="amount">@Player.Local.DEX</div>
                                 <button class="Button2" @onclick="@DexterityUpgrade">DEX+</button>
-                                <div class="coast">Coast: @DexterityCost</div>
+                                <div class="coast">Coast: @Player.Local.DexterityCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.Dexterity))">?</button>
                             </div>
@@ -242,7 +242,7 @@
                                 <p class="txt">Evasion</p>
                                 <div class="amount">@Player.Local.Evasion</div>
                                 <button class="Button2" @onclick="@EvasionUpgrade">EVA+</button>
-                                <div class="coast">Coast: @EvasionCost</div>
+                                <div class="coast">Coast: @Player.Local.EvasionCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Evasion))">?</button>
                             </div>
 
@@ -250,33 +250,33 @@
                                 <p class="txt">Ability Haste</p>
                                 <div class="amount">@Player.Local.AbilityHaste</div>
                                 <button class="Button2" @onclick="@AbilityHasteUpgrade">AH+</button>
-                                <div class="coast">Coast: @AbilityHasteCost</div>
+                                <div class="coast">Coast: @Player.Local.AbilityHasteCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.AbilityHaste))">?</button>
                             </div>
 
                             <div class="box">
                                 <p class="txt">Stamina</p>
-                                <div class="amount">@Player.Local.Stamina</div>
+                                <div class="amount">@Player.Local.MaxStamina</div>
                                 <button class="Button2" @onclick="@StaminaUpgrade">STA+</button>
-                                <div class="coast">Coast: @StaminaCost</div>
+                                <div class="coast">Coast: @Player.Local.StaminaCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Stamina))">?</button>
                             </div>
 
                             <div class="box">
-                                <p class="txt">Player Walk Speed</p>
+                                <p class="txt">Walk Speed</p>
                                 <div class="amount">@Player.Local.PlayerWalkSpeed</div>
                                 <button class="Button2" @onclick="@PlayerWalkSpeedUpgrade">PWS+</button>
-                                <div class="coast">Coast: @PlayerWalkSpeedCost</div>
+                                <div class="coast">Coast: @Player.Local.PlayerWalkSpeedCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.PlayerWalkSpeed))">?</button>
                             </div>
 
                             <div class="box">
-                                <p class="txt">Player Run Speed</p>
+                                <p class="txt"> Run Speed</p>
                                 <div class="amount">@Player.Local.PlayerRunSpeed</div>
                                 <button class="Button2" @onclick="@PlayerRunSpeedUpgrade">PRS+</button>
-                                <div class="coast">Coast: @PlayerRunSpeedCost</div>
+                                <div class="coast">Coast: @Player.Local.PlayerRunSpeedCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.PlayerRunSpeed))">?</button>
                             </div>
@@ -285,7 +285,7 @@
                                 <p class="txt">Mana</p>
                                 <div class="amount">@Player.Local.Mana</div>
                                 <button class="Button2" @onclick="@ManaUpgrade">MANA+</button>
-                                <div class="coast">Coast: @ManaCost</div>
+                                <div class="coast">Coast: @Player.Local.ManaCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Mana))">?</button>
                             </div>
                         </div>
@@ -306,7 +306,7 @@
                                 <p class="txt2">Intelligence</p>
                                 <div class="amount">@Player.Local.INT</div>
                                 <button class="Button2" @onclick="@INTUpgrade">INT+</button>
-                                <div class="coast">Coast: @IntelligenceCost</div>
+                                <div class="coast">Coast: @Player.Local.IntelligenceCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Intelligence))">?</button>
                             </div>
 
@@ -314,14 +314,14 @@
                                 <p class="txt">Magic Power (MAP)</p>
                                 <div class="amount">@Math.Round(Player.Local.MagicPower)</div>
                                 <button class="Button2" @onclick="@MagicPowerUpgrade">MAP+</button>
-                                <div class="coast">Coast: @MagicPowerCost</div>
+                                <div class="coast">Coast: @Player.Local.MagicPowerCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.MagicPower))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Magic Penetration (MP)</p>
                                 <div class="amount">@Player.Local.MagicPenetration</div>
                                 <button class="Button2" @onclick="@MagicPenetrationUpgrade">MP+</button>
-                                <div class="coast">Coast: @MagicPenetrationCost</div>
+                                <div class="coast">Coast: @Player.Local.MagicPenetrationCost</div>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.MagicPenetration))">?</button>
                             </div>
@@ -329,7 +329,7 @@
                                 <p class="txt">Bonus EXP Gain (EXP+)</p>
                                 <div class="amount">@Math.Round(Player.Local.BonusEXPGain, 2)</div>
                                 <button class="Button2" @onclick="@BonusEXPGainUpgrade">EXP+</button>
-                                <div class="coast">Coast: @BonusEXPGainCost</div>
+                                <div class="coast">Coast: @Player.Local.BonusEXPGainCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.BonusEXPGain))">?</button>
                             </div>
 
@@ -337,7 +337,7 @@
                                 <p class="txt">Bonus Vyndalium Gain (Vynd+)</p>
                                 <div class="amount">@Player.Local.BonusVyndalium</div>
                                 <button class="Button2" @onclick="@BonusVyndaliumGainUpgrade">Vynd+</button>
-                                <div class="coast">Coast: @BonusVyndaliumGainCost</div>
+                                <div class="coast">Coast: @Player.Local.BonusVyndaliumGainCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.BonusVyndaliumGain))">?</button>
                             </div>
 
@@ -511,38 +511,11 @@
    
    
     
-    public int StrengthCost { get; set; } = 5;
-    public int AttackPowerCost { get; set; } = 1;
-    public int ArmorPenetrationCost { get; set; } = 2;
-    public int AttackRangeCost { get; set; } = 2;
-    public int AttackSpeedCost { get; set; } = 1;
-    public int CriticalChanceCost { get; set; } = 5;
-    public int CriticalDamageCost { get; set; } = 3;
-    private int EnduranceCost = 1;
-    private int SlowResistanceCost = 1;
-    private int BlindResistanceCost = 1;
-    private int StunResistanceCost = 1;
-    private int TenacityCost = 1;
-    private int CoverCost = 1;
-    private int MagicDefenseCost = 1;
-    private int ArmorCost = 1;
-    private int HealthCost = 1;
-    public int DexterityCost { get; set; } = 3;
-    public int EvasionCost { get; set; } = 4;
-    public int AbilityHasteCost { get; set; } = 5;
-    public int StaminaCost { get; set; } = 6;
-    public int PlayerWalkSpeedCost { get; set; } = 7;
-    public int PlayerRunSpeedCost { get; set; } = 8;
-    public int ManaCost { get; set; } = 9;
-    public int IntelligenceCost {get;set;} = 1; // Beispielwert
-    public int MagicPowerCost { get; set; } = 2; // Beispielwert
-    public int MagicPenetrationCost { get; set; } = 3; // Beispielwert
-    public int BonusEXPGainCost { get; set; } = 15; // Beispielwert
-    public int BonusVyndaliumGainCost { get; set; } = 25;
+    
    
     public void STGUpgrade()
     {
-        if (Player.Local.StatsPoints >= StrengthCost)
+        if (Player.Local.StatsPoints >= Player.Local.StrengthCost)
         {
             
             Player.Local.STG += 1;
@@ -576,8 +549,8 @@
                 Player.Local.PER += 8;
                 Player.Local.Tenacity += 10;
             }
-            Player.Local.StatsPoints -= StrengthCost;
-            StrengthCost++;
+            Player.Local.StatsPoints -= Player.Local.StrengthCost;
+            Player.Local.StrengthCost++;
             
 
         }
@@ -585,267 +558,267 @@
 
     public void AP()
     {
-        if (Player.Local.StatsPoints >= AttackPowerCost)
+        if (Player.Local.StatsPoints >= Player.Local.AttackPowerCost)
         {
             Player.Local.AttackPower += 5;
-            Player.Local.StatsPoints -= AttackPowerCost;
-            AttackPowerCost++;
+            Player.Local.StatsPoints -= Player.Local.AttackPowerCost;
+            Player.Local.AttackPowerCost++;
         }
     }
     public void ArmorPenetration()
     {
-        if (Player.Local.StatsPoints >= ArmorPenetrationCost)
+        if (Player.Local.StatsPoints >= Player.Local.ArmorPenetrationCost)
         {
             Player.Local.ArmorPenetration += 5;
-            Player.Local.StatsPoints -= ArmorPenetrationCost;
-            ArmorPenetrationCost++;
+            Player.Local.StatsPoints -= Player.Local.ArmorPenetrationCost;
+            Player.Local.ArmorPenetrationCost++;
         }
     }
     public void AttackRange()
     {
-        if (Player.Local.StatsPoints >= AttackRangeCost)
+        if (Player.Local.StatsPoints >= Player.Local.AttackRangeCost)
         {
             Player.Local.AttackRange += 5;
-            Player.Local.StatsPoints -= AttackRangeCost;
-            AttackRangeCost++;
+            Player.Local.StatsPoints -= Player.Local.AttackRangeCost;
+            Player.Local.AttackRangeCost++;
         }
     }
     public void AttackSpeed()
     {
-        if (Player.Local.StatsPoints >= AttackSpeedCost)
+        if (Player.Local.StatsPoints >= Player.Local.AttackSpeedCost)
         {
             Player.Local.AttackSpeed += 5;
-            Player.Local.StatsPoints -= AttackSpeedCost;
-            AttackSpeedCost++;
+            Player.Local.StatsPoints -= Player.Local.AttackSpeedCost;
+            Player.Local.AttackSpeedCost++;
         }
     }
     public void CriticalChance()
     {
-        if (Player.Local.StatsPoints >= CriticalChanceCost)
+        if (Player.Local.StatsPoints >= Player.Local.CriticalChanceCost)
         {
             Player.Local.CritHitChance += 5;
-            Player.Local.StatsPoints -= CriticalChanceCost;
-            CriticalChanceCost++;
+            Player.Local.StatsPoints -= Player.Local.CriticalChanceCost;
+            Player.Local.CriticalChanceCost++;
         }
     }
     public void CriticalDamage()
     {
-        if (Player.Local.StatsPoints >= CriticalDamageCost)
+        if (Player.Local.StatsPoints >= Player.Local.CriticalDamageCost)
         {
             Player.Local.CritHitDamage += 5;
-            Player.Local.StatsPoints -= CriticalDamageCost;
-            CriticalDamageCost++;
+            Player.Local.StatsPoints -= Player.Local.CriticalDamageCost;
+            Player.Local.CriticalDamageCost++;
         }
     }
     private void EnduranceUpgrade()
     {
-        if (Player.Local.StatsPoints >= EnduranceCost)
+        if (Player.Local.StatsPoints >= Player.Local.EnduranceCost)
         {
             Player.Local.PER += 1;
-            Player.Local.StatsPoints -= EnduranceCost;
+            Player.Local.StatsPoints -= Player.Local.EnduranceCost;
             
         }
     }
 
     private void SlowResistanceUpgrade()
     {
-        if (Player.Local.StatsPoints >= SlowResistanceCost)
+        if (Player.Local.StatsPoints >= Player.Local.SlowResistanceCost)
         {
             Player.Local.SlowResist += 1;
-            Player.Local.StatsPoints -= SlowResistanceCost;
+            Player.Local.StatsPoints -= Player.Local.SlowResistanceCost;
             Log.Info("Slow Resistance upgraded.");
         }
     }
 
     private void BlindResistanceUpgrade()
     {
-        if (Player.Local.StatsPoints >= BlindResistanceCost)
+        if (Player.Local.StatsPoints >= Player.Local.BlindResistanceCost)
         {
             Player.Local.BlindResist += 1;
-            Player.Local.StatsPoints -= BlindResistanceCost;
+            Player.Local.StatsPoints -= Player.Local.BlindResistanceCost;
             Log.Info("Blind Resistance upgraded.");
         }
     }
 
     private void StunResistanceUpgrade()
     {
-        if (Player.Local.StatsPoints >= StunResistanceCost)
+        if (Player.Local.StatsPoints >= Player.Local.StunResistanceCost)
         {
             Player.Local.StunResist += 1;
-            Player.Local.StatsPoints -= StunResistanceCost;
+            Player.Local.StatsPoints -= Player.Local.StunResistanceCost;
             Log.Info("Stun Resistance upgraded.");
         }
     }
 
     private void TenacityUpgrade()
     {
-        if (Player.Local.StatsPoints >= TenacityCost)
+        if (Player.Local.StatsPoints >= Player.Local.TenacityCost)
         {
             Player.Local.Tenacity += 1;
-            Player.Local.StatsPoints -= TenacityCost;
+            Player.Local.StatsPoints -= Player.Local.TenacityCost;
             Log.Info("Tenacity upgraded.");
         }
     }
 
     private void CoverUpgrade()
     {
-        if (Player.Local.StatsPoints >= CoverCost)
+        if (Player.Local.StatsPoints >= Player.Local.CoverCost)
         {
             Player.Local.Block += 1;
-            Player.Local.StatsPoints -= CoverCost;
+            Player.Local.StatsPoints -= Player.Local.CoverCost;
             Log.Info("Cover upgraded.");
         }
     }
 
     private void MagicDefenseUpgrade()
     {
-        if (Player.Local.StatsPoints >= MagicDefenseCost)
+        if (Player.Local.StatsPoints >= Player.Local.MagicDefenseCost)
         {
             Player.Local.MagicDefense += 1;
-            Player.Local.StatsPoints -= MagicDefenseCost;
+            Player.Local.StatsPoints -= Player.Local.MagicDefenseCost;
             Log.Info("Magic Defense upgraded.");
         }
     }
 
     private void ArmorUpgrade()
     {
-        if (Player.Local.StatsPoints >= ArmorCost)
+        if (Player.Local.StatsPoints >= Player.Local.ArmorCost)
         {
             Player.Local.Armor += 1;
-            Player.Local.StatsPoints -= ArmorCost;
+            Player.Local.StatsPoints -= Player.Local.ArmorCost;
             Log.Info("Armor upgraded.");
         }
     }
 
     private void HealthUpgrade()
     {
-        if (Player.Local.StatsPoints >= HealthCost)
+        if (Player.Local.StatsPoints >= Player.Local.HealthCost)
         {
             Player.Local.MaxHealth += 1;
-            Player.Local.StatsPoints -= HealthCost;
+            Player.Local.StatsPoints -= Player.Local.HealthCost;
             Log.Info("Health upgraded.");
         }
     }
     public void DexterityUpgrade()
     {
-        if (Player.Local.StatsPoints >= DexterityCost)
+        if (Player.Local.StatsPoints >= Player.Local.DexterityCost)
         {
             Player.Local.DEX += 5;
-            Player.Local.StatsPoints -= DexterityCost;
-            DexterityCost++;
+            Player.Local.StatsPoints -= Player.Local.DexterityCost;
+            Player.Local.DexterityCost++;
         }
     }
 
     public void EvasionUpgrade()
     {
-        if (Player.Local.StatsPoints >= EvasionCost)
+        if (Player.Local.StatsPoints >= Player.Local.EvasionCost)
         {
             Player.Local.Evasion += 5;
-            Player.Local.StatsPoints -= EvasionCost;
-            EvasionCost++;
+            Player.Local.StatsPoints -= Player.Local.EvasionCost;
+            Player.Local.EvasionCost++;
         }
     }
 
     public void AbilityHasteUpgrade()
     {
-        if (Player.Local.StatsPoints >= AbilityHasteCost)
+        if (Player.Local.StatsPoints >= Player.Local.AbilityHasteCost)
         {
             Player.Local.AbilityHaste += 5;
-            Player.Local.StatsPoints -= AbilityHasteCost;
-            AbilityHasteCost++;
+            Player.Local.StatsPoints -= Player.Local.AbilityHasteCost;
+            Player.Local.AbilityHasteCost++;
         }
     }
 
     public void StaminaUpgrade()
     {
-        if (Player.Local.StatsPoints >= StaminaCost)
+        if (Player.Local.StatsPoints >= Player.Local.StaminaCost)
         {
-            Player.Local.Stamina += 5;
-            Player.Local.StatsPoints -= StaminaCost;
-            StaminaCost++;
+            Player.Local.MaxStamina += 5;
+            Player.Local.StatsPoints -= Player.Local.StaminaCost;
+            Player.Local.StaminaCost++;
         }
     }
 
     public void PlayerWalkSpeedUpgrade()
     {
-        if (Player.Local.StatsPoints >= PlayerWalkSpeedCost)
+        if (Player.Local.StatsPoints >= Player.Local.PlayerWalkSpeedCost)
         {
             Player.Local.PlayerWalkSpeed += 5;
-            Player.Local.StatsPoints -= PlayerWalkSpeedCost;
-            PlayerWalkSpeedCost++;
+            Player.Local.StatsPoints -= Player.Local.PlayerWalkSpeedCost;
+            Player.Local.PlayerWalkSpeedCost++;
         }
     }
 
     public void PlayerRunSpeedUpgrade()
     {
-        if (Player.Local.StatsPoints >= PlayerRunSpeedCost)
+        if (Player.Local.StatsPoints >= Player.Local.PlayerRunSpeedCost)
         {
             Player.Local.PlayerRunSpeed += 5;
-            Player.Local.StatsPoints -= PlayerRunSpeedCost;
-            PlayerRunSpeedCost++;
+            Player.Local.StatsPoints -= Player.Local.PlayerRunSpeedCost;
+            Player.Local.PlayerRunSpeedCost++;
         }
     }
 
     public void ManaUpgrade()
     {
-        if (Player.Local.StatsPoints >= ManaCost)
+        if (Player.Local.StatsPoints >= Player.Local.ManaCost)
         {
             Player.Local.Mana += 5;
-            Player.Local.StatsPoints -= ManaCost;
-            ManaCost++;
+            Player.Local.StatsPoints -= Player.Local.ManaCost;
+            Player.Local.ManaCost++;
         }
     }
     private void INTUpgrade()
     {
         // Implementierung der Methode
-        if (Player.Local.StatsPoints >= IntelligenceCost)
+        if (Player.Local.StatsPoints >= Player.Local.IntelligenceCost)
         {
             Player.Local.INT += 1;
-            Player.Local.StatsPoints -= IntelligenceCost;
-            IntelligenceCost++;
+            Player.Local.StatsPoints -= Player.Local.IntelligenceCost;
+            Player.Local.IntelligenceCost++;
         }
     }
 
     private void MagicPowerUpgrade()
     {
         // Implementierung der Methode
-        if (Player.Local.StatsPoints >= MagicPowerCost)
+        if (Player.Local.StatsPoints >= Player.Local.MagicPowerCost)
         {
             Player.Local.MagicPower += 5;
-            Player.Local.StatsPoints -= MagicPowerCost;
-            MagicPowerCost++;
+            Player.Local.StatsPoints -= Player.Local.MagicPowerCost;
+            Player.Local.MagicPowerCost++;
         }
     }
     private void MagicPenetrationUpgrade()
     {
         // Implementierung der Methode
-        if (Player.Local.StatsPoints >= MagicPenetrationCost)
+        if (Player.Local.StatsPoints >= Player.Local.MagicPenetrationCost)
         {
             Player.Local.MagicPenetration += 5;
-            Player.Local.StatsPoints -= MagicPenetrationCost;
-            MagicPenetrationCost++;
+            Player.Local.StatsPoints -= Player.Local.MagicPenetrationCost;
+            Player.Local.MagicPenetrationCost++;
         }
     }
 
     private void BonusEXPGainUpgrade()
     {
         // Implementierung der Methode
-        if (Player.Local.StatsPoints >= BonusEXPGainCost)
+        if (Player.Local.StatsPoints >= Player.Local.BonusEXPGainCost)
         {
             Player.Local.BonusEXPGain += 0.1f;
-            Player.Local.StatsPoints -= BonusEXPGainCost;
-            BonusEXPGainCost++;
+            Player.Local.StatsPoints -= Player.Local.BonusEXPGainCost;
+            Player.Local.BonusEXPGainCost++;
         }
     }
 
     private void BonusVyndaliumGainUpgrade()
     {
         // Implementierung der Methode
-        if (Player.Local.StatsPoints >= BonusVyndaliumGainCost)
+        if (Player.Local.StatsPoints >= Player.Local.BonusVyndaliumGainCost)
         {
             Player.Local.BonusVyndalium += 1;
-            Player.Local.StatsPoints -= BonusVyndaliumGainCost;
-            BonusVyndaliumGainCost++;
+            Player.Local.StatsPoints -= Player.Local.BonusVyndaliumGainCost;
+            Player.Local.BonusVyndaliumGainCost++;
         }
     }
     public void CheckBackpackSlots()

@@ -378,7 +378,7 @@ public partial class Npc : Component, IHealthComponent
 			}
 			else
 			{
-				AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
+				AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
 				agent.MoveTo( closestPlayer.Transform.Position );
 				if ( !isPlayerNearby )
 				{

@@ -24,6 +24,14 @@ public struct PlayerSave
 	[JsonInclude] public int Level;
 	[JsonInclude] public float MaxHealth;
 	[JsonInclude] public float MaxMana;
+	[JsonInclude] public float Stamina;
+	[JsonInclude] public float ArmorPenetration;
+	[JsonInclude] public float AttackRange;
+	[JsonInclude] public float BonusVyndalium;
+	[JsonInclude] public float MagicPenetration;
+	[JsonInclude] public float AbilityHaste;
+	[JsonInclude] public float PlayerWalkSpeed;
+	[JsonInclude] public float PlayerRunSpeed;
 	[JsonInclude] public float MaxStamina;
 	[JsonInclude] public float AttackPower;
 	[JsonInclude] public float MagicPower;
@@ -59,6 +67,18 @@ public struct PlayerSave
 	[JsonInclude] public int AttackSpeedCost;
 	[JsonInclude] public int CriticalChanceCost;
 	[JsonInclude] public int CriticalDamageCost;
+	[JsonInclude] public int DexterityCost;
+	[JsonInclude] public int EvasionCost;
+	[JsonInclude] public int AbilityHasteCost;
+	[JsonInclude] public int StaminaCost;
+	[JsonInclude] public int PlayerWalkSpeedCost;
+	[JsonInclude] public int PlayerRunSpeedCost;
+	[JsonInclude] public int ManaCost;
+	[JsonInclude] public int IntelligenceCost;
+	[JsonInclude] public int MagicPowerCost;
+	[JsonInclude] public int MagicPenetrationCost;
+	[JsonInclude] public int BonusEXPGainCost;
+	[JsonInclude] public int BonusVyndaliumGainCost;
 
 	[JsonInclude] public int StatsPoints;
 
@@ -179,14 +199,25 @@ partial class Player
 			{
 				Path = item.Prefab,
 				Data = data.Count > 0 ? data : null,
-				Index = player.Inventory.IndexOf( item )
+				Index = player.Inventory?.IndexOf( item ) ?? -1
 			};
 		}
 		
 		_saveData = save with
 		{
+			Stamina = player.Stamina,
+			ArmorPenetration = player.ArmorPenetration,
+			AttackRange = player.AttackRange,
+			BonusVyndalium = player.BonusVyndalium,
+			MagicPenetration = player.MagicPenetration,
+			AbilityHaste = player.AbilityHaste,
+			PlayerWalkSpeed = player.PlayerWalkSpeed,
+			PlayerRunSpeed = player.PlayerRunSpeed,
+
+
+
 			MAX_BACKPACK_SLOTS = player.MAX_BACKPACK_SLOTS,
-			AmmoCount = player.AmmoContainer.AmmoCount,
+			AmmoCount = player.AmmoContainer?.AmmoCount,
 			Vyndalium = (int)player.Vyndalium,
 			Experience = (int)player.Experience,
 			Level = (int)player.Level,
@@ -222,7 +253,7 @@ partial class Player
 			INT = (int)player.INT,
 			DEX = (int)player.DEX,
 			PER = (int)player.PER,
-			
+
 			StrengthCost = (int)player.StrengthCost,
 			AttackPowerCost = (int)player.AttackPowerCost,
 			ArmorPenetrationCost = (int)player.ArmorPenetrationCost,
@@ -230,6 +261,18 @@ partial class Player
 			AttackSpeedCost = (int)player.AttackSpeedCost,
 			CriticalChanceCost = (int)player.CriticalChanceCost,
 			CriticalDamageCost = (int)player.CriticalDamageCost,
+			DexterityCost = (int)player.DexterityCost,
+			EvasionCost = (int)player.EvasionCost,
+			AbilityHasteCost = (int)player.AbilityHasteCost,
+			StaminaCost = (int)player.StaminaCost,
+			PlayerWalkSpeedCost = (int)player.PlayerWalkSpeedCost,
+			PlayerRunSpeedCost = player.PlayerRunSpeedCost,
+			ManaCost = (int)player.ManaCost,
+			IntelligenceCost = (int)player.IntelligenceCost,
+			MagicPowerCost = (int)player.MagicPowerCost,
+			MagicPenetrationCost = (int)player.MagicPenetrationCost,
+			BonusEXPGainCost = (int)player.BonusEXPGainCost,
+			BonusVyndaliumGainCost = (int)player.BonusVyndaliumGainCost,
 
 
 
@@ -286,6 +329,15 @@ partial class Player
 		{
 			player.AmmoContainer.SetAmmoCount( ammo.Key, ammo.Value );
 		}
+		player.Stamina = save.Stamina;
+		player.ArmorPenetration = save.ArmorPenetration;
+		player.AttackRange = save.AttackRange;
+		player.BonusVyndalium = save.BonusVyndalium;
+		player.MagicPenetration = save.MagicPenetration;
+		player.AbilityHaste = save.AbilityHaste;
+		player.PlayerWalkSpeed = save.PlayerWalkSpeed;
+		player.PlayerRunSpeed = save.PlayerRunSpeed;
+		
 		player.MaxHealth = save.MaxHealth;
 		player.MaxMana = save.MaxMana;
 		player.MaxStamina = save.MaxStamina;

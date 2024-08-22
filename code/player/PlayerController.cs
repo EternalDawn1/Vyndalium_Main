@@ -259,7 +259,8 @@ public partial class Player : Component, IHealthComponent
 			Health = MaxHealth;
 			MaxStamina = 50f;
 			MaxMana = 100f;
-			PlayerRunSpeed = 220f;
+			PlayerRunSpeed = 150f;
+			PlayerWalkSpeed = 100f;
 			isFirstSpawn = false; // Markiere den ersten Spawn als abgeschlossen
 		}
 		Health = MaxHealth;

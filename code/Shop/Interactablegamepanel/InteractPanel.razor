@@ -15,17 +15,14 @@
 @if (ShowInteract)
 {
     <div class="Interact" @onclick="OpenShop"> @TextInteract</div>
-    @if (ShowShop)
-    {
-        <Shop></Shop>
-    }
+    
 }
 
 @code{
     public string TextInteract { get; set; } = "click here to interact";
     public bool PlayerIsNear { get; set; } = false;
     public bool ShowInteract { get; set; } = false;
-    public bool ShowShop { get; set; } = false;
+  
    
 
     
@@ -41,7 +38,7 @@
     public void OpenShop()
     {
         TextInteract = "Interacting...";
-        ShowShop = true;
+      
         Task.Delay(1000).ContinueWith(_ =>
         {
             TextInteract = "click here to interact";

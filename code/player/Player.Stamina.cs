@@ -5,8 +5,8 @@ namespace GeneralGame;
 
 public partial class Player : Component
 {
-	[Property, Sync , Group( "Movement" )]public float PlayerRunSpeed { get; set; } = 150f;
-	[Sync,Property, Group( "Movement" )]public float PlayerWalkSpeed { get; private set; } = 150f; // Maximale Laufgeschwindigkeit
+	[Property, Sync , Group( "Movement" )]public float PlayerRunSpeed { get; set; } = 100f;
+	[Sync,Property, Group( "Movement" )]public float PlayerWalkSpeed { get;  set; } = 100f; // Maximale Laufgeschwindigkeit
     [Sync,Property, Group( "Movement" )]public float MaxStamina { get;  set; } = 100f; // Maximale Ausdauer
     [Sync,Property, Group( "Movement" )]public float Stamina { get; private set; } = 100f; // Aktuelle Ausdauer
     [Sync,Property, Group( "Movement" )] public float StaminaPerSecond { get; private set; } = 10f;
