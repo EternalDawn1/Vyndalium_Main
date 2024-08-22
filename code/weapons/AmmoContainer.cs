@@ -9,6 +9,7 @@ namespace GeneralGame;
 public class AmmoContainer : Component
 {
 	public Dictionary<AmmoType, int> AmmoCount = new Dictionary<AmmoType, int>();
+	private Dictionary<AmmoType, int> defaultAmmo = new Dictionary<AmmoType, int>();
 
 	public int GetAmmoCount( AmmoType ammoType )
 	{
@@ -83,6 +84,17 @@ public class AmmoContainer : Component
 	public int Get( AmmoType type )
 	{
 		return CollectionExtensions.GetValueOrDefault( AmmoCount, type, 0 );
+	}
+
+	// Neue Methoden für DefaultAmmo
+	public void SetDefaultAmmo( AmmoType ammoType, int count )
+	{
+		defaultAmmo[ammoType] = count;
+	}
+
+	public int GetDefaultAmmo( AmmoType ammoType )
+	{
+		return CollectionExtensions.GetValueOrDefault( defaultAmmo, ammoType, 0 );
 	}
 
 	// Serialisierungsmethoden

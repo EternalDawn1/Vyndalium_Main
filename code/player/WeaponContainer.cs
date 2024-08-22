@@ -140,15 +140,27 @@ public partial class WeaponContainer : Component
 		var nextWeaponGo = weaponGo.Components.GetInDescendantsOrSelf<BaseGun>( true );
 		if ( nextWeaponGo.IsValid() )
 		{
+			var player = Player.Local as Player;
+			if ( player != null )
+			{
+				var ammoToGive = player.Ammo.Get( nextWeaponGo.AmmoType );
+				if ( ammoToGive > 0 )
+				{
+					player.Ammo.TryTake( nextWeaponGo.AmmoType, ammoToGive, out var taken );
+					nextWeaponGo.DefaultAmmo = Math.Min( nextWeaponGo.DefaultAmmo + taken, nextWeaponGo.MaxAmmo );
+				}
+				else
+				{
+					// Setze DefaultAmmo nur, wenn sie noch nicht initialisiert wurde
+					if ( nextWeaponGo.DefaultAmmo == 0 )
+					{
+						nextWeaponGo.DefaultAmmo = nextWeaponGo.ClipSize;
+					}
+				}
+			}
+
 			nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;
 			nextWeaponGo.IsDeployed = !Deployed.IsValid();
-			var player = Player.Local as Player;
-			var ammoToGive = player.Ammo.Get( nextWeaponGo.AmmoType );
-			if ( ammoToGive > 0 )
-			{
-				player.Ammo.TryTake( nextWeaponGo.AmmoType, ammoToGive, out var taken );
-				nextWeaponGo.DefaultAmmo = Math.Min( nextWeaponGo.DefaultAmmo + taken, nextWeaponGo.MaxAmmo );
-			}
 		}
 		RemoveUnnecessaryComponents( weaponGo );
 		weaponGo.NetworkSpawn();
@@ -156,6 +168,12 @@ public partial class WeaponContainer : Component
 	}
 	private void RemoveUnnecessaryComponents( GameObject weaponGo )
 	{
+		if ( weaponGo == null )
+		{
+			Log.Error( "weaponGo is null." );
+			return;
+		}
+
 		var modelCollider = weaponGo.Components.Get<ModelCollider>();
 		if ( modelCollider != null )
 		{
@@ -173,53 +191,33 @@ public partial class WeaponContainer : Component
 		{
 			dress.RemoveClothing();
 		}
+		var viewModel = weaponGo.Components.Get<ViewModel>();
+		if ( viewModel != null )
+		{
+			viewModel.Destroy();
+		}
 	}
 	public void RemoveWeapon( GameObject prefab, bool shouldDeploy = false )
 	{
-		
-		if ( prefab != null )
+		if ( WeaponBone == null )
 		{
-			
+			Log.Error( "WeaponBone is null." );
+			return;
+		}
+
+		if ( WeaponBone.Children.Contains( prefab ) )
+		{
+			prefab.SetParent( null );
 			ClearWeaponBone();
-
-			// Zerstöre alle Komponenten der Waffe, die nicht mehr benötigt werden
-			var modelCollider = prefab.Components.Get<ModelCollider>();
-			if ( modelCollider != null )
-			{
-				modelCollider.Destroy();
-			}
-
-			var rigidBody = prefab.Components.Get<Rigidbody>();
-			if ( rigidBody != null )
-			{
-				rigidBody.Destroy();
-			}
-			var viewModel = prefab.Components.Get<ViewModel>();
-			if ( viewModel != null )
-			{
-				viewModel.Destroy();
-			}
-
-			// Setze alle relevanten Zustände zurück
-			// (Beispiel: Munitionszustand zurücksetzen könnte hier implementiert werden, falls erforderlich)
-
-			// Setze Equipped auf null
-			prefab = null;
-			Log.Info( "Waffe wurde entfernt und alle Komponenten zerstört." );
-
-			// Aktualisiere Deployed, falls notwendig
-			if ( shouldDeploy && Deployed != null )
-			{
-				
-			}
+			//RemoveUnnecessaryComponents( prefab );
 		}
 	}
-	
+
 	private void ClearWeaponBone()
 	{
 		if ( WeaponBone == null )
 		{
-			Log.Error( "WeaponBone ist null." );
+			Log.Error( "WeaponBone is null." );
 			return;
 		}
 
@@ -228,8 +226,6 @@ public partial class WeaponContainer : Component
 			child.Destroy();
 		}
 	}
-	
-
 
 
 	public void Next()

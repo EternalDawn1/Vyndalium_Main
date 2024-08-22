@@ -249,6 +249,7 @@ public partial class Player : Component, IHealthComponent
 		EquipWeaponsOnSpawn();
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
+		InitializeAmmo();
 
 		LifeState = LifeState.Alive;
 

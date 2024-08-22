@@ -49,6 +49,7 @@ public class BaseGun : WeaponComponent, IUse
 		if ( ammoContainer != null )
 		{
 			AmmoCount = ammoContainer.GetAmmoCount( AmmoType );
+			DefaultAmmo = ammoContainer.GetDefaultAmmo( AmmoType ); // Stelle sicher, dass DefaultAmmo hier korrekt gesetzt wird
 		}
 	}
 
@@ -65,7 +66,14 @@ public class BaseGun : WeaponComponent, IUse
 
 		Log.Info( $"AmmoCount vor dem Ausrüsten: {player.AmmoContainer.GetAmmoCount( AmmoType.Rifle )}" );
 
-		var ammoToTake = Math.Min( ClipSize, player.AmmoContainer.GetAmmoCount( AmmoType.Rifle) );
+		// Standardmunition abrufen und setzen
+		var defaultAmmo = player.AmmoContainer.GetDefaultAmmo( AmmoType.Rifle );
+		if ( defaultAmmo > 0 )
+		{
+			AmmoCount = defaultAmmo;
+		}
+
+		var ammoToTake = Math.Min( ClipSize, player.AmmoContainer.GetAmmoCount( AmmoType.Rifle ) );
 		AmmoInClip = ammoToTake;
 		player.AmmoContainer.RemoveAmmo( AmmoType.Rifle, ammoToTake );
 
@@ -122,7 +130,11 @@ public class BaseGun : WeaponComponent, IUse
 
 	protected override void OnStart()
 	{
-		AmmoCount = DefaultAmmo;
+		// Standardmunition setzen, wenn sie nicht bereits gesetzt ist
+		if ( AmmoCount == 0 )
+		{
+			AmmoCount = DefaultAmmo;
+		}
 		Hitprefab = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ) );
 
 		Components.GetOrCreate<Interactions>();

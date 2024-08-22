@@ -16,11 +16,11 @@ public sealed class Inventory : Component
 
 	public const int MAX_BACKPACK_SLOTS = 20;
 
-	public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
-	public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
+	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
+	[Property] public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
 
-	private readonly List<ItemComponent> _backpackItems;
-	private readonly List<ItemComponent> _equippedItems;
+	[Property] private readonly List<ItemComponent> _backpackItems;
+	[Property] private readonly List<ItemComponent> _equippedItems;
 
 	public static void EquipItemStats( ItemComponent item )
 	{
@@ -268,43 +268,58 @@ public sealed class Inventory : Component
 
 	public bool UnequipItem( ItemComponent item )
 	{
-		if ( item is ItemEquipment equipment && equipment.Equipped )
+		Log.Info( "UnequipItem" );
+		if ( item == null )
 		{
-			if ( item == null )
-			{
-				return false;
-			}
-
-			var slotIndex = (int)equipment.Slot;
-			var equippedItem = _equippedItems[slotIndex];
-			if ( equippedItem != item ) // Überprüfen Sie, ob das Item das ausgerüstete ist
-				return false;
-
-			var firstFreeSlot = _backpackItems.IndexOf( null );
-			if ( firstFreeSlot == -1 )
-				return false;
-
-			RemoveEquipmentItem( equipment );
-			GiveBackpackItem( equipment, firstFreeSlot );
-			equipment.State = ItemState.Backpack;
-
-			// Sicherstellen, dass das Item nicht zerstört wird, wenn es unequipped wird
-			var weaponContainer = Player.Components.Get<WeaponContainer>();
-			if ( weaponContainer != null )
-			{
-				weaponContainer.RemoveWeapon( item.GameObject, false );
-			}
-			else
-			{
-				Log.Info( "WeaponContainer ist null" );
-			}
-
-			// Trigger-Signal senden, nachdem das Item erfolgreich unequipped wurde
-			TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
-
-			return true;
+			Log.Error( "Item is null." );
+			return false;
 		}
-		return false;
+
+		if ( item is not ItemEquipment equipment || !equipment.Equipped )
+		{
+			Log.Error( "Item is not equipment or not equipped." );
+			return false;
+		}
+
+		var slotIndex = (int)equipment.Slot;
+		var equippedItem = _equippedItems[slotIndex];
+		if ( equippedItem != item )
+		{
+			Log.Error( "Item is not the equipped item in the expected slot." );
+			return false;
+		}
+
+		var firstFreeSlot = _backpackItems.IndexOf( null );
+		if ( firstFreeSlot == -1 )
+		{
+			Log.Error( "No free slot in the backpack." );
+			return false;
+		}
+
+		// Entfernen der Statistiken des Items
+		RemoveEquipmentItem( equipment );
+
+		// Hinzufügen des Items zum Rucksack
+		
+
+		// Sicherstellen, dass das Item nicht zerstört wird, wenn es unequipped wird
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
+		if ( weaponContainer != null )
+		{
+			weaponContainer.RemoveWeapon( item.GameObject, false );
+		}
+		else
+		{
+			Log.Info( "WeaponContainer ist null" );
+		}
+
+		GiveBackpackItem( equipment, firstFreeSlot );
+		equipment.State = ItemState.Backpack;
+		
+		TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
+		
+		return true;
+		
 	}
 
 
@@ -599,13 +614,25 @@ public sealed class Inventory : Component
 	{
 		// Überprüfen Sie, ob das Item bereits in der Liste ist
 		if ( _backpackItems.Contains( item ) )
+		{
+			Log.Info( $"Item {item.Name} ist bereits im Rucksack." );
 			return;
+		}
 
+		// Überprüfen Sie, ob der Index gültig ist
 		if ( index >= 0 && index < _backpackItems.Count )
 		{
-			_backpackItems[index] = item;
-			item.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des Items
-			Log.Info( $"Item {item.Name} wurde dem Rucksack an Position {index} hinzugefügt." );
+			// Überprüfen Sie, ob der Slot im Rucksack leer ist
+			if ( _backpackItems[index] == null )
+			{
+				_backpackItems[index] = item;
+				item.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des Items
+				Log.Info( $"Item {item.Name} wurde dem Rucksack an Position {index} hinzugefügt." );
+			}
+			else
+			{
+				Log.Info( $"Der Slot {index} im Rucksack ist bereits belegt." );
+			}
 		}
 		else
 		{
