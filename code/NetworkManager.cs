@@ -13,8 +13,7 @@ namespace GeneralGame
        
         protected override async Task OnLoad()
         {
-            if ( Scene.IsEditor )
-                return;
+            
 
             if ( !GameNetworkSystem.IsActive && !IsProxy && StartServer )
             {
@@ -25,54 +24,10 @@ namespace GeneralGame
             }
 
         }
-        public static void ToggleLobby()
-        {
-            if ( !Connection.Local.IsHost )
-                return;
-
-            // Start lobby.
-            if ( !GameNetworkSystem.IsActive )
-            {
-                GameNetworkSystem.CreateLobby();
-                return;
-            }
-
-            // Close lobby.
-            ServerClose( true );
-            GameNetworkSystem.Disconnect();
-
-            for ( int i = 0; i < Player.All.Count; i++ )
-            {
-                var p = Player.All.ElementAtOrDefault( i );
-                if ( p is null || p == Player.Local )
-                    continue;
-
-                Player._InternalPlayers.Remove( p );
-                p.Destroy();
-            }
-        }
-        [Broadcast( NetPermission.HostOnly )]
-        public static void ServerClose( bool ignoreHost )
-        {
-            if ( ignoreHost && Connection.Local.Id == HostId )
-                return;
-
-            GameNetworkSystem.Disconnect();
-           
-            SceneHandler.ChangeScene( GeneralScene.MainMenu );
-        }
-        [Broadcast]
-        public void BroadcastDisconnect( Guid id )
-        {
-            Player._InternalPlayers.RemoveAll( ( p ) => p is null || p.ConnectionID == id );
-        }
-        void INetworkListener.OnDisconnected( Connection connection )
-        {
-            if ( connection.IsHost )
-                ServerClose( true );
-
-            BroadcastDisconnect( connection.Id );
-        }
+        
+        
+       
+       
 
         public void OnActive( Connection channel )
         {
@@ -142,11 +97,7 @@ namespace GeneralGame
                 }
             }
         }
-        public void OnServerShutdown()
-        {
-            Player.RemoveAllPlayers();
-
-        }
+        
 
 
 
