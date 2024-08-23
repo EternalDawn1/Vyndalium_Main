@@ -52,6 +52,7 @@ public partial class WeaponContainer : Component
 				weapon.AmmoInClip = weapon.ClipSize;
 			}
 		}
+		
 	}
 
 
@@ -141,16 +142,16 @@ public partial class WeaponContainer : Component
 				var ammoToGive = player.Ammo.Get( nextWeaponGo.AmmoType );
 				if ( ammoToGive > 0 )
 				{
-					player.Ammo.TryTake( nextWeaponGo.AmmoType, ammoToGive, out var taken );
-					nextWeaponGo.DefaultAmmo = Math.Min( nextWeaponGo.DefaultAmmo + taken, nextWeaponGo.MaxAmmo );
-				}
-				else
-				{
-					// Setze DefaultAmmo nur, wenn sie noch nicht initialisiert wurde
-					if ( nextWeaponGo.DefaultAmmo == 0 )
+					var ammoToAdd = Math.Min( ammoToGive, nextWeaponGo.MaxAmmo - nextWeaponGo.DefaultAmmo );
+					if ( nextWeaponGo.DefaultAmmo < nextWeaponGo.MaxAmmo )
 					{
-						nextWeaponGo.DefaultAmmo = nextWeaponGo.ClipSize;
+						nextWeaponGo.DefaultAmmo += ammoToAdd;
+						player.Ammo.TryTake( nextWeaponGo.AmmoType, ammoToAdd, out var taken );
 					}
+				}
+				if (nextWeaponGo.AmmoInClip < nextWeaponGo.ClipSize)
+				{
+					nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;
 				}
 			}
 			nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;

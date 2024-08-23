@@ -215,6 +215,11 @@ public sealed class Inventory : Component
 		{
 			weaponContainer.Give( item.GameObject, true );
 		}
+		var skinnedMeshRenderer = equipment.Components.Get<SkinnedModelRenderer>();
+		if ( skinnedMeshRenderer != null )
+		{
+			GameObject.Destroy(  );
+		}
 
 		index = _backpackItems?.IndexOf( item ) ?? -1; // Erneutes Ermitteln des Indexes, falls notwendig
 
@@ -409,7 +414,8 @@ public sealed class Inventory : Component
 	private bool CanStack( ItemComponent first, ItemComponent second )
 		=> first.Prefab == second.Prefab
 		&& first.IsStackable && second.IsStackable
-		&& second.Count < second.MaxStack;
+		&& second.Count < second.MaxStack
+		&& first.Tier == second.Tier;
 
 	public bool SwapItems( int firstIndex, int secondIndex )
 	{

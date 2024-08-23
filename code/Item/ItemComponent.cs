@@ -88,7 +88,7 @@ public class ItemComponent : Component
 
 	public class TierClass
 	{
-		private Tier _tier;
+		public Tier _tier;
 
 		public Tier Tier
 		{
@@ -121,19 +121,29 @@ public class ItemComponent : Component
 	/// Maximum amount of items in this stack, default is 0 for not stackable.
 	/// </summary>
 	[Property]
-	public int MaxStack
+	public int MaxStack { get; set; } =1;
+
+	private int _count = 1;
+
+	/// <summary>
+	/// The count of items in the stack.
+	/// </summary>
+	[Property]
+	public int Count
 	{
-		get => _maxStack;
+		get => _count;
 		set
 		{
-			_maxStack = value;
-			Count = value;
+			if ( value > MaxStack )
+			{
+				_count = MaxStack;
+			}
+			else
+			{
+				_count = value;
+			}
 		}
 	}
-
-	private int _maxStack;
-
-	[Property, Sync, HideIf( "MaxStack", 0 ), TargetSave( IgnoreIf = 0 )] public int Count { get; set; }
 	[Sync] public string Prefab { get; private set; }
 
 	public Texture IconTexture => Texture.Load( FileSystem.Mounted, Icon.Path );
