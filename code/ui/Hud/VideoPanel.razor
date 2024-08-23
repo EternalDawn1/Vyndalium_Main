@@ -35,13 +35,13 @@
 	public VideoPanel()
 	{
 		videoPlayer = new VideoPlayer();
-		videoPlayer.Muted = true;
+		videoPlayer.Muted = false;
 
 		// TODO: Let the user decide how audio is played
 		// videoPlayer.OnAudioReady = () => videoPlayer.PlayAudio();
 
 		Repeat = false;
-		Style.AspectRatio = 16.0f / 9.0f;
+		Style.AspectRatio = 1f / 1f;
 	}
 
 	public override void OnDeleted()
@@ -57,10 +57,13 @@
 		base.Tick();
 
 		// Try to match the aspect ratio of the video
-		if (videoPlayer.Width > 4 && videoPlayer.Height > 4)
+		if (videoPlayer != null && videoPlayer.Width > 1 && videoPlayer.Height > 1)
 		{
 			Style.AspectRatio = (float)videoPlayer.Width / (float)videoPlayer.Height;
 		}
+
+		// Update the video player
+		
 	}
 
 
@@ -68,13 +71,16 @@
 	{
 		base.DrawContent(ref state);
 
-		videoPlayer.Present();
+		if (videoPlayer != null)
+		{
+			videoPlayer.Present();
 
-		var tex = videoPlayer?.Texture;
+			var tex = videoPlayer.Texture;
 
-		// todo - change the UV so we can do object-fit: cover
-		Graphics.Attributes.Set("Texture", tex);
-		Graphics.DrawQuad(Box.Rect, Material.UI.Basic, Color.White.WithAlpha(Opacity));
+			// todo - change the UV so we can do object-fit: cover
+			Graphics.Attributes.Set("Texture", tex);
+			Graphics.DrawQuad(Box.Rect, Material.UI.Basic, Color.White.WithAlpha(Opacity));
+		}
 	}
 
 }

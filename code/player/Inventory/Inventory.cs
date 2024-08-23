@@ -241,6 +241,7 @@ public sealed class Inventory : Component
 			var placedInBackpack = UnequipItem( equippedItem );
 			if ( !placedInBackpack )
 				DropItem( equippedItem );
+				
 
 
 		}
@@ -248,6 +249,7 @@ public sealed class Inventory : Component
 		SetOwner( item );
 
 		GiveEquipmentItem( equipment );
+		
 		equipment.State = ItemState.Equipped;
 		TaskMaster.SubmitTriggerSignal( $"item.received.{item.Name}", Player );
 
@@ -268,7 +270,7 @@ public sealed class Inventory : Component
 
 	public bool UnequipItem( ItemComponent item )
 	{
-		Log.Info( "UnequipItem" );
+		
 		if ( item == null )
 		{
 			Log.Error( "Item is null." );
@@ -610,35 +612,35 @@ public sealed class Inventory : Component
 	/// <summary>
 	/// The item is given to the backpack.
 	/// </summary>
-	private void GiveBackpackItem( ItemComponent item, int index )
-	{
-		// Überprüfen Sie, ob das Item bereits in der Liste ist
-		if ( _backpackItems.Contains( item ) )
-		{
-			Log.Info( $"Item {item.Name} ist bereits im Rucksack." );
-			return;
-		}
+	private void GiveBackpackItem(ItemComponent item, int index)
+{
+    // Überprüfen Sie, ob das Item bereits in der Liste ist
+    if (_backpackItems.Contains(item))
+    {
+        
+        return;
+    }
 
-		// Überprüfen Sie, ob der Index gültig ist
-		if ( index >= 0 && index < _backpackItems.Count )
-		{
-			// Überprüfen Sie, ob der Slot im Rucksack leer ist
-			if ( _backpackItems[index] == null )
-			{
-				_backpackItems[index] = item;
-				item.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des Items
-				Log.Info( $"Item {item.Name} wurde dem Rucksack an Position {index} hinzugefügt." );
-			}
-			else
-			{
-				Log.Info( $"Der Slot {index} im Rucksack ist bereits belegt." );
-			}
-		}
-		else
-		{
-			Log.Info( $"Ungültiger Index {index} für das Hinzufügen des Items {item.Name} zum Rucksack." );
-		}
-	}
+    // Überprüfen Sie, ob der Index gültig ist
+    if (index >= 0 && index < _backpackItems.Count)
+    {
+        // Überprüfen Sie, ob der Slot im Rucksack leer ist
+        if (_backpackItems[index] == null)
+        {
+            _backpackItems[index] = item;
+            item.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des Items
+            
+        }
+        else
+        {
+           
+        }
+    }
+    else
+    {
+        
+    }
+}
 
 	/// <summary>
 	/// The item is removed from the backpack.

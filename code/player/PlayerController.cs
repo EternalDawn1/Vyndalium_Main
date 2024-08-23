@@ -22,6 +22,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public GameObject ViewModelRoot { get; set; }
 	[Property]public int DefaultAmmo { get; set; }
 	[Property] public AmmoContainer Ammo { get; set; } = new AmmoContainer();
+	public BaseGun CurrentWeapon { get; set; }
 	[Property] public CharacterController2 CharacterController { get; set; }
 	[Property] public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject Head { get; set; }

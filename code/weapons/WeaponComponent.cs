@@ -204,7 +204,7 @@ public class WeaponComponent : Component
 		}
 		else
 		{
-			Log.Error( "Spieler ist null in OnHolstered" );
+			
 		}
 
 		DestroyViewModel();

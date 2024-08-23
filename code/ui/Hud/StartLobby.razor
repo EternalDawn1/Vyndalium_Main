@@ -13,7 +13,7 @@
 		
 		<VideoPanel Source="ui/hud/intro/vyndalium.mp4"/>
 	</div>
-	<div class="center">
+	<div class="center @(_state != IntroState.Next ? "hidden" : "")">
 		<div class="left">
 			<div class="title">
 				Vyndalium
@@ -106,7 +106,7 @@
 	private IntroState _state = IntroState.Logo;
 	
 	private RealTimeUntil _introIsOver = IntroTime;
-	private const float IntroTime = 7f;
+	private const float IntroTime = 12f;
 	private enum IntroState
 	{
 		Logo,

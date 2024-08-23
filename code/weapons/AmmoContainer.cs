@@ -8,8 +8,8 @@ namespace GeneralGame;
 [Title( "Ammo Container" )]
 public class AmmoContainer : Component
 {
-	public Dictionary<AmmoType, int> AmmoCount = new Dictionary<AmmoType, int>();
-	private Dictionary<AmmoType, int> defaultAmmo = new Dictionary<AmmoType, int>();
+	[Property]public Dictionary<AmmoType, int> AmmoCount = new Dictionary<AmmoType, int>();
+	[Property]private Dictionary<AmmoType, int> defaultAmmo = new Dictionary<AmmoType, int>();
 
 	public int GetAmmoCount( AmmoType ammoType )
 	{
@@ -40,6 +40,7 @@ public class AmmoContainer : Component
 
 		AmmoCount[type] += ammo;
 	}
+	
 
 	public bool TryTake( AmmoType type, int amount, out int taken )
 	{

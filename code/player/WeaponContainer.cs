@@ -89,8 +89,6 @@ public partial class WeaponContainer : Component
 
 	public void Give( GameObject prefab, bool shouldDeploy = false )
 	{
-		
-
 		if ( WeaponBone == null )
 		{
 			Log.Error( "WeaponBone is null in WeaponContainer.Give" );
@@ -106,19 +104,16 @@ public partial class WeaponContainer : Component
 		{
 			modelCollider.Destroy();
 		}
-		
 
 		var rigidBody = prefab.Components.Get<Rigidbody>();
 		if ( rigidBody != null )
 		{
 			rigidBody.Destroy();
 		}
-		
 
 		var weaponGo = prefab.Clone();
 		var weapon = weaponGo.Components.GetInDescendantsOrSelf<WeaponComponent>( true );
 		weapon.Owner = PlayrControl;
-
 		if ( weapon == null || !weapon.IsValid() )
 		{
 			weaponGo.DestroyImmediate();
@@ -158,45 +153,13 @@ public partial class WeaponContainer : Component
 					}
 				}
 			}
-
 			nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;
 			nextWeaponGo.IsDeployed = !Deployed.IsValid();
 		}
-		RemoveUnnecessaryComponents( weaponGo );
+
 		weaponGo.NetworkSpawn();
-		
 	}
-	private void RemoveUnnecessaryComponents( GameObject weaponGo )
-	{
-		if ( weaponGo == null )
-		{
-			Log.Error( "weaponGo is null." );
-			return;
-		}
-
-		var modelCollider = weaponGo.Components.Get<ModelCollider>();
-		if ( modelCollider != null )
-		{
-			modelCollider.Destroy();
-		}
-
-		var rigidBody = weaponGo.Components.Get<Rigidbody>();
-		if ( rigidBody != null )
-		{
-			rigidBody.Destroy();
-		}
-
-		var dress = weaponGo.Components.Get<PlayerDresser>();
-		if ( dress != null )
-		{
-			dress.RemoveClothing();
-		}
-		var viewModel = weaponGo.Components.Get<ViewModel>();
-		if ( viewModel != null )
-		{
-			viewModel.Destroy();
-		}
-	}
+	
 	public void RemoveWeapon( GameObject prefab, bool shouldDeploy = false )
 	{
 		if ( WeaponBone == null )
