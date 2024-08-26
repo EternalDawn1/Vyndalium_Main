@@ -176,7 +176,8 @@ public class ItemComponent : Component
 	private readonly SoundEvent _pickupSound = ResourceLibrary.Get<SoundEvent>( "sounds/misc/pickup.sound" );
 
 	private ItemState _state;
-	[Property] public bool IsItem;
+	[Property] public bool IsItem { get; set; }
+	[Property] public bool IsEquipment { get; set; }
 
 
 	/// <summary>
@@ -189,7 +190,7 @@ public class ItemComponent : Component
 		set
 		{
 			_state = value;
-			UpdateState();
+			
 		}
 	}
 	public ItemComponent Split( int amount )
@@ -203,13 +204,7 @@ public class ItemComponent : Component
 		return newItem;
 	}
 
-	private void UpdateState()
-	{
-		GameObject.Enabled = State != ItemState.Backpack;
-		if ( this is ItemEquipment equipment )
-			equipment.UpdateEquipped();
-
-	}
+	
 
 	protected override void OnAwake()
 	{

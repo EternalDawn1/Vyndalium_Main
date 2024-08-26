@@ -338,32 +338,33 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual void OnKilled( GameObject attacker )
 	{
-		if ( attacker.IsValid() )
+		if ( attacker != null && attacker.IsValid() )
 		{
 			var chat = Scene.GetAllComponents<Chat>().FirstOrDefault();
 
-			if ( chat.IsValid() )
+			if ( chat != null && chat.IsValid() )
+			{
+				var attackerConnection = attacker.Network.OwnerConnection;
+				var playerConnection = this.Network.OwnerConnection;
 
-				if ( attacker.Network.OwnerConnection.DisplayName != this.Network.OwnerConnection.DisplayName )
+				if ( attackerConnection != null && playerConnection != null &&
+					attackerConnection.DisplayName != playerConnection.DisplayName )
 				{
-					chat.AddTextLocal( "💀️", $"{this.Network.OwnerConnection.DisplayName} has killed {attacker.Network.OwnerConnection.DisplayName}" );
+					chat.AddTextLocal( "💀️", $"{playerConnection.DisplayName} has killed {attackerConnection.DisplayName}" );
 				}
+			}
 
 			if ( !this.IsProxy )
 			{
 				// We killed this player.
 				this.Kills++;
 			}
-
-
 		}
-
-
 
 		if ( IsProxy )
 			return;
 
-		if ( Weapons.Deployed.IsValid() )
+		if ( Weapons.Deployed != null && Weapons.Deployed.IsValid() )
 		{
 			Weapons.Deployed.Holster();
 		}
@@ -427,7 +428,31 @@ public partial class Player : Component, IHealthComponent
 		base.OnStart();
 	}
 
+	private void UpdateWeaponModelVisibility()
+	{
+		var deployedWeapon = Weapons.Deployed;
+		foreach ( var weapon in Weapons.All )
+		{
+			var modelRenderer = weapon.Components.Get<ModelRenderer>();
+			var itemComponent = weapon.Components.Get<ItemComponent>();
 
+			if ( modelRenderer != null && itemComponent != null )
+			{
+				// Überprüfen, ob die Waffe ein Item ist und ob sie die aktuell eingesetzte Waffe ist
+				if ( itemComponent.IsItem )
+				{
+					modelRenderer.Enabled = weapon == deployedWeapon;
+					weapon.GameObject.Enabled = true;
+				}
+				else
+				{
+					modelRenderer.Enabled = false;
+					// Deaktivieren des GameObjects im weaponbone
+					weapon.GameObject.Enabled = false;
+				}
+			}
+		}
+	}
 
 
 
@@ -438,25 +463,22 @@ public partial class Player : Component, IHealthComponent
 
 		if ( IsProxy ) PlyCamera.Enabled = false;
 
+		UpdateWeaponModelVisibility(); // Neue Methode aufrufen
 
-		var deployedWeapon = Weapons.Deployed;
 		var shadowRenderer = ShadowAnimator.Components.Get<SkinnedModelRenderer>( true );
-		var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
+		var hasViewModel = Weapons.Deployed.IsValid() && Weapons.Deployed.HasViewModel;
 		var clothing = ModelRenderer.Components.GetAll<ClothingComponent>( FindMode.EverythingInSelfAndDescendants );
 
 		if ( hasViewModel )
 		{
 			shadowRenderer.Enabled = false;
-
 			ModelRenderer.Enabled = Ragdoll.IsRagdolled;
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
-
 			foreach ( var c in clothing )
 			{
 				c.ModelRenderer.Enabled = Ragdoll.IsRagdolled;
 				c.ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
 			}
-
 			return;
 		}
 
@@ -473,19 +495,18 @@ public partial class Player : Component, IHealthComponent
 			ModelRenderer.RenderType = IsProxy
 				? Sandbox.ModelRenderer.ShadowRenderType.On
 				: Sandbox.ModelRenderer.ShadowRenderType.Off;
-
 			shadowRenderer.Enabled = true;
 		}
 
 		foreach ( var c in clothing )
 		{
 			c.ModelRenderer.Enabled = true;
-
 			if ( c.Category is Clothing.ClothingCategory.Hair or Clothing.ClothingCategory.Facial or Clothing.ClothingCategory.Hat )
 			{
 				c.ModelRenderer.RenderType = IsProxy ? Sandbox.ModelRenderer.ShadowRenderType.On : Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 			}
 		}
+
 		if ( !PlyCamera.IsValid() || !Eye.IsValid() )
 			return;
 
@@ -692,6 +713,12 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual void DoMovementInput()
 	{
+		if ( isFrozen )
+		{
+			
+			return;
+		}
+
 		BuildWishVelocity();
 
 		if ( CharacterController.IsOnGround && Input.Pressed( "Jump" ) && TryJump() )
@@ -840,9 +867,22 @@ public partial class Player : Component, IHealthComponent
 		Transform.Rotation = Rotation.FromYaw( randomSpawnpoint.Transform.Rotation.Yaw() );
 		EyeAngles = Transform.Rotation;
 	}
+	public void Move()
+	{
+		
+		// Aktualisiere die Bewegungslogik des Spielers
+		BuildWishVelocity();
+
+		Log.Info( "Player is moving" );
+	}
 
 	private void BuildWishVelocity()
 	{
+		if ( isFrozen )
+		{
+			Log.Info( "Player cannot build wish velocity while frozen" );
+			return;
+		}
 		var rotation = EyeAngles.ToRotation();
 
 		WishVelocity = rotation * Input.AnalogMove;

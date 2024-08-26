@@ -89,7 +89,13 @@ public partial class WeaponContainer : Component
 	}
 
 	public void Give( GameObject prefab, bool shouldDeploy = false )
-	{
+
+	{	var ItemComponents = prefab.Components.GetInDescendantsOrSelf<ItemComponent>( true );
+	
+		if ( ItemComponents.IsEquipment)
+		{
+			return;
+		}
 		if ( WeaponBone == null )
 		{
 			Log.Error( "WeaponBone is null in WeaponContainer.Give" );

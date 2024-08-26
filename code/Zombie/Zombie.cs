@@ -29,7 +29,7 @@ public partial class Npc : Component, IHealthComponent
 {
 	[Property]
 	public string Name { get; set; }
-	public int Level { get; set; }
+	[Property]public int Level { get; set; }
 	
 	[Property]
 	public MoveHelper MoveHelper { get; set; }
@@ -223,7 +223,12 @@ public partial class Npc : Component, IHealthComponent
 	[Property] private float PlayerProximityDistance { get; set; } = 80f;
 	public Guid KillerId { get; set; } // Fügen Sie diese Eigenschaft hinzu
 
+	[Property] public bool HasIceAbility { get; set; }
 
+	public static Random random = new Random();
+
+	
+	
 
 
 	protected override void OnStart()
@@ -257,6 +262,39 @@ public partial class Npc : Component, IHealthComponent
 		
 
 
+	}
+	
+
+	public  void TryFreezePlayer( float durationInSeconds , Player player )
+	{
+		
+		if ( HasIceAbility )
+		{
+			int freezeChance = Level switch
+			{
+				<= 15 => 15,
+				<= 30 => 30,
+				<= 55 => 55,
+				<= 70 => 70,
+				<= 90 => 90,
+				_ => 100
+			};
+
+			if ( random.Next( 100 ) < freezeChance )
+			{
+				player.ApplyFreeze( durationInSeconds );
+
+				var healthEffects = player.Components.Get<HealthEffects>();
+				if ( healthEffects != null )
+				{
+					healthEffects.FreezeEffect();
+				} 
+				else
+				{
+					healthEffects.Destroy();
+				}
+			}
+		}
 	}
 
 
@@ -398,6 +436,7 @@ public partial class Npc : Component, IHealthComponent
 	}
 	public void NormalTrace()
 	{
+		float durationInSeconds = 2.0f;
 		var tr = Scene.Trace.Ray( Body.Transform.Position, Body.Transform.Position + Body.Transform.Rotation.Forward * 100 ).Run();
 
 		if ( tr.Hit && timeSinceHit > 1.5f && GameObject != null )
@@ -406,8 +445,28 @@ public partial class Npc : Component, IHealthComponent
 
 			if ( tr.GameObject.Tags.Has( "player" ) || tr.GameObject.Tags.Has( "npc" ) )
 			{
+				// Annahme: tr.GameObject kann in Player umgewandelt werden
+				var player = tr.GameObject.Components.Get<Player>();
+				if ( player != null )
+				{
+					TryFreezePlayer( durationInSeconds, player );
+					
+				}
+				else
+				{
+					// Fehlerbehandlung, wenn player null ist
+					
+				}
+				// Generiere einen zufälligen Basis-Schaden zwischen 1 und 15
+				Random random = new Random();
+				int baseDamage = random.Next( 1, 16 );
+
+				// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
+				int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
+				int exponentialDamage = (int)(baseDamage * Math.Pow( 1.1, npcLevel ));
+
 				// Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
-				damageable.TakeDamage( DamageType.Bullet, 10, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
+				damageable.TakeDamage( DamageType.Bullet, exponentialDamage, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
 
 				AnimationHelper.Target.Set( "b_attack", true );
 
@@ -611,6 +670,12 @@ public partial class Npc : Component, IHealthComponent
 		if ( !GameObject.IsValid() ) return false;
 
 		return target.Transform.Position.Distance( Transform.Position ) <= range;
+	}
+	public void SetHealthBasedOnLevel()
+	{
+		// Berechne das MaxHealth und Health basierend auf dem Level
+		MaxHealth = (float)(100 * Math.Pow( 1.09, Level ));
+		Health = MaxHealth;
 	}
 
 	/// <summary>

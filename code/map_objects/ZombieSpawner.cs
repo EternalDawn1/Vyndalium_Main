@@ -11,7 +11,13 @@ public sealed class ZombieSpawner : Component
 	[Property] public float PlayerProximityDistance { get; set; } = 1000f;
 	[Property] public int MaxSpawns { get; set; } = 10; // Neue Eigenschaft für maximale Anzahl von Spawns
     private int SpawnCount { get; set; } // Zähler für die Anzahl der Spawns
-
+	[Property] public bool Level1To15 { get; set; }
+	[Property] public bool Level15To30 { get; set; }
+	[Property] public bool Level30To55 { get; set; }
+	[Property] public bool Level55To70 { get; set; }
+	[Property] public bool Level70To90 { get; set; }
+	[Property] public bool Level90To100 { get; set; }
+	
 	protected override void DrawGizmos()
 	{
 		const float boxSize = 4f;
@@ -38,16 +44,16 @@ public sealed class ZombieSpawner : Component
 
 		if ( !Networking.IsHost )
 			return;
-			
-		if (!IsPlayerNearby()) // Überprüfen, ob ein Spieler in der Nähe ist
-                return;
 
-		if (SpawnCount >= MaxSpawns) // Überprüfen, ob die maximale Anzahl von Spawns erreicht wurde
-            {
-                // Zerstöre das Spawner-Objekt, wenn die maximale Anzahl von Spawns erreicht wurde
-                GameObject.Destroy();
-                return;
-            }
+		if ( !IsPlayerNearby() ) // Überprüfen, ob ein Spieler in der Nähe ist
+			return;
+
+		if ( SpawnCount >= MaxSpawns ) // Überprüfen, ob die maximale Anzahl von Spawns erreicht wurde
+		{
+			// Zerstöre das Spawner-Objekt, wenn die maximale Anzahl von Spawns erreicht wurde
+			GameObject.Destroy();
+			return;
+		}
 
 		if ( !TimeUntilRespawn.HasValue )
 		{
@@ -60,14 +66,60 @@ public sealed class ZombieSpawner : Component
 
 		var zombie = ZombiePrefab.Clone( this.Transform.World );
 		zombie.NetworkSpawn();
-		
+
+		// Setze das Level des Zombies basierend auf den Properties
+		var npcComponent = zombie.Components.Get<Npc>();
+		if ( npcComponent != null )
+		{
+			npcComponent.Level = GetRandomLevel();
+			npcComponent.SetHealthBasedOnLevel();
+			npcComponent.HasIceAbility = DetermineFreezeAbility( npcComponent.Level );
+			
+		}
+
 		IsSpawning = true;
 
-		CreateSpawnParticle(zombie.Transform.Position);
+		CreateSpawnParticle( zombie.Transform.Position );
 
 		TimeUntilRespawn = null;
 
 		SpawnCount++;
+	}
+	private int GetRandomLevel()
+	{
+		var random = new Random();
+		if ( Level1To15 )
+			return random.Next( 1, 16 );
+		if ( Level15To30 )
+			return random.Next( 15, 31 );
+		if ( Level30To55 )
+			return random.Next( 30, 56 );
+		if ( Level55To70 )
+			return random.Next( 55, 71 );
+		if ( Level70To90 )
+			return random.Next( 70, 91 );
+		if ( Level90To100 )
+			return random.Next( 90, 101 );
+
+		return 1; // Standardlevel, falls keine Property gesetzt ist
+	}
+	private bool DetermineFreezeAbility( int level )
+	{
+		var random = new Random();
+		if ( level >= 1 && level <= 15 )
+			return random.Next( 100 ) < 15;
+		if ( level >= 16 && level <= 30 )
+			return random.Next( 100 ) < 30;
+		if ( level >= 31 && level <= 55 )
+			return random.Next( 100 ) < 55;
+		if ( level >= 56 && level <= 70 )
+			return random.Next( 100 ) < 70;
+		if ( level >= 71 && level <= 90 )
+			return random.Next( 100 ) < 90;
+		if ( level >= 91 && level <= 100 )
+			return random.Next( 100 ) < 100;
+
+		return false;
 	}
 	private void CreateSpawnParticle(Vector3 position)
         {

@@ -5,7 +5,7 @@
 <root>
 	<SideButton 
 		Title="Inventory" 
-		Subtitle="Click here to return"
+		Subtitle="return"
 		 OnClick=@(() => Delete()) 
 		 style="position: absolute; top: 50px;" 
 	/>
@@ -51,7 +51,9 @@
 		var renderer = _item.Components.Get<ModelRenderer>(FindMode.EverythingInSelfAndDescendants);
 		if ( _item is ItemEquipment equipment && equipment.IsClothing )
 		{
-			_model ??= new SceneModel( _sceneWorld, "models/guy/guy.vmdl", global::Transform.Zero );
+
+			_model ??= new SceneModel(_sceneWorld, "models/citizen/citizen.vmdl", global::Transform.Zero);
+
 			_child ??= new SceneModel( _sceneWorld, renderer.Model, global::Transform.Zero );
 			_model.ColorTint = Color.Gray;
 			if ( equipment.UseSkinTint )
@@ -78,7 +80,7 @@
 		}
 
 		_scenePanel.World = _sceneWorld;
-		_scenePanel.Camera.FieldOfView = 120f;
+		_scenePanel.Camera.FieldOfView = 90f;
 
 		if (_cameraTransform.Position == Vector3.Zero)
 		{
@@ -116,12 +118,12 @@
 		}
 
 		_distance += _scrollDelta * 3f;
-		_distance = _distance.Clamp(10f, 100f);
+		_distance = _distance.Clamp(30f, 90f);
 		_cameraTransform.Position = target.Model.Bounds.Center - _cameraTransform.Forward * _distance;
 		_scrollDelta = 0;
 
-		_scenePanel.Camera.Position = Vector3.Lerp(_scenePanel.Camera.Position, _cameraTransform.Position, RealTime.Delta * 40.0f);
-		_scenePanel.Camera.Rotation = Rotation.Lerp(_scenePanel.Camera.Rotation, _cameraTransform.Rotation, RealTime.Delta * 50.0f);
+		_scenePanel.Camera.Position = Vector3.Lerp(_scenePanel.Camera.Position, _cameraTransform.Position, RealTime.Delta * 90.0f);
+		_scenePanel.Camera.Rotation = Rotation.Lerp(_scenePanel.Camera.Rotation, _cameraTransform.Rotation, RealTime.Delta * 90.0f);
 		_sceneLight.Position = _scenePanel.Camera.Position;
 
 		target.Update(RealTime.Delta);

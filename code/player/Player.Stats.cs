@@ -68,8 +68,9 @@ public partial class Player
     [Sync, Property, Group( "CharacterStats" )] public float EarthElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
     [Sync, Property, Group( "CharacterStats" )] public float WindElementalDamage { get; set; } // Fügen Sie diese Zeile hinzu
     [Sync, Property, Group( "CharacterStats" )] public float HolyElementalDamage { get; set; }
-    
 
+    [Sync, Property, Group( "CharacterStats" )]
+    public bool isFrozen{ get; set; } = false;
     [Sync] public int StrengthCost { get; set; } = 1;
     [Sync] public int AttackPowerCost { get; set; } = 1;
     [Sync] public int ArmorPenetrationCost { get; set; } = 2;
@@ -99,5 +100,27 @@ public partial class Player
     [Sync] public int BonusEXPGainCost { get; set; } = 15; // Beispielwert
     [Sync] public int BonusVyndaliumGainCost { get; set; } = 25;
 
+
+
+    public void ApplyFreeze( float durationInSeconds )
+    {
+        
+        // Deaktiviere die Bewegungslogik
+        isFrozen = true;
+
+        // Erstelle oder aktiviere die Vignette
+        GameObject.Components.Create<HealthEffects>().FreezeEffect();
+        
+        
+
+        // Verwenden Sie einen Timer, um die Bewegungslogik nach der angegebenen Dauer wieder zu aktivieren
+        Task.Delay( (int)(durationInSeconds * 1000) ).ContinueWith( _ =>
+        {
+            isFrozen = false;
+
+            // Deaktiviere die Vignette, wenn der Freeze-Effekt endet
+           
+        } );
+    }
 
 }

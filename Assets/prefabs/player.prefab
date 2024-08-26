@@ -81,7 +81,9 @@
       },
       {
         "__type": "GeneralGame.AmmoContainer",
-        "__guid": "d6099511-b771-4df1-ab34-7adb3431953b"
+        "__guid": "d6099511-b771-4df1-ab34-7adb3431953b",
+        "AmmoCount": {},
+        "defaultAmmo": {}
       },
       {
         "__type": "Sandbox.SphereCollider",
@@ -178,6 +180,7 @@
         "IceElementalDamage": 0,
         "IceResist": 0,
         "INT": 0,
+        "isFrozen": false,
         "Level": 1,
         "LevelUp": "sounds/levelup/levelup2.sound",
         "LightElementalDamage": 0,
@@ -257,6 +260,72 @@
       {
         "__type": "GeneralGame.Inventory",
         "__guid": "0e005699-bb91-45ae-b2d9-19cc3f43ef6d",
+        "_backpackItems": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "_equippedItems": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "BackpackItems": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "EquippedItems": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
         "Player": {
           "_type": "component",
           "component_id": "fd4a62bf-1e7f-4479-b81c-938ec6211623",
@@ -1393,6 +1462,24 @@
                   "component_id": "0f221acc-69e3-4ec9-8cae-dc2e501ba21d",
                   "go": "f0050518-263c-4315-a867-c36ec9fc0235",
                   "component_type": "ColorAdjustments"
+                },
+                "Freeze": {
+                  "_type": "component",
+                  "component_id": "eaff0534-1319-435e-9754-e3f5a7f7bc4e",
+                  "go": "f0050518-263c-4315-a867-c36ec9fc0235",
+                  "component_type": "Vignette"
+                },
+                "FreezeAdjustments": {
+                  "_type": "component",
+                  "component_id": "0f221acc-69e3-4ec9-8cae-dc2e501ba21d",
+                  "go": "f0050518-263c-4315-a867-c36ec9fc0235",
+                  "component_type": "ColorAdjustments"
+                },
+                "Vignette": {
+                  "_type": "component",
+                  "component_id": "cf910ccb-f142-4911-bc21-00ce4f94c0c9",
+                  "go": "f0050518-263c-4315-a867-c36ec9fc0235",
+                  "component_type": "Vignette"
                 }
               },
               {
@@ -1425,6 +1512,15 @@
                 "Intensity": 8,
                 "Quality": "High",
                 "Radius": 32
+              },
+              {
+                "__type": "Sandbox.Vignette",
+                "__guid": "eaff0534-1319-435e-9754-e3f5a7f7bc4e",
+                "Center": "0.5,0.5",
+                "Color": "0,0.08333,1,1",
+                "Intensity": 0,
+                "Roundness": 0.75,
+                "Smoothness": 1
               }
             ],
             "Children": [
