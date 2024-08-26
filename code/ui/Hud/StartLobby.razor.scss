@@ -17,7 +17,7 @@ StartLobby {
 	pointer-events: all;
 	text-shadow: $text-shadow-sm;
 	z-index: 99;
-	transition: opacity 0.5s ease-in-out;
+	transition: opacity 7s ease-in;
 
 	
 
@@ -28,23 +28,31 @@ StartLobby {
 		justify-content: center;
 		align-items: center;
 		opacity: 1;
-		transition: opacity 1.5s ease-in-out;
+		transition: opacity 7.5s ease-in-out;
 		background-color: $black;
 
 		&.intro {
 			opacity: 1;
 		}
 	}
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+	
+			to {
+				opacity: 1;
+			}
+		}
 
 	.center {
 		position: absolute;
 		width: 100%;
 		height: 100%;
 		justify-content: center;
+		opacity: 1;
 		
-		&:outro {
-				opacity: 1;
-			}
+		
 		
 		.left {
 				margin-top: 64px;

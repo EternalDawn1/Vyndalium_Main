@@ -173,11 +173,7 @@ public sealed class Inventory : Component
 	{
 	
 
-		if ( item == null )
-		{
-			Log.Error( "Item is null." );
-			return false;
-		}
+		
 
 		var index = _backpackItems?.IndexOf( item ) ?? -1;
 		if ( index == -1 )
@@ -215,15 +211,15 @@ public sealed class Inventory : Component
 		{
 			weaponContainer.Give( item.GameObject, true );
 		}
-		var skinnedMeshRenderer = equipment.Components.Get<SkinnedModelRenderer>();
-		if ( skinnedMeshRenderer != null )
-		{
-			GameObject.Destroy(  );
-		}
+		
 
 		index = _backpackItems?.IndexOf( item ) ?? -1; // Erneutes Ermitteln des Indexes, falls notwendig
 
 		return true;
+	}
+	public int GetFirstFreeBackpackSlot()
+	{
+		return _backpackItems.IndexOf( null );
 	}
 
 
@@ -595,6 +591,14 @@ public sealed class Inventory : Component
 			item.State = ItemState.None;
 		}
 	}
+	public void AddItem( ItemComponent item )
+	{
+		if ( item == null )
+			
+
+		_backpackItems.Add( item );
+		item.State = ItemState.Backpack;
+	}
 
 
 
@@ -618,7 +622,7 @@ public sealed class Inventory : Component
 	/// <summary>
 	/// The item is given to the backpack.
 	/// </summary>
-	private void GiveBackpackItem(ItemComponent item, int index)
+	public void GiveBackpackItem(ItemComponent item, int index)
 {
     // Überprüfen Sie, ob das Item bereits in der Liste ist
     if (_backpackItems.Contains(item))

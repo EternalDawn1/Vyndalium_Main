@@ -199,7 +199,7 @@ partial class Player
 			{
 				Path = item.Prefab,
 				Data = data.Count > 0 ? data : null,
-				Index = player.Inventory?.IndexOf( item ) ?? -1
+				Index = player.Inventory.IndexOf( item )
 			};
 		}
 		
@@ -277,8 +277,6 @@ partial class Player
 
 
 			Clothes = player.Inventory.EquippedItems
-			
-			
 				.Where( x => x != null )
 				.Select( Serialize )
 				.ToArray(),

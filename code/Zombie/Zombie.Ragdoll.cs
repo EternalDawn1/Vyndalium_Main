@@ -127,7 +127,7 @@ public partial class Npc
 					_puppet.Enabled = false;
 					_puppet.Enabled = true;
 					_puppet.SceneModel.RenderingEnabled = false;
-					_puppet.Transform.Scale = Scale;
+				
 				}
 
 				var transition = 0.15f;

@@ -41,8 +41,11 @@ UI {
         bottom: 0%;
         border: 1px solid rgba(238, 238, 238, 0);
         z-index: 0;
-        opacity: 1;
+        opacity: 0;
         transition: opacity 0.5s ease-in-out;
+        &.show {
+            opacity: 1;
+        }
 
         .zombie-healthbar {
             position: absolute;

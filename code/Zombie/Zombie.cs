@@ -4,7 +4,7 @@ using Sandbox.Citizen;
 using Sandbox.UI;
 using System.Linq;
 using Sandbox;
-using static GeneralGame.NpcNodes;
+
 using System;
 
 
@@ -39,38 +39,12 @@ public partial class Npc : Component, IHealthComponent
 	[Sync, Property] public float Health { get; private set; } = 100f;
 	[Property] public HealthComponent Healthone { get; set; }
 
-	[Property]
-	public NavigationType WalkingType { get; set; } = NavigationType.Dumb;
-
-	[Property]
-	public NavigationType RunningType { get; set; } = NavigationType.Smart;
-
-	public NavigationType NavigationType => IsRunning ? RunningType : WalkingType;
+	
 	public Guid LastAttackerId { get; set; }
 
 
 
-	/// <summary>
-	/// How much this creature weights (To handle ragdol force amount and duration)
-	/// </summary>
-	[Property]
-	[Category( "Stats" )]
-	public WeightType Weight { get; set; } = WeightType.Middle;
-
-	/// <summary>
-	/// Should the stats scale linearly with the scale of the object
-	/// </summary>
-	[Property]
-	[Category( "Stats" )]
-	public bool ScaleStats { get; set; } = true;
-	public float Scale => ScaleStats ? MathF.Max( MathF.Max( GameObject.Transform.Scale.x, GameObject.Transform.Scale.y ), GameObject.Transform.Scale.z ) : 1f;
-
-	/// <summary>
-	/// Doesn't move (Don't add a MoveHelper if this is on)
-	/// </summary>
-	[Property]
-	[Category( "Stats" )]
-	public bool Static { get; set; } = false;
+	
 
 	/// <summary>
 	/// For animations. How many units per second the run animation is tuned to (This is automatically scaled by the scale)
@@ -246,23 +220,9 @@ public partial class Npc : Component, IHealthComponent
 	public bool IsAttacking { get; set; } = false;
 	public bool IsDamaged { get; set; } = false;
 
-	[Property] private float PlayerProximityDistance { get; set; } = 400f;
+	[Property] private float PlayerProximityDistance { get; set; } = 80f;
 	public Guid KillerId { get; set; } // Fügen Sie diese Eigenschaft hinzu
-	public float ForceMultiplier
-	{
-		get
-		{
-			return Weight switch
-			{
-				WeightType.Feather => 2f,
-				WeightType.Light => 1.5f,
-				WeightType.Middle => 1f,
-				WeightType.Heavy => 0.75f,
-				WeightType.Massive => 0.5f,
-				_ => 1f
-			};
-		}
-	}
+
 
 
 
@@ -294,13 +254,7 @@ public partial class Npc : Component, IHealthComponent
 		SpawnPosition = spawnTrace.Hit ? spawnTrace.HitPosition : Transform.Position;
 
 
-		if ( MoveHelper != null )
-		{
-			MoveHelper.StepHeight *= Scale;
-			MoveHelper.TraceRadius *= Scale;
-			MoveHelper.TraceHeight *= Scale;
-			MoveHelper.StopSpeed *= Scale;
-		}
+		
 
 
 	}
@@ -325,7 +279,7 @@ public partial class Npc : Component, IHealthComponent
 	protected override void OnUpdate()
 	{
 		// Überprüfe auf Vorbedingungen, um eine ungültige Ausführung zu vermeiden
-		if ( Model == null || Static || (Healthone != null && !Healthone.Alive) )
+		if ( Model == null  || (Healthone != null && !Healthone.Alive) )
 			return;
 
 		bool isPlayerNearby = IsPlayerNearby();
@@ -338,7 +292,7 @@ public partial class Npc : Component, IHealthComponent
 		var players = Scene.GetAllComponents<Player>();
 
 		// Finden Sie den Spieler, der dem NPC am nächsten ist
-		Player closestPlayer = null;
+		Player closestPlayer = players.FirstOrDefault();
 		var closestDistanceSquared = float.MaxValue;
 
 		foreach ( var player in players )
@@ -363,14 +317,15 @@ public partial class Npc : Component, IHealthComponent
 			{
 				if ( !MoveHelper.Velocity.IsNearlyZero( 1f ) )
 				{
-					Transform.Rotation = Rotation.Lerp( Transform.Rotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * (IsRunning ? 10f : 5f) );
+					Transform.Rotation = Rotation.Lerp( Transform.Rotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * 5.0f );
 				}
 			}
 
 			UpdateAnimations( closestPlayer );
+			float maxProximityDistance = 80f;
 
 			// Überprüfe die Entfernung zum nächsten Spieler und passe die Bewegungsart entsprechend an
-			if ( closestDistance < 80f )
+			if ( closestDistance < maxProximityDistance )
 			{
 				AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Walk;
 				agent.Stop();
@@ -420,18 +375,14 @@ public partial class Npc : Component, IHealthComponent
 		Body.Transform.Rotation = Rotation.Slerp( Body.Transform.Rotation, targetRotation, Time.Delta * 5.0f );
 
 		// Setzen Sie die Bewegungsart nur, wenn sich die Geschwindigkeit ändert
-		var moveStyle = IsRunning ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
-		if ( AnimationHelper.MoveStyle != moveStyle )
-		{
-			AnimationHelper.MoveStyle = moveStyle;
-
-		}
+		
+		
 	}
 
 	void UpdateFootAnimations()
 	{
 		// Holen Sie die Geschwindigkeit des NPCs
-		var scaledSpeed = MaxRunAnimationSpeed * Scale;
+		var scaledSpeed = MaxRunAnimationSpeed ;
 		var forwardVelocity = Vector3.Dot( MoveHelper.Velocity, Model.Transform.Rotation.Forward ) / scaledSpeed;
 		var rightVelocity = Vector3.Dot( MoveHelper.Velocity, Model.Transform.Rotation.Right ) / scaledSpeed;
 
@@ -490,11 +441,7 @@ public partial class Npc : Component, IHealthComponent
 
 				if ( MoveHelper == null ) return;
 				{
-					if ( !Static )
-					{
-						ComputeNavigation();
-						MoveHelper.Move();
-					}
+					
 				}
 
 
@@ -529,7 +476,7 @@ public partial class Npc : Component, IHealthComponent
 			var currentTick = (int)(Time.Now / Time.Delta);
 			if ( currentTick % 20 != NpcId % 20 ) return; // Check every 20 ticks
 
-			var foundAround = Scene.FindInPhysics( new Sphere( Transform.Position, DetectRange * Scale ) ) // Find gameobjects nearby
+			var foundAround = Scene.FindInPhysics( new Sphere( Transform.Position, DetectRange  ) ) // Find gameobjects nearby
 				.Where( x => x.Enabled )
 				.Where( x => EnemyTags != null && x.Tags.HasAny( EnemyTags ) ) // Do they have any of our enemy tags
 				.Where( x => x.Components.Get<HealthComponent>()?.Alive ?? true ); // Are they dead or undead
@@ -576,7 +523,7 @@ public partial class Npc : Component, IHealthComponent
 		if ( alertOthers && AlertOthers )
 		{
 			var otherNpcs = Scene.GetAllComponents<Npc>()
-				.Where( x => x.Transform.Position.Distance( Transform.Position ) <= x.VisionRange * x.Scale )
+				.Where( x => x.Transform.Position.Distance( Transform.Position ) <= x.VisionRange  )
 				.Where( x => x.Healthone?.Alive ?? true )
 				.Where( x => x.TargetObject == null )
 				.Where( x => x != this )
@@ -609,7 +556,7 @@ public partial class Npc : Component, IHealthComponent
 
 		TargetObject = null;
 		TargetPosition = Transform.Position;
-		ReachedDestination = true;
+		
 	}
 
 	[Broadcast]
@@ -630,15 +577,14 @@ public partial class Npc : Component, IHealthComponent
 		{
 			TargetObject = null;
 			FollowingTargetObject = false;
-			ReachedDestination = true;
+		
 			TargetPosition = Transform.Position;
 		}
 		else
 		{
 			TargetObject = target;
 			FollowingTargetObject = !escapeFrom;
-			MoveTo( GetPreferredTargetPosition( TargetObject ) );
-			ReachedDestination = false;
+			
 		}
 	}
 
@@ -651,7 +597,7 @@ public partial class Npc : Component, IHealthComponent
 	{
 		if ( !GameObject.IsValid() ) return false;
 
-		return IsWithinRange( target, AttackRange * Scale );
+		return IsWithinRange( target, AttackRange  );
 	}
 
 	/// <summary>
@@ -718,7 +664,7 @@ public partial class Npc : Component, IHealthComponent
 		var targetPosition = target.Transform.Position;
 
 		var direction = (Transform.Position - targetPosition).Normal;
-		var offset = FollowingTargetObject ? direction * AttackRange * Scale / 2f : direction * VisionRange * Scale;
+		var offset = FollowingTargetObject ? direction * AttackRange  / 2f : direction * VisionRange ;
 		var wishPos = targetPosition + offset;
 
 		var groundTrace = Scene.Trace.Ray( wishPos + Vector3.Up * 64f, wishPos + Vector3.Down * 64f )
@@ -730,7 +676,7 @@ public partial class Npc : Component, IHealthComponent
 		return groundTrace.Hit && !groundTrace.StartedSolid ? groundTrace.HitPosition : (FollowingTargetObject ? targetPosition : targetPosition + offset);
 	}
 	public static Player Host { get; set; }
-
+	public event Action OnTakeDamage;
 
 	[Broadcast]
 	public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
@@ -748,14 +694,14 @@ public partial class Npc : Component, IHealthComponent
 			p.PlayUntilFinished( Task );
 		}
 		if ( Model != null ) Model.Set( "slime_damage", true );
-
+		
 		
 
 		if ( Network.IsProxy )
 			return;
 
 		Health = Math.Clamp( Health - amount, 0f, MaxHealth );
-		
+		OnTakeDamage?.Invoke();
 
 		if ( Health <= 0f ) // checks if zombie is dead
 		{

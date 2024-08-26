@@ -7,6 +7,7 @@ namespace GeneralGame
     {
         [Property] public SoundEvent TriggerSoundPath { get; set; } 
         
+        
         [Property] float Amount { get; set; } = 10f;
 
         private float timer = 0f;

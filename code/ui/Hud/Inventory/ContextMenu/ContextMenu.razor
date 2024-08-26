@@ -15,7 +15,11 @@
 		Inspect(_item)) />
 	<ContextMenuOption ] Description="Drop" ImagePath="ui/hud/inv_actions_drop.png" onclick=@(() => {
 		Player.Local.Inventory.DropItem(_item); Inventory.Instance?.OnChanged(); }) />
-
+	@if (_item != null && _item.Count > 1)
+    {
+        <ContextMenuOption Description="Split" ImagePath="ui/hud/inv_actions_split.png" onclick=@(() =>
+            OpenSplitPanel(_item)) />
+    }
 </root>
 
 @code {
@@ -40,6 +44,10 @@
 		_instance.PlaySound("light_click");
 
 		Hudmaster.Instance.Panel.AddChild(_instance);
+	}
+	private void OpenSplitPanel(ItemComponent item)
+	{
+		SplitPanel.Open(item);
 	}
 
 	public static bool IsOpen()

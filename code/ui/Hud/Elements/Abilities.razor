@@ -51,6 +51,7 @@
             <div class="panel-header" style="opacity: @(currentPanel == PanelType.Abilities ? 1 : 0)">
                 <button class="panel-header-text"
                 >Abilities</button>
+                <p> Work In Progress</p>
             </div>
             <div class="panel-header" style="opacity: @(currentPanel == PanelType.Endurance ? 1 : 0)">
                 <button class="panel-header-text" 
@@ -240,7 +241,7 @@
 
                             <div class="box">
                                 <p class="txt">Evasion</p>
-                                <div class="amount">@Player.Local.Evasion</div>
+                                <div class="amount">@Math.Round(@Player.Local.Evasion)</div>
                                 <button class="Button2" @onclick="@EvasionUpgrade">EVA+</button>
                                 <div class="coast">Coast: @Player.Local.EvasionCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Evasion))">?</button>

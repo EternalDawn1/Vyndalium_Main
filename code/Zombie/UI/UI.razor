@@ -6,7 +6,7 @@
     <div class="npc">
         <div class="npc-name">@npc.Name</div>
         <div class="npc-level">Lvl.@npc.Level</div>
-        <div class="zombie-healthbar-container">
+        <div class="zombie-healthbar-container @(isTakingDamage ? "show" : "")">
 
             <div class="zombie-healthbar">
 
@@ -33,10 +33,24 @@
 
 @code
 {
+    protected override void OnUpdate()
+    {
+        npc.OnTakeDamage += HandleTakeDamage;
+    }
+    private bool isTakingDamage = false;
     [Property] private Npc npc { get; set; } = new Npc();
 
     protected override int BuildHash() => HashCode.Combine(RealTime.Now);
-    
+    public  void HandleTakeDamage()
+    {
+        isTakingDamage = true;
+        StateHasChanged();
+        Task.Delay(20000).ContinueWith(_ =>
+        {
+            isTakingDamage = false;
+            StateHasChanged();
+        });
+    }
 
     
 }

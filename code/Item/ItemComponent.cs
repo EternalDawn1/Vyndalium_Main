@@ -192,6 +192,16 @@ public class ItemComponent : Component
 			UpdateState();
 		}
 	}
+	public ItemComponent Split( int amount )
+	{
+		if ( amount <= 0 || amount >= Count )
+			return null;
+
+		Count -= amount;
+		var newItem = (ItemComponent)GameObject.Clone();
+		newItem.Count = amount;
+		return newItem;
+	}
 
 	private void UpdateState()
 	{
