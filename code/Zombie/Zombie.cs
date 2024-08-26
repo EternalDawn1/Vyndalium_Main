@@ -287,7 +287,7 @@ public partial class Npc : Component, IHealthComponent
 				var healthEffects = player.Components.Get<HealthEffects>();
 				if ( healthEffects != null )
 				{
-					healthEffects.FreezeEffect();
+					//healthEffects.FreezeEffect();
 				} 
 				else
 				{

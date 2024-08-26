@@ -160,17 +160,9 @@ public partial class Player : Component, IHealthComponent
 		CritHitChance -= amount;
 	}
 
-	public static void GiveVyndaliumDebug( int money = 0 )
-	{
-		Player.Local.GiveVyndalium( money );
-		Log.Info( $"Given {money}mk" );
-	}
+	
 
-	[ConCmd( "newgame_give_statspoints" ), AdminAttribute]
-	public static void GiveStatsPoints()
-	{
-		Player.Local.StatsPoints += 10;
-	}
+	
 	public bool TrySpendVyndalium( int amount )
 	{
 		if ( Vyndalium >= amount )
@@ -623,7 +615,7 @@ public partial class Player : Component, IHealthComponent
 		if ( !IsProxy )
 		{
 			var angles = EyeAngles.Normal;
-			angles += Input.AnalogLook * 0.5f;
+			angles += Input.AnalogLook * 1.0f;
 			angles += Recoil * Time.Delta;
 			angles.pitch = angles.pitch.Clamp( -80f, 89.9f );
 

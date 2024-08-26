@@ -297,7 +297,7 @@ partial class Player
 		Log.Info( "Spielerdaten erfolgreich gespeichert." );
 	}
 
-	[ConCmd("newgame_save")]
+	
 	public static void SavePlayer()
 	{
 		Save();

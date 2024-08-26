@@ -783,7 +783,7 @@ public sealed class Inventory : Component
 
 
 
-	[ConCmd]
+	
 	public static void GiveItem( string name )
 	{
 		var player = Player.Local;
@@ -810,7 +810,7 @@ public sealed class Inventory : Component
 
 
 
-	[ConCmd( "newgame_item_give" )]
+	
 	public static void DebugGiveItem( string name )
 	{
 		var allItems = PrefabLibrary.FindByComponent<ItemComponent>();

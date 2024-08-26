@@ -472,7 +472,7 @@ public class StoryMaster : Component
 		if ( Connection.Local.IsHost )
 		{
 			SaveStoryProgression();
-			_taskMaster.SaveTasksProgression();
+			
 			EventMaster.Instance.SaveEventsProgression();
 		}
 	}
@@ -588,13 +588,6 @@ public class StoryMaster : Component
 		scriptedEvent.SignalToComplete = signalToComplete;
 	}
 
-	[ConCmd( "general_save" )]
-	public static void SaveGameCmd()
-	{
-		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
-
-		storyMaster?.SaveGame();
-	}
 
 	[ConCmd( "general_reset" )]
 	public static void DeleteSave()
@@ -604,7 +597,7 @@ public class StoryMaster : Component
 		if ( storyMaster != null )
 		{
 			storyMaster.ResetStoryProgression();
-			storyMaster._taskMaster.ResetTasksProgression( false );
+			
 			EventMaster.Instance.ResetEventsProgression();
 			storyMaster.ResetPlayer();
 		}
@@ -623,32 +616,8 @@ public class StoryMaster : Component
 		Game.Close();
 	}
 
-	[ConCmd( "general_reset_story" )]
-	public static void DeleteStory()
-	{
-		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
+	
 
-		if ( storyMaster != null )
-			storyMaster.ResetStoryProgression();
-	}
-
-	[ConCmd( "general_reset_tasks" )]
-	public static void DeleteTasks()
-	{
-		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
-
-		if ( storyMaster != null )
-			storyMaster._taskMaster.ResetTasksProgression( true );
-	}
-
-	[ConCmd( "general_reset_events" )]
-	public static void DeleteEvents()
-	{
-		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
-
-		if ( storyMaster != null )
-			EventMaster.Instance.ResetEventsProgression();
-	}
 
 	[ConCmd( "general_reset_player" )]
 	public static void DeletePlayer()
