@@ -31,7 +31,7 @@ namespace GeneralGame
             {
                 if ( player.IsReady != readyStatus )
                 {
-                    return false;
+                    return true;
                 }
             }
             return true;

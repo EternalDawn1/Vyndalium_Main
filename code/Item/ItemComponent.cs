@@ -8,7 +8,7 @@ public enum ItemState
 	Backpack,
 	Equipped
 }
-public enum Tier : byte
+public enum Tier 
 {
 	C,
 	B,
@@ -203,13 +203,123 @@ public class ItemComponent : Component
 		newItem.Count = amount;
 		return newItem;
 	}
-
+	public TierClass ItemTier { get; set; }
 	
+	[Property]public List<int> Stats { get;  set; } = new List<int>();
+	public void GenerateRandomStats()
+	{
+		Random random = new Random();
+
+		// Definieren Sie die Bereiche für jede Statistik
+		int minDMG = 10, maxDMG = 100;
+		int minSTG = 5, maxSTG = 50;
+		int minHE = 1, maxHE = 10;
+		int minDEX = 2, maxDEX = 20;
+		int minPER = 3, maxPER = 30;
+		int minINT = 4, maxINT = 40;
+		int minMana = 10, maxMana = 100;
+		int minHealth = 50, maxHealth = 100;
+		int minCritHitDamage = 1, maxCritHitDamage = 10;
+		int minCritHitChance = 1, maxCritHitChance = 10;
+		int minAbilityHaste = 1, maxAbilityHaste = 10;
+		int minAttackPower = 10, maxAttackPower = 100;
+		int minMagicPower = 10, maxMagicPower = 100;
+		int minAttackSpeed = 1, maxAttackSpeed = 10;
+		int minMoveSpeed = 1, maxMoveSpeed = 10;
+		int minArmor = 5, maxArmor = 50;
+
+		// Bestimmen Sie die maximale Anzahl der Statistiken basierend auf dem Tier
+		int maxStats = 0;
+		switch ( Tier )
+		{
+			case Tier.C:
+				maxStats = 1;
+				break;
+			case Tier.B:
+				maxStats = 2;
+				break;
+			case Tier.A:
+				maxStats = 5;
+				break;
+			case Tier.S:
+				maxStats = 6;
+				break;
+			case Tier.SSS:
+				maxStats = 7;
+				break;
+		}
+
+		// Generieren Sie zufällige Werte innerhalb der definierten Bereiche
+		List<Action> statsGenerators = new List<Action>
+		{
+			() => DMG = random.Next(minDMG, maxDMG + 1),
+			() => STG = random.Next(minSTG, maxSTG + 1),
+			() => HE = random.Next(minHE, maxHE + 1),
+			() => DEX = random.Next(minDEX, maxDEX + 1),
+			() => PER = random.Next(minPER, maxPER + 1),
+			() => INT = random.Next(minINT, maxINT + 1),
+			() => Mana = random.Next(minMana, maxMana + 1),
+			() => Health = random.Next(minHealth, maxHealth + 1),
+			() => CritHitDamage = random.Next(minCritHitDamage, maxCritHitDamage + 1),
+			() => CritHitChance = random.Next(minCritHitChance, maxCritHitChance + 1),
+			() => AbilityHaste = random.Next(minAbilityHaste, maxAbilityHaste + 1),
+			() => AttackPower = random.Next(minAttackPower, maxAttackPower + 1),
+			() => MagicPower = random.Next(minMagicPower, maxMagicPower + 1),
+			() => AttackSpeed = random.Next(minAttackSpeed, maxAttackSpeed + 1),
+			() => MoveSpeed = random.Next(minMoveSpeed, maxMoveSpeed + 1),
+			() => Armor = random.Next(minArmor, maxArmor + 1),
+			() => ItemLevel = GenerateRandomItemLevel(random)
+		};
+
+		// Mischen Sie die Statistiken und wählen Sie die maximale Anzahl aus
+		statsGenerators = statsGenerators.OrderBy( x => random.Next() ).ToList();
+		for ( int i = 0; i < maxStats; i++ )
+		{
+			statsGenerators[i]();
+		}
+
+		// Weitere zufällige Statistiken können hier hinzugefügt werden...
+	}
+	private int GenerateRandomItemLevel( Random random )
+	{
+		double roll = random.NextDouble() * 100;
+		if ( roll < 90 )
+			return random.Next( 1, 6 ); // 1-5
+		else if ( roll < 90 + 50 )
+			return random.Next( 5, 11 ); // 5-10
+		else if ( roll < 90 + 50 + 25 )
+			return random.Next( 10, 16 ); // 10-15
+		else if ( roll < 90 + 50 + 25 + 12 )
+			return random.Next( 15, 21 ); // 15-20
+		else if ( roll < 90 + 50 + 25 + 12 + 6 )
+			return 20; // 20-21
+		else if ( roll < 90 + 50 + 25 + 12 + 6 + 3 )
+			return 21; // 21-22
+		else if ( roll < 90 + 50 + 25 + 12 + 6 + 3 + 1 )
+			return 22; // 22-23
+		else if ( roll < 90 + 50 + 25 + 12 + 6 + 3 + 1 + 0.5 )
+			return 23; // 23-24
+		else
+			return random.Next( 24, 28 ); // 25-27
+	}
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 		Prefab = GameObject.PrefabInstanceSource;
+
+		// Überprüfen Sie, ob ItemTier und Stats initialisiert sind
+		if ( ItemTier == null )
+		{
+			ItemTier = new TierClass(); // oder eine geeignete Standardinitialisierung
+		}
+
+		if ( Stats == null )
+		{
+			Stats = new List<int>();
+		}
+
+		//GenerateRandomStats();
 	}
 
 	protected override void OnStart()

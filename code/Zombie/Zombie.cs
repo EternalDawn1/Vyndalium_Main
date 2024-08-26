@@ -793,8 +793,8 @@ public partial class Npc : Component, IHealthComponent
 			var killerPlayer = killer.Components.Get<Player>( FindMode.EverythingInSelfAndAncestors );
 
 
-			int vyndaliumPointsToAdd = new Random().Next( 1, 500 );
-			int xpPointsToAdd = new Random().Next( 75, 125 );
+			int vyndaliumPointsToAdd = new Random().Next( 1, 200 );
+			int xpPointsToAdd = new Random().Next( 25, 75 );
 
 			// Geben Sie dem Killer Vyndalium und XP
 			killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );

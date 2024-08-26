@@ -229,53 +229,7 @@
 
 
 	</div>
-	<div class="items2" style="opacity : @(currentpanel == PanelType.Upgrade ? 1 : 0 )">
-		<h2 class="playe3">
-			<li class="title">Health </li>
-			<li class="title2">
-				[HE+]
-				<span class="tooltip-text2">
-					<p>1x +10 Max Health Points</p>
-					
-				</span>
-			</li>
-			<div class="amount">@Math.Round(@Player.Local.MaxHealth)</div>
-			<button class="Button2" @onclick="@HealthUpgrade">
-				HP+
-
-			</button>
-
-		</h2>
-		<h2 class="playe3">
-			<li class="title">Strength</li>
-			<li class="title2">[STG+]</li>
-			<div class="amount">@Player.Local.STG</div>
-			<button class="Button2" @onclick="@STGUpgrade">ATP+</button>
-
-		</h2>
-		<h2 class="playe3">
-			<li class="title">Intelligence</li>
-			<li class="title2">[INT+]</li>
-			<div class="amount">@Player.Local.INT</div>
-			<button class="Button2" @onclick="@INTUpgrade">MAP+</button>
-
-		</h2>
-		<h2 class="playe3">
-			<li class="title">Dexerity</li>
-			<li class="title2">[DEX+]</li>
-			<div class="amount">@Player.Local.DEX</div>
-			<button class="Button2" @onclick="@DEXUpgrade">STM+</button>
-
-		</h2>
-		<h2 class="playe3">
-			<li class="title">Perception </li>
-			<li class="title2">[PER+]</li>
-			<div class="amount">@Player.Local.PER</div>
-			<button class="Button2" @onclick="@PERUpgrade">EVA+</button>
-
-		</h2>
-
-	</div>
+	
 	<div class="character">
 		<CharacterRenderer @ref=_renderer />
 		<div class="box">

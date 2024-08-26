@@ -15,7 +15,7 @@ public static class SceneHandlertest
 		var path = scene switch
 		{
 			GeneralScene.Creation => "scenes/creation.scene",
-			GeneralScene.Game => "scenes/dom.scene",
+			GeneralScene.Game => "scenes/dungeon_1.scene",
 			GeneralScene.MainMenu => "scenes/lobby.scene",
 			GeneralScene.Starting => "scenes/startlobby.scene",
 			_ => null

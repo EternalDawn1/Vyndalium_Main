@@ -211,6 +211,10 @@ public sealed class Inventory : Component
 		{
 			weaponContainer.Give( item.GameObject, true );
 		}
+		else
+		{
+			Log.Info( "Item is equipment, skipping Give." );
+		}
 		
 
 		index = _backpackItems?.IndexOf( item ) ?? -1; // Erneutes Ermitteln des Indexes, falls notwendig

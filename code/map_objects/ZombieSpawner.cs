@@ -37,7 +37,8 @@ public sealed class ZombieSpawner : Component
 		TimeUntilRespawn = 5f;
 		base.OnStart();
 	}
-
+	[Property]public bool Randomized { get; set; } = false;
+	[Property] public float destroyChance { get; set; } = 0.01f;
 	protected override void OnFixedUpdate()
 	{
 		base.OnFixedUpdate();
@@ -47,6 +48,17 @@ public sealed class ZombieSpawner : Component
 
 		if ( !IsPlayerNearby() ) // Überprüfen, ob ein Spieler in der Nähe ist
 			return;
+		if(Randomized)
+		{
+			// 10% Wahrscheinlichkeit
+			Random random = new Random();
+			if ( random.NextDouble() < destroyChance )
+			{
+				GameObject.Destroy();
+				return;
+			}
+		}
+		
 
 		if ( SpawnCount >= MaxSpawns ) // Überprüfen, ob die maximale Anzahl von Spawns erreicht wurde
 		{
@@ -64,8 +76,17 @@ public sealed class ZombieSpawner : Component
 		if ( !TimeUntilRespawn.Value )
 			return;
 
+		
+
 		var zombie = ZombiePrefab.Clone( this.Transform.World );
+		var itemComponent = zombie.Components.Get<ItemComponent>();
+		if ( itemComponent != null )
+		{
+			itemComponent.ItemTier = new ItemComponent.TierClass { Tier = GetRandomTier() };
+			itemComponent.GenerateRandomStats();
+		}
 		zombie.NetworkSpawn();
+
 
 		// Setze das Level des Zombies basierend auf den Properties
 		var npcComponent = zombie.Components.Get<Npc>();
@@ -76,6 +97,8 @@ public sealed class ZombieSpawner : Component
 			npcComponent.HasIceAbility = DetermineFreezeAbility( npcComponent.Level );
 			
 		}
+		
+
 
 		IsSpawning = true;
 
@@ -85,6 +108,23 @@ public sealed class ZombieSpawner : Component
 
 		SpawnCount++;
 	}
+	public enum Tier
+	{
+		C = 0,
+		B = 1,
+		A = 2,
+		S = 3,
+		SS = 4,
+		SSS = 5
+	}
+	private GeneralGame.Tier GetRandomTier()
+	{
+		var random = new Random();
+		return (GeneralGame.Tier)(GeneralGame.ZombieSpawner.Tier)random.Next( 0, 6 ); // Zufälliges Tier-Level von C bis SSS
+	}
+
+	
+
 	private int GetRandomLevel()
 	{
 		var random = new Random();

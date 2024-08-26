@@ -7,6 +7,7 @@ public enum GeneralScene2
     MainMenu,
     Starting,
     Forest,
+    StartBase,
 }
 
 public static class SceneHandler2
@@ -23,10 +24,12 @@ public static class SceneHandler2
         var path = scene switch
         {
             GeneralScene2.Creation => "scenes/creation.scene",
-            GeneralScene2.Game => "scenes/dom.scene",
+            GeneralScene2.Game => "scenes/dungeon_1.scene",
             GeneralScene2.MainMenu => "scenes/lobby.scene",
             GeneralScene2.Starting => "scenes/startlobby.scene",
             GeneralScene2.Forest => "scenes/forest.scene",
+            GeneralScene2.StartBase => "scenes/startlobbynew.scene",
+
             _ => null
         };
 
