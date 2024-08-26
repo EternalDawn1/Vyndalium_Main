@@ -1,10 +1,11 @@
 {
   "RootObject": {
     "__guid": "8f4a88c6-961e-4087-9989-b57ac75cb4db",
+    "Flags": 0,
     "Name": "helmet",
+    "Position": "4.799998,0,0",
     "Enabled": true,
     "NetworkMode": 1,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.ModelRenderer",
@@ -18,25 +19,42 @@
       {
         "__type": "GeneralGame.ItemEquipment",
         "__guid": "89308058-04c9-4e60-94d8-28f96e38e5d1",
+        "IsItem": false,
         "AbilityHaste": 0,
+        "Armor": 0,
         "Attachment": "hand_R",
         "AttachmentTransform": {
           "UniformScale": 1,
+          "IsValid": true,
+          "ForwardRay": {
+            "Forward": "1,0,0"
+          },
           "Scale": "1,1,1",
           "Rotation": "0,0,0,1"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
+        "BleedResistance": 0,
+        "BlindResistance": 0,
+        "BonusEXP": 0,
+        "BonusScore": 0,
+        "BonusVyndalium": 0,
         "Count": 0,
+        "Cover": 0,
         "CritHitChance": 0,
         "CritHitDamage": 0,
         "DamageBalance": 0,
         "DEX": 0,
         "DMG": 0,
         "Durability": 0,
+        "Evasion": 0,
+        "FireResistence": 0,
         "HE": 0,
+        "Health": 0,
         "HideBodygroups": "Head",
         "HoldType": "Item",
+        "HolyResistence": 0,
+        "IceResistence": 0,
         "Icon": {
           "Model": "models/clothes/helmet/helmet.vmdl",
           "MaterialGroup": "",
@@ -46,15 +64,24 @@
           "Guid": "fe997d73-dd06-435b-953c-08d1eb7b948b"
         },
         "INT": 0,
+        "IsBackable": false,
         "ItemLevel": 0,
+        "LightningResistence": 0,
+        "MagicDefense": 0,
+        "MagicPower": 0,
         "Mana": 0,
         "MaxStack": 0,
         "MoveSpeed": 0,
         "Name": "Helmet",
         "PER": 0,
+        "PoisonResistence": 0,
         "SellPrice": -1,
+        "ShadowResistence": 0,
         "Slot": "Head",
+        "SlowResistence": 0,
         "STG": 0,
+        "StunResistance": 0,
+        "Tenacity": 0,
         "Tier": "C",
         "UpdatePosition": false,
         "UseSkinTint": false,
@@ -79,7 +106,7 @@
         "__guid": "4448768c-1aa6-4b9f-9550-857d73184a26",
         "Center": "0,0,4.8",
         "IsTrigger": false,
-        "Scale": "27,27,7.5",
+        "Scale": "29.80001,27,7.5",
         "Static": false
       },
       {
@@ -89,43 +116,30 @@
         "Gravity": true,
         "LinearDamping": 0,
         "Locking": {},
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": false,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
+      },
+      {
+        "__type": "Sandbox.Prop",
+        "__guid": "02864d4b-bd4c-4f9d-a3cb-7125f7be1bba",
+        "BodyGroups": 18446744073709551615,
+        "Health": 0,
+        "IsStatic": false,
+        "Model": "models/clothes/helmet/helmet.vmdl",
+        "Tint": "1,1,1,1"
       }
     ],
-    "Children": [
-      {
-        "__guid": "08e347aa-47f6-44dc-b344-30dda02cfb42",
-        "Name": "GameObject",
-        "Position": "0,0,5",
-        "Rotation": "0,0.7071068,0,0.7071068",
-        "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
-        "Components": [
-          {
-            "__type": "Sandbox.WorldPanel",
-            "__guid": "31bf349f-7747-4ee0-a0c0-4e1cee3633f5",
-            "HorizontalAlign": "Center",
-            "LookAtCamera": false,
-            "PanelSize": "512,512",
-            "RenderScale": 1,
-            "VerticalAlign": "Center"
-          },
-          {
-            "__type": "GeneralGame.IconWorldPanel",
-            "__guid": "085cb0f9-8f63-4473-b5c4-2ddaffa52c88"
-          }
-        ]
-      }
-    ]
+    "Children": [],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

@@ -51,7 +51,7 @@ public partial class Npc : Component, IHealthComponent
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[HideIf( "Static", true )]
+	
 	public float MaxRunAnimationSpeed { get; set; } = 150f;
 
 	/// <summary>
@@ -59,7 +59,7 @@ public partial class Npc : Component, IHealthComponent
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[HideIf( "Static", true )]
+
 	[Range( 0f, 600f, 10f, false )]
 	public float WalkSpeed { get; set; } = 90f;
 
@@ -68,7 +68,7 @@ public partial class Npc : Component, IHealthComponent
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[HideIf( "Static", true )]
+
 	[Range( 0f, 600f, 10f, false )]
 	public float RunSpeed { get; set; } = 180f;
 
@@ -77,7 +77,7 @@ public partial class Npc : Component, IHealthComponent
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[HideIf( "Static", true )]
+
 	public bool FaceTowardsVelocity { get; set; } = true;
 
 	/// <summary>
