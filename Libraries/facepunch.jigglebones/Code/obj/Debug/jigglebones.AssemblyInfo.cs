@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("jigglebones")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3557cbdf1d5f4ed7c10ef9a6bc4294819684ee06")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+451db7b2f9bd777a594c6c89b3f2b3efd17f8075")]
 [assembly: System.Reflection.AssemblyProductAttribute("jigglebones")]
 [assembly: System.Reflection.AssemblyTitleAttribute("jigglebones")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

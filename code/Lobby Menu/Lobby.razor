@@ -32,28 +32,28 @@
                             Subtitle="min. lvl. 25" 
                             OnClick=@(() => ChangeScene2(GeneralScene2.Forest)) 
                             ImagePath="ui/hud/tree.png" 
-                            style="position: absolute; top: 450px; right: 500px;" 
+                            style="position: absolute; top: 300px; right: 200px;" 
                         />
                         <SideButton 
                             Title="Dungeon" 
                             Subtitle="min lvl. 1" 
                             OnClick=@(() => ChangeScene2(GeneralScene2.Game)) 
                             ImagePath="ui/hud/hpball.png" 
-                            style="position: absolute; top: 600px; right: 500px;" 
+                            style="position: absolute; top: 600px; right: 200px;" 
                         />
                         <SideButton 
-                            Title="Destroyed HomeBase lvl.1" 
-                            Subtitle="Destroyed Home_Base" 
+                            Title="Destroyed Ship" 
+                            Subtitle="min. lvl. 5" 
                             OnClick=@(() => ChangeScene2(GeneralScene2.Starting)) 
                             ImagePath="ui/hud/storage.png" 
-                            style="position: absolute; top: 300px; right: 500px;" 
+                            style="position: absolute; top: 450px; right: 200px;" 
                         />
                         <SideButton
                         Title="StartBase"
                         Subtitle="Home_Base"
                         OnClick=@(() => ChangeScene2(GeneralScene2.StartBase))
                         ImagePath="ui/hud/storage.png"
-                        style="position: absolute; top: 300px; right: 500px;"
+                        style="position: absolute; top: 900px; right: 200px;"
                     </div>
                 }
                 
@@ -72,7 +72,7 @@
     {
         isReady = !isReady;
         StateHasChanged();
-        Log.Info("Bereitschaftsstatus geändert auf: " + isReady);
+        
         ToggleReadyStatusOnServer(isReady); // Neue Methode zum Senden des Status an den Server
     }
     private void ToggleReadyStatus()
@@ -99,19 +99,19 @@
     {
         if (isSceneChanging)
         {
-            Log.Info("Szenenwechsel bereits im Gange, Abbruch.");
+            
             return;
         }
         if (!SceneHandler2.HasRequiredLevel2(scene))
     {
         int playerLevel = Player.Local.GetLevel();
         int requiredLevel = scene.GetRequiredLevel2();
-        Log.Info($"Spielerlevel ({playerLevel}) ist niedriger als erforderliches Level ({requiredLevel}). Szenenwechsel abgebrochen.");
+        Log.Info("playerlevel: " + playerLevel + ", required Level: " + requiredLevel + "you can't enter this scene yet , level more!");
         return;
     }
 
         isSceneChanging = true;
-        Log.Info($"ChangeScene2 aufgerufen mit Szene: {scene}");
+        
 
         // Hier die Logik zum tatsächlichen Wechsel der Szene hinzufügen
         // Beispiel:
@@ -119,21 +119,26 @@
         {
             case GeneralScene2.Forest:
                 // Logik zum Wechseln zur Forest-Szene
-                Log.Info("Wechsel zur Forest-Szene");
+                
                 SceneHandler2.ChangeScene2(scene);
                 break;
             case GeneralScene2.Game:
                 // Logik zum Wechseln zur Game-Szene
-                Log.Info("Wechsel zur Game-Szene");
+               
                 SceneHandler2.ChangeScene2(scene);
                 break;
             case GeneralScene2.Starting:
                 // Logik zum Wechseln zur Starting-Szene
-                Log.Info("Wechsel zur Starting-Szene");
+              
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            case GeneralScene2.StartBase:
+                // Logik zum Wechseln zur StartBase-Szene
+            
                 SceneHandler2.ChangeScene2(scene);
                 break;
             default:
-                Log.Info("Unbekannte Szene");
+                Log.Info("No scene?");
                 break;
         }
 

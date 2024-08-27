@@ -74,8 +74,9 @@ public static class GeneralSceneExtensions2
             GeneralScene2.Creation => 1,
             GeneralScene2.Game => 0,
             GeneralScene2.MainMenu => 0,
-            GeneralScene2.Starting => 0,
+            GeneralScene2.Starting => 5,
             GeneralScene2.Forest => 25,
+            GeneralScene2.StartBase => 0,
             _ => 0
         };
     }
