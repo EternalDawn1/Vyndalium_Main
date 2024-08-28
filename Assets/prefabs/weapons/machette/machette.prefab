@@ -5,8 +5,6 @@
     "Name": "machette",
     "Scale": "1.5,1.5,1.5",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
@@ -32,7 +30,7 @@
         "FireRate": 2,
         "HitSound": "models/machette/knife_hit3.sound",
         "HitWorldSound": "models/machette/knife_hitworld1.sound",
-        "HoldType": "Rifle",
+        "HoldType": "Swing",
         "HolsterSound": "sounds/weapons/weapon_holster3.sound",
         "IdlePos": "-14,0,0",
         "ImpactEffect": "particles/impact.generic.vpcf",
@@ -70,8 +68,10 @@
         "Gravity": true,
         "LinearDamping": 0,
         "Locking": {},
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
       },
@@ -84,11 +84,15 @@
         "AttachmentTransform": {
           "UniformScale": 1,
           "IsValid": true,
+          "ForwardRay": {
+            "Forward": "1,0,0"
+          },
           "Scale": "1,1,1",
           "Rotation": "0,0,0,1"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
+        "BleedResistance": 0,
         "BlindResistance": 0,
         "BonusEXP": 0,
         "BonusScore": 0,
@@ -104,6 +108,7 @@
         "Evasion": 0,
         "FireResistence": 0,
         "HE": 0,
+        "Health": 0,
         "HideBodygroups": "None",
         "HoldType": "Item",
         "HolyResistence": 0,
@@ -112,14 +117,18 @@
           "Model": "models/machette/w/w_machetelod0.vmdl",
           "MaterialGroup": "",
           "Colour": "1,1,1,1",
-          "Position": "5.4,-6.9,3.3",
-          "Rotation": "0.2740149,0.2740149,0.6518556,-0.6518556",
+          "Position": "5.25,-5.25,3.3",
+          "Rotation": "-0.2334177,-0.2334177,-0.6674702,0.6674699",
           "Guid": "9999909e-1d1e-4b97-8100-e4dbeee94dfb"
         },
         "INT": 0,
+        "IsBackable": false,
+        "IsEquipment": false,
+        "IsItem": false,
         "ItemLevel": 0,
         "LightningResistence": 0,
         "MagicDefense": 0,
+        "MagicPower": 0,
         "Mana": 0,
         "MaxStack": 0,
         "MoveSpeed": 0,
@@ -130,6 +139,7 @@
         "ShadowResistence": 0,
         "Slot": "Hand",
         "SlowResistence": 0,
+        "Stats": [],
         "STG": 0,
         "StunResistance": 0,
         "Tenacity": 0,
@@ -139,7 +149,8 @@
         "WeightInGrams": 0
       }
     ],
-    "Children": []
+    "Children": [],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

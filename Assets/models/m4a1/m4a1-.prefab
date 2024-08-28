@@ -3,19 +3,9 @@
     "__guid": "bbcd62e5-40cd-469a-a6e8-3daa84018c9f",
     "Flags": 0,
     "Name": "m4a1-",
+    "Position": "0,-0.5941336,0",
     "Enabled": true,
     "Components": [
-      {
-        "__type": "Sandbox.SkinnedModelRenderer",
-        "__guid": "0e374a24-a54f-4e85-b3fe-cc3f72cb7ca5",
-        "AnimationGraph": "models/aksu/aksu.vanmgrph",
-        "BodyGroups": 171,
-        "CreateBoneObjects": false,
-        "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
-        "RenderType": "On",
-        "Tint": "1,1,1,1",
-        "UseAnimGraph": true
-      },
       {
         "__type": "GeneralGame.BaseGun",
         "__guid": "7cc9f136-b83e-41e1-9af9-623822d9c6ad",
@@ -51,32 +41,33 @@
         "Type": "Ranged",
         "ViewModelPrefab": {
           "_type": "gameobject",
-          "prefab": "models/m4a1/m4a1/vm_m4a1.prefab"
+          "prefab": "models/m4a1/vm_m4a1.prefab"
         }
       },
       {
         "__type": "Sandbox.ModelCollider",
         "__guid": "8f5325df-9d2c-41e7-87bc-70034e3c153c",
         "IsTrigger": false,
-        "Model": "models/m4a1/w_m4a1.vmdl",
-        "Static": false
+        "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
+        "Static": true
       },
       {
         "__type": "Sandbox.Rigidbody",
         "__guid": "a6aea322-c20a-4fee-b9b0-f026aee7d217",
         "AngularDamping": 0,
-        "Gravity": true,
+        "Gravity": false,
         "LinearDamping": 0,
         "Locking": {},
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
       },
       {
         "__type": "GeneralGame.ItemEquipment",
         "__guid": "07c06f5b-c248-4c40-b7ee-9eb71a0d113e",
-        "IsItem": false,
         "AbilityHaste": 0,
         "Armor": 0,
         "Attachment": "hand_R",
@@ -114,15 +105,17 @@
         "HolyResistence": 0,
         "IceResistence": 0,
         "Icon": {
-          "Model": "models/m4a1/w_m4a1.vmdl",
+          "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
           "MaterialGroup": "",
           "Colour": "1,1,1,1",
-          "Position": "-1.8,4.5,0",
-          "Rotation": "0,0,0.7405114,0.6720437",
-          "Guid": "ee24e0ba-e2ef-4bbc-b396-07101fdf5e1a"
+          "Position": "7.65,4.95,1.35",
+          "Rotation": "0.5,-0.5,0.5,0.5",
+          "Guid": "ba31732d-1531-487d-bad5-0153806f4077"
         },
         "INT": 0,
         "IsBackable": false,
+        "IsEquipment": false,
+        "IsItem": false,
         "ItemLevel": 27,
         "LightningResistence": 0,
         "MagicDefense": 0,
@@ -137,6 +130,7 @@
         "ShadowResistence": 0,
         "Slot": "Hand",
         "SlowResistence": 0.1,
+        "Stats": [],
         "STG": 0,
         "StunResistance": 0,
         "Tenacity": 0,
@@ -148,6 +142,17 @@
       {
         "__type": "GeneralGame.Interactable",
         "__guid": "76983340-a12a-40a2-8f50-42ba01750baf"
+      },
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "aed80f89-9747-42b3-a8d4-458f1f31d811",
+        "AnimationGraph": "models/weapons/sbox_assault_m4a1/v_m4a1.vanmgrph",
+        "BodyGroups": 171,
+        "CreateBoneObjects": false,
+        "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
       }
     ],
     "Children": [],
@@ -165,6 +170,7 @@
   "MenuIcon": null,
   "ResourceVersion": 1,
   "__references": [
+    "facepunch.v_m4a1",
     "facepunch.w_m4a1"
   ],
   "__version": 1

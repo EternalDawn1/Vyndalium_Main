@@ -6,7 +6,8 @@ public enum ItemState
 {
 	None,
 	Backpack,
-	Equipped
+	Equipped,
+	Chest
 }
 public enum Tier 
 {
@@ -16,6 +17,43 @@ public enum Tier
 	S,
 	SS,
 	SSS,
+}
+public class SerializedItemComponent
+{
+	public int Id { get; set; }
+	public string Name { get; set; }
+	public float DMG { get; set; }
+	public float HE { get; set; }
+	public float Armor { get; set; }
+	public float STG { get; set; }
+	public float DEX { get; set; }
+	public float PER { get; set; }
+	public float INT { get; set; }
+	public float Mana { get; set; }
+	public float Health { get; set; }
+	public float CritHitDamage { get; set; }
+	public float CritHitChance { get; set; }
+	public float AbilityHaste { get; set; }
+	public float AttackPower { get; set; }
+	public float MagicPower { get; set; }
+	public float AttackSpeed { get; set; }
+	public float MoveSpeed { get; set; }
+	public float MagicDefense { get; set; }
+	public float Evasion { get; set; }
+	public float Block { get; set; }
+	public float BonusEXP { get; set; }
+	public float BonusScore { get; set; }
+	public float BonusVyndalium { get; set; }
+	public float Tenacity { get; set; }
+	public float StunResistance { get; set; }
+	public float BlindResistance { get; set; }
+	public float BleedResistance { get; set; }
+	public float SlowResistence { get; set; }
+	public float FireResistence { get; set; }
+	public float PoisonResistence { get; set; }
+	public float IceResistence { get; set; }
+	public float LightningResistence { get; set; }
+	public float HolyResistence { get; set; }
 }
 
 
@@ -80,6 +118,47 @@ public class ItemComponent : Component
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float LightningResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float HolyResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float ShadowResistence { get; set; }
+	public static SerializedItemComponent Serialize( ItemComponent item )
+	{
+		return new SerializedItemComponent
+		{
+			Id = item.Id.GetHashCode(),
+			Name = item.Name,
+			DMG = item.DMG,
+			HE = item.HE,
+			Armor = item.Armor,
+			STG = item.STG,
+			DEX = item.DEX,
+			PER = item.PER,
+			INT = item.INT,
+			Mana = item.Mana,
+			Health = item.Health,
+			CritHitDamage = item.CritHitDamage,
+			CritHitChance = item.CritHitChance,
+			AbilityHaste = item.AbilityHaste,
+			AttackPower = item.AttackPower,
+			MagicPower = item.MagicPower,
+			AttackSpeed = item.AttackSpeed,
+			MoveSpeed = item.MoveSpeed,
+			MagicDefense = item.MagicDefense,
+			Evasion = item.Evasion,
+			Block = item.Cover,
+			BonusEXP = item.BonusEXP,
+			BonusScore = item.BonusScore,
+			BonusVyndalium = item.BonusVyndalium,
+			Tenacity = item.Tenacity,
+			StunResistance = item.StunResistance,
+			BlindResistance = item.BlindResistance,
+			BleedResistance = item.BleedResistance,
+			SlowResistence = item.SlowResistence,
+			FireResistence = item.FireResistence,
+			PoisonResistence = item.PoisonResistence,
+			IceResistence = item.IceResistence,
+			LightningResistence = item.LightningResistence,
+			HolyResistence = item.HolyResistence
+		};
+	}
+	
 
 	public int Price { get; set; }
 
@@ -280,6 +359,7 @@ public class ItemComponent : Component
 
 		// Weitere zufällige Statistiken können hier hinzugefügt werden...
 	}
+	
 	private int GenerateRandomItemLevel( Random random )
 	{
 		double roll = random.NextDouble() * 100;

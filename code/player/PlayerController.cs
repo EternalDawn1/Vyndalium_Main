@@ -31,7 +31,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public SoundEvent HurtSound { get; set; }
 	[Property] public SoundEvent HurtLowHP { get; set; }
 	[Property] public SoundEvent HurtMidHP { get; set; }
-	[Property] public bool SicknessMode { get; set; }
+	
 	[Property] public float StandHeight { get; set; } = 64f;
 	[Property] public float DuckHeight { get; set; } = 28f;
 	[Property] public Action OnJump { get; set; }
@@ -253,8 +253,8 @@ public partial class Player : Component, IHealthComponent
 			Health = MaxHealth;
 			MaxStamina = 50f;
 			MaxMana = 100f;
-			PlayerRunSpeed = 150f;
-			PlayerWalkSpeed = 100f;
+			PlayerRunSpeed = 190f;
+			PlayerWalkSpeed = 120f;
 			isFirstSpawn = false; // Markiere den ersten Spawn als abgeschlossen
 		}
 		Health = MaxHealth;
@@ -283,6 +283,7 @@ public partial class Player : Component, IHealthComponent
 
 
 	}
+	public BaseGun ActiveWeapon { get; set; }
 
 	[Broadcast]
 	public void TakeDamage( DamageType type, Single amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
@@ -312,6 +313,7 @@ public partial class Player : Component, IHealthComponent
 		if ( Health <= 0f )
 		{
 			LifeState = LifeState.Dead;
+			ActiveWeapon?.StopReloadSound();
 			Ragdoll.Ragdoll( hitPosition, hitDirection );
 			SendKilledMessage( attackerId );
 
@@ -588,10 +590,8 @@ public partial class Player : Component, IHealthComponent
 			else
 				PlyCamera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
 
-			if ( SicknessMode )
-				PlyCamera.Transform.Rotation = Rotation.LookAt( Eye.Transform.Rotation.Left ) * Rotation.FromPitch( -10f );
-			else
-				PlyCamera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
+			
+			PlyCamera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
 
 
 			if ( IsCrouching && hasViewModel )

@@ -203,6 +203,13 @@ public class BaseGun : WeaponComponent, IUse
 
 		EffectRenderer.Set( "b_empty", false );
 	}
+	public void StopReloadSound()
+	{
+		ReloadSound?.Stop();
+		ReloadSound = null;
+
+	}
+	
 
 	public override void PrimaryAction()
 	{
@@ -426,6 +433,11 @@ public class BaseGun : WeaponComponent, IUse
 	[Broadcast]
 	private void SendReloadMessage()
 	{
+		if ( Player.Local.LifeState == LifeState.Dead )
+		{
+			// Spieler ist tot, keine Reload-Nachricht senden
+			return;
+		}
 		if ( ReloadSoundSequence is null )
 			return;
 
@@ -438,6 +450,11 @@ public class BaseGun : WeaponComponent, IUse
 	[Broadcast]
 	private void SendEmptyClipMessage()
 	{
+		if ( Player.Local.LifeState == LifeState.Dead )
+		{
+			// Spieler ist tot, keine Reload-Nachricht senden
+			return;
+		}
 		if ( EmptyClipSound is not null && !IsSoundPlaying )
 		{
 			Sound.Play( EmptyClipSound, Transform.Position );
@@ -449,6 +466,11 @@ public class BaseGun : WeaponComponent, IUse
 	[Broadcast]
 	private void SendImpactMessage( Vector3 position, Vector3 normal )
 	{
+		if ( Player.Local.LifeState == LifeState.Dead )
+		{
+			// Spieler ist tot, keine Reload-Nachricht senden
+			return;
+		}
 		if ( ImpactEffect is null ) return;
 
 		var p = new SceneParticles( Scene.SceneWorld, ImpactEffect );
@@ -458,29 +480,50 @@ public class BaseGun : WeaponComponent, IUse
 	}
 
 	[Broadcast]
-	private void SendAttackMessage( Vector3 startPos, Vector3 endPos, float distance )
+	private void SendAttackMessage(Vector3 startPos, Vector3 endPos, float distance)
 	{
-		var p = new SceneParticles( Scene.SceneWorld, "particles/tracer/trail_smoke.vpcf" );
-		p.SetControlPoint( 0, startPos );
-		p.SetControlPoint( 1, endPos );
-		p.SetControlPoint( 2, distance );
-		p.PlayUntilFinished( Task );
-
-		if ( MuzzleFlash is not null )
+		if (Player.Local == null || Player.Local.LifeState == LifeState.Dead)
 		{
-			var transform = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
+			// Spieler ist tot, keine Nachricht senden
+			return;
+		}
+		if (Scene.SceneWorld == null)
+		{
+			throw new InvalidOperationException("SceneWorld is null.");
+		}
 
-			if ( transform.HasValue )
+		var p = new SceneParticles(Scene.SceneWorld, "particles/tracer/trail_smoke.vpcf");
+		p.SetControlPoint(0, startPos);
+		p.SetControlPoint(1, endPos);
+		p.SetControlPoint(2, distance);
+		p.PlayUntilFinished(Task);
+
+		if (MuzzleFlash != null)
+		{
+			if (EffectRenderer.SceneModel != null)
 			{
-				p = new( Scene.SceneWorld, MuzzleFlash );
-				p.SetControlPoint( 0, transform.Value );
-				p.PlayUntilFinished( Task );
+				var transform = EffectRenderer.SceneModel.GetAttachment("muzzle");
+
+				if (transform.HasValue)
+				{
+					p = new SceneParticles(Scene.SceneWorld, MuzzleFlash);
+					p.SetControlPoint(0, transform.Value);
+					p.PlayUntilFinished(Task);
+				}
+			}
+			else
+			{
+				Log.Warning("EffectRenderer.SceneModel is null.");
 			}
 		}
 
-		if ( FireSound is not null )
+		if (FireSound != null)
 		{
-			Sound.Play( FireSound, startPos );
+			Sound.Play(FireSound, startPos);
+		}
+		else
+		{
+			Log.Warning("FireSound is null.");
 		}
 	}
 	public class DamageText : Panel

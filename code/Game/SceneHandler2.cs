@@ -52,10 +52,10 @@ public static class SceneHandler2
             var connected =  GameNetworkSystem.TryConnectSteamId( lobby.Value );
              // Return if connection fails.
         }
-
+        Player.Setup();
         Log.Info( "loading +" + resource );
         Game.ActiveScene.Load( resource );
-        Player.Setup();
+        
     }
 
     public static bool HasRequiredLevel2( GeneralScene2 scene )

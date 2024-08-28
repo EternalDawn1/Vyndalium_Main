@@ -54,10 +54,14 @@ public static class SceneHandler
 
 
 
-
-
-		Game.ActiveScene.Load( resource );
 		Player.Setup();
+		
+		
+		Game.ActiveScene.Load( resource );
+		
+		
+		
+		
 		return;
 
 	}
@@ -75,10 +79,11 @@ public static class GeneralSceneExtensions
 		return scene switch
 		{
 			GeneralScene.Creation => 1,
-			GeneralScene.Game => 5,
+			GeneralScene.Game => 0,
 			GeneralScene.MainMenu => 0,
-			GeneralScene.Starting => 2,
-			GeneralScene.Forest => 10,
+			GeneralScene.Starting => 5,
+			GeneralScene.Forest => 25,
+			GeneralScene.StartBase => 0,
 			_ => 0
 		};
 	}

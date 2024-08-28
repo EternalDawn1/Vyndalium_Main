@@ -5,59 +5,137 @@ using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using static Sandbox.GameObjectSystem;
 namespace GeneralGame;
-public class ItemStorage
+public class ItemStorage : Component
 {
-
+	[Property] ItemInteractable ItemInteractable { get; set; }
     public bool IsOpened { get;  set; }
 
     private StorageBox storageBox;
 
-    private List<ItemStorage> StorageInteraction;
+   private List<ItemStorage> StorageInteraction;
+   [Property] public int ChestSlotCount { get; set; } = 10;
 
-
-	public List<ItemComponent> Items { get; set; }
+	[Property]
+	public List<GameObject> WeaponPrefabs { get; set; } = new List<GameObject>();
+	[Property]public List<ItemComponent> Items { get; set; } = new List<ItemComponent>();
 
 	public ItemStorage()
 	{
 		Items = new List<ItemComponent>();
+		for ( int i = 0; i < ChestSlotCount; i++ )
+		{
+			Items.Add( null );
+		}
 	}
-	public void AddItem( ItemComponent item )
-	{
-		Items.Add( item );
-	}
+
 
 	// Entfernen eines Items
-	public void RemoveItem( ItemComponent item )
-	{
-		Items.Remove( item );
-	}
 
-	// Entfernen eines Items an einem bestimmten Index
-	public void RemoveItemAt( int index )
-	{
-		if ( index >= 0 && index < Items.Count )
-		{
-			Items.RemoveAt( index );
-		}
-	}
 
 	// Initialisieren der Liste mit einer bestimmten Anzahl von Slots (leeren Items)
-	public void InitializeSlots( int numberOfSlots )
+	public void InitializeChestSlots()
 	{
-		for ( int i = 0; i < numberOfSlots; i++ )
+		Random random = new Random();
+
+		for ( int i = 0; i < ChestSlotCount; i++ )
 		{
-			// Fügen Sie hier die Logik zum Initialisieren und Hinzufügen eines neuen ItemComponent hinzu
-			Items.Add( new ItemComponent() );
+			if ( random.NextDouble() <= 0.3 && WeaponPrefabs.Count > 0 )
+			{
+				int prefabIndex = random.Next( WeaponPrefabs.Count );
+				GameObject weaponPrefab = WeaponPrefabs[prefabIndex];
+				ItemComponent itemComponent = CreateItemComponentFromPrefab( weaponPrefab );
+
+				if ( itemComponent != null )
+				{
+					Items.Add( itemComponent ); // Füge das Item nur hinzu, wenn es nicht null ist
+					Log.Info( $"Item {itemComponent.Name} in Slot {i} hinzugefügt." );
+					GiveItemToChest( itemComponent );
+				}
+				else
+				{
+					Log.Warning( $"ItemComponent für Prefab {weaponPrefab} ist null." );
+				}
+			}
+			else
+			{
+				Items.Add( null ); // Füge null hinzu, wenn keine Bedingung erfüllt ist
+			}
 		}
 	}
 
+	private ItemComponent CreateItemComponentFromPrefab( GameObject prefab )
+	{
+		if ( prefab == null )
+		{
+			Log.Warning( "CreateItemComponentFromPrefab: Prefab is null" );
+			return null;
+		}
 
-	protected void OnAwake()
+		ItemComponent itemComponent = prefab.Components.Get<ItemComponent>();
+		if ( itemComponent == null )
+		{
+			itemComponent = prefab.Components.Create<ItemComponent>();
+		}
+
+		return itemComponent;
+	}
+	// Methode zum Hinzufügen eines Items zur Chest
+	public bool GiveItemToChest( ItemComponent item )
+	{
+		Log.Info( $"GiveItemToChest: Item is {(item == null ? "null" : "not null")}" );
+		var firstFreeSlot = Items.IndexOf( null );
+		if ( firstFreeSlot == -1 )
+			return false;
+
+		AddItem( item );
+		//AddToChestInventory( item, firstFreeSlot );
+		item.State = ItemState.Chest;
+		return true;
+	}
+
+	// Methode zum Hinzufügen eines Items zum Chest-Inventar
+	public void AddToChestInventory( ItemComponent item, int index )
+	{
+		Log.Info( $"AddToChestInventory: Checking if item {item} is already in chest." );
+
+		if ( Items.Contains( item ) )
+		{
+			Log.Warning( $"AddToChestInventory: Item {item} already in chest." );
+			return;
+		}
+
+		if ( index >= 0 && index < Items.Count )
+		{
+			Items[index] = item;
+			Log.Info( $"AddToChestInventory: Added item {item} to slot {index}." );
+		}
+		else
+		{
+			Log.Warning( $"AddToChestInventory: Invalid index {index}." );
+		}
+	}
+
+	public void AddItem( ItemComponent item )
+	{
+		for ( int i = 0; i < Items.Count; i++ )
+		{
+			if ( Items[i] == null )
+			{
+				Items[i] = item;
+				Log.Info( $"Item {item} in Slot {i} hinzugefügt." );
+				return;
+			}
+		}
+		Log.Warning( "Kein freier Slot verfügbar." );
+	}
+
+	protected override void OnAwake()
     {
-        Log.Info( "OnAwake aufgerufen." );
+        
         StorageInteraction ??= new();
         storageBox = new StorageBox();
-		InitializeSlots( 10 );
+		InitializeChestSlots();
+		
 	}
 
 	private DateTime lastOpenedTime;
@@ -66,7 +144,7 @@ public class ItemStorage
 	{
 		if ( !IsOpened )
 		{
-			Log.Info( "Öffne Inventar." );
+			
 			IsOpened = true;
 			lastOpenedTime = DateTime.Now;
 
@@ -76,7 +154,7 @@ public class ItemStorage
 			}
 			storageBox.ToggleVisibility();
 
-			Log.Info( "Inventory opened" );
+			
 			IsOpened = true;
 		}
 		else
@@ -90,7 +168,7 @@ public class ItemStorage
 	{
 		if ( IsOpened )
 		{
-			Log.Info( "Inventar geschlossen." );
+			
 			IsOpened = false;
 			if ( storageBox != null )
 			{
@@ -101,11 +179,8 @@ public class ItemStorage
 	}
 	public void ResetStorage()
 	{
-		// Setzen Sie hier den Zustand zurück, z.B.:
 		IsOpened = false;
-		// Fügen Sie weitere Zurücksetzungen hinzu, falls nötig
 
-		// Optional: Benachrichtigen Sie die StorageBox, dass sie ihre Sichtbarkeit aktualisieren soll
 		if ( storageBox != null )
 		{
 			storageBox.ResetVisibility();

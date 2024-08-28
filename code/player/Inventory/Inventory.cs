@@ -171,8 +171,11 @@ public sealed class Inventory : Component
 
 	public bool EquipItemFromBackpack( ItemComponent item )
 	{
-	
+		if ( item == null )
+			return false;
 
+		if ( IsProxy )
+			return true;
 		
 
 		var index = _backpackItems?.IndexOf( item ) ?? -1;

@@ -77,6 +77,7 @@
           "AutoScreenScale": true,
           "Opacity": 1,
           "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 100
         }
       ]
@@ -170,6 +171,7 @@
       "Name": "vyndalium",
       "Position": "-51.10669,-28.42902,39.99983",
       "Scale": "0.3,0.3,0.3",
+      "Tags": "light_spot,light,light_point",
       "Enabled": true,
       "__Prefab": "prefabs/vyndalium.prefab",
       "__PrefabVariables": {}
@@ -180,6 +182,7 @@
       "Name": "vyndalium (1)",
       "Position": "-292.276,-7.606445,39.99995",
       "Scale": "0.3,0.3,0.3",
+      "Tags": "light_spot,light,light_point",
       "Enabled": true,
       "__Prefab": "prefabs/vyndalium.prefab",
       "__PrefabVariables": {}
@@ -190,6 +193,7 @@
       "Name": "vyndalium (2)",
       "Position": "-172.2532,-17.5899,40.00019",
       "Scale": "0.3,0.3,0.3",
+      "Tags": "light_spot,light,light_point",
       "Enabled": true,
       "__Prefab": "prefabs/vyndalium.prefab",
       "__PrefabVariables": {}
@@ -397,9 +401,17 @@
         {
           "__type": "GeneralGame.ZombieSpawner",
           "__guid": "c5a03bf6-1474-4d3a-b113-59361c77b5de",
+          "destroyChance": 0.01,
           "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": false,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
           "MaxSpawns": 1000,
           "PlayerProximityDistance": 1000,
+          "Randomized": false,
           "RespawnTime": 1,
           "ZombiePrefab": {
             "_type": "gameobject",
@@ -418,9 +430,17 @@
         {
           "__type": "GeneralGame.ZombieSpawner",
           "__guid": "27219b0e-b32a-4fa9-b528-33911d4e7c3c",
+          "destroyChance": 0.01,
           "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": false,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
           "MaxSpawns": 1000,
           "PlayerProximityDistance": 1000,
+          "Randomized": false,
           "RespawnTime": 1,
           "ZombiePrefab": {
             "_type": "gameobject",
@@ -438,9 +458,17 @@
         {
           "__type": "GeneralGame.ZombieSpawner",
           "__guid": "9284cc03-802b-4c3d-bfda-903761b9613b",
+          "destroyChance": 0.01,
           "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": false,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
           "MaxSpawns": 1000,
           "PlayerProximityDistance": 1000,
+          "Randomized": false,
           "RespawnTime": 1,
           "ZombiePrefab": {
             "_type": "gameobject",
@@ -488,7 +516,6 @@
         {
           "__type": "GeneralGame.ItemInteractable",
           "__guid": "ad18ed91-4005-4852-8200-b0344866870e",
-          "IsItem": false,
           "isLocked": false,
           "isOpen": false,
           "AbilityHaste": 0,
@@ -523,6 +550,8 @@
             "Guid": "bde0d1c7-cb05-4cde-adc0-a6f84623fc0f"
           },
           "INT": 0,
+          "IsEquipment": false,
+          "IsItem": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -536,6 +565,7 @@
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
+          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -596,7 +626,6 @@
         {
           "__type": "GeneralGame.ItemInteractable",
           "__guid": "3df6f61b-4316-4cec-98b8-605d9fe392cb",
-          "IsItem": false,
           "isLocked": false,
           "isOpen": false,
           "AbilityHaste": 0,
@@ -625,6 +654,8 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsEquipment": false,
+          "IsItem": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -638,6 +669,7 @@
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
+          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -666,7 +698,6 @@
         {
           "__type": "GeneralGame.ItemInteractable",
           "__guid": "6ad6d617-9c16-4fcf-927e-0d7d23b3681b",
-          "IsItem": false,
           "isLocked": false,
           "isOpen": false,
           "AbilityHaste": 0,
@@ -695,6 +726,8 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsEquipment": false,
+          "IsItem": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -708,6 +741,7 @@
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
+          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -736,7 +770,6 @@
         {
           "__type": "GeneralGame.ItemInteractable",
           "__guid": "bc106672-6d7b-4b79-bc32-186842340dbe",
-          "IsItem": false,
           "isLocked": false,
           "isOpen": false,
           "AbilityHaste": 0,
@@ -765,6 +798,8 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsEquipment": false,
+          "IsItem": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -778,6 +813,7 @@
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
+          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -826,7 +862,6 @@
         {
           "__type": "GeneralGame.ItemInteractable",
           "__guid": "93cc3a4c-afc8-4ad1-bab2-25ae081847f8",
-          "IsItem": false,
           "isLocked": false,
           "isOpen": false,
           "AbilityHaste": 0,
@@ -854,6 +889,8 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsEquipment": false,
+          "IsItem": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -867,6 +904,7 @@
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
+          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -1054,7 +1092,6 @@
         {
           "__type": "GeneralGame.ItemInteractable",
           "__guid": "c9fe1254-8911-46f4-9a99-8c15e1b82b83",
-          "IsItem": true,
           "isLocked": false,
           "isOpen": false,
           "AbilityHaste": 0,
@@ -1082,6 +1119,8 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsEquipment": false,
+          "IsItem": true,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -1094,6 +1133,7 @@
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
+          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -1121,7 +1161,6 @@
         {
           "__type": "GeneralGame.ItemInteractable",
           "__guid": "42b7087f-4ccc-45b6-bcbb-90ba27b24877",
-          "IsItem": true,
           "isLocked": false,
           "isOpen": false,
           "AbilityHaste": 0,
@@ -1149,6 +1188,8 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsEquipment": false,
+          "IsItem": true,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -1161,6 +1202,7 @@
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
+          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -1179,7 +1221,6 @@
         {
           "__type": "GeneralGame.ItemComponent",
           "__guid": "342693a5-5ca3-4da1-95c1-98f553e98927",
-          "IsItem": false,
           "AbilityHaste": 0,
           "Armor": 0,
           "AttackPower": 0,
@@ -1212,6 +1253,8 @@
             "Guid": "63e1b220-7fee-4083-9877-434a180204e0"
           },
           "INT": 0,
+          "IsEquipment": false,
+          "IsItem": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -1224,6 +1267,7 @@
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
+          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -1259,9 +1303,17 @@
         {
           "__type": "GeneralGame.ZombieSpawner",
           "__guid": "9f4d4421-3b7d-410b-882e-2df0f426034c",
+          "destroyChance": 0.01,
           "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": false,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
           "MaxSpawns": 10,
           "PlayerProximityDistance": 1000,
+          "Randomized": false,
           "RespawnTime": 50,
           "ZombiePrefab": {
             "_type": "gameobject",
@@ -1290,6 +1342,123 @@
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/npc/slime_new.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "173f29a9-d2b1-4a90-a98c-26ac1e993e9b",
+      "Flags": 0,
+      "Name": "m4a1-a",
+      "Position": "403.8876,300.7617,9.82933",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/m4a1/m4a1-a.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "b6c863a3-7e3a-4e67-bc4d-85c4a86103e2",
+      "Flags": 0,
+      "Name": "knife",
+      "Position": "404.7801,259.2788,22.09029",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/knife/knife.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "ca45799e-8b0c-460e-be3f-9f7ff1b269a1",
+      "Flags": 0,
+      "Name": "mp5",
+      "Position": "447.7124,269.6609,22.89503",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/mp5/mp5.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "a5bcbde0-b284-4628-904e-9d908f748d6d",
+      "Flags": 0,
+      "Name": "shotgun",
+      "Position": "421.584,235.0905,19.49323",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/shotgun/shotgun.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "eede619b-dad5-4c0d-8f9a-d87f818ca7ab",
+      "Flags": 0,
+      "Name": "untitled",
+      "Position": "415.9383,192.3392,1",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/usp/untitled.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "adc440a0-7273-4b43-97a9-6333517a0543",
+      "Flags": 0,
+      "Name": "usp",
+      "Position": "383.5187,180.8656,1",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/usp/usp.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "1a81c986-815d-4b3e-aeab-36c1f6d25765",
+      "Flags": 0,
+      "Name": "uspa",
+      "Position": "322.0115,168.0413,20.00077",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/usp/uspa.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "3d6cedff-6a92-4451-a541-752c26c1791c",
+      "Flags": 0,
+      "Name": "uspb",
+      "Position": "301.4259,172.9512,18.05121",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/usp/uspb.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "fcafc4f9-8370-4c28-bf06-3995c4c30ab9",
+      "Flags": 0,
+      "Name": "uspb (1)",
+      "Position": "284.7088,134.8757,11.69339",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/usp/uspb.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "e3b1d69f-2cd2-43cd-a3b2-026d9c45bc41",
+      "Flags": 0,
+      "Name": "uspc",
+      "Position": "330.8147,143.8719,-0.00001262806",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/usp/uspc.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "e0336355-eeb6-4c90-9505-03606eb4bc9f",
+      "Flags": 0,
+      "Name": "usps",
+      "Position": "317.4115,101.9384,17.30827",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/usp/usps.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "f8f46eb1-247e-4cd8-9cb6-84f4dcfa3ed0",
+      "Flags": 0,
+      "Name": "uspss",
+      "Position": "331.7641,89.50977,17.71554",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/usp/uspss.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "5ffdb11d-51a9-428e-a413-8d5e01629eb0",
+      "Flags": 0,
+      "Name": "uspsss",
+      "Position": "359.5668,79.9403,15.95554",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/usp/uspsss.prefab",
       "__PrefabVariables": {}
     }
   ],

@@ -194,7 +194,41 @@ partial class Player
 			}
 			data.Add("Tier", JsonSerializer.Serialize(item.Tier));
   			data.Add("ItemLevel", JsonSerializer.Serialize(item.ItemLevel));
-    
+			data.Add( "Id", JsonSerializer.Serialize( item.Id.GetHashCode() ) );
+			data.Add( "Name", JsonSerializer.Serialize( item.Name ) );
+			data.Add( "DMG", JsonSerializer.Serialize( item.DMG ) );
+			data.Add( "HE", JsonSerializer.Serialize( item.HE ) );
+			data.Add( "Armor", JsonSerializer.Serialize( item.Armor ) );
+			data.Add( "STG", JsonSerializer.Serialize( item.STG ) );
+			data.Add( "DEX", JsonSerializer.Serialize( item.DEX ) );
+			data.Add( "PER", JsonSerializer.Serialize( item.PER ) );
+			data.Add( "INT", JsonSerializer.Serialize( item.INT ) );
+			data.Add( "Mana", JsonSerializer.Serialize( item.Mana ) );
+			data.Add( "Health", JsonSerializer.Serialize( item.Health ) );
+			data.Add( "CritHitDamage", JsonSerializer.Serialize( item.CritHitDamage ) );
+			data.Add( "CritHitChance", JsonSerializer.Serialize( item.CritHitChance ) );
+			data.Add( "AbilityHaste", JsonSerializer.Serialize( item.AbilityHaste ) );
+			data.Add( "AttackPower", JsonSerializer.Serialize( item.AttackPower ) );
+			data.Add( "MagicPower", JsonSerializer.Serialize( item.MagicPower ) );
+			data.Add( "AttackSpeed", JsonSerializer.Serialize( item.AttackSpeed ) );
+			data.Add( "MoveSpeed", JsonSerializer.Serialize( item.MoveSpeed ) );
+			data.Add( "MagicDefense", JsonSerializer.Serialize( item.MagicDefense ) );
+			data.Add( "Evasion", JsonSerializer.Serialize( item.Evasion ) );
+			data.Add( "Block", JsonSerializer.Serialize( item.Cover ) );
+			data.Add( "BonusEXP", JsonSerializer.Serialize( item.BonusEXP ) );
+			data.Add( "BonusScore", JsonSerializer.Serialize( item.BonusScore ) );
+			data.Add( "BonusVyndalium", JsonSerializer.Serialize( item.BonusVyndalium ) );
+			data.Add( "Tenacity", JsonSerializer.Serialize( item.Tenacity ) );
+			data.Add( "StunResistance", JsonSerializer.Serialize( item.StunResistance ) );
+			data.Add( "BlindResistance", JsonSerializer.Serialize( item.BlindResistance ) );
+			data.Add( "BleedResistance", JsonSerializer.Serialize( item.BleedResistance ) );
+			data.Add( "SlowResistence", JsonSerializer.Serialize( item.SlowResistence ) );
+			data.Add( "FireResistence", JsonSerializer.Serialize( item.FireResistence ) );
+			data.Add( "PoisonResistence", JsonSerializer.Serialize( item.PoisonResistence ) );
+			data.Add( "IceResistence", JsonSerializer.Serialize( item.IceResistence ) );
+			data.Add( "LightningResistence", JsonSerializer.Serialize( item.LightningResistence ) );
+			data.Add( "HolyResistence", JsonSerializer.Serialize( item.HolyResistence ) );
+
 			return new ItemSave
 			{
 				Path = item.Prefab,

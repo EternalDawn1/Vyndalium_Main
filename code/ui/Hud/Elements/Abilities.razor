@@ -284,7 +284,7 @@
 
                             <div class="box">
                                 <p class="txt">Mana</p>
-                                <div class="amount">@Player.Local.Mana</div>
+                                <div class="amount">@Player.Local.MaxMana</div>
                                 <button class="Button2" @onclick="@ManaUpgrade">MANA+</button>
                                 <div class="coast">Coast: @Player.Local.ManaCost</div>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Mana))">?</button>
@@ -506,7 +506,7 @@
     {
         currentPanelText = panelText;
         StateHasChanged();
-        Log.Info("Panel Text: " + GetPanelText(panelText));
+        
         
     }
    
@@ -521,7 +521,7 @@
             
             Player.Local.STG += 1;
             Player.Local.Armor += 5;
-            Player.Local.AttackPower += 5;
+            Player.Local.AttackPower += 15;
             if (Player.Local.PER > 0 && Player.Local.DEX < Player.Local.STG)
             {
                 Player.Local.Block += Player.Local.PER;
@@ -561,7 +561,7 @@
     {
         if (Player.Local.StatsPoints >= Player.Local.AttackPowerCost)
         {
-            Player.Local.AttackPower += 5;
+            Player.Local.AttackPower += 25;
             Player.Local.StatsPoints -= Player.Local.AttackPowerCost;
             Player.Local.AttackPowerCost++;
         }
@@ -685,7 +685,7 @@
     {
         if (Player.Local.StatsPoints >= Player.Local.ArmorCost)
         {
-            Player.Local.Armor += 1;
+            Player.Local.Armor += 7;
             Player.Local.StatsPoints -= Player.Local.ArmorCost;
             Log.Info("Armor upgraded.");
         }
@@ -695,7 +695,7 @@
     {
         if (Player.Local.StatsPoints >= Player.Local.HealthCost)
         {
-            Player.Local.MaxHealth += 1;
+            Player.Local.MaxHealth += 6;
             Player.Local.StatsPoints -= Player.Local.HealthCost;
             Log.Info("Health upgraded.");
         }
@@ -734,7 +734,7 @@
     {
         if (Player.Local.StatsPoints >= Player.Local.StaminaCost)
         {
-            Player.Local.MaxStamina += 5;
+            Player.Local.MaxStamina += 10;
             Player.Local.StatsPoints -= Player.Local.StaminaCost;
             Player.Local.StaminaCost++;
         }
@@ -744,7 +744,7 @@
     {
         if (Player.Local.StatsPoints >= Player.Local.PlayerWalkSpeedCost)
         {
-            Player.Local.PlayerWalkSpeed += 5;
+            Player.Local.PlayerWalkSpeed += 8;
             Player.Local.StatsPoints -= Player.Local.PlayerWalkSpeedCost;
             Player.Local.PlayerWalkSpeedCost++;
         }
@@ -754,7 +754,7 @@
     {
         if (Player.Local.StatsPoints >= Player.Local.PlayerRunSpeedCost)
         {
-            Player.Local.PlayerRunSpeed += 5;
+            Player.Local.PlayerRunSpeed += 8;
             Player.Local.StatsPoints -= Player.Local.PlayerRunSpeedCost;
             Player.Local.PlayerRunSpeedCost++;
         }
@@ -764,7 +764,7 @@
     {
         if (Player.Local.StatsPoints >= Player.Local.ManaCost)
         {
-            Player.Local.Mana += 5;
+            Player.Local.MaxMana += 15;
             Player.Local.StatsPoints -= Player.Local.ManaCost;
             Player.Local.ManaCost++;
         }

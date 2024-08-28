@@ -3,15 +3,18 @@
     "__guid": "5f71354f-d346-4b5e-a68b-7463cab74e19",
     "Flags": 0,
     "Name": "vm_machette",
-    "Position": "0.4,0,0",
     "Tags": "viewmodel",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "GeneralGame.ViewModel",
         "__guid": "b549378c-0483-4568-ab15-9efe4eb12f63",
+        "Arms": {
+          "_type": "component",
+          "component_id": "9e6495d9-a195-4acc-9a1e-28db88cdfcc6",
+          "go": "5f71354f-d346-4b5e-a68b-7463cab74e19",
+          "component_type": "SkinnedModelRenderer"
+        },
         "ModelRenderer": {
           "_type": "component",
           "component_id": "0355c88c-d611-4c49-a667-6e4719c8c887",
@@ -27,7 +30,8 @@
         "CreateBoneObjects": false,
         "Model": "models/machette/v/machete_ref.vmdl",
         "RenderType": "Off",
-        "Tint": "1,1,1,1"
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
       },
       {
         "__type": "Sandbox.SkinnedModelRenderer",
@@ -42,10 +46,12 @@
         "CreateBoneObjects": false,
         "Model": "models/handes/pmm_ref_hand_red.vmdl",
         "RenderType": "On",
-        "Tint": "1,1,1,1"
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
       }
     ],
-    "Children": []
+    "Children": [],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

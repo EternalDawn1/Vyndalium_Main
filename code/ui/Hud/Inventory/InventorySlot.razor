@@ -25,17 +25,22 @@
 	{
 		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
 	}
+	
 </root>
 
 @code {
+	
 	public bool IsProxy { get; set; } = false;
 	public enum SlotType
 	{
 		Backpack,
 		Chest,
+
 		// Weitere Typen nach Bedarf
 	}
 	public SlotType Type { get; set; } = SlotType.Backpack;
+	
+	
 
 	private string GetBackgroundClass()
 	{
@@ -250,7 +255,10 @@
 
 			return true; // Backpack slots allow everything!
 
-
+		if(IndependentSlotIndex != null)
+		{
+			return true;
+		}
 
 		if (EquipSlotIndex != null)
 
@@ -295,7 +303,7 @@
 
 
 
-		await GameTask.Delay(300);
+		await GameTask.Delay(200);
 
 
 
@@ -353,6 +361,12 @@
 
 			return;
 
+		}
+		if (IndependentSlotIndex != null)
+		{
+			Item = inventory.BackpackItems[(int)IndependentSlotIndex];
+			StateHasChanged();
+			return;
 		}
 
 
@@ -484,7 +498,11 @@
 				PlaySound(res ? "drop" : "serror");
 
 			}
-
+			if(targetSlot.IndependentSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.IndependentSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
 			// To equipment slot.
 
 			else if (targetSlot.EquipSlotIndex is not null && fromSlot.Item is ItemEquipment itemEquipment)
@@ -497,6 +515,19 @@
 
 			}
 
+		}
+		if (fromSlot.IndependentSlotIndex is not null)
+		{
+			if (targetSlot.BackpackSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.IndependentSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+			if (targetSlot.EquipSlotIndex is not null && fromSlot.Item is ItemEquipment itemEquipment)
+			{
+				var res = inventory.SwapItems(fromSlot.IndependentSlotIndex.Value, targetSlot.EquipSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
 		}
 
 
@@ -517,6 +548,11 @@
 
 				PlaySound(res ? "drop" : "serror");
 
+			}
+			if (targetSlot.IndependentSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.EquipSlotIndex.Value, targetSlot.IndependentSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
 			}
 
 

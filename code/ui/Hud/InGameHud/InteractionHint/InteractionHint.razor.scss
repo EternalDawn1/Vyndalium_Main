@@ -1,14 +1,16 @@
 @import "/ui/Hud/Style.scss";
 
 InteractionHint {
+    
     flex-direction: row;
     transform-origin: left top;
     opacity: 0;
-    font-family: 'Open Sans';
+    font-family: Geneva;
   
     
 
     .title {
+        position: relative;
         background-color: rgba(0, 0, 0, 0.363);
         border-width: 1px;
         font-size: 32px;
@@ -23,12 +25,14 @@ InteractionHint {
     }
 
     .content {
+        position: relative;
         flex-direction: column;
         
         
     }
 
     .icon {
+        position: relative;
         width: 30px;
         aspect-ratio: 1;
         margin-right: 20px;
@@ -37,7 +41,9 @@ InteractionHint {
     }
 
     .interactions {
+        position: relative;
         padding: 5px;
+        top: 3px;
         background-color: rgba(0, 0, 0, 0.283);
         gap: 12px;
         flex-direction: column-reverse;
@@ -46,16 +52,18 @@ InteractionHint {
     }
 
     .interaction {
+        position: relative;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         font-size: 24px;
+        top: 1%;
         font-family: Geneva;
         margin-left: 10px;
         
 
         .circle {
-            
+            position: relative;
             margin-right: 2px;
             margin-left: 20px;
             width: 26px;
@@ -65,6 +73,7 @@ InteractionHint {
         }
 
         .description {
+            position: relative;
             text-shadow: $text-shadow-sm;
             margin-top: 5px;
             max-width: 325px;
@@ -75,6 +84,7 @@ InteractionHint {
         }
 
         .hint {
+            position: relative;
             margin-right: 12px;
            
         }

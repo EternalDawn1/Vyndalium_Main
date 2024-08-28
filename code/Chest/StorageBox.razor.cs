@@ -12,6 +12,7 @@ namespace GeneralGame.HUD
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;
 		private static bool IsDragging { get;  set; }
+		
 
 		public StorageBox()
 		{
@@ -26,37 +27,32 @@ namespace GeneralGame.HUD
 		}
 
 		// Beispielmethoden
-		private ItemStorage GetItemStorageInstance()
+		private static ItemStorage GetItemStorageInstance()
 		{
 			// Implementieren Sie die Logik, um eine Instanz von ItemStorage zu erhalten.
 			// Dies könnte das Abrufen einer bestehenden Instanz aus einem Manager oder das Erstellen einer neuen Instanz sein.
-			return new ItemStorage();
+			var storage = new ItemStorage();
+			// Initialisiere mit 10 Slots
+			return storage;
 		}
 		protected override void OnAwake()
 		{
-
 			base.OnAwake();
 			if ( itemStorage != null )
 			{
 				itemStorage.IsOpened = false; // Stellen Sie sicher, dass itemStorage anfangs geschlossen ist
 				IsVisible = false;
-				itemStorage = GetItemStorageInstance();
-				itemStorage.InitializeSlots( 10 );// Stellen Sie sicher, dass die Komponente anfangs nicht sichtbar ist
 			}
 		}
 
 
 		protected override void OnUpdate()
 		{
-			
 			if ( !isInitialized )
 			{
-				// Entfernen Sie die Initialisierung von itemStorage.IsOpened und IsVisible auf true
-				// und setzen Sie sie stattdessen auf false, wenn das Ihr gewünschtes Anfangsverhalten ist.
 				itemStorage.IsOpened = false;
 				IsVisible = false;
 				isInitialized = true;
-				// Markieren Sie, dass die Initialisierung erfolgt ist
 				StateHasChanged(); // Aktualisieren Sie die UI
 			}
 			else
@@ -67,7 +63,6 @@ namespace GeneralGame.HUD
 				{
 					ToggleVisibility(); // Aktualisiert IsVisible basierend auf dem Zustand von IsOpened
 					visibilityChanged = isOpened;
-					
 				}
 			}
 		}
@@ -98,6 +93,7 @@ namespace GeneralGame.HUD
 				itemStorage.IsOpened = true;
 				IsVisible = true;
 				// Optional: UI aktualisieren
+				StateHasChanged();
 			}
 		}
 
@@ -115,9 +111,11 @@ namespace GeneralGame.HUD
             
             return HashCode.Combine(
                 
-            IsVisible
-            
-            );
+            IsVisible,
+
+			Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 )
+
+			);
             
         }
 		public void ClosePanel()

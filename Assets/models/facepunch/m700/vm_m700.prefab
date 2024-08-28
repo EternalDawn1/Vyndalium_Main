@@ -1,0 +1,80 @@
+{
+  "RootObject": {
+    "__guid": "95837f57-4440-43ce-a6ea-5e911cd95fb2",
+    "Flags": 0,
+    "Name": "vm_m700",
+    "Tags": "viewmodel,player",
+    "Enabled": true,
+    "NetworkMode": 0,
+    "Components": [
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "17371f20-3241-4da2-b97c-7fc604619a81",
+        "__enabled": false,
+        "BodyGroups": 11,
+        "CreateBoneObjects": false,
+        "Model": "models/dev/error.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
+      },
+      {
+        "__type": "GeneralGame.ViewModel",
+        "__guid": "892c2fbd-3353-4557-83ef-ea3831a2f23b",
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "17371f20-3241-4da2-b97c-7fc604619a81",
+          "go": "95837f57-4440-43ce-a6ea-5e911cd95fb2",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "UseSprintAnimation": false
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "7986730a-3a71-4e1c-83a3-72c7940271d2",
+        "Flags": 0,
+        "Name": "Cube",
+        "Position": "13.00792,-5.694498,-9.688847",
+        "Rotation": "-0.03644482,-0.01904868,-0.02373951,0.9988722",
+        "Scale": "0.75,1,1",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "8ab39076-4c68-484d-bf6b-8d2b827d6fae",
+            "BodyGroups": 115,
+            "Model": "models/weapons/sbox_sniper_m700/v_m700.vmdl",
+            "RenderType": "Off",
+            "Tint": "1,1,1,1"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "e7e7d57b-8e57-47f6-b41b-f256b6c45882",
+            "Flags": 0,
+            "Name": "Eject",
+            "Position": "0,0.0000002980232,5.964143",
+            "Enabled": true
+          },
+          {
+            "__guid": "19f361be-9dcf-493c-8c70-46db578766c3",
+            "Flags": 0,
+            "Name": "Muzzle",
+            "Position": "21.15613,0.0000007748604,5.964143",
+            "Enabled": true
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.v_m700"
+  ],
+  "__version": 1
+}

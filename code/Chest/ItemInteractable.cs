@@ -14,11 +14,11 @@ public class ItemInteractable : BaseInteraction
     protected override void OnAwake()
     {
         base.OnAwake();
-        
-		
+      
 
 
-	}
+
+    }
     
     
     
@@ -27,6 +27,7 @@ public class ItemInteractable : BaseInteraction
     {
         
         var interactions = Components.GetOrCreate<Interactions>();
+        
         
         
         

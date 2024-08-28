@@ -96,7 +96,17 @@
     
 
     private void ChangeScene2(GeneralScene2 scene)
-    {
+        {
+            if (isSceneChanging)
+        {
+            return;
+        }
+        var player = Player.Local;
+        if (player == null)
+        {
+            Log.Error("Player.Local is null.");
+            return;
+        }
         if (isSceneChanging)
         {
             

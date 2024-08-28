@@ -8,6 +8,7 @@ namespace GeneralGame;
 public sealed class ViewModel : Component
 {
 	[Property] public SkinnedModelRenderer ModelRenderer { get; set; }
+	[Property, Group( "Components" )] public SkinnedModelRenderer Arms { get; set; }
 	[Property] public bool UseSprintAnimation { get; set; }
 
 	private Rotation CurRotation { get; set; }

@@ -12,12 +12,18 @@ namespace GeneralGame
 
         public void OnTriggerEnter(Collider other)
         {
-            Player.Save();
             var player = other.Components.Get<Player>();
+            
+            Player.Save(); // Stelle sicher, dass du die Instanzmethode aufrufst
+            
+            
+            
+           
             if (player != null && !sceneChanged)
             {
                 ChangeScene(player);
                 sceneChanged = true;
+                //Player.Setup();
             }
             else
             {
@@ -27,7 +33,7 @@ namespace GeneralGame
 
         private async void ChangeScene(Player player)
         {
-            Sound.Play("sounds/fart.sound");
+            
             await Task.DelaySeconds(.01f);
             SceneHandler.ChangeScene(SceneToLoad);
         }
