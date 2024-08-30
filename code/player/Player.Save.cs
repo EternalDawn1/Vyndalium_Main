@@ -324,11 +324,11 @@ partial class Player
 		
 		
 
-		Log.Info( $"Speichere Daten: {_saveData.Value}" );
+		
 
 		// Write save.
 		WriteSave( _saveData.Value );
-		Log.Info( "Spielerdaten erfolgreich gespeichert." );
+		
 	}
 
 	

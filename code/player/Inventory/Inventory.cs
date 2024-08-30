@@ -18,9 +18,12 @@ public sealed class Inventory : Component
 
 	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
 	[Property] public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
+	[Property] public IReadOnlyList<ItemComponent> StorageBoxItems => _storageBoxItems;
 
 	[Property] private readonly List<ItemComponent> _backpackItems;
 	[Property] private readonly List<ItemComponent> _equippedItems;
+	[Property] private readonly List<ItemComponent> _storageBoxItems;
+	
 
 	public static void EquipItemStats( ItemComponent item )
 	{
@@ -115,7 +118,7 @@ public sealed class Inventory : Component
 		var nextIndex = (currentIndex + 1) % equippedWeapons.Count; // Nächsten Index ermitteln, zyklisch durch die Liste gehen
 		return equippedWeapons.ElementAtOrDefault( nextIndex );
 	}
-
+	
 
 
 	public Inventory()
@@ -124,6 +127,7 @@ public sealed class Inventory : Component
 
 		_backpackItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACK_SLOTS] );
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
+		_storageBoxItems = new List<ItemComponent>();
 	}
 
 	public int IndexOf( ItemComponent item )

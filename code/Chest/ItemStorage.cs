@@ -9,6 +9,7 @@ public class ItemStorage : Component
 {
 	[Property] ItemInteractable ItemInteractable { get; set; }
     public bool IsOpened { get;  set; }
+	public bool IsDoorOpen { get; set; }
 
     private StorageBox storageBox;
 
@@ -47,7 +48,7 @@ public class ItemStorage : Component
 
 				if ( itemComponent != null )
 				{
-					Items.Add( itemComponent ); // Füge das Item nur hinzu, wenn es nicht null ist
+					Items[i] =  itemComponent ; // Füge das Item nur hinzu, wenn es nicht null ist
 					Log.Info( $"Item {itemComponent.Name} in Slot {i} hinzugefügt." );
 					GiveItemToChest( itemComponent );
 				}
@@ -58,7 +59,8 @@ public class ItemStorage : Component
 			}
 			else
 			{
-				Items.Add( null ); // Füge null hinzu, wenn keine Bedingung erfüllt ist
+				Items[i] = null;// Füge null nicht hinzu, wenn keine Bedingung erfüllt ist
+				Log.Info( $"Kein Item in Slot {i} hinzugefügt." );
 			}
 		}
 	}
@@ -195,6 +197,35 @@ public class ItemStorage : Component
 		else
 		{
 			OpenInventory();
+		}
+	}
+	public void ToggleDoorState()
+	{
+		IsDoorOpen = !IsDoorOpen;
+
+		if ( ItemInteractable != null )
+		{
+			var components = ItemInteractable.Components;
+			if ( components != null )
+			{
+				HingeJoint hingeJoint = components.Get<HingeJoint>();
+				if ( hingeJoint != null )
+				{
+					hingeJoint.MinAngle = hingeJoint.MinAngle == 0 ? -90 : 0;
+				}
+				else
+				{
+					Log.Error( "HingeJoint is null." );
+				}
+			}
+			else
+			{
+				Log.Error( "Components are null." );
+			}
+		}
+		else
+		{
+			Log.Error( "ItemInteractable is null." );
 		}
 	}
 }

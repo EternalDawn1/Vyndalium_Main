@@ -27,7 +27,7 @@ namespace GeneralGame
             }
             else
             {
-                Log.Error("Player not found");
+                
             }
         }
 
