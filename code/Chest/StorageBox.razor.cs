@@ -8,33 +8,34 @@ namespace GeneralGame.HUD
 		public static bool IsVisible { get; set; }
        
         private  ItemStorage itemStorage;
+		private ItemInteractable itemInteractable;
 		
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;
 		private static bool IsDragging { get;  set; }
 		
 
+		
 		public StorageBox()
 		{
-			// Initialisierung von itemStorage
 			itemStorage = GetItemStorageInstance();
+			itemInteractable = new ItemInteractable
+			{
+				Storage = itemStorage
+			};
 			IsVisible = false; // Stellen Sie sicher, dass die StorageBox anfangs nicht sichtbar ist
 		}
-		public StorageBox( ItemStorage itemStorage )
-		{
-			this.itemStorage = itemStorage;
-			IsVisible = false; // Stellen Sie sicher, dass die StorageBox anfangs nicht sichtbar ist
-		}
+		
 
 		// Beispielmethoden
 		private static ItemStorage GetItemStorageInstance()
-		{
-			// Implementieren Sie die Logik, um eine Instanz von ItemStorage zu erhalten.
-			// Dies könnte das Abrufen einer bestehenden Instanz aus einem Manager oder das Erstellen einer neuen Instanz sein.
-			var storage = new ItemStorage();
-			// Initialisiere mit 10 Slots
-			return storage;
-		}
+        {
+            // Implementieren Sie die Logik, um eine Instanz von ItemStorage zu erhalten.
+            // Dies könnte das Abrufen einer bestehenden Instanz aus einem Manager oder das Erstellen einer neuen Instanz sein.
+            var storage = new ItemStorage();
+            // Initialisiere mit 10 Slots
+            return storage;
+        }
 		protected override void OnAwake()
 		{
 			base.OnAwake();
@@ -43,6 +44,7 @@ namespace GeneralGame.HUD
 				itemStorage.IsOpened = false; // Stellen Sie sicher, dass itemStorage anfangs geschlossen ist
 				IsVisible = false;
 			}
+			
 		}
 
 

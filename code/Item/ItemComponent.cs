@@ -60,6 +60,7 @@ public class SerializedItemComponent
 
 public class ItemComponent : Component
 {
+	
 	/// <summary>
 	/// The name of the item.
 	/// </summary>

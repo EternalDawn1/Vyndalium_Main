@@ -7,7 +7,7 @@ using Sandbox;
 public class ItemInteractable : BaseInteraction
 {
 
-	public ItemStorage Storage { get; private set; }
+	public ItemStorage Storage { get; set; }
     [Property]public bool IsDoor { get; set; }
 
 
@@ -27,7 +27,7 @@ public class ItemInteractable : BaseInteraction
     {
         var interactions = Components.GetOrCreate<Interactions>();
 
-        Storage = new ItemStorage();
+        Storage = Components.Create<ItemStorage>();
 
         if ( IsDoor )
         {

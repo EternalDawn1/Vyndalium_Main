@@ -48,11 +48,7 @@
     {
         isTakingDamage = true;
         StateHasChanged();
-        Task.Delay(20000).ContinueWith(_ =>
-        {
-            isTakingDamage = false;
-            //StateHasChanged();
-        });
+        
     }
 
     

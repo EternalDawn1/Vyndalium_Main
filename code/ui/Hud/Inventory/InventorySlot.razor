@@ -8,7 +8,7 @@
 
 
 
-<root @onrightclick=@( () => OpenContextMenu() ) class="@CurrentDropTargetClassSelectors">
+<root @onrightclick=@( () => @OpenContextMenu() ) class="@CurrentDropTargetClassSelectors">
 	<div class="border" />
 	<div class="@($"background {@GetBackgroundClass()}")" style="@($"opacity: {GetOpacityBasedOnLevel()}")" />
 	@if (Item is not null)
@@ -39,7 +39,7 @@
 		// Weitere Typen nach Bedarf
 	}
 	public SlotType Type { get; set; } = SlotType.Backpack;
-	
+	public ItemStorage itemStorage { get; set; } = null;
 	
 
 	private string GetBackgroundClass()
@@ -364,7 +364,7 @@
 		}
 		if (IndependentSlotIndex != null)
 		{
-			Item = inventory.BackpackItems[(int)IndependentSlotIndex];
+			Item = itemStorage.Items[(int)IndependentSlotIndex];
 			StateHasChanged();
 			return;
 		}
@@ -478,7 +478,7 @@
 		var fromSlot = this;
 
 		var inventory = Player.Local.Inventory;
-
+		
 
 
 		// From backpack slot.
@@ -516,19 +516,7 @@
 			}
 
 		}
-		if (fromSlot.IndependentSlotIndex is not null)
-		{
-			if (targetSlot.BackpackSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.IndependentSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
-			if (targetSlot.EquipSlotIndex is not null && fromSlot.Item is ItemEquipment itemEquipment)
-			{
-				var res = inventory.SwapItems(fromSlot.IndependentSlotIndex.Value, targetSlot.EquipSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
-		}
+		
 
 
 

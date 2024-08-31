@@ -106,21 +106,15 @@ public partial class Player
     {
         
         // Deaktiviere die Bewegungslogik
-        isFrozen = true;
+       
 
         // Erstelle oder aktiviere die Vignette
-        GameObject.Components.Create<HealthEffects>().FreezeEffect();
+        //GameObject.Components.Create<HealthEffects>().FreezeEffect();
         
         
 
         // Verwenden Sie einen Timer, um die Bewegungslogik nach der angegebenen Dauer wieder zu aktivieren
-        Task.Delay( (int)(durationInSeconds * 1000) ).ContinueWith( _ =>
-        {
-            isFrozen = false;
-
-            // Deaktiviere die Vignette, wenn der Freeze-Effekt endet
-           
-        } );
+        
     }
 
 }

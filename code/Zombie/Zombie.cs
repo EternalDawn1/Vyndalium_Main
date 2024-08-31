@@ -35,10 +35,11 @@ public partial class Npc : Component, IHealthComponent
 	public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject ZombieRagedol { get; set; }
 	[Property] public SkinnedModelRenderer Model { get; set; }
-	[Sync, Property] public float MaxHealth { get; private set; } = 100f;
-	[Sync, Property] public float Health { get; private set; } = 100f;
+	[Sync, Property] public float MaxHealth { get; set; } = 100f;
+	[Sync, Property] public float Health { get;  set; } = 100f;
 	[Property] public HealthComponent Healthone { get; set; }
 
+	[Property] public SoundEvent DeathSounds { get; set; }
 	
 	public Guid LastAttackerId { get; set; }
 
@@ -104,6 +105,7 @@ public partial class Npc : Component, IHealthComponent
 	public TagSet EnemyTags { get; set; }
 
 	/// <summary>
+	
 	/// How far away the NPC can detect an enemy
 	/// </summary>
 	[Property]
@@ -224,6 +226,7 @@ public partial class Npc : Component, IHealthComponent
 	public Guid KillerId { get; set; } // Fügen Sie diese Eigenschaft hinzu
 
 	[Property] public bool HasIceAbility { get; set; }
+	
 
 	public static Random random = new Random();
 
@@ -282,17 +285,9 @@ public partial class Npc : Component, IHealthComponent
 
 			if ( random.Next( 100 ) < freezeChance )
 			{
-				player.ApplyFreeze( durationInSeconds );
+				
 
-				var healthEffects = player.Components.Get<HealthEffects>();
-				if ( healthEffects != null )
-				{
-					//healthEffects.FreezeEffect();
-				} 
-				else
-				{
-					healthEffects.Destroy();
-				}
+				
 			}
 		}
 	}
@@ -436,7 +431,7 @@ public partial class Npc : Component, IHealthComponent
 	}
 	public void NormalTrace()
 	{
-		float durationInSeconds = 2.0f;
+		
 		var tr = Scene.Trace.Ray( Body.Transform.Position, Body.Transform.Position + Body.Transform.Rotation.Forward * 100 ).Run();
 
 		if ( tr.Hit && timeSinceHit > 1.5f && GameObject != null )
@@ -449,7 +444,7 @@ public partial class Npc : Component, IHealthComponent
 				var player = tr.GameObject.Components.Get<Player>();
 				if ( player != null )
 				{
-					TryFreezePlayer( durationInSeconds, player );
+					//TryFreezePlayer( durationInSeconds, player );
 					
 				}
 				else
@@ -752,6 +747,7 @@ public partial class Npc : Component, IHealthComponent
 
 		if ( type == DamageType.Bullet || type == DamageType.Serious )
 		{
+
 			var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
 			p.SetControlPoint( 0, hitPosition );
 			p.SetControlPoint( 0, Rotation.LookAt( hitDirection.Normal * -1f ) );
@@ -793,11 +789,19 @@ public partial class Npc : Component, IHealthComponent
 			var killerPlayer = killer.Components.Get<Player>( FindMode.EverythingInSelfAndAncestors );
 
 
-			int vyndaliumPointsToAdd = new Random().Next( 1, 200 );
-			int xpPointsToAdd = new Random().Next( 25, 75 );
+			int npcLevel = this.Level;
 
-			// Geben Sie dem Killer Vyndalium und XP
+			// Skalieren der Punkte basierend auf dem Level des NPC
+			int vyndaliumPointsToAdd = new Random().Next( 1, 15 ) * npcLevel;
+			int xpPointsToAdd = new Random().Next( 5, 15 ) * npcLevel;
+
+			if ( DeathSounds != null )
+			{
+				
+				Sound.Play( DeathSounds, Player.Local.Head.Transform.Position );
+			}
 			killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );
+			
 			killerPlayer.GiveXp( xpPointsToAdd );
 
 

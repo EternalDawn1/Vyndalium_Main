@@ -24,20 +24,7 @@ return;
                         @for (var index = 0; index < itemStorage.Items.Count; index++)
                         {
                             var item = itemStorage.Items[index];
-                            <InventorySlot Item=@item IndependentSlotIndex=@index Type=@InventorySlot.SlotType.Chest />
-                        }
-                        @for (int i = 0; i < itemStorage.ChestSlotCount; i++)
-                        {
-                            <div class="inventory-slot">
-                                @if (itemStorage.Items[i] != null)
-                                {
-                                    <img src="@itemStorage.Items[i].Icon" alt="@itemStorage.Items[i].Name" />
-                                }
-                                else
-                                {
-                                    <span>Leer</span>
-                                }
-                            </div>
+                            <InventorySlot Item=@item IndependentSlotIndex=@index Type=@InventorySlot.SlotType.Backpack />
                         }
                     </div>
                 </div>
