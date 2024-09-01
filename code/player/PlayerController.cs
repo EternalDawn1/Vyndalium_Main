@@ -21,6 +21,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public CameraComponent PlyCamera { get; set; }
 	[Property] public GameObject ViewModelRoot { get; set; }
 	[Property]public int DefaultAmmo { get; set; }
+
 	[Property] public AmmoContainer Ammo { get; set; } = new AmmoContainer();
 	public BaseGun CurrentWeapon { get; set; }
 	[Property] public CharacterController2 CharacterController { get; set; }
@@ -35,6 +36,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float StandHeight { get; set; } = 64f;
 	[Property] public float DuckHeight { get; set; } = 28f;
 	[Property] public Action OnJump { get; set; }
+	[Property] public bool isJumping { get; set; }
 	[Sync] public LifeState LifeState { get; private set; } = LifeState.Alive;
 	[Sync] public Angles EyeAngles { get; set; }
 	[Sync] public bool IsAiming { get; set; }
@@ -251,7 +253,7 @@ public partial class Player : Component, IHealthComponent
 		{
 			MaxHealth = 50f;
 			Health = MaxHealth;
-			MaxStamina = 50f;
+			MaxStamina = 100f;
 			MaxMana = 100f;
 			PlayerRunSpeed = 190f;
 			PlayerWalkSpeed = 120f;
@@ -908,9 +910,11 @@ public partial class Player : Component, IHealthComponent
 		foreach ( var animator in Animators )
 		{
 			animator.TriggerJump();
+			isJumping = true;
 		}
 
 		OnJump?.Invoke();
+		isJumping = false;
 	}
 
 

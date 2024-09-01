@@ -39,7 +39,7 @@
 		// Weitere Typen nach Bedarf
 	}
 	public SlotType Type { get; set; } = SlotType.Backpack;
-	public ItemStorage itemStorage { get; set; } = null;
+	
 	
 
 	private string GetBackgroundClass()
@@ -364,7 +364,7 @@
 		}
 		if (IndependentSlotIndex != null)
 		{
-			Item = itemStorage.Items[(int)IndependentSlotIndex];
+			
 			StateHasChanged();
 			return;
 		}

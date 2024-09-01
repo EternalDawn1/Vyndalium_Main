@@ -8,10 +8,16 @@ public enum GeneralScene2
     Starting,
     Forest,
     StartBase,
+
+    One,
+    One2,
+    
 }
 
 public static class SceneHandler2
 {
+    public static GeneralScene2 CurrentScene { get; private set; }
+
     public static void ChangeScene2( GeneralScene2 scene, ulong? lobby = null, bool stopSound = true )
     {
         if ( !HasRequiredLevel2( scene ) )
@@ -21,6 +27,9 @@ public static class SceneHandler2
             return;
         }
 
+        // Lösche die aktuelle Szene
+        DeleteCurrentScene();
+
         var path = scene switch
         {
             GeneralScene2.Creation => "scenes/creation.scene",
@@ -29,7 +38,8 @@ public static class SceneHandler2
             GeneralScene2.Starting => "scenes/startlobby.scene",
             GeneralScene2.Forest => "scenes/forest.scene",
             GeneralScene2.StartBase => "scenes/startlobbynew.scene",
-
+            GeneralScene2.One => "scenes/One/map1.scene",
+            GeneralScene2.One2 => "scenes/One/1-2.scene",
             _ => null
         };
 
@@ -49,13 +59,35 @@ public static class SceneHandler2
         if ( lobby.HasValue )
         {
             Log.Info( "Lobby" );
-            var connected =  GameNetworkSystem.TryConnectSteamId( lobby.Value );
-             // Return if connection fails.
+            var connected = GameNetworkSystem.TryConnectSteamId( lobby.Value );
+            // Return if connection fails.
         }
+
+
+
         Player.Setup();
         Log.Info( "loading +" + resource );
-        Game.ActiveScene.Load( resource );
-        
+
+        // Definieren und Initialisieren der neuen Szene
+        var newScene = new Scene();
+        newScene.Load( resource );
+
+        // Speichern der aktuellen Szene
+        var oldScene = Game.ActiveScene;
+
+        // Aktivieren der neuen Szene
+        Game.ActiveScene = newScene;
+        oldScene?.Destroy();
+    }
+
+    public static void DeleteCurrentScene()
+    {
+        // Logik zum Löschen der aktuellen Szene
+        if ( CurrentScene != GeneralScene2.MainMenu ) // Beispiel: MainMenu als Standardwert
+        {
+            CurrentScene.Reset();
+            CurrentScene = GeneralScene2.MainMenu;
+        }
     }
 
     public static bool HasRequiredLevel2( GeneralScene2 scene )
@@ -64,6 +96,9 @@ public static class SceneHandler2
         return playerLevel >= scene.GetRequiredLevel2();
     }
 }
+
+
+
 
 public static class GeneralSceneExtensions2
 {
@@ -76,8 +111,14 @@ public static class GeneralSceneExtensions2
             GeneralScene2.MainMenu => 0,
             GeneralScene2.Starting => 5,
             GeneralScene2.Forest => 25,
+            GeneralScene2.One => 0,
             GeneralScene2.StartBase => 0,
             _ => 0
         };
+    }
+    public static void Reset( this GeneralScene2 scene )
+    {
+       
+        Log.Info( "Resetting scene: " + scene );
     }
 }

@@ -19,17 +19,25 @@ return;
                 <div style="align-items: center; margin: 20px 5px;"></div>
             </div>
             <div class="chest-inventory">
-                <div class="items @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
-                    <div class="items">
-                        @for (var index = 0; index < itemStorage.Items.Count; index++)
+                <div class="items2 @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
+                    <div class="items"></div>
+                        @if (itemStorage != null && itemStorage.Items != null && itemStorage.Items.Count > 0)
                         {
-                            var item = itemStorage.Items[index];
-                            <InventorySlot Item=@item IndependentSlotIndex=@index Type=@InventorySlot.SlotType.Backpack />
+                            @for (var index = 0; index < itemStorage.items.Count; index++)
+                            {
+                                var item = itemStorage.items[index];
+                                <InventorySlot Item=@item IndependentSlotIndex=@index />
+                            }
+                            
+                            
                         }
                     </div>
+                <div>
+                    Anzahl der Elemente: @itemStorage.items.Count
+                    Anzahl der Elemente: @itemStorage.Items.Count
                 </div>
-                <div style="align-items: center; margin: 20px 5px;"></div>
-            </div>
+                    <div style="align-items: center; margin: 20px 5px;"></div>
+                </div>
         </div>
     }
 </root>

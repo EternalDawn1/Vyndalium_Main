@@ -9,7 +9,7 @@ public class ItemInteractable : BaseInteraction
 
 	public ItemStorage Storage { get; set; }
     [Property]public bool IsDoor { get; set; }
-
+    [Property] public List<PrefabFile> PrefabList { get; set; } = new List<PrefabFile>();
 
     protected override void OnAwake()
     {
@@ -39,7 +39,7 @@ public class ItemInteractable : BaseInteraction
                     var itemInteractable = obj.Components.Get<ItemInteractable>();
                     if ( itemInteractable != null && itemInteractable.Storage != null )
                     {
-                        itemInteractable.Storage.ToggleDoorState();
+                        
                     }
                 },
                 Keybind = "use",
@@ -51,7 +51,9 @@ public class ItemInteractable : BaseInteraction
         }
         else
         {
+            
             interactions.AddInteraction( new Interaction()
+            
             {
                 Identifier = "item.openloot",
                 Action = ( Player interactor, GameObject obj ) =>
@@ -65,10 +67,11 @@ public class ItemInteractable : BaseInteraction
                 Keybind = "use",
                 Description = "Open/Close",
                 Stats = "Take",
-                Disabled = () => !Player.Local.Inventory.HasSpaceInBackpack(),
+                
                 ShowWhenDisabled = () => true,
                 Accessibility = AccessibleFrom.All,
             } );
+
 
             interactions.AddInteraction( new Interaction()
             {
@@ -80,9 +83,51 @@ public class ItemInteractable : BaseInteraction
                 Accessibility = AccessibleFrom.All,
             } );
         }
+        AddPrefabsToStorage( PrefabList );
+
     }
 
+    private void AddPrefabsToStorage( List<PrefabFile> prefabList )
+    {
+        int index = 0; // Startindex
+        foreach ( var prefab in prefabList )
+        {
+            var itemComponent = ConvertPrefabToItemComponent( prefab );
+            if ( itemComponent != null )
+            {
+                Storage.AddItem( itemComponent, index );
+                Log.Info( $"Added {itemComponent.Name} to storage box" );
+                index++; // Index erhöhen
+            }
+        }
 
+       
+
+    }
+    private ItemComponent ConvertPrefabToItemComponent( PrefabFile prefab )
+    {
+        var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
+        obj.NetworkMode = NetworkMode.Object;
+        obj.NetworkSpawn();
+
+        var itemComponent = obj.Components.Get<ItemComponent>();
+        if ( itemComponent == null )
+        {
+            obj.Destroy();
+            return null;
+        }
+
+        return itemComponent;
+    }
+    public void AddItemToStorageBox( ItemComponent item, int index )
+    {
+        if ( Storage != null )
+        {
+            Storage.AddItem( item, index );
+            
+            item.State = ItemState.Chest;
+        }
+    }
 
 
 

@@ -1,3 +1,5 @@
+using System.ComponentModel.Design.Serialization;
+using System.Diagnostics.Metrics;
 using Sandbox.UI;
 
 namespace GeneralGame.HUD
@@ -7,7 +9,7 @@ namespace GeneralGame.HUD
     {
 		public static bool IsVisible { get; set; }
        
-        private  ItemStorage itemStorage;
+        private  ItemStorage itemStorage { get; set; }
 		private ItemInteractable itemInteractable;
 		
 		private bool visibilityChanged = false;
@@ -25,17 +27,23 @@ namespace GeneralGame.HUD
 			};
 			IsVisible = false; // Stellen Sie sicher, dass die StorageBox anfangs nicht sichtbar ist
 		}
-		
+
 
 		// Beispielmethoden
 		private static ItemStorage GetItemStorageInstance()
-        {
-            // Implementieren Sie die Logik, um eine Instanz von ItemStorage zu erhalten.
-            // Dies könnte das Abrufen einer bestehenden Instanz aus einem Manager oder das Erstellen einer neuen Instanz sein.
-            var storage = new ItemStorage();
-            // Initialisiere mit 10 Slots
-            return storage;
-        }
+		{
+			ItemStorage storage = new ItemStorage();
+			var itemInteractable = new ItemInteractable { Storage = storage };
+
+			// Fügen Sie alle vorhandenen Items aus der Liste hinzu
+			foreach ( var item in storage.items )
+			{
+				storage.AddItem( item, storage.Items.Count );
+				Log.Info( $"Item hinzugefügt: {item.Name}, Gesamtanzahl der Elemente: {storage.ItemCount}" );
+			}
+
+			return storage;
+		}
 		protected override void OnAwake()
 		{
 			base.OnAwake();
@@ -114,6 +122,7 @@ namespace GeneralGame.HUD
             return HashCode.Combine(
                 
             IsVisible,
+	
 
 			Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 )
 

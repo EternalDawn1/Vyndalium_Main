@@ -86,20 +86,18 @@ public partial class Player
 	{
 		if ( animation == InteractAnimations.Interact )
 		{
-			ModelRenderer.Set( "right_ik_pos", position );
-			ModelRenderer.Set( "right_ik_rot", rotation );
-			ModelRenderer.Set( "use", true );
+			
+			
 		}
 		else if ( animation == InteractAnimations.Action )
 		{
-			ForceHoldType( HoldType, 0.5f );
-			ModelRenderer.Set( "right_ik_pos", position );
-			ModelRenderer.Set( "right_ik_rot", rotation );
-			ModelRenderer.Set( "action", true );
+			
+			
+			
 		}
 		else if ( animation == InteractAnimations.Reload )
 		{
-			ModelRenderer.Set( "reload", true );
+			
 		}
 
 		var soundEvent = ResourceLibrary.Get<SoundEvent>( soundResourceId );
@@ -117,6 +115,16 @@ public partial class Player
 			Log.Info( "interactionGameObject ist null" );
 			return;
 		}
+		if ( Player.Local == null )
+		{
+			// Fehlerbehandlung oder Logging
+			return;
+		}
+
+		
+
+		
+
 
 	}
 }

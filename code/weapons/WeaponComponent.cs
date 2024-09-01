@@ -255,6 +255,12 @@ public class WeaponComponent : Component
 			return;
 
 		var player = Components.GetInAncestors<Player>();
+		if ( player == null )
+		{
+			Log.Error( "Player is null in CreateViewModel" );
+			return;
+		}
+
 		var character = player.Components.Get<Character>();
 		if ( character != null )
 		{
@@ -269,9 +275,21 @@ public class WeaponComponent : Component
 		}
 
 		var viewModelGameObject = ViewModelPrefab.Clone();
+		if ( viewModelGameObject == null )
+		{
+			Log.Error( "ViewModelPrefab.Clone() returned null in CreateViewModel" );
+			return;
+		}
+
 		viewModelGameObject.SetParent( player.ViewModelRoot, false );
 
 		ViewModel = viewModelGameObject.Components.Get<ViewModel>();
+		if ( ViewModel == null )
+		{
+			Log.Error( "ViewModel is null in CreateViewModel" );
+			return;
+		}
+
 		ViewModel.SetWeaponComponent( this );
 		ViewModel.SetCamera( player.PlyCamera );
 

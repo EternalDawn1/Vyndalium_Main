@@ -484,7 +484,7 @@
               "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
               "__version": 1,
               "EnableCollision": true,
-              "MapName": "scenes/1-1/1-1.vmap",
+              "MapName": "scenes/one/map1.vmap",
               "NoOrigin": true,
               "UseMapFromLaunch": false
             }
@@ -502,7 +502,7 @@
               "__guid": "1760acd2-f0e1-44a9-94ba-22e8e49fb736",
               "Flags": 0,
               "Name": "Spawner",
-              "Position": "-65.64631,-178.7926,-0.00007629395",
+              "Position": "-65.64631,-485.0743,-0.00007629395",
               "Enabled": true,
               "Components": [
                 {
@@ -612,6 +612,123 @@
       "Enabled": true,
       "__Prefab": "prefabs/weapons/pm/glock-c.prefab",
       "__PrefabVariables": {}
+    },
+    {
+      "__guid": "9d30d608-ae99-46c7-8726-3857e6d01056",
+      "Flags": 0,
+      "Name": "box_normal_small",
+      "Position": "-273.4932,34.64644,-16.9322",
+      "Rotation": "0,0,-0.7071067,0.7071068",
+      "Scale": "1,0.5999999,1",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "6bac3814-f2d8-4420-822c-cbaba9ebad04",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/box_new/small.vmdl",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "666a799b-1b89-4c35-baf0-719ee7362ff1",
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/props/box_new/small.vmdl",
+            "MaterialGroup": "",
+            "Colour": "1,1,1,1",
+            "Position": "-34.05,37.65,37.95",
+            "Rotation": "0.7071068,0,0,0.7071068",
+            "Guid": "bde0d1c7-cb05-4cde-adc0-a6f84623fc0f"
+          },
+          "INT": 0,
+          "IsDoor": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "Name": "Normal Chest",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "PrefabList": [
+            "prefabs/weapons/facepunch/mp5/mp5.prefab"
+          ],
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "Stats": [
+            0
+          ],
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SS",
+          "WeightInGrams": 0
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "8a5bf6c1-ce3d-4d87-8748-481ab15299c3",
+          "Flags": 0,
+          "Name": "World",
+          "Position": "-0.9000549,0.00006119609,160.1179",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.WorldPanel",
+              "__guid": "8d004d22-9600-450b-9429-91e5696204a0",
+              "HorizontalAlign": "Center",
+              "InteractionRange": 1000,
+              "LookAtCamera": false,
+              "PanelSize": "512,512",
+              "RenderScale": 1,
+              "VerticalAlign": "Center"
+            },
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "b194e44d-9708-43b1-b9c1-fc8c5688705c",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 32,
+              "FontWeight": 800,
+              "Scale": 1,
+              "Text": "Hello! \u2764",
+              "TextAlignment": "Center"
+            }
+          ]
+        }
+      ]
     }
   ],
   "SceneProperties": {

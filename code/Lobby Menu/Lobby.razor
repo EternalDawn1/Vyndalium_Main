@@ -41,6 +41,13 @@
                             ImagePath="ui/hud/hpball.png" 
                             style="position: absolute; top: 600px; right: 200px;" 
                         />
+                         <SideButton 
+                            Title="Dungeon 1-1" 
+                            Subtitle="first Stage" 
+                            OnClick=@(() => ChangeScene2(GeneralScene2.One)) 
+                            ImagePath="ui/hud/storage.png" 
+                            style="position: absolute; top: 700px; right: 200px;"
+                        />
                         <SideButton 
                             Title="Destroyed Ship" 
                             Subtitle="min. lvl. 5" 
@@ -48,12 +55,22 @@
                             ImagePath="ui/hud/storage.png" 
                             style="position: absolute; top: 450px; right: 200px;" 
                         />
+                        <SideButton 
+                            Title="Dungeon 1-2" 
+                            Subtitle="second Stage" 
+                            OnClick=@(() => ChangeScene2(GeneralScene2.One2)) 
+                            ImagePath="ui/hud/storage.png" 
+                            style="position: absolute; top: 800px; right: 200px;"
+                        />
+
                         <SideButton
                         Title="StartBase"
                         Subtitle="Home_Base"
                         OnClick=@(() => ChangeScene2(GeneralScene2.StartBase))
                         ImagePath="ui/hud/storage.png"
                         style="position: absolute; top: 900px; right: 200px;"
+                        />
+                       
                     </div>
                 }
                 
@@ -121,8 +138,8 @@
     }
 
         isSceneChanging = true;
+        SceneHandler2.DeleteCurrentScene();
         
-
         // Hier die Logik zum tatsächlichen Wechsel der Szene hinzufügen
         // Beispiel:
         switch (scene)
@@ -145,6 +162,17 @@
             case GeneralScene2.StartBase:
                 // Logik zum Wechseln zur StartBase-Szene
             
+                SceneHandler2.ChangeScene2(scene);
+                break;
+
+            case GeneralScene2.One:
+                // Logik zum Wechseln zur One-Szene
+               
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            case GeneralScene2.One2:
+                // Logik zum Wechseln zur Two-Szene
+               
                 SceneHandler2.ChangeScene2(scene);
                 break;
             default:

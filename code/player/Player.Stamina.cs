@@ -12,81 +12,84 @@ public partial class Player : Component
     [Sync,Property, Group( "Movement" )] public float StaminaPerSecond { get; private set; } = 10f;
 	private RealTimeSince TimeSinceStoppedRunning { get; set; }
 	private bool wasRunning = false;
-	private bool RegenDelayed { get; set; }
+    private bool wasJumping = false;
+    private bool RegenDelayed { get; set; }
 	private const float RegenDelayDuration = 2.5f;
-	
 
-	
+
+
     private void RegenerateStamina()
     {
-        if (IsRunning)
-    {
-        if (Stamina > 0)
+        if ( IsRunning )
         {
-            MoveSpeed = PlayerRunSpeed + Stamina / MaxStamina * 200f;
-            Stamina -= Time.Delta * 5f;
-            StaminaPerSecond = 0f; // Set StaminaPerSecond to 0 while running
-           
+            if ( Stamina > 0 )
+            {
+                MoveSpeed = PlayerRunSpeed + Stamina / MaxStamina * 200f;
+                Stamina -= Time.Delta * 5f;
+                StaminaPerSecond = 0f; // Setze StaminaPerSecond auf 0 während des Laufens
+            }
+            else
+            {
+                MoveSpeed = 40f;
+                IsRunning = false;
+            }
         }
         else
         {
-            MoveSpeed = 40f;
-            IsRunning = false;
-        }
-    }
-    else
-    {
-        MoveSpeed = PlayerRunSpeed;
-
-        if (wasRunning)
-        {
-            RegenDelayed = true;
-            TimeSinceStoppedRunning = 0f;
-           
-        }
-
-        if (RegenDelayed && TimeSinceStoppedRunning > RegenDelayDuration)
-        {
-            StaminaPerSecond = 10f; // Set StaminaPerSecond to 10 while not running
-            Stamina += StaminaPerSecond * Time.Delta;
-            if (Stamina > MaxStamina)
+            MoveSpeed = PlayerRunSpeed;
+            if ( wasRunning )
             {
-                Stamina = MaxStamina;
+                RegenDelayed = true;
+                TimeSinceStoppedRunning = 0f;
+            }
+            if ( RegenDelayed && TimeSinceStoppedRunning > RegenDelayDuration )
+            {
+                StaminaPerSecond = 10f; // Setze StaminaPerSecond auf 10 während des Nicht-Laufens
+                Stamina = Math.Max( 0, Stamina ); // Stelle sicher, dass Stamina nicht unter 0 fällt
+                Stamina += StaminaPerSecond * Time.Delta;
+                if ( Stamina > MaxStamina )
+                {
+                    Stamina = MaxStamina;
+                }
+            }
+            // Füge diese Bedingung hinzu, um die Regeneration der Ausdauer zu starten, wenn sie 0 oder weniger ist
+            if ( Stamina <= 0 )
+            {
+                StaminaPerSecond = 10f; // Setze StaminaPerSecond auf 10 während des Nicht-Laufens
+                Stamina = Math.Max( 0, Stamina ); // Stelle sicher, dass Stamina nicht unter 0 fällt
+                Stamina += StaminaPerSecond * Time.Delta;
+                if ( Stamina > MaxStamina )
+                {
+                    Stamina = MaxStamina;
+                }
+            }
+            // Füge diese Bedingung hinzu, um die Regeneration der Ausdauer zu starten, wenn sie weniger als MaxStamina ist
+            else if ( Stamina < MaxStamina && !isJumping )
+            {
+                Stamina += StaminaPerSecond * Time.Delta;
+                if ( Stamina > MaxStamina )
+                {
+                    Stamina = MaxStamina;
+                }
             }
         }
-
-        // Add this condition to start regenerating stamina when it's 0 or less
-        if (Stamina <= 0)
-        {
-            StaminaPerSecond = 10f; // Set StaminaPerSecond to 10 while not running
-            Stamina += StaminaPerSecond * Time.Delta;
-            if (Stamina > MaxStamina)
-            {
-                Stamina = MaxStamina;
-            }
-        }
+        wasRunning = IsRunning;
+        wasJumping = isJumping;
     }
-
-    wasRunning = IsRunning;
-    
-    
-
-    // Versuche, erneut zu sprinten, wenn genügend Zeit vergangen ist und die Ausdauer ausreichend ist
-    
-}
     public bool TryJump()
     {
         const float staminaCostForJump = 5f;
         if ( Stamina >= staminaCostForJump )
         {
             Stamina -= staminaCostForJump;
+            isJumping = true;
+            wasJumping = true;
             // Optional: Fügen Sie hier Logik für den Sprung hinzu, z.B. Animation, Bewegung, etc.
             return true;
         }
         else
         {
             // Optional: Benachrichtigung, dass nicht genug Ausdauer zum Springen vorhanden ist
-         
             return false;
         }
     }

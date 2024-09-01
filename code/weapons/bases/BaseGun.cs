@@ -438,12 +438,16 @@ public class BaseGun : WeaponComponent, IUse
 			// Spieler ist tot, keine Reload-Nachricht senden
 			return;
 		}
-		if ( ReloadSoundSequence is null )
+		
+		if ( ReloadSoundSequence == null )
 			return;
 
+		// Stoppe den aktuellen ReloadSound, falls er existiert
 		ReloadSound?.Stop();
 
+		// Initialisiere den ReloadSound neu
 		ReloadSound = new( AmmoInClip == 0 ? EmptyReloadSoundSequence : ReloadSoundSequence );
+		
 		ReloadSound.Start( Transform.Position );
 	}
 
@@ -455,7 +459,7 @@ public class BaseGun : WeaponComponent, IUse
 			// Spieler ist tot, keine Reload-Nachricht senden
 			return;
 		}
-		if ( EmptyClipSound is not null && !IsSoundPlaying )
+		if ( EmptyClipSound != null && !IsSoundPlaying )
 		{
 			Sound.Play( EmptyClipSound, Transform.Position );
 			IsSoundPlaying = true;

@@ -104,9 +104,15 @@ public partial class WeaponContainer : Component
 		}
 	}
 
-	public void Give( GameObject prefab, bool shouldDeploy = false )
+	public async void Give( GameObject prefab, bool shouldDeploy = false )
 
 	{
+		await Task.Delay( 1 );
+		if ( Player.Local == null )
+		{
+			Log.Error( "Prefab is null in WeaponContainer.Give" );
+			return;
+		}	
 		var weaponComponent = prefab.Components.Get<WeaponComponent>();
 		if ( weaponComponent != null )
 		{
