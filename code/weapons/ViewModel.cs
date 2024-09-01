@@ -14,7 +14,7 @@ public sealed class ViewModel : Component
 	private Rotation CurRotation { get; set; }
 	private Vector3 CurPos { get; set; }
 
-	private float InertiaDamping => 15.0f;
+	private float InertiaDamping => 0f;
 
 	//private Vector3 SieatOffset => new Vector3( 0f, 0f, -5f );
 
@@ -24,8 +24,8 @@ public sealed class ViewModel : Component
 	private float bobAnim;
 	private float bobSpeed;
 
-	private float SwingInfluence => 0.0125f;
-	private float ReturnSpeed => 40.0f;
+	private float SwingInfluence => 0f;
+	private float ReturnSpeed => 0f;
 	private float MaxOffsetLength => 0.125f;
 	private float BobCycleTime => 1;
 
@@ -82,10 +82,7 @@ public sealed class ViewModel : Component
 
 		}
 	}
-	private void OnPlayerMoved()
-	{
-		ModelRenderer.Set( "b_run", true );
-	}
+	
 
 	
 
@@ -102,7 +99,7 @@ public sealed class ViewModel : Component
 	}
 
 
-	protected override void OnFixedUpdate()
+	protected override void OnUpdate()
 	{
 
 		Vector3 plusPos = Vector3.Zero + Weapon.IdlePos;

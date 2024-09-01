@@ -14,8 +14,23 @@ public partial class WeaponContainer : Component
 	[Property] public Inventory Inventory { get; set; }
 	public BaseGun Equipped { get; set; }
 
+
+	private WeaponComponent _deployed;
+
+	public WeaponComponent Deployed => _deployed;
 	
-	public WeaponComponent Deployed => Components.GetAll<WeaponComponent>( FindMode.EverythingInSelfAndDescendants ).FirstOrDefault( c => c.IsDeployed );
+
+	protected override void OnUpdate()
+	{
+		UpdateDeployedStatus();
+	}
+
+	private void UpdateDeployedStatus()
+	{
+		_deployed = Components.GetAll<WeaponComponent>( FindMode.EverythingInSelfAndDescendants ).FirstOrDefault( w => w.IsDeployed );
+							  
+	}
+
 	public IEnumerable<WeaponComponent> All => Components.GetAll<WeaponComponent>( FindMode.EverythingInSelfAndDescendants );
 	public bool HasAny => All.Any();
 
@@ -24,6 +39,7 @@ public partial class WeaponContainer : Component
 
 		return All.Any( w => w.GameObject.Components.GetInDescendantsOrSelf<WeaponComponent>( true ).DisplayName == prefab.Components.GetInDescendantsOrSelf<WeaponComponent>( true ).DisplayName );
 	}
+
 
 
 	protected override void OnAwake()
@@ -90,8 +106,12 @@ public partial class WeaponContainer : Component
 
 	public void Give( GameObject prefab, bool shouldDeploy = false )
 
-	{	
-		
+	{
+		var weaponComponent = prefab.Components.Get<WeaponComponent>();
+		if ( weaponComponent != null )
+		{
+			weaponComponent.Owner = Player.Local; // Stellen Sie sicher, dass der Player zugewiesen wird
+		}
 
 		if ( prefab == null )
 		{

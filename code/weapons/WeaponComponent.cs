@@ -30,6 +30,7 @@ public class WeaponComponent : Component
 	[Property] public Vector3 AimPos { get; set; }
 	[Property] public Rotation AimRotation { get; set; }
 	[Property] public Rotation RunRotation { get; set; }
+	
 	public bool HasViewModel => ViewModel.IsValid();
 	public Player Owner { get; set; }
 	public SkinnedModelRenderer ModelRenderer { get; set; }
@@ -37,6 +38,7 @@ public class WeaponComponent : Component
 	public TimeUntil NextAttackTime { get; set; }
 	public SkinnedModelRenderer EffectRenderer => ViewModel.IsValid() ? ViewModel.ModelRenderer : ModelRenderer;
 	public EquipSlot Slot { get; set; }
+	
 
 	public bool IsInitialized { get; private set; }
 
@@ -51,26 +53,34 @@ public class WeaponComponent : Component
 
 	protected override void OnStart()
 	{
-		if ( !Owner.IsValid() ) return;
-		if ( IsDeployed )
-			OnDeployed();
-		else
-			OnHolstered();
+		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>( true );
 
+		if ( !Owner.IsValid() ) return;
+
+		if ( IsDeployed )
+		{
+			OnDeployed();
+		}
+		else
+		{
+			OnHolstered();
+		}
 
 		base.OnStart();
-
-
 	}
 
 
 	protected override void OnAwake()
 	{
 		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>( true );
+
+		Owner = Components.GetInAncestors<Player>();
+		
+
 		base.OnAwake();
 	}
 
-	
+
 
 	protected override void OnDestroy()
 	{
@@ -82,7 +92,6 @@ public class WeaponComponent : Component
 			}
 			IsDeployed = false;
 		}
-
 		base.OnDestroy();
 	}
 
@@ -159,25 +168,44 @@ public class WeaponComponent : Component
 
 	protected virtual void OnDeployed()
 	{
-		var player = Components.GetInAncestors<Player>();
-		var playerDresser = player.Components.Get<PlayerDresser>();
+		if ( ModelRenderer == null )
+		{
+			Log.Error( "ModelRenderer is null in OnDeployed" );
+			return;
+		}
+
+		if ( Owner == null )
+		{
+			Log.Error( "Player is null in OnDeployed" );
+			return;
+		}
+
+		
+
+		var playerDresser = Owner.Components.Get<PlayerDresser>();
 		if ( playerDresser != null )
 		{
 			playerDresser.RemoveClothing();
 		}
 
-
-		if ( player.IsValid() )
+		if ( Owner.IsValid() )
 		{
-			foreach ( var animator in player.Animators )
+			if ( Owner.Animators != null )
 			{
-				animator.TriggerDeploy();
+				foreach ( var animator in Owner.Animators )
+				{
+					animator.TriggerDeploy();
+				}
+			}
+			else
+			{
+				Log.Error( "Player animators are null in OnDeployed" );
 			}
 		}
 
 		ModelRenderer.Enabled = !HasViewModel;
 
-		if ( DeploySound is not null )
+		if ( DeploySound != null )
 		{
 			Sound.Play( DeploySound, Transform.Position );
 		}
@@ -186,6 +214,8 @@ public class WeaponComponent : Component
 		{
 			CreateViewModel();
 		}
+
+		ModelRenderer.Set( "b_deploy", true );
 
 		NextAttackTime = DeployTime;
 	}

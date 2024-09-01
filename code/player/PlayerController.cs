@@ -635,7 +635,7 @@ public partial class Player : Component, IHealthComponent
 			case 0: // Gesundheit <= 25%
 				if ( !isLowHealthSoundPlaying && HurtLowHP is not null )
 				{
-					Sound.Play( HurtLowHP, PlyCamera.Transform.Position );
+					Sound.Play( HurtLowHP, Player.Local.Head.Transform.Position );
 					isLowHealthSoundPlaying = true;
 				}
 				break;
@@ -647,7 +647,7 @@ public partial class Player : Component, IHealthComponent
 				}
 				if ( !isMidHealthSoundPlaying && HurtMidHP is not null )
 				{
-					Sound.Play( HurtMidHP, PlyCamera.Transform.Position );
+					Sound.Play( HurtMidHP, Player.Local.Transform.Position );
 					isMidHealthSoundPlaying = true;
 				}
 				break;

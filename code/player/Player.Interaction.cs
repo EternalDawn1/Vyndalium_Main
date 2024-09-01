@@ -12,6 +12,7 @@ public partial class Player
 	public SceneTraceResult InteractionTrace { get; private set; }
 	public BBox? InteractionBounds { get; private set; }
 
+	[Broadcast]
 	private void UpdateInteractions()
 	{
 		var thinTrace = Scene.Trace.Ray( ViewRay, INTERACTION_DISTANCE )
@@ -72,16 +73,16 @@ public partial class Player
 	}
 
 	// A lot of parameters! We should fix this up at a later point.
-	
+
 	[Broadcast]
 	public void BroadcastInteraction(
-		Vector3 position,
-		Rotation rotation,
-		InteractAnimations animation,
-		Guid interactionObjectId,
-		int soundResourceId,
-		bool playSoundFromPlayer
-	)
+	Vector3 position,
+	Rotation rotation,
+	InteractAnimations animation,
+	Guid interactionObjectId,
+	int soundResourceId,
+	bool playSoundFromPlayer
+)
 	{
 		if ( animation == InteractAnimations.Interact )
 		{
@@ -109,9 +110,15 @@ public partial class Player
 			.Where( x => x.Id == interactionObjectId )
 			.FirstOrDefault();
 
-		
+		// Null-Prüfung für interactionGameObject
+		if ( interactionGameObject == null )
+		{
+			// Logge eine Warnung oder handle den Fehler entsprechend
+			Log.Info( "interactionGameObject ist null" );
+			return;
+		}
+
 	}
-	
 }
 
 

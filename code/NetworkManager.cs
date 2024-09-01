@@ -17,9 +17,28 @@ namespace GeneralGame
 
             if ( !GameNetworkSystem.IsActive && !IsProxy && StartServer )
             {
+
                 await Task.DelayRealtimeSeconds( 0.1f );
+                var obj = Prefab.Clone();
+                var player = obj.Components.Get<Player>( FindMode.EverythingInSelfAndDescendants );
+                player.Respawn();
+                obj.NetworkMode = NetworkMode.Object;
+                obj.NetworkSpawn();
+                obj.Name = $"Host Player";
+
+                // Setup host stuff.
+                Player._InternalPlayers?.Clear();
+                Player._InternalPlayers?.Add( player );
+                Player.Local = player;
                 GameNetworkSystem.CreateLobby();
                 
+                return;
+            }
+            if ( Player.All.Count >= MAX_PLAYERS )
+            {
+                
+                SceneHandler.ChangeScene( GeneralScene.MainMenu );
+                GameNetworkSystem.Disconnect();
                 return;
             }
 
