@@ -23,8 +23,20 @@ public sealed class Inventory : Component
 	[Property] private readonly List<ItemComponent> _backpackItems;
 	[Property] private readonly List<ItemComponent> _equippedItems;
 	[Property] private readonly List<ItemComponent> _storageBoxItems;
-	
 
+	public bool RemoveItem( ItemComponent item )
+	{
+		if ( item == null )
+			return false;
+
+		if ( _backpackItems.Contains( item ) )
+		{
+			_backpackItems.Remove( item );
+			return true;
+		}
+
+		return false;
+	}
 	public static void EquipItemStats( ItemComponent item )
 	{
 		Player.Local.AttackValue += item.DMG;

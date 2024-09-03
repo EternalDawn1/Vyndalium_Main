@@ -195,7 +195,7 @@ public class ItemComponent : Component
 	/// <summary>
 	/// The sell price of an item in mk (-1 indicating it cannot be sold).
 	/// </summary>
-	[Property, Sync] public int SellPrice { get; set; } = -1;
+	[Property, Sync] public int SellPrice { get; set; } = 0;
 
 	/// <summary>
 	/// Maximum amount of items in this stack, default is 0 for not stackable.
@@ -286,6 +286,85 @@ public class ItemComponent : Component
 	public TierClass ItemTier { get; set; }
 	
 	[Property]public List<int> Stats { get;  set; } = new List<int>();
+	public int CalculateSellPrice()
+	{
+		int basePrice = 0;
+		int additionalPricePerStat = 400;
+		int numberOfStats = GetNumberOfStats();
+
+		switch ( Tier )
+		{
+			case Tier.C:
+				basePrice = 0;
+				break;
+			case Tier.B:
+				basePrice = 200;
+				break;
+			case Tier.A:
+				basePrice = 400;
+				break;
+			case Tier.S:
+				basePrice = 600;
+				break;
+			case Tier.SS:
+				basePrice = 800;
+				break;
+			case Tier.SSS:
+				basePrice = 1000;
+				break;
+		}
+		int levelPrice = CalculateLevelPrice( ItemLevel );
+		SellPrice = basePrice + (numberOfStats * additionalPricePerStat) + levelPrice;
+		return SellPrice;
+	}
+	private int CalculateLevelPrice( int level )
+	{
+		if ( level == 0 ) return 0;
+		int price = 300; // Preis für Level 1
+		for ( int i = 2; i <= level; i++ )
+		{
+			price += 250 + (i - 1) * 50;
+		}
+		return price;
+	}
+
+	private int GetNumberOfStats()
+	{
+		int count = 0;
+		if ( DMG > 0 ) count++;
+		if ( HE > 0 ) count++;
+		if ( Armor > 0 ) count++;
+		if ( STG > 0 ) count++;
+		if ( DEX > 0 ) count++;
+		if ( PER > 0 ) count++;
+		if ( INT > 0 ) count++;
+		if ( Mana > 0 ) count++;
+		if ( Health > 0 ) count++;
+		if ( CritHitDamage > 0 ) count++;
+		if ( CritHitChance > 0 ) count++;
+		if ( AbilityHaste > 0 ) count++;
+		if ( AttackPower > 0 ) count++;
+		if ( MagicPower > 0 ) count++;
+		if ( AttackSpeed > 0 ) count++;
+		if ( MoveSpeed > 0 ) count++;
+		if ( MagicDefense > 0 ) count++;
+		if ( Evasion > 0 ) count++;
+		if ( Cover > 0 ) count++;
+		if ( BonusEXP > 0 ) count++;
+		if ( BonusScore > 0 ) count++;
+		if ( BonusVyndalium > 0 ) count++;
+		if ( Tenacity > 0 ) count++;
+		if ( StunResistance > 0 ) count++;
+		if ( BlindResistance > 0 ) count++;
+		if ( BleedResistance > 0 ) count++;
+		if ( SlowResistence > 0 ) count++;
+		if ( FireResistence > 0 ) count++;
+		if ( PoisonResistence > 0 ) count++;
+		if ( IceResistence > 0 ) count++;
+		if ( LightningResistence > 0 ) count++;
+		if ( HolyResistence > 0 ) count++;
+		return count;
+	}
 	public void GenerateRandomStats()
 	{
 		Random random = new Random();

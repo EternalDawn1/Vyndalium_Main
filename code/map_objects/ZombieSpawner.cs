@@ -11,13 +11,14 @@ public sealed class ZombieSpawner : Component
 	[Property] public float PlayerProximityDistance { get; set; } = 1000f;
 	[Property] public int MaxSpawns { get; set; } = 10; // Neue Eigenschaft für maximale Anzahl von Spawns
     private int SpawnCount { get; set; } // Zähler für die Anzahl der Spawns
+	[Property] public bool DrawProximityRangeGizmo { get; set; }
 	[Property] public bool Level1To15 { get; set; }
 	[Property] public bool Level15To30 { get; set; }
 	[Property] public bool Level30To55 { get; set; }
 	[Property] public bool Level55To70 { get; set; }
 	[Property] public bool Level70To90 { get; set; }
 	[Property] public bool Level90To100 { get; set; }
-	
+
 	protected override void DrawGizmos()
 	{
 		const float boxSize = 4f;
@@ -30,6 +31,13 @@ public sealed class ZombieSpawner : Component
 		Gizmo.Draw.SolidBox( bounds );
 
 		Gizmo.Draw.Color = Color.Cyan.WithAlpha( (Gizmo.IsHovered || Gizmo.IsSelected) ? 0.8f : 0.6f );
+
+		// Zeichne den PlayerProximityDistance-Gizmo, wenn aktiviert
+		if ( DrawProximityRangeGizmo )
+		{
+			Gizmo.Draw.Color = Color.Red.WithAlpha( 0.3f );
+			Gizmo.Draw.LineSphere( Vector3.Zero, PlayerProximityDistance );
+		}
 	}
 
 	protected override void OnStart()
@@ -84,6 +92,8 @@ public sealed class ZombieSpawner : Component
 		{
 			itemComponent.ItemTier = new ItemComponent.TierClass { Tier = GetRandomTier() };
 			itemComponent.GenerateRandomStats();
+			itemComponent.CalculateSellPrice();
+			Log.Info( $"Zombie hat Tier {itemComponent.ItemTier.Tier} und Level {itemComponent.SellPrice}" );
 		}
 		zombie.NetworkSpawn();
 

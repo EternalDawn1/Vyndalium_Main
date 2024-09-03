@@ -36,7 +36,7 @@
 					Coop Config
 				</div>
 				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => Singleplayer() )>
-					Singleplayer
+					Play
 				</div>
 
 				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => ToggleMainMenu() )>
@@ -160,12 +160,12 @@
 	private void Singleplayer()
 	{
 
-		Game.ActiveScene.LoadFromFile("scenes/dungeon_1.scene");
+		Game.ActiveScene.LoadFromFile("scenes/startlobbynew.scene");
 	}
 	private void CreateServer()
 	{
 
-		Game.ActiveScene.LoadFromFile("scenes/dungeon_1.scene");
+		Game.ActiveScene.LoadFromFile("scenes/startlobbynew.scene");
 	}
 	private void Options()
 	{

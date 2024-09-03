@@ -25,15 +25,48 @@
         <ContextMenuOption Description="Split" ImagePath="ui/hud/inv_actions_split.png" onclick=@(() =>
             OpenSplitPanel(_item)) />
     }
+	@if (_item != null && _item.SellPrice > 0 && IsInHomebase())
+	{
+		<ContextMenuOption Description="Sell" ImagePath="ui/hud/inv_actions_sell.png" onclick=@(() => SellItem(_item)) />
+	}
+
 </root>
 
 @code {
 
-
+	private static Player player => Player.Local;
 	private static ContextMenu _instance;
 	private ItemComponent _item;
 
+	private void SellItem(ItemComponent item)
+	{
+		if (item == null) return;
 
+		if (!IsInHomebase())
+		{
+			Log.Info("Du kannst Items nur in der StartBase-Szene verkaufen.");
+			return;
+		}
+
+		// Entferne das Item aus dem Inventar des Spielers
+		player.Inventory.RemoveItem(item);
+
+		// Füge den Verkaufspreis des Items zum Vyndalium des Spielers hinzu
+		player.Vyndalium += item.SellPrice;
+
+		Log.Info($"Item {item.Name} verkauft für {item.SellPrice} Vyndalium.");
+	}
+	private bool IsInHomebase()
+	{
+		if (SceneHandler2.CurrentScene == GeneralScene2.StartBase)
+		{
+			return true;
+			Log.Info("Du bist in der StartBase-Szene.");
+		}
+		return false;
+		Log.Info("Du bist nicht in der StartBase-Szene.");
+		
+	}
 	public static void Open(ItemComponent item)
 	{
 		
@@ -97,6 +130,7 @@
 			Close();
 		if (FullScreenManager.Instance.ActivePanel != FullScreenManager.FullScreenPanel.Inventory)
 			Close();
+		
 	}
 
 	protected override int BuildHash()

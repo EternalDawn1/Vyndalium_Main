@@ -41,7 +41,7 @@ namespace GeneralGame
         {
             
             
-            Sound.Play("sounds/fart.sound");
+          
             await Task.DelaySeconds(.01f);
             SceneHandler.ChangeScene(GeneralScene.Game);
         }

@@ -1,6 +1,7 @@
 {
   "RootObject": {
     "__guid": "939b879f-4387-4260-b9b9-19fed476cde9",
+    "Flags": 0,
     "Name": "npc2",
     "Tags": "npc,bad",
     "Enabled": true,
@@ -46,7 +47,7 @@
         "IgnoreTags": "",
         "MaxUnstuckTries": 20,
         "OnComponentUpdate": {
-          "__version": 6,
+          "__version": 7,
           "__guid": "6cb2d893-42ac-41f5-b48b-55be52a90f72",
           "UserData": {
             "Title": "On Component Update"
@@ -56,9 +57,20 @@
             {
               "Id": 0,
               "Type": "input"
+            },
+            {
+              "Id": 1,
+              "Type": "output"
             }
           ],
-          "Links": []
+          "Links": [
+            {
+              "SrcId": 0,
+              "SrcName": "_signal",
+              "DstId": 1,
+              "DstName": "_signal"
+            }
+          ]
         },
         "StepHeight": 27,
         "StickToGround": true,
@@ -97,6 +109,7 @@
       {
         "__type": "Npc",
         "__guid": "343ea719-e2a6-4c36-8add-0d68f031e949",
+        "CurrentHoldType": "Punch",
         "AlertOthers": false,
         "AnimationHelper": {
           "_type": "component",
@@ -110,6 +123,8 @@
           "_type": "gameobject",
           "go": "1d8bc424-f317-41f6-b0b6-6d9dd5a61eb5"
         },
+        "CurrentState": "Idle",
+        "DeathSounds": "sounds/deathsounds/deathsounds.sound",
         "DetectRange": 288,
         "EnemyTags": "player",
         "Eye": {
@@ -117,6 +132,7 @@
           "go": "048bdef6-1718-4d02-87ca-a43dd778d2b7"
         },
         "FaceTowardsVelocity": true,
+        "HasIceAbility": false,
         "Health": 100,
         "Healthone": {
           "_type": "component",
@@ -126,6 +142,7 @@
         },
         "HitSounds": "sounds/grunt/gruntingn.sound",
         "Idle": true,
+        "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
         "MaxRunAnimationSpeed": 150,
@@ -144,7 +161,7 @@
         },
         "Name": "Zombie",
         "OnAttack": {
-          "__version": 6,
+          "__version": 7,
           "__guid": "af137a52-0cf6-473a-b865-8ff82b470c4e",
           "UserData": {
             "Title": "On Attack",
@@ -165,7 +182,7 @@
               "Id": 2,
               "Type": "scene.get",
               "Properties": {
-                "T": "package.viwi.new_game_two/HealthComponent"
+                "T": "HealthComponent"
               },
               "UserData": {
                 "Position": "96,64"
@@ -175,9 +192,9 @@
               "Id": 3,
               "Type": "call",
               "Properties": {
-                "_type": "package.viwi.new_game_two/HealthComponent",
+                "_isStatic": false,
                 "_name": "Damage",
-                "_isStatic": false
+                "_type": "HealthComponent"
               },
               "UserData": {
                 "Position": "512,64"
@@ -201,8 +218,8 @@
               "Type": "property",
               "ParentId": 5,
               "Properties": {
-                "_type": "Sandbox.Game/Sandbox.GameObject",
-                "_name": "Transform"
+                "_name": "Transform",
+                "_type": "Sandbox.GameObject"
               }
             },
             {
@@ -210,8 +227,8 @@
               "Type": "property",
               "ParentId": 6,
               "Properties": {
-                "_type": "Sandbox.Game/Sandbox.GameTransform",
-                "_name": "Position"
+                "_name": "Position",
+                "_type": "Sandbox.GameTransform"
               }
             }
           ],
@@ -282,7 +299,7 @@
           }
         },
         "OnDetect": {
-          "__version": 6,
+          "__version": 7,
           "__guid": "8d3c2497-0678-4c8c-b986-1b268ff1b74e",
           "UserData": {
             "Title": "On Detect",
@@ -350,7 +367,7 @@
           }
         },
         "OnEnemyEscaped": {
-          "__version": 6,
+          "__version": 7,
           "__guid": "e1eb3753-6b11-46f9-b912-757d64dce89b",
           "UserData": {
             "Title": "On Enemy Escaped",
@@ -408,17 +425,13 @@
             }
           }
         },
-        "RunningType": "Dumb",
+        "PlayerProximityDistance": 80,
         "RunSpeed": 110,
-        "ScaleStats": true,
-        "Static": false,
         "VisionRange": 544,
-        "WalkingType": "Dumb",
         "WalkSpeed": 90,
-        "Weight": "Feather",
         "ZombieRagedol": {
           "_type": "gameobject",
-          "prefab": "prefabs/npc2.prefab"
+          "prefab": "models/npcs/skeleton2/skeleton2.prefab"
         }
       },
       {
@@ -443,19 +456,22 @@
     "Children": [
       {
         "__guid": "1d8bc424-f317-41f6-b0b6-6d9dd5a61eb5",
+        "Flags": 0,
         "Name": "body",
         "Enabled": true,
-        "NetworkMode": 2,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "86b14ece-10dc-4299-8a9e-82a86089d1d9",
+            "AnimationGraph": "models/citizen/citizen.vanmgrph",
             "BodyGroups": 1365,
             "CreateBoneObjects": false,
+            "MaterialGroup": "default",
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
             "Model": "models/playermodels/skeleman.vmdl",
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
           },
           {
             "__type": "Sandbox.Citizen.CitizenAnimationHelper",
@@ -483,37 +499,50 @@
       },
       {
         "__guid": "048bdef6-1718-4d02-87ca-a43dd778d2b7",
+        "Flags": 0,
         "Name": "eye",
         "Position": "0,0,64",
-        "Enabled": true,
-        "NetworkMode": 2
+        "Enabled": true
       },
       {
         "__guid": "cc689dec-a83d-4521-9067-c87681801da3",
+        "Flags": 0,
         "Name": "World",
-        "Position": "-1.323636,-0.5550555,84.45752",
+        "Position": "-1.323636,-0.5550555,97.0708",
         "Enabled": true,
-        "NetworkMode": 2,
         "Components": [
           {
             "__type": "Sandbox.WorldPanel",
             "__guid": "4d1fe4c9-04dd-4923-9440-55ba92485667",
             "HorizontalAlign": "Center",
+            "InteractionRange": 1000,
             "LookAtCamera": false,
-            "PanelSize": "512,512",
-            "RenderScale": 1,
+            "PanelSize": "1000,1000",
+            "RenderScale": 2.3,
             "VerticalAlign": "Center"
+          },
+          {
+            "__type": "GeneralGame.HUD.UI",
+            "__guid": "e76112a6-8bdb-457d-9ce2-8d3b76d81572",
+            "npc": {
+              "_type": "component",
+              "component_id": "343ea719-e2a6-4c36-8add-0d68f031e949",
+              "go": "939b879f-4387-4260-b9b9-19fed476cde9",
+              "component_type": "Npc"
+            }
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
   "__references": [
-    "luke.skeleman"
-  ]
+    "luke.skeleman",
+    "roomfield.skeletom"
+  ],
+  "__version": 1
 }

@@ -7,6 +7,24 @@ using Sandbox;
 
 using System;
 
+public enum NpcState
+{
+	Idle,
+	Attacking,
+	Walking,
+	Running
+}
+public enum HoldTypes
+{
+	None,
+	Pistol,
+	Rifle,
+	Shotgun,
+	HoldItem,
+	Punch,
+	Swing,
+	RPG
+}
 
 
 public enum WeightType
@@ -29,7 +47,7 @@ public partial class Npc : Component, IHealthComponent
 {
 	[Property]
 	public string Name { get; set; }
-	[Property]public int Level { get; set; }
+	[Property,HostSync]public int Level { get; set; }
 	
 	[Property]
 	public MoveHelper MoveHelper { get; set; }
@@ -43,9 +61,9 @@ public partial class Npc : Component, IHealthComponent
 	
 	public Guid LastAttackerId { get; set; }
 
+	[Property]private HoldTypes CurrentHoldType = HoldTypes.None;
 
 
-	
 
 	/// <summary>
 	/// For animations. How many units per second the run animation is tuned to (This is automatically scaled by the scale)
@@ -226,8 +244,8 @@ public partial class Npc : Component, IHealthComponent
 	public Guid KillerId { get; set; } // Fügen Sie diese Eigenschaft hinzu
 
 	[Property] public bool HasIceAbility { get; set; }
-	
 
+	[Property]public NpcState CurrentState { get; set; } = NpcState.Idle;
 	public static Random random = new Random();
 
 	
@@ -360,23 +378,58 @@ public partial class Npc : Component, IHealthComponent
 			// Überprüfe die Entfernung zum nächsten Spieler und passe die Bewegungsart entsprechend an
 			if ( closestDistance < maxProximityDistance )
 			{
+				CurrentState = NpcState.Walking;
 				AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Walk;
 				agent.Stop();
 				NormalTrace();
 			}
 			else
 			{
-				AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
+				CurrentState = NpcState.Attacking;
+
+				// Setze den HoldType basierend auf dem aktuellen HoldType
+				switch ( CurrentHoldType )
+				{
+					case HoldTypes.None:
+						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+						break;
+					case HoldTypes.Pistol:
+						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
+						break;
+					case HoldTypes.Rifle:
+						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Rifle;
+						break;
+					case HoldTypes.Shotgun:
+						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Shotgun;
+						break;
+					case HoldTypes.HoldItem:
+						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.HoldItem;
+						break;
+					case HoldTypes.Punch:
+						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
+						break;
+					case HoldTypes.Swing:
+						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
+						break;
+					case HoldTypes.RPG:
+						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.RPG;
+						break;
+					default:
+						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+						break;
+				}
+
 				agent.MoveTo( closestPlayer.Transform.Position );
 				if ( !isPlayerNearby )
 				{
+					CurrentState = NpcState.Running;
 					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 				}
-
 			}
 		}
 		else
 		{
+			CurrentState = NpcState.Idle;
 			if ( TargetObject != null )
 			{
 				// Überprüfen, ob das Ziel immer noch gültig ist, oder es außerhalb der Reichweite ist
@@ -408,8 +461,22 @@ public partial class Npc : Component, IHealthComponent
 		Body.Transform.Rotation = Rotation.Slerp( Body.Transform.Rotation, targetRotation, Time.Delta * 5.0f );
 
 		// Setzen Sie die Bewegungsart nur, wenn sich die Geschwindigkeit ändert
-		
-		
+		switch ( CurrentState )
+		{
+			case NpcState.Idle:
+				// Set idle animations
+				break;
+			case NpcState.Walking:
+				// Set walking animations
+				break;
+			case NpcState.Running:
+				// Set running animations
+				break;
+			case NpcState.Attacking:
+				// Set attacking animations
+				break;
+		}
+
 	}
 
 	void UpdateFootAnimations()
@@ -788,7 +855,7 @@ public partial class Npc : Component, IHealthComponent
 
 			var killerPlayer = killer.Components.Get<Player>( FindMode.EverythingInSelfAndAncestors );
 
-
+	
 			int npcLevel = this.Level;
 
 			// Skalieren der Punkte basierend auf dem Level des NPC

@@ -517,7 +517,7 @@ public class BaseGun : WeaponComponent, IUse
 			}
 			else
 			{
-				Log.Warning("EffectRenderer.SceneModel is null.");
+				//Log.Warning("EffectRenderer.SceneModel is null.");
 			}
 		}
 

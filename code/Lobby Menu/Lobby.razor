@@ -23,48 +23,46 @@
                 
         </div>
         <div class="center-panel">
+            
             <div class="map-panel">
                 @if (Player.Local != null && Player.Local.IsHost() && (Player.All.Count >= 1 && Player.AreAllPlayersReady(true)))
                 {
                     <div class="side">
                         <SideButton 
-                            Title="Forest" 
-                            Subtitle="min. lvl. 25" 
+                            Title="Alpha - TEST - Forest" 
+                            Subtitle="required. lvl. 10 DEMO" 
                             OnClick=@(() => ChangeScene2(GeneralScene2.Forest)) 
                             ImagePath="ui/hud/tree.png" 
                             style="position: absolute; top: 300px; right: 200px;" 
                         />
                         <SideButton 
-                            Title="Dungeon" 
-                            Subtitle="min lvl. 1" 
+                            Title="Alpha - TEST - Dungeon " 
+                            Subtitle="required lvl. 1 " 
                             OnClick=@(() => ChangeScene2(GeneralScene2.Game)) 
                             ImagePath="ui/hud/hpball.png" 
-                            style="position: absolute; top: 600px; right: 200px;" 
+                            style="position: absolute; top: 600px; right: -550px;" 
                         />
                          <SideButton 
                             Title="Dungeon 1-1" 
-                            Subtitle="first Stage" 
+                            Subtitle="first Stage [TESTED + Finished]" 
+                            SubtitleStyle="color: green;"
                             OnClick=@(() => ChangeScene2(GeneralScene2.One)) 
                             ImagePath="ui/hud/storage.png" 
-                            style="position: absolute; top: 700px; right: 200px;"
+                            style="position: absolute; top: 800px; right: -500px;"
                         />
                         <SideButton 
-                            Title="Destroyed Ship" 
-                            Subtitle="min. lvl. 5" 
+                            Title="Alpha - TEST - Destroyed Ship" 
+                            Subtitle="required. lvl. 5 DEMO" 
+                           
                             OnClick=@(() => ChangeScene2(GeneralScene2.Starting)) 
                             ImagePath="ui/hud/storage.png" 
                             style="position: absolute; top: 450px; right: 200px;" 
                         />
-                        <SideButton 
-                            Title="Dungeon 1-2" 
-                            Subtitle="second Stage" 
-                            OnClick=@(() => ChangeScene2(GeneralScene2.One2)) 
-                            ImagePath="ui/hud/storage.png" 
-                            style="position: absolute; top: 800px; right: 200px;"
-                        />
+                        
+                        
 
                         <SideButton
-                        Title="StartBase"
+                        Title="Starting Lobby"
                         Subtitle="Home_Base"
                         OnClick=@(() => ChangeScene2(GeneralScene2.StartBase))
                         ImagePath="ui/hud/storage.png"
@@ -172,6 +170,11 @@
                 break;
             case GeneralScene2.One2:
                 // Logik zum Wechseln zur Two-Szene
+               
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            case GeneralScene2.One3:
+                // Logik zum Wechseln zur Three-Szene
                
                 SceneHandler2.ChangeScene2(scene);
                 break;

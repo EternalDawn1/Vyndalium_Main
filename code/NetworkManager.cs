@@ -41,7 +41,6 @@ namespace GeneralGame
 
         public void OnActive( Connection channel )
         {
-            
             if ( Player.All.Count >= MAX_PLAYERS )
             {
                 SceneHandler.ChangeScene( GeneralScene.MainMenu );
@@ -55,17 +54,16 @@ namespace GeneralGame
             var playerComponent = playerObject.Components.Get<Player>( FindMode.EverythingInSelfAndDescendants );
             if ( playerComponent == null )
             {
-                Log.Error( "Prefab does not contain a player component." );
+                //Log.Error( "Prefab does not contain a player component." );
                 return;
             }
-           
+
             AssignComponentsToAllPlayers( playerComponent );
-            
+
             playerComponent.SetupConnection( channel );
             Player._InternalPlayers?.Clear();
             Player._InternalPlayers?.Add( playerComponent );
             playerObject.NetworkSpawn( channel );
-            
 
             if ( channel.IsHost )
             {
@@ -73,8 +71,6 @@ namespace GeneralGame
             }
 
             Player.Setup();
-
-
         }
         void INetworkListener.OnDisconnected( Connection connection )
         {

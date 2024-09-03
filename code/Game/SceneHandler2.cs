@@ -11,6 +11,7 @@ public enum GeneralScene2
 
     One,
     One2,
+    One3,
     
 }
 
@@ -39,7 +40,9 @@ public static class SceneHandler2
             GeneralScene2.Forest => "scenes/forest.scene",
             GeneralScene2.StartBase => "scenes/startlobbynew.scene",
             GeneralScene2.One => "scenes/One/map1.scene",
-            GeneralScene2.One2 => "scenes/One/1-2.scene",
+            GeneralScene2.One2 => "scenes/One/map1.2.scene",
+            GeneralScene2.One3 => "scenes/One/map1.3.scene",
+
             _ => null
         };
 
@@ -85,7 +88,7 @@ public static class SceneHandler2
         // Logik zum Löschen der aktuellen Szene
         if ( CurrentScene != GeneralScene2.MainMenu ) // Beispiel: MainMenu als Standardwert
         {
-            CurrentScene.Reset();
+            CurrentScene.Reset2();
             CurrentScene = GeneralScene2.MainMenu;
         }
     }
@@ -110,13 +113,15 @@ public static class GeneralSceneExtensions2
             GeneralScene2.Game => 0,
             GeneralScene2.MainMenu => 0,
             GeneralScene2.Starting => 5,
-            GeneralScene2.Forest => 25,
+            GeneralScene2.Forest => 10,
             GeneralScene2.One => 0,
             GeneralScene2.StartBase => 0,
+            GeneralScene2.One2 => 0,
+            GeneralScene2.One3 => 0,
             _ => 0
         };
     }
-    public static void Reset( this GeneralScene2 scene )
+    public static void Reset2( this GeneralScene2 scene )
     {
        
         Log.Info( "Resetting scene: " + scene );
