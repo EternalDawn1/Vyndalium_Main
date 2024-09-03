@@ -7,7 +7,46 @@ public struct ItemSave
 	[JsonInclude] public string Path;
 	[JsonInclude] public Dictionary<string, string> Data;
 	[JsonInclude] public int Index;
+	[JsonInclude] public float SellPrice { get; set; }
+	[JsonInclude] public int DMG { get; set; }
+	[JsonInclude] public int STG { get; set; }
+	[JsonInclude] public int HE { get; set; }
+	[JsonInclude] public int DEX { get; set; }
+	[JsonInclude]public int PER { get; set; }
+	[JsonInclude] public int INT { get; set; }
+	[JsonInclude] public int Mana { get; set; }
+	[JsonInclude] public int Health { get; set; }
+	[JsonInclude] public int ItemLevel { get; set; }
+	[JsonInclude]public int CritHitDamage { get; set; }
+	[JsonInclude] public int CritHitChance { get; set; }
+	[JsonInclude]public int AbilityHaste { get; set; }
+	[JsonInclude] public int AttackPower { get; set; }
+	[JsonInclude] public int MagicPower { get; set; }
+	[JsonInclude] public GeneralGame.Tier Tier { get; set; }
+	[JsonInclude] public int DamageBalance { get; set; }
+	[JsonInclude] public int Durability { get; set; }
+	[JsonInclude] public int AttackSpeed { get; set; }
+	[JsonInclude] public int MoveSpeed { get; set; }
+	[JsonInclude] public int Armor { get; set; }
+	[JsonInclude] public int MagicDefense { get; set; }
+	[JsonInclude] public int Evasion { get; set; }
+	[JsonInclude] public int Cover { get; set; }
+	[JsonInclude] public int BonusEXP { get; set; }
+	[JsonInclude] public int BonusScore { get; set; }
+	[JsonInclude] public int BonusVyndalium { get; set; }
+	[JsonInclude] public int Tenacity { get; set; }
+	[JsonInclude] public int StunResistance { get; set; }
+	[JsonInclude] public int BlindResistance { get; set; }
+	[JsonInclude] public int SlowResistence { get; set; }
+	[JsonInclude] public int FireResistence { get; set; }
+	[JsonInclude] public int BleedResistance { get; set; }
+	[JsonInclude] public int PoisonResistence { get; set; }
+	[JsonInclude] public int IceResistence { get; set; }
+	[JsonInclude] public int LightningResistence { get; set; }
+	[JsonInclude] public int HolyResistence { get; set; }
+	[JsonInclude] public int ShadowResistence { get; set; }
 }
+
 
 
 public struct PlayerSave
@@ -114,6 +153,7 @@ partial class Player
 		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 	};
 	
+	
 	private static PlayerSave? _saveData;
 
 	/// <summary>
@@ -132,6 +172,7 @@ partial class Player
 
 		return (_saveData.Value, true);
 	}
+	
 
 	/// <summary>
 	/// Writes a pure PlayerSave struct into a local save.
@@ -158,7 +199,7 @@ partial class Player
 			};
 
 		var items = PrefabLibrary.FindByComponent<ItemComponent>();
-		
+
 		// Save dynamic data.
 		ItemSave Serialize( ItemComponent item )
 		{
@@ -192,51 +233,61 @@ partial class Player
 						data.Add( property.Name, serialized );
 				}
 			}
-			data.Add("Tier", JsonSerializer.Serialize(item.Tier));
-  			data.Add("ItemLevel", JsonSerializer.Serialize(item.ItemLevel));
-			data.Add( "Id", JsonSerializer.Serialize( item.Id.GetHashCode() ) );
-			data.Add( "Name", JsonSerializer.Serialize( item.Name ) );
-			data.Add( "DMG", JsonSerializer.Serialize( item.DMG ) );
-			data.Add( "HE", JsonSerializer.Serialize( item.HE ) );
-			data.Add( "Armor", JsonSerializer.Serialize( item.Armor ) );
-			data.Add( "STG", JsonSerializer.Serialize( item.STG ) );
-			data.Add( "DEX", JsonSerializer.Serialize( item.DEX ) );
-			data.Add( "PER", JsonSerializer.Serialize( item.PER ) );
-			data.Add( "INT", JsonSerializer.Serialize( item.INT ) );
-			data.Add( "Mana", JsonSerializer.Serialize( item.Mana ) );
-			data.Add( "Health", JsonSerializer.Serialize( item.Health ) );
-			data.Add( "CritHitDamage", JsonSerializer.Serialize( item.CritHitDamage ) );
-			data.Add( "CritHitChance", JsonSerializer.Serialize( item.CritHitChance ) );
-			data.Add( "AbilityHaste", JsonSerializer.Serialize( item.AbilityHaste ) );
-			data.Add( "AttackPower", JsonSerializer.Serialize( item.AttackPower ) );
-			data.Add( "MagicPower", JsonSerializer.Serialize( item.MagicPower ) );
-			data.Add( "AttackSpeed", JsonSerializer.Serialize( item.AttackSpeed ) );
-			data.Add( "MoveSpeed", JsonSerializer.Serialize( item.MoveSpeed ) );
-			data.Add( "MagicDefense", JsonSerializer.Serialize( item.MagicDefense ) );
-			data.Add( "Evasion", JsonSerializer.Serialize( item.Evasion ) );
-			data.Add( "Block", JsonSerializer.Serialize( item.Cover ) );
-			data.Add( "BonusEXP", JsonSerializer.Serialize( item.BonusEXP ) );
-			data.Add( "BonusScore", JsonSerializer.Serialize( item.BonusScore ) );
-			data.Add( "BonusVyndalium", JsonSerializer.Serialize( item.BonusVyndalium ) );
-			data.Add( "Tenacity", JsonSerializer.Serialize( item.Tenacity ) );
-			data.Add( "StunResistance", JsonSerializer.Serialize( item.StunResistance ) );
-			data.Add( "BlindResistance", JsonSerializer.Serialize( item.BlindResistance ) );
-			data.Add( "BleedResistance", JsonSerializer.Serialize( item.BleedResistance ) );
-			data.Add( "SlowResistence", JsonSerializer.Serialize( item.SlowResistence ) );
-			data.Add( "FireResistence", JsonSerializer.Serialize( item.FireResistence ) );
-			data.Add( "PoisonResistence", JsonSerializer.Serialize( item.PoisonResistence ) );
-			data.Add( "IceResistence", JsonSerializer.Serialize( item.IceResistence ) );
-			data.Add( "LightningResistence", JsonSerializer.Serialize( item.LightningResistence ) );
-			data.Add( "HolyResistence", JsonSerializer.Serialize( item.HolyResistence ) );
+			item.SellPrice = item.SellPrice;
+
+		
+		
+
+			
 
 			return new ItemSave
 			{
 				Path = item.Prefab,
 				Data = data.Count > 0 ? data : null,
-				Index = player.Inventory.IndexOf( item )
+				Index = player.Inventory.IndexOf( item ),
+				SellPrice = item.SellPrice,
+				DMG = item.DMG,
+				STG = item.STG,
+				HE = item.HE,
+				DEX = item.DEX,
+				PER = item.PER,
+				INT = (int)item.INT,
+				Mana = (int)item.Mana,
+				Health = (int)item.Health,
+				ItemLevel = item.ItemLevel,
+				CritHitDamage = (int)item.CritHitDamage,
+				CritHitChance = (int)item.CritHitChance,
+				AbilityHaste = (int)item.AbilityHaste,
+				AttackPower = (int)item.AttackPower,
+				MagicPower = (int)item.MagicPower,
+				Tier = (GeneralGame.Tier)item.Tier,
+				DamageBalance = item.DamageBalance,
+				Durability = item.Durability,
+				AttackSpeed = (int)item.AttackSpeed,
+				MoveSpeed = (int)item.MoveSpeed,
+				Armor = (int)item.Armor,
+				MagicDefense = (int)item.MagicDefense,
+				Evasion = (int)item.Evasion,
+				Cover = (int)item.Cover,
+				BonusEXP = (int)item.BonusEXP,
+				BonusScore = (int)item.BonusScore,
+				BonusVyndalium = (int)item.BonusVyndalium,
+				Tenacity = (int)item.Tenacity,
+				StunResistance = (int)item.StunResistance,
+				BlindResistance = (int)item.BlindResistance,
+				SlowResistence = (int)item.SlowResistence,
+				FireResistence = (int)item.FireResistence,
+				BleedResistance = (int)item.BleedResistance,
+				PoisonResistence = (int)item.PoisonResistence,
+				IceResistence = (int)item.IceResistence,
+				LightningResistence = (int)item.LightningResistence,
+				HolyResistence = (int)item.HolyResistence,
+				ShadowResistence = (int)item.ShadowResistence
+
+
 			};
 		}
-		
+
 		_saveData = save with
 		{
 			Stamina = player.Stamina,
@@ -318,6 +369,8 @@ partial class Player
 				.Where( x => x != null )
 				.Select( Serialize )
 				.ToArray(),
+
+			
 			
 		};
 
@@ -331,11 +384,14 @@ partial class Player
 		
 	}
 
-	
+	[ConCmd( "newgame_save" )]
 	public static void SavePlayer()
 	{
 		Save();
 	}
+
+
+
 
 	/// <summary>
 	/// Sets up everything for a player or local from local save.
@@ -436,8 +492,53 @@ partial class Player
 					var deserialized = JsonSerializer.Deserialize( serialized, property.PropertyType, options );
 					property.SetValue( component, deserialized );
 				}
+				var item = obj.Components.Get<ItemComponent>();
+				if ( item != null )
+				{
+					item.SellPrice = (int)data.SellPrice;
+					item.DMG = data.DMG;
+					item.STG = data.STG;
+					item.HE = data.HE;
+					item.DEX = data.DEX;
+					item.PER = data.PER;
+					item.INT = data.INT;
+					item.Mana = data.Mana;
+					item.Health = data.Health;
+					item.ItemLevel = data.ItemLevel;
+					item.CritHitDamage = data.CritHitDamage;
+					item.CritHitChance = data.CritHitChance;
+					item.AbilityHaste = data.AbilityHaste;
+					item.AttackPower = data.AttackPower;
+					item.MagicPower = data.MagicPower;
+					item.Tier = (GeneralGame.Tier)data.Tier;
+					item.DamageBalance = data.DamageBalance;
+					item.Durability = data.Durability;
+					item.AttackSpeed = data.AttackSpeed;
+					item.MoveSpeed = data.MoveSpeed;
+					item.Armor = data.Armor;
+					item.MagicDefense = data.MagicDefense;
+					item.Evasion = data.Evasion;
+					item.Cover = data.Cover;
+					item.BonusEXP = data.BonusEXP;
+					item.BonusScore = data.BonusScore;
+					item.BonusVyndalium = data.BonusVyndalium;
+					item.Tenacity = data.Tenacity;
+					item.StunResistance = data.StunResistance;
+					item.BlindResistance = data.BlindResistance;
+					item.SlowResistence = data.SlowResistence;
+					item.FireResistence = data.FireResistence;
+					item.BleedResistance = data.BleedResistance;
+					item.PoisonResistence = data.PoisonResistence;
+					item.IceResistence = data.IceResistence;
+					item.LightningResistence = data.LightningResistence;
+					item.HolyResistence = data.HolyResistence;
+					item.ShadowResistence = data.ShadowResistence;
+
+				}
+				
 			}
 		}
+		
 
 		// Go through all clothes.
 		if ( save.Clothes != null )
@@ -455,28 +556,76 @@ partial class Player
 
 				player.Inventory.EquipItemFromWorld( equipment );
 				ReadData( data, o );
+
+				Log.Info( $"Vor dem Setzen: data.SellPrice = {data.SellPrice}" );
+
+				equipment.SellPrice = (int)data.SellPrice;
+
+				// Debug-Ausgabe nach dem Setzen
+				Log.Info( $"Nach dem Setzen: equipment.SellPrice = {equipment.SellPrice}" );
 			}
+
+
 
 		// Go through all items.
 		if ( save.Inventory != null )
+		{
 			foreach ( var data in save.Inventory )
 			{
+				Log.Info( $"Vor dem Setzen: data.SellPrice = {data.SellPrice}" );
 				if ( !ResourceLibrary.TryGet<PrefabFile>( data.Path, out var prefab ) )
 					continue;
-
 				var o = SceneUtility.GetPrefabScene( prefab ).Clone();
 				o.NetworkMode = NetworkMode.Object;
 				if ( !o.Network.Active ) o.NetworkSpawn();
 				var item = o.Components.Get<ItemComponent>();
 				if ( item == null )
 					continue;
-
 				player.Inventory.SetItem( item, data.Index );
 				ReadData( data, o );
+
+				Log.Info( $"Vor dem Setzen: data.SellPrice = {data.SellPrice}" );
+				item.SellPrice = (int)data.SellPrice;
+				item.DMG = data.DMG;
+				item.STG = data.STG;
+				item.HE = data.HE;
+				item.DEX = data.DEX;
+				item.PER = data.PER;
+				item.INT = data.INT;
+				item.Mana = data.Mana;
+				item.Health = data.Health;
+				item.ItemLevel = data.ItemLevel;
+				item.CritHitDamage = data.CritHitDamage;
+				item.CritHitChance = data.CritHitChance;
+				item.AbilityHaste = data.AbilityHaste;
+				item.AttackPower = data.AttackPower;
+				item.MagicPower = data.MagicPower;
+				item.Tier = (GeneralGame.Tier)data.Tier;
+				item.DamageBalance = data.DamageBalance;
+				item.Durability = data.Durability;
+				item.AttackSpeed = data.AttackSpeed;
+				item.MoveSpeed = data.MoveSpeed;
+				item.Armor = data.Armor;
+				item.MagicDefense = data.MagicDefense;
+				item.Evasion = data.Evasion;
+				item.Cover = data.Cover;
+				item.BonusEXP = data.BonusEXP;
+				item.BonusScore = data.BonusScore;
+				item.BonusVyndalium = data.BonusVyndalium;
+				item.Tenacity = data.Tenacity;
+				item.StunResistance = data.StunResistance;
+				item.BlindResistance = data.BlindResistance;
+				item.SlowResistence = data.SlowResistence;
+				item.FireResistence = data.FireResistence;
+				item.BleedResistance = data.BleedResistance;
+				item.PoisonResistence = data.PoisonResistence;
+				item.IceResistence = data.IceResistence;
+				item.LightningResistence = data.LightningResistence;
+				item.HolyResistence = data.HolyResistence;
+				item.ShadowResistence = data.ShadowResistence;
+				Log.Info( $"Nach dem Setzen: item.SellPrice = {item.SellPrice}" );
 			}
-
-		
-
+		}
 		return true;
 	}
 }

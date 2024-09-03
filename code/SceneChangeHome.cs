@@ -23,7 +23,7 @@ namespace GeneralGame
             {
                 ChangeScene(player);
                 sceneChanged = true;
-                //Player.Setup();
+                
             }
             else
             {

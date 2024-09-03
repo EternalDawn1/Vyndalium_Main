@@ -119,46 +119,7 @@ public class ItemComponent : Component
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float LightningResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float HolyResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float ShadowResistence { get; set; }
-	public static SerializedItemComponent Serialize( ItemComponent item )
-	{
-		return new SerializedItemComponent
-		{
-			Id = item.Id.GetHashCode(),
-			Name = item.Name,
-			DMG = item.DMG,
-			HE = item.HE,
-			Armor = item.Armor,
-			STG = item.STG,
-			DEX = item.DEX,
-			PER = item.PER,
-			INT = item.INT,
-			Mana = item.Mana,
-			Health = item.Health,
-			CritHitDamage = item.CritHitDamage,
-			CritHitChance = item.CritHitChance,
-			AbilityHaste = item.AbilityHaste,
-			AttackPower = item.AttackPower,
-			MagicPower = item.MagicPower,
-			AttackSpeed = item.AttackSpeed,
-			MoveSpeed = item.MoveSpeed,
-			MagicDefense = item.MagicDefense,
-			Evasion = item.Evasion,
-			Block = item.Cover,
-			BonusEXP = item.BonusEXP,
-			BonusScore = item.BonusScore,
-			BonusVyndalium = item.BonusVyndalium,
-			Tenacity = item.Tenacity,
-			StunResistance = item.StunResistance,
-			BlindResistance = item.BlindResistance,
-			BleedResistance = item.BleedResistance,
-			SlowResistence = item.SlowResistence,
-			FireResistence = item.FireResistence,
-			PoisonResistence = item.PoisonResistence,
-			IceResistence = item.IceResistence,
-			LightningResistence = item.LightningResistence,
-			HolyResistence = item.HolyResistence
-		};
-	}
+	
 	
 
 	public int Price { get; set; }
