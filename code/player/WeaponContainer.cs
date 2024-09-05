@@ -108,6 +108,7 @@ public partial class WeaponContainer : Component
 
 	{
 		await Task.Delay( 1 );
+		
 		if ( Player.Local == null )
 		{
 			Log.Error( "Prefab is null in WeaponContainer.Give" );

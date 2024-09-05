@@ -22,6 +22,8 @@
               "EnableCollision": true,
               "MapName": "maps/untitled_3.vmap",
               "NoOrigin": true,
+              "OnMapLoaded": null,
+              "OnMapUnloaded": null,
               "UseMapFromLaunch": false
             }
           ],
@@ -63,7 +65,7 @@
       "__guid": "252c9332-957d-4473-b4ab-860bad446d3b",
       "Flags": 0,
       "Name": "HUD",
-      "Position": "88.89172,-21.8606,20.02541",
+      "Position": "947.7009,710.3586,20.02546",
       "Enabled": true,
       "NetworkMode": 1,
       "Components": [
@@ -83,10 +85,33 @@
       ]
     },
     {
+      "__guid": "68aba50a-4d66-4547-bd45-959ab2d87188",
+      "Flags": 0,
+      "Name": "chat",
+      "Position": "947.7009,710.3586,20.02546",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "78f1e30c-6b05-4937-a910-5994e1c0bf80",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
+          "ZIndex": 100
+        },
+        {
+          "__type": "GeneralGame.Chat",
+          "__guid": "5c9b4384-9d99-47d9-8d3d-4e302419d230"
+        }
+      ]
+    },
+    {
       "__guid": "fda8f9e3-0ef2-47fd-bd0b-74d64ea16c1a",
       "Flags": 0,
       "Name": "Starting (2)",
-      "Position": "7.439829,-18.3952,54.49461",
+      "Position": "701.8975,713.824,54.49466",
       "Scale": "-0.7654113,0.9841333,0.6492278",
       "Tags": "interactable",
       "Enabled": true,
@@ -104,6 +129,7 @@
           "__guid": "80842f75-045b-4dd3-8a75-ea660187259f",
           "Center": "0,0,0",
           "IsTrigger": true,
+          "OnComponentDisabled": null,
           "Scale": "50,50,50",
           "Static": false
         }
@@ -113,7 +139,7 @@
       "__guid": "594db7ab-d280-4c1f-99e6-ce68600c6c27",
       "Flags": 0,
       "Name": "Starting (1)",
-      "Position": "7.439829,-206.3844,32.83138",
+      "Position": "695.3001,525.8348,32.83142",
       "Scale": "-0.7654113,0.9841333,0.6492278",
       "Tags": "interactable",
       "Enabled": true,
@@ -145,7 +171,7 @@
       "__guid": "d71c2760-1c7f-4926-a57e-ff79e9db9fac",
       "Flags": 0,
       "Name": "Shop",
-      "Position": "-588.8522,84.81239,82.75571",
+      "Position": "269.957,817.0316,82.75575",
       "Rotation": "0,-0,-0.7071068,0.7071068",
       "Enabled": true,
       "Components": [
@@ -169,7 +195,7 @@
       "__guid": "fb523d4e-d999-45f2-9790-b09953f6d876",
       "Flags": 0,
       "Name": "vyndalium",
-      "Position": "-51.10669,-28.42902,39.99983",
+      "Position": "807.7025,703.7902,39.99987",
       "Scale": "0.3,0.3,0.3",
       "Tags": "light_spot,light,light_point",
       "Enabled": true,
@@ -180,7 +206,7 @@
       "__guid": "39977245-bc58-4143-896d-90caff855242",
       "Flags": 0,
       "Name": "vyndalium (1)",
-      "Position": "-292.276,-7.606445,39.99995",
+      "Position": "566.5331,724.6127,40",
       "Scale": "0.3,0.3,0.3",
       "Tags": "light_spot,light,light_point",
       "Enabled": true,
@@ -191,7 +217,7 @@
       "__guid": "7148d314-0230-4d43-8048-f51b4b1520ad",
       "Flags": 0,
       "Name": "vyndalium (2)",
-      "Position": "-172.2532,-17.5899,40.00019",
+      "Position": "686.5559,714.6293,40.00024",
       "Scale": "0.3,0.3,0.3",
       "Tags": "light_spot,light,light_point",
       "Enabled": true,
@@ -202,7 +228,7 @@
       "__guid": "19487e25-24c9-437a-8332-17ed4a81294b",
       "Flags": 0,
       "Name": "Object",
-      "Position": "334.3612,286.7861,34.64038",
+      "Position": "612.3104,579.4153,158.5911",
       "Rotation": "0,0,-0.9978589,-0.06540331",
       "Enabled": true,
       "Components": [
@@ -217,7 +243,7 @@
       "__guid": "b73c2389-9827-4083-9286-7d556311c860",
       "Flags": 0,
       "Name": "blade_moon",
-      "Position": "-885.7775,-499.1809,160.8589",
+      "Position": "-26.96838,233.0383,160.8589",
       "Enabled": true,
       "Components": [
         {
@@ -255,7 +281,7 @@
       "__guid": "9110dcd9-f6a8-4380-ac4d-d1d5544b432d",
       "Flags": 0,
       "Name": "Point Light",
-      "Position": "-520.7572,-498.6373,241.1213",
+      "Position": "338.0519,233.5819,241.1214",
       "Tags": "light_point,light",
       "Enabled": true,
       "Components": [
@@ -292,10 +318,30 @@
       ]
     },
     {
+      "__guid": "5d7135a5-6866-40fd-a3f7-8f2e9a41c55f",
+      "Flags": 0,
+      "Name": "Point Light (2)",
+      "Position": "3767.945,251.4596,241.1213",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "38fcfd37-e6f9-4f4b-b1ae-f80f00aa30ed",
+          "Attenuation": 0,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 2775.7974,
+          "Shadows": true
+        }
+      ]
+    },
+    {
       "__guid": "73fa6197-9ea7-4b06-a34a-bf0ddd1f7878",
       "Flags": 0,
       "Name": "Point Light (1)",
-      "Position": "-1023.924,-498.6373,241.1213",
+      "Position": "-165.1149,233.5819,241.1214",
       "Tags": "light_point,light",
       "Enabled": true,
       "Components": [
@@ -312,176 +358,10 @@
       ]
     },
     {
-      "__guid": "973a20cb-c207-4b51-a8c1-29f1e9a44b13",
-      "Flags": 0,
-      "Name": "Point Light (2)",
-      "Position": "-1743.846,-498.6373,241.1213",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.PointLight",
-          "__guid": "cf21f138-c466-48d5-8ebc-5373f457f6f9",
-          "Attenuation": 0,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "Radius": 1275.4998,
-          "Shadows": true
-        }
-      ]
-    },
-    {
-      "__guid": "e803251b-149f-42dd-bf36-0e90fefc21e7",
-      "Flags": 0,
-      "Name": "Point Light (3)",
-      "Position": "-2345.059,-498.6373,241.1213",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.PointLight",
-          "__guid": "9a0486e8-4bc6-4a1b-bbfb-fc0db66bc337",
-          "Attenuation": 0,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "Radius": 1275.4998,
-          "Shadows": true
-        }
-      ]
-    },
-    {
-      "__guid": "4736b8cb-26b4-4ff4-a77f-3546875b7b13",
-      "Flags": 0,
-      "Name": "Point Light (4)",
-      "Position": "-2055.114,570.7561,285.8022",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.PointLight",
-          "__guid": "75339d72-8dd0-49ac-933e-0a1c659a7479",
-          "Attenuation": 0,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "Radius": 1275.4998,
-          "Shadows": true
-        }
-      ]
-    },
-    {
-      "__guid": "9a0b61e6-db37-4fe8-b692-59d05652298f",
-      "Flags": 0,
-      "Name": "Point Light (5)",
-      "Position": "-2388.991,-1778.978,285.8022",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.PointLight",
-          "__guid": "828ce292-852b-4bdd-acfc-6bf65969c36a",
-          "Attenuation": 0,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "Radius": 1275.4998,
-          "Shadows": true
-        }
-      ]
-    },
-    {
-      "__guid": "168d678b-c868-4a6c-adac-4a40523bb512",
-      "Flags": 0,
-      "Name": "Object (2)",
-      "Position": "-2204.581,519.1354,170.0358",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "c5a03bf6-1474-4d3a-b113-59361c77b5de",
-          "destroyChance": 0.01,
-          "IsSpawning": false,
-          "Level15To30": false,
-          "Level1To15": false,
-          "Level30To55": false,
-          "Level55To70": false,
-          "Level70To90": false,
-          "Level90To100": false,
-          "MaxSpawns": 1000,
-          "PlayerProximityDistance": 1000,
-          "Randomized": false,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/npc/zombie_new_1.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "763176ca-ee49-41fe-a274-075085f47e17",
-      "Flags": 0,
-      "Name": "Object (4)",
-      "Position": "-2204.581,588.6277,170.0358",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "27219b0e-b32a-4fa9-b528-33911d4e7c3c",
-          "destroyChance": 0.01,
-          "IsSpawning": false,
-          "Level15To30": false,
-          "Level1To15": false,
-          "Level30To55": false,
-          "Level55To70": false,
-          "Level70To90": false,
-          "Level90To100": false,
-          "MaxSpawns": 1000,
-          "PlayerProximityDistance": 1000,
-          "Randomized": false,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/npc/slime_new.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "60cbc683-b86b-489c-8270-0f6f74a4e331",
-      "Flags": 0,
-      "Name": "Object",
-      "Position": "-940.3445,-693.1257,59.24139",
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "9284cc03-802b-4c3d-bfda-903761b9613b",
-          "destroyChance": 0.01,
-          "IsSpawning": false,
-          "Level15To30": false,
-          "Level1To15": false,
-          "Level30To55": false,
-          "Level55To70": false,
-          "Level70To90": false,
-          "Level90To100": false,
-          "MaxSpawns": 1000,
-          "PlayerProximityDistance": 1000,
-          "Randomized": false,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/pickupammo.prefab"
-          }
-        }
-      ]
-    },
-    {
       "__guid": "c49b502c-101b-467d-bd14-18cc3dc532a6",
       "Flags": 0,
       "Name": "box_new (1)",
-      "Position": "-950.8048,-873.3379,-28.33604",
+      "Position": "-91.99567,-141.1187,-28.33599",
       "Enabled": true,
       "__Prefab": "prefabs/entitys/box_legendary.prefab",
       "__PrefabVariables": {}
@@ -490,7 +370,7 @@
       "__guid": "6261f1d9-0814-4151-9711-02205f1ec060",
       "Flags": 0,
       "Name": "box_new",
-      "Position": "-589.0711,-1001.653,-25.83516",
+      "Position": "-589.0711,-1001.653,-2648530",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
       "__Prefab": "prefabs/entitys/box_normal.prefab",
@@ -500,7 +380,7 @@
       "__guid": "24e0af1e-00a0-407a-92e0-efd24adac1f0",
       "Flags": 0,
       "Name": "box_normal_small",
-      "Position": "-507.5456,-324.2166,-20.77558",
+      "Position": "351.2635,408.0026,-20.77553",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
       "Components": [
@@ -550,6 +430,7 @@
             "Guid": "bde0d1c7-cb05-4cde-adc0-a6f84623fc0f"
           },
           "INT": 0,
+          "IsDoor": false,
           "IsEquipment": false,
           "IsItem": false,
           "ItemLevel": 0,
@@ -562,6 +443,7 @@
           "Name": "Normal Chest",
           "PER": 0,
           "PoisonResistence": 0,
+          "PrefabList": [],
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -610,7 +492,7 @@
       "__guid": "95af3975-1ae3-4f87-8526-15591605088f",
       "Flags": 0,
       "Name": "drawer",
-      "Position": "-645.2026,-306.0925,-5.85038",
+      "Position": "213.6066,426.1267,-5.850334",
       "Rotation": "0,0,-0.9999999,0.0000001490116",
       "Enabled": true,
       "Components": [
@@ -654,6 +536,7 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsDoor": false,
           "IsEquipment": false,
           "IsItem": false,
           "ItemLevel": 0,
@@ -666,6 +549,7 @@
           "Name": "Table",
           "PER": 0,
           "PoisonResistence": 0,
+          "PrefabList": [],
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -682,7 +566,7 @@
       "__guid": "ec895887-f01a-470c-b397-f9993fb93379",
       "Flags": 0,
       "Name": "drawer (3)",
-      "Position": "-742.2823,-306.0925,-5.85038",
+      "Position": "116.5269,426.1267,-5.850334",
       "Rotation": "0,0,-0.9999999,0.0000001490116",
       "Enabled": true,
       "Components": [
@@ -726,6 +610,7 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsDoor": false,
           "IsEquipment": false,
           "IsItem": false,
           "ItemLevel": 0,
@@ -738,6 +623,7 @@
           "Name": "Table",
           "PER": 0,
           "PoisonResistence": 0,
+          "PrefabList": [],
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -754,7 +640,7 @@
       "__guid": "89152bb4-a329-4dd0-bb30-e314efc04f16",
       "Flags": 0,
       "Name": "drawer (4)",
-      "Position": "-796.1011,-238.1118,-5.85038",
+      "Position": "62.70807,494.1074,-5.850334",
       "Rotation": "0,0,-0.7933531,0.6087614",
       "Enabled": true,
       "Components": [
@@ -798,6 +684,7 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsDoor": false,
           "IsEquipment": false,
           "IsItem": false,
           "ItemLevel": 0,
@@ -810,6 +697,7 @@
           "Name": "Table",
           "PER": 0,
           "PoisonResistence": 0,
+          "PrefabList": [],
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -826,7 +714,7 @@
       "__guid": "7058f84e-a03b-4731-bb1e-338ba76ba01a",
       "Flags": 0,
       "Name": "drawer (1)",
-      "Position": "-700.3022,-412.3162,-5.8504",
+      "Position": "158.507,319.903,-5.850354",
       "Rotation": "0,0,-0.9999999,0.0000001490116",
       "Enabled": true,
       "__Prefab": "prefabs/entitys/drawer.prefab",
@@ -836,7 +724,7 @@
       "__guid": "bedd2f13-0a4f-45d8-ba59-6a43cf909549",
       "Flags": 0,
       "Name": "drawer (2)",
-      "Position": "-800.1979,-412.3162,-5.8504",
+      "Position": "58.61127,319.903,-5.850354",
       "Rotation": "0,0,-0.9999999,0.0000001490116",
       "Enabled": true,
       "__Prefab": "prefabs/entitys/drawer.prefab",
@@ -846,7 +734,7 @@
       "__guid": "6b7a8873-bdd5-46ae-ad13-36956d627419",
       "Flags": 0,
       "Name": "box_normal_small (2)",
-      "Position": "-876.3853,-361.1325,-5.85038",
+      "Position": "-17.57617,371.0867,-5.850334",
       "Rotation": "0,0,-0.0000003437187,-0.9999999",
       "Enabled": true,
       "Components": [
@@ -889,6 +777,7 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsDoor": false,
           "IsEquipment": false,
           "IsItem": false,
           "ItemLevel": 0,
@@ -901,6 +790,7 @@
           "Name": "Legendary Chest",
           "PER": 0,
           "PoisonResistence": 0,
+          "PrefabList": [],
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -923,7 +813,7 @@
       "__guid": "5dcf6dd8-198c-49ce-b645-de8e14fe75ce",
       "Flags": 0,
       "Name": "box_legendary_small",
-      "Position": "-965.1687,-355.0105,8.000015",
+      "Position": "-965.1687,-355.0105,-2648496",
       "Enabled": true,
       "Components": [
         {
@@ -941,7 +831,7 @@
       "__guid": "8907034e-16fd-4420-bcf0-e32d6a88f9f1",
       "Flags": 0,
       "Name": "test",
-      "Position": "-986.4608,-536.574,194.4914",
+      "Position": "-986.4608,-536.574,-2648310",
       "Scale": "1.5,1.5,1.5",
       "Enabled": true,
       "__Prefab": "prefabs/vms.prefab",
@@ -1014,7 +904,7 @@
       "__guid": "8b4c8334-821b-4ac1-a5b3-4340901ddf1e",
       "Flags": 0,
       "Name": "aksu",
-      "Position": "-498.1985,-149.2133,20",
+      "Position": "-498.1985,-149.2133,-2648484",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/aksu/aksu.prefab",
       "__PrefabVariables": {}
@@ -1023,7 +913,7 @@
       "__guid": "ae0c1f65-5486-4d7d-836d-8b9fb673e977",
       "Flags": 0,
       "Name": "aksu (1)",
-      "Position": "-660.2313,-67.69144,20",
+      "Position": "-660.2313,-67.69144,-2648484",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/aksu/aksu.prefab",
       "__PrefabVariables": {}
@@ -1032,7 +922,7 @@
       "__guid": "1ce12cdb-5bc7-49be-9f6d-08f0b4ee211a",
       "Flags": 0,
       "Name": "aksu (2)",
-      "Position": "-981.4119,-270.9587,20",
+      "Position": "-981.4119,-270.9587,-2648484",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/aksu/aksu.prefab",
       "__PrefabVariables": {}
@@ -1041,7 +931,7 @@
       "__guid": "aece25e4-3945-455c-a87b-269bca78ca4e",
       "Flags": 0,
       "Name": "woody",
-      "Position": "-353.6854,-220.4016,9.290839",
+      "Position": "-353.6854,-220.4016,-2648495",
       "Enabled": true,
       "Components": [
         {
@@ -1059,7 +949,7 @@
       "__guid": "0592f920-4ce3-45f8-978a-f8930abe088a",
       "Flags": 0,
       "Name": "woody",
-      "Position": "-352.5413,-179.4241,9.29087",
+      "Position": "-352.5413,-179.4241,-2648495",
       "Enabled": true,
       "Components": [
         {
@@ -1077,7 +967,7 @@
       "__guid": "b1223456-249c-4cfe-9e58-d6c520ba9b9a",
       "Flags": 0,
       "Name": "woody",
-      "Position": "-386.3203,-134.5592,9.29087",
+      "Position": "-386.3203,-134.5592,-2648495",
       "Enabled": true,
       "Components": [
         {
@@ -1119,6 +1009,7 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsDoor": false,
           "IsEquipment": false,
           "IsItem": true,
           "ItemLevel": 0,
@@ -1130,6 +1021,7 @@
           "MoveSpeed": 0,
           "PER": 0,
           "PoisonResistence": 0,
+          "PrefabList": [],
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -1146,7 +1038,7 @@
       "__guid": "264c760d-f599-4d54-9fe0-0156b17f375d",
       "Flags": 0,
       "Name": "woody (1)",
-      "Position": "-386.3203,-99.40497,9.29087",
+      "Position": "-386.3203,-99.40497,-2648495",
       "Enabled": true,
       "Components": [
         {
@@ -1188,6 +1080,7 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsDoor": false,
           "IsEquipment": false,
           "IsItem": true,
           "ItemLevel": 0,
@@ -1199,6 +1092,7 @@
           "MoveSpeed": 0,
           "PER": 0,
           "PoisonResistence": 0,
+          "PrefabList": [],
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -1215,7 +1109,7 @@
       "__guid": "f5580359-0a8e-4f97-b2b4-6c835e3fa814",
       "Flags": 0,
       "Name": "woody (2)",
-      "Position": "-386.3203,-69.57939,9.29087",
+      "Position": "472.4888,662.6398,9.290915",
       "Enabled": true,
       "Components": [
         {
@@ -1294,39 +1188,10 @@
       ]
     },
     {
-      "__guid": "9eb4f250-2726-413c-9959-1c30937304a6",
-      "Flags": 0,
-      "Name": "Object",
-      "Position": "-1132.243,-329.8271,64.57167",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "9f4d4421-3b7d-410b-882e-2df0f426034c",
-          "destroyChance": 0.01,
-          "IsSpawning": false,
-          "Level15To30": false,
-          "Level1To15": false,
-          "Level30To55": false,
-          "Level55To70": false,
-          "Level70To90": false,
-          "Level90To100": false,
-          "MaxSpawns": 10,
-          "PlayerProximityDistance": 1000,
-          "Randomized": false,
-          "RespawnTime": 50,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/pickupammo.prefab"
-          }
-        }
-      ]
-    },
-    {
       "__guid": "ad9e3962-6279-4f25-969b-6399d2793673",
       "Flags": 0,
       "Name": "zombie",
-      "Position": "-1191.814,-88.4501,111.0219",
+      "Position": "-209.1115,643.769,111.0219",
       "Tags": "bad,npc",
       "Enabled": true,
       "NetworkMode": 1,
@@ -1337,7 +1202,7 @@
       "__guid": "3696bb3e-2a51-4cce-92c4-f927afc48143",
       "Flags": 0,
       "Name": "slime",
-      "Position": "-1113,-161.0557,148.6265",
+      "Position": "-219.1128,571.1635,148.6265",
       "Tags": "npc,bad",
       "Enabled": true,
       "NetworkMode": 1,
@@ -1348,7 +1213,8 @@
       "__guid": "173f29a9-d2b1-4a90-a98c-26ac1e993e9b",
       "Flags": 0,
       "Name": "m4a1-a",
-      "Position": "403.8876,300.7617,9.82933",
+      "Position": "402.5103,293.1805,1.954746",
+      "Rotation": "0.6311583,-0.07475085,-0.05990598,0.7697161",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/m4a1/m4a1-a.prefab",
       "__PrefabVariables": {}
@@ -1357,7 +1223,8 @@
       "__guid": "b6c863a3-7e3a-4e67-bc4d-85c4a86103e2",
       "Flags": 0,
       "Name": "knife",
-      "Position": "404.7801,259.2788,22.09029",
+      "Position": "408.3864,265.1327,1.04613",
+      "Rotation": "-0.7485647,0.2206199,-0.1723398,0.6010631",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/knife/knife.prefab",
       "__PrefabVariables": {}
@@ -1366,7 +1233,8 @@
       "__guid": "ca45799e-8b0c-460e-be3f-9f7ff1b269a1",
       "Flags": 0,
       "Name": "mp5",
-      "Position": "447.7124,269.6609,22.89503",
+      "Position": "446.1783,262.0485,1.950967",
+      "Rotation": "0.6313994,-0.07487475,-0.05978768,0.7695155",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/mp5/mp5.prefab",
       "__PrefabVariables": {}
@@ -1375,7 +1243,8 @@
       "__guid": "a5bcbde0-b284-4628-904e-9d908f748d6d",
       "Flags": 0,
       "Name": "shotgun",
-      "Position": "421.584,235.0905,19.49323",
+      "Position": "420.093,227.4807,1.945007",
+      "Rotation": "0.6318246,-0.07435156,-0.05907132,0.7692724",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/shotgun/shotgun.prefab",
       "__PrefabVariables": {}
@@ -1384,7 +1253,7 @@
       "__guid": "eede619b-dad5-4c0d-8f9a-d87f818ca7ab",
       "Flags": 0,
       "Name": "untitled",
-      "Position": "415.9383,192.3392,1",
+      "Position": "415.9383,192.3392,-2648503",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/usp/untitled.prefab",
       "__PrefabVariables": {}
@@ -1393,7 +1262,7 @@
       "__guid": "adc440a0-7273-4b43-97a9-6333517a0543",
       "Flags": 0,
       "Name": "usp",
-      "Position": "383.5187,180.8656,1",
+      "Position": "383.5187,180.8656,-2648503",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/usp/usp.prefab",
       "__PrefabVariables": {}
@@ -1402,7 +1271,8 @@
       "__guid": "1a81c986-815d-4b3e-aeab-36c1f6d25765",
       "Flags": 0,
       "Name": "uspa",
-      "Position": "322.0115,168.0413,20.00077",
+      "Position": "320.3363,160.3949,1.944992",
+      "Rotation": "0.6316389,-0.07590688,-0.06096566,0.7691252",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/usp/uspa.prefab",
       "__PrefabVariables": {}
@@ -1411,7 +1281,8 @@
       "__guid": "3d6cedff-6a92-4451-a541-752c26c1791c",
       "Flags": 0,
       "Name": "uspb",
-      "Position": "301.4259,172.9512,18.05121",
+      "Position": "1165.99,885.5938,-2461465",
+      "Rotation": "-0.8276834,-0.3455848,-0.02535749,0.4414392",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/usp/uspb.prefab",
       "__PrefabVariables": {}
@@ -1420,7 +1291,8 @@
       "__guid": "fcafc4f9-8370-4c28-bf06-3995c4c30ab9",
       "Flags": 0,
       "Name": "uspb (1)",
-      "Position": "284.7088,134.8757,11.69339",
+      "Position": "1142.145,859.5141,-2461215",
+      "Rotation": "0.6311364,-0.07468286,-0.05979223,0.7697494",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/usp/uspb.prefab",
       "__PrefabVariables": {}
@@ -1429,7 +1301,7 @@
       "__guid": "e3b1d69f-2cd2-43cd-a3b2-026d9c45bc41",
       "Flags": 0,
       "Name": "uspc",
-      "Position": "330.8147,143.8719,-0.00001262806",
+      "Position": "330.8147,143.8719,-2648504",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/usp/uspc.prefab",
       "__PrefabVariables": {}
@@ -1438,7 +1310,8 @@
       "__guid": "e0336355-eeb6-4c90-9505-03606eb4bc9f",
       "Flags": 0,
       "Name": "usps",
-      "Position": "317.4115,101.9384,17.30827",
+      "Position": "315.9103,94.38586,1.947302",
+      "Rotation": "0.6318238,-0.07329454,-0.0577562,0.7694744",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/usp/usps.prefab",
       "__PrefabVariables": {}
@@ -1447,7 +1320,8 @@
       "__guid": "f8f46eb1-247e-4cd8-9cb6-84f4dcfa3ed0",
       "Flags": 0,
       "Name": "uspss",
-      "Position": "331.7641,89.50977,17.71554",
+      "Position": "330.287,81.92828,1.944927",
+      "Rotation": "0.631829,-0.07430618,-0.05901664,0.7692774",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/usp/uspss.prefab",
       "__PrefabVariables": {}
@@ -1456,7 +1330,8 @@
       "__guid": "5ffdb11d-51a9-428e-a413-8d5e01629eb0",
       "Flags": 0,
       "Name": "uspsss",
-      "Position": "359.5668,79.9403,15.95554",
+      "Position": "358.0105,72.32519,1.94502",
+      "Rotation": "0.631701,-0.07538774,-0.06033414,0.7691751",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/facepunch/usp/uspsss.prefab",
       "__PrefabVariables": {}

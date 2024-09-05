@@ -854,13 +854,23 @@ public partial class Npc : Component, IHealthComponent
 
 
 			var killerPlayer = killer.Components.Get<Player>( FindMode.EverythingInSelfAndAncestors );
+			if ( killerPlayer == null )
+			{
+				// Logge oder handle den Fehler
+				return;
+			}
+			if ( this == null )
+			{
+				// Logge oder handle den Fehler
+				return;
+			}
 
-	
 			int npcLevel = this.Level;
 
 			// Skalieren der Punkte basierend auf dem Level des NPC
 			int vyndaliumPointsToAdd = new Random().Next( 1, 15 ) * npcLevel;
 			int xpPointsToAdd = new Random().Next( 5, 15 ) * npcLevel;
+			
 
 			if ( DeathSounds != null )
 			{
@@ -870,6 +880,7 @@ public partial class Npc : Component, IHealthComponent
 			killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );
 			
 			killerPlayer.GiveXp( xpPointsToAdd );
+			
 
 
 		};

@@ -421,10 +421,15 @@ public sealed class Inventory : Component
 
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
+
 		
 		if ( weaponContainer != null )
 		{
 			weaponContainer.Give( item.GameObject, true );
+		}
+		else
+		{
+			Log.Info( "Item is equipment, skipping Give." );
 		}
 
 
@@ -516,7 +521,16 @@ public sealed class Inventory : Component
 
 		GiveBackpackItem( item, index );
 		item.State = ItemState.Backpack;
-
+		
+		var weaponContainer = Player.Components.Get<WeaponContainer>();
+		if ( weaponContainer != null )
+		{
+			weaponContainer.Give( item.GameObject, true );
+		}
+		else
+		{
+			Log.Info( "Item is equipment, skipping Give." );
+		}
 
 
 		return true;

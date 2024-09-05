@@ -557,12 +557,49 @@ partial class Player
 				player.Inventory.EquipItemFromWorld( equipment );
 				ReadData( data, o );
 
-				Log.Info( $"Vor dem Setzen: data.SellPrice = {data.SellPrice}" );
+				
 
 				equipment.SellPrice = (int)data.SellPrice;
+				equipment.DMG = data.DMG;
+				equipment.STG = data.STG;
+				equipment.HE = data.HE;
+				equipment.DEX = data.DEX;
+				equipment.PER = data.PER;
+				equipment.INT = data.INT;
+				equipment.Mana = data.Mana;
+				equipment.Health = data.Health;
+				equipment.ItemLevel = data.ItemLevel;
+				equipment.CritHitDamage = data.CritHitDamage;
+				equipment.CritHitChance = data.CritHitChance;
+				equipment.AbilityHaste = data.AbilityHaste;
+				equipment.AttackPower = data.AttackPower;
+				equipment.MagicPower = data.MagicPower;
+				equipment.Tier = (GeneralGame.Tier)data.Tier;
+				equipment.DamageBalance = data.DamageBalance;
+				equipment.Durability = data.Durability;
+				equipment.AttackSpeed = data.AttackSpeed;
+				equipment.MoveSpeed = data.MoveSpeed;
+				equipment.Armor = data.Armor;
+				equipment.MagicDefense = data.MagicDefense;
+				equipment.Evasion = data.Evasion;
+				equipment.Cover = data.Cover;
+				equipment.BonusEXP = data.BonusEXP;
+				equipment.BonusScore = data.BonusScore;
+				equipment.BonusVyndalium = data.BonusVyndalium;
+				equipment.Tenacity = data.Tenacity;
+				equipment.StunResistance = data.StunResistance;
+				equipment.BlindResistance = data.BlindResistance;
+				equipment.SlowResistence = data.SlowResistence;
+				equipment.FireResistence = data.FireResistence;
+				equipment.BleedResistance = data.BleedResistance;
+				equipment.PoisonResistence = data.PoisonResistence;
+				equipment.IceResistence = data.IceResistence;
+				equipment.LightningResistence = data.LightningResistence;
+				equipment.HolyResistence = data.HolyResistence;
+				equipment.ShadowResistence = data.ShadowResistence;
 
 				// Debug-Ausgabe nach dem Setzen
-				Log.Info( $"Nach dem Setzen: equipment.SellPrice = {equipment.SellPrice}" );
+
 			}
 
 
@@ -572,7 +609,7 @@ partial class Player
 		{
 			foreach ( var data in save.Inventory )
 			{
-				Log.Info( $"Vor dem Setzen: data.SellPrice = {data.SellPrice}" );
+				
 				if ( !ResourceLibrary.TryGet<PrefabFile>( data.Path, out var prefab ) )
 					continue;
 				var o = SceneUtility.GetPrefabScene( prefab ).Clone();
@@ -584,7 +621,7 @@ partial class Player
 				player.Inventory.SetItem( item, data.Index );
 				ReadData( data, o );
 
-				Log.Info( $"Vor dem Setzen: data.SellPrice = {data.SellPrice}" );
+				
 				item.SellPrice = (int)data.SellPrice;
 				item.DMG = data.DMG;
 				item.STG = data.STG;
@@ -623,7 +660,7 @@ partial class Player
 				item.LightningResistence = data.LightningResistence;
 				item.HolyResistence = data.HolyResistence;
 				item.ShadowResistence = data.ShadowResistence;
-				Log.Info( $"Nach dem Setzen: item.SellPrice = {item.SellPrice}" );
+				
 			}
 		}
 		return true;

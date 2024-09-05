@@ -9,8 +9,8 @@ namespace GeneralGame
         [HostSync] public static Guid HostId { get; set; }
         [Property] public bool StartServer { get; set; } = true;
         [Property] public List<GameObject> SpawnPoints { get; set; }
-       
-       
+
+        
         protected override async Task OnLoad()
         {
             

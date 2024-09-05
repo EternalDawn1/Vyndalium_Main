@@ -334,28 +334,7 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual void OnKilled( GameObject attacker )
 	{
-		if ( attacker != null && attacker.IsValid() )
-		{
-			var chat = Scene.GetAllComponents<Chat>().FirstOrDefault();
-
-			if ( chat != null && chat.IsValid() )
-			{
-				var attackerConnection = attacker.Network.OwnerConnection;
-				var playerConnection = this.Network.OwnerConnection;
-
-				if ( attackerConnection != null && playerConnection != null &&
-					attackerConnection.DisplayName != playerConnection.DisplayName )
-				{
-					chat.AddTextLocal( "💀️", $"{playerConnection.DisplayName} has killed {attackerConnection.DisplayName}" );
-				}
-			}
-
-			if ( !this.IsProxy )
-			{
-				// We killed this player.
-				this.Kills++;
-			}
-		}
+		
 
 		if ( IsProxy )
 			return;
@@ -375,6 +354,7 @@ public partial class Player : Component, IHealthComponent
 	protected override void OnAwake()
 	{
 		AmmoContainer = new AmmoContainer();
+	
 		Inventory = Components.Get<Inventory>( FindMode.EverythingInSelfAndDescendants );
 
 		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>();
