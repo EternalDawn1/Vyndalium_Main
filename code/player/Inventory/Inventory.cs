@@ -207,21 +207,8 @@ public sealed class Inventory : Component
 			return false;
 		}
 
-		var slotIndex = equipment.IsBackable ? (int)EquipSlot.Back : (int)equipment.Slot;
-		var previouslyEquippedItem = _equippedItems[slotIndex];
-
-		if ( previouslyEquippedItem == item )
-		{
-			return true; // Das Item ist bereits ausgerüstet
-		}
-
-		if ( previouslyEquippedItem != null )
-		{
-			RemoveEquipmentItem( previouslyEquippedItem as ItemEquipment );
-			// Hier wird der Index des zuvor ausgerüsteten Items übergeben
-			GiveBackpackItem( previouslyEquippedItem, index ); // Angenommen, der Index ist hier relevant
-			previouslyEquippedItem.State = ItemState.Backpack;
-		}
+		if ( IsSlotOccupied( equipment.Slot ) )
+			return false;
 
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
@@ -242,7 +229,14 @@ public sealed class Inventory : Component
 	}
 	public int GetFirstFreeBackpackSlot()
 	{
-		return _backpackItems.IndexOf( null );
+		for ( int i = 0; i < _backpackItems.Count; i++ )
+		{
+			if ( _backpackItems[i] == null )
+			{
+				return i;
+			}
+		}
+		return -1;
 	}
 
 
@@ -730,11 +724,11 @@ public sealed class Inventory : Component
 			_equippedItems[(int)equipment.Slot] = equipment;
 		}
 
-		// Entfernen Sie den Gegenstand aus dem Rucksack
+		// Entfernen Sie den Gegenstand aus dem Rucksack-Slot, aber nicht aus dem Index
 		int index = _backpackItems.IndexOf( equipment );
 		if ( index != -1 )
 		{
-			_backpackItems.RemoveAt( index );
+			_backpackItems[index] = null; // Setze den Slot auf null, anstatt ihn zu entfernen
 		}
 
 		// Fügen Sie die Statistiken der neuen Waffe hinzu
@@ -754,10 +748,16 @@ public sealed class Inventory : Component
 
 		_equippedItems[(int)equipment.Slot] = null;
 
-		// Fügen Sie den Gegenstand zum Rucksack hinzu
-		_backpackItems.Add( equipment );
-
-		UpdateBodygroups();
+		// Finde den ersten freien Slot im Inventar
+		int freeSlotIndex = GetFirstFreeBackpackSlot();
+		if ( freeSlotIndex != -1 )
+		{
+			_backpackItems[freeSlotIndex] = equipment;
+		}
+		else
+		{
+			Log.Error( "No free slot in backpack." );
+		}
 	}
 	private void UpdateBodygroups()
 	{
