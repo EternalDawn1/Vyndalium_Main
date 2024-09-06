@@ -25,6 +25,7 @@ namespace GeneralGame.HUD
 			{
 				Storage = itemStorage
 			};
+			
 			IsVisible = false; // Stellen Sie sicher, dass die StorageBox anfangs nicht sichtbar ist
 		}
 
@@ -117,18 +118,13 @@ namespace GeneralGame.HUD
 			}
 		}
 		protected override int BuildHash()
-        {
-            
-            return HashCode.Combine(
-                
-            IsVisible,
-	
-
-			Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 )
-
+		{
+			return HashCode.Combine(
+				IsVisible,
+				Player.Local.Inventory.BackpackItems.HashCombine(i => i?.GetHashCode() ?? -1),
+				itemStorage?.Items.HashCombine(i => i?.GetHashCode() ?? -1) ?? 0
 			);
-            
-        }
+		}
 		public void ClosePanel()
 		{
 			CloseStorage(); // Ruft die Methode zum Schließen des Speichers auf

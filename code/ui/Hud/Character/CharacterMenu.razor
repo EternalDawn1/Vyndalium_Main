@@ -27,8 +27,15 @@
 
 	<div class="section" style="opacity : @(currentpanel == PanelType.Attribute ? 1 : 1 )">
 
+		<h2 class="header2">
+			<li class="head" @onclick="@ShowMainStats"> Main Stats </li>
+			<button class="sidestats" @onclick="@ShowSideStats">Side Stats</button>
+			<button class="resist" @onclick="@ShowResistStats">Resist</button>
+			
+		</h2>
 
-		<div class="stats">
+		<div class="stats" style="opacity: @(currentpanel == PanelType.MainStats ? 1 : 0)">
+			
 			<h2 class="stats2">
 				<li>💘Health (HP)</li> <span class="n">@(Math.Round(Player.Local.MaxHealth))</span>
 				<div class="tooltip-text">
@@ -107,7 +114,7 @@
 
 
 		</div>
-		<div class="statsone">
+		<div class="statsone" style="opacity: @(currentpanel == PanelType.SideStats ? 1 : 0)">
 
 			<h2 class="stats4">
 				<li>⚔️Attack Speed (ATS)</li> <span class="n">@Math.Round(Player.Local.AttackSpeed, 2)</span>
@@ -166,7 +173,7 @@
 
 		</div>
 
-		<div class="statstwo">
+		<div class="statstwo" style="opacity: @(currentpanel == PanelType.ResistStats ? 1 : 0)">
 			<h2 class="stats3">
 				<li>🤒Tenacity (TEN)</li> <span class="n">@Math.Round(Player.Local.Tenacity, 2)</span>
 				<div class="tooltip-text">
@@ -261,40 +268,40 @@
 	</div>
 	<div class="section2">
 		<div class="items">
-			<h2 class="playe">
-				<h2 class="playe1">
-					@foreach (var entry in Connection.All)
-					{
-						var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.OwnerConnection ==
-						entry);
+			<div class="playe">
+				
+				<div class="playerst">
+					<div class="playe1">
+						@foreach (var entry in Connection.All)
+						{
+							var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.OwnerConnection ==
+							entry);
 
+							<div class="row-item">
+								@if (entry.IsHost)
+								{
+									<div>👑</div>
+								}
 
-
-						<div class="row-item">
-							@if (entry.IsHost)
-							{
-								<div>👑</div>
-							}
-
-							@entry.DisplayName
-						</div>
-					}
-				</h2>
-				<h2 class="playe1">
-					<li>Level</li> <span class="nu">@Player.Local.Level</span>
-				</h2>
-				<h2 class="playe4">
-					<li>Experience</li> <span class="nu"> @Player.Local.Experience / @Player.Local.ExpPerLevel </span>
-				</h2>
-				<h2 class="playe3">
-					<li>Stats Points</li> <span class="nu">@Player.Local.StatsPoints</span>
-				</h2>
-				<h2 class="playe2">
-					<li>Vyndalium</li>
-					<div class="playic"></div>
-					<span class="Vyndn">@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
-				</h2>
-			</h2>
+								@entry.DisplayName
+							</div>
+						}
+					<div class="playe1">
+						<li>Level</li> <span class="nu">@Player.Local.Level</span>
+					</div>
+					<div class="playe4">
+						<li>Experience</li> <span class="nu">@Player.Local.Experience / @Player.Local.ExpPerLevel</span>
+					</div>
+					<div class="playe3">
+						<li>Stats Points</li> <span class="nu">@Player.Local.StatsPoints</span>
+					</div>
+					<div class="playe2">
+						<li>Money</li>
+						<div class="playic"></div>
+						<span class="Vyndn">@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -317,17 +324,35 @@
 		Attribute,
 		Upgrade,
 		Abilities,
-		CharacterStats
+		CharacterStats,
+		MainStats,
+		SideStats,
+		ResistStats
 	}
+	
 
 	CharacterRenderer _renderer;
 	public static CharacterMenu Instance { get; private set; }
 	public CharacterMenu() => Instance = this;
 
-	private PanelType currentpanel = PanelType.Attribute;
+	private PanelType currentpanel = PanelType.MainStats;
 	private void ShowPanel(PanelType panel)
 	{
 		currentpanel = panel;
+	}
+	private void ShowMainStats()
+	{
+		currentpanel = PanelType.MainStats;
+	}
+
+	private void ShowSideStats()
+	{
+		currentpanel = PanelType.SideStats;
+	}
+
+	private void ShowResistStats()
+	{
+		currentpanel = PanelType.ResistStats;
 	}
 
 	public void OnChanged()

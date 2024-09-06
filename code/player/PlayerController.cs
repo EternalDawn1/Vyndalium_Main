@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Security.Permissions;
 using Sandbox;
 using Sandbox.Citizen;
 
@@ -161,10 +163,25 @@ public partial class Player : Component, IHealthComponent
 	{
 		CritHitChance -= amount;
 	}
+	public void AddVyndalium(int vyndaliumPointsToAdd)
+	{
+		Sandbox.Services.Stats.Increment("vyndalium_count", vyndaliumPointsToAdd);
+	}
+
+
+	
+	public void OnZombieKilled()
+	{
+		Sandbox.Services.Stats.Increment("npc", 1);
+
+
+	}
 
 	
 
-	
+
+
+
 	public bool TrySpendVyndalium( int amount )
 	{
 		if ( Vyndalium >= amount )
@@ -353,6 +370,7 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnAwake()
 	{
+		
 		AmmoContainer = new AmmoContainer();
 	
 		Inventory = Components.Get<Inventory>( FindMode.EverythingInSelfAndDescendants );

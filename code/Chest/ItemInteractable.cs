@@ -19,6 +19,7 @@ public class ItemInteractable : BaseInteraction
 
 
     }
+    
 
 
 
@@ -87,31 +88,32 @@ public class ItemInteractable : BaseInteraction
 
     }
 
-    private void AddPrefabsToStorage( List<PrefabFile> prefabList )
+    public void AddPrefabsToStorage(List<PrefabFile> prefabList)
     {
-        int index = 0; // Startindex
-        foreach ( var prefab in prefabList )
+        int index = Storage.Items.Count; // Startindex basierend auf der Anzahl der vorhandenen Elemente
+        foreach (var prefab in prefabList)
         {
-            var itemComponent = ConvertPrefabToItemComponent( prefab );
-            if ( itemComponent != null )
+            var itemComponent = ConvertPrefabToItemComponent(prefab);
+            if (itemComponent != null)
             {
-                Storage.AddItem( itemComponent, index );
-                Log.Info( $"Added {itemComponent.Name} to storage box" );
-                index++; // Index erhöhen
+                Storage.AddItem(itemComponent, index);
+                Log.Info($"Added {itemComponent.Name} to storage box");
+                index++;
+                Log.Info($"Index: {index}");
+                // Index erhöhen
             }
         }
-
-       
-
+        
     }
-    private ItemComponent ConvertPrefabToItemComponent( PrefabFile prefab )
+
+    private ItemComponent ConvertPrefabToItemComponent(PrefabFile prefab)
     {
-        var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
+        var obj = SceneUtility.GetPrefabScene(prefab).Clone();
         obj.NetworkMode = NetworkMode.Object;
         obj.NetworkSpawn();
 
         var itemComponent = obj.Components.Get<ItemComponent>();
-        if ( itemComponent == null )
+        if (itemComponent == null)
         {
             obj.Destroy();
             return null;
@@ -119,17 +121,8 @@ public class ItemInteractable : BaseInteraction
 
         return itemComponent;
     }
-    public void AddItemToStorageBox( ItemComponent item, int index )
-    {
-        if ( Storage != null )
-        {
-            Storage.AddItem( item, index );
-            
-            item.State = ItemState.Chest;
-        }
-    }
 
-
+    
 
 
 

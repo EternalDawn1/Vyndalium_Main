@@ -134,7 +134,7 @@
         Log.Info("playerlevel: " + playerLevel + ", required Level: " + requiredLevel + "you can't enter this scene yet , level more!");
         return;
     }
-
+        Player.Save();
         isSceneChanging = true;
         SceneHandler2.DeleteCurrentScene();
         
@@ -146,6 +146,7 @@
                 // Logik zum Wechseln zur Forest-Szene
                 
                 SceneHandler2.ChangeScene2(scene);
+                
                 break;
             case GeneralScene2.Game:
                 // Logik zum Wechseln zur Game-Szene

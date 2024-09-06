@@ -1,0 +1,138 @@
+Leaderboard {
+    width: 100%;
+    height: 100%;
+    
+    flex-direction: column;
+
+    .header {
+        position: relative;
+        width: 100%;
+        bottom: 0%;
+        height: 25%;
+        background-color: #ffffff00;
+        font-size: 164px;
+        color:white;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        border-width: 10px;
+        font-weight: bold;
+        border-radius: 100px;
+        border-top-color: rgb(255, 255, 255);
+        border-top-width: 25px;
+        border-bottom-color: rgba(255, 255, 255, 0.863);
+        border-bottom-width: 25px;
+        border-right-color: rgba(245, 222, 179, 0);
+        border-left-color: rgba(245, 222, 179, 0);
+
+        
+    }
+
+    .main-panel {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        .header2 {
+            position: relative;
+            width: 50%;
+            height: 100%;
+            color:white;
+            background-color: rgba(0, 36, 82, 0.39);
+            background-image: url("/ui/hud/background.gif");
+            gap: 20px;
+            background-size: 100%;
+            font-size: 90px;
+            border-width: 50px;
+            padding: 50px;
+            align-items: center;
+            font-weight: bold;
+            border-width: 10px;
+            border-color: #000000;
+            flex-direction: column;
+            flex-shrink: 0;
+            
+           
+            
+
+            .entries {
+                position: relative;
+                justify-content: space-between;
+                flex-direction: column;
+                width: 100%;
+                
+                font-size: 60px;
+                gap: 20px;
+                flex-shrink: 0;
+
+                .entry {
+                    font-size: 90px;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-shrink: 0;
+
+                    .rank {
+                        font-size: 90px;
+                        color: rgb(255, 17, 0);
+                        flex-shrink: 0;
+                        
+                    }
+
+                    .name {
+                        font-size: 90px;
+                        color: rgb(21, 255, 0);
+                        flex-shrink: 0;
+                        
+                    }
+
+                    .value {
+                        font-size: 90px;
+                        color: rgb(47, 0, 255);
+                        flex-shrink: 0;
+                        
+                    }
+
+                    &.top-rank {
+                        .rank, .name, .value {
+                            color: gold;
+                            background-image: url("/ui/hud/gold3.gif");
+                            padding: 10px 50px;
+                            border-radius: 10px;
+                            font-style: oblique;
+                            font-weight: bolder;
+                            align-items: center;
+                            flex-shrink: 0;
+                            
+                        }
+                    }
+
+                    &.top-ten {
+                        .rank, .name, .value {
+                            color: rgb(255, 255, 255);
+                            font-size: 60px;
+                            background-image: url("/ui/hud/pink.gif");
+                            padding: 5px 50px;
+                            align-items: center;
+                            border-radius: 10px;
+                            flex-shrink: 0;
+                        }
+                    }
+
+                    &.rank-2 { .rank, .name, .value { opacity: 1; } }
+                    &.rank-3 { .rank, .name, .value { opacity: 0.9; } }
+                    &.rank-4 { .rank, .name, .value { opacity: 0.8; } }
+                    &.rank-5 { .rank, .name, .value { opacity: 0.7; } }
+                    &.rank-6 { .rank, .name, .value { opacity: 0.6; } }
+                    &.rank-7 { .rank, .name, .value { opacity: 0.5; } }
+                    &.rank-8 { .rank, .name, .value { opacity: 0.4; } }
+                    &.rank-9 { .rank, .name, .value { opacity: 0.3; } }
+                    &.rank-10 { .rank, .name, .value { opacity: 0.2; } }
+                }
+            }
+        }
+    }
+}

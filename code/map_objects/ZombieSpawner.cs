@@ -93,7 +93,7 @@ public sealed class ZombieSpawner : Component
 			itemComponent.ItemTier = new ItemComponent.TierClass { Tier = GetRandomTier() };
 			itemComponent.GenerateRandomStats();
 			itemComponent.CalculateSellPrice();
-			Log.Info( $"Zombie hat Tier {itemComponent.ItemTier.Tier} und Level {itemComponent.SellPrice}" );
+		
 		}
 		zombie.NetworkSpawn();
 

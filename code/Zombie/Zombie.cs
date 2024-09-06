@@ -878,9 +878,10 @@ public partial class Npc : Component, IHealthComponent
 				Sound.Play( DeathSounds, Player.Local.Head.Transform.Position );
 			}
 			killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );
+			killerPlayer.AddVyndalium( vyndaliumPointsToAdd );
 			
 			killerPlayer.GiveXp( xpPointsToAdd );
-			
+			killerPlayer.OnZombieKilled();
 
 
 		};
@@ -888,8 +889,7 @@ public partial class Npc : Component, IHealthComponent
 	}
 
 
-
-
+	
 
 	public event Action<int> VyndaliumAdded; // Declare the event "VyndaliumAdded"
 

@@ -212,6 +212,8 @@ public sealed class Inventory : Component
 
 		GiveEquipmentItem( equipment );
 		equipment.State = ItemState.Equipped;
+		TaskMaster.SubmitTriggerSignal( $"item.equipped.{item.Name}", Player );
+		
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
 		if ( weaponContainer != null )
 		{
@@ -654,34 +656,32 @@ public sealed class Inventory : Component
 	/// The item is given to the backpack.
 	/// </summary>
 	public void GiveBackpackItem(ItemComponent item, int index)
-{
-    // Überprüfen Sie, ob das Item bereits in der Liste ist
-    if (_backpackItems.Contains(item))
-    {
-        
-        return;
-    }
+	{
+		
+		// Überprüfen Sie, ob das Item bereits in der Liste ist
+		if (_backpackItems.Contains(item))
+		{
+			
+			return;
+		}
 
-    // Überprüfen Sie, ob der Index gültig ist
-    if (index >= 0 && index < _backpackItems.Count)
-    {
-        // Überprüfen Sie, ob der Slot im Rucksack leer ist
-        if (_backpackItems[index] == null)
-        {
-            _backpackItems[index] = item;
-            item.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des Items
-            
-        }
-        else
-        {
-           
-        }
-    }
-    else
-    {
-        
-    }
-}
+		// Überprüfen Sie, ob der Index gültig ist
+		if (index >= 0 && index < _backpackItems.Count)
+		{
+			// Überprüfen Sie, ob der Slot im Rucksack leer ist
+			if (_backpackItems[index] == null)
+			{
+				_backpackItems[index] = item;
+				item.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des Items
+				
+			}
+			else
+			{
+			
+			}
+		}
+	
+	}
 
 	/// <summary>
 	/// The item is removed from the backpack.
@@ -690,6 +690,7 @@ public sealed class Inventory : Component
 	{
 		if ( index >= 0 && index < _backpackItems.Count )
 			_backpackItems[index] = null;
+
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
 		if ( weaponContainer != null )
 		{
