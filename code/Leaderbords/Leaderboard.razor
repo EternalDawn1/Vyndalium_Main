@@ -22,7 +22,7 @@
     {
         <div class="header">Leaderboard</div>
         <div class="main-panel">
-            <div class="header2">Most Vyndalium Count
+            <div class="header2">Avg. Most Vyndalium Count
                 <div class="entries">
                     @foreach (var entry in leaderboard.Entries)
                     {
@@ -36,7 +36,7 @@
                     }
                 </div>
             </div>
-            <div class="header2">Most NPC kills
+            <div class="header2">Avg. Most NPC kills
                 <div class="entries">
                     @if (leaderboard2 != null && leaderboard2.Entries.Any())
                     {
@@ -72,7 +72,12 @@
         if (firstTime)
         {
             leaderboard = Sandbox.Services.Leaderboards.GetFromStat("vyndalium_count");
+            leaderboard.SetAggregationAvg();
+            
+           
+            
             leaderboard2 = Sandbox.Services.Leaderboards.GetFromStat("npc");
+            leaderboard2.SetAggregationAvg();
 
             
             Refresh();

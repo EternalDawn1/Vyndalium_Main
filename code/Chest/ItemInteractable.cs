@@ -14,12 +14,10 @@ public class ItemInteractable : BaseInteraction
     protected override void OnAwake()
     {
         base.OnAwake();
-      
-
-
-
+        Storage = Components.Create<ItemStorage>();
+        AddPrefabsToStorage( PrefabList );
     }
-    
+
 
 
 
@@ -88,22 +86,20 @@ public class ItemInteractable : BaseInteraction
 
     }
 
-    public void AddPrefabsToStorage(List<PrefabFile> prefabList)
+
+    public void AddPrefabsToStorage( List<PrefabFile> prefabList )
     {
         int index = Storage.Items.Count; // Startindex basierend auf der Anzahl der vorhandenen Elemente
-        foreach (var prefab in prefabList)
+        foreach ( var prefab in prefabList )
         {
-            var itemComponent = ConvertPrefabToItemComponent(prefab);
-            if (itemComponent != null)
+            var itemComponent = ConvertPrefabToItemComponent( prefab );
+            if ( itemComponent != null )
             {
-                Storage.AddItem(itemComponent, index);
-                Log.Info($"Added {itemComponent.Name} to storage box");
+                Storage.AddItem( itemComponent, index );
+                Log.Info( $"Added {itemComponent.Name} to storage box" );
                 index++;
-                Log.Info($"Index: {index}");
-                // Index erhöhen
             }
         }
-        
     }
 
     private ItemComponent ConvertPrefabToItemComponent(PrefabFile prefab)
