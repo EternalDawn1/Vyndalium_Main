@@ -9,79 +9,56 @@ namespace GeneralGame
 {
     public class ItemStorage : Component
     {
-       
         public bool IsOpened { get; set; }
         public bool IsDoorOpen { get; set; }
 
         private StorageBox storageBox;
         [Property] ItemInteractable itemInteractable { get; set; }
         [Property] public List<ItemComponent> items { get; set; } = new List<ItemComponent>();
-        [Property]public IReadOnlyList<ItemComponent> Items => items;
-        [Property]public int ItemCount { get; set; }
-        
-
-
+        [Property] public List<ItemComponent> Items => items;
+        [Property] public int ItemCount { get; set; }
 
         protected override void OnAwake()
-		{
-            itemInteractable = this.Components.Get<ItemInteractable>();
-			base.OnAwake();
-            
-		}
-
-
-        
-
-        public void AddItem(ItemComponent item, int index)
         {
-            if (items.Contains(item))
+            itemInteractable = this.Components.Get<ItemInteractable>();
+            base.OnAwake();
+        }
+
+        public void AddItem( ItemComponent item, int index )
+        {
+            if ( item == null )
             {
+                Log.Error( "Item ist null und kann nicht hinzugefügt werden." );
                 return;
             }
 
-            if (index >= 0 && index < items.Count)
+            if ( index < 0 || index > items.Count )
             {
-                if (items[index] == null)
-                {
-                    items[index] = item;
-                    item.State = ItemState.Chest;
-                    
-                    
-                
-
-                }
+                Log.Error( "Ungültiger Index für das Hinzufügen des Items." );
+                return;
             }
-            else
-            {
-                items.Add(item);
-                item.State = ItemState.Chest;
-            }
-            Log.Info($"Item hinzugefügt: {item.Name}, Gesamtanzahl der Elemente: {items.Count}");
 
-            // UI aktualisieren
-            storageBox?.StateHasChanged();
+            items.Insert( index, item );
+            Log.Info( $"Item hinzugefügt: {item.Name}, Gesamtanzahl der Elemente: {items.Count}" );
         }
-
-
-
 
         public void OpenInventory()
         {
-            if (!IsOpened)
+            if ( !IsOpened )
             {
                 IsOpened = true;
 
-                if (storageBox == null)
+                if ( storageBox == null )
                 {
                     storageBox = new StorageBox();
                 }
                 storageBox.ToggleVisibility();
+                Player.Local.BlockInputs = true;
 
                 // Prefabs zur Storage hinzufügen
-                
 
                 // Initialisiere die Slots und zeige sie an
-                
+
                 storageBox.StateHasChanged();
             }
             else
@@ -89,6 +66,7 @@ namespace GeneralGame
                 CloseInventory();
             }
         }
+
         public void CloseInventory()
         {
             if ( IsOpened )
@@ -97,13 +75,9 @@ namespace GeneralGame
                 if ( storageBox != null )
                 {
                     storageBox.ToggleVisibility();
+                    Player.Local.BlockInputs = false;
                 }
             }
         }
-        
-
-        
-
-        
     }
 }

@@ -18,7 +18,7 @@
                     continue;
 
                 var coolDown = !interaction.Cooldown || interaction.CooldownTimer;
-                var canInteract = !interaction.Disabled.InvokeOrDefault() && coolDown && !Player.Local.BlockInputs;
+                var canInteract = !interaction.Disabled.InvokeOrDefault() && coolDown ;
 
                 // Annahme: shouldHighlight ist eine boolsche Variable, die bestimmt, ob hervorgehoben werden soll oder nicht // Diese Logik muss entsprechend Ihrer Anforderungen angepasst werden
 
@@ -113,7 +113,7 @@
 
 			var coolDown = !interaction.Cooldown || interaction.CooldownTimer;
 
-			if (canInteract && interaction.InputFunction(interaction.Keybind) && coolDown && !Player.Local.BlockInputs)
+			if (canInteract && interaction.InputFunction(interaction.Keybind) && coolDown)
 			{
 				_targetObject?.Network.TakeOwnership();
 				interaction.Action?.Invoke(Player.Local, _targetObject);

@@ -7,20 +7,9 @@ using Sandbox;
 public class ItemInteractable : BaseInteraction
 {
 
-	public ItemStorage Storage { get; set; }
-    [Property]public bool IsDoor { get; set; }
+    public ItemStorage Storage { get; set; }
+    [Property] public bool IsDoor { get; set; }
     [Property] public List<PrefabFile> PrefabList { get; set; } = new List<PrefabFile>();
-
-    protected override void OnAwake()
-    {
-        base.OnAwake();
-        Storage = Components.Create<ItemStorage>();
-        AddPrefabsToStorage( PrefabList );
-    }
-
-
-
-
 
     protected override void OnStart()
     {
@@ -38,7 +27,7 @@ public class ItemInteractable : BaseInteraction
                     var itemInteractable = obj.Components.Get<ItemInteractable>();
                     if ( itemInteractable != null && itemInteractable.Storage != null )
                     {
-                        
+                        // Tür-Interaktion
                     }
                 },
                 Keybind = "use",
@@ -50,9 +39,7 @@ public class ItemInteractable : BaseInteraction
         }
         else
         {
-            
             interactions.AddInteraction( new Interaction()
-            
             {
                 Identifier = "item.openloot",
                 Action = ( Player interactor, GameObject obj ) =>
@@ -66,11 +53,9 @@ public class ItemInteractable : BaseInteraction
                 Keybind = "use",
                 Description = "Open/Close",
                 Stats = "Take",
-                
                 ShowWhenDisabled = () => true,
                 Accessibility = AccessibleFrom.All,
             } );
-
 
             interactions.AddInteraction( new Interaction()
             {
@@ -82,13 +67,18 @@ public class ItemInteractable : BaseInteraction
                 Accessibility = AccessibleFrom.All,
             } );
         }
+
         AddPrefabsToStorage( PrefabList );
-
     }
-
 
     public void AddPrefabsToStorage( List<PrefabFile> prefabList )
     {
+        if ( Storage == null )
+        {
+            Log.Error( "Storage ist null in AddPrefabsToStorage." );
+            return;
+        }
+
         int index = Storage.Items.Count; // Startindex basierend auf der Anzahl der vorhandenen Elemente
         foreach ( var prefab in prefabList )
         {
@@ -102,14 +92,14 @@ public class ItemInteractable : BaseInteraction
         }
     }
 
-    private ItemComponent ConvertPrefabToItemComponent(PrefabFile prefab)
+    private ItemComponent ConvertPrefabToItemComponent( PrefabFile prefab )
     {
-        var obj = SceneUtility.GetPrefabScene(prefab).Clone();
+        var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
         obj.NetworkMode = NetworkMode.Object;
         obj.NetworkSpawn();
 
         var itemComponent = obj.Components.Get<ItemComponent>();
-        if (itemComponent == null)
+        if ( itemComponent == null )
         {
             obj.Destroy();
             return null;
@@ -118,7 +108,6 @@ public class ItemInteractable : BaseInteraction
         return itemComponent;
     }
 
-    
 
 
 

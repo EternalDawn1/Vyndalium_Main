@@ -27,7 +27,10 @@
     }
 	@if (_item != null && _item.SellPrice > 0 && !_item.IsEquipped )
 	{
-		<ContextMenuOption Description="Sell" ImagePath="ui/hud/shop.png" onclick=@(() => SellItem(_item)) />
+		@if (!IsItemInEquipSlot(_item))
+		{
+			<ContextMenuOption Description="Sell" ImagePath="ui/hud/shop.png" onclick=@(() => SellItem(_item)) />
+		}
 	}
 	
 
@@ -72,6 +75,10 @@
 			selectedItems.Add(item);
 		}
 	}
+	private bool IsItemInEquipSlot(ItemComponent item)
+    {
+        return player.Inventory.EquippedItems.Contains(item);
+    }
 	
 	public static void Open(ItemComponent item)
 	{

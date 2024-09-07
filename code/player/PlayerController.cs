@@ -126,7 +126,36 @@ public partial class Player : Component, IHealthComponent
 	public bool BlockInputs
 	{
 		get => BlockMovements || _blockInputs;
-		set => _blockInputs = value;
+		set
+		{
+			_blockInputs = value;
+			if ( _blockInputs )
+			{
+				StopMovement();
+			}
+		}
+	}
+	private void SetPlayerMovement( Vector3 movement )
+	{
+		BuildWishVelocity();
+
+		if ( BlockInputs )
+		{
+			// Setze die Geschwindigkeit des Spielers auf null
+			CharacterController.Velocity = Vector3.Zero;
+			return;
+		}
+
+		// Normale Bewegungslogik hier...
+	}
+
+	private void StopMovement()
+	{
+		// Setze die Eingaben des Spielers zurück
+		Input.ClearActions();
+
+		// Stoppe die Bewegung des Spielers
+		SetPlayerMovement( Vector3.Zero );
 	}
 	public void ForceHoldType( HoldType type, float time )
 	{
@@ -706,6 +735,11 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual void DoMovementInput()
 	{
+		if ( BlockInputs )
+		{
+			return;
+		}
+
 		if ( isFrozen )
 		{
 			
@@ -871,6 +905,8 @@ public partial class Player : Component, IHealthComponent
 
 	private void BuildWishVelocity()
 	{
+		
+
 		if ( isFrozen )
 		{
 			Log.Info( "Player cannot build wish velocity while frozen" );

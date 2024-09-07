@@ -15,9 +15,9 @@ namespace GeneralGame.HUD
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;
 		private static bool IsDragging { get;  set; }
-		
 
-		
+
+
 		public StorageBox()
 		{
 			itemStorage = GetItemStorageInstance();
@@ -25,10 +25,50 @@ namespace GeneralGame.HUD
 			{
 				Storage = itemStorage
 			};
-			
-			IsVisible = false; // Stellen Sie sicher, dass die StorageBox anfangs nicht sichtbar ist
+
+			IsVisible = false;
+
+			// Debug-Ausgabe hinzufügen
+			Log.Info( $"Initialisierung von StorageBox. Anzahl der Items in itemStorage: {itemStorage.items.Count}" );
+
+			List<ItemComponent> itemList = GetItemComponentList(); // Erhalte die Prefab-Liste
+			AddItemsFromComponents( itemList ); // Stellen Sie sicher, dass die StorageBox anfangs nicht sichtbar ist
 		}
 
+		private List<ItemComponent> GetItemComponentList()
+		{
+			Log.Info( $"Anzahl der Items in itemStorage: {itemStorage.items.Count}" );
+			foreach ( var item in itemStorage.items )
+			{
+				Log.Info( $"Item: {item?.Name}" );
+			}
+			return itemStorage.items
+				.Where( item => item != null ) // Filtere ungültige Items
+				.ToList();
+		}
+
+		private void AddItemsFromComponents( List<ItemComponent> itemList )
+		{
+			if ( itemList == null || itemList.Count == 0 )
+			{
+				Log.Info( "Keine Items in der Liste." );
+				return;
+			}
+
+			foreach ( var itemComponent in itemList )
+			{
+				if ( itemComponent != null )
+				{
+					itemStorage.AddItem( itemComponent, itemStorage.Items.Count );
+					Log.Info( $"Item hinzugefügt: {itemComponent.Name}, Gesamtanzahl der Elemente: {itemStorage.ItemCount}" );
+				}
+				else
+				{
+					Log.Error( "Fehler beim Hinzufügen des Items." );
+				}
+			}
+			StateHasChanged(); // Aktualisiert die UI
+		}
 
 		// Beispielmethoden
 		private static ItemStorage GetItemStorageInstance()
