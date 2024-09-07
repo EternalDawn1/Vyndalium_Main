@@ -14,9 +14,9 @@ namespace GeneralGame
 
         private StorageBox storageBox;
         [Property] ItemInteractable itemInteractable { get; set; }
-        [Property] public List<ItemComponent> items { get; set; } = new List<ItemComponent>();
+        [Property] public List<ItemComponent> items { get; set; } = new List<ItemComponent>() ;
         [Property] public List<ItemComponent> Items => items;
-        [Property] public int ItemCount { get; set; }
+        [Property] public int ItemCount => items.Count;
 
         protected override void OnAwake()
         {

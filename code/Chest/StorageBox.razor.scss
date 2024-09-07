@@ -34,6 +34,24 @@ StorageBox {
             border: 1px solid #ccc;
             background-color:rgba(228, 223, 192, 0.11);
              /* Stellen Sie sicher, dass es vom Spielerinventar getrennt ist */
+             .exit-button {
+                z-index: 100;
+                position: absolute;
+                background-color: rgb(255, 0, 0);
+                color:white;
+                border-width: 5px;
+                border-color: black;
+                right: 0;
+                top: 0;
+                padding: 5px;
+                cursor: pointer;
+
+                :hover{
+                    background-color: rgb(0, 255, 149);
+                    transform: scale(1.1);
+                    
+                }
+             }
             .items {
             
                     display: flex;

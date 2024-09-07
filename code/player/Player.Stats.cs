@@ -22,7 +22,7 @@ public partial class Player
     [Sync, Property, Group( "CharacterStats" )] public float Armor { get; set; } = 0f;
 
     [Sync, Property, Group( "CharacterStats" )] public double AttackSpeed { get; set; } = 1.1f;
-    [Sync, Property, Group( "CharacterStats" )] public float AttackPower { get;  } = 0f;
+    [Sync, Property, Group( "CharacterStats" )] public float AttackPower { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public float MagicPower { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public double Evasion { get; set; } = 0.1f;
     [Sync, Property, Group( "CharacterStats" )] public double Block { get; set; } = 0f;

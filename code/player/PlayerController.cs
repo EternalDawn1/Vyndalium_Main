@@ -23,7 +23,10 @@ public partial class Player : Component, IHealthComponent
 	[Property] public CameraComponent PlyCamera { get; set; }
 	[Property] public GameObject ViewModelRoot { get; set; }
 	[Property]public int DefaultAmmo { get; set; }
+	private float crouchProgress = 0f;
+	private const float crouchSpeed = 5f;
 
+	private Vector3 targetCameraPosition;
 	[Property] public AmmoContainer Ammo { get; set; } = new AmmoContainer();
 	public BaseGun CurrentWeapon { get; set; }
 	[Property] public CharacterController2 CharacterController { get; set; }
@@ -36,7 +39,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public SoundEvent HurtMidHP { get; set; }
 	
 	[Property] public float StandHeight { get; set; } = 64f;
-	[Property] public float DuckHeight { get; set; } = 28f;
+	[Property] public float DuckHeight { get; set; } = 29f;
 	[Property] public Action OnJump { get; set; }
 	[Property] public bool isJumping { get; set; }
 	[Sync] public LifeState LifeState { get; private set; } = LifeState.Alive;
@@ -115,6 +118,16 @@ public partial class Player : Component, IHealthComponent
 	{
 		get => BlockMovements || _blockMouseAim;
 		set => _blockMouseAim = value;
+	}
+	bool _blockMouseClicks = false;
+	/// <summary>
+	/// Block mouse clicks
+	/// </summary>
+	[Sync]
+	public bool BlockMouseClicks
+	{
+		get => _blockMouseClicks;
+		set => _blockMouseClicks = value;
 	}
 
 	bool _blockInputs = false;
@@ -655,6 +668,8 @@ public partial class Player : Component, IHealthComponent
 			Recoil = Recoil.LerpTo( Angles.Zero, Time.Delta * 8f );
 
 		}
+		
+		
 		// Überprüfen Sie den Gesundheitszustand des Spielers
 		// Check the player's health status
 		float healthPercentage = Health / MaxHealth * 100;
@@ -716,21 +731,23 @@ public partial class Player : Component, IHealthComponent
 
 		if ( WantsToCrouch )
 		{
-			CharacterController.Height = DuckHeight;
-			IsCrouching = true;
-			// Setzen Sie die Kameraposition auf die DuckHeight
-			
+			crouchProgress = Math.Min( crouchProgress + Time.Delta * crouchSpeed, 1f );
 		}
 		else
 		{
 			if ( !CanUncrouch() )
 				return;
 
-			CharacterController.Height = StandHeight;
-			IsCrouching = false;
-			// Setzen Sie die Kameraposition auf die StandHeight
-			
+			crouchProgress = Math.Max( crouchProgress - Time.Delta * crouchSpeed, 0f );
 		}
+
+		CharacterController.Height = Lerp( StandHeight, DuckHeight, crouchProgress );
+		targetCameraPosition = new Vector3( PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, Lerp( StandHeight, DuckHeight, crouchProgress ) );
+		IsCrouching = crouchProgress > 0.5f;
+	}
+	public static float Lerp( float a, float b, float t )
+	{
+		return a + (b - a) * t;
 	}
 
 	protected virtual void DoMovementInput()
@@ -906,6 +923,7 @@ public partial class Player : Component, IHealthComponent
 	private void BuildWishVelocity()
 	{
 		
+
 
 		if ( isFrozen )
 		{

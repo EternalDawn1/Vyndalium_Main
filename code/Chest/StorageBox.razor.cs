@@ -29,7 +29,7 @@ namespace GeneralGame.HUD
 			IsVisible = false;
 
 			// Debug-Ausgabe hinzufügen
-			Log.Info( $"Initialisierung von StorageBox. Anzahl der Items in itemStorage: {itemStorage.items.Count}" );
+			Log.Info( $"Initialisierung von StorageBox. Anzahl der Items in itemStorage: {itemStorage.Items.Count}" );
 
 			List<ItemComponent> itemList = GetItemComponentList(); // Erhalte die Prefab-Liste
 			AddItemsFromComponents( itemList ); // Stellen Sie sicher, dass die StorageBox anfangs nicht sichtbar ist
@@ -37,12 +37,12 @@ namespace GeneralGame.HUD
 
 		private List<ItemComponent> GetItemComponentList()
 		{
-			Log.Info( $"Anzahl der Items in itemStorage: {itemStorage.items.Count}" );
-			foreach ( var item in itemStorage.items )
+			Log.Info( $"Anzahl der Items in itemStorage: {itemStorage.Items.Count}" );
+			foreach ( var item in itemStorage.Items )
 			{
 				Log.Info( $"Item: {item?.Name}" );
 			}
-			return itemStorage.items
+			return itemStorage.Items
 				.Where( item => item != null ) // Filtere ungültige Items
 				.ToList();
 		}
@@ -60,7 +60,7 @@ namespace GeneralGame.HUD
 				if ( itemComponent != null )
 				{
 					itemStorage.AddItem( itemComponent, itemStorage.Items.Count );
-					Log.Info( $"Item hinzugefügt: {itemComponent.Name}, Gesamtanzahl der Elemente: {itemStorage.ItemCount}" );
+					Log.Info( $"Item hinzugefügt: {itemComponent.Name}, Gesamtanzahl der Elemente: {itemStorage.Items.Count}" );
 				}
 				else
 				{
@@ -77,10 +77,10 @@ namespace GeneralGame.HUD
 			var itemInteractable = new ItemInteractable { Storage = storage };
 
 			// Fügen Sie alle vorhandenen Items aus der Liste hinzu
-			foreach ( var item in storage.items )
+			foreach ( var item in storage.Items )
 			{
 				storage.AddItem( item, storage.Items.Count );
-				Log.Info( $"Item hinzugefügt: {item.Name}, Gesamtanzahl der Elemente: {storage.ItemCount}" );
+				Log.Info( $"Item hinzugefügt: {item.Name}, Gesamtanzahl der Elemente: {storage.Items.Count}" );
 			}
 
 			return storage;
@@ -122,7 +122,6 @@ namespace GeneralGame.HUD
 		{
 			if ( itemStorage == null )
 			{
-				
 				return;
 			}
 
@@ -133,8 +132,6 @@ namespace GeneralGame.HUD
 
 			// Optional: Aufrufen von StateHasChanged(), wenn Sie in einer Blazor-Komponente sind, um die UI zu aktualisieren
 			StateHasChanged();
-
-			
 		}
 
 		public void OpenStorage()
