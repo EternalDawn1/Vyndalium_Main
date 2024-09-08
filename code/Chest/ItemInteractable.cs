@@ -78,7 +78,7 @@ public class ItemInteractable : BaseInteraction
             return;
         }
 
-        int index = Storage.Items.Count; // Startindex basierend auf der Anzahl der vorhandenen Elemente
+        int index = Storage.items.Count; // Startindex basierend auf der Anzahl der vorhandenen Elemente
         foreach ( var prefab in prefabList )
         {
             var itemComponent = ConvertPrefabToItemComponent( prefab );

@@ -10,6 +10,7 @@ namespace GeneralGame.HUD
 		public static bool IsVisible { get; set; }
        
         private  ItemStorage itemStorage { get; set; }
+		
 		private ItemInteractable itemInteractable;
 		
 		private bool visibilityChanged = false;
@@ -24,17 +25,19 @@ namespace GeneralGame.HUD
 			{
 				Storage = itemStorage
 			};
+			
+
+			
 
 			IsVisible = false;
 
-			// Debug-Ausgabe hinzufügen
-			List<ItemComponent> itemList = GetItemComponentList(); // Erhalte die Prefab-Liste
-			AddItemsFromComponents( itemList ); // Stellen Sie sicher, dass die StorageBox anfangs nicht sichtbar ist
+			
+			List<ItemComponent> itemList = GetItemComponentList(); 
+			AddItemsFromComponents( itemList );
 		}
 
 		private List<ItemComponent> GetItemComponentList()
 		{
-			
 			foreach ( var item in itemStorage.Items )
 			{
 				Log.Info( $"Item: {item?.Name}" );
@@ -84,6 +87,8 @@ namespace GeneralGame.HUD
 				IsVisible = false;
 			}
 			
+			
+
 		}
 
 

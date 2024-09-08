@@ -12,13 +12,13 @@ namespace GeneralGame
         public bool IsOpened { get; set; }
         public bool IsDoorOpen { get; set; }
 
-        private StorageBox storageBox;
+        private StorageBox storageBox { get; set; }
         [Property] ItemInteractable itemInteractable { get; set; }
-        [Property] public List<ItemComponent> items { get; set; } = new List<ItemComponent>();
-        [Property] public List<ItemComponent> Items => items;
+        [Property] public List<ItemComponent> Items { get; set; } = new List<ItemComponent>();
+        [Property] public List<ItemComponent> items => Items;
         [Property] public int ItemCount => items.Count;
         public Vector3 Position { get; set; }
-
+       
         protected override void OnAwake()
         {
             itemInteractable = this.Components.Get<ItemInteractable>();
@@ -40,6 +40,8 @@ namespace GeneralGame
             }
 
             items.Insert( index, item );
+            item.GameObject.Enabled = false;
+            Log.Info( $"Item {item.Name} added to storage at index {index}" );
        
         }
 
@@ -56,9 +58,6 @@ namespace GeneralGame
                 storageBox.ToggleVisibility();
                 Player.Local.BlockInputs = true;
 
-                // Prefabs zur Storage hinzufügen
-
-                // Initialisiere die Slots und zeige sie an
 
                 storageBox.StateHasChanged();
             }

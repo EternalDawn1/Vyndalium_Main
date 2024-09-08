@@ -165,6 +165,8 @@ public sealed class Inventory : Component
 		SetOwner( item );
 		GiveBackpackItem( item, firstFreeSlot );
 		item.State = ItemState.Backpack;
+		item.GameObject.Enabled = false;
+		
 		TaskMaster.SubmitTriggerSignal( $"item.received.{item.Name}", Player );
 
 		return true;
@@ -353,6 +355,14 @@ public sealed class Inventory : Component
 			RemoveBackpackItem( item, _backpackItems.IndexOf( item ) );
 
 		item.State = ItemState.None;
+		item.GameObject.Enabled = true;
+		item.GameObject.Components.GetOrCreate<SkinnedModelRenderer>().Enabled = true;
+		var ModelRenderer = item.GameObject.Components.Get<ModelRenderer>();
+		if ( ModelRenderer != null )
+		{
+			ModelRenderer.Enabled = true;
+		}
+		
 		TaskMaster.SubmitTriggerSignal( $"item.dropped.{item.Name}", Player );
 		
 		
@@ -381,6 +391,15 @@ public sealed class Inventory : Component
 			item.GameObject.Enabled = true;
 			modelPhysics.PhysicsGroup?.AddVelocity( velocity );
 		}
+		else if ( item.GameObject.Components.TryGet<PhysicsBody>( out var physicsBody, FindMode.EverythingInSelf ) )
+		{
+			physicsBody.Velocity = velocity;
+		}
+		else if(item.GameObject.Components.TryGet<ModelRenderer>(out var modelRenderer, FindMode.EverythingInSelf))
+		{
+			modelRenderer.Enabled = true;
+		}
+		
 		
 
 		return true;
