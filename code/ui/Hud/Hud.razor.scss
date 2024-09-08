@@ -41,25 +41,70 @@
 		align-items: center;
 	}
 
-	.crosshair1 {
-		position: absolute;
-		opacity: 1;
-		transition: transform 2.05s ease-in-out;
-		width: 25px;
-		height: 25px;
-		border: 2px solid white;
-		background-color: transparent;
-		border-radius: 55px;
-		border-right-color: transparent;
-		border-right-width: 5px;
-		border-left-width: 5px;
-		border-left-color: transparent;
-		border-top-width: 1px;
-		border-bottom-width: 1px;
-
-
-
-	}
+								.crosshair1 {
+									position: relative;
+									opacity: 1;
+									transition: transform 2.05s ease-in-out;
+									width: 50px;
+									/* Breite des Fadenkreuzes */
+									height: 50px;
+									/* Höhe des Fadenkreuzes */
+									background-color: transparent;
+									
+								}
+				
+								.crosshair1 .bar {
+									position: absolute;
+									background-color: rgb(30, 255, 0);
+								}
+				
+								.crosshair1 .bar.vertical {
+									width: 2px;
+									/* Dicke des vertikalen Balkens */
+								}
+				
+								.crosshair1 .bar.horizontal {
+									height: 2px;
+									/* Dicke des horizontalen Balkens */
+									width: 20px;
+									/* Breite des horizontalen Balkens */
+								}
+				
+								.crosshair1 .bar.top {
+									height: 11px;
+									/* Höhe des oberen Balkens */
+									top: 6;
+									left: 50%;
+									transform: translateX(-50%);
+								}
+				
+								.crosshair1 .bar.bottom {
+									height: 11px;
+									/* Höhe des unteren Balkens */
+									bottom: 6;
+									left: 50%;
+									transform: translateX(-50%);
+								}
+				
+								.crosshair1 .bar.left {
+									height: 2px;
+									/* Dicke des horizontalen Balkens */
+									width: 11px;
+									/* Breite des linken Balkens */
+									top: 50%;
+									left: 6;
+									transform: translateY(-50%);
+								}
+				
+								.crosshair1 .bar.right {
+									height: 2px;
+									/* Dicke des horizontalen Balkens */
+									width: 11px;
+									/* Breite des rechten Balkens */
+									top: 50%;
+									right: 6;
+									transform: translateY(-50%);
+								}
 
 	&.hitmarker {
 		.crosshair1 {

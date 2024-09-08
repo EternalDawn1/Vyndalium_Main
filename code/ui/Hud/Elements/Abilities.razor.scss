@@ -267,11 +267,14 @@ Abilities{
                                 background-color: rgb(198, 233, 0);
                                 justify-content: center;
                             } 
-                            .Button2 {
+                            .Button2 
+                            {
                             position: relative;
                             width: 12%;
                             height: 100%;
-                            color: rgb(0, 0, 0);
+                            color: rgb(255, 255, 255);
+                            background-image: url(/ui/hud/menuchar.png);
+                            background-size: 100%;
                             font-weight: 1000;
                             
                             font-size: 20px;
@@ -282,12 +285,16 @@ Abilities{
                                 justify-content: center;
 
                             :hover:not(.disabled) {
-                                    background-color: rgba(0, 0, 0, 0.034);
+                                    background-color: rgba(117, 255, 163, 0.822);
+                                    width: 90%;
+                                   
+                                    height: 100%;
                                     cursor: pointer;
                                     sound-in: 'hover';
                                     padding: 0 1%;
                                     border-radius: 5%;
-                                    transform: scale(1.1);
+                                   
+                                    align-items: center;
                                 }
                             
                                 &:active:not(.disabled) {
@@ -296,7 +303,34 @@ Abilities{
                                     padding: 0 1%;
                                     border-radius: 5%;
                                 }
-                        }
+                            }
+                            .Button1{
+                                position: relative;
+                                    width: 12%;
+                                    height: 100%;
+                                    color: rgb(255, 255, 255);
+                                    background-image: url(/ui/hud/menuchar.png);
+                                    background-size: 100%;
+                                    font-weight: 1000;
+                                
+                                    font-size: 14px;
+                                
+                                    border-width: 1%;
+                                    border-color: rgb(0, 0, 0);
+                                    background-color: rgb(136, 136, 136);
+                                    justify-content: center;
+                            }
+                            .info1{
+                                    
+                                    width: 15%;
+                                    color: rgb(0, 0, 0);
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                    border-width: 1%;
+                                    border-color: rgb(0, 0, 0);
+                                    background-color: rgb(136, 136, 136);
+                                    justify-content: center;
+                            }
                         
     
                         } 

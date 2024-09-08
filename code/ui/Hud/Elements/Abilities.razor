@@ -73,11 +73,21 @@
                 <div class="panel-content-text">
                     <div class="panel-content-layout">
                         <div class="panel-button-layout">
+                            <div class="box"
+                                style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
+                                <p class="txt" style="background-color: rgb(114, 114, 114);">Endurance-Stats</p>
+                                <div class="amount">Player-Stats</div>
+                                <div class="coast">Stat-Costs</div>
+                                <button class="Button1">Upgrade</button>
+                                <button class="info1">Information</button>
+
+                            </div>
                             <div class="box">
                                 <p class="txt2">Endurance</p>
                                 <div class="amount">@Player.Local.PER</div>
-                                <button class="Button2" @onclick="@EnduranceUpgrade">END+</button>
-                                <div class="coast">Coast: @Player.Local.EnduranceCost</div>
+                                
+                                <div class="coast">Cost: @Player.Local.EnduranceCost</div>
+                                <button class="Button2" @onclick="@EnduranceUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.Endurance))">?</button>
                             </div>
@@ -85,62 +95,70 @@
                             <div class="box">
                                 <p class="txt">Slow Resistance</p>
                                 <div class="amount">@Player.Local.SlowResist</div>
-                                <button class="Button2" @onclick="@SlowResistanceUpgrade">SR+</button>
-                                <div class="coast">Coast: @Player.Local.SlowResistanceCost</div>
+                               
+                                <div class="coast">Cost: @Player.Local.SlowResistanceCost</div>
+                                <button class="Button2" @onclick="@SlowResistanceUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.SlowResistance))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Blind Resistance</p>
                                 <div class="amount">@Player.Local.BlindResist</div>
-                                <button class="Button2" @onclick="@BlindResistanceUpgrade">BR+</button>
-                                <div class="coast">Coast: @Player.Local.BlindResistanceCost</div>
+                                
+                                <div class="coast">Cost: @Player.Local.BlindResistanceCost</div>
+                                <button class="Button2" @onclick="@BlindResistanceUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.BlindResistance))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Stun Resistance</p>
                                 <div class="amount">@Player.Local.StunResist</div>
-                                <button class="Button2" @onclick="@StunResistanceUpgrade">SR+</button>
-                                <div class="coast">Coast: @Player.Local.StunResistanceCost</div>
+                               
+                                <div class="coast">Cost: @Player.Local.StunResistanceCost</div>
+                                <button class="Button2" @onclick="@StunResistanceUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.StunResistance))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Tenacity (TEN)</p>
                                 <div class="amount">@Player.Local.Tenacity</div>
-                                <button class="Button2" @onclick="@TenacityUpgrade">TEN+</button>
-                                <div class="coast">Coast: @Player.Local.TenacityCost</div>
+                                
+                                <div class="coast">Cost: @Player.Local.TenacityCost</div>
+                                <button class="Button2" @onclick="@TenacityUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.Tenacity))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Cover (Block+)</p>
                                 <div class="amount">@Player.Local.Block</div>
-                                <button class="Button2" @onclick="@CoverUpgrade">COV+</button>
-                                <div class="coast">Coast: @Player.Local.CoverCost</div>
+                                
+                                <div class="coast">Cost: @Player.Local.CoverCost</div>
+                                <button class="Button2" @onclick="@CoverUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Cover))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Magic Defense (MD)</p>
                                 <div class="amount">@Player.Local.MagicDefense</div>
-                                <button class="Button2" @onclick="@MagicDefenseUpgrade">MD+</button>
-                                <div class="coast">Coast: @Player.Local.MagicDefenseCost</div>
+                                
+                                <div class="coast">Cost: @Player.Local.MagicDefenseCost</div>
+                                <button class="Button2" @onclick="@MagicDefenseUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.MagicDefense))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Armor (DEF)</p>
                                 <div class="amount">@Player.Local.Armor</div>
-                                <button class="Button2" @onclick="@ArmorUpgrade">DEF+</button>
-                                <div class="coast">Coast: @Player.Local.ArmorCost</div>
+                               
+                                <div class="coast">Cost: @Player.Local.ArmorCost</div>
+                                <button class="Button2" @onclick="@ArmorUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Armor))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Health (HP)</p>
                                 <div class="amount">@Player.Local.MaxHealth</div>
-                                <button class="Button2" @onclick="@HealthUpgrade">HP+</button>
-                                <div class="coast">Coast: @Player.Local.HealthCost</div>
+                                
+                                <div class="coast">Cost: @Player.Local.HealthCost</div>
+                                <button class="Button2" @onclick="@HealthUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Health))">?</button>
                             </div>
                         </div>
@@ -158,59 +176,75 @@
                 
                     <div class="panel-content-text">
                         <div class="panel-content-layout">
-                            <div class="panel-button-layout"> 
+                            <div class="panel-button-layout">
+                            <div class="box" style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
+                                <p class="txt" style="background-color: rgb(114, 114, 114);">Strength-Stats</p>
+                                <div class="amount">Player-Stats</div>
+                                <div class="coast">Stat-Costs</div>
+                                <button class="Button1">Upgrade</button>
+                                <button class="info1" >Information</button>
+                                
+                            </div>
                             <div class="box">
+                               
                                 <p class="txt2">Strength</p>
                                 <div class="amount">@Player.Local.STG</div>
-                                <button class="Button2" @onclick="@STGUpgrade">ATP+</button>
-                                <div class="coast">Coast: @Player.Local.StrengthCost</div>
+                               
+                                <div class="coast">Cost: @Player.Local.StrengthCost</div>
+                                <button class="Button2" @onclick="@STGUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Strength))">?</button>
                             </div>
 
                             <div class="box">
                                 <p class="txt">Attack Power</p>
                                 <div class="amount">@Player.Local.AttackPower</div>
-                                <button class="Button2" @onclick="@AP">AP+</button>
-                                <div class="coast">Coast: @Player.Local.AttackPowerCost</div>
+                         
+                                <div class="coast">Cost: @Player.Local.AttackPowerCost</div>
+                                <button class="Button2" @onclick="@AP">+</button>
                                 <button class="info"@onclick="@(() => ShowPanelText(PanelTypeText.AttackPower))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Armor Penetration</p>
                                 <div class="amount">@Player.Local.ArmorPenetration</div>
-                                <button class="Button2" @onclick="@ArmorPenetration">AP+</button>
-                                <div class="coast">Coast: @Player.Local.ArmorPenetrationCost</div>
+                           
+                                <div class="coast">Cost: @Player.Local.ArmorPenetrationCost</div>
+                                <button class="Button2" @onclick="@ArmorPenetration">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.ArmorPenetration))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Attack Range</p>
                                 <div class="amount">@Player.Local.AttackRange</div>
-                                <button class="Button2" @onclick="@AttackRange">AR+</button>
-                                <div class="coast">Coast: @Player.Local.AttackRangeCost</div>
+                            
+                                <div class="coast">Cost: @Player.Local.AttackRangeCost</div>
+                                <button class="Button2" @onclick="@AttackRange">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.AttackRange))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Attack Speed</p>
                                 <div class="amount">@Math.Round(Player.Local.AttackSpeed)</div>
-                                <button class="Button2" @onclick="@AttackSpeed">AS+</button>
-                                <div class="coast">Coast: @Player.Local.AttackSpeedCost</div>
+                            
+                                <div class="coast">Cost: @Player.Local.AttackSpeedCost</div>
+                                <button class="Button2" @onclick="@AttackSpeed">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.AttackSpeed))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Critical Chance</p>
                                 <div class="amount">@Player.Local.CritHitChance</div>
-                                <button class="Button2" @onclick="@CriticalChance">CC+</button>
-                                <div class="coast">Coast: @Player.Local.CriticalChanceCost</div>
+                           
+                                <div class="coast">Cost: @Player.Local.CriticalChanceCost</div>
+                                <button class="Button2" @onclick="@CriticalChance">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.CriticalChance))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Critical Damage</p>
                                 <div class="amount">@Player.Local.CritHitDamage</div>
-                                <button class="Button2" @onclick="@CriticalDamage">CD+</button>
-                                <div class="coast">Coast: @Player.Local.CriticalDamageCost</div>
+                           
+                                <div class="coast">Cost: @Player.Local.CriticalDamageCost</div>
+                                <button class="Button2" @onclick="@CriticalDamage">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.CriticalDamage))">?</button>
                             </div>
@@ -229,12 +263,22 @@
                     <div class="panel-content-text">
                         <div class="panel-content-layout">
                             <div class="panel-button-layout">
+                            <div class="box"
+                                style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
+                                <p class="txt" style="background-color: rgb(114, 114, 114);">Dexterity-Stats</p>
+                                <div class="amount">Player-Stats</div>
+                                <div class="coast">Stat-Costs</div>
+                                <button class="Button1">Upgrade</button>
+                                <button class="info1">Information</button>
+
+                            </div>
 
                             <div class="box">
                                 <p class="txt2">Dexterity</p>
                                 <div class="amount">@Player.Local.DEX</div>
-                                <button class="Button2" @onclick="@DexterityUpgrade">DEX+</button>
-                                <div class="coast">Coast: @Player.Local.DexterityCost</div>
+                                
+                                <div class="coast">Cost: @Player.Local.DexterityCost</div>
+                                <button class="Button2" @onclick="@DexterityUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.Dexterity))">?</button>
                             </div>
@@ -242,16 +286,18 @@
                             <div class="box">
                                 <p class="txt">Evasion</p>
                                 <div class="amount">@Math.Round(@Player.Local.Evasion)</div>
-                                <button class="Button2" @onclick="@EvasionUpgrade">EVA+</button>
-                                <div class="coast">Coast: @Player.Local.EvasionCost</div>
+                              
+                                <div class="coast">Cost: @Player.Local.EvasionCost</div>
+                                <button class="Button2" @onclick="@EvasionUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Evasion))">?</button>
                             </div>
 
                             <div class="box">
                                 <p class="txt">Ability Haste</p>
                                 <div class="amount">@Player.Local.AbilityHaste</div>
-                                <button class="Button2" @onclick="@AbilityHasteUpgrade">AH+</button>
-                                <div class="coast">Coast: @Player.Local.AbilityHasteCost</div>
+                               
+                                <div class="coast">Cost: @Player.Local.AbilityHasteCost</div>
+                                <button class="Button2" @onclick="@AbilityHasteUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.AbilityHaste))">?</button>
                             </div>
@@ -259,16 +305,18 @@
                             <div class="box">
                                 <p class="txt">Stamina</p>
                                 <div class="amount">@Player.Local.MaxStamina</div>
-                                <button class="Button2" @onclick="@StaminaUpgrade">STA+</button>
-                                <div class="coast">Coast: @Player.Local.StaminaCost</div>
+                          
+                                <div class="coast">Cost: @Player.Local.StaminaCost</div>
+                                <button class="Button2" @onclick="@StaminaUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Stamina))">?</button>
                             </div>
 
                             <div class="box">
                                 <p class="txt">Walk Speed</p>
                                 <div class="amount">@Player.Local.PlayerWalkSpeed</div>
-                                <button class="Button2" @onclick="@PlayerWalkSpeedUpgrade">PWS+</button>
-                                <div class="coast">Coast: @Player.Local.PlayerWalkSpeedCost</div>
+                               
+                                <div class="coast">Cost:: @Player.Local.PlayerWalkSpeedCost</div>
+                                <button class="Button2" @onclick="@PlayerWalkSpeedUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.PlayerWalkSpeed))">?</button>
                             </div>
@@ -276,8 +324,9 @@
                             <div class="box">
                                 <p class="txt"> Run Speed</p>
                                 <div class="amount">@Player.Local.PlayerRunSpeed</div>
-                                <button class="Button2" @onclick="@PlayerRunSpeedUpgrade">PRS+</button>
-                                <div class="coast">Coast: @Player.Local.PlayerRunSpeedCost</div>
+                            
+                                <div class="coast">Cost: @Player.Local.PlayerRunSpeedCost</div>
+                                <button class="Button2" @onclick="@PlayerRunSpeedUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.PlayerRunSpeed))">?</button>
                             </div>
@@ -285,8 +334,9 @@
                             <div class="box">
                                 <p class="txt">Mana</p>
                                 <div class="amount">@Player.Local.MaxMana</div>
-                                <button class="Button2" @onclick="@ManaUpgrade">MANA+</button>
-                                <div class="coast">Coast: @Player.Local.ManaCost</div>
+                             
+                                <div class="coast">Cost: @Player.Local.ManaCost</div>
+                                <button class="Button2" @onclick="@ManaUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Mana))">?</button>
                             </div>
                         </div>
@@ -302,43 +352,56 @@
                 <div class="panel-content-text">
                     <div class="panel-content-layout">
                         <div class="panel-button-layout">
+                            <div class="box"
+                                style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
+                                <p class="txt" style="background-color: rgb(114, 114, 114);">Intelligence-Stats</p>
+                                <div class="amount">Player-Stats</div>
+                                <div class="coast">Stat-Costs</div>
+                                <button class="Button1">Upgrade</button>
+                                <button class="info1">Information</button>
 
+                            </div>
                             <div class="box">
                                 <p class="txt2">Intelligence</p>
                                 <div class="amount">@Player.Local.INT</div>
-                                <button class="Button2" @onclick="@INTUpgrade">INT+</button>
-                                <div class="coast">Coast: @Player.Local.IntelligenceCost</div>
+                               
+                                <div class="coast">Cost: @Player.Local.IntelligenceCost</div>
+                                <button class="Button2" @onclick="@INTUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Intelligence))">?</button>
                             </div>
 
                             <div class="box">
                                 <p class="txt">Magic Power (MAP)</p>
                                 <div class="amount">@Math.Round(Player.Local.MagicPower)</div>
-                                <button class="Button2" @onclick="@MagicPowerUpgrade">MAP+</button>
-                                <div class="coast">Coast: @Player.Local.MagicPowerCost</div>
+                              
+                                <div class="coast">Cost: @Player.Local.MagicPowerCost</div>
+                                <button class="Button2" @onclick="@MagicPowerUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.MagicPower))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Magic Penetration (MP)</p>
                                 <div class="amount">@Player.Local.MagicPenetration</div>
-                                <button class="Button2" @onclick="@MagicPenetrationUpgrade">MP+</button>
-                                <div class="coast">Coast: @Player.Local.MagicPenetrationCost</div>
+                              
+                                <div class="coast">Cost: @Player.Local.MagicPenetrationCost</div>
+                                <button class="Button2" @onclick="@MagicPenetrationUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.MagicPenetration))">?</button>
                             </div>
                             <div class="box">
                                 <p class="txt">Bonus EXP Gain (EXP+)</p>
                                 <div class="amount">@Math.Round(Player.Local.BonusEXPGain, 2)</div>
-                                <button class="Button2" @onclick="@BonusEXPGainUpgrade">EXP+</button>
-                                <div class="coast">Coast: @Player.Local.BonusEXPGainCost</div>
+                              
+                                <div class="coast">Cost: @Player.Local.BonusEXPGainCost</div>
+                                <button class="Button2" @onclick="@BonusEXPGainUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.BonusEXPGain))">?</button>
                             </div>
 
                             <div class="box">
                                 <p class="txt">Bonus Vyndalium Gain (Vynd+)</p>
                                 <div class="amount">@Player.Local.BonusVyndalium</div>
-                                <button class="Button2" @onclick="@BonusVyndaliumGainUpgrade">Vynd+</button>
-                                <div class="coast">Coast: @Player.Local.BonusVyndaliumGainCost</div>
+                              
+                                <div class="coast">Cost: @Player.Local.BonusVyndaliumGainCost</div>
+                                <button class="Button2" @onclick="@BonusVyndaliumGainUpgrade">+</button>
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.BonusVyndaliumGain))">?</button>
                             </div>
 
@@ -480,14 +543,14 @@
             PanelTypeText.Evasion => "| Evasion + 4 |",
             PanelTypeText.AbilityHaste => "| Ability Haste + 5 |",
             PanelTypeText.Stamina => "| Stamina + 6 |",
-            PanelTypeText.PlayerWalkSpeed => "| Player Walk Speed + 7 |",
-            PanelTypeText.PlayerRunSpeed => "| Player Run Speed + 8 |",
+            PanelTypeText.PlayerWalkSpeed => "| Player Walk Speed + 14 |",
+            PanelTypeText.PlayerRunSpeed => "| Player Run Speed + 18 |",
             PanelTypeText.Mana => "| Mana + 9 |",
             PanelTypeText.Intelligence => "| Intelligence + 1 |",
             PanelTypeText.MagicPower => "| Magic Power + 2 |",
             PanelTypeText.MagicPenetration => "| Bonus EXP Gain + 15% |",
             PanelTypeText.BonusEXPGain => "| Bonus EXP Gain + 15% |",
-            PanelTypeText.BonusVyndaliumGain => "| Bonus Vyndalium Gain + 25 |",
+            PanelTypeText.BonusVyndaliumGain => "| Bonus Vyndalium Gain + 0,3 |",
 
 
             _ => "| Unknown panel text. |"
@@ -744,7 +807,7 @@
     {
         if (Player.Local.StatsPoints >= Player.Local.PlayerWalkSpeedCost)
         {
-            Player.Local.PlayerWalkSpeed += 8;
+            Player.Local.PlayerWalkSpeed += 14;
             Player.Local.StatsPoints -= Player.Local.PlayerWalkSpeedCost;
             Player.Local.PlayerWalkSpeedCost++;
         }
@@ -754,7 +817,7 @@
     {
         if (Player.Local.StatsPoints >= Player.Local.PlayerRunSpeedCost)
         {
-            Player.Local.PlayerRunSpeed += 8;
+            Player.Local.PlayerRunSpeed += 18;
             Player.Local.StatsPoints -= Player.Local.PlayerRunSpeedCost;
             Player.Local.PlayerRunSpeedCost++;
         }

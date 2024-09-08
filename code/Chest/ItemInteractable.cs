@@ -75,7 +75,6 @@ public class ItemInteractable : BaseInteraction
     {
         if ( Storage == null )
         {
-            Log.Error( "Storage ist null in AddPrefabsToStorage." );
             return;
         }
 
@@ -86,7 +85,6 @@ public class ItemInteractable : BaseInteraction
             if ( itemComponent != null )
             {
                 Storage.AddItem( itemComponent, index );
-                Log.Info( $"Added {itemComponent.Name} to storage box" );
                 index++;
             }
         }
@@ -97,7 +95,7 @@ public class ItemInteractable : BaseInteraction
         var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
         obj.NetworkMode = NetworkMode.Object;
         obj.NetworkSpawn();
-
+        
         var itemComponent = obj.Components.Get<ItemComponent>();
         if ( itemComponent == null )
         {

@@ -7,7 +7,7 @@ public enum ItemState
 	None,
 	Backpack,
 	Equipped,
-	Chest
+	StorageBox
 }
 public enum Tier 
 {

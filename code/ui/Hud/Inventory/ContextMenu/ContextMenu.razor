@@ -5,7 +5,7 @@
 
 
 
-<root onclick=@(() => Close())>
+<root onclick=@(() => Close()) >
 	
 	@if (_item is ItemEquipment equipment)
 	{
@@ -115,6 +115,7 @@
 	private void Inspect(ItemComponent item)
 	{
 		Inventory.Instance.Inspect(item);
+		CharacterMenu.Instance.Inspect(item);
 	}
 
 	private void ToggleEquip(ItemEquipment equipment)
@@ -142,6 +143,8 @@
 		if (!boxRect.IsInside(mousePosition))
 			Close();
 		if (FullScreenManager.Instance.ActivePanel != FullScreenManager.FullScreenPanel.Inventory)
+		
+		
 			Close();
 		
 	}

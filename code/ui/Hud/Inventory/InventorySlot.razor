@@ -25,6 +25,10 @@
 	{
 		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
 	}
+	@if (IndependentSlotIndex is not null)
+	{
+		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
+	}
 	
 
 	
@@ -339,6 +343,7 @@
 		Inventory.Instance?.OnChanged();
 
 		var inventory = Player.Local.Inventory;
+		
 
 		if (EquipSlotIndex != null)
 
@@ -365,9 +370,10 @@
 			return;
 
 		}
+		
 		if (IndependentSlotIndex != null)
 		{
-			
+			Item = inventory.BackpackItems[(int)IndependentSlotIndex];
 			StateHasChanged();
 			return;
 		}
@@ -694,6 +700,8 @@
 		v.IsHoveredByMouse());
 
 		var targetSlot = Inventory.Instance.Descendants.OfType<InventorySlot>().FirstOrDefault(v => v.IsHoveredByMouse());
+
+		
 
 		if (targetSlot != null)
 

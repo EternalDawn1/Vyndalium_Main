@@ -14,9 +14,10 @@ namespace GeneralGame
 
         private StorageBox storageBox;
         [Property] ItemInteractable itemInteractable { get; set; }
-        [Property] public List<ItemComponent> items { get; set; } = new List<ItemComponent>() ;
+        [Property] public List<ItemComponent> items { get; set; } = new List<ItemComponent>();
         [Property] public List<ItemComponent> Items => items;
         [Property] public int ItemCount => items.Count;
+        public Vector3 Position { get; set; }
 
         protected override void OnAwake()
         {
@@ -28,18 +29,18 @@ namespace GeneralGame
         {
             if ( item == null )
             {
-                Log.Error( "Item ist null und kann nicht hinzugefügt werden." );
+               
                 return;
             }
 
             if ( index < 0 || index > items.Count )
             {
-                Log.Error( "Ungültiger Index für das Hinzufügen des Items." );
+               
                 return;
             }
 
             items.Insert( index, item );
-            Log.Info( $"Item hinzugefügt: {item.Name}, Gesamtanzahl der Elemente: {items.Count}" );
+       
         }
 
         public void OpenInventory()

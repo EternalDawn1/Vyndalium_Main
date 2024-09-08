@@ -330,7 +330,11 @@
 		ResistStats
 	}
 	
-
+	public void Inspect(ItemComponent item)
+	{
+		if (item is not null)
+			AddChild(new InspectItem(item));
+	}
 	CharacterRenderer _renderer;
 	public static CharacterMenu Instance { get; private set; }
 	public CharacterMenu() => Instance = this;
