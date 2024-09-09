@@ -129,7 +129,7 @@ public partial class Npc : Component, IHealthComponent
 	[Property]
 	[Category( "Stats" )]
 	[Range( 0f, 1024f, 16f, false )]
-	public float DetectRange { get; set; } = 256f;
+	public float DetectRange { get; set; } = 356f;
 
 	/// <summary>
 	/// How far away the NPC can see the enemy before losing sight
@@ -207,7 +207,13 @@ public partial class Npc : Component, IHealthComponent
 	[Property]
 	[Category( "Triggers" )]
 	public NpcTrigger OnKilled { get; set; }
-
+	/// <summary>
+	/// Should the stats scale linearly with the scale of the object
+	/// </summary>
+	[Property]
+	[Category( "Stats" )]
+	public bool ScaleStats { get; set; } = true;
+	public float Scale => ScaleStats ? MathF.Max( MathF.Max( GameObject.Transform.Scale.x, GameObject.Transform.Scale.y ), GameObject.Transform.Scale.z ) : 1f;
 	/// <summary>
 	/// When the NPC has no target it will occasionally fire this off
 	/// </summary>
@@ -248,8 +254,19 @@ public partial class Npc : Component, IHealthComponent
 	[Property]public NpcState CurrentState { get; set; } = NpcState.Idle;
 	public static Random random = new Random();
 
-	
-	
+
+
+
+	[Property]
+	public NavigationType WalkingType { get; set; } = NavigationType.Dumb;
+
+	[Property]
+	public NavigationType RunningType { get; set; } = NavigationType.Smart;
+
+	public NavigationType NavigationType => IsRunning ? RunningType : WalkingType;
+
+
+
 
 
 	protected override void OnStart()
@@ -284,7 +301,24 @@ public partial class Npc : Component, IHealthComponent
 
 
 	}
-	
+	public void InitializeNPC()
+	{
+		// Set a random target position around the spawn point
+		TargetPosition = GetRandomPositionAround( Transform.Position );
+		FollowingTargetObject = false;
+	}
+	public void MoveToTargetPosition()
+	{
+		if ( Transform.Position.Distance( TargetPosition ) <= 5f )
+		{
+			TargetPosition = GetRandomPositionAround( Transform.Position );
+		}
+		else
+		{
+			var direction = (TargetPosition - Transform.Position).Normal;
+			Transform.Position += direction * (IsRunning ? RunSpeed : WalkSpeed) * Time.Delta;
+		}
+	}
 
 	public  void TryFreezePlayer( float durationInSeconds , Player player )
 	{
@@ -309,7 +343,7 @@ public partial class Npc : Component, IHealthComponent
 			}
 		}
 	}
-
+	
 
 
 	private bool IsPlayerNearby()
@@ -330,14 +364,12 @@ public partial class Npc : Component, IHealthComponent
 	protected override void OnUpdate()
 	{
 		// Überprüfe auf Vorbedingungen, um eine ungültige Ausführung zu vermeiden
-		if ( Model == null  || (Healthone != null && !Healthone.Alive) )
+		if ( Model == null || (Healthone != null && !Healthone.Alive) )
 			return;
 
 		bool isPlayerNearby = IsPlayerNearby();
 
-
-
-
+			
 
 		// Suchen Sie nach allen Spielern in der Szene
 		var players = Scene.GetAllComponents<Player>();
@@ -358,73 +390,92 @@ public partial class Npc : Component, IHealthComponent
 			}
 		}
 
+		if (PogMode)
+		{
+			
+		}
+
 		if ( closestPlayer != null )
 		{
 			var closestDistance = MathF.Sqrt( closestDistanceSquared );
-			SetTarget( closestPlayer.GameObject );
 
-			// Richte den NPC auf die Bewegungsrichtung aus, falls erforderlich
-			if ( Ragdoll == null && FaceTowardsVelocity )
+			// Überprüfen, ob der Spieler innerhalb der Reichweite ist
+			if ( closestDistance <= VisionRange || IsWithinRange( closestPlayer.GameObject, DetectRange ) )
 			{
-				if ( !MoveHelper.Velocity.IsNearlyZero( 1f ) )
+				
+				SetTarget( closestPlayer.GameObject );
+
+				// Richte den NPC auf die Bewegungsrichtung aus, falls erforderlich
+				if ( Ragdoll == null && FaceTowardsVelocity )
 				{
-					Transform.Rotation = Rotation.Lerp( Transform.Rotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * 5.0f );
+					if ( !MoveHelper.Velocity.IsNearlyZero( 1f ) )
+					{
+						Transform.Rotation = Rotation.Lerp( Transform.Rotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * 5.0f );
+					}
 				}
-			}
 
-			UpdateAnimations( closestPlayer );
-			float maxProximityDistance = 80f;
+				UpdateAnimations( closestPlayer );
+				float maxProximityDistance = 80f;
 
-			// Überprüfe die Entfernung zum nächsten Spieler und passe die Bewegungsart entsprechend an
-			if ( closestDistance < maxProximityDistance )
-			{
-				CurrentState = NpcState.Walking;
-				AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Walk;
-				agent.Stop();
-				NormalTrace();
+				// Überprüfe die Entfernung zum nächsten Spieler und passe die Bewegungsart entsprechend an
+				if ( closestDistance < maxProximityDistance )
+				{
+					CurrentState = NpcState.Walking;
+					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Walk;
+					agent.Stop();
+					NormalTrace();
+				}
+				else
+				{
+					CurrentState = NpcState.Attacking;
+
+					// Setze den HoldType basierend auf dem aktuellen HoldType
+					switch ( CurrentHoldType )
+					{
+						case HoldTypes.None:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+							break;
+						case HoldTypes.Pistol:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
+							break;
+						case HoldTypes.Rifle:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Rifle;
+							break;
+						case HoldTypes.Shotgun:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Shotgun;
+							break;
+						case HoldTypes.HoldItem:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.HoldItem;
+							break;
+						case HoldTypes.Punch:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
+							break;
+						case HoldTypes.Swing:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
+							break;
+						case HoldTypes.RPG:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.RPG;
+							break;
+						default:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+							break;
+					}
+
+					agent.MoveTo( closestPlayer.Transform.Position );
+					if ( !isPlayerNearby )
+					{
+						CurrentState = NpcState.Running;
+						AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
+					}
+				}
 			}
 			else
 			{
-				CurrentState = NpcState.Attacking;
-
-				// Setze den HoldType basierend auf dem aktuellen HoldType
-				switch ( CurrentHoldType )
-				{
-					case HoldTypes.None:
-						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
-						break;
-					case HoldTypes.Pistol:
-						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
-						break;
-					case HoldTypes.Rifle:
-						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Rifle;
-						break;
-					case HoldTypes.Shotgun:
-						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Shotgun;
-						break;
-					case HoldTypes.HoldItem:
-						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.HoldItem;
-						break;
-					case HoldTypes.Punch:
-						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
-						break;
-					case HoldTypes.Swing:
-						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
-						break;
-					case HoldTypes.RPG:
-						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.RPG;
-						break;
-					default:
-						AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
-						break;
-				}
-
-				agent.MoveTo( closestPlayer.Transform.Position );
-				if ( !isPlayerNearby )
-				{
-					CurrentState = NpcState.Running;
-					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
-				}
+				// Spieler ist außerhalb der Reichweite, NPC sollte aufhören, ihn zu verfolgen
+				Undetected();
+				
+				MoveToTargetPosition();
+			
 			}
 		}
 		else
@@ -437,19 +488,34 @@ public partial class Npc : Component, IHealthComponent
 				{
 					// Ziel außerhalb der Reichweite, verfolge weiterhin das letzte Ziel
 					agent.MoveTo( TargetObject.Transform.Position );
+
 				}
 				else
 				{
 					DetectAround();
-
+					
 				}
 			}
-
-
-
+			else
+			{
+				// Wenn kein Zielobjekt vorhanden ist, bewege den NPC zu einer zufälligen Position
+				MoveToTargetPosition();
+			
+				DetectAround();
+				
+			}
 		}
+		if ( RecentlyDamaged && Time.Now - LastDamageTime > DamageCooldown )
+		{
+			RecentlyDamaged = false;
+		}
+
+		// Wenn kein Zielobjekt vorhanden ist, bewege den NPC zur letzten bekannten Position des Spielers
+		
+
 		UpdateFootAnimations();
 	}
+	
 
 	void UpdateAnimations( Player player )
 	{
@@ -532,7 +598,23 @@ public partial class Npc : Component, IHealthComponent
 
 				AnimationHelper.Target.Set( "b_attack", true );
 
-				if ( Model != null ) Model.Set( "slime_attack", true );
+				if ( Model != null )
+				{
+					// Erzeuge eine Zufallszahl zwischen 0 und 1
+					Random random2 = new Random();
+					int randomNumber = random2.Next( 0, 2 ); // 0 oder 1
+
+					// Wähle zufällig zwischen den beiden Animationen
+					if ( randomNumber == 0 )
+					{
+						Model.Set( "slime_attack", true );
+					}
+					else
+					{
+						Model.Set( "slime_attack_v2", true );
+						
+					}
+				}
 				timeSinceHit = 0;
 
 				Sound.Play( HitSounds, Transform.Position );
@@ -592,33 +674,39 @@ public partial class Npc : Component, IHealthComponent
 
 	public void DetectAround()
 	{
-		if ( TargetObject == null ) // Check if there is a target object
-		{
-			var currentTick = (int)(Time.Now / Time.Delta);
-			if ( currentTick % 20 != NpcId % 20 ) return; // Check every 20 ticks
-
-			var foundAround = Scene.FindInPhysics( new Sphere( Transform.Position, DetectRange  ) ) // Find gameobjects nearby
-				.Where( x => x.Enabled )
-				.Where( x => EnemyTags != null && x.Tags.HasAny( EnemyTags ) ) // Do they have any of our enemy tags
-				.Where( x => x.Components.Get<HealthComponent>()?.Alive ?? true ); // Are they dead or undead
-
-			if ( foundAround.Any() )
-				Detected( foundAround.First(), true ); // If we don't have any target yet, pick the first one around us
-		}
-		else // There is a target object
+		if ( TargetObject != null )
 		{
 			if ( IsWithinRange( TargetObject ) ) // Is the target within reach
 			{
-				if ( NextAttack ) // Is it time to attack
+				if ( NextAttack )
 				{
 					BroadcastOnAttack();
 					NextAttack = AttackCooldown;
 				}
 			}
-			else // Target is out of range
-			{
+		}
+
+		var currentTick = (int)(Time.Now / Time.Delta);
+		if ( currentTick % 20 != NpcId % 20 ) return; // Check every 20 ticks
+
+		var foundAround = Scene.FindInPhysics( new Sphere( Transform.Position, DetectRange * Scale ) ) // Find gameobjects nearby
+			.Where( x => x.Enabled )
+			.Where( x => EnemyTags != null && x.Tags.HasAny( EnemyTags ) ) // Do they have any of our enemy tags
+			.Where( x => x.Components.Get<HealthComponent>()?.Alive ?? true ); // Are they dead or undead
+
+		if ( TargetObject == null )
+		{
+			if ( foundAround.Any() )
+				Detected( foundAround.First(), true ); // If we don't have any target yet, pick the first one around us
+		}
+		else
+		{
+			var healthComponent = TargetObject.Components.Get<IHealthComponent>();
+			var targetDead = healthComponent?.LifeState == LifeState.Dead;
+			var targetEscaped = TargetObject.Transform.Position.Distance( Transform.Position ) > VisionRange * Scale; // Did our target get out of vision range
+
+			if ( targetEscaped || targetDead ) // Did our target die or escape
 				Undetected();
-			}
 		}
 	}
 
@@ -803,7 +891,12 @@ public partial class Npc : Component, IHealthComponent
 		return groundTrace.Hit && !groundTrace.StartedSolid ? groundTrace.HitPosition : (FollowingTargetObject ? targetPosition : targetPosition + offset);
 	}
 	public static Player Host { get; set; }
+	[Property] public bool PogMode { get; private set; }
+
 	public event Action OnTakeDamage;
+	private bool RecentlyDamaged { get; set; }
+	private float DamageCooldown = 5.0f; // Zeit in Sekunden, wie lange der NPC nach Schaden den Spieler verfolgt
+	private float LastDamageTime;
 
 	[Broadcast]
 	public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
@@ -829,7 +922,13 @@ public partial class Npc : Component, IHealthComponent
 			return;
 
 		Health = Math.Clamp( Health - amount, 0f, MaxHealth );
+
+		
+
 		OnTakeDamage?.Invoke();
+
+		RecentlyDamaged = true;
+		LastDamageTime = Time.Now;
 
 		if ( Health <= 0f ) // checks if zombie is dead
 		{

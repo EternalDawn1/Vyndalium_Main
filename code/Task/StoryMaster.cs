@@ -149,6 +149,7 @@ public class StoryMaster : Component
 			return StoryProgression.GameDay;
 		}
 	}
+	
 
 	public GeneralDay CurrentGeneralDay => StoryDays.TryGetValue( StoryProgression.StoryDay, out var generalDay ) ? generalDay : LastValidGeneralDay;
 	public GeneralDay LastValidGeneralDay => StoryDays.Any() ? StoryDays.Last().Value : null;
@@ -362,42 +363,11 @@ public class StoryMaster : Component
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
-	public static void StartSession()
-	{
-		
-	}
+	
 
 	
 
-	private static void SetupSession()
-	{
-		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().First();
-
-		if ( storyMaster == null ) return;
-
-		if ( storyMaster._taskMaster != null && _instance != null )
-			storyMaster.ClearTasks();
-
-		if ( Connection.Local.IsHost )
-		{
-			if ( storyMaster.CurrentGeneralDay.Completed )
-				storyMaster.NextStoryDay();
-
-			storyMaster.LoadStoryProgression();
-			
-		}
-
-		storyMaster.StartStoryDay();
-		
-
-		EventMaster.Instance.UnloadAllEvents();
-		storyMaster.LoadEventPool();
-		storyMaster.RandomizeClothing();
-
-		if ( Player.Local.IsValid() )
-			Player.Local.Respawn();
-	}
+	
 
 	[Broadcast( NetPermission.HostOnly )]
 	public static void EndSession()

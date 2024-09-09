@@ -305,6 +305,7 @@ public partial class Player : Component, IHealthComponent
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
 		InitializeAmmo();
+		
 
 		LifeState = LifeState.Alive;
 
@@ -351,6 +352,7 @@ public partial class Player : Component, IHealthComponent
 	public void TakeDamage( DamageType type, Single amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
 		if ( LifeState == LifeState.Dead )
+		
 			return;
 
 		if ( type == DamageType.Bullet )
@@ -375,6 +377,7 @@ public partial class Player : Component, IHealthComponent
 		if ( Health <= 0f )
 		{
 			LifeState = LifeState.Dead;
+			BlackScreen( 3f, 1.5f, 1f );
 			ActiveWeapon?.StopReloadSound();
 			Ragdoll.Ragdoll( hitPosition, hitDirection );
 			SendKilledMessage( attackerId );
@@ -404,7 +407,7 @@ public partial class Player : Component, IHealthComponent
 			Weapons.Deployed.Holster();
 		}
 
-
+		
 		RespawnAsync( 3f );
 
 		Deaths++;
@@ -430,6 +433,7 @@ public partial class Player : Component, IHealthComponent
 		{
 			CharacterController.Height = StandHeight;
 		}
+		
 
 		if ( IsProxy )
 			return;
@@ -446,7 +450,9 @@ public partial class Player : Component, IHealthComponent
 
 		if ( !IsProxy )
 		{
+			BlackScreen( 0f, 2f, 3f );
 			Respawn();
+			
 			Animators.Clear(); // Entfernt alle vorherigen Einträge
 			Animators.Add( ShadowAnimator );
 			Animators.Add( AnimationHelper );
@@ -457,7 +463,7 @@ public partial class Player : Component, IHealthComponent
 
 		if ( !IsProxy ) // Load save.
 		{
-
+			
 			Setup( this );
 		}
 

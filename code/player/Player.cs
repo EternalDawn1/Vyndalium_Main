@@ -1,4 +1,5 @@
 using GeneralGame.HUD;
+using Sandbox.ui.Hud;
 
 namespace GeneralGame;
 
@@ -22,9 +23,23 @@ public partial class Player : Component, Component.ExecuteInEditor
             return false;
         }
     }
-   
-  
-  
+    public void BlackScreen( float startingTransition = 2f, float blackTransition = 2f, float endingTransition = 1f )
+    {
+        if ( IsProxy ) return;
+
+        var gameObject = Hudmaster.Instance.GameObject;
+
+        if ( gameObject == null ) return;
+
+        var blackScreen = gameObject.Components.Create<Blackscreen>();
+        blackScreen.StartingTransition = startingTransition;
+        blackScreen.BlackTransition = blackTransition;
+        blackScreen.EndingTransition = endingTransition;
+        blackScreen.Start();
+    }
+
+
+
     public AmmoContainer AmmoContainer { get; set; }
     public Inventory Inventory { get; private set; }
    

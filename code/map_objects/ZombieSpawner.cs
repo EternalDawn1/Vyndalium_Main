@@ -105,7 +105,13 @@ public sealed class ZombieSpawner : Component
 			npcComponent.Level = GetRandomLevel();
 			npcComponent.SetHealthBasedOnLevel();
 			npcComponent.HasIceAbility = DetermineFreezeAbility( npcComponent.Level );
-			
+
+			if ( npcComponent is Slime )
+			{
+				npcComponent.Model.Set( "slime_spawn", true );
+				Log.Info( "Slime spawned" );
+			}
+
 		}
 		
 

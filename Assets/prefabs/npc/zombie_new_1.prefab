@@ -12,7 +12,7 @@
         "__guid": "4514d00b-47ba-4c53-8600-0767c1747be3",
         "Acceleration": 241.19989,
         "Height": 70.3999,
-        "MaxSpeed": 71.49985,
+        "MaxSpeed": 100,
         "Radius": 9.499976,
         "Separation": 1,
         "UpdatePosition": true,
@@ -103,7 +103,7 @@
         "__type": "Npc",
         "__guid": "7ddc556a-265f-48eb-abe7-5c7aee867fc3",
         "CurrentHoldType": "Punch",
-        "AlertOthers": false,
+        "AlertOthers": true,
         "AnimationHelper": {
           "_type": "component",
           "component_id": "b5a2c407-1045-4e6b-8072-d224b4c370c2",
@@ -111,14 +111,14 @@
           "component_type": "CitizenAnimationHelper"
         },
         "AttackCooldown": 5,
-        "AttackRange": 60,
+        "AttackRange": 80,
         "Body": {
           "_type": "gameobject",
           "go": "6f67b670-1030-4c8f-bdaf-01e1aadd8a58"
         },
         "CurrentState": "Idle",
         "DeathSounds": "sounds/deathsounds/deathsounds.sound",
-        "DetectRange": 288,
+        "DetectRange": 320,
         "EnemyTags": "player",
         "Eye": {
           "_type": "gameobject",
@@ -138,7 +138,7 @@
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
-        "MaxRunAnimationSpeed": 150,
+        "MaxRunAnimationSpeed": 254.19969,
         "MinimumIdleCooldown": 4,
         "Model": {
           "_type": "component",
@@ -185,9 +185,9 @@
               "Id": 3,
               "Type": "call",
               "Properties": {
-                "_type": "HealthComponent",
+                "_name": "Damage",
                 "_isStatic": false,
-                "_name": "Damage"
+                "_type": "HealthComponent"
               },
               "UserData": {
                 "Position": "512,64"
@@ -211,8 +211,8 @@
               "Type": "property",
               "ParentId": 5,
               "Properties": {
-                "_type": "Sandbox.GameObject",
-                "_name": "Transform"
+                "_name": "Transform",
+                "_type": "Sandbox.GameObject"
               }
             },
             {
@@ -220,8 +220,8 @@
               "Type": "property",
               "ParentId": 6,
               "Properties": {
-                "_type": "Sandbox.GameTransform",
-                "_name": "Position"
+                "_name": "Position",
+                "_type": "Sandbox.GameTransform"
               }
             }
           ],
@@ -379,9 +379,9 @@
               "Id": 4,
               "Type": "call",
               "Properties": {
-                "_type": "GeneralGame.Player",
+                "_name": "GiveVyndalium",
                 "_isStatic": false,
-                "_name": "GiveVyndalium"
+                "_type": "GeneralGame.Player"
               },
               "UserData": {
                 "Position": "464,48"
@@ -422,8 +422,12 @@
           ]
         },
         "PlayerProximityDistance": 80,
-        "RunSpeed": 0,
-        "VisionRange": 544,
+        "PogMode": false,
+        "RunningType": "Smart",
+        "RunSpeed": 200,
+        "ScaleStats": true,
+        "VisionRange": 1040,
+        "WalkingType": "Smart",
         "WalkSpeed": 100,
         "ZombieRagedol": {
           "_type": "gameobject",

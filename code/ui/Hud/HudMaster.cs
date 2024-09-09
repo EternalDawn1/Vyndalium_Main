@@ -8,5 +8,6 @@ namespace Sandbox.ui.Hud
 {
 	internal class HudMaster
 	{
+		
 	}
 }
