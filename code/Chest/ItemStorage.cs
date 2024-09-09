@@ -16,7 +16,8 @@ namespace GeneralGame
         [Property] ItemInteractable itemInteractable { get; set; }
         [Property] public List<ItemComponent> Items { get; set; } = new List<ItemComponent>();
         [Property] public List<ItemComponent> items => Items;
-       
+        private bool itemsGenerated = false;
+
         protected override void OnAwake()
         {
             itemInteractable = this.Components.Get<ItemInteractable>();
@@ -74,6 +75,7 @@ namespace GeneralGame
                     if ( itemComponent != null )
                     {
                         Items.Add( itemComponent );
+                        
                     }
                 }
             }
@@ -84,6 +86,7 @@ namespace GeneralGame
             var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
             obj.NetworkMode = NetworkMode.Object;
             obj.NetworkSpawn();
+            
 
             var itemComponent = obj.Components.Get<ItemComponent>();
             if ( itemComponent == null )
@@ -91,7 +94,7 @@ namespace GeneralGame
                 obj.Destroy();
                 return null;
             }
-
+            obj.Enabled = false;
             return itemComponent;
         }
         public void AddItem( ItemComponent item, int index )
@@ -102,6 +105,7 @@ namespace GeneralGame
             }
 
             Items.Insert( index, item );
+            
         }
 
         public void OpenInventory()
@@ -110,11 +114,15 @@ namespace GeneralGame
             {
                 IsOpened = true;
 
-                FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.StorageBox);
-                //storageBox.ToggleVisibility();
+                if ( !itemsGenerated ) // Überprüfen, ob die Objekte bereits erstellt wurden
+                {
+                    LoadPrefabs();
+                    GenerateRandomStatsForItems();
+                    itemsGenerated = true; // Setzen der Variable, um anzuzeigen, dass die Objekte erstellt wurden
+                }
+
+                FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.StorageBox );
                 Player.Local.BlockInputs = true;
-
-
                 
             }
             else
@@ -127,9 +135,11 @@ namespace GeneralGame
         {
             FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
             Player.Local.BlockInputs = false;
-            
+           
 
-            
+
+
         }
+        
     }
 }
