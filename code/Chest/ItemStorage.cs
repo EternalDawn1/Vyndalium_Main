@@ -28,6 +28,7 @@ namespace GeneralGame
         }
         public ItemStorage()
         {
+            Items = new List<ItemComponent>();
             LoadPrefabs();
             GenerateRandomStatsForItems();
         }
@@ -54,14 +55,17 @@ namespace GeneralGame
         private void LoadPrefabs()
         {
             var prefabFiles = new List<string>
-            {
-                "prefabs/weapons/aksu/a.prefab",
-                "prefabs/weapons/aksu/s.prefab",
-                "prefabs/weapons/aksu/c.prefab",
-                // Fügen Sie hier weitere Prefab-Dateien hinzu
-            };
+        {
+            "prefabs/weapons/aksu/a.prefab",
+            "prefabs/weapons/aksu/s.prefab",
+            "prefabs/weapons/aksu/c.prefab",
+            // Fügen Sie hier weitere Prefab-Dateien hinzu
+        };
 
-            foreach ( var prefabPath in prefabFiles )
+            var random = new Random();
+            var selectedPrefabs = prefabFiles.OrderBy( x => random.Next() ).Take( random.Next( 1, prefabFiles.Count ) ).ToList();
+
+            foreach ( var prefabPath in selectedPrefabs )
             {
                 var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
                 if ( prefab != null )
@@ -106,12 +110,12 @@ namespace GeneralGame
             {
                 IsOpened = true;
 
-                
-                storageBox.ToggleVisibility();
+                FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.StorageBox);
+                //storageBox.ToggleVisibility();
                 Player.Local.BlockInputs = true;
 
 
-                storageBox.StateHasChanged();
+                
             }
             else
             {
@@ -121,15 +125,11 @@ namespace GeneralGame
 
         public void CloseInventory()
         {
-            if ( IsOpened )
-            {
-                IsOpened = false;
-                if ( storageBox != null )
-                {
-                    storageBox.ToggleVisibility();
-                    Player.Local.BlockInputs = false;
-                }
-            }
+            FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
+            Player.Local.BlockInputs = false;
+            
+
+            
         }
     }
 }

@@ -1,53 +1,45 @@
 namespace GeneralGame.HUD
 {
 	[StyleSheet]
-	public partial class StorageBox : PanelComponent
+	public partial class StorageBox : Panel
 	{
-		public static bool IsVisible { get; set; }
-		private ItemStorage itemStorage { get; set; }
+		public static new bool IsVisible { get; set; }
+		ItemStorage itemStorage;
 		private ItemInteractable itemInteractable;
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;
 		private static bool IsDragging { get; set; }
+		public static StorageBox Instance { get; private set; }
+		
 
 		public StorageBox()
 		{
+			Instance = this;
 			itemStorage = new ItemStorage();
-			itemInteractable = new ItemInteractable
-			{
-				Storage = itemStorage
-			};
-
-			IsVisible = false;
-
+			itemInteractable = new ItemInteractable();
 			
+			IsVisible = false;
 		}
-
-		
-
-		
-
-		
-		protected override void OnAwake()
+		protected void OnAwake()
 		{
-			base.OnAwake();
+			
 			if ( itemStorage == null )
 			{
-				
+				itemStorage = new ItemStorage();
 				itemStorage.IsOpened = false; // Stellen Sie sicher, dass itemStorage anfangs geschlossen ist
 				IsVisible = false;
 			}
 			
 		}
 
-		protected override void OnUpdate()
+		public void OnUpdate()
 		{
 			if ( !isInitialized )
 			{
 				itemStorage.IsOpened = false;
 				IsVisible = false;
 				isInitialized = true;
-				StateHasChanged(); // Aktualisieren Sie die UI
+				 // Aktualisieren Sie die UI
 			}
 			else
 			{
@@ -74,7 +66,7 @@ namespace GeneralGame.HUD
 			IsVisible = newState;
 
 			// Optional: Aufrufen von StateHasChanged(), wenn Sie in einer Blazor-Komponente sind, um die UI zu aktualisieren
-			StateHasChanged();
+			
 		}
 
 		public void OpenStorage()
@@ -84,7 +76,7 @@ namespace GeneralGame.HUD
 				itemStorage.IsOpened = true;
 				IsVisible = true;
 				// Optional: UI aktualisieren
-				StateHasChanged();
+				
 			}
 		}
 
@@ -94,7 +86,7 @@ namespace GeneralGame.HUD
 			{
 				itemStorage.IsOpened = false;
 				IsVisible = false;
-				StateHasChanged(); // Aktualisiert die UI
+				 // Aktualisiert die UI
 			}
 		}
 
@@ -106,7 +98,7 @@ namespace GeneralGame.HUD
 		public void ResetVisibility()
 		{
 			IsVisible = false;
-			StateHasChanged(); // Aktualisiert die UI
+			// Aktualisiert die UI
 		}
 
 		protected override int BuildHash()
@@ -121,7 +113,7 @@ namespace GeneralGame.HUD
 		public void SetPanelVisibility( bool isVisible )
 		{
 			IsVisible = isVisible;
-			StateHasChanged(); // Aktualisiert die UI
+			 // Aktualisiert die UI
 		}
 	}
 }
