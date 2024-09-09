@@ -9,7 +9,7 @@ public class ItemInteractable : BaseInteraction
 
     public ItemStorage Storage { get; set; }
     [Property] public bool IsDoor { get; set; }
-    [Property] public List<PrefabFile> PrefabList { get; set; } = new List<PrefabFile>();
+   
 
     protected override void OnStart()
     {
@@ -68,43 +68,10 @@ public class ItemInteractable : BaseInteraction
             } );
         }
 
-        AddPrefabsToStorage( PrefabList );
-    }
-
-    public void AddPrefabsToStorage( List<PrefabFile> prefabList )
-    {
-        if ( Storage == null )
-        {
-            return;
-        }
-
-        int index = Storage.items.Count; // Startindex basierend auf der Anzahl der vorhandenen Elemente
-        foreach ( var prefab in prefabList )
-        {
-            var itemComponent = ConvertPrefabToItemComponent( prefab );
-            if ( itemComponent != null )
-            {
-                Storage.AddItem( itemComponent, index );
-                index++;
-            }
-        }
-    }
-
-    private ItemComponent ConvertPrefabToItemComponent( PrefabFile prefab )
-    {
-        var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
-        obj.NetworkMode = NetworkMode.Object;
-        obj.NetworkSpawn();
         
-        var itemComponent = obj.Components.Get<ItemComponent>();
-        if ( itemComponent == null )
-        {
-            obj.Destroy();
-            return null;
-        }
-
-        return itemComponent;
     }
+
+    
 
 
 

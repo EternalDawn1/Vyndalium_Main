@@ -1,96 +1,44 @@
-using System.ComponentModel.Design.Serialization;
-using System.Diagnostics.Metrics;
-using Sandbox.UI;
-
 namespace GeneralGame.HUD
 {
-    [StyleSheet]
-    public partial class StorageBox : PanelComponent
-    {
+	[StyleSheet]
+	public partial class StorageBox : PanelComponent
+	{
 		public static bool IsVisible { get; set; }
-       
-        private  ItemStorage itemStorage { get; set; }
-		
+		private ItemStorage itemStorage { get; set; }
 		private ItemInteractable itemInteractable;
-		
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;
-		private static bool IsDragging { get;  set; }
-		
-		
+		private static bool IsDragging { get; set; }
+
 		public StorageBox()
 		{
-			itemStorage = GetItemStorageInstance();
+			itemStorage = new ItemStorage();
 			itemInteractable = new ItemInteractable
 			{
 				Storage = itemStorage
 			};
-			
-
-			
 
 			IsVisible = false;
 
 			
-			List<ItemComponent> itemList = GetItemComponentList(); 
-			AddItemsFromComponents( itemList );
 		}
 
-		private List<ItemComponent> GetItemComponentList()
-		{
-			foreach ( var item in itemStorage.Items )
-			{
-				Log.Info( $"Item: {item?.Name}" );
-			}
-			return itemStorage.Items
-				.Where( item => item != null ) // Filtere ungültige Items
-				.ToList();
-		}
+		
 
-		private void AddItemsFromComponents( List<ItemComponent> itemList )
-		{
-			if ( itemList == null || itemList.Count == 0 )
-			{
-				return;
-			}
+		
 
-			foreach ( var itemComponent in itemList )
-			{
-				if ( itemComponent != null )
-				{
-					itemStorage.AddItem( itemComponent, itemStorage.Items.Count );
-				}
-			}
-			StateHasChanged(); // Aktualisiert die UI
-		}
-		// Beispielmethoden
-		private static ItemStorage GetItemStorageInstance()
-		{
-			ItemStorage storage = new ItemStorage();
-			var itemInteractable = new ItemInteractable { Storage = storage };
-
-			// Fügen Sie alle vorhandenen Items aus der Liste hinzu
-			foreach ( var item in storage.Items )
-			{
-				storage.AddItem( item, storage.Items.Count );
-			
-			}
-
-			return storage;
-		}
+		
 		protected override void OnAwake()
 		{
 			base.OnAwake();
-			if ( itemStorage != null )
+			if ( itemStorage == null )
 			{
+				
 				itemStorage.IsOpened = false; // Stellen Sie sicher, dass itemStorage anfangs geschlossen ist
 				IsVisible = false;
 			}
 			
-			
-
 		}
-
 
 		protected override void OnUpdate()
 		{
@@ -149,31 +97,31 @@ namespace GeneralGame.HUD
 				StateHasChanged(); // Aktualisiert die UI
 			}
 		}
-		protected override int BuildHash()
-		{
-			return HashCode.Combine(
-				IsVisible,
-				Player.Local.Inventory.BackpackItems.HashCombine(i => i?.GetHashCode() ?? -1),
-				itemStorage?.Items.HashCombine(i => i?.GetHashCode() ?? -1) ?? 0
-			);
-		}
+
 		public void ClosePanel()
 		{
 			CloseStorage(); // Ruft die Methode zum Schließen des Speichers auf
 		}
+
 		public void ResetVisibility()
 		{
 			IsVisible = false;
 			StateHasChanged(); // Aktualisiert die UI
 		}
-		public void SetPanelVisibility( bool isVisible )
+
+		protected override int BuildHash()
 		{
-			if ( Player.Local.BlockMovements )
-			{
-				return; // Frühzeitiger Rückkehr, um Bewegung zu verhindern
-			}
+			return HashCode.Combine(
+				IsVisible,
+				Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 ),
+				itemStorage?.Items.HashCombine( i => i?.GetHashCode() ?? -1 ) ?? 0
+			);
 		}
 
+		public void SetPanelVisibility( bool isVisible )
+		{
+			IsVisible = isVisible;
+			StateHasChanged(); // Aktualisiert die UI
+		}
 	}
-    
 }
