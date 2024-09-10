@@ -4,7 +4,7 @@ namespace GeneralGame.HUD
 	public partial class StorageBox : Panel
 	{
 		public static new bool IsVisible { get; set; }
-		ItemStorage itemStorage;
+		public ItemStorage itemStorage;
 		private ItemInteractable itemInteractable;
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;

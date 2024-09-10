@@ -1,7 +1,8 @@
 StorageBox {
-    position: absolute;
-    width: 100%;
+    position: relative;
+    width: 50%;
     height: 100%;
+    
     
     /* Weitere Stilisierungen */
 
@@ -9,58 +10,108 @@ StorageBox {
 
     .Panel {
         pointer-events: all;
-        position: absolute;
-        width: 50%;
-        height: 50%;
-        left: 25%;
-        top: 25%;
-        background-color: #09501712;
+            position: relative;
+            width: 50%;
+            height: 60%;
+            left: 20%;
+            top: 25%;
+            background-color: #353535c0;
+        
         
         .section2 {
-           
+            position: relative;
+                flex-direction: column;
+                width: 100%;
+                left: 90%;
+                height: 100%;
+                padding: 10px;
+                border: 1px solid #000000;
+                background-color: rgba(5, 5, 1, 0.692);
+            .title{
+                position: relative;
+                    color: rgb(255, 255, 255);
+                    font-size: 50px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                    justify-content: center;
+                    font-weight: 600;
+                    font-family: Geneva;
+            }
 
             .items2 {
                 padding:10px;
                 flex-wrap: wrap;
-                width: 900px;
+                width: 600px;
                 overflow-x: scroll;
-                border: 1px solid #ccc;
+                border: 1px solid #000000;
             }
         }
 
-        .chest-inventory {
-            
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color:rgba(228, 223, 192, 0.11);
-             /* Stellen Sie sicher, dass es vom Spielerinventar getrennt ist */
-             .exit-button {
-                z-index: 100;
-                position: absolute;
-                background-color: rgb(255, 0, 0);
-                color:white;
-                border-width: 5px;
-                border-color: black;
-                right: 0;
-                top: 0;
-                padding: 5px;
-                cursor: pointer;
+        
 
-                :hover{
-                    background-color: rgb(0, 255, 149);
-                    transform: scale(1.1);
-                    
+        
+    
+    }
+    .Panel2{
+        pointer-events: all;
+            position: relative;
+            width: 50%;
+            height: 60%;
+            left: 20%;
+            top: 25%;
+            background-color: #35353500;
+
+        .chest-inventory {
+                position: relative;
+                flex-direction: column;
+                width: 100%;
+                left: 90%;
+                height: 100%;
+                padding: 10px;
+                border: 1px solid #000000;
+                background-color: rgba(5, 5, 1, 0.692);
+        
+                .title2 {
+                    position: relative;
+                    color: rgb(255, 255, 255);
+                    font-size: 50px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                    justify-content: center;
+                    font-weight: 600;
+                    font-family: Geneva;
+
+
                 }
-             }
-            .items {
-            
+        
+                /* Stellen Sie sicher, dass es vom Spielerinventar getrennt ist */
+                .exit-button {
+                    z-index: 100;
+                    position: absolute;
+                    background-color: rgb(255, 0, 0);
+                    color: white;
+                    border-width: 5px;
+                    border-color: black;
+                    right: 0;
+                    top: 0;
+                    padding: 5px;
+                    cursor: pointer;
+        
+                    :hover {
+                        background-color: rgb(0, 255, 149);
+                        transform: scale(1.1);
+        
+                    }
+                }
+        
+                .items {
+        
                     display: flex;
                     flex-wrap: wrap;
                     gap: 10px;
-            
-                }
-        }
-
         
+                }
+            }
     }
+
 }

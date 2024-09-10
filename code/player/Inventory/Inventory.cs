@@ -20,7 +20,7 @@ public sealed class Inventory : Component
 	[Property] public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
 	[Property] public IReadOnlyList<ItemComponent> StorageBoxItems => _storageBoxItems;
 
-	[Property] private readonly List<ItemComponent> _backpackItems;
+	[Property] public readonly  List<ItemComponent> _backpackItems;
 	[Property] private readonly List<ItemComponent> _equippedItems;
 	[Property] private readonly List<ItemComponent> _storageBoxItems;
 
@@ -31,7 +31,9 @@ public sealed class Inventory : Component
 
 		if ( _backpackItems.Contains( item ) )
 		{
-			_backpackItems.Remove( item );
+			int index = _backpackItems.IndexOf( item );
+			_backpackItems[index] = null; // Setze den Slot auf null, anstatt das Item zu entfernen
+			item.State = ItemState.None;
 			return true;
 		}
 

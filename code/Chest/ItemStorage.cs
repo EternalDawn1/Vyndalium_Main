@@ -55,18 +55,122 @@ namespace GeneralGame
 
         private void LoadPrefabs()
         {
-            var prefabFiles = new List<string>
-        {
-            "prefabs/weapons/aksu/a.prefab",
-            "prefabs/weapons/aksu/s.prefab",
-            "prefabs/weapons/aksu/c.prefab",
-            // Fügen Sie hier weitere Prefab-Dateien hinzu
-        };
+            var tierCPrefabs = new List<string>
+            {
+                "prefabs/weapons/aksu/c.prefab",
+                "prefabs/weapons/facepunch/usp/uspc.prefab",
+                "prefabs/weapons/facepunch/shotgun/shotgunc.prefab",
+                "prefabs/weapons/facepunch/ak47/mp5c.prefab",
+                "prefabs/weapons/m4a1/m4a1-c.prefab",
+                "prefabs/weapons/facepunch/pm/glock-c.prefab",
+                // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
+            };
+
+            var tierBPrefabs = new List<string>
+            {
+                "prefabs/weapons/aksu/b.prefab",
+                "prefabs/weapons/facepunch/usp/uspb.prefab",
+                "prefabs/weapons/facepunch/shotgun/shotgunb.prefab",
+                "prefabs/weapons/facepunch/ak47/mp5b.prefab",
+                "prefabs/weapons/m4a1/m4a1-b.prefab",
+                "prefabs/weapons/facepunch/pm/glock-b.prefab",
+                
+
+                // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
+            };
+
+            var tierAPrefabs = new List<string>
+            {
+                "prefabs/weapons/aksu/a.prefab",
+                "prefabs/weapons/facepunch/usp/uspa.prefab",
+                "prefabs/weapons/facepunch/shotgun/shotguna.prefab",
+                "prefabs/weapons/facepunch/ak47/mp5a.prefab",
+                "prefabs/weapons/m4a1/m4a1-a.prefab",
+                "prefabs/weapons/facepunch/pm/glock-a.prefab",
+                // Fügen Sie hier weitere A-Tier-Prefab-Dateien hinzu
+            };
+
+            var tierSPrefabs = new List<string>
+            {
+                "prefabs/weapons/aksu/s.prefab",
+                "prefabs/weapons/facepunch/usp/usps.prefab",
+                "prefabs/weapons/facepunch/shotgun/shotguns.prefab",
+                "prefabs/weapons/facepunch/ak47/mp5s.prefab",
+                "prefabs/weapons/m4a1/m4a1-s.prefab",
+                "prefabs/weapons/facepunch/pm/glock-s.prefab",
+                // Fügen Sie hier weitere S-Tier-Prefab-Dateien hinzu
+            };
+
+            var tierSSPrefabs = new List<string>
+            {
+                "prefabs/weapons/aksu/ss.prefab",
+                "prefabs/weapons/facepunch/usp/uspss.prefab",
+                "prefabs/weapons/facepunch/shotgun/shotgunss.prefab",
+                "prefabs/weapons/facepunch/ak47/mp5ss.prefab",
+                "prefabs/weapons/m4a1/m4a1-ss.prefab",
+                "prefabs/weapons/facepunch/pm/glock-ss.prefab",
+                // Fügen Sie hier weitere SS-Tier-Prefab-Dateien hinzu
+            };
+
+            var tierSSSPrefabs = new List<string>
+            {
+                "prefabs/weapons/aksu/sss.prefab",
+                "prefabs/weapons/facepunch/usp/uspsss.prefab",
+                "prefabs/weapons/facepunch/shotgun/shotgunsss.prefab",
+                "prefabs/weapons/facepunch/ak47/mp5sss.prefab",
+                "prefabs/weapons/m4a1/m4a1-sss.prefab",
+                "prefabs/weapons/facepunch/pm/glock-sss.prefab",
+                // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
+            };
 
             var random = new Random();
-            var selectedPrefabs = prefabFiles.OrderBy( x => random.Next() ).Take( random.Next( 1, prefabFiles.Count ) ).ToList();
+            var selectedPrefabs = new List<string>();
 
-            foreach ( var prefabPath in selectedPrefabs )
+            // Wahrscheinlichkeit basierend auf dem Tier der Kiste
+            int tierChance = itemInteractable?.Tier switch
+            {
+                GeneralGame.Tier.SSS => 10,
+                GeneralGame.Tier.SS => 9,
+                GeneralGame.Tier.S => 8,
+                GeneralGame.Tier.A => 7,
+                GeneralGame.Tier.B => 6,
+                GeneralGame.Tier.C => 5,
+                _ => 5
+            };
+
+            // Auswahl der Prefabs basierend auf der Wahrscheinlichkeit
+            if ( random.Next( 100 ) < tierChance )
+            {
+                selectedPrefabs.AddRange( tierSSSPrefabs );
+            }
+            else if ( random.Next( 100 ) < tierChance + 10 )
+            {
+                selectedPrefabs.AddRange( tierSSPrefabs );
+            }
+            else if ( random.Next( 100 ) < tierChance + 20 )
+            {
+                selectedPrefabs.AddRange( tierSPrefabs );
+            }
+            else if ( random.Next( 100 ) < tierChance + 30 )
+            {
+                selectedPrefabs.AddRange( tierAPrefabs );
+            }
+            else if ( random.Next( 100 ) < tierChance + 40 )
+            {
+                selectedPrefabs.AddRange( tierBPrefabs );
+            }
+            else
+            {
+                selectedPrefabs.AddRange( tierCPrefabs );
+            }
+
+            // Zufällige Auswahl der Prefabs aus der ausgewählten Liste
+            int weaponCount = DetermineWeaponCount( random );
+
+            // Zufällige Auswahl der Prefabs aus der ausgewählten Liste
+            var finalPrefabs = selectedPrefabs.OrderBy( x => random.Next() ).Take( weaponCount ).ToList();
+
+            foreach ( var prefabPath in finalPrefabs )
             {
                 var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
                 if ( prefab != null )
@@ -75,12 +179,42 @@ namespace GeneralGame
                     if ( itemComponent != null )
                     {
                         Items.Add( itemComponent );
-                        
                     }
                 }
             }
         }
-
+        private int DetermineWeaponCount( Random random )
+        {
+            int chance = random.Next( 100 );
+            if ( chance < 1 )
+            {
+                return 7;
+            }
+            else if ( chance < 6 )
+            {
+                return 6;
+            }
+            else if ( chance < 16 )
+            {
+                return 5;
+            }
+            else if ( chance < 31 )
+            {
+                return 4;
+            }
+            else if ( chance < 51 )
+            {
+                return 3;
+            }
+            else if ( chance < 76 )
+            {
+                return 2;
+            }
+            else
+            {
+                return 1;
+            }
+        }
         private ItemComponent ConvertPrefabToItemComponent( PrefabFile prefab )
         {
             var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
@@ -123,7 +257,6 @@ namespace GeneralGame
 
                 FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.StorageBox );
                 Player.Local.BlockInputs = true;
-                
             }
             else
             {
