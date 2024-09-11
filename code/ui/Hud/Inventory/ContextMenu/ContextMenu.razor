@@ -109,14 +109,14 @@
             // Fügen Sie das Item in den ersten freien Slot ein
             inventory._backpackItems[firstFreeSlot] = item;
             item.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des Items
-            Log.Info($"Item {item.Name} zum Inventar des Spielers hinzugefügt.");
+            
 
             // Entfernen Sie das Item aus der StorageBox
             var storageBox = StorageBox.Instance?.itemStorage;
             if (storageBox != null && storageBox.Items.Contains(item))
             {
                 storageBox.Items.Remove(item);
-                Log.Info($"Item {item.Name} aus der StorageBox entfernt.");
+                
             }
 
             Inventory.Instance?.OnChanged();

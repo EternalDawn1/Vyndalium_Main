@@ -406,12 +406,14 @@ partial class Player
 			return false;
 
 		var save = tuple.Save;
+		
 
 		// Stellen Sie sicher, dass save.AmmoContainerData initialisiert wurde
 		if ( player.AmmoContainer == null )
 		{
 			player.AmmoContainer = new AmmoContainer();
 		}
+
 		player.AmmoContainer.AmmoCount = save.AmmoCount ?? new Dictionary<AmmoType, int>();
 		foreach ( var ammo in save.AmmoCount )
 		{

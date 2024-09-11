@@ -23,24 +23,26 @@
                 
         </div>
         <div class="center-panel">
-            
+            <div class="header-panel">Game Ready Maps</div>
+            <div class="header-panel2">Work in Progress</div>
             <div class="map-panel">
                 @if (Player.Local != null && Player.Local.IsHost() && (Player.All.Count >= 1 && Player.AreAllPlayersReady(true)))
                 {
                     <div class="side">
                         <SideButton 
-                            Title="Alpha - TEST - Forest" 
-                            Subtitle="required. lvl. 10 DEMO" 
+                            Title="Dungeon 2-1" 
+                            Subtitle="required. lvl. 10 [TESTED + Finished]" 
                             OnClick=@(() => ChangeScene2(GeneralScene2.Forest)) 
                             ImagePath="ui/hud/tree.png" 
-                            style="position: absolute; top: 300px; right: 200px;" 
+                            style="position: absolute; top: 600px; right: -550px;" 
                         />
                         <SideButton 
                             Title="Alpha - TEST - Dungeon " 
                             Subtitle="required lvl. 1 " 
                             OnClick=@(() => ChangeScene2(GeneralScene2.Game)) 
                             ImagePath="ui/hud/hpball.png" 
-                            style="position: absolute; top: 600px; right: -550px;" 
+                            
+                            style="position: absolute; top: 300px; right: 200px;" 
                         />
                          <SideButton 
                             Title="Dungeon 1-1" 
@@ -61,13 +63,7 @@
                         
                         
 
-                        <SideButton
-                        Title="Starting Lobby"
-                        Subtitle="Home_Base"
-                        OnClick=@(() => ChangeScene2(GeneralScene2.StartBase))
-                        ImagePath="ui/hud/storage.png"
-                        style="position: absolute; top: 900px; right: 200px;"
-                        />
+                       
                        
                     </div>
                 }

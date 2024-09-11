@@ -920,6 +920,8 @@
                   "MaxSpawns": 2,
                   "PlayerProximityDistance": 500,
                   "Randomized": true,
+                  "RandomizePropertiesOnRain": false,
+                  "RandomizeTierOnSpawn": false,
                   "RespawnTime": 1,
                   "ZombiePrefab": {
                     "_type": "gameobject",
@@ -950,6 +952,8 @@
                   "MaxSpawns": 10,
                   "PlayerProximityDistance": 500,
                   "Randomized": false,
+                  "RandomizePropertiesOnRain": false,
+                  "RandomizeTierOnSpawn": false,
                   "RespawnTime": 1,
                   "ZombiePrefab": {
                     "_type": "gameobject",
@@ -980,6 +984,8 @@
                   "MaxSpawns": 10,
                   "PlayerProximityDistance": 500,
                   "Randomized": false,
+                  "RandomizePropertiesOnRain": false,
+                  "RandomizeTierOnSpawn": false,
                   "RespawnTime": 1,
                   "ZombiePrefab": {
                     "_type": "gameobject",
@@ -1079,8 +1085,424 @@
       "Name": "ItemObjects",
       "Position": "1759.704,1208.268,-172.9937",
       "Enabled": true,
-      "__Prefab": "prefabs/entitys/list/itemobjects.prefab",
-      "__PrefabVariables": {}
+      "Children": [
+        {
+          "__guid": "cc1c5195-2d99-4e06-97d7-dd34e5eb32cc",
+          "Flags": 0,
+          "Name": "itemSpawner",
+          "Position": "330.1141,53.36292,224.2495",
+          "Rotation": "0,0.7071067,0,0.7071068",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "GeneralGame.ZombieSpawner",
+              "__guid": "15a8cd17-2666-4ad9-99fb-94ce585f048c",
+              "destroyChance": 0.2,
+              "DrawProximityRangeGizmo": false,
+              "IsSpawning": false,
+              "Level15To30": false,
+              "Level1To15": false,
+              "Level30To55": false,
+              "Level55To70": false,
+              "Level70To90": false,
+              "Level90To100": false,
+              "MaxSpawns": 1,
+              "PlayerProximityDistance": 250,
+              "Randomized": true,
+              "RandomizePropertiesOnRain": true,
+              "RandomizeTierOnSpawn": true,
+              "RespawnTime": 5,
+              "ZombiePrefab": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+              }
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "ece2781b-cdd9-452a-a244-125db9381425",
+              "BodyGroups": 18446744073709551615,
+              "Model": "models/prism/prism.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "83fc3845-353d-4bee-b8fd-5f6f68d72746",
+              "Attenuation": 0.29,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.65,0,1",
+              "Radius": 113.69999,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "9a7f1c28-c02d-4df1-a494-3ace8fabb003",
+          "Flags": 0,
+          "Name": "itemSpawner (1)",
+          "Position": "1265.121,-254.7343,393.4059",
+          "Rotation": "0,0.7071067,0,0.7071068",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "GeneralGame.ZombieSpawner",
+              "__guid": "1887dbd6-3006-4d7b-b578-23912b043c3c",
+              "destroyChance": 0.2,
+              "DrawProximityRangeGizmo": false,
+              "IsSpawning": false,
+              "Level15To30": false,
+              "Level1To15": false,
+              "Level30To55": false,
+              "Level55To70": false,
+              "Level70To90": false,
+              "Level90To100": false,
+              "MaxSpawns": 1,
+              "PlayerProximityDistance": 250,
+              "Randomized": true,
+              "RandomizePropertiesOnRain": true,
+              "RandomizeTierOnSpawn": true,
+              "RespawnTime": 5,
+              "ZombiePrefab": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+              }
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "613215a2-2cc4-4bfe-9cfa-604fda8a2950",
+              "BodyGroups": 18446744073709551615,
+              "Model": "models/prism/prism.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "1e494434-b99b-4cbd-a42d-7e062dc90412",
+              "Attenuation": 0.29,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.65,0,1",
+              "Radius": 113.69999,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "17653460-6b11-45a1-a1b7-bafb7ed4fa2a",
+          "Flags": 0,
+          "Name": "itemSpawner (2)",
+          "Position": "1453.092,597.6362,526.1641",
+          "Rotation": "0,0.7071067,0,0.7071068",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "GeneralGame.ZombieSpawner",
+              "__guid": "89c7ed12-4fb9-426c-8e37-99885b6b210b",
+              "destroyChance": 0.2,
+              "DrawProximityRangeGizmo": false,
+              "IsSpawning": false,
+              "Level15To30": false,
+              "Level1To15": false,
+              "Level30To55": false,
+              "Level55To70": false,
+              "Level70To90": false,
+              "Level90To100": false,
+              "MaxSpawns": 1,
+              "PlayerProximityDistance": 250,
+              "Randomized": true,
+              "RandomizePropertiesOnRain": true,
+              "RandomizeTierOnSpawn": true,
+              "RespawnTime": 5,
+              "ZombiePrefab": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+              }
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "e8cd0d3f-be9e-4989-ad62-22de2b9869ab",
+              "BodyGroups": 18446744073709551615,
+              "Model": "models/prism/prism.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "7a80e874-f457-4ff5-892e-316ae937df09",
+              "Attenuation": 0.29,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.65,0,1",
+              "Radius": 113.69999,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "da65a237-a51b-4138-958b-7f7ba2c14b40",
+          "Flags": 0,
+          "Name": "itemSpawner (3)",
+          "Position": "1415.589,-1378.27,345.9506",
+          "Rotation": "0,0.7071067,0,0.7071068",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "GeneralGame.ZombieSpawner",
+              "__guid": "2be6abac-753d-4914-81b3-baddf2d4eb8f",
+              "destroyChance": 0.2,
+              "DrawProximityRangeGizmo": false,
+              "IsSpawning": false,
+              "Level15To30": false,
+              "Level1To15": false,
+              "Level30To55": false,
+              "Level55To70": false,
+              "Level70To90": false,
+              "Level90To100": false,
+              "MaxSpawns": 1,
+              "PlayerProximityDistance": 250,
+              "Randomized": true,
+              "RandomizePropertiesOnRain": true,
+              "RandomizeTierOnSpawn": true,
+              "RespawnTime": 5,
+              "ZombiePrefab": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+              }
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "e6dce72c-3031-4519-b952-1c9f31ac9ced",
+              "BodyGroups": 18446744073709551615,
+              "Model": "models/prism/prism.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "9d2211f9-7bfa-44c9-859b-ca18f4e104ef",
+              "Attenuation": 0.29,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.65,0,1",
+              "Radius": 113.69999,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "742f5622-12ef-445a-9c6c-ff8ea5c0fdf9",
+          "Flags": 0,
+          "Name": "itemSpawner (4)",
+          "Position": "2386.527,-1378.27,205.6506",
+          "Rotation": "0,0.7071067,0,0.7071068",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "GeneralGame.ZombieSpawner",
+              "__guid": "7efdf1af-5453-405b-9ddb-8600ccd45542",
+              "destroyChance": 0.2,
+              "DrawProximityRangeGizmo": false,
+              "IsSpawning": false,
+              "Level15To30": false,
+              "Level1To15": false,
+              "Level30To55": false,
+              "Level55To70": false,
+              "Level70To90": false,
+              "Level90To100": false,
+              "MaxSpawns": 1,
+              "PlayerProximityDistance": 250,
+              "Randomized": true,
+              "RandomizePropertiesOnRain": true,
+              "RandomizeTierOnSpawn": true,
+              "RespawnTime": 5,
+              "ZombiePrefab": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              }
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "91bed2b7-ae41-4aee-a37c-0aa29f1f0f3b",
+              "BodyGroups": 18446744073709551615,
+              "Model": "models/prism/prism.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "05060449-0590-49de-8554-92ab30cd429f",
+              "Attenuation": 0.29,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.65,0,1",
+              "Radius": 113.69999,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "511757fd-77c7-403c-91fc-adcaa1d0d167",
+          "Flags": 0,
+          "Name": "itemSpawner (5)",
+          "Position": "284.4674,-1378.27,205.6502",
+          "Rotation": "0,0.7071067,0,0.7071068",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "GeneralGame.ZombieSpawner",
+              "__guid": "8d5cc1eb-2088-452c-a2d4-138cf1cce8c1",
+              "destroyChance": 0.2,
+              "DrawProximityRangeGizmo": false,
+              "IsSpawning": false,
+              "Level15To30": false,
+              "Level1To15": false,
+              "Level30To55": false,
+              "Level55To70": false,
+              "Level70To90": false,
+              "Level90To100": false,
+              "MaxSpawns": 1,
+              "PlayerProximityDistance": 250,
+              "Randomized": true,
+              "RandomizePropertiesOnRain": true,
+              "RandomizeTierOnSpawn": true,
+              "RespawnTime": 5,
+              "ZombiePrefab": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+              }
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "45a1716c-d26b-4b12-a61f-b714d927f83b",
+              "BodyGroups": 18446744073709551615,
+              "Model": "models/prism/prism.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "66cff93d-7fec-4af2-b330-5dc136e8d134",
+              "Attenuation": 0.29,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.65,0,1",
+              "Radius": 113.69999,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "e3ae43ae-e548-4f2f-a95d-0f02c46035ab",
+          "Flags": 0,
+          "Name": "itemSpawner (7)",
+          "Position": "-400.6193,-353.9784,216.1771",
+          "Rotation": "0,0.7071067,0,0.7071068",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "GeneralGame.ZombieSpawner",
+              "__guid": "4484ed4a-b914-42e0-bbdc-aba517eb936b",
+              "destroyChance": 0.2,
+              "DrawProximityRangeGizmo": false,
+              "IsSpawning": false,
+              "Level15To30": false,
+              "Level1To15": false,
+              "Level30To55": false,
+              "Level55To70": false,
+              "Level70To90": false,
+              "Level90To100": false,
+              "MaxSpawns": 1,
+              "PlayerProximityDistance": 250,
+              "Randomized": true,
+              "RandomizePropertiesOnRain": true,
+              "RandomizeTierOnSpawn": true,
+              "RespawnTime": 5,
+              "ZombiePrefab": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              }
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "4dc0cbf7-59ab-4c02-bae6-72882ecef693",
+              "BodyGroups": 18446744073709551615,
+              "Model": "models/prism/prism.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "5a5459d3-8d18-4aff-a889-c56f1c41e70a",
+              "Attenuation": 0.29,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.65,0,1",
+              "Radius": 113.69999,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "352aa7a5-18b7-43d8-84f8-a60b40d0671f",
+          "Flags": 0,
+          "Name": "itemSpawner (6)",
+          "Position": "267.0984,-2541.647,57.99646",
+          "Rotation": "0,0.7071067,0,0.7071068",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "GeneralGame.ZombieSpawner",
+              "__guid": "5d612456-da5c-4fa4-b3e6-3c799ecf6978",
+              "destroyChance": 0.2,
+              "DrawProximityRangeGizmo": false,
+              "IsSpawning": false,
+              "Level15To30": false,
+              "Level1To15": false,
+              "Level30To55": false,
+              "Level55To70": false,
+              "Level70To90": false,
+              "Level90To100": false,
+              "MaxSpawns": 1,
+              "PlayerProximityDistance": 250,
+              "Randomized": true,
+              "RandomizePropertiesOnRain": true,
+              "RandomizeTierOnSpawn": true,
+              "RespawnTime": 5,
+              "ZombiePrefab": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+              }
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "72205868-53a8-45ef-8df1-d8df6b8dc3b2",
+              "BodyGroups": 18446744073709551615,
+              "Model": "models/prism/prism.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "abc56495-adf3-4a13-b6c7-a809b2faf233",
+              "Attenuation": 0.29,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.65,0,1",
+              "Radius": 113.69999,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
     },
     {
       "__guid": "2129e1a8-62e7-417e-90fa-60c38b98daaa",
@@ -1105,6 +1527,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/barrel_stylized.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1123,6 +1546,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/barrel_stylized.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1141,6 +1565,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/barrel_stylized.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1159,6 +1584,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/barrel_stylized.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1177,6 +1603,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/barrel_stylized.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1195,6 +1622,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/barrel_stylized.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1213,6 +1641,7 @@
           "Health": 0,
           "IsStatic": false,
           "Model": "models/barrel_stylized.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1231,6 +1660,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/barrel_stylized.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1249,6 +1679,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/barrel_stylized.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1267,6 +1698,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/rust_props/wooden_crates/wooden_crate_a.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1285,6 +1717,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/rust_props/wooden_crates/wooden_crate_a.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1303,6 +1736,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/rust_props/wooden_crates/wooden_crate_a.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1321,6 +1755,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/rust_props/wooden_crates/wooden_crate_a.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1339,6 +1774,7 @@
           "Health": 0,
           "IsStatic": false,
           "Model": "models/rust_props/wooden_crates/wooden_crate_a.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1359,6 +1795,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/rust_props/wooden_crates/wooden_crate_a.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]

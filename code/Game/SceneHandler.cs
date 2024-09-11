@@ -1,4 +1,5 @@
 ﻿namespace GeneralGame;
+using Sandbox.Services;
 
 public enum GeneralScene
 {
@@ -27,6 +28,7 @@ public static class SceneHandler
 			Log.Info( "Level zu niedrig, um diese Szene zu wechseln." );
 			return;
 		}
+		
 
 		// Lösche die aktuelle Szene
 		DeleteCurrentScene();

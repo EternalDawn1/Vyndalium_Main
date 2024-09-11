@@ -72,12 +72,12 @@
         if (firstTime)
         {
             leaderboard = Sandbox.Services.Leaderboards.GetFromStat("vyndalium_count");
-            leaderboard.SetAggregationAvg();
+            leaderboard.SetAggregationSum();
             
            
             
             leaderboard2 = Sandbox.Services.Leaderboards.GetFromStat("npc");
-            leaderboard2.SetAggregationAvg();
+            leaderboard2.SetAggregationSum();
 
             
             Refresh();

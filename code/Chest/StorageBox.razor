@@ -22,7 +22,7 @@
         <div class="Panel2">
             <div class="chest-inventory">
                 <div class="title2">Chest</div>
-                <button class="exit-button" @onclick="@(() => @itemStorage.CloseInventory())">X</button>
+                <button class="exit-button" @onclick="@(() => @itemStorage.CloseInventory())"></button>
                 <div class="items2 @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
                     
                         @for (var index = 0; index < 20; index++) // 10 Slots für die Kiste

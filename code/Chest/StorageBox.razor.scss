@@ -20,7 +20,7 @@ StorageBox
             justify-content: center;
             
             
-            background-color: #75464600;
+            background-color: #da2f2f00;
            
            
             width: 100%;
@@ -28,6 +28,7 @@ StorageBox
 
             .section2{
                 top:20%;
+                left: 5%;
                 justify-content: center;
                 align-items: center;
                flex-direction: column;
@@ -84,6 +85,7 @@ StorageBox
                 .chest-inventory
                 {
                         top: 20%;
+                        right: 5%;
                         justify-content: center;
                         align-items: center;
                         flex-direction: column;
@@ -93,7 +95,7 @@ StorageBox
                         background-color: rgba(61, 60, 60, 0.993);
                         border-radius: 10px;
                         border-width: 1px;
-                        border-color: #000000;
+                        border-color: #0000003b;
                     .title2{
                         justify-content: center;
                             align-items: center;
@@ -112,6 +114,8 @@ StorageBox
                     }
                     .exit-button 
                     {
+                    
+                
                     z-index: 100;
                     width: 50px;
                     height: 50px;
@@ -120,18 +124,29 @@ StorageBox
                     align-items: center;
                     justify-content: center;
                     position: absolute;
-                    background-color: rgb(255, 0, 0);
+                    background-image: url(/ui/hud/exit.gif);
+                    background-position: center;
+                    background-size: cover;
+                    
                     color: white;
                     border-width: 5px;
                     border-color: black;
-                    right: 0;
-                    top: 0;
+                    right: 10;
+                    top: 10;
                     padding: 5px;
                     cursor: pointer;
         
                     :hover {
                         
-                        transform: scale(1.2);
+                      
+                       
+                        position: relative;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        align-items: center;
+                        justify-content: center;
+
                     }
                     
                 }

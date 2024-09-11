@@ -2,9 +2,7 @@
   "RootObject": {
     "__guid": "24e0af1e-00a0-407a-92e0-efd24adac1f0",
     "Flags": 0,
-    "Name": "box_normal_small",
-    "Position": "-507.5456,-324.2166,-20.77558",
-    "Rotation": "0,0,-0.7071067,0.7071068",
+    "Name": "example 1",
     "Enabled": true,
     "Components": [
       {
@@ -14,12 +12,12 @@
         "Health": 0,
         "IsStatic": true,
         "Model": "models/props/box_new/small.vmdl",
+        "StartAsleep": false,
         "Tint": "1,1,1,1"
       },
       {
         "__type": "GeneralGame.ItemInteractable",
         "__guid": "ad18ed91-4005-4852-8200-b0344866870e",
-        "IsItem": false,
         "isLocked": false,
         "isOpen": false,
         "AbilityHaste": 0,
@@ -54,6 +52,9 @@
           "Guid": "bde0d1c7-cb05-4cde-adc0-a6f84623fc0f"
         },
         "INT": 0,
+        "IsDoor": false,
+        "IsEquipment": false,
+        "IsItem": false,
         "ItemLevel": 0,
         "LightningResistence": 0,
         "MagicDefense": 0,
@@ -67,45 +68,34 @@
         "SellPrice": -1,
         "ShadowResistence": 0,
         "SlowResistence": 0,
+        "Stats": [],
         "STG": 0,
         "StunResistance": 0,
         "Tenacity": 0,
         "Tier": "SS",
         "WeightInGrams": 0
+      },
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "628eab4d-7061-4613-b974-da985be29b6a",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {
+          "Pitch": true,
+          "Yaw": true,
+          "Roll": true
+        },
+        "MassCenterOverride": "0,0,0",
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "OverrideMassCenter": false,
+        "RigidbodyFlags": "DisableCollisionSounds",
+        "StartAsleep": false
       }
     ],
-    "Children": [
-      {
-        "__guid": "8d378a29-19ed-4084-ae80-56004d985133",
-        "Flags": 0,
-        "Name": "World",
-        "Position": "-0.9000549,0.00006119609,160.1179",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.WorldPanel",
-            "__guid": "b9c6e912-43de-4d2c-880b-37d166c4a3af",
-            "HorizontalAlign": "Center",
-            "InteractionRange": 1000,
-            "LookAtCamera": false,
-            "PanelSize": "512,512",
-            "RenderScale": 1,
-            "VerticalAlign": "Center"
-          },
-          {
-            "__type": "Sandbox.TextRenderer",
-            "__guid": "efdfac02-523c-4105-a4a0-a9f4926bb7b1",
-            "Color": "1,1,1,1",
-            "FontFamily": "Poppins",
-            "FontSize": 32,
-            "FontWeight": 800,
-            "Scale": 1,
-            "Text": "Hello! \u2764",
-            "TextAlignment": "Center"
-          }
-        ]
-      }
-    ]
+    "Children": [],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

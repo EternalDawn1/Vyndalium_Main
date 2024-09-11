@@ -71,7 +71,10 @@ namespace GeneralGame
                 HostId = playerComponent.HostID;
             }
 
-            Player.Setup();
+            if ( !Player.Setup( playerComponent ) )
+            {
+                Log.Error( "Player setup failed." );
+            }
         }
         void INetworkListener.OnDisconnected( Connection connection )
         {

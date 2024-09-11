@@ -252,7 +252,10 @@ public class WeaponComponent : Component
 	public void CreateViewModel()
 	{
 		if ( !ViewModelPrefab.IsValid() )
+		{
+			Log.Error( "ViewModelPrefab is not valid in CreateViewModel" );
 			return;
+		}
 
 		var player = Components.GetInAncestors<Player>();
 		if ( player == null )

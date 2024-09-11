@@ -18,6 +18,9 @@ public sealed class ZombieSpawner : Component
 	[Property] public bool Level55To70 { get; set; }
 	[Property] public bool Level70To90 { get; set; }
 	[Property] public bool Level90To100 { get; set; }
+	[Property] public bool RandomizePropertiesOnRain { get; set; }
+	[Property] public bool RandomizeTierOnSpawn { get; set; }
+	
 
 	protected override void DrawGizmos()
 	{
@@ -68,6 +71,7 @@ public sealed class ZombieSpawner : Component
 		}
 		
 
+
 		if ( SpawnCount >= MaxSpawns ) // Überprüfen, ob die maximale Anzahl von Spawns erreicht wurde
 		{
 			// Zerstöre das Spawner-Objekt, wenn die maximale Anzahl von Spawns erreicht wurde
@@ -87,10 +91,19 @@ public sealed class ZombieSpawner : Component
 		
 
 		var zombie = ZombiePrefab.Clone( this.Transform.World );
+
+		if ( RandomizeTierOnSpawn )
+		{
+			var itemInteractable = zombie.Components.Get<ItemInteractable>();
+			if ( itemInteractable != null )
+			{
+				itemInteractable.Tier = (GeneralGame.Tier)GetRandomTier();
+			}
+		}
 		var itemComponent = zombie.Components.Get<ItemComponent>();
 		if ( itemComponent != null )
 		{
-			itemComponent.ItemTier = new ItemComponent.TierClass { Tier = GetRandomTier() };
+			
 			itemComponent.GenerateRandomStats();
 			itemComponent.CalculateSellPrice();
 		
@@ -113,8 +126,36 @@ public sealed class ZombieSpawner : Component
 			}
 
 		}
-		
 
+		if ( RandomizePropertiesOnRain )
+		{
+			// Zufällige Farbe generieren
+
+			var prop = GameObject.Components.Get<Prop>();
+			if ( prop != null )
+			{
+				// Erstelle ein neues Random-Objekt
+				var random = new Random();
+
+				// Generiere eine zufällige Farbe
+				var randomColor = new Color(
+					(float)random.NextDouble(),
+					(float)random.NextDouble(),
+					(float)random.NextDouble()
+				);
+
+				// Setze die zufällige Farbe auf das Prop-Objekt
+				prop.Tint = randomColor;
+			}
+
+			// Zufällige Skalierung generieren
+			var randomScale = new Vector3(
+			(float)Random.Shared.NextDouble() * 1.9f + 0.1f,
+			(float)Random.Shared.NextDouble() * 1.9f + 0.1f,
+			(float)Random.Shared.NextDouble() * 1.9f + 0.1f
+			);
+			zombie.Transform.LocalScale = randomScale;
+		}
 
 		IsSpawning = true;
 
@@ -123,6 +164,11 @@ public sealed class ZombieSpawner : Component
 		TimeUntilRespawn = null;
 
 		SpawnCount++;
+	}
+	private Tier GetRandomTier()
+	{
+		var values = Enum.GetValues( typeof( Tier ) );
+		return (Tier)values.GetValue( new Random().Next( values.Length ) );
 	}
 	public enum Tier
 	{
@@ -133,11 +179,7 @@ public sealed class ZombieSpawner : Component
 		SS = 4,
 		SSS = 5
 	}
-	private GeneralGame.Tier GetRandomTier()
-	{
-		var random = new Random();
-		return (GeneralGame.Tier)(GeneralGame.ZombieSpawner.Tier)random.Next( 0, 6 ); // Zufälliges Tier-Level von C bis SSS
-	}
+	
 
 	
 

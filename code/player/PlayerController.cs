@@ -216,6 +216,11 @@ public partial class Player : Component, IHealthComponent
 	public void OnZombieKilled()
 	{
 		Sandbox.Services.Stats.Increment("npc", 1);
+		
+		Sandbox.Services.Stats.Increment( "npc_killed", 1);
+		
+		
+
 
 
 	}

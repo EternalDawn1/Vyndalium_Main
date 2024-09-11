@@ -23,7 +23,11 @@ namespace GeneralGame
             {
                 ChangeScene(player);
                 sceneChanged = true;
-                
+
+                if ( SceneToLoad == GeneralScene.StartBase )
+                {
+                    Achievements.IncrementDungeonCompletion();
+                }
             }
             else
             {
