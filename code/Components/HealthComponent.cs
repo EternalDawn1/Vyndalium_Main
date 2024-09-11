@@ -22,8 +22,9 @@ public enum DamageType
 	Bullet = 5,
 
 	ice = 6,
-	fire = 7
-	
+	fire = 7,
+	 blunt = 8,	
+
 }
 
 

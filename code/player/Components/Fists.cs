@@ -7,7 +7,7 @@ public sealed class Fists : BaseMeleeWeapon
 	[Property] public SkinnedModelRenderer fists { get; set; }
 	[Property] public GameObject ViewModelCamera { get; set; }
 	public Player playerController { get; set; }
-	[Property] public ParticleSystem ImpactEffect { get; set; }
+	
 
 	protected override void OnStart()
 	{
