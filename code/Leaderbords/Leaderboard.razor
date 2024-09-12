@@ -28,7 +28,7 @@
                     {
                         var offset = 0;
                         var entryClass = entry.Rank == 1 ? "entry top-rank" : entry.Rank <= 10 ? $"entry top-ten rank-{entry.Rank}" : "entry";
-                        <div class="@entryClass">
+                        <div class="@entryClass" style="flex-shrink: 0;">
                             <label class="rank">##@(entry.Rank - offset)</label>
                             <label class="name">@entry.DisplayName</label>
                             <label class="value">@entry.Value</label>
@@ -72,7 +72,8 @@
         if (firstTime)
         {
             leaderboard = Sandbox.Services.Leaderboards.GetFromStat("vyndalium_count");
-            leaderboard.SetAggregationSum();
+            leaderboard.SetAggregationMax();
+            
             
            
             

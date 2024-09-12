@@ -250,7 +250,7 @@ public class ItemComponent : Component
 	public int CalculateSellPrice()
 	{
 		int basePrice = 0;
-		int additionalPricePerStat = 400;
+		int additionalPricePerStat = 100;
 		int numberOfStats = GetNumberOfStats();
 
 		switch ( Tier )
@@ -259,19 +259,19 @@ public class ItemComponent : Component
 				basePrice = 0;
 				break;
 			case Tier.B:
-				basePrice = 200;
+				basePrice = 150;
 				break;
 			case Tier.A:
-				basePrice = 400;
+				basePrice = 300;
 				break;
 			case Tier.S:
 				basePrice = 600;
 				break;
 			case Tier.SS:
-				basePrice = 800;
+				basePrice = 900;
 				break;
 			case Tier.SSS:
-				basePrice = 1000;
+				basePrice = 1500;
 				break;
 		}
 		int levelPrice = CalculateLevelPrice( ItemLevel );
@@ -281,10 +281,10 @@ public class ItemComponent : Component
 	private int CalculateLevelPrice( int level )
 	{
 		if ( level == 0 ) return 0;
-		int price = 300; // Preis für Level 1
+		int price = 150; // Preis für Level 1
 		for ( int i = 2; i <= level; i++ )
 		{
-			price += 250 + (i - 1) * 50;
+			price += 100 + (i - 1) * 25;
 		}
 		return price;
 	}
@@ -347,6 +347,24 @@ public class ItemComponent : Component
 		int minAttackSpeed = 1, maxAttackSpeed = 10;
 		int minMoveSpeed = 1, maxMoveSpeed = 10;
 		int minArmor = 5, maxArmor = 50;
+		int minMagicDefense = 5, maxMagicDefense = 50;
+		int minEvasion = 1, maxEvasion = 10;
+		int minCover = 1, maxCover = 10;
+		int minBonusEXP = 10, maxBonusEXP = 100;
+		int minBonusScore = 10, maxBonusScore = 100;
+		int minBonusVyndalium = 10, maxBonusVyndalium = 100;
+		int minTenacity = 1, maxTenacity = 10;
+		int minStunResistance = 1, maxStunResistance = 10;
+		int minBlindResistance = 1, maxBlindResistance = 10;
+		int minBleedResistance = 1, maxBleedResistance = 10;
+		int minSlowResistence = 1, maxSlowResistence = 10;
+		int minFireResistence = 1, maxFireResistence = 10;
+		int minPoisonResistence = 1, maxPoisonResistence = 10;
+		int minIceResistence = 1, maxIceResistence = 10;
+		int minLightningResistence = 1, maxLightningResistence = 10;
+		int minHolyResistence = 1, maxHolyResistence = 10;
+		int minShadowResistence = 1, maxShadowResistence = 10;
+
 
 		// Bestimmen Sie die maximale Anzahl der Statistiken basierend auf dem Tier
 		int maxStats = 0;
@@ -388,6 +406,24 @@ public class ItemComponent : Component
 			() => AttackSpeed = random.Next(minAttackSpeed, maxAttackSpeed + 1),
 			() => MoveSpeed = random.Next(minMoveSpeed, maxMoveSpeed + 1),
 			() => Armor = random.Next(minArmor, maxArmor + 1),
+			() => MagicDefense = random.Next(minMagicDefense, maxMagicDefense + 1),
+			() => Evasion = random.Next(minEvasion, maxEvasion + 1),
+			() => Cover = random.Next(minCover, maxCover + 1),
+			() => BonusEXP = random.Next(minBonusEXP, maxBonusEXP + 1),
+			() => BonusScore = random.Next(minBonusScore, maxBonusScore + 1),
+			() => BonusVyndalium = random.Next(minBonusVyndalium, maxBonusVyndalium + 1),
+			() => Tenacity = random.Next(minTenacity, maxTenacity + 1),
+			() => StunResistance = random.Next(minStunResistance, maxStunResistance + 1),
+			() => BlindResistance = random.Next(minBlindResistance, maxBlindResistance + 1),
+			() => BleedResistance = random.Next(minBleedResistance, maxBleedResistance + 1),
+			() => SlowResistence = random.Next(minSlowResistence, maxSlowResistence + 1),
+			() => FireResistence = random.Next(minFireResistence, maxFireResistence + 1),
+			() => PoisonResistence = random.Next(minPoisonResistence, maxPoisonResistence + 1),
+			() => IceResistence = random.Next(minIceResistence, maxIceResistence + 1),
+			() => LightningResistence = random.Next(minLightningResistence, maxLightningResistence + 1),
+			() => HolyResistence = random.Next(minHolyResistence, maxHolyResistence + 1),
+			() => ShadowResistence = random.Next(minShadowResistence, maxShadowResistence + 1),
+			() => ItemTier = new TierClass() { Tier = (Tier)random.Next(0, 6) },
 			() => ItemLevel = GenerateRandomItemLevel(random)
 		};
 
@@ -400,28 +436,26 @@ public class ItemComponent : Component
 
 		// Weitere zufällige Statistiken können hier hinzugefügt werden...
 	}
-	
+
 	private int GenerateRandomItemLevel( Random random )
 	{
 		double roll = random.NextDouble() * 100;
-		if ( roll < 90 )
-			return random.Next( 1, 6 ); // 1-5
-		else if ( roll < 90 + 50 )
+		if ( roll < 70 ) // 70% Wahrscheinlichkeit
+			return random.Next( 0, 6 ); // 0-5
+		else if ( roll < 70 + 20 ) // 20% Wahrscheinlichkeit
 			return random.Next( 5, 11 ); // 5-10
-		else if ( roll < 90 + 50 + 25 )
+		else if ( roll < 70 + 20 + 5 ) // 5% Wahrscheinlichkeit
 			return random.Next( 10, 16 ); // 10-15
-		else if ( roll < 90 + 50 + 25 + 12 )
+		else if ( roll < 70 + 20 + 5 + 2.5 ) // 2.5% Wahrscheinlichkeit
 			return random.Next( 15, 21 ); // 15-20
-		else if ( roll < 90 + 50 + 25 + 12 + 6 )
-			return 20; // 20-21
-		else if ( roll < 90 + 50 + 25 + 12 + 6 + 3 )
-			return 21; // 21-22
-		else if ( roll < 90 + 50 + 25 + 12 + 6 + 3 + 1 )
-			return 22; // 22-23
-		else if ( roll < 90 + 50 + 25 + 12 + 6 + 3 + 1 + 0.5 )
-			return 23; // 23-24
-		else
-			return random.Next( 24, 28 ); // 25-27
+		else if ( roll < 70 + 20 + 5 + 2.5 + 1.25 ) // 1.25% Wahrscheinlichkeit
+			return random.Next( 20, 25 ); // 20-24
+		else if ( roll < 70 + 20 + 5 + 2.5 + 1.25 + 0.9 ) // 0.9% Wahrscheinlichkeit
+			return 25; // 25
+		else if ( roll < 70 + 20 + 5 + 2.5 + 1.25 + 0.9 + 0.4 ) // 0.4% Wahrscheinlichkeit
+			return random.Next( 26, 28 ); // 26-27
+		else // Falls keine der Bedingungen erfüllt ist
+			return 0; // 0
 	}
 
 	protected override void OnAwake()

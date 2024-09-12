@@ -60,9 +60,9 @@ namespace GeneralGame
                 "prefabs/weapons/aksu/c.prefab",
                 "prefabs/weapons/facepunch/usp/uspc.prefab",
                 "prefabs/weapons/facepunch/shotgun/shotgunc.prefab",
-                "prefabs/weapons/facepunch/ak47/mp5c.prefab",
+                "prefabs/weapons/facepunch/mp5/mp5c.prefab",
                 "prefabs/weapons/m4a1/m4a1-c.prefab",
-                "prefabs/weapons/facepunch/pm/glock-c.prefab",
+                "prefabs/weapons/pm/glock-c.prefab",
                 // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
             };
 
@@ -71,9 +71,9 @@ namespace GeneralGame
                 "prefabs/weapons/aksu/b.prefab",
                 "prefabs/weapons/facepunch/usp/uspb.prefab",
                 "prefabs/weapons/facepunch/shotgun/shotgunb.prefab",
-                "prefabs/weapons/facepunch/ak47/mp5b.prefab",
+                "prefabs/weapons/facepunch/mp5/mp5b.prefab",
                 "prefabs/weapons/m4a1/m4a1-b.prefab",
-                "prefabs/weapons/facepunch/pm/glock-b.prefab",
+                "prefabs/weapons/pm/glock-b.prefab",
                 
 
                 // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
@@ -84,9 +84,9 @@ namespace GeneralGame
                 "prefabs/weapons/aksu/a.prefab",
                 "prefabs/weapons/facepunch/usp/uspa.prefab",
                 "prefabs/weapons/facepunch/shotgun/shotguna.prefab",
-                "prefabs/weapons/facepunch/ak47/mp5a.prefab",
+                "prefabs/weapons/facepunch/mp5/mp5a.prefab",
                 "prefabs/weapons/m4a1/m4a1-a.prefab",
-                "prefabs/weapons/facepunch/pm/glock-a.prefab",
+                "prefabs/weapons/pm/glock-a.prefab",
                 // Fügen Sie hier weitere A-Tier-Prefab-Dateien hinzu
             };
 
@@ -95,9 +95,9 @@ namespace GeneralGame
                 "prefabs/weapons/aksu/s.prefab",
                 "prefabs/weapons/facepunch/usp/usps.prefab",
                 "prefabs/weapons/facepunch/shotgun/shotguns.prefab",
-                "prefabs/weapons/facepunch/ak47/mp5s.prefab",
+                "prefabs/weapons/facepunch/mp5/mp5s.prefab",
                 "prefabs/weapons/m4a1/m4a1-s.prefab",
-                "prefabs/weapons/facepunch/pm/glock-s.prefab",
+                "prefabs/weapons/pm/glock-s.prefab",
                 // Fügen Sie hier weitere S-Tier-Prefab-Dateien hinzu
             };
 
@@ -106,9 +106,9 @@ namespace GeneralGame
                 "prefabs/weapons/aksu/ss.prefab",
                 "prefabs/weapons/facepunch/usp/uspss.prefab",
                 "prefabs/weapons/facepunch/shotgun/shotgunss.prefab",
-                "prefabs/weapons/facepunch/ak47/mp5ss.prefab",
+                "prefabs/weapons/facepunch/mp5/mp5ss.prefab",
                 "prefabs/weapons/m4a1/m4a1-ss.prefab",
-                "prefabs/weapons/facepunch/pm/glock-ss.prefab",
+                "prefabs/weapons/pm/glock-ss.prefab",
                 // Fügen Sie hier weitere SS-Tier-Prefab-Dateien hinzu
             };
 
@@ -117,9 +117,9 @@ namespace GeneralGame
                 "prefabs/weapons/aksu/sss.prefab",
                 "prefabs/weapons/facepunch/usp/uspsss.prefab",
                 "prefabs/weapons/facepunch/shotgun/shotgunsss.prefab",
-                "prefabs/weapons/facepunch/ak47/mp5sss.prefab",
+                "prefabs/weapons/facepunch/mp5/mp5sss.prefab",
                 "prefabs/weapons/m4a1/m4a1-sss.prefab",
-                "prefabs/weapons/facepunch/pm/glock-sss.prefab",
+                "prefabs/weapons/pm/glock-sss.prefab",
                 // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
             };
 
