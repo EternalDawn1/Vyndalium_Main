@@ -28,6 +28,11 @@
 	{
 		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
 	}
+	@if (StorageSlotIndex is not null)
+
+	{
+		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
+	}
 	
 
 	
@@ -118,6 +123,8 @@
 	public int? BackpackSlotIndex { get; set; } = null;
 
 	public int? IndependentSlotIndex { get; set; } = null;
+
+	public int? StorageSlotIndex { get; set; } = null;
 
 	public bool IsChestSlot { get; set; } = false;
 
@@ -265,6 +272,9 @@
 		{
 			return true;
 		}
+		if (StorageSlotIndex != null)
+
+			return true; // Storage slots allow everything!
 
 		if (EquipSlotIndex != null)
 
@@ -375,6 +385,17 @@
 			Item = inventory.BackpackItems[(int)IndependentSlotIndex];
 			StateHasChanged();
 			return;
+		}
+		if (StorageSlotIndex != null)
+
+		{
+
+			Item = inventory.StorageItems[(int)StorageSlotIndex];
+
+			StateHasChanged();
+
+			return;
+
 		}
 
 
@@ -511,6 +532,15 @@
 				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.IndependentSlotIndex.Value);
 				PlaySound(res ? "drop" : "serror");
 			}
+			if (targetSlot.StorageSlotIndex is not null)
+
+			{
+
+				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.StorageSlotIndex.Value);
+
+				PlaySound(res ? "drop" : "serror");
+
+			}
 			// To equipment slot.
 
 			else if (targetSlot.EquipSlotIndex is not null && fromSlot.Item is ItemEquipment itemEquipment)
@@ -549,6 +579,15 @@
 			{
 				var res = inventory.SwapItems(fromSlot.EquipSlotIndex.Value, targetSlot.IndependentSlotIndex.Value);
 				PlaySound(res ? "drop" : "serror");
+			}
+			if (targetSlot.StorageSlotIndex is not null)
+
+			{
+
+				var res = inventory.SwapItems(fromSlot.EquipSlotIndex.Value, targetSlot.StorageSlotIndex.Value);
+
+				PlaySound(res ? "drop" : "serror");
+
 			}
 
 

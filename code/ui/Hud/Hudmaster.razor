@@ -7,12 +7,13 @@
 
 <root>
     <FullScreenManager />
+	<NotificationPanel @ref="notificationPanel" />
 </root>
 
 @code
 {
 	public GameObject hudPrefab; 
-
+	private NotificationPanel notificationPanel;
     public static Hudmaster Instance { get; private set; } // Ändern Sie "Hud" zu "Hudmaster"
     public Hudmaster() // Ändern Sie "Hud" zu "Hudmaster"
     {
@@ -36,6 +37,10 @@
 			
 		}
 		
+	}
+	public void ShowNotification(string message ,string icon)
+	{
+		notificationPanel?.AddNotification(message , icon);
 	}
 	protected override void OnAwake()
 	{

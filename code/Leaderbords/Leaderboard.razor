@@ -87,22 +87,11 @@
     }
     
 
-    async void Refresh()
+     void Refresh()
     {
-        if (leaderboard != null)
-        {
             leaderboard.MaxEntries = 27;
-            await leaderboard.Refresh();
-            
-        }
-
-        if (leaderboard2 != null)
-        {
             leaderboard2.MaxEntries = 27;
-            await leaderboard2.Refresh();
             
-        }
-
         StateHasChanged();
     }
 

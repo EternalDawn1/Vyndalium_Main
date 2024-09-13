@@ -1,0 +1,57 @@
+@namespace GeneralGame.HUD
+@inherits Panel
+@using System.Collections.Generic
+
+<root>
+    <div class="notification-panel">
+        @foreach (var notification in notifications)
+        {
+            <div class="notification">
+                <img src="@notification.Icon" alt="Notification Icon" class="notification-icon" />
+                <span>@notification.Message</span>
+            </div>
+        }
+    </div>
+</root>
+
+@code {
+    private List<Notification> notifications = new List<Notification>();
+    private const int MaxNotifications = 5; // Maximale Anzahl der Benachrichtigungen
+    private int nextId = 0;
+
+    public void AddNotification(string message, string icon)
+    {
+        if (notifications.Count >= MaxNotifications)
+        {
+            notifications.RemoveAt(0); // Entferne die älteste Benachrichtigung
+        }
+        var notification = new Notification { Id = nextId++, Message = message, Icon = icon };
+        notifications.Add(notification);
+        StateHasChanged();
+        // Entferne die Benachrichtigung nach 10 Sekunden
+        _ = RemoveNotificationAfterDelay(notification.Id, 10);
+    }
+
+    private async Task RemoveNotificationAfterDelay(int notificationId, int delayInSeconds)
+    {
+        await Task.Delay(delayInSeconds * 1000);
+        var notification = notifications.FirstOrDefault(n => n.Id == notificationId);
+        if (notification != null)
+        {
+            notifications.Remove(notification);
+            StateHasChanged();
+        }
+    }
+
+    private class Notification
+    {
+        public int Id { get; set; }
+        public string Message { get; set; }
+        public string Icon { get; set; }
+
+        public override string ToString()
+        {
+            return Message;
+        }
+    }
+}

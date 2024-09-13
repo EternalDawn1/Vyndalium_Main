@@ -15,14 +15,17 @@ public sealed class Inventory : Component
 	[Property] Player Player { get; set; }
 
 	public const int MAX_BACKPACK_SLOTS = 20;
+	public const int MAX_STORAGE_SLOTS = 20;
 
 	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
 	[Property] public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
 	[Property] public IReadOnlyList<ItemComponent> StorageBoxItems => _storageBoxItems;
+	[Property]public IReadOnlyList<ItemComponent> StorageItems => _storageItems;
 
 	[Property] public readonly  List<ItemComponent> _backpackItems;
-	[Property] private readonly List<ItemComponent> _equippedItems;
-	[Property] private readonly List<ItemComponent> _storageBoxItems;
+	[Property] public readonly List<ItemComponent> _equippedItems;
+	[Property] public readonly List<ItemComponent> _storageBoxItems;
+	[Property] public readonly List<ItemComponent> _storageItems;
 
 	public bool RemoveItem( ItemComponent item )
 	{
@@ -140,10 +143,11 @@ public sealed class Inventory : Component
 		
 
 		_backpackItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACK_SLOTS] );
+		_storageItems = new List<ItemComponent>( new ItemComponent[MAX_STORAGE_SLOTS] );
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 		_storageBoxItems = new List<ItemComponent>();
 	}
-
+	
 	public int IndexOf( ItemComponent item )
 	{
 		if ( item == null )
@@ -173,7 +177,47 @@ public sealed class Inventory : Component
 
 		return true;
 	}
+	public void MoveItemToStorage( ItemComponent item )
+	{
+		if ( item == null ) return;
 
+		if ( BackpackItems.Contains( item ) )
+		{
+			int freeSlot = _storageItems.IndexOf( null );
+			if ( freeSlot != -1 )
+			{
+				_backpackItems.Remove( item );
+				_storageItems[freeSlot] = item;
+				item.State = ItemState.Storage;
+				
+			}
+			else
+			{
+				Log.Error( "Kein freier Slot im Storage verfügbar." );
+			}
+		}
+	}
+
+	public void MoveItemToBackpack( ItemComponent item )
+	{
+		if ( item == null ) return;
+
+		if ( _storageItems.Contains( item ) )
+		{
+			int freeSlot = _backpackItems.IndexOf( null );
+			if ( freeSlot != -1 )
+			{
+				_storageItems.Remove( item );
+				_backpackItems[freeSlot] = item;
+				item.State = ItemState.Backpack;
+			
+			}
+			else
+			{
+				Log.Error( "Kein freier Slot im Rucksack verfügbar." );
+			}
+		}
+	}
 
 	public bool GiveItem( PrefabFile prefabFile )
 	{
@@ -835,6 +879,7 @@ public sealed class Inventory : Component
 
 		base.OnUpdate();
 	}
+	
 
 
 

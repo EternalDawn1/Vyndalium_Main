@@ -41,12 +41,33 @@
     </div>
 
     <div class="panel-content" style="opacity: @(currentPanel == PanelType.StoreItems ? 1 : 0)">
-        <div class="panel-content-text">
-            <div class="panel-content-layout">
-                <!-- Store Items Content -->
+    <div class="panel-content-text">
+        <div class="panel-content-layout">
+            <div class="main-panel">
+                <div class="Panel">
+                    <div class="section2">
+                        <div class="title">Storage</div>
+                        <div class="items2">
+                            @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+                                {
+                                    var item = Player.Local.Inventory.BackpackItems[index];
+                                    <InventorySlot Item=@item BackpackSlotIndex=@index />
+                                }
+                        </div>
+                        <div class="items2">
+                            @for (var index = 0; index < Player.Local.Inventory.StorageItems.Count; index++)
+                            {
+                                var item = Player.Local.Inventory.StorageItems[index];
+                                <InventorySlot Item=@item StorageSlotIndex=@index />
+                            }
+                        </div>
+                        <div style="align-items: center; margin: 20px 5px;"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
     <div class="panel-content" style="opacity: @(currentPanel == PanelType.Weapons ? 1 : 0)">
         <div class="panel-content-text">

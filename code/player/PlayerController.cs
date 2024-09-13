@@ -253,6 +253,7 @@ public partial class Player : Component, IHealthComponent
 	public void GiveVyndalium( int amount )
 	{
 		Vyndalium += amount;
+		
 
 	}
 	[Broadcast]

@@ -978,8 +978,12 @@ public partial class Npc : Component, IHealthComponent
 			}
 			killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );
 			killerPlayer.AddVyndalium( vyndaliumPointsToAdd );
-			
+
+			Hudmaster.Instance?.ShowNotification( $"received {vyndaliumPointsToAdd} Vyndalium","/ui/hud/shop.png" );
+
 			killerPlayer.GiveXp( xpPointsToAdd );
+
+			Hudmaster.Instance?.ShowNotification( $"received {xpPointsToAdd} XP", "ui/hud/star.gif" );
 			killerPlayer.OnZombieKilled();
 
 

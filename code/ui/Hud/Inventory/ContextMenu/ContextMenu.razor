@@ -21,13 +21,31 @@
                                onclick=@(() => DepositItemToStorageBox(_item)) />
         }
     }
-	@if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel)
+	else if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
     {
         @if (_item != null)
         {
             <ContextMenuOption Description="Sell"
                                ImagePath="ui/hud/shop.png"
                                onclick=@(() => SellItem(_item)) />
+        }
+    }
+    else if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.StoreItems)
+    {
+        @if (_item != null && Player.Local.Inventory.BackpackItems.Contains(_item))
+		{
+			<ContextMenuOption Description="Move to Storage"
+							   ImagePath="ui/hud/storage.png"
+							   onclick=@(() => Player.Local.Inventory.MoveItemToStorage(_item)) />
+		}
+		else
+		{
+            <ContextMenuOption Description="Move to Backpack"
+                               ImagePath="ui/hud/inventory.png"
+                               onclick=@(() => Player.Local.Inventory.MoveItemToBackpack(_item)) />
+			<ContextMenuOption Description="Sell"
+							   ImagePath="ui/hud/shop.png"
+							   onclick=@(() => SellItem(_item)) />
         }
     }
     else
@@ -67,6 +85,14 @@
 	private static ContextMenu _instance;
 	private ItemComponent _item;
 	private List<ItemComponent> selectedItems = new();
+
+	
+	
+
+	
+
+
+
 	private void DepositItemToStorageBox(ItemComponent item)
 	{
 		if (item == null) return;
@@ -76,9 +102,11 @@
 			storageBox.Items.Add(item);
 			player.Inventory.RemoveItem(item);
 			Log.Info($"Item {item.Name} zur StorageBox hinzugefügt.");
+			Hudmaster.Instance.ShowNotification($"Deposit {item.Name}","/ui/hud/storage.png");
 			Inventory.Instance?.OnChanged();
 		}
 	}
+	
 	private void SellItem(ItemComponent item)
 	{
 		if (item == null) return;
@@ -88,7 +116,8 @@
 		// Füge den Verkaufspreis des Items zum Vyndalium des Spielers hinzu
 		player.Vyndalium += item.SellPrice;
 		Log.Info($"Item {item.Name} verkauft für {item.SellPrice} Vyndalium.");
-		
+		Hudmaster.Instance.ShowNotification($"Item {item.Name} was sold for {item.SellPrice} Vyndalium.", "/ui/hud/shop.png");
+
 		Inventory.Instance?.OnChanged();
 	}
 	private void AddItemToPlayerInventory(ItemComponent item)
@@ -122,6 +151,7 @@
             }
 
             Inventory.Instance?.OnChanged();
+			Hudmaster.Instance.ShowNotification($"received {item.Name}", "/ui/hud/hand_slot.png");
         }
         else
         {

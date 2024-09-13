@@ -20,7 +20,7 @@ namespace GeneralGame.HUD
             Accessories
         }
 
-        private PanelType currentPanel = PanelType.Inventory;
+        public PanelType currentPanel = PanelType.Inventory;
 
         public void ShowPanel( PanelType panel )
         {

@@ -19,6 +19,7 @@ namespace GeneralGame
 				player.GiveVyndalium(addvydalium);
 				int addXP = new Random().Next(50, 525);
 				player.GiveXp(addXP);
+				Hudmaster.Instance.ShowNotification($"You picked up {addvydalium}x Vyndalium and {addXP} XP.","/ui/hud/vynd.png" );
 
 				
 				

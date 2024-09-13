@@ -42,9 +42,10 @@ public partial class Player : Component, Component.ExecuteInEditor
 
     public AmmoContainer AmmoContainer { get; set; }
     public Inventory Inventory { get; private set; }
-   
+    public List<ItemComponent> StorageItems { get; set; } = new List<ItemComponent>();
 
-   
+
+
 
 
 
