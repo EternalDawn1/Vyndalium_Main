@@ -162,18 +162,18 @@
 		bool shouldHighlight = ShowHint();
 		if (_targetObject.IsValid())
 		{
-			var Interactionz = _targetObject.Components.Get<Interactions>();
+			var interaction = _targetObject.Components.Get<Interactions>();
 			if (shouldHighlight)
 			{
 				// Überprüfen, ob _lastHighlightedInteraction bereits gesetzt ist, um unnötige Zuweisungen zu vermeiden
 				if (_lastHighlightedInteraction == null)
 				{
-					_lastHighlightedInteraction = Interactionz;
+					_lastHighlightedInteraction = interaction;
 				}
 				// Überprüfen, ob die Highlight-Komponente bereits existiert, bevor sie erneut erstellt wird
 				if (!_lastHighlightedInteraction.IsHighlighted())
 				{
-					Interactionz.Highlight(true);
+					interaction.Highlight(true);
 				}
 			}
 			else
@@ -195,8 +195,6 @@
 		}
 	}
 	
-	
-	
 	public bool ShowHint()
 	{
 		// Prüfen, ob das Zielobjekt gültig ist
@@ -208,15 +206,8 @@
 		// Prüfen, ob die Liste der Interaktionen leer ist
 		if (!interactions.AllInteractions.Any())
 			return false; // Keine Interaktionen vorhanden, also kein Hinweis
-								// Hier prüfen wir, ob Interaktionen verfügbar sind oder ein ViewModel vorhanden ist
-		var interactionsAvailable = interactions.AllInteractions.Any(i => WithinBounds(i) && WithinRange(i));
-		if (!interactionsAvailable && interactions.HideOnEmpty)
-			return false;
-		// Zusätzliche Prüfung, ob ein ViewModel vorhanden ist
-		// Diese Funktion muss entsprechend Ihrer Implementierung angepasst werden
-		
-		// Anzeigen, wenn Interaktionen verfügbar sind oder ein ViewModel vorhanden ist
-		return interactionsAvailable;
+
+		return true;
 	}
 
 	private bool IsAccessible(Interaction interaction)

@@ -284,6 +284,7 @@ public class Interactions : Component
 			_ => Color.White, // Standardfarbe, falls keine Übereinstimmung gefunden wird
 		};
 	}
+	
 	public Tier Tier { get; set; }
 	public void Highlight( bool shouldHighlight )
 	{
@@ -348,40 +349,6 @@ public class Interactions : Component
 	}
 
 	
-	private bool IsPlayerNearby()
-	{
-		if(IsProxy)
-		{
-			return false;
-		}
-		
-
-		var players = Scene.GetAllComponents<Player>();
-		if ( players == null || !players.Any() )
-		{
-
-			return false;
-		}
-
-		// Anzahl der erkannten Spieler loggen
-
-		foreach ( var player in players )
-		{
-
-
-			var distance = (player.Transform.Position - this.Transform.Position).Length;
-
-
-
-			if ( distance < InteractDistance )
-			{
-
-				return true;
-
-
-			}
-		}
-		return false;
-	}
+	
 
 }

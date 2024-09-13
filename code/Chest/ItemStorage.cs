@@ -129,43 +129,37 @@ namespace GeneralGame
             // Wahrscheinlichkeit basierend auf dem Tier der Kiste
             int tierChance = itemInteractable?.Tier switch
             {
-                GeneralGame.Tier.SSS => 10,
+                GeneralGame.Tier.SSS => 15,
                 GeneralGame.Tier.SS => 9,
                 GeneralGame.Tier.S => 8,
-                GeneralGame.Tier.A => 7,
-                GeneralGame.Tier.B => 6,
-                GeneralGame.Tier.C => 5,
-                _ => 5
+                GeneralGame.Tier.A => 3,
+                GeneralGame.Tier.B => 2,
+                GeneralGame.Tier.C => 1,
+                _ => 1
             };
 
             // Auswahl der Prefabs basierend auf der Wahrscheinlichkeit
-            if ( random.Next( 100 ) < tierChance )
+            var tiers = new (int chance, List<string> prefabs)[]
             {
-                selectedPrefabs.AddRange( tierSSSPrefabs );
-            }
-            else if ( random.Next( 100 ) < tierChance + 10 )
+                (tierChance, tierSSSPrefabs), // Seltenste Items
+                (tierChance + 10, tierSSPrefabs),
+                (tierChance + 20, tierSPrefabs),
+                (tierChance + 30, tierAPrefabs),
+                (tierChance + 40, tierBPrefabs),
+                (100, tierCPrefabs) // Häufigste Items
+            };
+
+            foreach ( var (chance, prefabs) in tiers )
             {
-                selectedPrefabs.AddRange( tierSSPrefabs );
-            }
-            else if ( random.Next( 100 ) < tierChance + 20 )
-            {
-                selectedPrefabs.AddRange( tierSPrefabs );
-            }
-            else if ( random.Next( 100 ) < tierChance + 30 )
-            {
-                selectedPrefabs.AddRange( tierAPrefabs );
-            }
-            else if ( random.Next( 100 ) < tierChance + 40 )
-            {
-                selectedPrefabs.AddRange( tierBPrefabs );
-            }
-            else
-            {
-                selectedPrefabs.AddRange( tierCPrefabs );
+                if ( random.Next( 100 ) < chance )
+                {
+                    selectedPrefabs.AddRange( prefabs );
+                    break;
+                }
             }
 
             // Zufällige Auswahl der Prefabs aus der ausgewählten Liste
-            int weaponCount = DetermineWeaponCount( random );
+            int weaponCount = DetermineWeaponCount( random, itemInteractable?.Tier );
 
             // Zufällige Auswahl der Prefabs aus der ausgewählten Liste
             var finalPrefabs = selectedPrefabs.OrderBy( x => random.Next() ).Take( weaponCount ).ToList();
@@ -183,30 +177,41 @@ namespace GeneralGame
                 }
             }
         }
-        private int DetermineWeaponCount( Random random )
+        private int DetermineWeaponCount( Random random, GeneralGame.Tier? tier )
         {
             int chance = random.Next( 100 );
-            if ( chance < 1 )
+            double tierModifier = tier switch
+            {
+                GeneralGame.Tier.SSS => 0.25,
+                GeneralGame.Tier.SS => 0.5,
+                GeneralGame.Tier.S => 0.75,
+                GeneralGame.Tier.A => 1.0,
+                GeneralGame.Tier.B => 1.25,
+                GeneralGame.Tier.C => 1.5,
+                _ => 1.5
+            };
+
+            if ( chance < 1 * tierModifier )
             {
                 return 7;
             }
-            else if ( chance < 6 )
+            else if ( chance < 2 * tierModifier )
             {
                 return 6;
             }
-            else if ( chance < 16 )
+            else if ( chance < 3 * tierModifier )
             {
                 return 5;
             }
-            else if ( chance < 31 )
+            else if ( chance < 4 * tierModifier )
             {
                 return 4;
             }
-            else if ( chance < 51 )
+            else if ( chance < 5 * tierModifier )
             {
                 return 3;
             }
-            else if ( chance < 76 )
+            else if ( chance < 6 * tierModifier )
             {
                 return 2;
             }

@@ -21,6 +21,15 @@
                                onclick=@(() => DepositItemToStorageBox(_item)) />
         }
     }
+	@if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel)
+    {
+        @if (_item != null)
+        {
+            <ContextMenuOption Description="Sell"
+                               ImagePath="ui/hud/shop.png"
+                               onclick=@(() => SellItem(_item)) />
+        }
+    }
     else
     {
         @if (_item is ItemEquipment equipment)
@@ -47,15 +56,7 @@
                                ImagePath="ui/hud/inv_actions_split.png"
                                onclick=@(() => OpenSplitPanel(_item)) />
         }
-        @if (_item != null && _item.SellPrice > 0 && !_item.IsEquipped)
-        {
-            @if (!IsItemInEquipSlot(_item))
-            {
-                <ContextMenuOption Description="Sell"
-                                   ImagePath="ui/hud/shop.png"
-                                   onclick=@(() => SellItem(_item)) />
-            }
-        }
+       
     }
 </root>
 
@@ -87,6 +88,7 @@
 		// Füge den Verkaufspreis des Items zum Vyndalium des Spielers hinzu
 		player.Vyndalium += item.SellPrice;
 		Log.Info($"Item {item.Name} verkauft für {item.SellPrice} Vyndalium.");
+		
 		Inventory.Instance?.OnChanged();
 	}
 	private void AddItemToPlayerInventory(ItemComponent item)
@@ -216,6 +218,7 @@
 			Close();
 		if (FullScreenManager.Instance.ActivePanel != FullScreenManager.FullScreenPanel.Inventory)
 		if (FullScreenManager.Instance.ActivePanel != FullScreenManager.FullScreenPanel.StorageBox)
+		if (FullScreenManager.Instance.ActivePanel != FullScreenManager.FullScreenPanel.ShopPanel)
 		
 		
 			Close();

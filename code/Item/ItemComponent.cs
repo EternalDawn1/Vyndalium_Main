@@ -82,7 +82,13 @@ public class ItemComponent : Component
 	/// Weapon All things
 	/// </summary>
 	/// 
-	[Property, Group( "Weapon" ), Range( 200, 1800 )] public int DMG { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1800 )]
+	public int DMG
+	{
+		get => _dmg;
+		set => _dmg = GenerateRandomDMG( Tier);
+	}
+	private int _dmg;
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public int STG { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public int HE { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public int DEX { get; set; }
@@ -99,6 +105,7 @@ public class ItemComponent : Component
 	[Property] public Tier Tier { get; set; }
 	[Property, Range( 100, 0 )] public int DamageBalance { get; set; }
 	[Property, Range( 1000, 0 )] public int Durability { get; set; }
+	
 	[Property, Group( "Weapon" ), Range( 0, 60 )] public float AttackSpeed { get; set; }
 	[Property, Group( "Armor" ), Range( 0, 1000 )] public float MoveSpeed { get; set; }
 	[Property, Group( "Armor" ), Range( 0, 1000 )] public float Armor { get; set; }
@@ -119,8 +126,10 @@ public class ItemComponent : Component
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float LightningResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float HolyResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float ShadowResistence { get; set; }
+	[Property, Group( "Weapon" )]
 	
-	
+
+
 
 	public int Price { get; set; }
 
@@ -247,6 +256,49 @@ public class ItemComponent : Component
 	public TierClass ItemTier { get; set; }
 	
 	[Property]public List<int> Stats { get;  set; } = new List<int>();
+
+	private int GenerateRandomDMG( Tier tier )
+	{
+		Random random = new Random();
+		double roll = random.NextDouble() * 100;
+		int maxTierValue = tier switch
+		{
+			Tier.C => 200,
+			Tier.B => 400,
+			Tier.A => 600,
+			Tier.S => 800,
+			Tier.SS => 1000,
+			Tier.SSS => 2000,
+			_ => 0
+		};
+		int minimumTierValue = tier switch
+		{
+			Tier.C => 10,
+			Tier.B => 100,
+			Tier.A => 200,
+			Tier.S => 300,
+			Tier.SS => 400,
+			Tier.SSS => 500,
+			_ => 0
+		};
+
+		if ( roll < 55 ) // 55% Wahrscheinlichkeit
+		{
+			return random.Next( minimumTierValue, (int)(maxTierValue * 0.4) + 1 ); // minimumTierValue bis 40% des maxTierValue
+		}
+		else if ( roll < 80 ) // 25% Wahrscheinlichkeit
+		{
+			return random.Next( (int)(maxTierValue * 0.4), (int)(maxTierValue * 0.6) + 1 ); // 40% bis 60% des maxTierValue
+		}
+		else if ( roll < 95 ) // 15% Wahrscheinlichkeit
+		{
+			return random.Next( (int)(maxTierValue * 0.6), (int)(maxTierValue * 0.8) + 1 ); // 60% bis 80% des maxTierValue
+		}
+		else // 5% Wahrscheinlichkeit
+		{
+			return random.Next( (int)(maxTierValue * 0.8), maxTierValue + 1 ); // 80% bis maxTierValue
+		}
+	}
 	public int CalculateSellPrice()
 	{
 		int basePrice = 0;
@@ -305,6 +357,7 @@ public class ItemComponent : Component
 		if ( CritHitChance > 0 ) count++;
 		if ( AbilityHaste > 0 ) count++;
 		if ( AttackPower > 0 ) count++;
+
 		if ( MagicPower > 0 ) count++;
 		if ( AttackSpeed > 0 ) count++;
 		if ( MoveSpeed > 0 ) count++;
@@ -331,7 +384,7 @@ public class ItemComponent : Component
 		Random random = new Random();
 
 		// Definieren Sie die Bereiche für jede Statistik
-		int minDMG = 10, maxDMG = 100;
+		int minDMG = 10, maxDMG = 2000;
 		int minSTG = 5, maxSTG = 50;
 		int minHE = 1, maxHE = 10;
 		int minDEX = 2, maxDEX = 20;
@@ -364,7 +417,7 @@ public class ItemComponent : Component
 		int minLightningResistence = 1, maxLightningResistence = 10;
 		int minHolyResistence = 1, maxHolyResistence = 10;
 		int minShadowResistence = 1, maxShadowResistence = 10;
-
+		
 
 		// Bestimmen Sie die maximale Anzahl der Statistiken basierend auf dem Tier
 		int maxStats = 0;
@@ -390,7 +443,7 @@ public class ItemComponent : Component
 		// Generieren Sie zufällige Werte innerhalb der definierten Bereiche
 		List<Action> statsGenerators = new List<Action>
 		{
-			() => DMG = random.Next(minDMG, maxDMG + 1),
+			() => DMG = GenerateRandomDMG(Tier),
 			() => STG = random.Next(minSTG, maxSTG + 1),
 			() => HE = random.Next(minHE, maxHE + 1),
 			() => DEX = random.Next(minDEX, maxDEX + 1),
