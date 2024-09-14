@@ -14,7 +14,7 @@ public sealed class Inventory : Component
 	
 	[Property] Player Player { get; set; }
 
-	public const int MAX_BACKPACK_SLOTS = 20;
+	public const int MAX_BACKPACK_SLOTS = 30;
 	public const int MAX_STORAGE_SLOTS = 50;
 
 	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;

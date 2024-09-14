@@ -23,7 +23,7 @@
                             
                             <div class="title">Inventory</div>
                             <div class="title2">Sell</div>
-                            <div class="items2">
+                            <div class="items0">
                                 
                                 
                                 @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
@@ -46,7 +46,11 @@
             <div class="main-panel">
                 <div class="Panel">
                     <div class="section2">
-                        <div class="title">Storage</div>
+                        <div class="title-container">
+                                
+                                <div class="title0">Inventory</div>
+                                <div class="title0">Storage</div>
+                        </div>
                         <div class="items-container">
                             <div class="items2">
                                 @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
@@ -62,7 +66,7 @@
                                     <InventorySlot Item=@item StorageSlotIndex=@index />
                                 }
                             </div>
-                            </div>
+                        </div>
                         <div style="align-items: center; margin: 20px 5px;"></div>
                     </div>
                 </div>
@@ -89,10 +93,30 @@
 
     <div class="panel-content" style="opacity: @(currentPanel == PanelType.Accessories ? 1 : 0)">
         <div class="panel-content-text">
-            <div class="panel-content-layout">
-                <!-- Accessories Content -->
+        <div class="panel-content-layout">
+            <div class="main-panel">
+                <div class="Panel">
+                    <div class="section2">
+                        <div class="title">Item Shop</div>
+                        <div class="items-container">
+                            <div class="items2">
+                                @if (shopStorage != null && shopStorage.AvailableItems != null)
+                                    {
+                                        @foreach (var item in shopStorage.AvailableItems)
+                                        {
+                                            <InventorySlot Item=@item />
+                                            <button @onclick="() => BuyItem(item)">Buy</button>
+                                        }
+                                    }
+                            </div>
+                            
+                            </div>
+                        <div style="align-items: center; margin: 20px 5px;"></div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
     </div>
     
 </root>

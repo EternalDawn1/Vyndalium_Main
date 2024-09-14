@@ -21,6 +21,7 @@
                                onclick=@(() => DepositItemToStorageBox(_item)) />
         }
     }
+	
 	else if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
     {
         @if (_item != null )
@@ -86,7 +87,22 @@
 	private ItemComponent _item;
 	private List<ItemComponent> selectedItems = new();
 
-	
+	public void BuyItem(ItemComponent item)
+        {
+            var player = Player.Local;
+            if (player.Vyndalium >= item.SellPrice)
+            {
+                player.Vyndalium -= item.SellPrice;
+                player.Inventory.AddItem(item);
+                Log.Info($"Item {item.Name} gekauft für {item.SellPrice} Vyndalium.");
+                Hudmaster.Instance.ShowNotification($"Item {item.Name} was bought for {item.SellPrice} Vyndalium.", "/ui/hud/shop.png");
+            }
+            else
+            {
+                Log.Info("Nicht genug Vyndalium.");
+                Hudmaster.Instance.ShowNotification("Nicht genug Vyndalium.", "/ui/hud/shop.png");
+            }
+        }
 	
 
 	private async Task ConfirmSellItem(ItemComponent item)

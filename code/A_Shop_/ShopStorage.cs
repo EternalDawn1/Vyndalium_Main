@@ -11,8 +11,9 @@ namespace GeneralGame
         public bool IsDoorOpen { get; set; }
 
         private ShopPanel shopPanel { get; set; }
-       
-    
+        public List<ItemComponent> AvailableItems { get; set; }
+
+
 
         protected override void OnAwake()
         {
@@ -21,8 +22,14 @@ namespace GeneralGame
             {
                 shopPanel = new ShopPanel();
             }
-        }
 
+            // Beispiel-Items hinzufügen
+            AvailableItems = new List<ItemComponent>
+            {
+                new ItemComponent { Name = "Potion", SellPrice = 10 },
+                new ItemComponent { Name = "Sword", SellPrice = 100 }
+            };
+        }
         public ShopStorage() { }
 
 
