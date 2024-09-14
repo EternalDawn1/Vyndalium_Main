@@ -46,7 +46,7 @@ public class ShopInteractable : BaseInteraction
                     }
                 },
                 Keybind = "use2",
-                Description = "Buy Item",
+                Description = "Quests",
                 Stats = "Buy",
                 ShowWhenDisabled = () => true,
                 Accessibility = AccessibleFrom.All,

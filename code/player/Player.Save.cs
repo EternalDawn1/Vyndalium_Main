@@ -6,7 +6,9 @@ public struct ItemSave
 {
 	[JsonInclude] public string Path;
 	[JsonInclude] public Dictionary<string, string> Data;
+	[JsonInclude] public ItemState State;
 	[JsonInclude] public int Index;
+	[JsonInclude] public int IndexStorage;
 	[JsonInclude] public float SellPrice { get; set; }
 	[JsonInclude] public int DMG { get; set; }
 	[JsonInclude] public int STG { get; set; }
@@ -128,6 +130,7 @@ public struct PlayerSave
 
 	[JsonInclude] public ItemSave[] Clothes;
 	[JsonInclude] public ItemSave[] Inventory;
+	[JsonInclude] public ItemSave[] StorageItems;
 
 }
 
@@ -243,7 +246,9 @@ partial class Player
 			return new ItemSave
 			{
 				Path = item.Prefab,
+				State = item.State,
 				Data = data.Count > 0 ? data : null,
+				IndexStorage = player.Inventory._storageBoxItems.IndexOf( item ),
 				Index = player.Inventory.IndexOf( item ),
 				SellPrice = item.SellPrice,
 				DMG = item.DMG,
@@ -366,6 +371,10 @@ partial class Player
 				.Select( Serialize )
 				.ToArray(),
 			Inventory = player.Inventory.BackpackItems
+				.Where( x => x != null )
+				.Select( Serialize )
+				.ToArray(),
+			StorageItems = player.Inventory.StorageItems
 				.Where( x => x != null )
 				.Select( Serialize )
 				.ToArray(),
@@ -497,6 +506,7 @@ partial class Player
 				var item = obj.Components.Get<ItemComponent>();
 				if ( item != null )
 				{
+					item.State = data.State;
 					item.SellPrice = (int)data.SellPrice;
 					item.DMG = data.DMG;
 					item.STG = data.STG;
@@ -663,6 +673,64 @@ partial class Player
 				item.HolyResistence = data.HolyResistence;
 				item.ShadowResistence = data.ShadowResistence;
 				
+			}
+		}
+		if ( save.StorageItems != null )
+		{
+			foreach ( var data in save.StorageItems )
+			{
+
+				if ( !ResourceLibrary.TryGet<PrefabFile>( data.Path, out var prefab ) )
+					continue;
+				var o = SceneUtility.GetPrefabScene( prefab ).Clone();
+				o.NetworkMode = NetworkMode.Object;
+				if ( !o.Network.Active ) o.NetworkSpawn();
+				var item = o.Components.Get<ItemComponent>();
+				if ( item == null )
+					continue;
+				player.Inventory.GiveStorageItem( item, data.Index );
+				ReadData( data, o );
+
+
+				item.SellPrice = (int)data.SellPrice;
+				item.DMG = data.DMG;
+				item.STG = data.STG;
+				item.HE = data.HE;
+				item.DEX = data.DEX;
+				item.PER = data.PER;
+				item.INT = data.INT;
+				item.Mana = data.Mana;
+				item.Health = data.Health;
+				item.ItemLevel = data.ItemLevel;
+				item.CritHitDamage = data.CritHitDamage;
+				item.CritHitChance = data.CritHitChance;
+				item.AbilityHaste = data.AbilityHaste;
+				item.AttackPower = data.AttackPower;
+				item.MagicPower = data.MagicPower;
+				item.Tier = (GeneralGame.Tier)data.Tier;
+				item.DamageBalance = data.DamageBalance;
+				item.Durability = data.Durability;
+				item.AttackSpeed = data.AttackSpeed;
+				item.MoveSpeed = data.MoveSpeed;
+				item.Armor = data.Armor;
+				item.MagicDefense = data.MagicDefense;
+				item.Evasion = data.Evasion;
+				item.Cover = data.Cover;
+				item.BonusEXP = data.BonusEXP;
+				item.BonusScore = data.BonusScore;
+				item.BonusVyndalium = data.BonusVyndalium;
+				item.Tenacity = data.Tenacity;
+				item.StunResistance = data.StunResistance;
+				item.BlindResistance = data.BlindResistance;
+				item.SlowResistence = data.SlowResistence;
+				item.FireResistence = data.FireResistence;
+				item.BleedResistance = data.BleedResistance;
+				item.PoisonResistence = data.PoisonResistence;
+				item.IceResistence = data.IceResistence;
+				item.LightningResistence = data.LightningResistence;
+				item.HolyResistence = data.HolyResistence;
+				item.ShadowResistence = data.ShadowResistence;
+
 			}
 		}
 		return true;

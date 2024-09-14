@@ -463,7 +463,7 @@
 
 
 		sinceClick = 0;
-
+		OnDragStart();
 
 
 		if (ChildDraggable != null)
@@ -501,119 +501,47 @@
 
 
 	private void MoveItemTo(InventorySlot targetSlot)
-
 	{
-
 		var fromSlot = this;
-
 		var inventory = Player.Local.Inventory;
-		
-
 
 		// From backpack slot.
-
 		if (fromSlot.BackpackSlotIndex is not null)
-
 		{
-
 			// To backpack slot.
-
 			if (targetSlot.BackpackSlotIndex is not null)
-
 			{
-
 				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
-
 				PlaySound(res ? "drop" : "serror");
-
 			}
-			if(targetSlot.IndependentSlotIndex is not null)
+			// To storage slot.
+			else if (targetSlot.StorageSlotIndex is not null)
 			{
-				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.IndependentSlotIndex.Value);
+				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.StorageSlotIndex.Value, true);
 				PlaySound(res ? "drop" : "serror");
 			}
-			if (targetSlot.StorageSlotIndex is not null)
-
-			{
-
-				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.StorageSlotIndex.Value);
-
-				PlaySound(res ? "drop" : "serror");
-
-			}
-			// To equipment slot.
-
-			else if (targetSlot.EquipSlotIndex is not null && fromSlot.Item is ItemEquipment itemEquipment)
-
-			{
-
-				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.EquipSlotIndex.Value);
-
-				PlaySound(res ? "drop" : "serror");
-
-			}
-
 		}
-		
-
-
-
-		// From equipment slot.
-
-		else if (fromSlot.EquipSlotIndex is not null)
-
+		// From storage slot.
+		else if (fromSlot.StorageSlotIndex is not null)
 		{
-
-			// To backpack slot.
-
-			if (targetSlot.BackpackSlotIndex is not null)
-
-			{
-
-				var res = inventory.SwapItems(fromSlot.EquipSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
-
-				PlaySound(res ? "drop" : "serror");
-
-			}
-			if (targetSlot.IndependentSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.EquipSlotIndex.Value, targetSlot.IndependentSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
+			// To storage slot.
 			if (targetSlot.StorageSlotIndex is not null)
-
 			{
-
-				var res = inventory.SwapItems(fromSlot.EquipSlotIndex.Value, targetSlot.StorageSlotIndex.Value);
-
+				var res = inventory.SwapItems(fromSlot.StorageSlotIndex.Value, targetSlot.StorageSlotIndex.Value, true);
 				PlaySound(res ? "drop" : "serror");
-
 			}
-
-
-
-			// To inventory slot
-
-			if (targetSlot.EquipSlotIndex is not null)
-
+			// To backpack slot.
+			else if (targetSlot.BackpackSlotIndex is not null)
 			{
-
-				PlaySound("serror");
-
+				var res = inventory.SwapItems(fromSlot.StorageSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
 			}
-
 		}
-
-
 
 		// Update both slots
-
 		fromSlot.UpdateItem();
-
 		targetSlot.UpdateItem();
-
 	}
-
 
 
 	private void MoveOntoCharacter()
@@ -840,7 +768,20 @@
 
 	}
 
-
+	private void OnDragStart()
+	{
+		if (ChildDraggable != null)
+			return;
+		if (Item == null)
+			return; // Ignore itemless slot
+		ChildDraggable = new DraggableItem(this, holdPoint: Mouse.Position - Box.Rect.TopLeft);
+		ChildDraggable.SetPositionInScreenPixels(Mouse.Position);
+		var fraction = (Mouse.Position - Box.Rect.Size / 2f) / Screen.Size;
+		ChildDraggable.Style.Left = Length.Fraction(fraction.x);
+		ChildDraggable.Style.Top = Length.Fraction(fraction.y);
+		Hudmaster.Instance.Panel.AddChild(ChildDraggable);
+		CurrentDraggable = ChildDraggable;
+	}
 
 	public override void Tick()
 

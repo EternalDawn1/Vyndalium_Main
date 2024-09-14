@@ -47,20 +47,22 @@
                 <div class="Panel">
                     <div class="section2">
                         <div class="title">Storage</div>
-                        <div class="items2">
-                            @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+                        <div class="items-container">
+                            <div class="items2">
+                                @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
                                 {
                                     var item = Player.Local.Inventory.BackpackItems[index];
                                     <InventorySlot Item=@item BackpackSlotIndex=@index />
                                 }
-                        </div>
-                        <div class="items2">
-                            @for (var index = 0; index < Player.Local.Inventory.StorageItems.Count; index++)
-                            {
-                                var item = Player.Local.Inventory.StorageItems[index];
-                                <InventorySlot Item=@item StorageSlotIndex=@index />
-                            }
-                        </div>
+                            </div>
+                            <div class="items2">
+                                @for (var index = 0; index < Player.Local.Inventory.StorageItems.Count; index++)
+                                {
+                                    var item = Player.Local.Inventory.StorageItems[index];
+                                    <InventorySlot Item=@item StorageSlotIndex=@index />
+                                }
+                            </div>
+                            </div>
                         <div style="align-items: center; margin: 20px 5px;"></div>
                     </div>
                 </div>

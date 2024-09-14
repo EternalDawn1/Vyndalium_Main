@@ -15,7 +15,7 @@ public sealed class Inventory : Component
 	[Property] Player Player { get; set; }
 
 	public const int MAX_BACKPACK_SLOTS = 20;
-	public const int MAX_STORAGE_SLOTS = 20;
+	public const int MAX_STORAGE_SLOTS = 50;
 
 	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
 	[Property] public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
@@ -39,6 +39,14 @@ public sealed class Inventory : Component
 			item.State = ItemState.None;
 			return true;
 		}
+		else if (_storageItems.Contains(item))
+		{
+			int index = _storageItems.IndexOf( item );
+			_storageItems[index] = null;
+			item.State = ItemState.None;
+			return true;
+		}
+		
 
 		return false;
 	}
@@ -147,15 +155,29 @@ public sealed class Inventory : Component
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 		_storageBoxItems = new List<ItemComponent>();
 	}
-	
+
 	public int IndexOf( ItemComponent item )
 	{
 		if ( item == null )
 		{
 			return -1;
 		}
-		return (item is ItemEquipment equipment && equipment.Equipped ? _equippedItems : _backpackItems).IndexOf( item );
+
+		if ( item is ItemEquipment equipment && equipment.Equipped )
+		{
+			return _equippedItems.IndexOf( item );
+		}
+		else if(item.State == ItemState.Storage)
+		{
+			return _storageItems.Contains( item ) ? _storageItems.IndexOf( item ) : _backpackItems.IndexOf( item );
+		}
+		else
+		{
+			return _backpackItems.Contains( item ) ? _backpackItems.IndexOf( item ) : _storageBoxItems.IndexOf( item );
+		}
+		
 	}
+
 	public bool HasSpaceInBackpack()
 		=> _backpackItems.IndexOf( null ) != -1;
 
@@ -186,10 +208,10 @@ public sealed class Inventory : Component
 			int freeSlot = _storageItems.IndexOf( null );
 			if ( freeSlot != -1 )
 			{
-				_backpackItems.Remove( item );
+				int itemIndex = _backpackItems.IndexOf( item );
+				_backpackItems[itemIndex] = null; // Setze den Slot im Rucksack auf null
 				_storageItems[freeSlot] = item;
 				item.State = ItemState.Storage;
-				
 			}
 			else
 			{
@@ -207,10 +229,10 @@ public sealed class Inventory : Component
 			int freeSlot = _backpackItems.IndexOf( null );
 			if ( freeSlot != -1 )
 			{
-				_storageItems.Remove( item );
+				int itemIndex = _storageItems.IndexOf( item );
+				_storageItems[itemIndex] = null; // Setze den Slot im Storage auf null
 				_backpackItems[freeSlot] = item;
 				item.State = ItemState.Backpack;
-			
 			}
 			else
 			{
@@ -496,26 +518,40 @@ public sealed class Inventory : Component
 
 		return true;
 	}
+	private void RemoveStorageItem( ItemComponent item, int index )
+	{
+		if ( item == null || index < 0 || index >= _storageItems.Count )
+			return;
+
+		_storageItems[index] = null;
+		item.State = ItemState.None;
+	}
 	private bool CanStack( ItemComponent first, ItemComponent second )
 		=> first.Prefab == second.Prefab
 		&& first.IsStackable && second.IsStackable
 		&& second.Count < second.MaxStack
 		&& first.Tier == second.Tier;
 
-	public bool SwapItems( int firstIndex, int secondIndex )
+	public bool SwapItems( int firstIndex, int secondIndex, bool isStorage = false )
 	{
-		var firstItem = _backpackItems.ElementAtOrDefault( firstIndex );
+		var firstItem = isStorage ? _storageItems.ElementAtOrDefault( firstIndex ) : _backpackItems.ElementAtOrDefault( firstIndex );
 		if ( firstItem is null )
 			return false;
 
-		RemoveBackpackItem( firstItem, firstIndex );
+		if ( isStorage )
+			RemoveStorageItem( firstItem, firstIndex );
+		else
+			RemoveBackpackItem( firstItem, firstIndex );
 
-		var secondItem = _backpackItems.ElementAtOrDefault( secondIndex );
+		var secondItem = isStorage ? _storageItems.ElementAtOrDefault( secondIndex ) : _backpackItems.ElementAtOrDefault( secondIndex );
 		var invert = false;
 
 		if ( secondItem is not null )
 		{
-			RemoveBackpackItem( secondItem, secondIndex );
+			if ( isStorage )
+				RemoveStorageItem( secondItem, secondIndex );
+			else
+				RemoveBackpackItem( secondItem, secondIndex );
 
 			// Stacking
 			if ( CanStack( firstItem, secondItem ) )
@@ -530,7 +566,10 @@ public sealed class Inventory : Component
 
 				if ( from == null || from.Count <= 0 )
 				{
-					GiveBackpackItem( to, secondIndex );
+					if ( isStorage )
+						GiveStorageItem( to, secondIndex );
+					else
+						GiveBackpackItem( to, secondIndex );
 					return true;
 				}
 			}
@@ -546,15 +585,24 @@ public sealed class Inventory : Component
 
 				if ( from == null || from.Count <= 0 )
 				{
-					GiveBackpackItem( to, secondIndex );
+					if ( isStorage )
+						GiveStorageItem( to, secondIndex );
+					else
+						GiveBackpackItem( to, secondIndex );
 					return true;
 				}
 			}
 
-			GiveBackpackItem( secondItem, invert ? secondIndex : firstIndex );
+			if ( isStorage )
+				GiveStorageItem( secondItem, invert ? secondIndex : firstIndex );
+			else
+				GiveBackpackItem( secondItem, invert ? secondIndex : firstIndex );
 		}
 
-		GiveBackpackItem( firstItem, invert ? firstIndex : secondIndex );
+		if ( isStorage )
+			GiveStorageItem( firstItem, invert ? firstIndex : secondIndex );
+		else
+			GiveBackpackItem( firstItem, invert ? firstIndex : secondIndex );
 
 		return true;
 	}
@@ -602,6 +650,13 @@ public sealed class Inventory : Component
 		GiveBackpackItem( item, index );
 		item.State = ItemState.Backpack;
 	}
+	public void SetStorageItem( ItemComponent item, int index )
+	{
+		SetOwner( item );
+		GiveStorageItem( item, index );
+		item.State = ItemState.Storage;
+	}
+	
 
 	public bool RemoveAmountEasy( string name, int count = 1, bool destroy = true )
 	{
@@ -746,6 +801,18 @@ public sealed class Inventory : Component
 			}
 		}
 	
+	}
+	public void GiveStorageItem( ItemComponent item, int index )
+	{
+		if ( _storageItems.Contains( item ) )
+		{
+			return;
+		}
+		if ( index >= 0 && index < _storageItems.Count )
+		{
+			_storageItems[index] = item;
+			item.State = ItemState.Storage;
+		}
 	}
 
 	/// <summary>

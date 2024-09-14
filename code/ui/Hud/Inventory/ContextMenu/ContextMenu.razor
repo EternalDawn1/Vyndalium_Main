@@ -23,7 +23,7 @@
     }
 	else if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
     {
-        @if (_item != null)
+        @if (_item != null )
         {
             <ContextMenuOption Description="Sell"
                                ImagePath="ui/hud/shop.png"
@@ -89,9 +89,19 @@
 	
 	
 
-	
+	private async Task ConfirmSellItem(ItemComponent item)
+    {
+        if (item == null) return;
 
-
+        // Zeige Bestätigungsdialog
+        bool confirmed = await Confirm.Instance.ShowConfirmationDialog(item, $"Möchtest du {item.Name} wirklich für {item.SellPrice} Vyndalium verkaufen?");
+        if (confirmed)
+        {
+            SellItem(item);
+        }
+        // Setze isDialogVisible wieder auf false
+        Confirm.Instance.HideDialog();
+    }
 
 	private void DepositItemToStorageBox(ItemComponent item)
 	{
@@ -106,6 +116,7 @@
 			Inventory.Instance?.OnChanged();
 		}
 	}
+
 	
 	private void SellItem(ItemComponent item)
 	{
@@ -113,6 +124,7 @@
 		
 		// Entferne das Item aus dem Inventar des Spielers
 		player.Inventory.RemoveItem(item);
+		
 		// Füge den Verkaufspreis des Items zum Vyndalium des Spielers hinzu
 		player.Vyndalium += item.SellPrice;
 		Log.Info($"Item {item.Name} verkauft für {item.SellPrice} Vyndalium.");
