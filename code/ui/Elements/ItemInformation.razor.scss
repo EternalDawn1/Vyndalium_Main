@@ -2,7 +2,7 @@
 
 ItemInformation {
     position: relative;
-    background-color: rgba(0, 23, 39, 0.932);
+    
     width: 340px;
     height: 100%;
     max-height: 600px;
@@ -15,9 +15,56 @@ ItemInformation {
     border-radius: 15px;
     border-left: 1px solid #FFD700;
     border-width: 1px;
-    border-color: #FFD700;
+    border-color: #ffffff;
     
-  
+    &.tier-c {
+            background-color: rgba(190, 190, 190, 0.1);
+            text-shadow: 1px 1px 4px rgb(190, 190, 190);
+        }
+    
+        &.tier-b {
+            
+            background-image: url(/ui/hud/blue.gif);
+            background-size: cover;
+            background-position: center;
+            text-shadow: 1px 1px 4px rgb(85, 199, 228);
+        }
+    
+        &.tier-a {
+          
+            background-image: url(/ui/hud/green.gif);
+            background-size: cover;
+            background-position: center;
+            text-shadow: 1px 1px 4px rgb(52, 197, 52);
+        }
+    
+        &.tier-s {
+            
+            background-image: url(/ui/hud/red2.gif);
+            background-size: cover;
+            background-position: center;
+            text-shadow: 1px 1px 4px rgb(233, 113, 1);
+            
+        }
+    
+        &.tier-ss {
+            
+            background-image: url(/ui/hud/purple2.gif);
+            background-size: cover;
+            background-position: center;
+            text-shadow: 1px 1px 4px rgb(255, 0, 255);
+        }
+    
+        &.tier-sss {
+            
+            background-image: url(/ui/hud/gold2.gif);
+            background-size: cover;
+            background-position: center;
+            text-shadow: 1px 1px 4px #ffd900;
+            
+        }
+    
+    
 
     .item-details {
         position: relative;
@@ -27,6 +74,8 @@ ItemInformation {
         padding: 15px 25px;
         flex-direction: column;
         font-family: Geneva;
+        opacity: 10;
+      
         
         
         
@@ -43,7 +92,8 @@ ItemInformation {
             font-family: Geneva;
             flex-direction: column;
          
-            max-height: 25%;
+            max-height: 30%;
+            
 
             .item-price {
                 position: relative;
@@ -71,14 +121,34 @@ ItemInformation {
                    
                 }
             }
-
+            .item-name-top{
+                position: relative;
+                    height: 100%;
+                    max-height: 25%;
+                    justify-content: center;
+                    align-items: center;
+                    font-family: Geneva;
+                    font-size: 27px;
+                    font-style: italic;
+                    text-decoration:underline overline;
+                  
+                    font-weight: 800;
+                    color: white;
+                    flex-direction: column;
+                
+                    height: 100%;
+            }
             .item-name {
                 position: relative;
                 height: 100%;
                 max-height: 25%;
+                justify-content: center;
+                align-items: center;
                 font-family: Geneva;
                 font-size: 27px;
-                margin-right: 11px;
+                font-style: italic;
+                
+                font-weight: 800;
                 color: white;
                 flex-direction: column;
       
@@ -90,7 +160,7 @@ ItemInformation {
                     position: relative;
                     margin-top: 10px;
                     font-size: 24px;
-                    letter-spacing: 3px;
+                   
                     text-align: center;
                     font-family: Geneva;
                     justify-content: center;
@@ -116,6 +186,7 @@ ItemInformation {
                     // Define color for Tier A
                     &.S {
                         color: rgb(233, 113, 1);
+                        
                     }
 
                     // Define color for Tier S
@@ -137,7 +208,7 @@ ItemInformation {
                     
                     font-size: 24px;
                     font-family: Geneva;
-                    font-weight: 800;
+                    font-weight: bolder;
          
                     &.level-color-0 {
                         color: #535353;
@@ -272,24 +343,26 @@ ItemInformation {
             position: relative;
             width: 100%;
             height: 100%;
+            
             max-height: 3%;
             
             font-family: Geneva;
-            justify-content: center;
+            
             font-size: 14px;
             align-items: center;
-            position: relative;
+            
             font-weight: bolder;
     
 
             
             color: rgb(255, 255, 255);
-            background-color: rgba(255, 255, 255, 0.048);
+           
             border-radius: 1px;
-            border-width: 1px;
+            gap: 15px;
+            background-color: rgba(0, 0, 0, 0.473);
             margin: 5px 0px;
             padding: 5px 0px;
-            width: 100%;
+            justify-content: space-evenly;
             
         }
 

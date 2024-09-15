@@ -331,10 +331,41 @@
 	}
 	
 	public void Inspect(ItemComponent item)
-	{
-		if (item is not null)
-			AddChild(new InspectItem(item));
-	}
+    {
+        // Überprüfen Sie, ob das Panel gültig ist
+        if (item == null)
+        {
+            Log.Error("Item is null");
+            return;
+        }
+
+        // Erstellen Sie das Inspektionspanel
+        var inspectionPanel = new InspectItem(item);
+
+        // Überprüfen Sie, ob das Panel bereits ein Kind eines anderen Panels ist
+        if (inspectionPanel.Parent != null)
+        {
+            Log.Error("InspectionPanel already has a parent");
+            return;
+        }
+
+        // Überprüfen Sie, ob das Panel gültig ist
+        if (!inspectionPanel.IsValid())
+        {
+            Log.Error("InspectionPanel is not valid");
+            return;
+        }
+
+        // Fügen Sie das Inspektionspanel als Kind hinzu
+        try
+        {
+            AddChild(inspectionPanel);
+        }
+        catch (Exception ex)
+        {
+            Log.Error($"Failed to add child panel: {ex.Message}");
+        }
+    }
 	CharacterRenderer _renderer;
 	public static CharacterMenu Instance { get; private set; }
 	public CharacterMenu() => Instance = this;

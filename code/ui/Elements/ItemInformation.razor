@@ -2,29 +2,29 @@
 @attribute [StyleSheet]
 @inherits Panel
 
-<root>
+<root class="@($"background {GetTierClass(Item.Tier)}")" style="@($"opacity: {GetOpacityBasedOnLevel(Item.ItemLevel)}")">
 	<div class="item-details">
 		<div class="top-row">
 
-			<text class="item-name">@Item.Name</text>
-			<div class="item-name">
+			<text class="item-name-top" style="justify-content: center; align-items: center;">@Item.Name</text>
+			<div class="item-name" style="position: absolute; left: 5%; align-items: center; justify-content: center; top: -4%;">
 				<h2 class="tier @Item.Tier.ToString()">@Item.Tier</h2>
 			</div>
-			<div class="item-name">
+			<div class="item-name" style="position: absolute; right: 0%; align-items: center; justify-content: center; top: 0%;">
 				<h2 class="lvl @GetLevelColor(Item.ItemLevel)">+@Item.ItemLevel</h2>
 			</div>
 			<div style="flex-direction: column; align-items: flex-end; gap: 2px;"></div>
 			@if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Accessories)
 			{
-				<div class="item-price">@($"{Item.BuyPrice}") <p class="item-price-name">Vyndalium</p>
+				<div class="item-price">$@($"{Item.BuyPrice:N0}") <p class="item-price-name"></p>
 				</div>
 			}
 			else if (Item.IsSellable && ShopPanel.Instance.currentPanel != ShopPanel.PanelType.Accessories)
 			{
-				<div class="item-price">@($"{Item.SellPrice}") <p class="item-price-name">Vyndalium</p>
+				<div class="item-price">$@($"{Item.SellPrice:N0}") <p class="item-price-name"></p>
 				</div>
 			}
-			<div class="description" style="@(!string.IsNullOrEmpty(Item.Description) ? "align-items: center;" : "")"></div>
+			<div class="description" style="justify-content: center;@(!string.IsNullOrEmpty(Item.Description) ? "align-items: center;" : "")"></div>
 		</div>
 		
 		
@@ -40,144 +40,144 @@
 		}
 		@if (Item.DMG != default(float))
 		{
-			<div class="item-description">Attack Value: @Item.DMG</div>
+			<div class="item-description">Attack Value: +@Item.DMG</div>
 
 		}
 		@if (Item.STG != default(float))
 		{
-			<div class="item-description">STG: @Item.STG</div>
+			<div class="item-description">STG: +@Item.STG</div>
 		}
 		@if (Item.HE != default(float))
 		{
-			<div class="item-description">HP+: @Item.HE</div>
+			<div class="item-description">HP+: +@Item.HE</div>
 		}
 		@if (Item.DEX != default(int))
 		{
-			<div class="item-description">DEX: @Item.DEX</div>
+			<div class="item-description">DEX: +@Item.DEX</div>
 		}
 		@if (Item.PER != default(int))
 		{
-			<div class="item-description">PER: @Item.PER</div>
+			<div class="item-description">PER: +@Item.PER</div>
 		}
 		@if (Item.INT != default(float))
 		{
-			<div class="item-description">INT: @Item.INT</div>
+			<div class="item-description">INT: +@Item.INT</div>
 		}
 		@if (Item.Mana != default(float))
 		{
-			<div class="item-description">Mana: @Item.Mana</div>
+			<div class="item-description">Mana: +@Item.Mana</div>
 		}
 		@if (Item.Health != default(float))
 		{
-			<div class="item-description">Health: @Item.Health</div>
+			<div class="item-description">Health: +@Item.Health</div>
 		}
 		@if (Item.CritHitDamage != default(float))
 		{
-			<div class="item-description">Crit Hit Damage: @Item.CritHitDamage</div>
+			<div class="item-description">Crit Hit Damage: +@Item.CritHitDamage</div>
 		}
 		@if (Item.CritHitChance != default(float))
 		{
-			<div class="item-description">Crit Hit Chance: @Item.CritHitChance</div>
+			<div class="item-description">Crit Hit Chance: +@Item.CritHitChance</div>
 		}
 		@if (Item.AbilityHaste != default(float))
 		{
-			<div class="item-description">Ability Haste: @Item.AbilityHaste</div>
+			<div class="item-description">Ability Haste: +@Item.AbilityHaste</div>
 		}
 		@if (Item.AttackPower != default(float))
 		{
-			<div class="item-description">Attack Power: @Item.AttackPower</div>
+			<div class="item-description">Attack Power: +@Item.AttackPower</div>
 		}
 		@if (Item.DamageBalance != default(int))
 		{
-			<div class="item-description">Damage Balance: @Item.DamageBalance</div>
+			<div class="item-description">Damage Balance: +@Item.DamageBalance</div>
 		}
 		@if (Item.Durability != default(int))
 		{
-			<div class="item-description">Durability: @Item.Durability</div>
+			<div class="item-description">Durability: +@Item.Durability</div>
 		}
 		@if (Item.AttackSpeed != default(float))
 		{
-			<div class="item-description">Attack Speed: @Item.AttackSpeed</div>
+			<div class="item-description">Attack Speed: +@Item.AttackSpeed</div>
 		}
 		@if (Item.MoveSpeed != default(float))
 		{
-			<div class="item-description">Move Speed: @Item.MoveSpeed</div>
+			<div class="item-description">Move Speed: +@Item.MoveSpeed</div>
 		}
 		@if (Item.MagicPower != default(float))
 		{
-			<div class="item-description">Magic Power: @Item.MagicPower</div>
+			<div class="item-description">Magic Power: +@Item.MagicPower</div>
 		}
 		@if (Item.Armor != default(float))
 		{
-			<div class="item-description">Armor: @Item.Armor</div>
+			<div class="item-description">Armor: +@Item.Armor</div>
 		}
 		@if (Item.MagicDefense != default(float))
 		{
-			<div class="item-description">Magic Defense: @Item.MagicDefense</div>
+			<div class="item-description">Magic Defense: +@Item.MagicDefense</div>
 		}
 		@if (Item.Evasion != default(float))
 		{
-			<div class="item-description">Evasion: @Item.Evasion</div>
+			<div class="item-description">Evasion: +@Item.Evasion</div>
 		}
 		@if (Item.Cover != default(float))
 		{
-			<div class="item-description">Cover: @Item.Cover</div>
+			<div class="item-description">Cover: +@Item.Cover</div>
 		}
 		@if (Item.BonusEXP != default(float))
 		{
-			<div class="item-description">Bonus EXP: @Item.BonusEXP</div>
+			<div class="item-description">Bonus EXP: +@Item.BonusEXP</div>
 		}
 		@if (Item.BonusScore != default(float))
 		{
-			<div class="item-description">Bonus Score: @Item.BonusScore</div>
+			<div class="item-description">Bonus Score: +@Item.BonusScore</div>
 		}
 		@if (Item.BonusVyndalium != default(float))
 		{
-			<div class="item-description">Bonus Vyndalium: @Item.BonusVyndalium</div>
+			<div class="item-description">Bonus Vyndalium: +@Item.BonusVyndalium</div>
 		}
 		@if (Item.Tenacity != default(float))
 		{
-			<div class="item-description">Tenacity: @Item.Tenacity</div>
+			<div class="item-description">Tenacity: +@Item.Tenacity</div>
 		}
 		@if (Item.StunResistance != default(float))
 		{
-			<div class="item-description">Stun Resistance: @Item.StunResistance</div>
+			<div class="item-description">Stun Resistance: +@Item.StunResistance</div>
 		}
 		@if (Item.BlindResistance != default(float))
 		{
-			<div class="item-description">Blind Resistance: @Item.BlindResistance</div>
+			<div class="item-description">Blind Resistance: +@Item.BlindResistance</div>
 		}
 		@if (Item.BleedResistance != default(float))
 		{
-			<div class="item-description">Bleed Resistance: @Item.BleedResistance</div>
+			<div class="item-description">Bleed Resistance: +@Item.BleedResistance</div>
 		}
 		@if (Item.SlowResistence != default(float))
 		{
-			<div class="item-description">Slow Resistance: @Item.SlowResistence</div>
+			<div class="item-description">Slow Resistance: +@Item.SlowResistence</div>
 		}
 		@if (Item.FireResistence != default(float))
 		{
-			<div class="item-description">Fire Resistance: @Item.FireResistence</div>
+			<div class="item-description">Fire Resistance: +@Item.FireResistence</div>
 		}
 		@if (Item.PoisonResistence != default(float))
 		{
-			<div class="item-description">Poison Resistance: @Item.PoisonResistence</div>
+			<div class="item-description">Poison Resistance: +@Item.PoisonResistence</div>
 		}
 		@if (Item.IceResistence != default(float))
 		{
-			<div class="item-description">Ice Resistance: @Item.IceResistence</div>
+			<div class="item-description">Ice Resistance: +@Item.IceResistence</div>
 		}
 		@if (Item.LightningResistence != default(float))
 		{
-			<div class="item-description">Lightning Resistance: @Item.LightningResistence</div>
+			<div class="item-description">Lightning Resistance: +@Item.LightningResistence</div>
 		}
 		@if (Item.HolyResistence != default(float))
 		{
-			<div class="item-description">Holy Resistance: @Item.HolyResistence</div>
+			<div class="item-description">Holy Resistance: +@Item.HolyResistence</div>
 		}
 		@if (Item.ShadowResistence != default(float))
 		{
-			<div class="item-description">Shadow Resistance: @Item.ShadowResistence</div>
+			<div class="item-description">Shadow Resistance: +@Item.ShadowResistence</div>
 		}
 
 
@@ -190,8 +190,27 @@
 	public ItemComponent Item { get; set; }
 	public WeaponComponent Weapon { get; set; }
 
-
-
+	private string GetTierClass(GeneralGame.Tier tier)
+	{
+		return tier switch
+		{
+			GeneralGame.Tier.C => "tier-c",
+			GeneralGame.Tier.B => "tier-b",
+			GeneralGame.Tier.A => "tier-a",
+			GeneralGame.Tier.S => "tier-s",
+			GeneralGame.Tier.SS => "tier-ss",
+			GeneralGame.Tier.SSS => "tier-sss",
+			_ => string.Empty
+		};
+	}
+	private string GetOpacityBasedOnLevel(float level)
+	{
+		// Berechne die Opazität basierend auf dem Level, wobei Level 27 eine Opazität von 1.0 ergibt
+		float opacity = level / 27;
+		// Stelle sicher, dass die Opazität mindestens 0.1 beträgt
+		opacity = Math.Max(opacity, 0.1f);
+		return opacity.ToString("0.0");
+	}
 
 	private string GetLevelColor(float level)
 	{

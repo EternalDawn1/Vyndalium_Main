@@ -286,8 +286,9 @@
 
 	private void Inspect(ItemComponent item)
 	{
-		Inventory.Instance.Inspect(item);
-		CharacterMenu.Instance.Inspect(item);
+		Inventory.Instance?.Inspect(item);
+		CharacterMenu.Instance?.Inspect(item);
+		
 	}
 
 	private void ToggleEquip(ItemEquipment equipment)

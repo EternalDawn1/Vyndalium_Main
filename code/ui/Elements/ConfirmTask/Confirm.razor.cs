@@ -5,7 +5,7 @@ using GeneralGame;
 public partial class Confirm : Panel
 {
     public static Confirm Instance { get; private set; }
-    private bool isDialogVisible = false;
+   
     private string dialogMessage = "";
     private TaskCompletionSource<bool> taskCompletionSource;
     public ItemComponent SelectedItem { get; private set; }
@@ -16,7 +16,7 @@ public partial class Confirm : Panel
     {
         SelectedItem = item;
         dialogMessage = message;
-        isDialogVisible = true;
+     
         StateHasChanged();
         taskCompletionSource = new TaskCompletionSource<bool>();
         FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.Confirm );
@@ -25,7 +25,7 @@ public partial class Confirm : Panel
 
     public void HideDialog()
     {
-        isDialogVisible = false;
+        
         dialogMessage = ""; // Nachricht zurücksetzen
         StateHasChanged();
         FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
@@ -40,7 +40,7 @@ public partial class Confirm : Panel
         }
 
         Log.Info( "ConfirmAction" );
-        isDialogVisible = false;
+   
         dialogMessage = ""; // Nachricht zurücksetzen
         StateHasChanged();
         taskCompletionSource.SetResult( true );
@@ -55,7 +55,7 @@ public partial class Confirm : Panel
             return; // Beenden Sie die Methode, wenn taskCompletionSource null ist
         }
 
-        isDialogVisible = false;
+
         dialogMessage = ""; // Nachricht zurücksetzen
         StateHasChanged();
         taskCompletionSource.SetResult( false );

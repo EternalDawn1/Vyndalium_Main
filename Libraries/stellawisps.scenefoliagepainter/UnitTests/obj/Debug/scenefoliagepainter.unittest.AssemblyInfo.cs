@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("scenefoliagepainter.unittest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e1f7cdde505f087d2a5b7ab3324aedd3d3e3c06e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+89fde406c7171a62a51aff710c46d445c820725e")]
 [assembly: System.Reflection.AssemblyProductAttribute("scenefoliagepainter.unittest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("scenefoliagepainter.unittest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
