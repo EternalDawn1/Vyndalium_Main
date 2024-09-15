@@ -49,6 +49,16 @@
 							   onclick=@(() => SellItem(_item)) />
         }
     }
+	else if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Accessories)
+	{
+		@if (_item != null)
+		{
+			<ContextMenuOption Description="Buy"
+							   ImagePath="ui/hud/shop.png"
+							   onclick=@(() => BuyItem(_item)) />
+		}
+	}
+	
     else
     {
         @if (_item is ItemEquipment equipment)
@@ -90,12 +100,13 @@
 	public void BuyItem(ItemComponent item)
         {
             var player = Player.Local;
-            if (player.Vyndalium >= item.SellPrice)
+            if (player.Vyndalium >= item.BuyPrice)
             {
-                player.Vyndalium -= item.SellPrice;
+                player.Vyndalium -= item.BuyPrice;
                 player.Inventory.AddItem(item);
-                Log.Info($"Item {item.Name} gekauft für {item.SellPrice} Vyndalium.");
-                Hudmaster.Instance.ShowNotification($"Item {item.Name} was bought for {item.SellPrice} Vyndalium.", "/ui/hud/shop.png");
+                Log.Info($"Item {item.Name} gekauft für {item.BuyPrice} Vyndalium.");
+                Hudmaster.Instance.ShowNotification($"Item {item.Name} was bought for {item.BuyPrice} Vyndalium.", "/ui/hud/shop.png");
+				Inventory.Instance?.OnChanged();
             }
             else
             {
@@ -265,6 +276,7 @@
 
 		Inventory.Instance?.OnChanged();
 	}
+	
 
 	public override void Tick()
 	{

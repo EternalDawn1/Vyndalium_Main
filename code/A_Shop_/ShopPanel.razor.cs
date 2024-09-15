@@ -7,7 +7,8 @@ namespace GeneralGame.HUD
     public partial class ShopPanel : Panel
     {
         public static new bool IsVisible { get; set; }
-        public ShopStorage shopStorage;
+        public ShopStorage shopStorage { get; private set; }
+        private ShopInteractable shopInteractable;
         private bool isInitialized = false;
         public static ShopPanel Instance { get; private set; }
         
@@ -30,7 +31,9 @@ namespace GeneralGame.HUD
         {
             Instance = this;
             shopStorage = new ShopStorage();
+            shopInteractable = new ShopInteractable();
             IsVisible = false;
+            shopStorage.LoadPrefabs();
         }
 
         protected void OnAwake()
@@ -106,8 +109,8 @@ namespace GeneralGame.HUD
         {
             return HashCode.Combine(
                 IsVisible,
-                Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 )
-               
+                Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 ),
+                shopStorage?.AvailableItems.HashCombine( i => i?.GetHashCode() ?? -1 ) ?? 0  
             );
         }
 

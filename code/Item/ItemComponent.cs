@@ -9,6 +9,7 @@ public enum ItemState
 	Equipped,
 	StorageBox,
 	Storage,
+	Shop,
 }
 public enum Tier 
 {
@@ -61,7 +62,51 @@ public class SerializedItemComponent
 
 public class ItemComponent : Component
 {
-	
+	[Property]public int BuyPrice { get; set; }
+
+	public int CalculateBuyPrice()
+	{
+		int basePrice = 0;
+		int additionalPricePerStat = 100;
+		int numberOfStats = GetNumberOfStats();
+
+		switch ( Tier )
+		{
+			case Tier.C:
+				basePrice = 0;
+				break;
+			case Tier.B:
+				basePrice = 150;
+				break;
+			case Tier.A:
+				basePrice = 300;
+				break;
+			case Tier.S:
+				basePrice = 600;
+				break;
+			case Tier.SS:
+				basePrice = 900;
+				break;
+			case Tier.SSS:
+				basePrice = 1500;
+				break;
+		}
+		int levelPrice = CalculateLevelPrice( ItemLevel );
+		BuyPrice = basePrice + (numberOfStats * additionalPricePerStat) + levelPrice;
+		return BuyPrice;
+	}
+	public ItemComponent()
+	{
+		InitializeStats();	
+	}
+	private void InitializeStats()
+	{
+		if ( !_isDMGInitialized )
+		{
+			_dmg = GenerateRandomDMG( Tier );
+			_isDMGInitialized = true;
+		}
+	}
 	/// <summary>
 	/// The name of the item.
 	/// </summary>
@@ -83,11 +128,16 @@ public class ItemComponent : Component
 	/// Weapon All things
 	/// </summary>
 	/// 
+	
+	private bool _isDMGInitialized = false;
 	[Property, Group( "Weapon" ), Range( 0, 1800 )]
 	public int DMG
 	{
 		get => _dmg;
-		set => _dmg = GenerateRandomDMG( Tier);
+		set
+		{
+			_dmg = value;
+		}
 	}
 	private int _dmg;
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public int STG { get; set; }
@@ -258,7 +308,7 @@ public class ItemComponent : Component
 	
 	[Property]public List<int> Stats { get;  set; } = new List<int>();
 
-	private int GenerateRandomDMG( Tier tier )
+	public int GenerateRandomDMG( Tier tier )
 	{
 		Random random = new Random();
 		double roll = random.NextDouble() * 100;
@@ -385,7 +435,7 @@ public class ItemComponent : Component
 		Random random = new Random();
 
 		// Definieren Sie die Bereiche für jede Statistik
-		int minDMG = 10, maxDMG = 2000;
+		
 		int minSTG = 5, maxSTG = 50;
 		int minHE = 1, maxHE = 10;
 		int minDEX = 2, maxDEX = 20;
@@ -478,7 +528,8 @@ public class ItemComponent : Component
 			() => HolyResistence = random.Next(minHolyResistence, maxHolyResistence + 1),
 			() => ShadowResistence = random.Next(minShadowResistence, maxShadowResistence + 1),
 			() => ItemTier = new TierClass() { Tier = (Tier)random.Next(0, 6) },
-			() => ItemLevel = GenerateRandomItemLevel(random)
+			() => ItemLevel = GenerateRandomItemLevel(random),
+			 
 		};
 
 		// Mischen Sie die Statistiken und wählen Sie die maximale Anzahl aus

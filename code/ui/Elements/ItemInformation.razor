@@ -20,6 +20,11 @@
 				
 				</div>
 			}
+			@if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel)
+			{
+				<div class="item-price">@($"{Item.BuyPrice}") <p class="item-price-name">Vyndalium</p>
+				</div>
+			}
 			<div class="description" style="@(!string.IsNullOrEmpty(Item.Description) ? "align-items: center;" : "")"></div>
 		</div>
 		

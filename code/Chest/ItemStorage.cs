@@ -32,6 +32,7 @@ namespace GeneralGame
             Items = new List<ItemComponent>();
             LoadPrefabs();
             GenerateRandomStatsForItems();
+            
         }
         private void GenerateRandomStatsForItems()
         {
@@ -39,9 +40,11 @@ namespace GeneralGame
             {
                 if ( itemComponent != null )
                 {
+                    var tier = (GeneralGame.Tier)GetRandomTier();
                     itemComponent.ItemTier = new ItemComponent.TierClass { Tier = (GeneralGame.Tier)GetRandomTier() };
                     itemComponent.GenerateRandomStats();
                     itemComponent.CalculateSellPrice();
+                    //itemComponent.GenerateRandomDMG(tier);
                 }
             }
         }

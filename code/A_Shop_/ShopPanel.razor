@@ -100,14 +100,17 @@
                         <div class="title">Item Shop</div>
                         <div class="items-container">
                             <div class="items2">
-                                @if (shopStorage != null && shopStorage.AvailableItems != null)
+                            
+                                    
+                               
+                                
+                                    @for (var index = 0; index < 10; index++) // 10 Slots für den Shop
                                     {
-                                        @foreach (var item in shopStorage.AvailableItems)
-                                        {
-                                            <InventorySlot Item=@item />
-                                            <button @onclick="() => BuyItem(item)">Buy</button>
-                                        }
+                                        var item = (index < shopStorage.AvailableItems.Count) ? shopStorage.AvailableItems[index] : null;
+                                        <InventorySlot Item=@item ShopSlotIndex=@index />
                                     }
+                                
+                                
                             </div>
                             
                             </div>

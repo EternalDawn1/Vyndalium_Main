@@ -33,6 +33,12 @@
 	{
 		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
 	}
+	@if (ShopSlotIndex is not null)
+
+	{
+		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
+	}
+
 	
 
 	
@@ -125,6 +131,7 @@
 	public int? IndependentSlotIndex { get; set; } = null;
 
 	public int? StorageSlotIndex { get; set; } = null;
+	public int? ShopSlotIndex { get; set; } = null;
 
 	public bool IsChestSlot { get; set; } = false;
 
@@ -275,6 +282,9 @@
 		if (StorageSlotIndex != null)
 
 			return true; // Storage slots allow everything!
+		if (StorageSlotIndex != null)
+
+			return true; // Storage slots allow everything!
 
 		if (EquipSlotIndex != null)
 
@@ -385,6 +395,17 @@
 			Item = inventory.BackpackItems[(int)IndependentSlotIndex];
 			StateHasChanged();
 			return;
+		}
+		if (StorageSlotIndex != null)
+
+		{
+
+			Item = inventory.StorageItems[(int)StorageSlotIndex];
+
+			StateHasChanged();
+
+			return;
+
 		}
 		if (StorageSlotIndex != null)
 

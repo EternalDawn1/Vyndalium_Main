@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeneralGame.Event;
+using GeneralGame.HUD;
 
 
 namespace GeneralGame;
@@ -746,11 +747,20 @@ public sealed class Inventory : Component
 	}
 	public void AddItem( ItemComponent item )
 	{
-		if ( item == null )
-			
+		if ( item == null ) return;
 
-		_backpackItems.Add( item );
-		item.State = ItemState.Backpack;
+		var firstFreeSlot = _backpackItems.IndexOf( null );
+		if ( firstFreeSlot != -1 )
+		{
+			_backpackItems[firstFreeSlot] = item;
+			item.State = ItemState.Backpack;
+			
+		}
+		else
+		{
+			Log.Error( "Kein freier Slot im Rucksack." );
+			Hudmaster.Instance.ShowNotification( "No Place in the Backpack.", "/ui/hud/inventory.png" );
+		}
 	}
 
 

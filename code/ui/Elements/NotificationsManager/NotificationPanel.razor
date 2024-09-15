@@ -16,7 +16,7 @@
 
 @code {
     private List<Notification> notifications = new List<Notification>();
-    private const int MaxNotifications = 5; // Maximale Anzahl der Benachrichtigungen
+    private const int MaxNotifications = 10; // Maximale Anzahl der Benachrichtigungen
     private int nextId = 0;
 
     public void AddNotification(string message, string icon)
@@ -29,7 +29,7 @@
         notifications.Add(notification);
         StateHasChanged();
         // Entferne die Benachrichtigung nach 10 Sekunden
-        _ = RemoveNotificationAfterDelay(notification.Id, 10);
+        _ = RemoveNotificationAfterDelay(notification.Id, 4);
     }
 
     private async Task RemoveNotificationAfterDelay(int notificationId, int delayInSeconds)
