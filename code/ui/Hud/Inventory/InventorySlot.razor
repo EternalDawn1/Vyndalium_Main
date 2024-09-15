@@ -526,24 +526,8 @@
 		var fromSlot = this;
 		var inventory = Player.Local.Inventory;
 
-		// From backpack slot.
-		if (fromSlot.BackpackSlotIndex is not null)
-		{
-			// To backpack slot.
-			if (targetSlot.BackpackSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
-			// To storage slot.
-			else if (targetSlot.StorageSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.StorageSlotIndex.Value, true);
-				PlaySound(res ? "drop" : "serror");
-			}
-		}
 		// From storage slot.
-		else if (fromSlot.StorageSlotIndex is not null)
+		if (fromSlot.StorageSlotIndex is not null)
 		{
 			// To storage slot.
 			if (targetSlot.StorageSlotIndex is not null)
@@ -558,6 +542,33 @@
 				PlaySound(res ? "drop" : "serror");
 			}
 		}
+		// From backpack slot.
+		else if (fromSlot.BackpackSlotIndex is not null)
+		{
+			// To backpack slot.
+			if (targetSlot.BackpackSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+			// To storage slot.
+			else if (targetSlot.StorageSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.StorageSlotIndex.Value, true);
+				PlaySound(res ? "drop" : "serror");
+			}
+		}
+		// from Shopslot
+		else if (fromSlot.ShopSlotIndex is not null)
+		{
+			// To backpack slot.
+			if (targetSlot.BackpackSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.ShopSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+		}
+
 
 		// Update both slots
 		fromSlot.UpdateItem();

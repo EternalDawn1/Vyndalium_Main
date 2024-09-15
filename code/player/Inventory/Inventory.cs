@@ -440,8 +440,16 @@ public sealed class Inventory : Component
 	{
 		if ( item is ItemEquipment equipment && equipment.Equipped )
 			RemoveEquipmentItem( equipment );
-		else
+		else if ( item.State == ItemState.Backpack )
 			RemoveBackpackItem( item, _backpackItems.IndexOf( item ) );
+
+		else if ( item.State == ItemState.Storage )
+			RemoveStorageItem( item, _storageItems.IndexOf( item ) );
+
+		
+
+		
+		
 
 		item.State = ItemState.None;
 		item.GameObject.Enabled = true;
@@ -927,6 +935,7 @@ public sealed class Inventory : Component
 		if ( freeSlotIndex != -1 )
 		{
 			_backpackItems[freeSlotIndex] = equipment;
+			
 		}
 		else
 		{

@@ -103,6 +103,7 @@
             ActivePanel = FullScreenPanel.InGameHud;
         else
             ActivePanel = panel;
+            Player.Local.BlockInputs = false;
     }
 
     public static bool Is(FullScreenPanel mode)
