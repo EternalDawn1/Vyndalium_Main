@@ -37,7 +37,7 @@
 		{
 			<ContextMenuOption Description="Move to Storage"
 							   ImagePath="ui/hud/storage.png"
-							   onclick=@(() => Player.Local.Inventory.MoveItemToStorage(_item)) />
+							   onclick=@(() => MoveItemToStorage(_item)) />
 		}
 		else
 		{
@@ -109,6 +109,11 @@
 			Inventory.Instance?.OnChanged();
 			Hudmaster.Instance.ShowNotification( $"Player healed by {healthPotion.HealthAmount}. Current health: {player.Health}", "/ui/hud/health.png" );
 		}
+		private void MoveItemToStorage(ItemComponent item)
+    {
+        int currentPage = ShopPanel.Instance.currentPage;
+        Player.Local.Inventory.MoveItemToStorage(item, currentPage);
+    }
 	public void BuyItem(ItemComponent item)
 {
     var player = Player.Local;

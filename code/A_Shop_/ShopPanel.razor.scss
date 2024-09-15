@@ -227,6 +227,42 @@ ShopPanel {
                                                     
                                             
                                             }
+                                            .pagination-controls {
+                                            position: absolute;
+                                            right: 0%;
+                                            top: 100%;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            margin-top: 20px;
+                                            }
+
+                                            .pagination-controls button {
+                                                margin: 0 10px;
+                                                padding: 5px 10px;
+                                                cursor: pointer;
+                                                
+                                                :hover:not(.disabled) 
+                                                {
+                                                    background-color: #0cbd5b;
+                                                    padding: 0px 1px;
+                                                    sound-in: 'hover';
+                                                    color: #000000;
+                                                }
+                                                &:active:not(.disabled) 
+                                                {
+                                                    
+                                                sound-in: 'light_click';
+                                                transform: scale(0.95);
+                                                
+                                                
+                                                
+                                                }
+                                            }
+
+                                            .pagination-controls span {
+                                                margin: 0 10px;
+                                            }
                                             .items3{
                                                
                                                 flex-direction: column;

@@ -65,13 +65,19 @@
                                 }
                             </div>
                             <div class="items2">
-                                @for (var index = 0; index < Player.Local.Inventory.StorageItems.Count; index++)
-                                {
-                                    var item = Player.Local.Inventory.StorageItems[index];
-                                    <InventorySlot Item=@item StorageSlotIndex=@index />
-                                }
+                            @for (var index = currentPage * itemsPerPage; index < (currentPage + 1) * itemsPerPage && index < Player.Local.Inventory.StorageItems.Count; index++)
+                            {
+                                var item = Player.Local.Inventory.StorageItems[index];
+                                <InventorySlot Item=@item StorageSlotIndex=@index />
+                            }
                             </div>
-                        </div>
+
+                            <div class="pagination-controls">
+                                <button @onclick="@PreviousPage" disabled="@(currentPage == 0)">Previous</button>
+                                <span>Page @(currentPage + 1) of @totalPages</span>
+                                <button @onclick="@NextPage" disabled="@(currentPage == totalPages - 1)">Next</button>
+                            </div>
+                                </div>
                         <div style="align-items: center; margin: 20px 5px;"></div>
                     </div>
                 </div>

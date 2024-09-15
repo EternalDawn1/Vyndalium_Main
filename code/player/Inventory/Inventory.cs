@@ -16,7 +16,8 @@ public sealed class Inventory : Component
 	[Property] Player Player { get; set; }
 
 	public const int MAX_BACKPACK_SLOTS = 30;
-	public const int MAX_STORAGE_SLOTS = 50;
+	public const int MAX_STORAGE_SLOTS = 48;
+	private const int ItemsPerPage = 12;
 
 	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
 	[Property] public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
@@ -200,13 +201,30 @@ public sealed class Inventory : Component
 
 		return true;
 	}
-	public void MoveItemToStorage( ItemComponent item )
+	private int FindNextFreeStorageSlotOnPage( int currentPage )
+	{
+		int startIndex = currentPage * ItemsPerPage;
+		int endIndex = Math.Min( startIndex + ItemsPerPage, _storageItems.Count );
+
+		for ( int i = startIndex; i < endIndex; i++ )
+		{
+			if ( _storageItems[i] == null )
+			{
+				return i;
+			}
+		}
+
+		// Wenn kein freier Slot auf der aktuellen Seite gefunden wurde, erweitern wir die Liste um eine neue Seite
+		_storageItems.AddRange( new ItemComponent[ItemsPerPage] );
+		return _storageItems.Count - ItemsPerPage; // Rückgabe des ersten Slots der neuen Seite
+	}
+	public void MoveItemToStorage( ItemComponent item, int currentPage )
 	{
 		if ( item == null ) return;
 
-		if ( BackpackItems.Contains( item ) )
+		if ( _backpackItems.Contains( item ) )
 		{
-			int freeSlot = _storageItems.IndexOf( null );
+			int freeSlot = FindNextFreeStorageSlotOnPage( currentPage );
 			if ( freeSlot != -1 )
 			{
 				int itemIndex = _backpackItems.IndexOf( item );

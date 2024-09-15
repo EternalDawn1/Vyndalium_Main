@@ -6,6 +6,27 @@ namespace GeneralGame.HUD
     [StyleSheet]
     public partial class ShopPanel : Panel
     {
+        public int currentPage = 0;
+        private int itemsPerPage = 12; // Anzahl der Items pro Seite
+        private int totalPages => (int)Math.Ceiling( (double)Player.Local.Inventory.StorageItems.Count / itemsPerPage );
+
+        private void PreviousPage()
+        {
+            if ( currentPage > 0 )
+            {
+                currentPage--;
+            }
+        }
+
+        private void NextPage()
+        {
+            if ( currentPage < totalPages - 1 )
+            {
+                currentPage++;
+            }
+        }
+
+        
         public static new bool IsVisible { get; set; }
         public ShopStorage shopStorage { get; private set; }
         private ShopInteractable shopInteractable;
