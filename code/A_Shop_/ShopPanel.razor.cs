@@ -11,7 +11,7 @@ namespace GeneralGame.HUD
         private ShopInteractable shopInteractable;
         private bool isInitialized = false;
         public static ShopPanel Instance { get; private set; }
-        
+
         public enum PanelType
         {
             Inventory,
@@ -27,13 +27,14 @@ namespace GeneralGame.HUD
         {
             currentPanel = panel;
         }
+
         public ShopPanel()
         {
             Instance = this;
             shopStorage = new ShopStorage();
             shopInteractable = new ShopInteractable();
             IsVisible = false;
-            shopStorage.LoadPrefabs();
+            shopStorage.LoadPrefabs(); // Prefabs beim Erstellen des Panels laden
         }
 
         protected void OnAwake()
@@ -43,6 +44,7 @@ namespace GeneralGame.HUD
                 shopStorage = new ShopStorage();
                 shopStorage.IsOpened = false;
                 IsVisible = false;
+                shopStorage.LoadPrefabs(); // Prefabs beim Erwachen laden
             }
         }
 
@@ -110,7 +112,7 @@ namespace GeneralGame.HUD
             return HashCode.Combine(
                 IsVisible,
                 Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 ),
-                shopStorage?.AvailableItems.HashCombine( i => i?.GetHashCode() ?? -1 ) ?? 0  
+                shopStorage?.AvailableItems.HashCombine( i => i?.GetHashCode() ?? -1 ) ?? 0
             );
         }
 

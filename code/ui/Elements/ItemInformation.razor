@@ -14,26 +14,29 @@
 				<h2 class="lvl @GetLevelColor(Item.ItemLevel)">+@Item.ItemLevel</h2>
 			</div>
 			<div style="flex-direction: column; align-items: flex-end; gap: 2px;"></div>
-			@if (Item.IsSellable)
-			{
-				<div class="item-price">@($"{Item.SellPrice}") <p class="item-price-name">Vyndalium</p>
-				
-				</div>
-			}
-			@if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel)
+			@if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Accessories)
 			{
 				<div class="item-price">@($"{Item.BuyPrice}") <p class="item-price-name">Vyndalium</p>
+				</div>
+			}
+			else if (Item.IsSellable && ShopPanel.Instance.currentPanel != ShopPanel.PanelType.Accessories)
+			{
+				<div class="item-price">@($"{Item.SellPrice}") <p class="item-price-name">Vyndalium</p>
 				</div>
 			}
 			<div class="description" style="@(!string.IsNullOrEmpty(Item.Description) ? "align-items: center;" : "")"></div>
 		</div>
 		
-
+		
 
 		@if (!string.IsNullOrEmpty(Item.Description))
 		{
 			<div class="item-description1">@Item.Description</div>
 
+		}
+		@if (Item is HealthPotion healthPotion)
+		{
+			<div class="item-description">Heals: @healthPotion.HealthAmount HP</div>
 		}
 		@if (Item.DMG != default(float))
 		{

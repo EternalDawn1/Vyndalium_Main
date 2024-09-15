@@ -106,7 +106,7 @@ public class ItemEquipment : ItemComponent
 			return null;
 
 		_model ??= new SceneModel( world, "models/citizen/citizen.vmdl", global::Transform.Zero );
-		_model.RenderingEnabled = true;
+		_model.RenderingEnabled = false;
 		return _model;
 	}
 

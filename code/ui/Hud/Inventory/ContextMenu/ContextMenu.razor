@@ -61,6 +61,12 @@
 	
     else
     {
+		@if (_item is HealthPotion healthPotion)
+		{
+			<ContextMenuOption Description="Use Health Potion"
+							ImagePath="ui/hud/health_potion.png"
+							onclick=@(() => UseHealthPotion(healthPotion)) />
+		}
         @if (_item is ItemEquipment equipment)
         {
             @if (equipment != null)
@@ -96,26 +102,48 @@
 	private static ContextMenu _instance;
 	private ItemComponent _item;
 	private List<ItemComponent> selectedItems = new();
-
+	private void UseHealthPotion(HealthPotion healthPotion)
+		{
+			healthPotion.Use(player);
+			Player.Local.Inventory.RemoveItem(healthPotion);
+			Inventory.Instance?.OnChanged();
+			Hudmaster.Instance.ShowNotification( $"Player healed by {healthPotion.HealthAmount}. Current health: {player.Health}", "/ui/hud/health.png" );
+		}
 	public void BuyItem(ItemComponent item)
-        {
-            var player = Player.Local;
-            if (player.Vyndalium >= item.BuyPrice)
-            {
-                player.Vyndalium -= item.BuyPrice;
-                player.Inventory.AddItem(item);
-                Log.Info($"Item {item.Name} gekauft für {item.BuyPrice} Vyndalium.");
-                Hudmaster.Instance.ShowNotification($"Item {item.Name} was bought for {item.BuyPrice} Vyndalium.", "/ui/hud/shop.png");
-				Inventory.Instance?.OnChanged();
-            }
-            else
-            {
-                Log.Info("Nicht genug Vyndalium.");
-                Hudmaster.Instance.ShowNotification("Nicht genug Vyndalium.", "/ui/hud/shop.png");
-            }
-        }
-	
+{
+    var player = Player.Local;
+    if (player.Vyndalium >= item.BuyPrice)
+    {
+        player.Vyndalium -= item.BuyPrice;
+        player.Inventory.AddItem(item);
+        item.GameObject.Enabled = false;
 
+        // Deaktivieren des ModelRenderers
+        var modelRenderer = item.GameObject.Components.Get<ModelRenderer>();
+        if (modelRenderer != null)
+        {
+            modelRenderer.Enabled = false;
+        }
+
+        // Deaktivieren des ModelColliders
+        var modelCollider = item.GameObject.Components.Get<ModelCollider>();
+        if (modelCollider != null)
+        {
+            modelCollider.Enabled = false;
+        }
+		
+        Log.Info($"Item {item.Name} gekauft für {item.BuyPrice} Vyndalium.");
+        Hudmaster.Instance.ShowNotification($"Item {item.Name} was bought for {item.BuyPrice} Vyndalium.", "/ui/hud/shop.png");
+        Inventory.Instance?.OnChanged();
+		
+    }
+    else
+    {
+        Log.Info("Nicht genug Vyndalium.");
+        Hudmaster.Instance.ShowNotification("Nicht genug Vyndalium.", "/ui/hud/shop.png");
+    }
+}
+	
 	private async Task ConfirmSellItem(ItemComponent item)
     {
         if (item == null) return;
@@ -156,8 +184,9 @@
 		player.Vyndalium += item.SellPrice;
 		Log.Info($"Item {item.Name} verkauft für {item.SellPrice} Vyndalium.");
 		Hudmaster.Instance.ShowNotification($"Item {item.Name} was sold for {item.SellPrice} Vyndalium.", "/ui/hud/shop.png");
-
+		item.GameObject.Destroy();
 		Inventory.Instance?.OnChanged();
+		
 	}
 	private void AddItemToPlayerInventory(ItemComponent item)
     {

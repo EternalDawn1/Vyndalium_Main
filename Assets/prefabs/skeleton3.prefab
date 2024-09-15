@@ -109,6 +109,7 @@
       {
         "__type": "Npc",
         "__guid": "343ea719-e2a6-4c36-8add-0d68f031e949",
+        "CurrentHoldType": "None",
         "AlertOthers": false,
         "AnimationHelper": {
           "_type": "component",
@@ -122,6 +123,7 @@
           "_type": "gameobject",
           "go": "1d8bc424-f317-41f6-b0b6-6d9dd5a61eb5"
         },
+        "CurrentState": "Idle",
         "DetectRange": 288,
         "EnemyTags": "player",
         "Eye": {
@@ -423,8 +425,12 @@
           }
         },
         "PlayerProximityDistance": 80,
+        "PogMode": false,
+        "RunningType": "Smart",
         "RunSpeed": 110,
+        "ScaleStats": true,
         "VisionRange": 544,
+        "WalkingType": "Dumb",
         "WalkSpeed": 90,
         "ZombieRagedol": {
           "_type": "gameobject",
@@ -465,6 +471,13 @@
             "CreateBoneObjects": false,
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
             "Model": "models/citizen/skin/skeleton/models/skeleton_clean_skin.vmdl",
+            "Morphs": {},
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -514,6 +527,12 @@
             "InteractionRange": 1000,
             "LookAtCamera": false,
             "PanelSize": "512,512",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderScale": 1,
             "VerticalAlign": "Center"
           }
@@ -526,8 +545,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [
-    "roomfield.skeletom"
-  ],
+  "__references": [],
   "__version": 1
 }

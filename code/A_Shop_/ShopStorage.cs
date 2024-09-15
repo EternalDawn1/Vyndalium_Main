@@ -8,7 +8,7 @@ namespace GeneralGame
         [Property] public ShopInteractable shopInteractable { get; set; }
         private ShopPanel shopPanel { get; set; }
         [Property]public List<ItemComponent> AvailableItems { get;private  set; } = new List<ItemComponent>();
-
+        private bool prefabsLoaded = false;
         protected override void OnAwake()
         {
             shopInteractable = this.Components.Get<ShopInteractable>();
@@ -24,16 +24,18 @@ namespace GeneralGame
         public ShopStorage() 
         {
             AvailableItems = new List<ItemComponent>();
-            LoadPrefabs();
+            
         }
 
         public void LoadPrefabs()
         {
+            if ( prefabsLoaded ) return;
             // Beispiel-Prefabs laden
             var prefabs = new List<string>
             {
                 "prefabs/potion_big.prefab",
-                "path/to/sword.prefab"
+                "path/to/sword.prefab",
+                "prefabs/weapons/aksu/s.prefab",
             };
 
             foreach ( var prefabPath in prefabs )
@@ -44,10 +46,12 @@ namespace GeneralGame
                     var itemComponent = ConvertPrefabToItemComponent( prefab );
                     if ( itemComponent != null )
                     {
+                        itemComponent.GameObject.Enabled = false;
                         AvailableItems.Add( itemComponent );
                     }
                 }
             }
+            prefabsLoaded = true;
         }
         public void AddItem( ItemComponent item, int index )
         {
@@ -80,7 +84,7 @@ namespace GeneralGame
         {
             if ( !IsOpened )
             {
-                LoadPrefabs();
+                
                 FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.ShopPanel );
                 Player.Local.BlockInputs = true;
             }
@@ -104,6 +108,7 @@ namespace GeneralGame
             {
                 player.Vyndalium -= item.BuyPrice;
                 player.Inventory.AddItem( item );
+                item.GameObject.Enabled = false;
                 Log.Info( $"Item {item.Name} gekauft für {item.BuyPrice} Vyndalium." );
                 Hudmaster.Instance.ShowNotification( $"Item {item.Name} was bought for {item.BuyPrice} Vyndalium.", "/ui/hud/shop.png" );
             }

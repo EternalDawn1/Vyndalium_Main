@@ -20,6 +20,7 @@ public enum Tier
 	SS,
 	SSS,
 }
+
 public class SerializedItemComponent
 {
 	public int Id { get; set; }
@@ -63,7 +64,7 @@ public class SerializedItemComponent
 public class ItemComponent : Component
 {
 	[Property]public int BuyPrice { get; set; }
-
+	public bool IsSold { get; set; } = false;
 	public int CalculateBuyPrice()
 	{
 		int basePrice = 0;

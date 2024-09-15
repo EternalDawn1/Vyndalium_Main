@@ -10,6 +10,7 @@ public struct ItemSave
 	[JsonInclude] public int Index;
 	[JsonInclude] public int IndexStorage;
 	[JsonInclude] public float SellPrice { get; set; }
+	[JsonInclude] public float BuyPrice { get; set; }
 	[JsonInclude] public int DMG { get; set; }
 	[JsonInclude] public int STG { get; set; }
 	[JsonInclude] public int HE { get; set; }
@@ -237,6 +238,7 @@ partial class Player
 				}
 			}
 			item.SellPrice = item.SellPrice;
+			item.BuyPrice = item.BuyPrice;
 
 		
 		
@@ -251,6 +253,7 @@ partial class Player
 				IndexStorage = player.Inventory._storageBoxItems.IndexOf( item ),
 				Index = player.Inventory.IndexOf( item ),
 				SellPrice = item.SellPrice,
+				BuyPrice = item.BuyPrice,
 				DMG = item.DMG,
 				STG = item.STG,
 				HE = item.HE,
@@ -508,6 +511,7 @@ partial class Player
 				{
 					item.State = data.State;
 					item.SellPrice = (int)data.SellPrice;
+					item.BuyPrice = (int)data.BuyPrice;
 					item.DMG = data.DMG;
 					item.STG = data.STG;
 					item.HE = data.HE;
@@ -572,6 +576,7 @@ partial class Player
 				
 
 				equipment.SellPrice = (int)data.SellPrice;
+				equipment.BuyPrice = (int)data.BuyPrice;
 				equipment.DMG = data.DMG;
 				equipment.STG = data.STG;
 				equipment.HE = data.HE;
@@ -635,6 +640,7 @@ partial class Player
 
 				
 				item.SellPrice = (int)data.SellPrice;
+				item.BuyPrice = (int)data.BuyPrice;
 				item.DMG = data.DMG;
 				item.STG = data.STG;
 				item.HE = data.HE;
@@ -693,6 +699,7 @@ partial class Player
 
 
 				item.SellPrice = (int)data.SellPrice;
+				item.BuyPrice = (int)data.BuyPrice;
 				item.DMG = data.DMG;
 				item.STG = data.STG;
 				item.HE = data.HE;

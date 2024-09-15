@@ -213,6 +213,7 @@ public sealed class Inventory : Component
 				_backpackItems[itemIndex] = null; // Setze den Slot im Rucksack auf null
 				_storageItems[freeSlot] = item;
 				item.State = ItemState.Storage;
+				item.GameObject.Enabled = false;
 			}
 			else
 			{
@@ -234,6 +235,7 @@ public sealed class Inventory : Component
 				_storageItems[itemIndex] = null; // Setze den Slot im Storage auf null
 				_backpackItems[freeSlot] = item;
 				item.State = ItemState.Backpack;
+				item.GameObject.Enabled = false;
 			}
 			else
 			{
@@ -251,7 +253,7 @@ public sealed class Inventory : Component
 		var res = GiveItem( obj.Components.Get<ItemComponent>() );
 		if ( !res )
 			obj.Destroy();
-
+		
 		return res;
 	}
 
@@ -430,6 +432,11 @@ public sealed class Inventory : Component
 		if ( ModelRenderer != null )
 		{
 			ModelRenderer.Enabled = true;
+		}
+		var ModelColider = item.GameObject.Components.Get<ModelCollider>();
+		if ( ModelColider != null )
+		{
+			ModelColider.Enabled = true;
 		}
 		
 		TaskMaster.SubmitTriggerSignal( $"item.dropped.{item.Name}", Player );
@@ -650,12 +657,14 @@ public sealed class Inventory : Component
 		SetOwner( item );
 		GiveBackpackItem( item, index );
 		item.State = ItemState.Backpack;
+		item.GameObject.Enabled = false;
 	}
 	public void SetStorageItem( ItemComponent item, int index )
 	{
 		SetOwner( item );
 		GiveStorageItem( item, index );
 		item.State = ItemState.Storage;
+		item.GameObject.Enabled = false;
 	}
 	
 
@@ -754,6 +763,7 @@ public sealed class Inventory : Component
 		{
 			_backpackItems[firstFreeSlot] = item;
 			item.State = ItemState.Backpack;
+			item.GameObject.Enabled = false;
 			
 		}
 		else
@@ -775,6 +785,7 @@ public sealed class Inventory : Component
 			item.GameObject.Transform.Position = Player.GameObject.Transform.Position;
 			item.GameObject.Transform.Rotation = Player.GameObject.Transform.Rotation;
 			item.LastOwner = Player;
+			item.GameObject.Enabled = false;
 		}
 		else
 		{
@@ -802,7 +813,8 @@ public sealed class Inventory : Component
 			if (_backpackItems[index] == null)
 			{
 				_backpackItems[index] = item;
-				item.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des Items
+				item.State = ItemState.Backpack;
+				item.GameObject.Enabled = false; // Aktualisieren Sie den Zustand des Items
 				
 			}
 			else
@@ -822,6 +834,7 @@ public sealed class Inventory : Component
 		{
 			_storageItems[index] = item;
 			item.State = ItemState.Storage;
+			item.GameObject.Enabled = false;
 		}
 	}
 
