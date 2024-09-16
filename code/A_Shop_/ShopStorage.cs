@@ -49,28 +49,33 @@ namespace GeneralGame
 
             var weaponPrefabs = new List<string>
             {
-                "path/to/sword.prefab",
-                "prefabs/weapons/aksu/s.prefab"
+                
+                
+                "prefabs/weapons/pm/glock-c.prefab",
+                "prefabs/weapons/facepunch/usp/uspc.prefab"
+
+
+
             };
             var armorPrefabs = new List<string> // Hinzugefügt
             {
-                "path/to/armor.prefab",
-                "prefabs/armor/aksu/s.prefab"
+                "prefabs/clothes/helmet/helmet.prefab",
+                "prefabs/clothes/armor/armor.prefab",
+                "prefabs/clothes/legarmor/legarmor.prefab",
+
             };
             var accessoryPrefabs = new List<string> // Hinzugefügt
             {
-                "path/to/accessory.prefab",
-                "prefabs/accessory/aksu/s.prefab"
+                
             };
             var consumablePrefabs = new List<string> // Hinzugefügt
             {
-                "path/to/consumable.prefab",
-                "prefabs/consumable/aksu/s.prefab"
+               
             };
             var materialPrefabs = new List<string>
             {
-                "path/to/material.prefab",
-                "prefabs/material/aksu/s.prefab"
+                "prefabs/items/wood_log.prefab",
+                
             };
 
             foreach ( var prefabPath in potionPrefabs )

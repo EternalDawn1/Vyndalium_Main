@@ -1,17 +1,22 @@
 {
   "RootObject": {
     "__guid": "120bdc6b-80a4-4743-84de-15b41b4d3a01",
-    "Name": "armor",
+    "Flags": 0,
+    "Name": "armor-a",
     "Enabled": true,
     "NetworkMode": 1,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.ModelRenderer",
         "__guid": "405039bb-8e87-4677-83bf-5a61d94f52e0",
-        "__enabled": false,
         "BodyGroups": 18446744073709551615,
         "Model": "models/citizen_clothes/vest/chest_armour/models/chest_armour.vmdl",
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "On",
         "Tint": "1,1,1,1"
       },
@@ -19,43 +24,74 @@
         "__type": "GeneralGame.ItemEquipment",
         "__guid": "4d73eb74-e192-4e42-9d83-f8212da03312",
         "AbilityHaste": 0,
+        "Armor": 0,
         "Attachment": "hand_R",
         "AttachmentTransform": {
           "UniformScale": 1,
+          "IsValid": true,
+          "ForwardRay": {
+            "Forward": "1,0,0"
+          },
           "Scale": "1,1,1",
           "Rotation": "0,0,0,1"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
+        "BleedResistance": 0,
+        "BlindResistance": 0,
+        "BonusEXP": 0,
+        "BonusScore": 0,
+        "BonusVyndalium": 0,
+        "BuyPrice": 12000,
         "Count": 0,
+        "Cover": 0,
         "CritHitChance": 0,
         "CritHitDamage": 0,
         "DamageBalance": 0,
+        "Description": "Armor Plate",
         "DEX": 0,
         "DMG": 0,
         "Durability": 0,
+        "Evasion": 0,
+        "FireResistence": 0,
         "HE": 0,
+        "Health": 0,
         "HideBodygroups": "Torso",
         "HoldType": "Item",
+        "HolyResistence": 0,
+        "IceResistence": 0,
         "Icon": {
           "Model": "models/citizen_clothes/vest/chest_armour/models/chest_armour.vmdl",
           "MaterialGroup": "",
           "Colour": "1,1,1,1",
-          "Position": "-16.95,0,0",
-          "Rotation": "0,-0,-0.1370123,0.9905694",
+          "Position": "3.45,46.5,44.4",
+          "Rotation": "0.7070971,0.003702447,0.003702447,0.7070971",
           "Guid": "29592f5b-31f0-4131-94a6-806e6fccf78c"
         },
         "INT": 0,
+        "IsBackable": false,
+        "IsEquipment": false,
+        "IsItem": false,
         "ItemLevel": 0,
+        "LightningResistence": 0,
+        "MagicDefense": 0,
+        "MagicPower": 0,
         "Mana": 0,
         "MaxStack": 0,
         "MoveSpeed": 0,
         "Name": "Armor",
         "PER": 0,
-        "SellPrice": -1,
+        "PoisonResistence": 0,
+        "Price": 0,
+        "SellPrice": 2500,
+        "ShadowResistence": 0,
         "Slot": "Body",
+        "SlowResistence": 0,
+        "Stats": [],
         "STG": 0,
-        "Tier": "C",
+        "StunResistance": 0,
+        "Tenacity": 0,
+        "Tier": "A",
         "UpdatePosition": false,
         "UseSkinTint": false,
         "WeightInGrams": 0
@@ -65,14 +101,6 @@
         "__guid": "39c59d02-4fd1-4f24-afa0-b19e2cebfaf3",
         "HideOnEmpty": false,
         "ObjectInteractions": []
-      },
-      {
-        "__type": "Sandbox.ModelRenderer",
-        "__guid": "f14e968c-0e33-4a9f-9e85-80b6c5871af2",
-        "BodyGroups": 18446744073709551615,
-        "Model": "models/citizen_clothes/vest/chest_armour/models/chest_armour.vmdl",
-        "RenderType": "Off",
-        "Tint": "1,1,1,1"
       },
       {
         "__type": "Sandbox.BoxCollider",
@@ -89,8 +117,10 @@
         "Gravity": true,
         "LinearDamping": 0,
         "Locking": {},
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": false,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
       }
@@ -98,19 +128,25 @@
     "Children": [
       {
         "__guid": "c088b1af-4b49-428b-9ca6-973204569cf5",
+        "Flags": 0,
         "Name": "GameObject",
         "Position": "0,0,5",
         "Rotation": "0,0.7071068,0,0.7071068",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.WorldPanel",
             "__guid": "a91b48fa-fd75-4a18-b948-74dcd6d97c0c",
             "HorizontalAlign": "Center",
+            "InteractionRange": 1000,
             "LookAtCamera": false,
             "PanelSize": "512,512",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderScale": 1,
             "VerticalAlign": "Center"
           },
@@ -120,12 +156,13 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

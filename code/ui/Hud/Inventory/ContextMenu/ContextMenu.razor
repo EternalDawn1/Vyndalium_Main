@@ -64,7 +64,7 @@
 		@if (_item is HealthPotion healthPotion)
 		{
 			<ContextMenuOption Description="Use Health Potion"
-							ImagePath="ui/hud/health_potion.png"
+							ImagePath="ui/hud/potions.png"
 							onclick=@(() => UseHealthPotion(healthPotion)) />
 		}
         @if (_item is ItemEquipment equipment)
@@ -88,7 +88,7 @@
         @if (_item != null && _item.Count > 1)
         {
             <ContextMenuOption Description="Split"
-                               ImagePath="ui/hud/inv_actions_split.png"
+                               ImagePath="ui/hud/split.gif"
                                onclick=@(() => OpenSplitPanel(_item)) />
         }
        
@@ -128,7 +128,8 @@
 		if (player.Vyndalium >= item.BuyPrice)
 		{
 			player.Vyndalium -= item.BuyPrice;
-			player.Inventory.AddItem(item);
+			var newItem = GenerateNewItem(item);
+			player.Inventory.AddItem(newItem);
 			item.GameObject.Enabled = false;
 
 			// Deaktivieren des ModelRenderers
@@ -156,6 +157,83 @@
 			Hudmaster.Instance.ShowNotification("Nicht genug Vyndalium.", "/ui/hud/shop.png");
 		}
 	}
+	private ItemComponent ConvertPrefabToItemComponent(PrefabFile prefab)
+        {
+            var obj = SceneUtility.GetPrefabScene(prefab).Clone();
+            obj.NetworkMode = NetworkMode.Object;
+            obj.NetworkSpawn();
+
+            var itemComponent = obj.Components.Get<ItemComponent>();
+            if (itemComponent == null)
+            {
+                obj.Destroy();
+                return null;
+            }
+            obj.Enabled = false;
+            return itemComponent;
+        }
+	private ItemComponent GenerateNewItem(ItemComponent item)
+        {
+            // Erstellen Sie eine neue Instanz des Items basierend auf dem Prefab
+            var prefab = ResourceLibrary.Get<PrefabFile>(item.Prefab);
+            if (prefab == null)
+            {
+                Log.Error($"Prefab {item.Prefab} nicht gefunden.");
+                return null;
+            }
+
+            var newItem = ConvertPrefabToItemComponent(prefab);
+            if (newItem == null)
+            {
+                Log.Error($"Fehler beim Erstellen des Items aus dem Prefab {item.Prefab}.");
+                return null;
+            }
+
+            // Kopieren Sie die Eigenschaften des ursprünglichen Items
+            newItem.Name = item.Name;
+            newItem.SellPrice = item.SellPrice;
+            newItem.BuyPrice = item.BuyPrice;
+            newItem.DMG = item.DMG;
+            newItem.STG = item.STG;
+            newItem.HE = item.HE;
+            newItem.DEX = item.DEX;
+            newItem.PER = item.PER;
+            newItem.INT = item.INT;
+            newItem.Mana = item.Mana;
+            newItem.Health = item.Health;
+            newItem.ItemLevel = item.ItemLevel;
+            newItem.CritHitDamage = item.CritHitDamage;
+            newItem.CritHitChance = item.CritHitChance;
+            newItem.AbilityHaste = item.AbilityHaste;
+            newItem.AttackPower = item.AttackPower;
+            newItem.MagicPower = item.MagicPower;
+            newItem.Tier = item.Tier;
+            newItem.DamageBalance = item.DamageBalance;
+            newItem.Durability = item.Durability;
+            newItem.AttackSpeed = item.AttackSpeed;
+            newItem.MoveSpeed = item.MoveSpeed;
+            newItem.Armor = item.Armor;
+            newItem.MagicDefense = item.MagicDefense;
+            newItem.Evasion = item.Evasion;
+            newItem.Cover = item.Cover;
+            newItem.BonusEXP = item.BonusEXP;
+            newItem.BonusScore = item.BonusScore;
+            newItem.BonusVyndalium = item.BonusVyndalium;
+            newItem.Tenacity = item.Tenacity;
+            newItem.StunResistance = item.StunResistance;
+            newItem.BlindResistance = item.BlindResistance;
+            newItem.SlowResistence = item.SlowResistence;
+            newItem.FireResistence = item.FireResistence;
+            newItem.BleedResistance = item.BleedResistance;
+            newItem.PoisonResistence = item.PoisonResistence;
+            newItem.IceResistence = item.IceResistence;
+            newItem.LightningResistence = item.LightningResistence;
+            newItem.HolyResistence = item.HolyResistence;
+
+            Log.Info($"Neues Item {newItem.Name} wurde generiert.");
+
+            return newItem;
+        }
 	
 	private async Task ConfirmSellItem(ItemComponent item)
     {
@@ -282,10 +360,45 @@
 		Hudmaster.Instance.Panel.AddChild(_instance);
 	}
 	private void OpenSplitPanel(ItemComponent item)
-	{
-		SplitPanel.Open(item);
-	}
+    {
+        if (item.Count < 2)
+        {
+            // Gegenstand kann nicht gesplittet werden, wenn er weniger als 2 Einheiten hat
+            return;
+        }
 
+        var inventory = player.Inventory;
+        var firstFreeSlot = inventory._backpackItems.IndexOf(null);
+
+        // Überprüfen Sie, ob ein freier Slot verfügbar ist
+        if (firstFreeSlot == -1)
+        {
+            Log.Error("Kein freier Slot im Rucksack verfügbar.");
+            return;
+        }
+
+        // Berechne die Anzahl der Einheiten, die gesplittet werden sollen
+        int splitCount = item.Count / 2;
+
+        // Erstelle einen neuen Gegenstand mit der gesplitteten Anzahl
+        var newItem = GenerateNewItem(item);
+        if (newItem == null)
+        {
+            Log.Error("Fehler beim Generieren des neuen Items.");
+            return;
+        }
+        newItem.Count = splitCount;
+
+        // Reduziere die Anzahl der Einheiten im ursprünglichen Gegenstand
+        item.Count -= splitCount;
+
+        // Füge den neuen Gegenstand in das Inventar ein
+        inventory._backpackItems[firstFreeSlot] = newItem;
+        newItem.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des neuen Items
+
+        Inventory.Instance?.OnChanged();
+        Hudmaster.Instance.ShowNotification($"received {newItem.Name}", "/ui/hud/hand_slot.png");
+    }
 	public static bool IsOpen()
 	{
 		return _instance != null && _instance.IsValid();

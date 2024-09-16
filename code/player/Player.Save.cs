@@ -18,6 +18,8 @@ public struct ItemSave
 	[JsonInclude]public int PER { get; set; }
 	[JsonInclude] public int INT { get; set; }
 	[JsonInclude] public int Mana { get; set; }
+	[JsonInclude] public int MaxStack { get; set; }
+	[JsonInclude] public int Count { get; set; }
 	[JsonInclude] public int Health { get; set; }
 	[JsonInclude] public int ItemLevel { get; set; }
 	[JsonInclude]public int CritHitDamage { get; set; }
@@ -239,6 +241,9 @@ partial class Player
 			}
 			item.SellPrice = item.SellPrice;
 			item.BuyPrice = item.BuyPrice;
+			item.MaxStack = item.MaxStack;
+			item.Count = item.Count;
+
 
 		
 		
@@ -254,6 +259,8 @@ partial class Player
 				Index = player.Inventory.IndexOf( item ),
 				SellPrice = item.SellPrice,
 				BuyPrice = item.BuyPrice,
+				MaxStack = item.MaxStack,
+				Count = item.Count,
 				DMG = item.DMG,
 				STG = item.STG,
 				HE = item.HE,
@@ -512,8 +519,11 @@ partial class Player
 					item.State = data.State;
 					item.SellPrice = (int)data.SellPrice;
 					item.BuyPrice = (int)data.BuyPrice;
+					item.MaxStack = data.MaxStack;
+					item.Count = data.Count;
 					item.DMG = data.DMG;
 					item.STG = data.STG;
+
 					item.HE = data.HE;
 					item.DEX = data.DEX;
 					item.PER = data.PER;
@@ -574,7 +584,9 @@ partial class Player
 				ReadData( data, o );
 
 				
-
+				equipment.State = data.State;
+				equipment.MaxStack = data.MaxStack;
+				equipment.Count = data.Count;
 				equipment.SellPrice = (int)data.SellPrice;
 				equipment.BuyPrice = (int)data.BuyPrice;
 				equipment.DMG = data.DMG;
@@ -638,7 +650,8 @@ partial class Player
 				player.Inventory.SetItem( item, data.Index );
 				ReadData( data, o );
 
-				
+				item.MaxStack = data.MaxStack;
+				item.Count = data.Count;
 				item.SellPrice = (int)data.SellPrice;
 				item.BuyPrice = (int)data.BuyPrice;
 				item.DMG = data.DMG;
@@ -697,7 +710,9 @@ partial class Player
 				player.Inventory.GiveStorageItem( item, data.Index );
 				ReadData( data, o );
 
-
+				item.MaxStack = data.MaxStack;
+				item.Count = data.Count;
+				
 				item.SellPrice = (int)data.SellPrice;
 				item.BuyPrice = (int)data.BuyPrice;
 				item.DMG = data.DMG;

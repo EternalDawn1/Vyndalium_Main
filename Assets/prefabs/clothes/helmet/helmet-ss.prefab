@@ -2,16 +2,21 @@
   "RootObject": {
     "__guid": "8f4a88c6-961e-4087-9989-b57ac75cb4db",
     "Flags": 0,
-    "Name": "helmet",
+    "Name": "helmet-ss",
     "Enabled": true,
     "NetworkMode": 1,
     "Components": [
       {
         "__type": "Sandbox.ModelRenderer",
         "__guid": "ce5bb3e0-8adc-469e-9f27-202e8a1b042c",
-        "__enabled": false,
         "BodyGroups": 18446744073709551615,
         "Model": "models/clothes/helmet/helmet.vmdl",
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "On",
         "Tint": "1,1,1,1"
       },
@@ -37,11 +42,13 @@
         "BonusEXP": 0,
         "BonusScore": 0,
         "BonusVyndalium": 0,
+        "BuyPrice": 1500,
         "Count": 0,
         "Cover": 0,
         "CritHitChance": 0,
         "CritHitDamage": 0,
         "DamageBalance": 0,
+        "Description": "Helmet",
         "DEX": 0,
         "DMG": 0,
         "Durability": 0,
@@ -57,8 +64,8 @@
           "Model": "models/clothes/helmet/helmet.vmdl",
           "MaterialGroup": "",
           "Colour": "1,1,1,1",
-          "Position": "-16.95,0,0",
-          "Rotation": "0,-0,-0.2461533,0.9692309",
+          "Position": "-13.95,61.95,61.5",
+          "Rotation": "0.6957669,-0.1261287,0.1261287,0.6957669",
           "Guid": "fe997d73-dd06-435b-953c-08d1eb7b948b"
         },
         "INT": 0,
@@ -75,14 +82,16 @@
         "Name": "Helmet",
         "PER": 0,
         "PoisonResistence": 0,
-        "SellPrice": -1,
+        "Price": 0,
+        "SellPrice": 300,
         "ShadowResistence": 0,
         "Slot": "Head",
         "SlowResistence": 0,
+        "Stats": [],
         "STG": 0,
         "StunResistance": 0,
         "Tenacity": 0,
-        "Tier": "C",
+        "Tier": "SS",
         "UpdatePosition": false,
         "UseSkinTint": false,
         "WeightInGrams": 0
@@ -92,15 +101,6 @@
         "__guid": "76718d4d-9d76-4f6e-864d-3098f805a011",
         "HideOnEmpty": false,
         "ObjectInteractions": []
-      },
-      {
-        "__type": "Sandbox.ModelRenderer",
-        "__guid": "e5b6c8c5-43d4-48e9-b561-5796e32cff82",
-        "__enabled": false,
-        "BodyGroups": 18446744073709551615,
-        "Model": "models/clothes/helmet/helmet.vmdl",
-        "RenderType": "Off",
-        "Tint": "1,1,1,1"
       },
       {
         "__type": "Sandbox.BoxCollider",
@@ -123,15 +123,6 @@
         "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
-      },
-      {
-        "__type": "Sandbox.Prop",
-        "__guid": "02864d4b-bd4c-4f9d-a3cb-7125f7be1bba",
-        "BodyGroups": 18446744073709551615,
-        "Health": 0,
-        "IsStatic": false,
-        "Model": "models/clothes/helmet/helmet.vmdl",
-        "Tint": "1,1,1,1"
       }
     ],
     "Children": [],

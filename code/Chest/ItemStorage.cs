@@ -69,6 +69,9 @@ namespace GeneralGame
                 "prefabs/weapons/facepunch/mp5/mp5c.prefab",
                 "prefabs/weapons/m4a1/m4a1-c.prefab",
                 "prefabs/weapons/pm/glock-c.prefab",
+                "prefabs/clothes/armor/armor-c.prefab",
+                "prefabs/clothes/helmet/helmet-c.prefab",
+                "prefabs/clothes/legarmor/legarmor-c.prefab",
                 // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
             };
 
@@ -80,6 +83,10 @@ namespace GeneralGame
                 "prefabs/weapons/facepunch/mp5/mp5b.prefab",
                 "prefabs/weapons/m4a1/m4a1-b.prefab",
                 "prefabs/weapons/pm/glock-b.prefab",
+                "prefabs/clothes/armor/armor-b.prefab",
+                "prefabs/clothes/helmet/helmet-b.prefab",
+                "prefabs/clothes/legarmor/legarmor-b.prefab",
+
                 
 
                 // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
@@ -93,6 +100,9 @@ namespace GeneralGame
                 "prefabs/weapons/facepunch/mp5/mp5a.prefab",
                 "prefabs/weapons/m4a1/m4a1-a.prefab",
                 "prefabs/weapons/pm/glock-a.prefab",
+                "prefabs/clothes/armor/armor-a.prefab",
+                "prefabs/clothes/helmet/helmet-a.prefab",
+                "prefabs/clothes/legarmor/legarmor-a.prefab",
                 // Fügen Sie hier weitere A-Tier-Prefab-Dateien hinzu
             };
 
@@ -104,6 +114,9 @@ namespace GeneralGame
                 "prefabs/weapons/facepunch/mp5/mp5s.prefab",
                 "prefabs/weapons/m4a1/m4a1-s.prefab",
                 "prefabs/weapons/pm/glock-s.prefab",
+                "prefabs/clothes/armor/armor-s.prefab",
+                "prefabs/clothes/helmet/helmet-s.prefab",
+                "prefabs/clothes/legarmor/legarmor-s.prefab",
                 // Fügen Sie hier weitere S-Tier-Prefab-Dateien hinzu
             };
 
@@ -115,6 +128,9 @@ namespace GeneralGame
                 "prefabs/weapons/facepunch/mp5/mp5ss.prefab",
                 "prefabs/weapons/m4a1/m4a1-ss.prefab",
                 "prefabs/weapons/pm/glock-ss.prefab",
+                "prefabs/clothes/armor/armor-ss.prefab",
+                "prefabs/clothes/helmet/helmet-ss.prefab",
+                "prefabs/clothes/legarmor/legarmor-ss.prefab",
                 // Fügen Sie hier weitere SS-Tier-Prefab-Dateien hinzu
             };
 
@@ -126,6 +142,9 @@ namespace GeneralGame
                 "prefabs/weapons/facepunch/mp5/mp5sss.prefab",
                 "prefabs/weapons/m4a1/m4a1-sss.prefab",
                 "prefabs/weapons/pm/glock-sss.prefab",
+                "prefabs/clothes/armor/armor-sss.prefab",
+                "prefabs/clothes/helmet/helmet-sss.prefab",
+                "prefabs/clothes/legarmor/legarmor-sss.prefab",
                 // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
             };
 

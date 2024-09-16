@@ -263,35 +263,61 @@ ShopPanel {
                                             .pagination-controls span {
                                                 margin: 0 10px;
                                             }
+                                            
+                                        }
+                                        .items-container2
+                                        {
+                                            width: 100%;
+                                            height: 100%;
+                                            overflow-y: scroll;
+
                                             .items3{
                                                
-                                                flex-direction: column;
-                                                position: relative;
-                                                overflow-y: scroll;
-                                                width: 100%;
-                                                height: 100%;
+                                                    flex-direction: column;
+                                                    position: relative;
+                                                    overflow-y: scroll; // Ermöglicht das Scrollen im Container
+                                                    width: 100%;
+                                                    height: 2000px; // Beispielhöhe, anpassen nach Bedarf
+                                                    
+                                                    .box{
+                                                        position: relative;
+                                                        justify-content: center;
+                                                        flex-direction: column;
+                                                        gap: 20px;
+                                                        
+                                                        .potions, .weapon, .armor, .accessories, .consumables, .materials{
+                                                            position: relative;
+                                                            width: 100%;
+                                                            justify-content: center;
+                                                            
+                                                        }
+                                                        
+                                                        .title3{
+                                                            position: relative;
+                                                            width: 100%;
+                                                            height: 20%;
+                                                            justify-content: center;
+                                                            align-items: center;
+                                                            background-color: #1996628c;
+                                                            border-width: 1px;
+                                                            border-color: #000000;
+                                                            color: #ffffff;
+                                                            font-size: 30px;
+                                                            font-weight: bold;
+                                                            font-style: italic;
+                                                            padding: 10px;
+                                                            border-radius: 10px;
+                                                            margin-bottom: 10px;
+                                                            
+                                                            
+
+                                                        }
+                                                    }
                                                
                                             
                                                 
-                                                gap: 100px;
-                                                .weapon{
-                                                  
-                                                }
-                                                .potions{
-
-                                                }
-                                                .armor{
-
-                                                }
-                                                .accessories{
-
-                                                }
-                                                .consumables{
-
-                                                }
-                                                .materials{
-                                                    
-                                                }
+                                                
+                                                
 
                                             }
                                         }

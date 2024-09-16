@@ -381,7 +381,6 @@ public sealed class Inventory : Component
 
 	public bool UnequipItem( ItemComponent item )
 	{
-		
 		if ( item == null )
 		{
 			Log.Error( "Item is null." );
@@ -413,7 +412,6 @@ public sealed class Inventory : Component
 		RemoveEquipmentItem( equipment );
 
 		// Hinzufügen des Items zum Rucksack
-		
 
 		// Sicherstellen, dass das Item nicht zerstört wird, wenn es unequipped wird
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
@@ -428,11 +426,10 @@ public sealed class Inventory : Component
 
 		GiveBackpackItem( equipment, firstFreeSlot );
 		equipment.State = ItemState.Backpack;
-		
+
 		TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
-		
+
 		return true;
-		
 	}
 
 

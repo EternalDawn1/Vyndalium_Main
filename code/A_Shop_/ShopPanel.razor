@@ -102,68 +102,82 @@
         </div>
     </div>
 
-    <div class="panel-content" style="opacity: @(currentPanel == PanelType.Accessories ? 1 : 0)">
+   <div class="panel-content" style="opacity: @(currentPanel == PanelType.Accessories ? 1 : 0)">
         <div class="panel-content-text">
         <div class="panel-content-layout">
             <div class="main-panel">
                 <div class="Panel">
                     <div class="section2">
-                        <div class="title">Item Shop</div>
-                        <div class="items-container">
+                        <div class="title" style="color:blue">Item Shop</div>
+                        <div class="items-container2">
                             <div class="items3">
-                            
-                                    
-                                <div>Potions</div>
-                                <div class="potions">
-                                    @for (var index = 0; index < 10; index++) // 10 Slots für den Shop
-                                    {
-                                        var item = (index < shopStorage.AvailableItems.Count) ? shopStorage.AvailableItems[index] : null;
-                                        <InventorySlot Item=@item ShopSlotIndex=@index />
-                                    }
+                                <div class="box">
+                                    <div class="potions">
+                                        @for (var index = 0; index < 10; index++) // 10 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.AvailableItems.Count) ? shopStorage.AvailableItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Potions</div>
                                 </div>
-                                <div>Weapons</div>    
-                                <div class="weapon">
-                                    @for (var index = 0; index < 5; index++) // 10 Slots für den Shop
-                                    {
-                                        var item = (index < shopStorage.WeaponItems.Count) ? shopStorage.WeaponItems[index] : null;
-                                        <InventorySlot Item=@item ShopSlotIndex=@index />
-                                    }
+
+                                <div class="box">
+                                    <div class="weapon">
+                                        @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.WeaponItems.Count) ? shopStorage.WeaponItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Weapons</div>
                                 </div>
-                                <div>Armor</div>
-                                <div class="armor">
-                                    @for (var index = 0; index < 5; index++) // 10 Slots für den Shop
-                                    {
-                                        var item = (index < shopStorage.ArmorItems.Count) ? shopStorage.ArmorItems[index] : null;
-                                        <InventorySlot Item=@item ShopSlotIndex=@index />
-                                    }
+
+                                <div class="box">
+                                    <div class="armor">
+                                        @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.ArmorItems.Count) ? shopStorage.ArmorItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Armor</div>
                                 </div>
-                                <div>Accessories</div>
-                                <div class="accessories">
-                                    @for (var index = 0; index < 5; index++) // 10 Slots für den Shop
-                                    {
-                                        var item = (index < shopStorage.AccessoryItems.Count) ? shopStorage.AccessoryItems[index] : null;
-                                        <InventorySlot Item=@item ShopSlotIndex=@index />
-                                    }
+
+                                <div class="box">
+                                    <div class="materials">
+                                        @for (var index = 0; index < 3; index++) // 3 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.MaterialItems.Count) ? shopStorage.MaterialItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Materials</div>
                                 </div>
-                                <div>Consumables</div>
-                                <div class="consumables">
-                                    @for (var index = 0; index < 4; index++) // 10 Slots für den Shop
-                                    {
-                                        var item = (index < shopStorage.ConsumableItems.Count) ? shopStorage.ConsumableItems[index] : null;
-                                        <InventorySlot Item=@item ShopSlotIndex=@index />
-                                    }
+
+                                <div class="box">
+                                    <div class="accessories">
+                                        @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.AccessoryItems.Count) ? shopStorage.AccessoryItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Accessories</div>
                                 </div>
-                                <div>Materials</div>
-                                <div class="materials">
-                                    @for (var index = 0; index < 3; index++) // 10 Slots für den Shop
-                                    {
-                                        var item = (index < shopStorage.MaterialItems.Count) ? shopStorage.MaterialItems[index] : null;
-                                        <InventorySlot Item=@item ShopSlotIndex=@index />
-                                    }
+
+                                <div class="box">
+                                    <div class="consumables">
+                                        @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.ConsumableItems.Count) ? shopStorage.ConsumableItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Consumables</div>
                                 </div>
-                            
                             </div>
-                        <div style="align-items: center; margin: 20px 5px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>

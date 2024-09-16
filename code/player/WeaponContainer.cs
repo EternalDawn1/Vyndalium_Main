@@ -144,9 +144,7 @@ public partial class WeaponContainer : Component
 			return;
 		}
 
-		prefab.SetParent( WeaponBone );
-		prefab.Transform.Position = WeaponBone.Transform.Position;
-		prefab.Transform.Rotation = WeaponBone.Transform.Rotation;
+		
 
 		var modelCollider = prefab.Components.Get<ModelCollider>();
 		if ( modelCollider != null )
@@ -208,7 +206,7 @@ public partial class WeaponContainer : Component
 
 		weaponGo.NetworkSpawn();
 	}
-	
+
 	public void RemoveWeapon( GameObject prefab, bool shouldDeploy = false )
 	{
 		if ( WeaponBone == null )
@@ -217,12 +215,10 @@ public partial class WeaponContainer : Component
 			return;
 		}
 
-		if ( WeaponBone.Children.Contains( prefab ) )
-		{
+		
 			prefab.SetParent( null );
 			ClearWeaponBone();
-			//RemoveUnnecessaryComponents( prefab );
-		}
+		
 	}
 
 	private void ClearWeaponBone()
