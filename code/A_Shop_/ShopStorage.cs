@@ -42,7 +42,9 @@ namespace GeneralGame
             // Beispiel-Prefabs laden
             var potionPrefabs = new List<string>
             {
-                "prefabs/potion_big.prefab"
+                "prefabs/potions/potion_big.prefab",
+                "prefabs/potions/potion_mid.prefab",
+                "prefabs/potions/potion_small.prefab",
             };
 
             var weaponPrefabs = new List<string>

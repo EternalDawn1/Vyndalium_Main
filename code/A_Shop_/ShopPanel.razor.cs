@@ -26,7 +26,7 @@ namespace GeneralGame.HUD
             }
         }
 
-        
+        public static bool IsDragging { get; private set; }
         public static new bool IsVisible { get; set; }
         public ShopStorage shopStorage { get; private set; }
         private ShopInteractable shopInteractable;

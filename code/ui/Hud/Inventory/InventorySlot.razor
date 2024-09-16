@@ -24,20 +24,7 @@
 	{
 		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
 	}
-	@if (IndependentSlotIndex is not null)
-	{
-		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
-	}
-	@if (StorageSlotIndex is not null)
-
-	{
-		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
-	}
-	@if (ShopSlotIndex is not null)
-
-	{
-		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
-	}
+	
 
 	
 
@@ -329,7 +316,7 @@
 
 
 
-		await GameTask.Delay(100);
+		await GameTask.Delay(0);
 
 
 
@@ -428,13 +415,23 @@
 	}
 
 
-
+	private int currentPage = 0;
 
 
 	public bool IsHoveredByMouse() => Box.Rect.IsInside(Mouse.Position);
+	private void MoveItemToStorage(ItemComponent item)
+	{
+		// Verwenden Sie die Methode aus dem Inventar
+		Player.Local.Inventory.MoveItemToStorage(item, currentPage);
+	}
 
+	private void MoveItemToBackpack(ItemComponent item)
+	{
+		// Verwenden Sie die Methode aus dem Inventar
+		Player.Local.Inventory.MoveItemToBackpack(item);
+	}
 
-
+	
 	protected override void OnMouseDown(MousePanelEvent e)
 
 	{
@@ -442,7 +439,14 @@
 		base.OnMouseDown(e);
 
 
-
+		if (ShopSlotIndex != null)
+		{
+			// Drag-and-Drop für Shop-Slots deaktivieren
+			return;
+		}
+		if (IndependentSlotIndex != null)
+			return;
+		
 
 
 		if (e.Button != "mousemiddle")
@@ -462,7 +466,7 @@
 			else
 
 				Player.Local.Inventory.EquipItemFromBackpack(equipment);
-
+			
 
 
 			PlaySound("drop");
@@ -478,6 +482,29 @@
 			return;
 
 		}
+		if (sinceClick < 0.4f && Item is not null)
+		{
+			isMouseDown = true;
+			sinceClick = 0;
+
+			// Verschiebe das Item vom Inventar zum Storage oder umgekehrt
+			if (BackpackSlotIndex != null)
+			{
+				MoveItemToStorage(Item);
+			}
+			else if (StorageSlotIndex != null)
+			{
+				MoveItemToBackpack(Item);
+			}
+		}
+		else
+		{
+			isMouseDown = true;
+			sinceClick = 0;
+			OnDragStart();
+		}
+		
+		
 
 		isMouseDown = true;
 
@@ -558,7 +585,7 @@
 				PlaySound(res ? "drop" : "serror");
 			}
 		}
-		// from Shopslot
+		// From shop slot.
 		else if (fromSlot.ShopSlotIndex is not null)
 		{
 			// To backpack slot.
@@ -567,14 +594,40 @@
 				var res = inventory.SwapItems(fromSlot.ShopSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
 				PlaySound(res ? "drop" : "serror");
 			}
+			// To storage slot.
+			else if (targetSlot.StorageSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.ShopSlotIndex.Value, targetSlot.StorageSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+			// To shop slot.
+			else if (targetSlot.ShopSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.ShopSlotIndex.Value, targetSlot.ShopSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
 		}
-
+		// From equip slot.
+		else if (fromSlot.EquipSlotIndex is not null)
+		{
+			// To backpack slot.
+			if (targetSlot.BackpackSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.EquipSlotIndex.Value, targetSlot.BackpackSlotIndex.Value );
+				PlaySound(res ? "drop" : "serror");
+			}
+			// To equip slot.
+			else if (targetSlot.EquipSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.EquipSlotIndex.Value, (int)targetSlot.EquipSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+		}
 
 		// Update both slots
 		fromSlot.UpdateItem();
 		targetSlot.UpdateItem();
 	}
-
 
 	private void MoveOntoCharacter()
 
@@ -597,6 +650,7 @@
 		fromSlot.UpdateItem();
 
 	}
+	
 
 
 
@@ -614,7 +668,7 @@
 
 
 
-		// if ( ChildDraggable.HasClass( "can-drop" ) )
+		if ( ChildDraggable.HasClass( "can-drop" ) )
 
 		{
 
@@ -643,6 +697,7 @@
 				// Not hovering anything, drop the item!
 
 				Player.Local.Inventory.DropItem(ChildDraggable.ItemComponent);
+				
 
 				Inventory.Instance?.OnChanged();
 
@@ -723,6 +778,7 @@
 
 			if (targetSlot.EquipSlotIndex != null && (CurrentDraggable.ItemComponent is not ItemEquipment ie || ie.Slot !=
 			targetSlot.EquipSlotIndex))
+			
 
 			{
 

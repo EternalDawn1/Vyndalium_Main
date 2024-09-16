@@ -14,13 +14,16 @@ namespace GeneralGame
 
         private StorageBox storageBox { get; set; }
         [Property] ItemInteractable itemInteractable { get; set; }
+        [Property] SkinnedModelRenderer skinnedModelRenderer { get; set; }
         [Property] public List<ItemComponent> Items { get; set; } = new List<ItemComponent>();
         [Property] public List<ItemComponent> items => Items;
+        
         private bool itemsGenerated = false;
 
         protected override void OnAwake()
         {
             itemInteractable = this.Components.Get<ItemInteractable>();
+            skinnedModelRenderer = this.Components.Get<SkinnedModelRenderer>();
             base.OnAwake();
             if ( storageBox == null )
             {
@@ -265,22 +268,52 @@ namespace GeneralGame
 
                 FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.StorageBox );
                 Player.Local.BlockInputs = true;
+                if(skinnedModelRenderer != null)
+                {
+                    skinnedModelRenderer.Set( "chest_open", true );
+
+                }
+                
+
             }
             else
             {
                 CloseInventory();
+                
             }
         }
 
         public void CloseInventory()
         {
-            FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
-            Player.Local.BlockInputs = false;
-           
+            if ( FullScreenManager.Instance != null )
+            {
+                // Überprüfen, ob die StorageBox noch vorhanden ist
+                if ( FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox )
+                {
+                    FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
+                }
+                else
+                {
+                    // Animation starten, wenn die StorageBox nicht mehr vorhanden ist
+                    if ( skinnedModelRenderer != null )
+                    {
+                        skinnedModelRenderer.Set( "chest_close", true );
+                    }
+                }
+            }
 
+            if ( Player.Local != null )
+            {
+                Player.Local.BlockInputs = false;
+            }
 
+            if ( skinnedModelRenderer != null )
+            {
+                skinnedModelRenderer.Set( "chest_open", false );
+            }
 
+             // Setzen der Variable, um anzuzeigen, dass die Kiste geschlossen ist
         }
-        
+
     }
 }
