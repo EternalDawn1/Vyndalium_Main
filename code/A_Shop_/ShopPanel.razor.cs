@@ -9,7 +9,8 @@ namespace GeneralGame.HUD
         public int currentPage = 0;
         private int itemsPerPage = 12; // Anzahl der Items pro Seite
         private int totalPages => (int)Math.Ceiling( (double)Player.Local.Inventory.StorageItems.Count / itemsPerPage );
-
+        public ItemComponent upgradeItem;
+        public List<ItemComponent> requiredMaterials;
         private void PreviousPage()
         {
             if ( currentPage > 0 )
@@ -25,6 +26,7 @@ namespace GeneralGame.HUD
                 currentPage++;
             }
         }
+       
 
         public static bool IsDragging { get; private set; }
         public static new bool IsVisible { get; set; }

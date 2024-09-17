@@ -87,11 +87,36 @@
 </div>
 
     <div class="panel-content" style="opacity: @(currentPanel == PanelType.Weapons ? 1 : 0)">
-        <div class="panel-content-text">
-            <div class="panel-content-layout">
-                <!-- Weapons Content -->
+    <div class="panel-content-text">
+        <div class="panel-content-layout">
+                
+            <div class="upgrade-section">
+                    <div class="title" style="color:blue">Upgrade</div>
+              
+                        <div class="items2">
+                        
+                                    @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+                                    {
+                                        var item = Player.Local.Inventory.BackpackItems[index];
+                                        <InventorySlot Item=@item BackpackSlotIndex=@index />
+                                    }
+                    </div>
+                    <div class="upgrade-slot">
+                                <div class="items2">
+                            @for (var index = 0; index < Player.Local.Inventory.UpgradeItems.Count; index++)
+                            {
+                                var item = Player.Local.Inventory.UpgradeItems[index];
+                                <InventorySlot Item=@item UpgradeSlotIndex=@index />
+                            }
+                        </div>
+                    </div>
+                    <button class="upgrade-button" @onclick="ConfirmUpgrade" disabled="@(upgradeItem == null)">Upgrade</button>
+                
+
+                
             </div>
         </div>
+    </div>
     </div>
 
     <div class="panel-content" style="opacity: @(currentPanel == PanelType.Armor ? 1 : 0)">

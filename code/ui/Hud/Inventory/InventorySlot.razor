@@ -114,6 +114,7 @@
 	public EquipSlot? EquipSlotIndex { get; set; } = null;
 
 	public int? BackpackSlotIndex { get; set; } = null;
+	public int? UpgradeSlotIndex { get; set; } = null;
 
 	public int? IndependentSlotIndex { get; set; } = null;
 
@@ -444,6 +445,11 @@
 			// Drag-and-Drop für Shop-Slots deaktivieren
 			return;
 		}
+		if(UpgradeSlotIndex != null)
+		{
+			// Drag-and-Drop für Upgrade-Slots deaktivieren
+			return;
+		}
 		if (IndependentSlotIndex != null)
 			return;
 		
@@ -620,6 +626,22 @@
 			else if (targetSlot.EquipSlotIndex is not null)
 			{
 				var res = inventory.SwapItems(fromSlot.EquipSlotIndex.Value, (int)targetSlot.EquipSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+		}
+		else if (fromSlot.UpgradeSlotIndex is not null)
+		{
+			if (targetSlot.BackpackSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.UpgradeSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+		}
+		else if (fromSlot.IndependentSlotIndex is not null)
+		{
+			if (targetSlot.BackpackSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.IndependentSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
 				PlaySound(res ? "drop" : "serror");
 			}
 		}

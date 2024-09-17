@@ -13,6 +13,8 @@ namespace GeneralGame
         [Property] public List<ItemComponent> AccessoryItems { get; private set; } = new List<ItemComponent>(); // Hinzugefügt
         [Property] public List<ItemComponent> ConsumableItems { get; private set; } = new List<ItemComponent>(); // Hinzugefügt
         [Property] public List<ItemComponent> MaterialItems { get; private set; } = new List<ItemComponent>(); // Hinzugefügt
+
+        [Property] public List<ItemComponent> UpgradeItems { get; private set; } = new List<ItemComponent>();
         private bool prefabsLoaded = false;
         protected override void OnAwake()
         {
@@ -34,6 +36,7 @@ namespace GeneralGame
             AccessoryItems = new List<ItemComponent>(); // Hinzugefügt
             ConsumableItems = new List<ItemComponent>(); // Hinzugefügt
             MaterialItems = new List<ItemComponent>();
+            UpgradeItems = new List<ItemComponent>();
         }
 
         public void LoadPrefabs()

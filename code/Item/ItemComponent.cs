@@ -10,6 +10,7 @@ public enum ItemState
 	StorageBox,
 	Storage,
 	Shop,
+	Upgrade,
 }
 public enum Tier 
 {

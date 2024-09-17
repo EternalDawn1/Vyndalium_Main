@@ -72,7 +72,8 @@ ShopPanel {
                 position: relative;
                     width: 100%;
                 
-                    .panel-content-layout{
+                    .panel-content-layout
+                    {
                         position: relative;
                             width: 100%;
                             background-color: rgba(0, 0, 0, 0.568);
@@ -84,8 +85,66 @@ ShopPanel {
                             font-size: 23px;
                             margin-left: 5px;
                             margin-bottom: 5px;
-                           
+                            .title {
                             
+                                    justify-content: center;
+                                    align-items: center;
+                                    background-color: #1996628c;
+                                    border-width: 1px;
+                                    border-color: #000000;
+                                    color: #ffffff;
+                                    font-size: 30px;
+                                    font-weight: bold;
+                                    font-style: italic;
+                            
+                            
+                                    padding: 10px;
+                                    border-radius: 10px;
+                                    margin-bottom: 10px;
+                            
+                                }
+                           
+                        .upgrade-section
+                        {
+                            top: 0%;
+                                left: 27%;
+                                padding: 20px;
+                                gap: 10px;
+                                flex-direction: column;
+                                position: relative;
+                                width: 70%;
+                                height: 82.5%;
+                                background-color: rgba(39, 39, 39, 0.815);
+                                border-radius: 10px;
+                                border-width: 1px;
+                                border-color: #000000;
+                            .items2{
+                                position: relative;
+                                
+                                    justify-content: center;
+                                    gap: 1px;
+                                    align-items: center;
+                                    padding: 5%;
+                                    flex-wrap: wrap;
+                                    width: 50%;
+                                    height: 100%;
+                                    overflow-x: scroll;
+                                    border-color: #000000;
+                                    background-color: #00000091;
+                                    border-width: 1px;
+                            }
+                            .upgrade-slot{
+                                right: 15%;
+                                bottom:50%;
+                                position: absolute;
+                                width: 20%;
+                                height: 20%;
+                                justify-content: center;
+                                align-items: center;
+                                
+                               
+                            }
+                        }   
 
                         .main-panel {
                                 position: absolute;
@@ -323,11 +382,18 @@ ShopPanel {
                                         }
                                         
                                     }
-                        
+                                    
                                 }
+                                
+                       
+                                
                     }
+                    
+                    
             }
-    }
+            
+        }
+    
     
 
     
@@ -336,5 +402,5 @@ ShopPanel {
 
 
 
-}
+    }
 }

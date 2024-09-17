@@ -18,16 +18,19 @@ public sealed class Inventory : Component
 	public const int MAX_BACKPACK_SLOTS = 30;
 	public const int MAX_STORAGE_SLOTS = 48;
 	private const int ItemsPerPage = 12;
+	public const int MAX_UPGRADE_SLOTS = 1;
 
 	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
 	[Property] public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
 	[Property] public IReadOnlyList<ItemComponent> StorageBoxItems => _storageBoxItems;
 	[Property]public IReadOnlyList<ItemComponent> StorageItems => _storageItems;
+	[Property] public IReadOnlyList<ItemComponent> UpgradeItems => _upgradeItems;
 
 	[Property] public readonly  List<ItemComponent> _backpackItems;
 	[Property] public readonly List<ItemComponent> _equippedItems;
 	[Property] public readonly List<ItemComponent> _storageBoxItems;
 	[Property] public readonly List<ItemComponent> _storageItems;
+	[Property] public readonly List<ItemComponent> _upgradeItems;
 
 	public bool RemoveItem( ItemComponent item )
 	{
@@ -48,8 +51,42 @@ public sealed class Inventory : Component
 			item.State = ItemState.None;
 			return true;
 		}
+		else if (_upgradeItems.Contains(item))
+		{
+			int index = _upgradeItems.IndexOf( item );
+			_upgradeItems[index] = null;
+			item.State = ItemState.None;
+			return true;
+		}
 		
 
+		return false;
+	}
+	public bool RemoveItemUpgrade( string name, int count )
+	{
+		int remainingCount = count;
+		for ( int i = 0; i < _backpackItems.Count; i++ )
+		{
+			var item = _backpackItems[i];
+			if ( item != null && item.Name == name )
+			{
+				if ( item.Count > remainingCount )
+				{
+					item.Count -= remainingCount;
+					return true;
+				}
+				else
+				{
+					remainingCount -= item.Count;
+					_backpackItems[i] = null;
+					item.State = ItemState.None;
+					if ( remainingCount <= 0 )
+					{
+						return true;
+					}
+				}
+			}
+		}
 		return false;
 	}
 	public static void EquipItemStats( ItemComponent item )
@@ -156,6 +193,7 @@ public sealed class Inventory : Component
 		_storageItems = new List<ItemComponent>( new ItemComponent[MAX_STORAGE_SLOTS] );
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 		_storageBoxItems = new List<ItemComponent>();
+		_upgradeItems = new List<ItemComponent>( new ItemComponent[MAX_UPGRADE_SLOTS] );
 	}
 
 	public int IndexOf( ItemComponent item )
@@ -173,10 +211,16 @@ public sealed class Inventory : Component
 		{
 			return _storageItems.Contains( item ) ? _storageItems.IndexOf( item ) : _backpackItems.IndexOf( item );
 		}
-		else
+		else if ( item.State == ItemState.Upgrade )
+		{
+			return _upgradeItems.IndexOf( item );
+		}
+		else 
 		{
 			return _backpackItems.Contains( item ) ? _backpackItems.IndexOf( item ) : _storageBoxItems.IndexOf( item );
 		}
+		
+		
 		
 	}
 
@@ -185,6 +229,7 @@ public sealed class Inventory : Component
 
 	public ItemComponent GetItemInSlot( EquipSlot slot ) => _equippedItems.ElementAtOrDefault( (int)slot );
 	public bool IsSlotOccupied( EquipSlot slot ) => GetItemInSlot( slot ) is not null;
+	
 
 	public bool GiveItem( ItemComponent item )
 	{
@@ -218,6 +263,27 @@ public sealed class Inventory : Component
 		_storageItems.AddRange( new ItemComponent[ItemsPerPage] );
 		return _storageItems.Count - ItemsPerPage; // Rückgabe des ersten Slots der neuen Seite
 	}
+	public void MoveItemToUpgrade( ItemComponent item )
+	{
+		if ( item == null ) return;
+
+		if ( _backpackItems.Contains( item ) )
+		{
+			int freeSlot = _upgradeItems.IndexOf( null );
+			if ( freeSlot != -1 )
+			{
+				int itemIndex = _backpackItems.IndexOf( item );
+				_backpackItems[itemIndex] = null; // Setze den Slot im Rucksack auf null
+				_upgradeItems[freeSlot] = item;
+				item.State = ItemState.Upgrade;
+				item.GameObject.Enabled = false;
+			}
+			else
+			{
+				Log.Error( "Kein freier Slot im Upgrade verfügbar." );
+			}
+		}
+	}
 	public void MoveItemToStorage( ItemComponent item, int currentPage )
 	{
 		if ( item == null ) return;
@@ -236,6 +302,27 @@ public sealed class Inventory : Component
 			else
 			{
 				Log.Error( "Kein freier Slot im Storage verfügbar." );
+			}
+		}
+	}
+	public void MoveItemFromUpgradeToBackpack( ItemComponent item )
+	{
+		if ( item == null ) return;
+
+		if ( _upgradeItems.Contains( item ) )
+		{
+			int freeSlot = _backpackItems.IndexOf( null );
+			if ( freeSlot != -1 )
+			{
+				int itemIndex = _upgradeItems.IndexOf( item );
+				_upgradeItems[itemIndex] = null; // Setze den Slot im Upgrade auf null
+				_backpackItems[freeSlot] = item;
+				item.State = ItemState.Backpack;
+				item.GameObject.Enabled = false;
+			}
+			else
+			{
+				Log.Error( "Kein freier Slot im Rucksack verfügbar." );
 			}
 		}
 	}
@@ -966,9 +1053,21 @@ public sealed class Inventory : Component
 		return BackpackItems.Where( x => x.IsValid() && x.Tags.Has( tag ) )?.Count() ?? 0;
 	}
 
-	public bool HasItem( string name )
+	public bool HasItem( string name, int count )
 	{
-		return BackpackItems.Any( x => x.Name == name );
+		int totalCount = 0;
+		foreach ( var item in _backpackItems )
+		{
+			if ( item != null && item.Name == name )
+			{
+				totalCount += item.Count;
+				if ( totalCount >= count )
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	protected override void OnUpdate()
 	{

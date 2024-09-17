@@ -58,6 +58,21 @@
 							   onclick=@(() => BuyItem(_item)) />
 		}
 	}
+    else if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Weapons)
+    {
+        @if (_item != null && Player.Local.Inventory.BackpackItems.Contains(_item))
+        {
+            <ContextMenuOption Description="Move to Upgrade"
+                               ImagePath="ui/hud/shop.png"
+                               onclick=@(() => Upgrade(_item)) />
+        }
+        else
+        {
+            <ContextMenuOption Description="Move to Backpack"
+                               ImagePath="ui/hud/inventory.png"
+                               onclick=@(() => MoveToBackpackUpgrade(_item)) />
+        }
+    }
 	
     else
     {
@@ -102,26 +117,37 @@
 	private static ContextMenu _instance;
 	private ItemComponent _item;
 	private List<ItemComponent> selectedItems = new();
-	private void UseHealthPotion(HealthPotion healthPotion)
-{
-    if (healthPotion.Count > 1)
-    {
-        healthPotion.Count--;
-    }
-    else
-    {
-        Player.Local.Inventory.RemoveItem(healthPotion);
-    }
 
-    healthPotion.Use(player);
-    Inventory.Instance?.OnChanged();
-    Hudmaster.Instance.ShowNotification($"Player healed by {healthPotion.HealthAmount}", "/ui/hud/potions.png");
-}
-		public void MoveItemToStorage(ItemComponent item)
+    public void Upgrade(ItemComponent item)
     {
-        int currentPage = ShopPanel.Instance.currentPage;
-        Player.Local.Inventory.MoveItemToStorage(item, currentPage);
+        Player.Local.Inventory.MoveItemToUpgrade(item);
     }
+     public void MoveToBackpackUpgrade(ItemComponent item)
+    {
+        
+        Player.Local.Inventory.MoveItemFromUpgradeToBackpack(item);
+    }
+    
+	private void UseHealthPotion(HealthPotion healthPotion)
+    {
+        if (healthPotion.Count > 1)
+        {
+            healthPotion.Count--;
+        }
+        else
+        {
+            Player.Local.Inventory.RemoveItem(healthPotion);
+        }
+
+        healthPotion.Use(player);
+        Inventory.Instance?.OnChanged();
+        Hudmaster.Instance.ShowNotification($"Player healed by {healthPotion.HealthAmount}", "/ui/hud/potions.png");
+    }
+		public void MoveItemToStorage(ItemComponent item)
+        {
+            int currentPage = ShopPanel.Instance.currentPage;
+            Player.Local.Inventory.MoveItemToStorage(item, currentPage);
+        }
 	public void BuyItem(ItemComponent item)
 	{
 		var player = Player.Local;
@@ -157,6 +183,7 @@
 			Hudmaster.Instance.ShowNotification("Not Enough Money", "/ui/hud/shop.png");
 		}
 	}
+    
 	private ItemComponent ConvertPrefabToItemComponent(PrefabFile prefab)
         {
             var obj = SceneUtility.GetPrefabScene(prefab).Clone();
