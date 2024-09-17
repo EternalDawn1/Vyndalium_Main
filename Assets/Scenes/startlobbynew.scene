@@ -72,7 +72,7 @@
           "__guid": "2f619b22-26f0-43d2-8691-e330693b0c3c",
           "Flags": 0,
           "Name": "legendary chest",
-          "Position": "-755.2057,438.9093,30.26942",
+          "Position": "-849.1901,447.9713,21.42332",
           "Rotation": "-0.003432079,0.001981512,0.8660187,-0.4999961",
           "Enabled": true,
           "Components": [
@@ -92,7 +92,7 @@
           "__guid": "ff5d13c5-1c0e-4c01-a06e-86a060547966",
           "Flags": 0,
           "Name": "legendary chest (1)",
-          "Position": "-760.8688,663.5932,30.22448",
+          "Position": "-860.049,660.0692,19.63291",
           "Rotation": "-0.001981512,0.003432079,0.4999962,-0.8660187",
           "Enabled": true,
           "Components": [
@@ -497,7 +497,7 @@
               "__type": "Sandbox.PointLight",
               "__guid": "11346206-d579-413f-b5d0-3f579f320793",
               "Attenuation": 0.14,
-              "FogMode": "Enabled",
+              "FogMode": "WithoutShadows",
               "FogStrength": 1,
               "LightColor": "0.92558,0.66039,0.35732,1",
               "Radius": 1275.4998,
@@ -509,13 +509,53 @@
           "__guid": "8fc9ee9f-b10b-41bc-a3c1-0847ce36b0e5",
           "Flags": 0,
           "Name": "Point Light (7)",
-          "Position": "-967.2765,719.9534,483.6418",
+          "Position": "-1007.55,708.7014,327.6135",
           "Tags": "light_point,light",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
               "__guid": "146cde33-a9b4-45bb-9d9f-1a1003843535",
+              "Attenuation": 0.33,
+              "FogMode": "WithoutShadows",
+              "FogStrength": 1,
+              "LightColor": "0.92558,0.66039,0.35732,1",
+              "Radius": 1275.4998,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "b5551316-7b7b-4157-82f9-860fc2e41bdf",
+          "Flags": 0,
+          "Name": "Point Light (7)",
+          "Position": "-1230.7,708.7014,353.5331",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "472ed932-437d-4875-b466-5d97eb43d4d7",
+              "Attenuation": 0.33,
+              "FogMode": "WithoutShadows",
+              "FogStrength": 1,
+              "LightColor": "0.92558,0.66039,0.35732,1",
+              "Radius": 1275.4998,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "574c1b15-d939-4c6c-a25f-cae00f72eb2c",
+          "Flags": 0,
+          "Name": "Point Light (7)",
+          "Position": "-1614.047,719.9534,399.6947",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "1fc63503-01f4-4b26-b8b0-03336bd8f687",
               "Attenuation": 0.33,
               "FogMode": "Enabled",
               "FogStrength": 1,
@@ -577,68 +617,10 @@
       ]
     },
     {
-      "__guid": "15c414a2-7a3d-4fa6-ab55-6b8c91b0f022",
-      "Flags": 0,
-      "Name": "Map Lobby",
-      "Position": "-2707.249,-507.6795,148.0116",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.WorldPanel",
-          "__guid": "f22d7c51-0282-4afd-9964-474a1e7ee4b2",
-          "HorizontalAlign": "Center",
-          "InteractionRange": 1000,
-          "LookAtCamera": false,
-          "PanelSize": "4904.1,2840.603",
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderScale": 1,
-          "VerticalAlign": "Center"
-        },
-        {
-          "__type": "GeneralGame.HUD.LobbyWorldPanel",
-          "__guid": "fea6c69e-959c-4e80-be03-646835225264"
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "2f3acfd3-374b-42b0-9e96-92ab2ffcd4a5",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "42.77319,171.6406,17.7894",
-          "Rotation": "0.1205905,0.04995017,0.9159755,0.3794096",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.TextRenderer",
-              "__guid": "c8bf3368-b6bd-4efb-be7e-0c3e52d7353e",
-              "Color": "0,1,0.05,1",
-              "FontFamily": "Poppins",
-              "FontSize": 65.21,
-              "FontWeight": 800,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "Scale": 0.26,
-              "Text": "Press E \nto Interact\n",
-              "TextAlignment": "Center"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "__guid": "47abb549-b313-4b30-a3b7-b3daf52d65f6",
       "Flags": 0,
       "Name": "Leaderboard",
-      "Position": "-2702.056,-789.9261,148.0116",
+      "Position": "-2951.967,-973.2637,148.0116",
       "Rotation": "0,0,0.7071067,0.7071068",
       "Enabled": true,
       "Components": [
@@ -781,6 +763,7 @@
               "MagicPower": 0,
               "Mana": 0,
               "MaxStack": 1,
+              "Missions": false,
               "MoveSpeed": 0,
               "Name": "Merchant Dealer",
               "PER": 0,
@@ -910,6 +893,29 @@
               },
               "RenderType": "On",
               "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            },
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "7c6f03c0-47b0-43b5-a641-52a04647b3d5",
+              "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": {
+                "_type": "component",
+                "component_id": "0e3df0ce-8a10-4ca4-814c-b8c3cba97419",
+                "go": "fac84fce-3995-4eda-8e73-a6c6546ab627",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "CreateBoneObjects": false,
+              "Model": "models/citizen_clothes/hair/hair_longcurly/models/hair_longcurly_brown.vmdl",
+              "Morphs": {},
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.19531,0.28372,0.22478,1",
               "UseAnimGraph": true
             }
           ],
@@ -1803,6 +1809,228 @@
           }
         }
       ]
+    },
+    {
+      "__guid": "b9cddf3e-7e09-474f-aeae-b775182d0d76",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-2988.005,-515.0825,145.1748",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "4eb97468-f3cc-4672-947d-33c22e386328",
+          "Center": "0,0,0",
+          "IsTrigger": false,
+          "Radius": 99.09987,
+          "Static": false
+        },
+        {
+          "__type": "GeneralGame.ShopInteractable",
+          "__guid": "31947675-a6e6-41d3-9cb3-21473ec9ec8c",
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 1,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 78,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "IsEquipment": false,
+          "IsItem": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 1,
+          "Missions": true,
+          "MoveSpeed": 0,
+          "PER": 0,
+          "PoisonResistence": 0,
+          "Price": 0,
+          "SellPrice": 0,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "Stats": [],
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "WeightInGrams": 0
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "88867955-0e9e-4ecc-a0d0-cabe33e606e6",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "0,-2.953247,106.2424",
+          "Rotation": "0,0,1,0.0000001947072",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "1afb3674-21e5-4ec3-8cc8-a2ea83a69e5c",
+              "Color": "0,1,0.11667,1",
+              "FontFamily": "Poppins",
+              "FontSize": 512,
+              "FontWeight": 800,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "Scale": 0.08,
+              "Text": "Missions",
+              "TextAlignment": "Center"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "f46cf8b5-d19d-4ed8-baa5-acb761c3f6ab",
+      "Flags": 0,
+      "Name": "potion_big",
+      "Position": "-2148.325,-1137.635,-60.99998",
+      "Rotation": "0,0,0.7933533,0.6087615",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "3537df38-d594-4958-9174-4c3b9555c9fc",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "Model": "megascans/misc/round_hay_bale_rlcay.vmdl",
+          "Morphs": {},
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "a8ba4716-6579-47e2-b9e6-9a6dc62c28f1",
+          "__enabled": false,
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Radius": 10,
+          "Static": false
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "bf653e2e-4caa-4611-a364-f3e2c257de03",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "4a7eed56-e41b-417a-8cd2-bc17e0079115",
+          "IsTrigger": false,
+          "Model": "megascans/misc/round_hay_bale_rlcay.vmdl",
+          "Static": false
+        },
+        {
+          "__type": "GeneralGame.HealthPotion",
+          "__guid": "5116994b-5e39-4f25-bd36-a9b35efbdec6",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 1000,
+          "Count": 1,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "0",
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HealthAmount": 50,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "model/27/untitled_109.vmdl",
+            "MaterialGroup": "",
+            "Colour": "1,1,1,1",
+            "Position": "-39.45,35.1,35.1",
+            "Rotation": "0.2816752,0.6485824,-0.6485824,0.2816752",
+            "Guid": "2203d1b2-d54b-46e0-b35d-06ef0e96ee6a"
+          },
+          "INT": 0,
+          "IsEquipment": false,
+          "IsItem": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 20,
+          "MoveSpeed": 0,
+          "Name": "Hay",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "Price": 0,
+          "SellPrice": 500,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "Stats": [],
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "WeightInGrams": 0
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -1833,7 +2061,9 @@
     "eurorp.kitchen",
     "fish.cabinet_bottom_doors",
     "frogpond.washingmachine",
-    "luke.ft_kitchen_light"
+    "luke.ft_kitchen_light",
+    "sneed.round_hay_bale",
+    "tesssssssssst.untitled_1092546140"
   ],
   "__version": 1
 }

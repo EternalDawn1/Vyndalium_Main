@@ -105,19 +105,13 @@ public partial class WeaponContainer : Component
 	}
 
 	public async void Give( GameObject prefab, bool shouldDeploy = false )
-
 	{
 		await Task.Delay( 1 );
-		
+
 		if ( Player.Local == null )
 		{
-			Log.Error( "Prefab is null in WeaponContainer.Give" );
+			Log.Error( "Player.Local is null in WeaponContainer.Give" );
 			return;
-		}	
-		var weaponComponent = prefab.Components.Get<WeaponComponent>();
-		if ( weaponComponent != null )
-		{
-			weaponComponent.Owner = Player.Local; // Stellen Sie sicher, dass der Player zugewiesen wird
 		}
 
 		if ( prefab == null )
@@ -126,14 +120,20 @@ public partial class WeaponContainer : Component
 			return;
 		}
 
-		var ItemComponents = prefab.Components.GetInDescendantsOrSelf<ItemComponent>( true );
-		if ( ItemComponents == null )
+		var weaponComponent = prefab.Components.Get<WeaponComponent>();
+		if ( weaponComponent != null )
+		{
+			weaponComponent.Owner = Player.Local; // Stellen Sie sicher, dass der Player zugewiesen wird
+		}
+
+		var itemComponents = prefab.Components.GetInDescendantsOrSelf<ItemComponent>( true );
+		if ( itemComponents == null )
 		{
 			Log.Error( "ItemComponents is null in WeaponContainer.Give" );
 			return;
 		}
 
-		if ( ItemComponents.IsEquipment )
+		if ( itemComponents.IsEquipment )
 		{
 			return;
 		}
@@ -143,8 +143,6 @@ public partial class WeaponContainer : Component
 			Log.Error( "WeaponBone is null in WeaponContainer.Give" );
 			return;
 		}
-
-		
 
 		var modelCollider = prefab.Components.Get<ModelCollider>();
 		if ( modelCollider != null )
@@ -159,13 +157,15 @@ public partial class WeaponContainer : Component
 		}
 
 		var weaponGo = prefab.Clone();
-		var weapon = weaponGo.Components.GetInDescendantsOrSelf<WeaponComponent>( true );
-		weapon.Owner = PlayrControl;
+		var weapon = weaponGo.Components?.GetInDescendantsOrSelf<WeaponComponent>( true );
 		if ( weapon == null || !weapon.IsValid() )
 		{
-			weaponGo.DestroyImmediate();
+			
+			weaponGo.Destroy();
 			return;
 		}
+
+		weapon.Owner = PlayrControl;
 
 		if ( shouldDeploy )
 		{
@@ -195,7 +195,7 @@ public partial class WeaponContainer : Component
 						player.Ammo.TryTake( nextWeaponGo.AmmoType, ammoToAdd, out var taken );
 					}
 				}
-				if (nextWeaponGo.AmmoInClip < nextWeaponGo.ClipSize)
+				if ( nextWeaponGo.AmmoInClip < nextWeaponGo.ClipSize )
 				{
 					nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;
 				}
@@ -206,7 +206,6 @@ public partial class WeaponContainer : Component
 
 		weaponGo.NetworkSpawn();
 	}
-
 	public void RemoveWeapon( GameObject prefab, bool shouldDeploy = false )
 	{
 		if ( WeaponBone == null )

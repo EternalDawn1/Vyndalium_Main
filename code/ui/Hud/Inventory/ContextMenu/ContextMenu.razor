@@ -146,15 +146,15 @@
 				modelCollider.Enabled = false;
 			}
 			
-			Log.Info($"Item {item.Name} gekauft für {item.BuyPrice} Vyndalium.");
+			
 			Hudmaster.Instance.ShowNotification($"Item {item.Name} was bought for {item.BuyPrice} Vyndalium.", "/ui/hud/shop.png");
 			Inventory.Instance?.OnChanged();
 			
 		}
 		else
 		{
-			Log.Info("Nicht genug Vyndalium.");
-			Hudmaster.Instance.ShowNotification("Nicht genug Vyndalium.", "/ui/hud/shop.png");
+			
+			Hudmaster.Instance.ShowNotification("Not Enough Money", "/ui/hud/shop.png");
 		}
 	}
 	private ItemComponent ConvertPrefabToItemComponent(PrefabFile prefab)

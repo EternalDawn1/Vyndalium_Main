@@ -185,6 +185,41 @@ namespace GeneralGame
             obj.Enabled = false;
             return itemComponent;
         }
+        public void OpenLeaderboard()
+        {
+            if ( !IsOpened )
+            {
+                FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.Leaderboard );
+                Player.Local.BlockInputs = true;
+            }
+            else
+            {
+                CloseLeaderboard();
+            }
+        }
+        public void CloseLeaderboard()
+        {
+            Player.Local.BlockInputs = false;
+            FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
+        }
+        public void OpenMisson()
+        {
+            if ( !IsOpened )
+            {
+                FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.MissonPanel );
+                Player.Local.BlockInputs = true;
+            }
+            else
+            {
+                CloseMisson();
+            }
+        }
+        public void CloseMisson()
+        {
+            
+            Player.Local.BlockInputs = false;
+            FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
+        }
 
         public void OpenShop()
         {

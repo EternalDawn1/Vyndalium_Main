@@ -36,6 +36,12 @@
             case FullScreenPanel.ShopPanel:
                 <ShopPanel/>
                 break;
+            case FullScreenPanel.Leaderboard:
+                <Leaderboard/>
+                break;
+            case FullScreenPanel.MissonPanel:
+                <Lobby/>
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -55,7 +61,9 @@
         PauseMenu,
         Confirm,
         StorageBox,
-        ShopPanel
+        ShopPanel,
+        Leaderboard,
+        MissonPanel,
         
     }
 
@@ -70,6 +78,7 @@
     public void Display(FullScreenPanel panel)
     {
         ActivePanel = panel;
+        
     }
 
     public override void Tick()
@@ -79,7 +88,10 @@
         if (Input.EscapePressed) // Stellen Sie sicher, dass "Input" korrekt referenziert wird.
         {
             if (ActivePanel == FullScreenPanel.InGameHud)
+            
                 Toggle(FullScreenPanel.PauseMenu);
+                
+
             else
                 Toggle(FullScreenPanel.InGameHud);
         }
@@ -101,9 +113,14 @@
     {
         if (ActivePanel == panel)
             ActivePanel = FullScreenPanel.InGameHud;
+            
+        else if(ActivePanel == FullScreenPanel.PauseMenu)
+            Input.EscapePressed = false;
+        
         else
             ActivePanel = panel;
             Player.Local.BlockInputs = false;
+            
     }
 
     public static bool Is(FullScreenPanel mode)

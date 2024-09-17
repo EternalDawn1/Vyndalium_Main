@@ -5,7 +5,7 @@ using Sandbox;
 public class ShopInteractable : BaseInteraction
 {
     public ShopStorage Storage { get; set; }
-   
+    [Property]public bool Missions { get; set; } // Boolean-Wert, der angibt, ob Missionen aktiv sind
 
     protected override void OnStart()
     {
@@ -13,9 +13,50 @@ public class ShopInteractable : BaseInteraction
 
         Storage = Components.Create<ShopStorage>();
 
-        
-        
+        if ( Missions )
         {
+            interactions.AddInteraction( new Interaction()
+            {
+                Identifier = "leader.open",
+                Action = ( Player interactor, GameObject obj ) =>
+                {
+                    var shopInteractable = obj.Components.Get<ShopInteractable>();
+                    if ( shopInteractable != null && shopInteractable.Storage != null )
+                    {
+                        shopInteractable.Storage.OpenMisson();
+                    }
+                },
+                Keybind = "use2",
+                Description = "Leaderboard",
+                Stats = "Leaderboard",
+                ShowWhenDisabled = () => true,
+                Accessibility = AccessibleFrom.All,
+            } );
+            // Interaktionen, wenn Missions true ist
+            interactions.AddInteraction( new Interaction()
+            {
+                Identifier = "shop.special",
+                Action = ( Player interactor, GameObject obj ) =>
+                {
+                    var shopInteractable = obj.Components.Get<ShopInteractable>();
+                    if ( shopInteractable != null && shopInteractable.Storage != null )
+                    {
+                        // Spezielle Interaktion basierend auf Boolean
+                        shopInteractable.Storage.OpenLeaderboard();
+                    }
+                },
+                Keybind = "use",
+                Description = "Missons",
+                Stats = "Missons",
+                ShowWhenDisabled = () => true,
+                Accessibility = AccessibleFrom.All,
+            } );
+
+            
+        }
+        else
+        {
+            // Interaktionen, wenn Missions false ist
             interactions.AddInteraction( new Interaction()
             {
                 Identifier = "shop.open",
