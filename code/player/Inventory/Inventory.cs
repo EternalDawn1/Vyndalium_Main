@@ -277,6 +277,7 @@ public sealed class Inventory : Component
 				_upgradeItems[freeSlot] = item;
 				item.State = ItemState.Upgrade;
 				item.GameObject.Enabled = false;
+				ShopPanel.Instance?.CheckUpgradeSlot();
 			}
 			else
 			{
@@ -284,6 +285,7 @@ public sealed class Inventory : Component
 			}
 		}
 	}
+	
 	public void MoveItemToStorage( ItemComponent item, int currentPage )
 	{
 		if ( item == null ) return;
@@ -298,6 +300,7 @@ public sealed class Inventory : Component
 				_storageItems[freeSlot] = item;
 				item.State = ItemState.Storage;
 				item.GameObject.Enabled = false;
+				
 			}
 			else
 			{
@@ -319,6 +322,7 @@ public sealed class Inventory : Component
 				_backpackItems[freeSlot] = item;
 				item.State = ItemState.Backpack;
 				item.GameObject.Enabled = false;
+				
 			}
 			else
 			{
@@ -326,7 +330,7 @@ public sealed class Inventory : Component
 			}
 		}
 	}
-
+	
 	public void MoveItemToBackpack( ItemComponent item )
 	{
 		if ( item == null ) return;

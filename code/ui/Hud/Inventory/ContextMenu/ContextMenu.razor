@@ -126,6 +126,8 @@
     {
         
         Player.Local.Inventory.MoveItemFromUpgradeToBackpack(item);
+        ShopPanel.Instance?.CheckUpgradeSlot();
+        StateHasChanged();
     }
     
 	private void UseHealthPotion(HealthPotion healthPotion)

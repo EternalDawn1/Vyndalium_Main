@@ -102,15 +102,35 @@
                                     }
                     </div>
                     <div class="upgrade-slot">
-                                <div class="items2">
+                        <div class="items2">
                             @for (var index = 0; index < Player.Local.Inventory.UpgradeItems.Count; index++)
                             {
                                 var item = Player.Local.Inventory.UpgradeItems[index];
                                 <InventorySlot Item=@item UpgradeSlotIndex=@index />
                             }
+                            
+                            
+                                
+                            
                         </div>
+                        
+
                     </div>
-                    <button class="upgrade-button" @onclick="ConfirmUpgrade" disabled="@(upgradeItem == null)">Upgrade</button>
+                    @if (isUpgradePanelVisible)
+                    {
+                        <div class="upgrade-panel">
+                            <p class="upgrade-cost">Upgrade Cost: <p class="number">$@upgradeCost</p></p>
+                            <p class="upgrade-level">lvl. @upgradeItem.ItemLevel >>> lvl. @(upgradeItem.ItemLevel + 1)</p>
+                            <p class="upgrade-balance">Balance:
+                                <p class="number"> @Player.Local.Vyndalium</p>
+                            </p>
+                            <button class="upgrade-button" @onclick="@UpgradeItem"
+                                disabled="@(Player.Local.Vyndalium < upgradeCost || upgradeItem.ItemLevel >= 27)">Upgrade</button>
+                        </div>
+                    }
+
+
+                    
                 
 
                 
