@@ -59,6 +59,7 @@ public class SerializedItemComponent
 	public float IceResistence { get; set; }
 	public float LightningResistence { get; set; }
 	public float HolyResistence { get; set; }
+
 }
 
 
@@ -67,6 +68,8 @@ public class ItemComponent : Component
 {
 	[Property]
 	public bool IsMaterial { get; set; }
+	[Property]
+	public bool IsPotion { get; set; }
 	[Property]public int BuyPrice { get; set; }
 	public bool IsSold { get; set; } = false;
 	

@@ -937,14 +937,37 @@ public sealed class Inventory : Component
 	{
 		if ( item == null ) return;
 
+		// Überprüfen, ob das Item ein Material ist und bereits im Inventar vorhanden ist
+		if ( item.IsMaterial|| item.IsPotion )
+		{
+			var existingItem = _backpackItems.FirstOrDefault( i => i != null && i.Name == item.Name && i.Count < i.MaxStack );
+			if ( existingItem != null )
+			{
+				// Berechnen Sie die verbleibende Menge, die in den vorhandenen Stapel passt
+				int remainingSpace = existingItem.MaxStack - existingItem.Count;
+				if ( item.Count <= remainingSpace )
+				{
+					// Erhöhen Sie die Menge des vorhandenen Materials
+					existingItem.Count += item.Count;
+				}
+				else
+				{
+					// Füllen Sie den vorhandenen Stapel und erstellen Sie ein neues Item für den Rest
+					existingItem.Count = existingItem.MaxStack;
+					item.Count -= remainingSpace;
+					AddItem( item ); // Rekursiver Aufruf, um den Rest hinzuzufügen
+				}
+				return;
+			}
+		}
+
+		// Fügen Sie das Item als neues Item hinzu, wenn es kein Material ist oder nicht im Inventar vorhanden ist
 		var firstFreeSlot = _backpackItems.IndexOf( null );
 		if ( firstFreeSlot != -1 )
 		{
 			_backpackItems[firstFreeSlot] = item;
 			item.State = ItemState.Backpack;
 			item.GameObject.Enabled = false;
-			
-
 		}
 		else
 		{
@@ -952,7 +975,6 @@ public sealed class Inventory : Component
 			Hudmaster.Instance.ShowNotification( "No Place in the Backpack.", "/ui/hud/inventory.png" );
 		}
 	}
-
 
 
 	private void SetOwner( ItemComponent item )
@@ -1017,6 +1039,7 @@ public sealed class Inventory : Component
 			item.GameObject.Enabled = false;
 		}
 	}
+	
 
 	/// <summary>
 	/// The item is removed from the backpack.

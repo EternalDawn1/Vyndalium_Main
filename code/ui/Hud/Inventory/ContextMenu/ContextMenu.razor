@@ -24,12 +24,30 @@
 	
 	else if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
     {
-        @if (_item != null )
+        
+        @if (_item != null)
+    {
+        @if (_item.Count > 0)
+        {
+            <ContextMenuOption Description="Sell All (@_item.Count)"
+                            ImagePath="ui/hud/shop.png"
+                            onclick=@(() => SellItem(_item)) />
+        }
+        else
         {
             <ContextMenuOption Description="Sell"
-                               ImagePath="ui/hud/shop.png"
-                               onclick=@(() => SellItem(_item)) />
+                            ImagePath="ui/hud/shop.png"
+                            onclick=@(() => SellItem(_item)) />
         }
+
+        @if (_item.Count > 1)
+        {
+            <ContextMenuOption Description="Sell 1x"
+                            ImagePath="ui/hud/shop.png"
+                            onclick=@(() => SellSingleItem(_item)) />
+        }
+    }
+        
     }
     else if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.StoreItems)
     {
@@ -57,6 +75,12 @@
 							   ImagePath="ui/hud/shop.png"
 							   onclick=@(() => BuyItem(_item)) />
 		}
+        @if (_item.IsMaterial || _item.IsPotion) // Überprüfen, ob das Item ein Material oder ein Trank ist
+        {
+            <ContextMenuOption Description="Buy 10x"
+                               ImagePath="ui/hud/shop.png"
+                               onclick=@(() => BuyStack(_item)) />
+        }
 	}
     else if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Weapons)
     {
@@ -118,6 +142,29 @@
 	private ItemComponent _item;
 	private List<ItemComponent> selectedItems = new();
 
+    private void BuyStack(ItemComponent item)
+    {
+        var player = Player.Local;
+        int stackSize = 10; // Definieren Sie die Stapelgröße
+
+        if (player.Vyndalium >= item.BuyPrice * stackSize)
+        {
+            player.Vyndalium -= item.BuyPrice * stackSize;
+
+            for (int i = 0; i < stackSize; i++)
+            {
+                var newItem = GenerateNewItem(item);
+                player.Inventory.AddItem(newItem);
+                newItem.GameObject.Enabled = false;
+            }
+
+            Hudmaster.Instance.ShowNotification($"Bought {stackSize}x {item.Name} for {item.BuyPrice * stackSize} Vyndalium.", "/ui/hud/shop.png");
+        }
+        else
+        {
+            Hudmaster.Instance.ShowNotification("Nicht genug Vyndalium.", "/ui/hud/shop.png");
+        }
+    }
     public void Upgrade(ItemComponent item)
     {
         Player.Local.Inventory.MoveItemToUpgrade(item);
@@ -259,7 +306,7 @@
             newItem.LightningResistence = item.LightningResistence;
             newItem.HolyResistence = item.HolyResistence;
 
-            Log.Info($"Neues Item {newItem.Name} wurde generiert.");
+            
 
             return newItem;
         }
@@ -286,7 +333,7 @@
 		{
 			storageBox.Items.Add(item);
 			player.Inventory.RemoveItem(item);
-			Log.Info($"Item {item.Name} zur StorageBox hinzugefügt.");
+			
 			Hudmaster.Instance.ShowNotification($"Deposit {item.Name}","/ui/hud/storage.png");
 			Inventory.Instance?.OnChanged();
 		}
@@ -294,20 +341,46 @@
 
 	
 	private void SellItem(ItemComponent item)
-	{
-		if (item == null) return;
-		
-		// Entferne das Item aus dem Inventar des Spielers
-		player.Inventory.RemoveItem(item);
-		
-		// Füge den Verkaufspreis des Items zum Vyndalium des Spielers hinzu
-		player.Vyndalium += item.SellPrice;
-		Log.Info($"Item {item.Name} verkauft für {item.SellPrice} Vyndalium.");
-		Hudmaster.Instance.ShowNotification($"Item {item.Name} was sold for {item.SellPrice} Vyndalium.", "/ui/hud/shop.png");
-		item.GameObject.Destroy();
-		Inventory.Instance?.OnChanged();
-		
-	}
+    {
+        if (item == null) return;
+
+        // Berechne den Gesamtverkaufspreis basierend auf der Anzahl der Items im Stapel
+        int totalSellPrice = item.Count > 0 ? item.SellPrice * item.Count : item.SellPrice;
+
+        // Entferne das Item aus dem Inventar des Spielers
+        player.Inventory.RemoveItem(item);
+
+        // Füge den Gesamtverkaufspreis zum Vyndalium des Spielers hinzu
+        player.Vyndalium += totalSellPrice;
+        Log.Info($"Item {item.Name} verkauft für {totalSellPrice} Vyndalium.");
+        Hudmaster.Instance.ShowNotification($"Item {item.Name} was sold for {totalSellPrice} Vyndalium.", "/ui/hud/shop.png");
+        item.GameObject.Destroy();
+        Inventory.Instance?.OnChanged();
+    }
+    private void SellSingleItem(ItemComponent item)
+    {
+        if (item == null || item.Count <= 0) return;
+
+        // Berechne den Verkaufspreis für ein einzelnes Item
+        int singleSellPrice = item.SellPrice;
+
+        // Reduziere die Anzahl der Items im Stapel um eins
+        item.Count -= 1;
+
+        // Füge den Verkaufspreis zum Vyndalium des Spielers hinzu
+        player.Vyndalium += singleSellPrice;
+        Log.Info($"Einzelnes Item {item.Name} verkauft für {singleSellPrice} Vyndalium.");
+        Hudmaster.Instance.ShowNotification($"Einzelnes Item {item.Name} was sold for {singleSellPrice} Vyndalium.", "/ui/hud/shop.png");
+
+        // Wenn die Anzahl der Items im Stapel null erreicht, entferne das Item
+        if (item.Count == 0)
+        {
+            player.Inventory.RemoveItem(item);
+            item.GameObject.Destroy();
+        }
+
+        Inventory.Instance?.OnChanged();
+    }
 	private void AddItemToPlayerInventory(ItemComponent item)
     {
         if (item == null) return;
