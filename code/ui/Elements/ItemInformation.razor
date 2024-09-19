@@ -20,10 +20,19 @@
 				</div>
 			}
 			else if (Item.IsSellable && ShopPanel.Instance.currentPanel != ShopPanel.PanelType.Accessories)
-			{
-				<div class="item-price2">$@($"{Item.SellPrice:N0}") <p class="item-price-name"></p>
-				</div>
-			}
+            {
+                <div class="item-price2">
+					<text> 1x $@($"{Item.SellPrice:N0}") </text>
+
+					@if (Item.Count > 1)
+					{
+						<text>@(Item.Count)x $@($"{CalculateTotalSellPrice(Item):N0}")</text>
+
+						<br />
+					}
+                    <p class="item-price-name"></p>
+                </div>
+            }
 			<div class="description" style="justify-content: center;@(!string.IsNullOrEmpty(Item.Description) ? "align-items: center;" : "")"></div>
 		</div>
 		
@@ -189,7 +198,10 @@
 {
 	public ItemComponent Item { get; set; }
 	public WeaponComponent Weapon { get; set; }
-
+	private int CalculateTotalSellPrice(ItemComponent item)
+	{
+		return item.SellPrice * item.Count;
+	}
 	private string GetTierClass(GeneralGame.Tier tier)
 	{
 		return tier switch

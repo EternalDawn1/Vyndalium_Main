@@ -29,9 +29,10 @@
     {
         @if (_item.Count > 0)
         {
-            <ContextMenuOption Description="Sell All (@_item.Count)"
-                            ImagePath="ui/hud/shop.png"
-                            onclick=@(() => SellItem(_item)) />
+           <ContextMenuOption Description="Sell All (@_item.Count)"
+                   ImagePath="ui/hud/shop.png"
+                
+                   onclick=@(() => SellItem(_item)) />
         }
         else
         {
@@ -141,7 +142,10 @@
 	private static ContextMenu _instance;
 	private ItemComponent _item;
 	private List<ItemComponent> selectedItems = new();
-
+    private int CalculateTotalSellPrice(ItemComponent item)
+        {
+            return item.SellPrice * item.Count;
+        }
     private void BuyStack(ItemComponent item)
     {
         var player = Player.Local;
@@ -311,19 +315,7 @@
             return newItem;
         }
 	
-	private async Task ConfirmSellItem(ItemComponent item)
-    {
-        if (item == null) return;
-
-        // Zeige Bestätigungsdialog
-        bool confirmed = await Confirm.Instance.ShowConfirmationDialog(item, $"Möchtest du {item.Name} wirklich für {item.SellPrice} Vyndalium verkaufen?");
-        if (confirmed)
-        {
-            SellItem(item);
-        }
-        // Setze isDialogVisible wieder auf false
-        Confirm.Instance.HideDialog();
-    }
+	
 
 	private void DepositItemToStorageBox(ItemComponent item)
 	{
@@ -349,6 +341,7 @@
 
         // Entferne das Item aus dem Inventar des Spielers
         player.Inventory.RemoveItem(item);
+        player.Vyndalium += totalSellPrice;
 
         // Füge den Gesamtverkaufspreis zum Vyndalium des Spielers hinzu
         player.Vyndalium += totalSellPrice;
@@ -366,6 +359,7 @@
 
         // Reduziere die Anzahl der Items im Stapel um eins
         item.Count -= 1;
+         player.Vyndalium += singleSellPrice;
 
         // Füge den Verkaufspreis zum Vyndalium des Spielers hinzu
         player.Vyndalium += singleSellPrice;
