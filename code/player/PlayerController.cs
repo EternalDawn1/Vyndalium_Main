@@ -155,7 +155,15 @@ public partial class Player : Component, IHealthComponent
 		if ( BlockInputs )
 		{
 			// Setze die Geschwindigkeit des Spielers auf null
-			CharacterController.Velocity = Vector3.Zero;
+			if ( CharacterController != null )
+			{
+				CharacterController.Velocity = Vector3.Zero;
+			}
+			else
+			{
+				// Loggen Sie eine Warnung oder werfen Sie eine Ausnahme, um das Problem zu debuggen
+			
+			}
 			return;
 		}
 
@@ -418,15 +426,20 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnAwake()
 	{
+		if(AmmoContainer == null)
+		{
+			AmmoContainer = new AmmoContainer();
+		}	
 		
-		AmmoContainer = new AmmoContainer();
-	
 		Inventory = Components.Get<Inventory>( FindMode.EverythingInSelfAndDescendants );
 
 		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>();
 		Collider = Components.Get<BoxCollider>( FindMode.EverythingInSelfAndDescendants );
-
-		CharacterController = Components.GetInDescendantsOrSelf<CharacterController2>();
+		if(CharacterController == null)
+		{
+			CharacterController = Components.Get<CharacterController2>();
+		}
+	
 		CharacterController.IgnoreLayers.Add( "player" );
 
 		Ragdoll = Components.GetInDescendantsOrSelf<RagdollController>();

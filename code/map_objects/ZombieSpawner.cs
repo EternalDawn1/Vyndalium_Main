@@ -122,7 +122,7 @@ public sealed class ZombieSpawner : Component
 			if ( npcComponent is Slime )
 			{
 				npcComponent.Model.Set( "slime_spawn", true );
-				Log.Info( "Slime spawned" );
+				
 			}
 
 		}

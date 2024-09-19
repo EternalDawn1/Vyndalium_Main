@@ -757,6 +757,7 @@
               "INT": 0,
               "IsEquipment": false,
               "IsItem": false,
+              "IsMaterial": false,
               "ItemLevel": 0,
               "LightningResistence": 0,
               "MagicDefense": 0,
@@ -1789,7 +1790,7 @@
           "__type": "GeneralGame.ZombieSpawner",
           "__guid": "4439f1a3-e382-49cf-969c-bf9559da0ad7",
           "destroyChance": 99,
-          "DrawProximityRangeGizmo": true,
+          "DrawProximityRangeGizmo": false,
           "IsSpawning": false,
           "Level15To30": false,
           "Level1To15": false,
@@ -1858,6 +1859,7 @@
           "INT": 0,
           "IsEquipment": false,
           "IsItem": false,
+          "IsMaterial": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -1911,126 +1913,10 @@
       ]
     },
     {
-      "__guid": "f46cf8b5-d19d-4ed8-baa5-acb761c3f6ab",
+      "__guid": "0ca7d8cc-774a-480d-bf94-93ad1febeecb",
       "Flags": 0,
-      "Name": "potion_big",
-      "Position": "-2148.325,-1137.635,-60.99998",
-      "Rotation": "0,0,0.7933533,0.6087615",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SkinnedModelRenderer",
-          "__guid": "3537df38-d594-4958-9174-4c3b9555c9fc",
-          "BodyGroups": 18446744073709551615,
-          "CreateBoneObjects": false,
-          "Model": "megascans/misc/round_hay_bale_rlcay.vmdl",
-          "Morphs": {},
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderType": "On",
-          "Tint": "1,1,1,1",
-          "UseAnimGraph": true
-        },
-        {
-          "__type": "Sandbox.SphereCollider",
-          "__guid": "a8ba4716-6579-47e2-b9e6-9a6dc62c28f1",
-          "__enabled": false,
-          "Center": "0,0,0",
-          "IsTrigger": true,
-          "Radius": 10,
-          "Static": false
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "bf653e2e-4caa-4611-a364-f3e2c257de03",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {
-            "Pitch": true,
-            "Yaw": true,
-            "Roll": true
-          },
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": "DisableCollisionSounds",
-          "StartAsleep": false
-        },
-        {
-          "__type": "Sandbox.ModelCollider",
-          "__guid": "4a7eed56-e41b-417a-8cd2-bc17e0079115",
-          "IsTrigger": false,
-          "Model": "megascans/misc/round_hay_bale_rlcay.vmdl",
-          "Static": false
-        },
-        {
-          "__type": "GeneralGame.HealthPotion",
-          "__guid": "5116994b-5e39-4f25-bd36-a9b35efbdec6",
-          "AbilityHaste": 0,
-          "Armor": 0,
-          "AttackPower": 0,
-          "AttackSpeed": 0,
-          "BleedResistance": 0,
-          "BlindResistance": 0,
-          "BonusEXP": 0,
-          "BonusScore": 0,
-          "BonusVyndalium": 0,
-          "BuyPrice": 1000,
-          "Count": 1,
-          "Cover": 0,
-          "CritHitChance": 0,
-          "CritHitDamage": 0,
-          "DamageBalance": 0,
-          "Description": "0",
-          "DEX": 0,
-          "DMG": 0,
-          "Durability": 0,
-          "Evasion": 0,
-          "FireResistence": 0,
-          "HE": 0,
-          "Health": 0,
-          "HealthAmount": 50,
-          "HolyResistence": 0,
-          "IceResistence": 0,
-          "Icon": {
-            "Model": "model/27/untitled_109.vmdl",
-            "MaterialGroup": "",
-            "Colour": "1,1,1,1",
-            "Position": "-39.45,35.1,35.1",
-            "Rotation": "0.2816752,0.6485824,-0.6485824,0.2816752",
-            "Guid": "2203d1b2-d54b-46e0-b35d-06ef0e96ee6a"
-          },
-          "INT": 0,
-          "IsEquipment": false,
-          "IsItem": false,
-          "ItemLevel": 0,
-          "LightningResistence": 0,
-          "MagicDefense": 0,
-          "MagicPower": 0,
-          "Mana": 0,
-          "MaxStack": 20,
-          "MoveSpeed": 0,
-          "Name": "Hay",
-          "PER": 0,
-          "PoisonResistence": 0,
-          "Price": 0,
-          "SellPrice": 500,
-          "ShadowResistence": 0,
-          "SlowResistence": 0,
-          "Stats": [],
-          "STG": 0,
-          "StunResistance": 0,
-          "Tenacity": 0,
-          "Tier": "C",
-          "WeightInGrams": 0
-        }
-      ]
+      "Name": "GameObject",
+      "Enabled": true
     }
   ],
   "SceneProperties": {
@@ -2061,9 +1947,7 @@
     "eurorp.kitchen",
     "fish.cabinet_bottom_doors",
     "frogpond.washingmachine",
-    "luke.ft_kitchen_light",
-    "sneed.round_hay_bale",
-    "tesssssssssst.untitled_1092546140"
+    "luke.ft_kitchen_light"
   ],
   "__version": 1
 }

@@ -118,14 +118,42 @@
                     </div>
                     @if (isUpgradePanelVisible)
                     {
-                        <div class="upgrade-panel">
+                        <div class="upgrade-panel @(isUpgradePanelVisible ? "visible" : "")">
                             <p class="upgrade-cost">Upgrade Cost: <p class="number">$@upgradeCost</p></p>
+                           
+                            
+                            
                             <p class="upgrade-level">lvl. @upgradeItem.ItemLevel >>> lvl. @(upgradeItem.ItemLevel + 1)</p>
+                            @{
+                                var (totalMaterialsText, missingMaterialsText) = GetRequiredMaterialsText();
+                            }
+
+                            <p class="upgrade-level" style="font-size: 16px; flex-direction: column; background-color: rgb(109, 109, 109);">
+                                Required Materials:
+                                <div class="total-materials">
+                                    <p class="number">@totalMaterialsText</p>
+                                </div>
+                                    @if (!string.IsNullOrEmpty(missingMaterialsText))
+                                    {
+                                    <div class="missing-materials">
+                                        <p class="number">@missingMaterialsText</p>
+                                    </div>
+                                    }
+                            </p>
+                            
+                           <p class="upgrade-level"
+                            style="background-color: @(GetBackgroundColor(upgradeItem?.SuccessChance ?? 0)); font-size: 20px; height: 80%;">
+                                <span id="status-text" class="@statusClass">@statusText</span>
+                                <p class="number">@((upgradeItem != null) ? $"{upgradeItem.SuccessChance * 100:F1}%" : "0%")</p>
+                            </p>
+                            
+                            <button class="upgrade-button" @onclick="@UpgradeItem"
+                                disabled="@(Player.Local.Vyndalium < upgradeCost || upgradeItem.ItemLevel >= 27)">Upgrade</button>
                             <p class="upgrade-balance">Balance:
                                 <p class="number"> @Player.Local.Vyndalium</p>
                             </p>
-                            <button class="upgrade-button" @onclick="@UpgradeItem"
-                                disabled="@(Player.Local.Vyndalium < upgradeCost || upgradeItem.ItemLevel >= 27)">Upgrade</button>
+                            
+                            
                         </div>
                     }
 

@@ -327,8 +327,10 @@
         {
             // Fügen Sie das Item in den ersten freien Slot ein
             inventory._backpackItems[firstFreeSlot] = item;
-            item.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des Items
-            
+            item.State = ItemState.Backpack;
+
+           // Aktualisieren Sie den Zustand des Items
+                
 
             // Entfernen Sie das Item aus der StorageBox
             var storageBox = StorageBox.Instance?.itemStorage;

@@ -118,9 +118,10 @@ ShopPanel {
                                 border-radius: 10px;
                                 border-width: 1px;
                                 border-color: #000000;
+                             
                             .items2{
-                                position: relative;
-                                
+                                    position: relative;
+                                    
                                     justify-content: center;
                                     gap: 1px;
                                     align-items: center;
@@ -135,7 +136,7 @@ ShopPanel {
                             }
                             .upgrade-slot{
                                 right: 15%;
-                                bottom:50%;
+                                bottom:60%;
                                 position: absolute;
                                 width: 20%;
                                 height: 20%;
@@ -150,25 +151,37 @@ ShopPanel {
                                 position: absolute;
                                 width: 25%;
                                 right: 12%;
-                                top: 55%;
-                                height: 35%;
+                                top: 45%;
+                                height: 55%;
+                                
                                 flex-direction: column;  
                                 justify-content: center;
                                 align-items: center;
+                                transition: ease-in-out 15.5s;
+                                opacity: 0;
+
+                                &.visible {
+                                        opacity: 1;
+                                    }
+                                
+                                    &.fade {
+                                        opacity: 0;
+                                        transition: opacity 1s ease-in-out;
+                                    }
                                 .upgrade-cost{
                                     position: relative;
                                     width: 100%;
                                     height: 100%;
-                                    background-color: #9636198c;
-                                    top: 0%;
-                                    border-width: 1px;
+                                   
+                                   
+                                    
                                     border-color: #000000;
                                     color: #ffffff;
                                     font-size: 30px;
                                     font-weight: bold;
                                     font-style: italic;
-                                    gap: 10px;
-                                    border-radius: 10px;
+                                    gap: 15px;
+                              
                                     margin-bottom: 10px;
                                     justify-content: center;
                                     align-items: center;
@@ -176,7 +189,7 @@ ShopPanel {
                                     .number{
                                         position: relative;
                                         width: 80%;
-                                        height: 40%;
+                                        height: 50%;
                                         justify-content: center;
                                         align-items: center;
                                         background-color: #1996628c;
@@ -194,8 +207,8 @@ ShopPanel {
                                 .upgrade-level{
                                     position: relative;
                                     width: 100%;
-                                    height: 60%;
-                                    background-color: #96361983;
+                                    height: 100%;
+                                    background-color: #058a2625;
                                     top: 0%;
                                     border-width: 1px;
                                     border-color: #000000;
@@ -208,6 +221,23 @@ ShopPanel {
                                     margin-bottom: 10px;
                                     justify-content: center;
                                     align-items: center;
+                                    .total-materials{
+                                        color:green;
+                                        width: 100%;
+                                        height: 100%;
+                                        position: relative;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+                                    .missing-materials{
+                                        color:rgb(128, 36, 36);
+                                        width: 100%;
+                                        height: 100%;
+                                        position: relative;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+
                                     
 
                                 }
@@ -215,15 +245,15 @@ ShopPanel {
                                     position: relative;
                                     width: 100%;
                                     height:100%;
-                                    background-color: #96361983;
+                                    
                                     top: 0%;
-                                    border-width: 1px;
+                                 
                                     border-color: #000000;
                                     color: #ffffff;
                                     font-size: 24px;
                                     font-weight: bold;
                                     font-style: italic;
-                                    gap: 10px;
+                                    gap: 20px;
                                     border-radius: 10px;
                                     margin-bottom: 10px;
                                     justify-content: center;
@@ -232,7 +262,7 @@ ShopPanel {
                                     .number{
                                         position: relative;
                                         width: 80%;
-                                        height: 40%;
+                                        height: 100%;
                                         justify-content: center;
                                         align-items: center;
                                         background-color: #1996628c;
@@ -251,9 +281,9 @@ ShopPanel {
                                 .upgrade-button{
                                     position: relative;
                                     width: 50%;
-                                    height: 30%;
+                                    height: 100%;
                                     background-color: #1996628c;
-                                    top: 10%;
+                                    
                                     border-width: 1px;
                                     border-color: #000000;
                                     color: #ffffff;
@@ -538,4 +568,8 @@ ShopPanel {
 
 
     }
+}
+.fade {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
 }

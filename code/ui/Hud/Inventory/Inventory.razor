@@ -84,7 +84,7 @@
 				</div>
 				<div style="align-items: center; margin: 20px 5px;"></div>
 			</div>
-		</div>
+			
 
 		<div class="Food" style="opacity: @(currentPanel == PanelType.Food ? 1 : 0)">
 
@@ -113,6 +113,15 @@
 
 @code
 {
+	public Hud hud;
+
+	
+
+	private Player player { get; set; }
+
+	
+	
+
 	CharacterRenderer _renderer;
 
 	public void UpdateSearch()

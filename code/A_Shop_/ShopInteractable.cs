@@ -5,7 +5,8 @@ using Sandbox;
 public class ShopInteractable : BaseInteraction
 {
     public ShopStorage Storage { get; set; }
-    [Property]public bool Missions { get; set; } // Boolean-Wert, der angibt, ob Missionen aktiv sind
+    [Property]public bool Missions { get; set; }
+    
 
     protected override void OnStart()
     {
@@ -27,8 +28,8 @@ public class ShopInteractable : BaseInteraction
                     }
                 },
                 Keybind = "use2",
-                Description = "Leaderboard",
-                Stats = "Leaderboard",
+                Description = "Missons",
+                Stats = "Missions",
                 ShowWhenDisabled = () => true,
                 Accessibility = AccessibleFrom.All,
             } );
@@ -46,8 +47,8 @@ public class ShopInteractable : BaseInteraction
                     }
                 },
                 Keybind = "use",
-                Description = "Missons",
-                Stats = "Missons",
+                Description = "Leaderboard",
+                Stats = "Leaderboard",
                 ShowWhenDisabled = () => true,
                 Accessibility = AccessibleFrom.All,
             } );

@@ -43,6 +43,11 @@ namespace GeneralGame
             {
                 if ( itemComponent != null )
                 {
+                    if ( nonRandomStatItems.Contains( itemComponent.Prefab ) )
+                    {
+                        continue; // Überspringen Sie die Generierung zufälliger Statistiken für dieses Item
+                    }
+
                     var tier = (GeneralGame.Tier)GetRandomTier();
                     itemComponent.ItemTier = new ItemComponent.TierClass { Tier = (GeneralGame.Tier)GetRandomTier() };
                     itemComponent.GenerateRandomStats();
@@ -57,10 +62,15 @@ namespace GeneralGame
             Random random = new Random();
             return random.Next( 1, 5 ); // Beispiel: Zufälliger Tier zwischen 1 und 4
         }
-
+        private List<string> nonRandomStatItems = new List<string>
+        {
+            "prefabs/items/wood_log.prefab",
+            // Fügen Sie hier weitere Items hinzu, die keine zufälligen Statistiken erhalten sollen
+        };
 
         private void LoadPrefabs()
         {
+            
             var tierCPrefabs = new List<string>
             {
                 "prefabs/weapons/aksu/c.prefab",
@@ -72,6 +82,7 @@ namespace GeneralGame
                 "prefabs/clothes/armor/armor-c.prefab",
                 "prefabs/clothes/helmet/helmet-c.prefab",
                 "prefabs/clothes/legarmor/legarmor-c.prefab",
+                "prefabs/items/wood_log.prefab",
                 // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
             };
 
@@ -86,7 +97,7 @@ namespace GeneralGame
                 "prefabs/clothes/armor/armor-b.prefab",
                 "prefabs/clothes/helmet/helmet-b.prefab",
                 "prefabs/clothes/legarmor/legarmor-b.prefab",
-
+                "prefabs/items/wood_log.prefab",
                 
 
                 // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
@@ -145,6 +156,7 @@ namespace GeneralGame
                 "prefabs/clothes/armor/armor-sss.prefab",
                 "prefabs/clothes/helmet/helmet-sss.prefab",
                 "prefabs/clothes/legarmor/legarmor-sss.prefab",
+                
                 // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
             };
 

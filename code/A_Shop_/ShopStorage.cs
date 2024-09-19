@@ -15,6 +15,7 @@ namespace GeneralGame
         [Property] public List<ItemComponent> MaterialItems { get; private set; } = new List<ItemComponent>(); // Hinzugefügt
 
         [Property] public List<ItemComponent> UpgradeItems { get; private set; } = new List<ItemComponent>();
+
         private bool prefabsLoaded = false;
         protected override void OnAwake()
         {
@@ -48,6 +49,7 @@ namespace GeneralGame
                 "prefabs/potions/potion_big.prefab",
                 "prefabs/potions/potion_mid.prefab",
                 "prefabs/potions/potion_small.prefab",
+                
             };
 
             var weaponPrefabs = new List<string>

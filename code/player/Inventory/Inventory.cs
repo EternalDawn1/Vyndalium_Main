@@ -20,18 +20,21 @@ public sealed class Inventory : Component
 	private const int ItemsPerPage = 12;
 	public const int MAX_UPGRADE_SLOTS = 1;
 
+
 	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
 	[Property] public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
 	[Property] public IReadOnlyList<ItemComponent> StorageBoxItems => _storageBoxItems;
 	[Property]public IReadOnlyList<ItemComponent> StorageItems => _storageItems;
 	[Property] public IReadOnlyList<ItemComponent> UpgradeItems => _upgradeItems;
+	
 
 	[Property] public readonly  List<ItemComponent> _backpackItems;
 	[Property] public readonly List<ItemComponent> _equippedItems;
 	[Property] public readonly List<ItemComponent> _storageBoxItems;
 	[Property] public readonly List<ItemComponent> _storageItems;
 	[Property] public readonly List<ItemComponent> _upgradeItems;
-
+	
+	
 	public bool RemoveItem( ItemComponent item )
 	{
 		if ( item == null )
@@ -59,8 +62,68 @@ public sealed class Inventory : Component
 			return true;
 		}
 		
+		
+		
 
 		return false;
+	}
+	public bool BackpackHasMaterial( string materialName, int quantity )
+	{
+		if ( _backpackItems == null )
+		{
+			return false;
+		}
+
+		int totalAmount = _backpackItems.Where( m => m != null && m.Name == materialName )
+										.Sum( m => m.Count );
+
+		return totalAmount >= quantity;
+	}
+
+	public int GetBackpackMaterialCount( string materialName )
+	{
+		if ( _backpackItems == null )
+		{
+			return 0;
+		}
+
+		return _backpackItems.Where( m => m != null && m.Name == materialName )
+							 .Sum( m => m.Count );
+	}
+
+	public void RemoveBackpackMaterial( string materialName, int quantity )
+	{
+		if ( _backpackItems == null )
+		{
+			return;
+		}
+
+		var materialsToRemove = _backpackItems.Where( m => m != null && m.Name == materialName ).ToList();
+		int remainingQuantity = quantity;
+
+		foreach ( var material in materialsToRemove )
+		{
+			if ( material.Count > remainingQuantity )
+			{
+				material.Count -= remainingQuantity;
+				if ( material.Count <= 0 )
+				{
+					_backpackItems[_backpackItems.IndexOf( material )] = null;
+					material.GameObject.Destroy();
+				}
+				return;
+			}
+			else
+			{
+				remainingQuantity -= material.Count;
+				_backpackItems[_backpackItems.IndexOf( material )] = null;
+				material.GameObject.Destroy();
+				if ( remainingQuantity <= 0 )
+				{
+					return;
+				}
+			}
+		}
 	}
 	public bool RemoveItemUpgrade( string name, int count )
 	{
@@ -194,6 +257,7 @@ public sealed class Inventory : Component
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 		_storageBoxItems = new List<ItemComponent>();
 		_upgradeItems = new List<ItemComponent>( new ItemComponent[MAX_UPGRADE_SLOTS] );
+		
 	}
 
 	public int IndexOf( ItemComponent item )
@@ -215,6 +279,7 @@ public sealed class Inventory : Component
 		{
 			return _upgradeItems.IndexOf( item );
 		}
+		
 		else 
 		{
 			return _backpackItems.Contains( item ) ? _backpackItems.IndexOf( item ) : _storageBoxItems.IndexOf( item );
@@ -285,7 +350,7 @@ public sealed class Inventory : Component
 			}
 		}
 	}
-	
+
 	public void MoveItemToStorage( ItemComponent item, int currentPage )
 	{
 		if ( item == null ) return;
@@ -534,10 +599,10 @@ public sealed class Inventory : Component
 		else if ( item.State == ItemState.Storage )
 			RemoveStorageItem( item, _storageItems.IndexOf( item ) );
 
-		
 
 		
-		
+
+
 
 		item.State = ItemState.None;
 		item.GameObject.Enabled = true;
@@ -879,6 +944,7 @@ public sealed class Inventory : Component
 			item.State = ItemState.Backpack;
 			item.GameObject.Enabled = false;
 			
+
 		}
 		else
 		{
@@ -1123,6 +1189,9 @@ public sealed class Inventory : Component
 		obj.NetworkMode = NetworkMode.Object;
 		obj.NetworkSpawn();
 		player.Inventory.GiveItem( obj );
+		
+
+		 
 	}
 
 

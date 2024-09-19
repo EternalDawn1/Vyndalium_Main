@@ -470,12 +470,18 @@ public class BaseGun : WeaponComponent, IUse
 	[Broadcast]
 	private void SendImpactMessage( Vector3 position, Vector3 normal )
 	{
-		if ( Player.Local.LifeState == LifeState.Dead )
+		if ( Player.Local == null || Player.Local.LifeState == LifeState.Dead )
 		{
-			// Spieler ist tot, keine Reload-Nachricht senden
+			// Spieler ist tot oder Player.Local ist null, keine Nachricht senden
 			return;
 		}
+		if ( Scene.SceneWorld == null )
+		{
+			throw new InvalidOperationException( "SceneWorld is null." );
+		}
 		if ( ImpactEffect is null ) return;
+		
+		
 
 		var p = new SceneParticles( Scene.SceneWorld, ImpactEffect );
 		p.SetControlPoint( 0, position );

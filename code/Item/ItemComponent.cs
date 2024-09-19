@@ -11,6 +11,7 @@ public enum ItemState
 	Storage,
 	Shop,
 	Upgrade,
+	Materials,
 }
 public enum Tier 
 {
@@ -64,8 +65,11 @@ public class SerializedItemComponent
 
 public class ItemComponent : Component
 {
+	[Property]
+	public bool IsMaterial { get; set; }
 	[Property]public int BuyPrice { get; set; }
 	public bool IsSold { get; set; } = false;
+	
 	public int CalculateBuyPrice()
 	{
 		int basePrice = 0;
@@ -130,7 +134,7 @@ public class ItemComponent : Component
 	/// Weapon All things
 	/// </summary>
 	/// 
-	
+	public double SuccessChance { get; set; }
 	private bool _isDMGInitialized = false;
 	[Property, Group( "Weapon" ), Range( 0, 1800 )]
 	public int DMG
