@@ -1,0 +1,192 @@
+using GeneralGame;
+using GeneralGame.HUD;
+using Sandbox;
+using System;
+
+namespace GeneralGame.Components
+{
+    public partial class ItemObject : Component, IHealthComponent
+    {
+        [Property] public float Health { get; set; } = 100f;
+        [Property] public float MaxHealth { get; set; } = 100f;
+        [Property] public int XpReward { get; set; } = 50;
+        [Property] public int VyndaliumReward { get; set; } = 10;
+        private static readonly Random random = new Random();
+       
+        [Property] public SoundEvent DeathSound { get; set; }
+        public event Action OnTakeDamage;
+        public event Action OnDeath;
+        public GameObject Hitprefab { get; set; }
+        public LifeState LifeState { get; set; } = LifeState.Alive;
+        public ItemObject()
+        {
+            XpReward = random.Next( 10, 51 ); // Zufälliger Wert zwischen 10 und 50 (einschließlich)
+            VyndaliumReward = random.Next( 10, 51 ); // Zufälliger Wert zwischen 10 und 50 (einschließlich)
+        }
+        [Property]private readonly List<string> prefabPaths = new List<string>
+        {
+            "prefabs/potions/potion_small.prefab",
+            "prefabs/items/wood_log.prefab",
+            "prefabs/entitys/chestsystem/example1.prefab"
+        };
+
+        private readonly List<float> probabilities = new List<float>
+        {
+            0.5f, // 50% Wahrscheinlichkeit
+            0.3f, // 30% Wahrscheinlichkeit
+            0.2f  // 20% Wahrscheinlichkeit
+        };
+
+        // Methode zum Spawnen eines zufälligen Prefabs
+        private void SpawnRandomPrefab( Vector3 position )
+        {
+            float totalProbability = 0f;
+            foreach ( var probability in probabilities )
+            {
+                totalProbability += probability;
+            }
+
+            float randomValue = (float)random.NextDouble() * totalProbability;
+            float cumulativeProbability = 0f;
+
+            for ( int i = 0; i < prefabPaths.Count; i++ )
+            {
+                cumulativeProbability += probabilities[i];
+                if ( randomValue <= cumulativeProbability )
+                {
+                    var prefab = ResourceLibrary.Get<PrefabFile>( prefabPaths[i] );
+                    if ( prefab != null )
+                    {
+                        var gameObject = GameObject.Clone( prefab );
+                        if ( gameObject != null )
+                        {
+                            gameObject.Transform.Position = position;
+                            gameObject.NetworkSpawn();
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        public void OnBoxDestroyed()
+        {
+            Vector3 position = this.GameObject.Transform.Position;
+            SpawnRandomPrefab( position );
+        }
+        [Broadcast]
+        public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
+        {
+            if ( LifeState == LifeState.Dead )
+                return;
+
+            if ( type == DamageType.Bullet || type == DamageType.Serious )
+            {
+                var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
+                p.SetControlPoint( 0, hitPosition );
+                p.SetControlPoint( 0, Rotation.LookAt( hitDirection.Normal * -1f ) );
+                p.SetControlPoint( 1, new Vector3( 0.5f, 0.1f, 0.1f ) );
+                p.PlayUntilFinished( Task );
+            }
+
+        
+
+            if ( Network.IsProxy )
+                return;
+
+            Health = Math.Clamp( Health - amount, 0f, MaxHealth );
+            OnTakeDamage?.Invoke();
+
+            if ( Health <= 0f )
+            {
+                LifeState = LifeState.Dead;
+                OnDeath?.Invoke();
+
+                if ( DeathSound != null )
+                {
+                    Sound.Play( DeathSound, Transform.Position );
+                }
+
+                var killer = Scene.Directory.FindByGuid( attackerId );
+
+                if ( killer == null )
+                {
+                    return;
+                }
+
+                var killerPlayer = killer.Components.Get<Player>( FindMode.EverythingInSelfAndAncestors );
+                if ( killerPlayer == null )
+                {
+                    return;
+                }
+
+                int npcLevel = 1; // Beispielwert, ersetzen Sie dies durch die tatsächliche Logik zur Bestimmung des Levels
+
+                int vyndaliumPointsToAdd = CalculateVyndaliumReward( npcLevel );
+                int xpPointsToAdd = CalculateXpReward( npcLevel );
+
+                killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );
+                killerPlayer.GiveXp( xpPointsToAdd );
+
+                if ( Hitprefab != null && this.GameObject != null )
+                {
+                    GameObject vyndaliumHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 50, 0, 25 ) );
+                    if ( vyndaliumHitInfo != null )
+                    {
+                        FaceThing vyndaliumFaceThing = vyndaliumHitInfo.Components.Get<FaceThing>();
+                        if ( vyndaliumFaceThing != null )
+                        {
+                            vyndaliumFaceThing.Thing = killerPlayer.GameObject;
+                        }
+                        TextRenderer vyndaliumTextRenderer = vyndaliumHitInfo.Components.Get<TextRenderer>();
+                        if ( vyndaliumTextRenderer != null )
+                        {
+                            vyndaliumTextRenderer.Color = Color.Yellow;
+                            vyndaliumTextRenderer.Text = $"+{vyndaliumPointsToAdd} $";
+                        }
+                        ScaleTextWithDistance vyndaliumScaleText = vyndaliumHitInfo.Components.Get<ScaleTextWithDistance>();
+                        if ( vyndaliumScaleText != null )
+                        {
+                            vyndaliumScaleText.Thing = killerPlayer.GameObject;
+                        }
+                    }
+
+                    GameObject xpHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 0, 0, 50 ) );
+                    if ( xpHitInfo != null )
+                    {
+                        FaceThing xpFaceThing = xpHitInfo.Components.Get<FaceThing>();
+                        if ( xpFaceThing != null )
+                        {
+                            xpFaceThing.Thing = killerPlayer.GameObject;
+                        }
+                        TextRenderer xpTextRenderer = xpHitInfo.Components.Get<TextRenderer>();
+                        if ( xpTextRenderer != null )
+                        {
+                            xpTextRenderer.Color = Color.Blue;
+                            xpTextRenderer.Text = $"+{xpPointsToAdd} XP";
+                        }
+                        ScaleTextWithDistance xpScaleText = xpHitInfo.Components.Get<ScaleTextWithDistance>();
+                        if ( xpScaleText != null )
+                        {
+                            xpScaleText.Thing = killerPlayer.GameObject;
+                        }
+                    }
+                }
+                
+                OnBoxDestroyed();
+                GameObject.Destroy();
+            }
+        }
+
+        private int CalculateVyndaliumReward( int level )
+        {
+            // Beispielhafte Berechnung der Vyndalium-Belohnung basierend auf dem Level
+            return VyndaliumReward * level;
+        }
+
+        private int CalculateXpReward( int level )
+        {
+            // Beispielhafte Berechnung der XP-Belohnung basierend auf dem Level
+            return XpReward * level;
+        }
+    }
+}

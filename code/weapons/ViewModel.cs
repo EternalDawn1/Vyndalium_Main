@@ -138,7 +138,7 @@ public sealed class ViewModel : Component
 
 		Transform.LocalRotation = CurRotation;
 		Transform.LocalPosition = CurPos;
-
+		Transform.LocalScale = Vector3.One;
 		//base.OnUpdate();
 	}
 

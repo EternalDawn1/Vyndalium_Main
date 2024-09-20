@@ -273,8 +273,8 @@ public class WeaponComponent : Component
 		var playerDresser = player.Components.Get<PlayerDresser>();
 		if ( playerDresser != null )
 		{
-			playerDresser.RemoveClothing();
-			playerDresser.Destroy();
+			//playerDresser.RemoveClothing();
+			//playerDresser.Destroy();
 		}
 
 		var viewModelGameObject = ViewModelPrefab.Clone();
@@ -295,8 +295,19 @@ public class WeaponComponent : Component
 
 		ViewModel.SetWeaponComponent( this );
 		ViewModel.SetCamera( player.PlyCamera );
-
+		
 		ModelRenderer.Enabled = false;
+
+		var footsteps = player.Components.Get<PlayerFootsteps>();
+		if ( footsteps != null )
+		{
+			footsteps.Enabled = true;
+		}
+		var footComponents = player.Components.GetAll<SkinnedModelRenderer>();
+		foreach ( var foot in footComponents )
+		{
+			foot.Enabled = true;
+		}
 	}
 
 

@@ -4,37 +4,6 @@
     "Flags": 0,
     "Name": "grass",
     "Enabled": true,
-    "Components": [
-      {
-        "__type": "GeneralGame.Grass",
-        "__guid": "f663ba02-b827-4faa-b884-84f8cc4bb7a7",
-        "Color": {
-          "color": [
-            {
-              "c": "0.74419,0.1523,0.1523,1"
-            },
-            {
-              "t": 0.98717946,
-              "c": "0.85526,0.86512,0.27362,1"
-            },
-            {
-              "t": 1,
-              "c": "0.85526,0.86512,0.27362,1"
-            }
-          ]
-        },
-        "GrassPrefab": {
-          "_type": "gameobject",
-          "go": "d628c626-1155-434e-b1b9-a4ec5a50e5e4"
-        },
-        "Renderer": {
-          "_type": "component",
-          "component_id": "687fda20-1ece-40e7-851c-871d85fec730",
-          "go": "6bd5d328-d994-4566-9546-44fe8b32d290",
-          "component_type": "ModelRenderer"
-        }
-      }
-    ],
     "Children": [
       {
         "__guid": "6bd5d328-d994-4566-9546-44fe8b32d290",
@@ -47,6 +16,12 @@
             "__guid": "687fda20-1ece-40e7-851c-871d85fec730",
             "BodyGroups": 18446744073709551615,
             "Model": "models/sbox_props/nature/tallgrass/tallgrass_c.vmdl",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
@@ -79,6 +54,7 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.tallgrass_c"
