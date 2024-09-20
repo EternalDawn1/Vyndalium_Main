@@ -104,7 +104,7 @@ namespace GeneralGame.HUD
                 upgradeItem.SuccessChance = CalculateSuccessChance( upgradeItem.ItemLevel );
             }
         }
-       public void PlaySuccessSoundFromPath( string soundEventPath, float volume )
+        public void PlaySuccessSoundFromPath( string soundEventPath, float volume )
         {
             // SoundEvent anhand des Pfads laden
             var soundEvent = ResourceLibrary.Get<SoundEvent>( soundEventPath );

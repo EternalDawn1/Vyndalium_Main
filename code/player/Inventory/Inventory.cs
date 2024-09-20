@@ -45,6 +45,7 @@ public sealed class Inventory : Component
 			int index = _backpackItems.IndexOf( item );
 			_backpackItems[index] = null; // Setze den Slot auf null, anstatt das Item zu entfernen
 			item.State = ItemState.None;
+			
 			return true;
 		}
 		else if (_storageItems.Contains(item))
@@ -298,6 +299,9 @@ public sealed class Inventory : Component
 
 	public bool GiveItem( ItemComponent item )
 	{
+		
+		
+
 		var firstFreeSlot = _backpackItems.IndexOf( null );
 		if ( firstFreeSlot == -1 )
 			return false;
@@ -591,6 +595,7 @@ public sealed class Inventory : Component
 
 	public bool DropItem( ItemComponent item )
 	{
+		if(IsProxy) return true;
 		if ( item is ItemEquipment equipment && equipment.Equipped )
 			RemoveEquipmentItem( equipment );
 		else if ( item.State == ItemState.Backpack )
@@ -967,7 +972,21 @@ public sealed class Inventory : Component
 		{
 			_backpackItems[firstFreeSlot] = item;
 			item.State = ItemState.Backpack;
-			item.GameObject.Enabled = false;
+
+			// Deaktivieren der ModelRenderer-Komponenten
+			var modelRenderer = item.GameObject.Components.Get<ModelRenderer>();
+			if ( modelRenderer != null )
+			{
+				modelRenderer.Enabled = false;
+			}
+
+			var skinnedModelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
+			if ( skinnedModelRenderer != null )
+			{
+				skinnedModelRenderer.Enabled = false;
+			}
+
+			item.GameObject.Enabled = false; // Aktualisieren Sie den Zustand des Items
 		}
 		else
 		{
@@ -1000,7 +1019,8 @@ public sealed class Inventory : Component
 	/// </summary>
 	public void GiveBackpackItem(ItemComponent item, int index)
 	{
-		
+		if(IsProxy)
+			return;
 		// Überprüfen Sie, ob das Item bereits in der Liste ist
 		if (_backpackItems.Contains(item))
 		{
@@ -1167,6 +1187,9 @@ public sealed class Inventory : Component
 		if ( Player != null )
 			return;
 
+		if(IsProxy)
+			return;
+
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
 		if ( weaponContainer != null )
 		{
@@ -1192,6 +1215,7 @@ public sealed class Inventory : Component
 	
 	public static void GiveItem( string name )
 	{
+		
 		var player = Player.Local;
 		if ( player == null )
 			return;

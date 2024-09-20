@@ -294,6 +294,8 @@ public partial class Player : Component, IHealthComponent
 	}
 	public void EquipWeaponsOnSpawn()
 	{
+		if ( IsProxy )
+			return;
 		foreach ( var item in Inventory.EquippedItems )
 		{
 			if ( item is ItemEquipment equipment )
@@ -344,6 +346,8 @@ public partial class Player : Component, IHealthComponent
 	[AdminAttribute]
 	public async void StartHealthRegen( float regenAmount, float duration )
 	{
+		if ( IsProxy )
+			return;
 		float originalHealth = MaxHealth;
 		float endTime = Time.Now + duration;
 
@@ -361,6 +365,8 @@ public partial class Player : Component, IHealthComponent
 	[Broadcast]
 	public void TakeDamage( DamageType type, Single amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
+		if ( IsProxy )
+			return;
 		if ( LifeState == LifeState.Dead )
 		
 			return;
@@ -398,6 +404,8 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual bool CanUncrouch()
 	{
+		if ( IsProxy )
+			return true;
 		if ( !IsCrouching ) return true;
 		if ( LastUngroundedTime < 0.2f ) return false;
 
@@ -683,8 +691,9 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnUpdate()
 	{
+		if ( IsProxy )
+			return;
 
-		
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
 		
@@ -758,6 +767,8 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual void DoCrouchingInput()
 	{
+		if ( IsProxy )
+			return;
 		WantsToCrouch = CharacterController.IsOnGround && Input.Down( "Duck" );
 
 		if ( WantsToCrouch == IsCrouching )
@@ -786,6 +797,8 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual void DoMovementInput()
 	{
+		if ( IsProxy )
+			return;
 		if ( BlockInputs )
 		{
 			return;
@@ -947,7 +960,8 @@ public partial class Player : Component, IHealthComponent
 	}
 	public void Move()
 	{
-		
+		if ( IsProxy )
+			return;
 		// Aktualisiere die Bewegungslogik des Spielers
 		BuildWishVelocity();
 
@@ -956,7 +970,8 @@ public partial class Player : Component, IHealthComponent
 
 	private void BuildWishVelocity()
 	{
-		
+		if ( IsProxy )
+			return;
 
 
 		if ( isFrozen )
@@ -985,6 +1000,8 @@ public partial class Player : Component, IHealthComponent
 	[Broadcast]
 	private void SendKilledMessage( Guid attackerId )
 	{
+		if ( IsProxy )
+			return;
 		var attacker = Scene.Directory.FindByGuid( attackerId );
 		OnKilled( attacker );
 	}
@@ -994,6 +1011,8 @@ public partial class Player : Component, IHealthComponent
 	[Broadcast]
 	private void SendJumpMessage()
 	{
+		if ( IsProxy )
+			return;
 		foreach ( var animator in Animators )
 		{
 			animator.TriggerJump();

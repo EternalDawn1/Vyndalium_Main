@@ -25,17 +25,7 @@ namespace GeneralGame
             IsReady = readyStatus;
             Log.Info( $"Spieler {this} Bereitschaftsstatus gesetzt auf: {IsReady}" );
         }
-        public static bool AreAllPlayersReady( bool readyStatus )
-        {
-            foreach ( var player in _InternalPlayers )
-            {
-                if ( player.IsReady != readyStatus )
-                {
-                    return true;
-                }
-            }
-            return true;
-        }
+        
 
         [HostSync]
         public Guid ConnectionID
@@ -77,14 +67,11 @@ namespace GeneralGame
             if ( connection.IsHost )
             {
                 HostID = Guid.NewGuid();
-
             }
             else
             {
                 LocalID = Guid.NewGuid();
-
             }
-
         }
 
         public static Player GetByID( Guid id )

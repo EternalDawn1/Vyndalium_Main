@@ -285,22 +285,11 @@
     }
    
     private bool isSceneChanging = false;
-    private static bool isReady = false;
+   
     private int playerLevel = Player.Local.Level; 
     private int requiredLevel { get; set; }
 
-    private void ToggleReady()
-    {
-        isReady = !isReady;
-        StateHasChanged();
-        ToggleReadyStatusOnServer(isReady); // Neue Methode zum Senden des Status an den Server
-    }
-
-    private void ToggleReadyStatus()
-    {
-        isReady = !isReady;
-        GeneralGame.Player.AreAllPlayersReady(isReady);
-    }
+   
 
     public static void ToggleReadyStatusOnServer(bool readyStatus)
     {

@@ -59,7 +59,7 @@ namespace GeneralGame
                 return;
             }
 
-            AssignComponentsToAllPlayers( playerComponent );
+            //AssignComponentsToAllPlayers( playerComponent );
 
             playerComponent.SetupConnection( channel );
             Player._InternalPlayers?.Clear();
