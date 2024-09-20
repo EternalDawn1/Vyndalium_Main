@@ -10,9 +10,13 @@
 			<div class="item-name" style="position: absolute; left: 5%; align-items: center; justify-content: center; top: -4%;">
 				<h2 class="tier @Item.Tier.ToString()">@Item.Tier</h2>
 			</div>
-			<div class="item-name" style="position: absolute; right: 0%; align-items: center; justify-content: center; top: 0%;">
-				<h2 class="lvl @GetLevelColor(Item.ItemLevel)">+@Item.ItemLevel</h2>
-			</div>
+			@if (!Item.IsMaterial && !Item.IsPotion)
+			{
+				<div class="item-name"
+					style="position: absolute; right: 0%; align-items: center; justify-content: center; top: 0%;">
+					<h2 class="lvl @GetLevelColor(Item.ItemLevel)">+@Item.ItemLevel</h2>
+				</div>
+			}
 			<div style="flex-direction: column; align-items: flex-end; gap: 2px;"></div>
 			@if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Accessories)
 			{

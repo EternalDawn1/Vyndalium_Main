@@ -254,7 +254,7 @@ public partial class Npc : Component, IHealthComponent
 	[Property]public NpcState CurrentState { get; set; } = NpcState.Idle;
 	public static Random random = new Random();
 
-
+	public GameObject Hitprefab { get; set; }
 
 
 	[Property]
@@ -273,7 +273,7 @@ public partial class Npc : Component, IHealthComponent
 	{
 		Tags.Set( "npc", true );
 
-
+		Hitprefab = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ) );
 		NpcId = Scene.GetAllComponents<Npc>().OrderByDescending( x => x.NpcId ).First().NpcId + 1;
 
 		if ( MoveHelper != null )
@@ -897,7 +897,94 @@ public partial class Npc : Component, IHealthComponent
 	private bool RecentlyDamaged { get; set; }
 	private float DamageCooldown = 5.0f; // Zeit in Sekunden, wie lange der NPC nach Schaden den Spieler verfolgt
 	private float LastDamageTime;
+	private int CalculateVyndaliumReward( int npcLevel )
+	{
+		if ( npcLevel <= 10 )
+		{
+			return new Random().Next( 5, 10 ); // 5-15 Vyndalium für Level 1-10
+		}
+		else if ( npcLevel <= 20 )
+		{
+			return new Random().Next( 10, 15 ); // 15-30 Vyndalium für Level 11-20
+		}
+		else if ( npcLevel <= 30 )
+		{
+			return new Random().Next( 15, 60 ); // 30-50 Vyndalium für Level 21-30
+		}
+		else if ( npcLevel <= 40 )
+		{
+			return new Random().Next( 250, 510 ); // 50-70 Vyndalium für Level 31-40
+		}
+		else if ( npcLevel <= 50 )
+		{
+			return new Random().Next( 700, 910 ); // 70-90 Vyndalium für Level 41-50
+		}
+		else if ( npcLevel <= 60 )
+		{
+			return new Random().Next( 900, 1110 ); // 90-110 Vyndalium für Level 51-60
+		}
+		else if ( npcLevel <= 70 )
+		{
+			return new Random().Next( 1100, 1310 ); // 110-130 Vyndalium für Level 61-70
+		}
+		else if ( npcLevel <= 80 )
+		{
+			return new Random().Next( 1300, 1510 ); // 130-150 Vyndalium für Level 71-80
+		}
+		else if ( npcLevel <= 90 )
+		{
+			return new Random().Next( 1500, 1710 ); // 150-170 Vyndalium für Level 81-90
+		}
+		else
+		{
+			return new Random().Next( 1700, 2010 ); // 170-200 Vyndalium für Level 91-100
+		}
+	}
+	private int CalculateXpReward( int npcLevel )
+	{
+		int halfNpcLevel = npcLevel / 2;
 
+		if ( npcLevel <= 10 )
+		{
+			return new Random().Next( 2, 8) * halfNpcLevel; // 5-15 XP pro halbes Level für Level 1-10
+		}
+		else if ( npcLevel <= 20 )
+		{
+			return new Random().Next( 8, 17 ) * halfNpcLevel; // 15-30 XP pro halbes Level für Level 11-20
+		}
+		else if ( npcLevel <= 30 )
+		{
+			return new Random().Next( 16, 31 ) * halfNpcLevel; // 30-50 XP pro halbes Level für Level 21-30
+		}
+		else if ( npcLevel <= 40 )
+		{
+			return new Random().Next( 31, 48 ) * halfNpcLevel; // 50-70 XP pro halbes Level für Level 31-40
+		}
+		else if ( npcLevel <= 50 )
+		{
+			return new Random().Next( 48, 65 ) * halfNpcLevel; // 70-90 XP pro halbes Level für Level 41-50
+		}
+		else if ( npcLevel <= 60 )
+		{
+			return new Random().Next( 65, 80 ) * halfNpcLevel; // 90-110 XP pro halbes Level für Level 51-60
+		}
+		else if ( npcLevel <= 70 )
+		{
+			return new Random().Next( 81, 100) * halfNpcLevel; // 110-130 XP pro halbes Level für Level 61-70
+		}
+		else if ( npcLevel <= 80 )
+		{
+			return new Random().Next( 100, 151 ) * halfNpcLevel; // 130-150 XP pro halbes Level für Level 71-80
+		}
+		else if ( npcLevel <= 90 )
+		{
+			return new Random().Next( 150, 171 ) * halfNpcLevel; // 150-170 XP pro halbes Level für Level 81-90
+		}
+		else
+		{
+			return new Random().Next( 170, 201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+	}
 	[Broadcast]
 	public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
@@ -967,9 +1054,9 @@ public partial class Npc : Component, IHealthComponent
 			int npcLevel = this.Level;
 
 			// Skalieren der Punkte basierend auf dem Level des NPC
-			int vyndaliumPointsToAdd = new Random().Next( 1, 15 ) * npcLevel;
-			int xpPointsToAdd = new Random().Next( 5, 15 ) * npcLevel;
-			
+			int vyndaliumPointsToAdd = CalculateVyndaliumReward( npcLevel );
+			int xpPointsToAdd = CalculateXpReward( npcLevel );
+
 
 			if ( DeathSounds != null )
 			{
@@ -978,12 +1065,32 @@ public partial class Npc : Component, IHealthComponent
 			}
 			killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );
 			killerPlayer.AddVyndalium( vyndaliumPointsToAdd );
-
-			Hudmaster.Instance?.ShowNotification( $"received {vyndaliumPointsToAdd} Vyndalium","/ui/hud/shop.png" );
-
 			killerPlayer.GiveXp( xpPointsToAdd );
 
-			Hudmaster.Instance?.ShowNotification( $"received {xpPointsToAdd} XP", "ui/hud/star.gif" );
+			GameObject vyndaliumHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 50, 0, 25 ) );
+			FaceThing vyndaliumFaceThing = vyndaliumHitInfo.Components.Get<FaceThing>();
+			vyndaliumFaceThing.Thing = killerPlayer.GameObject;
+			TextRenderer vyndaliumTextRenderer = vyndaliumHitInfo.Components.Get<TextRenderer>();
+			vyndaliumTextRenderer.Color = Color.Yellow;
+			vyndaliumTextRenderer.Text = $"+{vyndaliumPointsToAdd} $";
+			ScaleTextWithDistance vyndaliumScaleText = vyndaliumHitInfo.Components.Get<ScaleTextWithDistance>();
+			vyndaliumScaleText.Thing = killerPlayer.GameObject;
+
+			// XP-HitInfo anzeigen
+			GameObject xpHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 0, 0, 50 ) ); // Leicht versetzt, um Überlappung zu vermeiden
+			FaceThing xpFaceThing = xpHitInfo.Components.Get<FaceThing>();
+			xpFaceThing.Thing = killerPlayer.GameObject;
+			TextRenderer xpTextRenderer = xpHitInfo.Components.Get<TextRenderer>();
+			xpTextRenderer.Color = Color.Blue;
+			xpTextRenderer.Text = $"+{xpPointsToAdd} XP";
+			ScaleTextWithDistance xpScaleText = xpHitInfo.Components.Get<ScaleTextWithDistance>();
+			xpScaleText.Thing = killerPlayer.GameObject;
+
+			
+
+			
+
+			
 			killerPlayer.OnZombieKilled();
 
 

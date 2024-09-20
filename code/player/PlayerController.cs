@@ -426,20 +426,31 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnAwake()
 	{
-		if(AmmoContainer == null)
+		if ( IsProxy )
+			return;
+
+		if (AmmoContainer == null)
 		{
 			AmmoContainer = new AmmoContainer();
 		}	
+		if(Inventory == null)
+		{
+			Inventory = Components.GetOrCreate<Inventory>( FindMode.EverythingInSelfAndDescendants );
+		}
 		
-		Inventory = Components.Get<Inventory>( FindMode.EverythingInSelfAndDescendants );
 
-		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>();
+		
+		if(ModelRenderer == null)
+		{
+			ModelRenderer = Components.Get<SkinnedModelRenderer>();
+		}
 		Collider = Components.Get<BoxCollider>( FindMode.EverythingInSelfAndDescendants );
+
 		if(CharacterController == null)
 		{
 			CharacterController = Components.Get<CharacterController2>();
 		}
-	
+
 		CharacterController.IgnoreLayers.Add( "player" );
 
 		Ragdoll = Components.GetInDescendantsOrSelf<RagdollController>();
@@ -450,8 +461,7 @@ public partial class Player : Component, IHealthComponent
 		}
 		
 
-		if ( IsProxy )
-			return;
+		
 
 		ResetViewAngles();
 		
@@ -488,6 +498,8 @@ public partial class Player : Component, IHealthComponent
 
 	private void UpdateWeaponModelVisibility()
 	{
+		if(IsProxy) 
+		return;
 		var deployedWeapon = Weapons.Deployed;
 		foreach ( var weapon in Weapons.All )
 		{
@@ -500,7 +512,7 @@ public partial class Player : Component, IHealthComponent
 				if ( itemComponent.IsItem )
 				{
 					modelRenderer.Enabled = weapon == deployedWeapon;
-					weapon.GameObject.Enabled = true;
+					weapon.GameObject.Enabled = false;
 				}
 				else
 				{
@@ -672,9 +684,10 @@ public partial class Player : Component, IHealthComponent
 	protected override void OnUpdate()
 	{
 
-
+		
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
+		
 
 		if ( !IsProxy )
 		{

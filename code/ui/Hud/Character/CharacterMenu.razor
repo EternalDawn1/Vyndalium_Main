@@ -274,7 +274,7 @@
 					<div class="playe1">
 						@foreach (var entry in Connection.All)
 						{
-							var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.OwnerConnection ==
+							var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.Owner ==
 							entry);
 
 							<div class="row-item">

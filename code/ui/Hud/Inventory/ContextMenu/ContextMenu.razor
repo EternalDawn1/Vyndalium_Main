@@ -85,13 +85,13 @@
 	}
     else if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Weapons)
     {
-        @if (_item != null && Player.Local.Inventory.BackpackItems.Contains(_item))
+        @if (_item != null && Player.Local.Inventory.BackpackItems.Contains(_item) && !_item.IsMaterial && !_item.IsPotion)
         {
             <ContextMenuOption Description="Move to Upgrade"
-                               ImagePath="ui/hud/shop.png"
-                               onclick=@(() => Upgrade(_item)) />
+                            ImagePath="ui/hud/shop.png"
+                            onclick=@(() => Upgrade(_item)) />
         }
-        else
+        else if (_item != null && !_item.IsMaterial && !_item.IsPotion)
         {
             <ContextMenuOption Description="Move to Backpack"
                                ImagePath="ui/hud/inventory.png"
@@ -363,7 +363,7 @@
 
         // Füge den Verkaufspreis zum Vyndalium des Spielers hinzu
         player.Vyndalium += singleSellPrice;
-        Log.Info($"Einzelnes Item {item.Name} verkauft für {singleSellPrice} Vyndalium.");
+        
         Hudmaster.Instance.ShowNotification($"Einzelnes Item {item.Name} was sold for {singleSellPrice} Vyndalium.", "/ui/hud/shop.png");
 
         // Wenn die Anzahl der Items im Stapel null erreicht, entferne das Item

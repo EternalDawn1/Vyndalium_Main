@@ -938,7 +938,7 @@ public sealed class Inventory : Component
 		if ( item == null ) return;
 
 		// Überprüfen, ob das Item ein Material ist und bereits im Inventar vorhanden ist
-		if ( item.IsMaterial|| item.IsPotion )
+		if ( item.IsMaterial || item.IsPotion )
 		{
 			var existingItem = _backpackItems.FirstOrDefault( i => i != null && i.Name == item.Name && i.Count < i.MaxStack );
 			if ( existingItem != null )

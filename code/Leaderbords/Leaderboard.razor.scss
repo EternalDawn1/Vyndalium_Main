@@ -1,10 +1,46 @@
 Leaderboard {
     position: relative;
     width: 100%;
-    height: 150%;
-    
+    height: 100%;
+    pointer-events: all;
     flex-direction: column;
+    .exit-button {
     
+    
+    
+            z-index: 100;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 32px;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            background-image: url(/ui/hud/exit.gif);
+            background-position: center;
+            background-size: cover;
+    
+            color: white;
+            border-width: 5px;
+            border-color: black;
+            right: 5%;
+            top: 5%;
+            padding: 5px;
+            cursor: pointer;
+    
+            :hover {
+    
+    
+    
+                position: relative;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                align-items: center;
+                justify-content: center;
+    
+            }
+        }
 
     .header {
         position: relative;

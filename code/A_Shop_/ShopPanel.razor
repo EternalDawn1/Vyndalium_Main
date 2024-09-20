@@ -37,7 +37,10 @@
                                     <InventorySlot Item=@item BackpackSlotIndex=@index />
                                 }
                             </div>
+                            <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
                             <div style="align-items: center; margin: 20px 5px;"></div>
+
+                            
                         </div>
                     </div>
                 </div>
@@ -113,9 +116,11 @@
                                 
                             
                         </div>
+                       
                         
 
                     </div>
+                    <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
                     @if (isUpgradePanelVisible)
                     {
                         <div class="upgrade-panel @(isUpgradePanelVisible ? "visible" : "")">
@@ -182,9 +187,12 @@
                 <div class="Panel">
                     <div class="section2">
                         <div class="title" style="color:blue">Item Shop</div>
+                            <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
                         <div class="items-container2">
                             <div class="items3">
+                                
                                 <div class="box">
+                                    
                                     <div class="potions">
                                         @for (var index = 0; index < 10; index++) // 10 Slots für den Shop
                                         {

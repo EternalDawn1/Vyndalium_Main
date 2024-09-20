@@ -18,24 +18,6 @@ public class ShopInteractable : BaseInteraction
         {
             interactions.AddInteraction( new Interaction()
             {
-                Identifier = "leader.open",
-                Action = ( Player interactor, GameObject obj ) =>
-                {
-                    var shopInteractable = obj.Components.Get<ShopInteractable>();
-                    if ( shopInteractable != null && shopInteractable.Storage != null )
-                    {
-                        shopInteractable.Storage.OpenMisson();
-                    }
-                },
-                Keybind = "use2",
-                Description = "Missons",
-                Stats = "Missions",
-                ShowWhenDisabled = () => true,
-                Accessibility = AccessibleFrom.All,
-            } );
-            // Interaktionen, wenn Missions true ist
-            interactions.AddInteraction( new Interaction()
-            {
                 Identifier = "shop.special",
                 Action = ( Player interactor, GameObject obj ) =>
                 {
@@ -46,12 +28,31 @@ public class ShopInteractable : BaseInteraction
                         shopInteractable.Storage.OpenLeaderboard();
                     }
                 },
-                Keybind = "use",
+                Keybind = "use2",
                 Description = "Leaderboard",
                 Stats = "Leaderboard",
                 ShowWhenDisabled = () => true,
                 Accessibility = AccessibleFrom.All,
             } );
+            interactions.AddInteraction( new Interaction()
+            {
+                Identifier = "leader.open",
+                Action = ( Player interactor, GameObject obj ) =>
+                {
+                    var shopInteractable = obj.Components.Get<ShopInteractable>();
+                    if ( shopInteractable != null && shopInteractable.Storage != null )
+                    {
+                        shopInteractable.Storage.OpenMisson();
+                    }
+                },
+                Keybind = "use",
+                Description = "Missons",
+                Stats = "Missions",
+                ShowWhenDisabled = () => true,
+                Accessibility = AccessibleFrom.All,
+            } );
+            // Interaktionen, wenn Missions true ist
+            
 
             
         }

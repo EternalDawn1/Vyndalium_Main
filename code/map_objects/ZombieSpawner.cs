@@ -12,12 +12,26 @@ public sealed class ZombieSpawner : Component
 	[Property] public int MaxSpawns { get; set; } = 10; // Neue Eigenschaft für maximale Anzahl von Spawns
     private int SpawnCount { get; set; } // Zähler für die Anzahl der Spawns
 	[Property] public bool DrawProximityRangeGizmo { get; set; }
-	[Property] public bool Level1To15 { get; set; }
-	[Property] public bool Level15To30 { get; set; }
-	[Property] public bool Level30To55 { get; set; }
-	[Property] public bool Level55To70 { get; set; }
-	[Property] public bool Level70To90 { get; set; }
-	[Property] public bool Level90To100 { get; set; }
+	[Property] public bool Level1To5 { get; set; }
+	[Property] public bool Level5To10 { get; set; }
+	[Property] public bool Level10To15 { get; set; }
+	[Property] public bool Level15To20 { get; set; }
+	[Property] public bool Level20To25 { get; set; }
+	[Property] public bool Level25To30 { get; set; }
+	[Property] public bool Level30To35 { get; set; }
+	[Property] public bool Level35To40 { get; set; }
+	[Property] public bool Level40To45 { get; set; }
+	[Property] public bool Level45To50 { get; set; }
+	[Property] public bool Level50To55 { get; set; }
+	[Property] public bool Level55To60 { get; set; }
+	[Property] public bool Level60To65 { get; set; }
+	[Property] public bool Level65To70 { get; set; }
+	[Property] public bool Level70To75 { get; set; }
+	[Property] public bool Level75To80 { get; set; }
+	[Property] public bool Level80To85 { get; set; }
+	[Property] public bool Level85To90 { get; set; }
+	[Property] public bool Level90To95 { get; set; }
+	[Property] public bool Level95To100 { get; set; }
 	[Property] public bool RandomizePropertiesOnRain { get; set; }
 	[Property] public bool RandomizeTierOnSpawn { get; set; }
 	
@@ -179,25 +193,53 @@ public sealed class ZombieSpawner : Component
 		SS = 4,
 		SSS = 5
 	}
-	
 
-	
+
+
 
 	private int GetRandomLevel()
 	{
 		var random = new Random();
-		if ( Level1To15 )
-			return random.Next( 1, 16 );
-		if ( Level15To30 )
-			return random.Next( 15, 31 );
-		if ( Level30To55 )
-			return random.Next( 30, 56 );
-		if ( Level55To70 )
-			return random.Next( 55, 71 );
-		if ( Level70To90 )
-			return random.Next( 70, 91 );
-		if ( Level90To100 )
-			return random.Next( 90, 101 );
+		if ( Level1To5 )
+			return random.Next( 1, 6 );
+		if ( Level5To10 )
+			return random.Next( 5, 11 );
+		if ( Level10To15 )
+			return random.Next( 10, 16 );
+		if ( Level15To20 )
+			return random.Next( 15, 21 );
+		if ( Level20To25 )
+			return random.Next( 20, 26 );
+		if ( Level25To30 )
+			return random.Next( 25, 31 );
+		if ( Level30To35 )
+			return random.Next( 30, 36 );
+		if ( Level35To40 )
+			return random.Next( 35, 41 );
+		if ( Level40To45 )
+			return random.Next( 40, 46 );
+		if ( Level45To50 )
+			return random.Next( 45, 51 );
+		if ( Level50To55 )
+			return random.Next( 50, 56 );
+		if ( Level55To60 )
+			return random.Next( 55, 61 );
+		if ( Level60To65 )
+			return random.Next( 60, 66 );
+		if ( Level65To70 )
+			return random.Next( 65, 71 );
+		if ( Level70To75 )
+			return random.Next( 70, 76 );
+		if ( Level75To80 )
+			return random.Next( 75, 81 );
+		if ( Level80To85 )
+			return random.Next( 80, 86 );
+		if ( Level85To90 )
+			return random.Next( 85, 91 );
+		if ( Level90To95 )
+			return random.Next( 90, 96 );
+		if ( Level95To100 )
+			return random.Next( 95, 101 );
 
 		return 1; // Standardlevel, falls keine Property gesetzt ist
 	}

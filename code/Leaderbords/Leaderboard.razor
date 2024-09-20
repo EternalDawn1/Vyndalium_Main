@@ -20,7 +20,9 @@
 <root>
     @if (leaderboard != null && leaderboard.Entries.Count() > 1)
     {
+        <button class="exit-button" @onclick="@(() => CloseMission())"></button>
         <div class="header">Leaderboard</div>
+        
         <div class="main-panel">
             <div class="header2">Avg. Most Vyndalium Count
                 <div class="entries">
@@ -59,7 +61,11 @@
 
 @code
 {
-   
+   private void CloseMission()
+    {
+        Player.Local.BlockInputs = false;
+        FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud);
+    }
     Sandbox.Services.Leaderboards.Board2 leaderboard;
     Sandbox.Services.Leaderboards.Board2 leaderboard2;
   

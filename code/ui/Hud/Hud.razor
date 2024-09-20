@@ -154,7 +154,7 @@
 	{
 		if (player == null || !player.IsValid())
 		{
-			player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.OwnerConnection == Connection.Local);
+			player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.Owner == Connection.Local);
 		}
 	}
 	private string GetHealthBarColor()

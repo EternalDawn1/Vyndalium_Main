@@ -449,32 +449,7 @@ public class StoryMaster : Component
 
 	public List<string> RandomTips = new()
 	{
-		"Take your pants off and press P to piss.",
-		"Pissing on stuff might give different results.",
-		"Airsoft can't hurt large animals, but an Axe could!",
-		"Only a real rifle can hurt the king of the forest.",
-		"If you follow the ? on the compass you might find something...",
-		"The deeper in the forest you go, the rarer the animals.",
-		"The deeper you cast your fishing, the better the fish.",
-		"Foxes kill hares, but they might leave spoils behind!",
-		"To continue with the story you must complete all primary tasks.",
-		"Talk with folks around town, some days they might give you tasks.",
-		"Remember to have pants on in the city, or the cops will attack.",
-		"Remember to take pants off in the city, or the hobos will attack.",
-		"Some of your tasks can be completed by other players.",
-		"Press ESC for useful shortcuts such as the fish collection.",
-		"You can drag items on your character to equip them.",
-		"You can drag items off the inventory to drop them.",
-		"You can zoom by holding the Middle Mouse.",
-		"You can walk by holding the ALT key.",
-		"You can crouch by holding the CTRL key.",
-		"Don't bother shooting humans they don't drop anything.",
-		"Run.",
-		"The day will automatically end in the middle of the night.",
-		"Try to go back home before 3am, weird things happen.",
-		"Only some items can be sold at certain shops.",
-		"If you ever end up losing an item you can buy a replacement at one of the town shops.",
-		"You can view the sell price of an item by mousing over it in your inventory. Some items cannot be sold!"
+		
 	};
 
 	TimeSince _lastTipAttempt = 0f;

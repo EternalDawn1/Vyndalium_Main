@@ -104,7 +104,7 @@ namespace GeneralGame.HUD
                 upgradeItem.SuccessChance = CalculateSuccessChance( upgradeItem.ItemLevel );
             }
         }
-        private void PlaySuccessSoundFromPath( string soundEventPath, float volume )
+       public void PlaySuccessSoundFromPath( string soundEventPath, float volume )
         {
             // SoundEvent anhand des Pfads laden
             var soundEvent = ResourceLibrary.Get<SoundEvent>( soundEventPath );
@@ -135,6 +135,12 @@ namespace GeneralGame.HUD
         {
             if ( upgradeItem != null && Player.Local.Vyndalium >= upgradeCost && upgradeItem.ItemLevel < 27 )
             {
+                if ( upgradeItem.IsPotion || upgradeItem.IsMaterial )
+                {
+                    Hudmaster.Instance.ShowNotification( "you cannot upgrade that.", "/ui/hud/exit.gif" );
+                    PlaySuccessSoundFromPath( "sounds/upgrade/notenoughmoney.sound", 0.025f );
+                    return;
+                }
                 // Ab Level 4 werden Materialien benötigt
                 if ( upgradeItem.ItemLevel >= 4 )
                 {
@@ -474,8 +480,10 @@ namespace GeneralGame.HUD
                 Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 ),
                 shopStorage?.AvailableItems.HashCombine( i => i?.GetHashCode() ?? -1 ) ?? 0,
                 isUpgradePanelVisible,
+                Player.Local.Vyndalium,
                 statusText?.GetHashCode() ?? 0,
                 statusClass?.GetHashCode() ?? 0
+                
 
 
             );

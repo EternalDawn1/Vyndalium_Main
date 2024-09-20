@@ -130,6 +130,27 @@
           ]
         },
         {
+          "__guid": "aff366cc-cff1-43a5-981f-878f867c4130",
+          "Flags": 0,
+          "Name": "table",
+          "Position": "-23.84656,-65.20886,-96.69777",
+          "Rotation": "0,0,-0.9999999,0.0000001937151",
+          "Scale": "1,0.6827624,1",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "224da9ec-3766-48ed-aa69-f30796b625fc",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "Model": "models/props/wood_table_v2/wood_tablev2.vmdl",
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
           "__guid": "9c40eb82-9da4-4c4b-bb74-82c29ce89336",
           "Flags": 0,
           "Name": "washingmachine",
@@ -426,41 +447,41 @@
           ]
         },
         {
-          "__guid": "fe284b70-b34f-465c-901c-771cdb730f64",
-          "Flags": 0,
-          "Name": "Point Light (10)",
-          "Position": "-273.6215,228.3602,294.9991",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "2cbdb00a-146d-4c5e-a63b-991bfbe366e6",
-              "Attenuation": 0.18,
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "0.92558,0.66039,0.35732,1",
-              "Radius": 1275.4998,
-              "Shadows": true
-            }
-          ]
-        },
-        {
           "__guid": "c3fa6bf0-fd95-48a1-b8fe-5329f2ec2392",
           "Flags": 0,
           "Name": "Point Light (11)",
-          "Position": "-273.6215,70.25269,294.9991",
+          "Position": "-120.3669,186.2819,191.4381",
           "Tags": "light_point,light",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
               "__guid": "6166f1bc-4fb2-4acf-bafb-133b6b0b7ec2",
-              "Attenuation": 0.18,
+              "Attenuation": 0.19,
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.92558,0.66039,0.35732,1",
-              "Radius": 1275.4998,
+              "Radius": 202.89952,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "d0472295-d33e-4215-95f4-35e7a51fa53f",
+          "Flags": 0,
+          "Name": "Point Light (11)",
+          "Position": "-392.6947,212.8691,195.26",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "f898f110-24e1-40d5-ae75-2a6aead84836",
+              "Attenuation": 0.19,
+              "FogMode": "WithoutShadows",
+              "FogStrength": 1,
+              "LightColor": "0.92558,0.66039,0.35732,1",
+              "Radius": 260.39993,
               "Shadows": true
             }
           ]
@@ -588,75 +609,6 @@
       ]
     },
     {
-      "__guid": "d71c2760-1c7f-4926-a57e-ff79e9db9fac",
-      "Flags": 0,
-      "Name": "Shop",
-      "Position": "-2357.212,-1036.866,12.45033",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.WorldPanel",
-          "__guid": "e16d33f3-3e95-42a2-863d-8fe23429c143",
-          "HorizontalAlign": "Center",
-          "InteractionRange": 1000,
-          "LookAtCamera": false,
-          "PanelSize": "4904.1,2840.603",
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderScale": 1,
-          "VerticalAlign": "Center"
-        },
-        {
-          "__type": "GeneralGame.HUD.ShopWorldPanel",
-          "__guid": "62af8d0c-30d7-45fd-b62e-2e32a39430d6"
-        }
-      ]
-    },
-    {
-      "__guid": "47abb549-b313-4b30-a3b7-b3daf52d65f6",
-      "Flags": 0,
-      "Name": "Leaderboard",
-      "Position": "-2951.967,-973.2637,148.0116",
-      "Rotation": "0,0,0.7071067,0.7071068",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.WorldPanel",
-          "__guid": "3ffb190f-f9b8-4a4a-af32-2fe0b0596d87",
-          "HorizontalAlign": "Center",
-          "InteractionRange": 1000,
-          "LookAtCamera": false,
-          "PanelSize": "4904.1,2840.603",
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderScale": 1,
-          "VerticalAlign": "Center"
-        },
-        {
-          "__type": "GeneralGame.HUD.LeaderWorldBoard",
-          "__guid": "bd0d6635-7cb7-45c4-bab7-50e6d1fb1704"
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "96be444e-118a-41b9-8111-8beab77c9117",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "42.77319,171.6406,17.7894",
-          "Rotation": "0.1205905,0.04995017,0.9159755,0.3794096",
-          "Enabled": true
-        }
-      ]
-    },
-    {
       "__guid": "19487e25-24c9-437a-8332-17ed4a81294b",
       "Flags": 0,
       "Name": "Object",
@@ -758,6 +710,7 @@
               "IsEquipment": false,
               "IsItem": false,
               "IsMaterial": false,
+              "IsPotion": false,
               "ItemLevel": 0,
               "LightningResistence": 0,
               "MagicDefense": 0,
@@ -1783,7 +1736,7 @@
       "__guid": "9f46a6ea-aec3-4534-8c3d-b64bb836d427",
       "Flags": 0,
       "Name": "Object",
-      "Position": "-2090.938,-1143.057,-15.70663",
+      "Position": "-1926.981,-1143.057,-15.70663",
       "Enabled": true,
       "Components": [
         {
@@ -1792,12 +1745,26 @@
           "destroyChance": 99,
           "DrawProximityRangeGizmo": false,
           "IsSpawning": false,
-          "Level15To30": false,
-          "Level1To15": false,
-          "Level30To55": false,
-          "Level55To70": false,
-          "Level70To90": false,
-          "Level90To100": false,
+          "Level10To15": false,
+          "Level15To20": false,
+          "Level1To5": false,
+          "Level20To25": false,
+          "Level25To30": false,
+          "Level30To35": false,
+          "Level35To40": false,
+          "Level40To45": false,
+          "Level45To50": false,
+          "Level50To55": false,
+          "Level55To60": false,
+          "Level5To10": false,
+          "Level60To65": false,
+          "Level65To70": false,
+          "Level70To75": false,
+          "Level75To80": false,
+          "Level80To85": false,
+          "Level85To90": false,
+          "Level90To95": false,
+          "Level95To100": false,
           "MaxSpawns": 10,
           "PlayerProximityDistance": 509.79984,
           "Randomized": true,
@@ -1860,6 +1827,7 @@
           "IsEquipment": false,
           "IsItem": false,
           "IsMaterial": false,
+          "IsPotion": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -1917,6 +1885,121 @@
       "Flags": 0,
       "Name": "GameObject",
       "Enabled": true
+    },
+    {
+      "__guid": "c3c0ab55-2c68-4785-8937-4ff736b255e5",
+      "Flags": 0,
+      "Name": "wood_box_01a",
+      "Position": "-2032.771,-1196.596,-63.7807",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "1627702d-0276-4cc7-8999-0fbf72e00f24",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "9bc062b7-59e8-4871-b087-c2e3c063db4d",
+      "Flags": 0,
+      "Name": "wood_box_01a (3)",
+      "Position": "-1942.631,-1196.596,-63.7807",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "d699e466-04c2-4edb-b0c9-a1194e58bfb1",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "efd6b0ec-59df-4b3c-ba78-65a33f26c1ca",
+      "Flags": 0,
+      "Name": "wood_box_01a (4)",
+      "Position": "-1942.631,-1196.596,-29.65705",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "f30a9832-0053-46ea-9868-a3652532b80a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e6c1f1d7-c569-42d7-8238-cbfb00ce3882",
+      "Flags": 0,
+      "Name": "wood_box_01a (1)",
+      "Position": "-2067.774,-1196.596,-63.7807",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "b55401fe-d27d-4f04-97fe-becd1a13bb90",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "64dd91f8-a7e0-4ac9-828c-53756d081f6c",
+      "Flags": 0,
+      "Name": "wood_box_01a (2)",
+      "Position": "-2050.253,-1196.596,-26.59568",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "b7b5f9b9-44d5-4d28-8606-b5658507caf5",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "110932a1-5693-4c0d-915e-a86d41c14089",
+      "Flags": 0,
+      "Name": "forklift big",
+      "Position": "-2250.801,-1169.386,-61.16206",
+      "Scale": "0.5,0.5,0.5",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "d523d332-17a3-4137-bfac-563a761bf229",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/forklift big/forklift big.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -1947,7 +2030,9 @@
     "eurorp.kitchen",
     "fish.cabinet_bottom_doors",
     "frogpond.washingmachine",
-    "luke.ft_kitchen_light"
+    "luke.ft_kitchen_light",
+    "reizer.wood_box_01a",
+    "starblue.forklifttruck"
   ],
   "__version": 1
 }
