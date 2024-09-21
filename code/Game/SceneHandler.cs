@@ -73,16 +73,12 @@ public static class SceneHandler
 		Player.Setup();
 		Log.Info( "loading +" + resource );
 
+		
 		// Definieren und Initialisieren der neuen Szene
-		var newScene = new Scene();
-		newScene.Load( resource );
 
+		Game.ActiveScene.Load( resource );
 		// Speichern der aktuellen Szene
-		var oldScene = Game.ActiveScene;
 
-		// Aktivieren der neuen Szene
-		Game.ActiveScene = newScene;
-		oldScene?.Destroy();
 	}
 
 	public static void DeleteCurrentScene()

@@ -707,10 +707,14 @@
               "IceResistence": 0,
               "Icon": {},
               "INT": 0,
+              "IsAccessory": false,
+              "IsArmor": false,
+              "IsConsumable": false,
               "IsEquipment": false,
               "IsItem": false,
               "IsMaterial": false,
               "IsPotion": false,
+              "IsWeapon": false,
               "ItemLevel": 0,
               "LightningResistence": 0,
               "MagicDefense": 0,
@@ -723,6 +727,7 @@
               "PER": 0,
               "PoisonResistence": 0,
               "Price": 0,
+              "RequiredLevel": 0,
               "SellPrice": 0,
               "ShadowResistence": 0,
               "SlowResistence": 0,
@@ -1824,10 +1829,14 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsConsumable": false,
           "IsEquipment": false,
           "IsItem": false,
           "IsMaterial": false,
           "IsPotion": false,
+          "IsWeapon": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -1839,6 +1848,7 @@
           "PER": 0,
           "PoisonResistence": 0,
           "Price": 0,
+          "RequiredLevel": 0,
           "SellPrice": 0,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -1881,12 +1891,6 @@
       ]
     },
     {
-      "__guid": "0ca7d8cc-774a-480d-bf94-93ad1febeecb",
-      "Flags": 0,
-      "Name": "GameObject",
-      "Enabled": true
-    },
-    {
       "__guid": "c3c0ab55-2c68-4785-8937-4ff736b255e5",
       "Flags": 0,
       "Name": "wood_box_01a",
@@ -1915,306 +1919,6 @@
         {
           "__type": "Sandbox.Prop",
           "__guid": "d699e466-04c2-4edb-b0c9-a1194e58bfb1",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": true,
-          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        }
-      ]
-    },
-    {
-      "__guid": "efd6b0ec-59df-4b3c-ba78-65a33f26c1ca",
-      "Flags": 0,
-      "Name": "wood_box_01a (4)",
-      "Position": "-1812.45,-1260.281,-47.71678",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "f30a9832-0053-46ea-9868-a3652532b80a",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": true,
-          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "GeneralGame.Components.ItemObject",
-          "__guid": "a829a71e-85e1-4d7d-bfba-fcdd148c55b1",
-          "prefabPaths": [
-            "prefabs/potions/potion_big.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/entitys/chestsystem/example1.prefab"
-          ],
-          "DeathSound": "sounds/upgrade/gold.sound",
-          "Health": 100,
-          "MaxHealth": 100,
-          "VyndaliumReward": 10,
-          "XpReward": 50
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "dc66e56e-9b2c-4e84-a0b7-5a9403703ee7",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": "DisableCollisionSounds",
-          "StartAsleep": false
-        }
-      ]
-    },
-    {
-      "__guid": "4c839e7b-7e1f-4d84-b4b4-7901aeb1ecd8",
-      "Flags": 0,
-      "Name": "wood_box_01a (5)",
-      "Position": "-1781.601,-1260.281,-47.71678",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "419d9149-5f89-4341-a47e-181238d617af",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": true,
-          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "436f5647-ad89-46ff-8696-e2636314b0aa",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": "DisableCollisionSounds",
-          "StartAsleep": false
-        },
-        {
-          "__type": "GeneralGame.Components.ItemObject",
-          "__guid": "c79554b6-3e22-411c-ba03-dbf582d36b48",
-          "prefabPaths": [
-            "prefabs/potions/potion_small.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/entitys/chestsystem/example1.prefab"
-          ],
-          "Health": 100,
-          "MaxHealth": 100,
-          "VyndaliumReward": 23,
-          "XpReward": 22
-        }
-      ]
-    },
-    {
-      "__guid": "1032ef98-8dfc-4962-9ea9-28d75fd6cf8d",
-      "Flags": 0,
-      "Name": "wood_box_01a (6)",
-      "Position": "-1761.654,-1262.083,-47.71678",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "fc726319-5845-4f82-952d-d67b220360d5",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": true,
-          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "GeneralGame.Components.ItemObject",
-          "__guid": "3b0cbaa7-d30a-4f57-bee7-15479b64099f",
-          "prefabPaths": [
-            "prefabs/potions/potion_big.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/entitys/chestsystem/example1.prefab"
-          ],
-          "DeathSound": "sounds/upgrade/gold.sound",
-          "Health": 100,
-          "MaxHealth": 100,
-          "VyndaliumReward": 10,
-          "XpReward": 50
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "0c6ff4d3-033c-4d01-a3da-5a503471103b",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": "DisableCollisionSounds",
-          "StartAsleep": false
-        }
-      ]
-    },
-    {
-      "__guid": "ae997f8a-9c37-4a78-a7a6-a6529eb7f7f2",
-      "Flags": 0,
-      "Name": "wood_box_01a (7)",
-      "Position": "-1741.444,-1265.383,-47.7168",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "9fdcc07c-f367-44a3-bc5a-8c34352ab422",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": true,
-          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "GeneralGame.Components.ItemObject",
-          "__guid": "f77349de-b5c0-4702-b924-b5d2f7b29702",
-          "prefabPaths": [
-            "prefabs/potions/potion_big.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/entitys/chestsystem/example1.prefab"
-          ],
-          "DeathSound": "sounds/upgrade/gold.sound",
-          "Health": 100,
-          "MaxHealth": 100,
-          "VyndaliumReward": 10,
-          "XpReward": 50
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "4ce77b5d-d675-4882-8460-2cbad73ce906",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": "DisableCollisionSounds",
-          "StartAsleep": false
-        }
-      ]
-    },
-    {
-      "__guid": "cf6b0fd3-91da-4da1-bba3-4f61692009a5",
-      "Flags": 0,
-      "Name": "wood_box_01a (8)",
-      "Position": "-1723.207,-1265.895,-47.71679",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "cbeec83a-592f-4e57-a933-e896cf6a8be4",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": true,
-          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "GeneralGame.Components.ItemObject",
-          "__guid": "625ad489-f304-48f1-9276-0465c0f8f807",
-          "prefabPaths": [
-            "prefabs/potions/potion_big.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/entitys/chestsystem/example1.prefab"
-          ],
-          "DeathSound": "sounds/upgrade/gold.sound",
-          "Health": 100,
-          "MaxHealth": 100,
-          "VyndaliumReward": 10,
-          "XpReward": 50
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "c80adb71-b5b4-4a77-8946-61a801bbd48a",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": "DisableCollisionSounds",
-          "StartAsleep": false
-        }
-      ]
-    },
-    {
-      "__guid": "e2c6943b-b752-4190-9845-19642671e6ad",
-      "Flags": 0,
-      "Name": "wood_box_01a (9)",
-      "Position": "-1678.842,-1266.943,-47.71678",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "42de1ac3-34f1-4fb0-9f35-809a02dad01c",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": true,
-          "Model": "models/reizer_props/srsp/random_stuff/wood_box/01a/wood_box_01a.vmdl",
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "GeneralGame.Components.ItemObject",
-          "__guid": "303637ac-94b3-4886-9b76-c0790da19e39",
-          "prefabPaths": [
-            "prefabs/potions/potion_big.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/entitys/chestsystem/example1.prefab"
-          ],
-          "DeathSound": "sounds/upgrade/gold.sound",
-          "Health": 100,
-          "MaxHealth": 100,
-          "VyndaliumReward": 10,
-          "XpReward": 50
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "da9f5309-8a7a-499e-8e96-18f57ee2e797",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": "DisableCollisionSounds",
-          "StartAsleep": false
-        }
-      ]
-    },
-    {
-      "__guid": "e6c1f1d7-c569-42d7-8238-cbfb00ce3882",
-      "Flags": 0,
-      "Name": "wood_box_01a (1)",
-      "Position": "-2067.774,-1196.596,-63.7807",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "b55401fe-d27d-4f04-97fe-becd1a13bb90",
           "BodyGroups": 18446744073709551615,
           "Health": 0,
           "IsStatic": true,
@@ -2262,6 +1966,80 @@
           "Tint": "1,1,1,1"
         }
       ]
+    },
+    {
+      "__guid": "f793e6ee-774b-4238-ae2c-c952b469cc40",
+      "Flags": 0,
+      "Name": "exit",
+      "Position": "-2586.729,-494.5106,70.85681",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "da08a315-3235-43c9-bda7-3d9ebfddb1d3",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/sbox_props/cardboard_box/cardboard_box.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "a91e45df-5f3a-4266-a3e0-c6173e8ea0c7",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false
+        },
+        {
+          "__type": "GeneralGame.SceneChangeTrigger",
+          "__guid": "9062edf7-5ad1-472a-9d86-0092dcc32b0b",
+          "SceneToLoad": "One"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "28eab1ef-0e67-425b-9e1d-4fe76178127c",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-0,0,86.00391",
+          "Rotation": "0,0,0.7071067,0.7071068",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "562275b5-0e56-4974-b80a-be9cf011fd92",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 90.47,
+              "FontWeight": 800,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "Scale": 0.08,
+              "Text": "EXIT",
+              "TextAlignment": "Center"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "fe49d7ac-5b9d-484e-a747-fa933cdf2334",
+      "Flags": 0,
+      "Name": "b",
+      "Position": "-1244.37,-491.6055,58.95371",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/aksu/b.prefab",
+      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {
@@ -2290,6 +2068,7 @@
   "ResourceVersion": 1,
   "__references": [
     "eurorp.kitchen",
+    "facepunch.cardboard_box",
     "fish.cabinet_bottom_doors",
     "frogpond.washingmachine",
     "luke.ft_kitchen_light",

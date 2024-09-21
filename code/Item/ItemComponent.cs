@@ -66,13 +66,38 @@ public class SerializedItemComponent
 
 public class ItemComponent : Component
 {
-	[Property]
+	[Property, Group( "Type" )]
 	public bool IsMaterial { get; set; }
-	[Property]
+	[Property , Group( "Type" )]
 	public bool IsPotion { get; set; }
+	[Property , Group( "Type" )]
+	public bool IsWeapon { get; set; }
+	[Property , Group( "Type" )]
+	public bool IsArmor { get; set; }
+	[Property , Group( "Type" )]
+	public bool IsAccessory { get; set; }
+	[Property , Group( "Type" )]
+	public bool IsConsumable { get; set; }
+
+	public bool IsAvailableInLevel( int level )
+	{
+		return level >= RequiredLevel;
+	}
+	public bool CanEquip( int playerLevel )
+	{
+		return playerLevel >= RequiredLevel;
+	}
+
 	[Property]public int BuyPrice { get; set; }
 	public bool IsSold { get; set; } = false;
+	[Property ,Group("Main"),Range(0,100)]public int RequiredLevel { get; set; }
 	
+	[Property, Group( "Stats" )]
+	public int MinAttackValue { get; set; }
+
+	[Property, Group( "Stats" )]
+	public int MaxAttackValue { get; set; }
+
 	public int CalculateBuyPrice()
 	{
 		int basePrice = 0;

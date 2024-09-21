@@ -318,21 +318,20 @@ public class Interactions : Component
 
 			outline.Color = tierColor;
 			outline.Width = 0.8f;
-			outline.ObscuredColor = tierColor;
 		}
 		else
 		{
 			if ( outline != null )
 			{
-				outline.Destroy();
+				outline.Destroy( );
 			}
 		}
 	}
 	public bool IsHighlighted()
-	{
-		var outline = this.GameObject.Components.Get<HighlightOutline>();
-		return outline != null;
-	}
+{
+    var outline = GameObject?.Components?.Get<HighlightOutline>();
+    return outline != null;
+}
 	protected override void OnUpdate()
 	{
 		

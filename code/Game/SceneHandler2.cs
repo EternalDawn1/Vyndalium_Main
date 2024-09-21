@@ -1,5 +1,7 @@
 namespace GeneralGame;
-
+using System;
+using System.Linq;
+using System.Collections.Generic;
 public enum GeneralScene2
 {
     Creation,
@@ -27,7 +29,7 @@ public static class SceneHandler2
             Log.Info( "Level zu niedrig, um diese Szene zu wechseln." );
             return;
         }
-
+       
         // Lösche die aktuelle Szene
         DeleteCurrentScene();
 
@@ -65,22 +67,31 @@ public static class SceneHandler2
             var connected = GameNetworkSystem.TryConnectSteamId( lobby.Value );
             // Return if connection fails.
         }
-
+       
 
 
         Player.Setup();
         Log.Info( "loading +" + resource );
 
+     
+
+
         // Definieren und Initialisieren der neuen Szene
-        var newScene = new Scene();
-        newScene.Load( resource );
+        LoadNewScene( resource,scene );
 
-        // Speichern der aktuellen Szene
-        var oldScene = Game.ActiveScene;
 
-        // Aktivieren der neuen Szene
-        Game.ActiveScene = newScene;
-        oldScene?.Destroy();
+        // Zerstören der alten Szene
+        DeleteCurrentScene();
+
+
+
+    }
+    
+    public static void LoadNewScene( GameResource resource, GeneralScene2 scene )
+    {
+        // Logik zum Laden der neuen Szene
+        Game.ActiveScene.Load( resource );
+        CurrentScene = scene; // Aktualisieren der aktuellen Szene
     }
 
     public static void DeleteCurrentScene()

@@ -3,14 +3,19 @@ using GeneralGame.HUD;
 using Sandbox;
 using System;
 
-namespace GeneralGame.Components
+namespace GeneralGame
 {
     public partial class ItemObject : Component, IHealthComponent
     {
-        [Property] public float Health { get; set; } = 100f;
+        [Property]public float Health {get; set;} = 100f;
+        
         [Property] public float MaxHealth { get; set; } = 100f;
         [Property] public int XpReward { get; set; } = 50;
         [Property] public int VyndaliumReward { get; set; } = 10;
+        [Property] public GameObject Ragdoll { get; set; }
+        [Property] public string Name { get; set; } 
+        
+      
         private static readonly Random random = new Random();
        
         [Property] public SoundEvent DeathSound { get; set; }
@@ -18,24 +23,24 @@ namespace GeneralGame.Components
         public event Action OnDeath;
         public GameObject Hitprefab { get; set; }
         public LifeState LifeState { get; set; } = LifeState.Alive;
-        public ItemObject()
+       
+        [Property]
+        private readonly List<string> prefabPaths = new List<string>
         {
-            XpReward = random.Next( 10, 51 ); // Zufälliger Wert zwischen 10 und 50 (einschließlich)
-            VyndaliumReward = random.Next( 10, 51 ); // Zufälliger Wert zwischen 10 und 50 (einschließlich)
-        }
-        [Property]private readonly List<string> prefabPaths = new List<string>
-        {
-            "prefabs/potions/potion_small.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/entitys/chestsystem/example1.prefab"
+            "prefabs/potions/potion_small.prefab", // 20% Wahrscheinlichkeit
+            "prefabs/items/wood_log.prefab",       // 30% Wahrscheinlichkeit
+            "prefabs/entitys/chestsystem/example1.prefab", // 5% Wahrscheinlichkeit
+            null // Restliche Wahrscheinlichkeit (45%) für nichts
         };
 
         private readonly List<float> probabilities = new List<float>
         {
-            0.5f, // 50% Wahrscheinlichkeit
-            0.3f, // 30% Wahrscheinlichkeit
-            0.2f  // 20% Wahrscheinlichkeit
+            0.2f, // 20% Wahrscheinlichkeit für Tränke
+            0.3f, // 30% Wahrscheinlichkeit für Holz
+            0.05f, // 5% Wahrscheinlichkeit für eine Truhe
+            0.45f  // 45% Wahrscheinlichkeit für nichts
         };
+
 
         // Methode zum Spawnen eines zufälligen Prefabs
         private void SpawnRandomPrefab( Vector3 position )
@@ -60,18 +65,29 @@ namespace GeneralGame.Components
                         var gameObject = GameObject.Clone( prefab );
                         if ( gameObject != null )
                         {
-                            gameObject.Transform.Position = position;
+                            // Spawnen des Items in der Luft
+                            gameObject.Transform.Position = position + new Vector3( 0, 0, 50 );
                             gameObject.NetworkSpawn();
+
+                            // Erzeugen eines Partikelemitters in der Mitte
+                           
+
+                            // Zerstören des Partikelemitters nach einer kurzen Zeit
+                            // 2 Sekunden Verzögerung
                         }
                     }
                     break;
                 }
             }
         }
+
+        // Asynchrone Methode zum Zerstören des Partikelemitters nach einer Verzögerung
+       
         public void OnBoxDestroyed()
         {
             Vector3 position = this.GameObject.Transform.Position;
             SpawnRandomPrefab( position );
+
         }
         [Broadcast]
         public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
@@ -94,8 +110,10 @@ namespace GeneralGame.Components
                 return;
 
             Health = Math.Clamp( Health - amount, 0f, MaxHealth );
+
             OnTakeDamage?.Invoke();
 
+            
             if ( Health <= 0f )
             {
                 LifeState = LifeState.Dead;
@@ -171,7 +189,13 @@ namespace GeneralGame.Components
                         }
                     }
                 }
-                
+                var ragdoll = Ragdoll.Clone( Transform.Position );
+                if ( ragdoll != null )
+                {
+                    ragdoll.Transform.Rotation = Transform.Rotation;
+                    ragdoll.Transform.Position = Transform.Position;
+                    ragdoll.NetworkSpawn();
+                }
                 OnBoxDestroyed();
                 GameObject.Destroy();
             }

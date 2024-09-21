@@ -33,7 +33,7 @@ namespace GeneralGame
         public ItemStorage()
         {
             Items = new List<ItemComponent>();
-            LoadPrefabs();
+            LoadPrefabs( );
             GenerateRandomStatsForItems();
             
         }
@@ -48,20 +48,14 @@ namespace GeneralGame
                         continue; // Überspringen Sie die Generierung zufälliger Statistiken für dieses Item
                     }
 
-                    var tier = (GeneralGame.Tier)GetRandomTier();
-                    itemComponent.ItemTier = new ItemComponent.TierClass { Tier = (GeneralGame.Tier)GetRandomTier() };
-                    itemComponent.GenerateRandomStats();
+                   
+                    //itemComponent.GenerateRandomStats();
                     itemComponent.CalculateSellPrice();
                     //itemComponent.GenerateRandomDMG(tier);
                 }
             }
         }
-        private int GetRandomTier()
-        {
-            // Implementieren Sie hier die Logik zur Generierung eines zufälligen Tiers
-            Random random = new Random();
-            return random.Next( 1, 5 ); // Beispiel: Zufälliger Tier zwischen 1 und 4
-        }
+       
         private List<string> nonRandomStatItems = new List<string>
         {
             "prefabs/items/wood_log.prefab",
@@ -71,6 +65,7 @@ namespace GeneralGame
         private void LoadPrefabs()
         {
             
+
             var tierCPrefabs = new List<string>
             {
                 "prefabs/weapons/aksu/c.prefab",

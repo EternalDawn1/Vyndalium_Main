@@ -35,7 +35,10 @@
    
     protected override void OnUpdate()
     {
-        npc.OnTakeDamage += HandleTakeDamage;
+        if (npc != null)
+        {
+            npc.OnTakeDamage += HandleTakeDamage;
+        }
     }
     private bool isTakingDamage = false;
     [Property] private Npc npc { get; set; } = new Npc();

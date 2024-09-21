@@ -1067,36 +1067,77 @@ public partial class Npc : Component, IHealthComponent
 			killerPlayer.AddVyndalium( vyndaliumPointsToAdd );
 			killerPlayer.GiveXp( xpPointsToAdd );
 
-			GameObject vyndaliumHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 50, 0, 25 ) );
-			FaceThing vyndaliumFaceThing = vyndaliumHitInfo.Components.Get<FaceThing>();
-			vyndaliumFaceThing.Thing = killerPlayer.GameObject;
-			TextRenderer vyndaliumTextRenderer = vyndaliumHitInfo.Components.Get<TextRenderer>();
-			vyndaliumTextRenderer.Color = Color.Yellow;
-			vyndaliumTextRenderer.Text = $"+{vyndaliumPointsToAdd} $";
-			ScaleTextWithDistance vyndaliumScaleText = vyndaliumHitInfo.Components.Get<ScaleTextWithDistance>();
-			vyndaliumScaleText.Thing = killerPlayer.GameObject;
+			if ( Hitprefab != null && this.GameObject != null )
+			{
+				GameObject vyndaliumHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 30, 0, 25 ) );
+				if ( vyndaliumHitInfo != null )
+				{
+					FaceThing vyndaliumFaceThing = vyndaliumHitInfo.Components.Get<FaceThing>();
+					if ( vyndaliumFaceThing != null )
+					{
+						vyndaliumFaceThing.Thing = killerPlayer.GameObject;
+					}
 
-			// XP-HitInfo anzeigen
-			GameObject xpHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 0, 0, 50 ) ); // Leicht versetzt, um Überlappung zu vermeiden
-			FaceThing xpFaceThing = xpHitInfo.Components.Get<FaceThing>();
-			xpFaceThing.Thing = killerPlayer.GameObject;
-			TextRenderer xpTextRenderer = xpHitInfo.Components.Get<TextRenderer>();
-			xpTextRenderer.Color = Color.Blue;
-			xpTextRenderer.Text = $"+{xpPointsToAdd} XP";
-			ScaleTextWithDistance xpScaleText = xpHitInfo.Components.Get<ScaleTextWithDistance>();
-			xpScaleText.Thing = killerPlayer.GameObject;
+					TextRenderer vyndaliumTextRenderer = vyndaliumHitInfo.Components.Get<TextRenderer>();
+					if ( vyndaliumTextRenderer != null )
+					{
+						vyndaliumTextRenderer.Color = Color.Yellow;
+						
+						vyndaliumTextRenderer.Text = $"+{vyndaliumPointsToAdd} $";
+					}
 
+					ScaleTextWithDistance vyndaliumScaleText = vyndaliumHitInfo.Components.Get<ScaleTextWithDistance>();
+					if ( vyndaliumScaleText != null )
+					{
+						vyndaliumScaleText.Thing = killerPlayer.GameObject;
+						
+					}
+
+					// Start coroutine to move and destroy the hit info
+					
+				}
+
+				GameObject xpHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 0, 0, 50 ) );
+				if ( xpHitInfo != null )
+				{
+					FaceThing xpFaceThing = xpHitInfo.Components.Get<FaceThing>();
+					if ( xpFaceThing != null )
+					{
+						xpFaceThing.Thing = killerPlayer.GameObject;
+					}
+
+					TextRenderer xpTextRenderer = xpHitInfo.Components.Get<TextRenderer>();
+					if ( xpTextRenderer != null )
+					{
+						xpTextRenderer.Color = Color.Blue;
+						xpTextRenderer.Text = $"+{xpPointsToAdd} XP";
+						
+					}
+
+					ScaleTextWithDistance xpScaleText = xpHitInfo.Components.Get<ScaleTextWithDistance>();
+					if ( xpScaleText != null )
+					{
+						xpScaleText.Thing = killerPlayer.GameObject;
+					}
+
+					// Start coroutine to move and destroy the hit info
+					
+				}
+			}
 			
 
-			
 
-			
+
+
+
+
 			killerPlayer.OnZombieKilled();
 
 
 		};
 
 	}
+	
 
 
 	

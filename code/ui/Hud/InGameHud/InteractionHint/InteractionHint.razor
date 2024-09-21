@@ -162,39 +162,41 @@
 		bool shouldHighlight = ShowHint();
 		if (_targetObject.IsValid())
 		{
-			var interaction = _targetObject.Components.Get<Interactions>();
-			if (shouldHighlight)
+			var interaction = _targetObject.Components?.Get<Interactions>();
+			if (interaction != null)
 			{
-				// Überprüfen, ob _lastHighlightedInteraction bereits gesetzt ist, um unnötige Zuweisungen zu vermeiden
-				if (_lastHighlightedInteraction == null)
+				if (shouldHighlight)
 				{
-					_lastHighlightedInteraction = interaction;
+					// Überprüfen, ob _lastHighlightedInteraction bereits gesetzt ist, um unnötige Zuweisungen zu vermeiden
+					if (_lastHighlightedInteraction == null)
+					{
+						_lastHighlightedInteraction = interaction;
+					}
+					// Überprüfen, ob die Highlight-Komponente bereits existiert, bevor sie erneut erstellt wird
+					if (!_lastHighlightedInteraction.IsHighlighted())
+					{
+						interaction?.Highlight(true);
+					}
 				}
-				// Überprüfen, ob die Highlight-Komponente bereits existiert, bevor sie erneut erstellt wird
-				if (!_lastHighlightedInteraction.IsHighlighted())
+				else
 				{
-					interaction.Highlight(true);
-				}
-			}
-			else
-			{
-				// Wenn shouldHighlight false ist, aber _lastHighlightedInteraction nicht null ist,
-				// entfernen Sie das Highlight nur, wenn es tatsächlich gesetzt wurde.
-				if (_lastHighlightedInteraction != null && _lastHighlightedInteraction.IsHighlighted())
-				{
-					_lastHighlightedInteraction.Highlight(false);
-					_lastHighlightedInteraction = null; // Setzen Sie die Referenz zurück, nachdem das Highlight entfernt wurde.
+					// Wenn shouldHighlight false ist, aber _lastHighlightedInteraction nicht null ist,
+					// entfernen Sie das Highlight nur, wenn es tatsächlich gesetzt wurde.
+					if (_lastHighlightedInteraction != null && _lastHighlightedInteraction.IsHighlighted())
+					{
+						_lastHighlightedInteraction?.Highlight(false);
+						_lastHighlightedInteraction = null; // Setzen Sie die Referenz zurück, nachdem das Highlight entfernt wurde.
+					}
 				}
 			}
 		}
 		else if (_lastHighlightedInteraction != null)
 		{
 			// Entfernt das Highlight vom zuletzt hervorgehobenen Objekt, wenn _targetObject nicht mehr gültig ist.
-			_lastHighlightedInteraction.Highlight(false);
+			_lastHighlightedInteraction?.Highlight(false);
 			_lastHighlightedInteraction = null; // Setzen Sie die Referenz zurück, nachdem das Highlight entfernt wurde.
 		}
 	}
-	
 	public bool ShowHint()
 	{
 		// Prüfen, ob das Zielobjekt gültig ist

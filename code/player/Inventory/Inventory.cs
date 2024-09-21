@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GeneralGame.Event;
 using GeneralGame.HUD;
+using Sandbox.ui.Hud;
 
 
 namespace GeneralGame;
@@ -351,6 +352,7 @@ public sealed class Inventory : Component
 			else
 			{
 				Log.Error( "Kein freier Slot im Upgrade verfügbar." );
+				Hudmaster.Instance.ShowNotification( "Slot occupied.", "/ui/hud/error.gif"  );
 			}
 		}
 	}
@@ -374,6 +376,7 @@ public sealed class Inventory : Component
 			else
 			{
 				Log.Error( "Kein freier Slot im Storage verfügbar." );
+				Hudmaster.Instance.ShowNotification( "Slot occupied / too full.", "/ui/hud/error.gif" );
 			}
 		}
 	}
@@ -396,6 +399,7 @@ public sealed class Inventory : Component
 			else
 			{
 				Log.Error( "Kein freier Slot im Rucksack verfügbar." );
+				Hudmaster.Instance.ShowNotification( "No Slots in Backpack available.", "/ui/hud/error.gif" );
 			}
 		}
 	}
@@ -418,6 +422,7 @@ public sealed class Inventory : Component
 			else
 			{
 				Log.Error( "Kein freier Slot im Rucksack verfügbar." );
+				Hudmaster.Instance.ShowNotification( "Slot occupied / no Slots available.", "/ui/hud/error.gif" );
 			}
 		}
 	}
@@ -461,24 +466,32 @@ public sealed class Inventory : Component
 		if ( IsSlotOccupied( equipment.Slot ) )
 			return false;
 
-		GiveEquipmentItem( equipment );
-		equipment.State = ItemState.Equipped;
-		TaskMaster.SubmitTriggerSignal( $"item.equipped.{item.Name}", Player );
 		
-		var weaponContainer = Player.Components.Get<WeaponContainer>();
-		if ( weaponContainer != null )
+
+		
+		if ( item.CanEquip( Player.Level ) )
 		{
-			weaponContainer.Give( item.GameObject, true );
+			// Logik zum Anziehen der Waffe
+			GiveEquipmentItem( equipment );
+			equipment.State = ItemState.Equipped;
+			TaskMaster.SubmitTriggerSignal( $"item.equipped.{item.Name}", Player );
+
+			var weaponContainer = Player.Components.Get<WeaponContainer>();
+			if ( weaponContainer != null )
+			{
+				weaponContainer.Give( item.GameObject, true );
+			}
+
+			index = _backpackItems?.IndexOf( item ) ?? -1;
+			return true;
 		}
 		else
 		{
-			Log.Info( "Item is equipment, skipping Give." );
+			
+			Hudmaster.Instance.ShowNotification( "player level too low.", "/ui/hud/exit.gif" );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
+			return false;
 		}
-		
-
-		index = _backpackItems?.IndexOf( item ) ?? -1; // Erneutes Ermitteln des Indexes, falls notwendig
-
-		return true;
 	}
 	public int GetFirstFreeBackpackSlot()
 	{
@@ -516,25 +529,28 @@ public sealed class Inventory : Component
 
 
 		}
-
-		SetOwner( item );
-
-		GiveEquipmentItem( equipment );
 		
-		equipment.State = ItemState.Equipped;
-		TaskMaster.SubmitTriggerSignal( $"item.received.{item.Name}", Player );
 
-		var weaponContainer = Player.Components.Get<WeaponContainer>();
-		if ( weaponContainer != null )
+		if(item.CanEquip(Player.Level))
 		{
-			weaponContainer.Give( item.GameObject, true );
+			GiveEquipmentItem( equipment );
+			equipment.State = ItemState.Equipped;
+			TaskMaster.SubmitTriggerSignal( $"item.equipped.{item.Name}", Player );
+
+			var weaponContainer = Player.Components.Get<WeaponContainer>();
+			if ( weaponContainer != null )
+			{
+				weaponContainer.Give( item.GameObject, true );
+			}
+			return true;
 		}
 		else
 		{
-			Log.Info( "WeaponContainer is null" );
-		}
+			
+			Hudmaster.Instance.ShowNotification( "player level too low", "/ui/hud/exit.gif" );
 
-		return true;
+			return false;
+		}
 	}
 	public WeaponContainer Weapons { get; set; }
 
@@ -1136,7 +1152,8 @@ public sealed class Inventory : Component
 		}
 		else
 		{
-			Log.Error( "No free slot in backpack." );
+			
+			Hudmaster.Instance.ShowNotification( "no free slot in backpack", "/ui/hud/error.gif" );
 		}
 	}
 	private void UpdateBodygroups()
@@ -1273,15 +1290,14 @@ public sealed class Inventory : Component
 		}
 		else
 		{
-			Log.Info( $"The item was not found, here is a list of available items:" );
+			
 
 			var availableItems = "";
 
 			foreach ( var availableItem in allItems )
 				availableItems += $"[{availableItem.GetComponent<ItemComponent>().Get<string>( "Name" )}], ";
 
-			Log.Info( availableItems );
-			Log.Info( "You may also use partial item names or any combination of words and letters, I'll try my best to find the item." );
+			
 		}
 	}
 
