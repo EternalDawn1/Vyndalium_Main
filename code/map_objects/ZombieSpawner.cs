@@ -118,7 +118,7 @@ public sealed class ZombieSpawner : Component
 		if ( itemComponent != null )
 		{
 			
-			itemComponent.GenerateRandomStats();
+			
 			itemComponent.CalculateSellPrice();
 		
 		}

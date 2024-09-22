@@ -352,7 +352,7 @@ public sealed class Inventory : Component
 			else
 			{
 				Log.Error( "Kein freier Slot im Upgrade verfügbar." );
-				Hudmaster.Instance.ShowNotification( "Slot occupied.", "/ui/hud/error.gif"  );
+				Hudmaster.Instance.ShowNotification( "Slot occupied.", "/ui/hud/exit.gif"  );
 			}
 		}
 	}
@@ -376,7 +376,7 @@ public sealed class Inventory : Component
 			else
 			{
 				Log.Error( "Kein freier Slot im Storage verfügbar." );
-				Hudmaster.Instance.ShowNotification( "Slot occupied / too full.", "/ui/hud/error.gif" );
+				Hudmaster.Instance.ShowNotification( "Slot occupied / too full.", "/ui/hud/exit.gif" );
 			}
 		}
 	}
@@ -399,7 +399,7 @@ public sealed class Inventory : Component
 			else
 			{
 				Log.Error( "Kein freier Slot im Rucksack verfügbar." );
-				Hudmaster.Instance.ShowNotification( "No Slots in Backpack available.", "/ui/hud/error.gif" );
+				Hudmaster.Instance.ShowNotification( "No Slots in Backpack available.", "/ui/hud/exit.gif" );
 			}
 		}
 	}
@@ -422,7 +422,7 @@ public sealed class Inventory : Component
 			else
 			{
 				Log.Error( "Kein freier Slot im Rucksack verfügbar." );
-				Hudmaster.Instance.ShowNotification( "Slot occupied / no Slots available.", "/ui/hud/error.gif" );
+				Hudmaster.Instance.ShowNotification( "Slot occupied / no Slots available.", "/ui/hud/exit.gif" );
 			}
 		}
 	}
@@ -464,11 +464,18 @@ public sealed class Inventory : Component
 		}
 
 		if ( IsSlotOccupied( equipment.Slot ) )
-			return false;
+		{
+			var equippedItem = GetItemInSlot( equipment.Slot );
+			var placedInBackpack = UnequipItem( equippedItem );
+			if ( !placedInBackpack )
+			{
+				DropItem( equippedItem );
+			}
+		}
 
-		
 
-		
+
+
 		if ( item.CanEquip( Player.Level ) )
 		{
 			// Logik zum Anziehen der Waffe
@@ -548,6 +555,7 @@ public sealed class Inventory : Component
 		{
 			
 			Hudmaster.Instance.ShowNotification( "player level too low", "/ui/hud/exit.gif" );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
 
 			return false;
 		}
@@ -573,7 +581,9 @@ public sealed class Inventory : Component
 		var equippedItem = _equippedItems[slotIndex];
 		if ( equippedItem != item )
 		{
-			Log.Error( "Item is not the equipped item in the expected slot." );
+			
+			Hudmaster.Instance.ShowNotification( "Item is not the equipped item in the expected slot.", "/ui/hud/exit.gif" );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
 			return false;
 		}
 
@@ -1008,6 +1018,7 @@ public sealed class Inventory : Component
 		{
 			Log.Error( "Kein freier Slot im Rucksack." );
 			Hudmaster.Instance.ShowNotification( "No Place in the Backpack.", "/ui/hud/inventory.png" );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
 		}
 	}
 
@@ -1153,7 +1164,8 @@ public sealed class Inventory : Component
 		else
 		{
 			
-			Hudmaster.Instance.ShowNotification( "no free slot in backpack", "/ui/hud/error.gif" );
+			Hudmaster.Instance.ShowNotification( "no free slot in backpack", "/ui/hud/exit.gif" );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
 		}
 	}
 	private void UpdateBodygroups()
