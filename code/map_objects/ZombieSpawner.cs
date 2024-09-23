@@ -34,6 +34,8 @@ public sealed class ZombieSpawner : Component
 	[Property] public bool Level95To100 { get; set; }
 	[Property] public bool RandomizePropertiesOnRain { get; set; }
 	[Property] public bool RandomizeTierOnSpawn { get; set; }
+
+	
 	
 
 	protected override void DrawGizmos()
@@ -62,6 +64,8 @@ public sealed class ZombieSpawner : Component
 		TimeUntilRespawn = 5f;
 		base.OnStart();
 	}
+	
+
 	[Property]public bool Randomized { get; set; } = false;
 	[Property] public float destroyChance { get; set; } = 0.01f;
 	protected override void OnFixedUpdate()
@@ -73,6 +77,7 @@ public sealed class ZombieSpawner : Component
 
 		if ( !IsPlayerNearby() ) // Überprüfen, ob ein Spieler in der Nähe ist
 			return;
+
 		if(Randomized)
 		{
 			// 10% Wahrscheinlichkeit
@@ -101,8 +106,8 @@ public sealed class ZombieSpawner : Component
 
 		if ( !TimeUntilRespawn.Value )
 			return;
-
 		
+
 
 		var zombie = ZombiePrefab.Clone( this.Transform.World );
 
@@ -140,6 +145,9 @@ public sealed class ZombieSpawner : Component
 			}
 
 		}
+		
+		
+
 
 		if ( RandomizePropertiesOnRain )
 		{
@@ -179,6 +187,7 @@ public sealed class ZombieSpawner : Component
 
 		SpawnCount++;
 	}
+	
 	private Tier GetRandomTier()
 	{
 		var values = Enum.GetValues( typeof( Tier ) );

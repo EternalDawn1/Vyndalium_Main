@@ -157,6 +157,10 @@ public sealed class Inventory : Component
 	public static void EquipItemStats( ItemComponent item )
 	{
 		Player.Local.AttackValue += item.DMG;
+		Player.Local.MinAttackValue += item.MinDMG;
+		Player.Local.MaxAttackValue += item.MaxDMG;
+		Player.Local.MinArmorValue += item.MinArmor;
+		Player.Local.MaxArmorValue += item.MaxArmor;
 		Player.Local.Health += item.HE;
 		Player.Local.Armor += item.Armor;
 		Player.Local.STG += item.STG;
@@ -195,6 +199,10 @@ public sealed class Inventory : Component
 
 	public static void UnequipItemStats( ItemComponent item )
 	{
+		Player.Local.MinAttackValue -= item.MinDMG;
+		Player.Local.MaxAttackValue -= item.MaxDMG;
+		Player.Local.MinArmorValue -= item.MinArmorValue;
+		Player.Local.MaxArmorValue -= item.MaxArmorValue;
 		Player.Local.AttackValue -= item.DMG;
 		Player.Local.Armor -= item.Armor;
 		Player.Local.STG -= item.STG;

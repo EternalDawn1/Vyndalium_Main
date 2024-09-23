@@ -104,12 +104,12 @@ public partial class WeaponContainer : Component
 		}
 	}
 
-	public async void Give( GameObject prefab, bool shouldDeploy = false )
+	public void Give( GameObject prefab, bool shouldDeploy = false )
 	{
 		if(IsProxy)
 		return;
 		
-		await Task.Delay( 1 );
+		Task.Delay( 1 );
 
 		if ( Player.Local == null )
 		{
@@ -152,7 +152,7 @@ public partial class WeaponContainer : Component
 		{
 			modelCollider.Destroy();
 		}
-
+		
 		var rigidBody = prefab.Components.Get<Rigidbody>();
 		if ( rigidBody != null )
 		{

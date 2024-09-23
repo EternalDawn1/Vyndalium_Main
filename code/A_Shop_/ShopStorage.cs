@@ -83,86 +83,30 @@ namespace GeneralGame
                 
             };
 
-            foreach ( var prefabPath in potionPrefabs )
-            {
-                var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
-                if ( prefab != null )
-                {
-                    var itemComponent = ConvertPrefabToItemComponent( prefab );
-                    if ( itemComponent != null )
-                    {
-                        itemComponent.GameObject.Enabled = false;
-                        AvailableItems.Add( itemComponent );
-                    }
-                }
-            }
-            foreach ( var prefabPath in weaponPrefabs )
-            {
-                var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
-                if ( prefab != null )
-                {
-                    var itemComponent = ConvertPrefabToItemComponent( prefab );
-                    if ( itemComponent != null )
-                    {
-                        itemComponent.GameObject.Enabled = false;
-                        WeaponItems.Add( itemComponent );
-                    }
-                }
-            }
-            foreach ( var prefabPath in armorPrefabs ) // Hinzugefügt
-            {
-                var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
-                if ( prefab != null )
-                {
-                    var itemComponent = ConvertPrefabToItemComponent( prefab );
-                    if ( itemComponent != null )
-                    {
-                        itemComponent.GameObject.Enabled = false;
-                        ArmorItems.Add( itemComponent );
-                    }
-                }
-            }
-            foreach ( var prefabPath in accessoryPrefabs ) // Hinzugefügt
-            {
-                var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
-                if ( prefab != null )
-                {
-                    var itemComponent = ConvertPrefabToItemComponent( prefab );
-                    if ( itemComponent != null )
-                    {
-                        itemComponent.GameObject.Enabled = false;
-                        AccessoryItems.Add( itemComponent );
-                    }
-                }
-            }
-            foreach ( var prefabPath in consumablePrefabs ) // Hinzugefügt
-            {
-                var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
-                if ( prefab != null )
-                {
-                    var itemComponent = ConvertPrefabToItemComponent( prefab );
-                    if ( itemComponent != null )
-                    {
-                        itemComponent.GameObject.Enabled = false;
-                        ConsumableItems.Add( itemComponent );
-                    }
-                }
-            }
-            foreach ( var prefabPath in materialPrefabs )
-            {
-                var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
-                if ( prefab != null )
-                {
-                    var itemComponent = ConvertPrefabToItemComponent( prefab );
-                    if ( itemComponent != null )
-                    {
-                        itemComponent.GameObject.Enabled = false;
-                        MaterialItems.Add( itemComponent );
-                    }
-                }
-            }
-           
+            LoadPrefabsFromList( potionPrefabs, AvailableItems );
+            LoadPrefabsFromList( weaponPrefabs, WeaponItems );
+            LoadPrefabsFromList( armorPrefabs, ArmorItems );
+            LoadPrefabsFromList( accessoryPrefabs, AccessoryItems );
+            LoadPrefabsFromList( consumablePrefabs, ConsumableItems );
+            LoadPrefabsFromList( materialPrefabs, MaterialItems );
+
             prefabsLoaded = true;
+        }
+        private void LoadPrefabsFromList( List<string> prefabPaths, List<ItemComponent> targetList )
+        {
+            foreach ( var prefabPath in prefabPaths )
+            {
+                var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
+                if ( prefab != null )
+                {
+                    var itemComponent = ConvertPrefabToItemComponent( prefab );
+                    if ( itemComponent != null && !targetList.Contains( itemComponent ) )
+                    {
+                        itemComponent.GameObject.Enabled = false;
+                        targetList.Add( itemComponent );
+                    }
+                }
+            }
         }
         public void AddItem( ItemComponent item, int index )
         {

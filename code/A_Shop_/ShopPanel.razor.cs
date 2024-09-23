@@ -405,10 +405,10 @@ namespace GeneralGame.HUD
         {
             if ( shopStorage == null )
             {
-                shopStorage = new ShopStorage();
+                
                 shopStorage.IsOpened = false;
                 IsVisible = false;
-                shopStorage.LoadPrefabs();
+               
                 CheckUpgradeSlot(); // Prefabs beim Erwachen laden
             }
         }

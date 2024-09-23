@@ -86,7 +86,8 @@ public class BaseGun : WeaponComponent, IUse
 
 	public float CalculateDamageWithPlayerStats( Player player )
 	{
-		float baseDamage = player.AttackValue; // Verwenden Sie die AttackValue des Spielers als Basis-Schaden
+		Random random = new Random();
+		float baseDamage = random.Next( (int)player.MinAttackValue, (int)player.MaxAttackValue + 1 ); // Verwenden Sie die AttackValue des Spielers als Basis-Schaden
 		float bonusDamage = baseDamage * (player.AttackPower / 100.0f);
 		float magicBonus = baseDamage * (player.MagicPower / 100.0f);
 
@@ -318,13 +319,14 @@ public class BaseGun : WeaponComponent, IUse
 
 		if ( damageable is not null )
 		{
-			var playerAttackValue = shooter.AttackValue;
+			Random random = new Random();
+			float playerAttackValue = random.Next( (int)shooter.MinAttackValue, (int)shooter.MaxAttackValue + 1 );
 			var playerAttackPower = shooter.AttackPower;
 			var playerCritChance = shooter.CritHitChance;
 			var playerCritDamage = shooter.CritHitDamage;
 
 			damage += (int)(damage * (playerAttackValue / 300.0f));
-			Random random = new Random();
+			
 			int calculatedDamage = (int)(damage * (playerAttackPower / 50.0f));
 			damage += random.Next( 0, calculatedDamage + 1 );
 
@@ -332,7 +334,7 @@ public class BaseGun : WeaponComponent, IUse
 			{
 				if ( critRoll <= playerCritChance )
 				{
-					damage += (int)(damage * 1.5f + playerCritDamage);
+					damage += (int)(damage * 0.5f + playerCritDamage);
 					isCriticalHit = true;
 
 				}

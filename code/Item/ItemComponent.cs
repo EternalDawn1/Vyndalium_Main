@@ -23,6 +23,7 @@ public enum Tier
 	SSS,
 }
 
+
 public class SerializedItemComponent
 {
 	public int Id { get; set; }
@@ -59,6 +60,10 @@ public class SerializedItemComponent
 	public float IceResistence { get; set; }
 	public float LightningResistence { get; set; }
 	public float HolyResistence { get; set; }
+	public float MinArmorValue { get; set; }
+	public float MaxArmorValue { get; set; }
+	public float MinAttackValue { get; set; }
+	public float MaxAttackValue { get; set; }
 
 }
 
@@ -66,6 +71,7 @@ public class SerializedItemComponent
 
 public class ItemComponent : Component
 {
+	
 	[Property, Group( "Type" )]
 	public bool IsMaterial { get; set; }
 	[Property , Group( "Type" )]
@@ -97,6 +103,12 @@ public class ItemComponent : Component
 
 	[Property, Group( "Stats" )]
 	public int MaxAttackValue { get; set; }
+
+	[Property, Group( "Stats" )]
+	public int MinArmorValue { get; set; }
+	[Property, Group( "Stats" )]
+	public int MaxArmorValue { get; set; }
+
 
 	public int CalculateBuyPrice()
 	{
@@ -190,6 +202,10 @@ public class ItemComponent : Component
 	[Property] public Tier Tier { get; set; }
 	[Property, Range( 100, 0 )] public int DamageBalance { get; set; }
 	[Property, Range( 1000, 0 )] public int Durability { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 100 )] public float MinDMG { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 100 )] public float MaxDMG{ get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 100 )] public float MinArmor { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 100 )] public float MaxArmor { get; set; }
 	
 	[Property, Group( "Weapon" ), Range( 0, 60 )] public float AttackSpeed { get; set; }
 	[Property, Group( "Armor" ), Range( 0, 1000 )] public float MoveSpeed { get; set; }

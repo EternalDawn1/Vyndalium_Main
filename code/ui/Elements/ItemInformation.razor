@@ -64,6 +64,11 @@
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Attack Value:
 					@Item.MinAttackValue - @Item.MaxAttackValue</div>
 			}
+			@if(Item.MinArmorValue != default(int) && Item.MaxArmorValue != default(int))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Armor Value:
+					@Item.MinArmorValue - @Item.MaxArmorValue</div>
+			}
 			@if (Item.STG != default(float))
 			{
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">STG: +@Item.STG

@@ -47,6 +47,10 @@ public partial class Player
     [Sync, Property, Group( "CharacterStats" )] public float BonusVyndalium { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public float BonusScore { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public float AttackValue { get; set; } = 0f;
+    [Sync, Property, Group( "CharacterStats" )] public float MinArmorValue { get; set; } = 0f;
+    [Sync, Property, Group( "CharacterStats" )] public float MaxArmorValue { get; set; } = 0f;
+    [Sync, Property, Group( "CharacterStats" )] public float MinAttackValue { get; set; } = 0f;
+    [Sync, Property, Group( "CharacterStats" )] public float MaxAttackValue { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public float STG { get; set; }
     [Sync, Property, Group( "CharacterStats" )] public float DEX { get; set; }
     [Sync, Property, Group( "CharacterStats" )] public float INT { get; set; }

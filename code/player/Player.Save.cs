@@ -28,7 +28,12 @@ public struct ItemSave
 	[JsonInclude] public int AttackPower { get; set; }
 	[JsonInclude] public int MagicPower { get; set; }
 	[JsonInclude] public GeneralGame.Tier Tier { get; set; }
+	[JsonInclude] public int RequiredLevel { get; set; }
 	[JsonInclude] public int DamageBalance { get; set; }
+	[JsonInclude] public int MinArmorValue { get; set; }
+	[JsonInclude] public int MaxArmorValue { get; set; }
+	[JsonInclude] public int MinAttackValue { get; set; }
+	[JsonInclude] public int MaxAttackValue { get; set; }
 	[JsonInclude] public int Durability { get; set; }
 	[JsonInclude] public int AttackSpeed { get; set; }
 	[JsonInclude] public int MoveSpeed { get; set; }
@@ -69,6 +74,10 @@ public struct PlayerSave
 	[JsonInclude] public float MaxHealth;
 	[JsonInclude] public float MaxMana;
 	[JsonInclude] public float Stamina;
+	[JsonInclude] public float MinArmorValue;
+	[JsonInclude] public float MaxArmorValue;
+	[JsonInclude] public float MinAttackValue;
+	[JsonInclude] public float MaxAttackValue;
 	[JsonInclude] public float ArmorPenetration;
 	[JsonInclude] public float AttackRange;
 	[JsonInclude] public float BonusVyndalium;
@@ -252,6 +261,7 @@ partial class Player
 
 			return new ItemSave
 			{
+				RequiredLevel = item.RequiredLevel,
 				Path = item.Prefab,
 				State = item.State,
 				Data = data.Count > 0 ? data : null,
@@ -297,7 +307,13 @@ partial class Player
 				IceResistence = (int)item.IceResistence,
 				LightningResistence = (int)item.LightningResistence,
 				HolyResistence = (int)item.HolyResistence,
-				ShadowResistence = (int)item.ShadowResistence
+				ShadowResistence = (int)item.ShadowResistence,
+				MinArmorValue = (int)item.MinArmorValue,
+				MaxArmorValue = (int)item.MaxArmorValue,
+				MinAttackValue = (int)item.MinAttackValue,
+				MaxAttackValue = (int)item.MaxAttackValue,
+
+				
 
 
 			};
@@ -313,9 +329,12 @@ partial class Player
 			AbilityHaste = player.AbilityHaste,
 			PlayerWalkSpeed = player.PlayerWalkSpeed,
 			PlayerRunSpeed = player.PlayerRunSpeed,
+			
 
-
-
+			MinArmorValue = player.MinArmorValue,
+			MaxArmorValue = player.MaxArmorValue,
+			MinAttackValue = player.MinAttackValue,
+			MaxAttackValue = player.MaxAttackValue,
 			MAX_BACKPACK_SLOTS = player.MAX_BACKPACK_SLOTS,
 			AmmoCount = player.AmmoContainer?.AmmoCount,
 			Vyndalium = (int)player.Vyndalium,
@@ -438,6 +457,7 @@ partial class Player
 		{
 			player.AmmoContainer.SetAmmoCount( ammo.Key, ammo.Value );
 		}
+		
 		player.Stamina = save.Stamina;
 		player.ArmorPenetration = save.ArmorPenetration;
 		player.AttackRange = save.AttackRange;
@@ -446,6 +466,10 @@ partial class Player
 		player.AbilityHaste = save.AbilityHaste;
 		player.PlayerWalkSpeed = save.PlayerWalkSpeed;
 		player.PlayerRunSpeed = save.PlayerRunSpeed;
+		player.MinArmorValue = save.MinArmorValue;
+		player.MaxArmorValue = save.MaxArmorValue;
+		player.MinAttackValue = save.MinAttackValue;
+		player.MaxAttackValue = save.MaxAttackValue;
 		
 		player.MaxHealth = save.MaxHealth;
 		player.MaxMana = save.MaxMana;
@@ -516,6 +540,7 @@ partial class Player
 				var item = obj.Components.Get<ItemComponent>();
 				if ( item != null )
 				{
+					item.RequiredLevel = data.RequiredLevel;	
 					item.State = data.State;
 					item.SellPrice = (int)data.SellPrice;
 					item.BuyPrice = (int)data.BuyPrice;
@@ -523,7 +548,10 @@ partial class Player
 					item.Count = data.Count;
 					item.DMG = data.DMG;
 					item.STG = data.STG;
-
+					item.MinArmorValue = data.MinArmorValue;
+					item.MaxArmorValue = data.MaxArmorValue;
+					item.MinAttackValue = data.MinAttackValue;
+					item.MaxAttackValue = data.MaxAttackValue;
 					item.HE = data.HE;
 					item.DEX = data.DEX;
 					item.PER = data.PER;
@@ -583,7 +611,11 @@ partial class Player
 				player.Inventory.EquipItemFromWorld( equipment );
 				ReadData( data, o );
 
-				
+				equipment.RequiredLevel = data.RequiredLevel;
+				equipment.MinArmorValue = data.MinArmorValue;
+				equipment.MaxArmorValue = data.MaxArmorValue;
+				equipment.MinAttackValue = data.MinAttackValue;
+				equipment.MaxAttackValue = data.MaxAttackValue;
 				equipment.State = data.State;
 				equipment.MaxStack = data.MaxStack;
 				equipment.Count = data.Count;
@@ -649,7 +681,11 @@ partial class Player
 					continue;
 				player.Inventory.SetItem( item, data.Index );
 				ReadData( data, o );
-
+				item.RequiredLevel = data.RequiredLevel;	
+				item.MinArmorValue = data.MinArmorValue;
+				item.MaxArmorValue = data.MaxArmorValue;
+				item.MinAttackValue = data.MinAttackValue;
+				item.MaxAttackValue = data.MaxAttackValue;
 				item.MaxStack = data.MaxStack;
 				item.Count = data.Count;
 				item.SellPrice = (int)data.SellPrice;
@@ -712,7 +748,11 @@ partial class Player
 
 				item.MaxStack = data.MaxStack;
 				item.Count = data.Count;
-				
+				item.MinArmorValue = data.MinArmorValue;
+				item.MaxArmorValue = data.MaxArmorValue;
+				item.MinAttackValue = data.MinAttackValue;
+				item.MaxAttackValue = data.MaxAttackValue;
+				item.RequiredLevel = data.RequiredLevel;
 				item.SellPrice = (int)data.SellPrice;
 				item.BuyPrice = (int)data.BuyPrice;
 				item.DMG = data.DMG;

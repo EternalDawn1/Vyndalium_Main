@@ -8,14 +8,20 @@ namespace GeneralGame;
 public enum WeaponType
 {
 	Melee,
-	Ranged
+	Ranged,
+	M4A1,
+	AK,
+	MP5,
+
 }
 
 
 public class WeaponComponent : Component
 {
 
-
+	
+	public WeaponType WeaponType { get; set; }
+	
 	[Property] public string DisplayName { get; set; }
 	[Property, Category( "Weapon Properties" )] public float DeployTime { get; set; } = 0.5f;
 	[Property, Category( "Weapon Properties" )] public float DamageForce { get; set; } = 5f;
@@ -251,6 +257,10 @@ public class WeaponComponent : Component
 
 	public void CreateViewModel()
 	{
+		if ( IsProxy )
+		{
+			return;
+		}
 		if ( !ViewModelPrefab.IsValid() )
 		{
 			Log.Error( "ViewModelPrefab is not valid in CreateViewModel" );
@@ -295,19 +305,8 @@ public class WeaponComponent : Component
 
 		ViewModel.SetWeaponComponent( this );
 		ViewModel.SetCamera( player.PlyCamera );
-		
-		ModelRenderer.Enabled = false;
 
-		var footsteps = player.Components.Get<PlayerFootsteps>();
-		if ( footsteps != null )
-		{
-			footsteps.Enabled = true;
-		}
-		var footComponents = player.Components.GetAll<SkinnedModelRenderer>();
-		foreach ( var foot in footComponents )
-		{
-			foot.Enabled = true;
-		}
+		ModelRenderer.Enabled = false;
 	}
 
 
