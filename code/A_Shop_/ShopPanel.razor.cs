@@ -77,6 +77,7 @@ namespace GeneralGame.HUD
                 
             }
         }
+        
 
         private int CalculateUpgradeCost( int itemLevel, GeneralGame.Tier tier )
         {
@@ -130,6 +131,7 @@ namespace GeneralGame.HUD
                 Log.Warning( $"SoundEvent '{soundEventPath}' konnte nicht gefunden werden." );
             }
         }
+        
 
         private void UpgradeItem()
         {
@@ -156,49 +158,122 @@ namespace GeneralGame.HUD
 
                 // Berechne die Erfolgschance
                 double successChance = CalculateSuccessChance( upgradeItem.ItemLevel );
+                
                 Random random = new Random();
                 if ( random.NextDouble() <= successChance )
                 {
-                    // Upgrade-Logik
-                    if ( upgradeItem.DMG > 0 ) Player.Local.AttackValue += (float)(upgradeItem.DMG * 0.3);
-                    if ( upgradeItem.Health > 0 ) Player.Local.Health += (float)(upgradeItem.Health * 0.3);
-                    if ( upgradeItem.Armor > 0 ) Player.Local.Armor += (float)(upgradeItem.Armor * 0.3);
-                    if ( upgradeItem.STG > 0 ) Player.Local.STG += (float)(upgradeItem.STG * 0.3);
-                    if ( upgradeItem.HE > 0 ) Player.Local.HE += (float)(upgradeItem.HE * 0.3);
-                    if ( upgradeItem.DEX > 0 ) Player.Local.DEX += (float)(upgradeItem.DEX * 0.3);
-                    if ( upgradeItem.PER > 0 ) Player.Local.PER += (float)(upgradeItem.PER * 0.3);
-                    if ( upgradeItem.INT > 0 ) Player.Local.INT += (float)(upgradeItem.INT * 0.3);
-                    if ( upgradeItem.Mana > 0 ) Player.Local.MaxMana += (float)(upgradeItem.Mana * 0.3);
-                    if ( upgradeItem.CritHitDamage > 0 ) Player.Local.IncreaseCritHitDamage( (float)(upgradeItem.CritHitDamage * 0.3) );
-                    if ( upgradeItem.CritHitChance > 0 ) Player.Local.IncreaseCritHitChance( (float)(upgradeItem.CritHitChance * 0.3) );
-                    if ( upgradeItem.AbilityHaste > 0 ) Player.Local.AbilityHaste += (float)(upgradeItem.AbilityHaste * 0.3);
-                    if ( upgradeItem.AttackPower > 0 ) Player.Local.AttackPower += (float)(upgradeItem.AttackPower * 0.3);
-                    if ( upgradeItem.MagicPower > 0 ) Player.Local.MagicPower += (float)(upgradeItem.MagicPower * 0.3);
-                    if ( upgradeItem.AttackSpeed > 0 ) Player.Local.AttackSpeed += (float)(upgradeItem.AttackSpeed * 0.3);
-                    if ( upgradeItem.MoveSpeed > 0 ) Player.Local.MoveSpeed += (float)(upgradeItem.MoveSpeed * 0.3);
-                    if ( upgradeItem.MagicDefense > 0 ) Player.Local.MagicDefense += (float)(upgradeItem.MagicDefense * 0.3);
-                    if ( upgradeItem.Evasion > 0 ) Player.Local.Evasion += (float)(upgradeItem.Evasion * 0.3);
-                    if ( upgradeItem.Cover > 0 ) Player.Local.Block += (float)(upgradeItem.Cover * 0.3);
-                    if ( upgradeItem.BonusEXP > 0 ) Player.Local.BonusEXPGain += (float)(upgradeItem.BonusEXP * 0.3);
-                    if ( upgradeItem.BonusScore > 0 ) Player.Local.BonusScore += (float)(upgradeItem.BonusScore * 0.3);
-                    if ( upgradeItem.BonusVyndalium > 0 ) Player.Local.BonusVyndalium += (float)(upgradeItem.BonusVyndalium * 0.3);
-                    if ( upgradeItem.Tenacity > 0 ) Player.Local.Tenacity += (float)(upgradeItem.Tenacity * 0.3);
-                    if ( upgradeItem.StunResistance > 0 ) Player.Local.StunResist += (float)(upgradeItem.StunResistance * 0.3);
-                    if ( upgradeItem.BlindResistance > 0 ) Player.Local.BlindResist += (float)(upgradeItem.BlindResistance * 0.3);
-                    if ( upgradeItem.BleedResistance > 0 ) Player.Local.BleedResist += (float)(upgradeItem.BleedResistance * 0.3);
-                    if ( upgradeItem.SlowResistence > 0 ) Player.Local.SlowResist += (float)(upgradeItem.SlowResistence * 0.3);
-                    if ( upgradeItem.FireResistence > 0 ) Player.Local.FireResist += (float)(upgradeItem.FireResistence * 0.3);
-                    if ( upgradeItem.PoisonResistence > 0 ) Player.Local.PoisonResist += (float)(upgradeItem.PoisonResistence * 0.3);
-                    if ( upgradeItem.IceResistence > 0 ) Player.Local.IceResist += (float)(upgradeItem.IceResistence * 0.3);
-                    if ( upgradeItem.LightningResistence > 0 ) Player.Local.LightningResist += (float)(upgradeItem.LightningResistence * 0.3);
-                    if ( upgradeItem.HolyResistence > 0 ) Player.Local.LightResist += (float)(upgradeItem.HolyResistence * 0.3);
+                    
+
                     Player.Local.Vyndalium -= upgradeCost;
                     upgradeItem.ItemLevel++;
                     Hudmaster.Instance.ShowNotification( $"Item {upgradeItem.Name} has been upgraded to {upgradeItem.ItemLevel}!", "/ui/hud/success.gif" );
 
+                    if ( upgradeItem.MinAttackValue > 0 )
+                    {
+                        upgradeItem.MinAttackValue += (int)2.6;
+                    }
+
+                    if ( upgradeItem.MaxAttackValue > 0 )
+                    {
+                        upgradeItem.MaxAttackValue += (int)2.6;
+                    }
+
+                    if ( upgradeItem.Health > 0 )
+                        upgradeItem.Health += (int)(upgradeItem.Health * 0.3);
+
+                    if ( upgradeItem.Armor > 0 )
+                        upgradeItem.Armor += (int)(upgradeItem.Armor * 0.3);
+
+                    if ( upgradeItem.STG > 0 )
+                        upgradeItem.STG += (int)(upgradeItem.STG * 0.3);
+
+                    if ( upgradeItem.HE > 0 )
+                        upgradeItem.HE += (int)(upgradeItem.HE * 0.3);
+
+                    if ( upgradeItem.DEX > 0 )
+                        upgradeItem.DEX += (int)(upgradeItem.DEX * 0.3);
+
+                    if ( upgradeItem.PER > 0 )
+                        upgradeItem.PER += (int)(upgradeItem.PER * 0.3);
+
+                    if ( upgradeItem.INT > 0 )
+                        upgradeItem.INT += (int)(upgradeItem.INT * 0.3);
+
+                    if ( upgradeItem.Mana > 0 )
+                        upgradeItem.Mana += (int)(upgradeItem.Mana * 0.3);
+
+                    if ( upgradeItem.CritHitDamage > 0 )
+                        upgradeItem.CritHitDamage += (int)(upgradeItem.CritHitDamage * 0.3);
+
+                    if ( upgradeItem.CritHitChance > 0 )
+                        upgradeItem.CritHitChance += (int)(upgradeItem.CritHitChance * 0.3);
+
+                    if ( upgradeItem.AbilityHaste > 0 )
+                        upgradeItem.AbilityHaste += (int)(upgradeItem.AbilityHaste * 0.3);
+
+                    if ( upgradeItem.AttackPower > 0 )
+                        upgradeItem.AttackPower += (int)(upgradeItem.AttackPower * 0.3);
+
+                    if ( upgradeItem.MagicPower > 0 )
+                        upgradeItem.MagicPower += (int)(upgradeItem.MagicPower * 0.3);
+
+                    if ( upgradeItem.AttackSpeed > 0 )
+                        upgradeItem.AttackSpeed += (int)(upgradeItem.AttackSpeed * 0.3);
+
+                    if ( upgradeItem.MoveSpeed > 0 )
+                        upgradeItem.MoveSpeed += (int)(upgradeItem.MoveSpeed * 0.3);
+
+                    if ( upgradeItem.MagicDefense > 0 )
+                        upgradeItem.MagicDefense += (int)(upgradeItem.MagicDefense * 0.3);
+
+                    if ( upgradeItem.Evasion > 0 )
+                        upgradeItem.Evasion += (int)(upgradeItem.Evasion * 0.3);
+
+                    if ( upgradeItem.Cover > 0 )
+                        upgradeItem.Cover += (int)(upgradeItem.Cover * 0.3);
+
+                    if ( upgradeItem.BonusEXP > 0 )
+                        upgradeItem.BonusEXP += (int)(upgradeItem.BonusEXP * 0.3);
+
+                    if ( upgradeItem.BonusScore > 0 )
+                        upgradeItem.BonusScore += (int)(upgradeItem.BonusScore * 0.3);
+
+                    if ( upgradeItem.BonusVyndalium > 0 )
+                        upgradeItem.BonusVyndalium += (int)(upgradeItem.BonusVyndalium * 0.3);
+
+                    if ( upgradeItem.Tenacity > 0 )
+                        upgradeItem.Tenacity += (int)(upgradeItem.Tenacity * 0.3);
+
+                    if ( upgradeItem.StunResistance > 0 )
+                        upgradeItem.StunResistance += (int)(upgradeItem.StunResistance * 0.3);
+
+                    if ( upgradeItem.BlindResistance > 0 )
+                        upgradeItem.BlindResistance += (int)(upgradeItem.BlindResistance * 0.3);
+
+                    if ( upgradeItem.BleedResistance > 0 )
+                        upgradeItem.BleedResistance += (int)(upgradeItem.BleedResistance * 0.3);
+
+                    if ( upgradeItem.SlowResistence > 0 )
+                        upgradeItem.SlowResistence += (int)(upgradeItem.SlowResistence * 0.3);
+
+                    if ( upgradeItem.FireResistence > 0 )
+                        upgradeItem.FireResistence += (int)(upgradeItem.FireResistence * 0.3);
+
+                    if ( upgradeItem.PoisonResistence > 0 )
+                        upgradeItem.PoisonResistence += (int)(upgradeItem.PoisonResistence * 0.3);
+
+                    if ( upgradeItem.IceResistence > 0 )
+                        upgradeItem.IceResistence += (int)(upgradeItem.IceResistence * 0.3);
+
+                    if ( upgradeItem.LightningResistence > 0 )
+                        upgradeItem.LightningResistence += (int)(upgradeItem.LightningResistence * 0.3);
+
+                    if ( upgradeItem.HolyResistence > 0 )
+                        upgradeItem.HolyResistence += (int)(upgradeItem.HolyResistence * 0.3);
+
 
                     PlaySuccessSoundFromPath( "sounds/upgrade/success.sound",0.15f );
-
+                    
 
                     CheckUpgradeSlot(); // Aktualisieren Sie den Panel-Zustand
                 }
@@ -207,14 +282,121 @@ namespace GeneralGame.HUD
                     if ( upgradeItem.ItemLevel <= 10 )
                     {
                         upgradeItem.ItemLevel--;
+                        if ( upgradeItem.MinAttackValue > 0 )
+                        {
+                            upgradeItem.MinAttackValue -= (int)2.6;
+                        }
+
+                        if ( upgradeItem.MaxAttackValue > 0 )
+                        {
+                            upgradeItem.MaxAttackValue -= (int)2.6;
+                        }
+
+                        if ( upgradeItem.Health > 0 )
+                            upgradeItem.Health -= (int)(upgradeItem.Health * 0.3);
+
+                        if ( upgradeItem.Armor > 0 )
+                            upgradeItem.Armor -= (int)(upgradeItem.Armor * 0.3);
+
+                        if ( upgradeItem.STG > 0 )
+                            upgradeItem.STG -= (int)(upgradeItem.STG * 0.3);
+
+                        if ( upgradeItem.HE > 0 )
+                            upgradeItem.HE -= (int)(upgradeItem.HE * 0.3);
+
+                        if ( upgradeItem.DEX > 0 )
+                            upgradeItem.DEX -= (int)(upgradeItem.DEX * 0.3);
+
+                        if ( upgradeItem.PER > 0 )
+                            upgradeItem.PER -= (int)(upgradeItem.PER * 0.3);
+
+                        if ( upgradeItem.INT > 0 )
+                            upgradeItem.INT -= (int)(upgradeItem.INT * 0.3);
+
+                        if ( upgradeItem.Mana > 0 )
+                            upgradeItem.Mana -= (int)(upgradeItem.Mana * 0.3);
+
+                        if ( upgradeItem.CritHitDamage > 0 )
+                            upgradeItem.CritHitDamage -= (int)(upgradeItem.CritHitDamage * 0.3);
+
+                        if ( upgradeItem.CritHitChance > 0 )
+                            upgradeItem.CritHitChance -= (int)(upgradeItem.CritHitChance * 0.3);
+
+                        if ( upgradeItem.AbilityHaste > 0 )
+                            upgradeItem.AbilityHaste -= (int)(upgradeItem.AbilityHaste * 0.3);
+
+                        if ( upgradeItem.AttackPower > 0 )
+                            upgradeItem.AttackPower -= (int)(upgradeItem.AttackPower * 0.3);
+
+                        if ( upgradeItem.MagicPower > 0 )
+                            upgradeItem.MagicPower -= (int)(upgradeItem.MagicPower * 0.3);
+
+                        if ( upgradeItem.AttackSpeed > 0 )
+                            upgradeItem.AttackSpeed -= (int)(upgradeItem.AttackSpeed * 0.3);
+
+                        if ( upgradeItem.MoveSpeed > 0 )
+                            upgradeItem.MoveSpeed -= (int)(upgradeItem.MoveSpeed * 0.3);
+
+                        if ( upgradeItem.MagicDefense > 0 )
+                            upgradeItem.MagicDefense -= (int)(upgradeItem.MagicDefense * 0.3);
+
+                        if ( upgradeItem.Evasion > 0 )
+                            upgradeItem.Evasion -= (int)(upgradeItem.Evasion * 0.3);
+
+                        if ( upgradeItem.Cover > 0 )
+                            upgradeItem.Cover -= (int)(upgradeItem.Cover * 0.3);
+
+                        if ( upgradeItem.BonusEXP > 0 )
+                            upgradeItem.BonusEXP -= (int)(upgradeItem.BonusEXP * 0.3);
+
+                        if ( upgradeItem.BonusScore > 0 )
+                            upgradeItem.BonusScore -= (int)(upgradeItem.BonusScore * 0.3);
+
+                        if ( upgradeItem.BonusVyndalium > 0 )
+                            upgradeItem.BonusVyndalium -= (int)(upgradeItem.BonusVyndalium * 0.3);
+
+                        if ( upgradeItem.Tenacity > 0 )
+                            upgradeItem.Tenacity -= (int)(upgradeItem.Tenacity * 0.3);
+
+                        if ( upgradeItem.StunResistance > 0 )
+                            upgradeItem.StunResistance -= (int)(upgradeItem.StunResistance * 0.3);
+
+                        if ( upgradeItem.BlindResistance > 0 )
+                            upgradeItem.BlindResistance -= (int)(upgradeItem.BlindResistance * 0.3);
+
+                        if ( upgradeItem.BleedResistance > 0 )
+                            upgradeItem.BleedResistance -= (int)(upgradeItem.BleedResistance * 0.3);
+
+                        if ( upgradeItem.SlowResistence > 0 )
+                            upgradeItem.SlowResistence -= (int)(upgradeItem.SlowResistence * 0.3);
+
+                        if ( upgradeItem.FireResistence > 0 )
+                            upgradeItem.FireResistence -= (int)(upgradeItem.FireResistence * 0.3);
+
+                        if ( upgradeItem.PoisonResistence > 0 )
+                            upgradeItem.PoisonResistence -= (int)(upgradeItem.PoisonResistence * 0.3);
+
+                        if ( upgradeItem.IceResistence > 0 )
+                            upgradeItem.IceResistence -= (int)(upgradeItem.IceResistence * 0.3);
+
+                        if ( upgradeItem.LightningResistence > 0 )
+                            upgradeItem.LightningResistence -= (int)(upgradeItem.LightningResistence * 0.3);
+
+                        if ( upgradeItem.HolyResistence > 0 )
+                            upgradeItem.HolyResistence -= (int)(upgradeItem.HolyResistence * 0.3);
+
                         Hudmaster.Instance.ShowNotification( $"Upgrade failed. Item {upgradeItem.Name} has been downgraded to {upgradeItem.ItemLevel}.", "/ui/hud/exit.gif" );
                         PlaySuccessSoundFromPath("sounds/upgrade/error.sound", 0.15f);
                     }
                     else
                     {
-                        Player.Local.Inventory.RemoveItem( upgradeItem );
+                        
+                        Player.Local.Inventory?.RemoveItem( upgradeItem );
                         Hudmaster.Instance.ShowNotification( $"Upgrade failed. Item {upgradeItem.Name} has been destroyed.", "/ui/hud/exit.gif" );
                         PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.15f );
+                        
+                        StateHasChanged();
+                    
                         upgradeItem = null;
                     }
                 }
@@ -224,11 +406,14 @@ namespace GeneralGame.HUD
             }
             else
             {
+                
                 Hudmaster.Instance.ShowNotification( "Not enough Money", "/ui/hud/exit.gif" );
                 PlaySuccessSoundFromPath( "sounds/upgrade/notenoughmoney.sound", 0.025f );
             }
         }
+        
        
+
         private string GetBackgroundColor( double? successChance )
         {
             if ( successChance.HasValue )
@@ -480,6 +665,8 @@ namespace GeneralGame.HUD
                 Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 ),
                 shopStorage?.AvailableItems.HashCombine( i => i?.GetHashCode() ?? -1 ) ?? 0,
                 isUpgradePanelVisible,
+                upgradeItem?.GetHashCode() ?? 0,
+                
                 Player.Local.Vyndalium,
                 statusText?.GetHashCode() ?? 0,
                 statusClass?.GetHashCode() ?? 0

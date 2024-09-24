@@ -359,7 +359,7 @@ public sealed class Inventory : Component
 			}
 			else
 			{
-				Log.Error( "Kein freier Slot im Upgrade verfügbar." );
+				
 				Hudmaster.Instance.ShowNotification( "Slot occupied.", "/ui/hud/exit.gif"  );
 			}
 		}
@@ -383,7 +383,7 @@ public sealed class Inventory : Component
 			}
 			else
 			{
-				Log.Error( "Kein freier Slot im Storage verfügbar." );
+				
 				Hudmaster.Instance.ShowNotification( "Slot occupied / too full.", "/ui/hud/exit.gif" );
 			}
 		}
@@ -406,7 +406,7 @@ public sealed class Inventory : Component
 			}
 			else
 			{
-				Log.Error( "Kein freier Slot im Rucksack verfügbar." );
+				
 				Hudmaster.Instance.ShowNotification( "No Slots in Backpack available.", "/ui/hud/exit.gif" );
 			}
 		}
@@ -429,7 +429,7 @@ public sealed class Inventory : Component
 			}
 			else
 			{
-				Log.Error( "Kein freier Slot im Rucksack verfügbar." );
+				
 				Hudmaster.Instance.ShowNotification( "Slot occupied / no Slots available.", "/ui/hud/exit.gif" );
 			}
 		}
@@ -495,6 +495,8 @@ public sealed class Inventory : Component
 			if ( weaponContainer != null )
 			{
 				weaponContainer.Give( item.GameObject, true );
+				
+				Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.025f );
 			}
 
 			index = _backpackItems?.IndexOf( item ) ?? -1;
@@ -504,7 +506,7 @@ public sealed class Inventory : Component
 		{
 			
 			Hudmaster.Instance.ShowNotification( "player level too low.", "/ui/hud/exit.gif" );
-			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.055f );
 			return false;
 		}
 	}
@@ -556,6 +558,7 @@ public sealed class Inventory : Component
 			if ( weaponContainer != null )
 			{
 				weaponContainer.Give( item.GameObject, true );
+				Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.035f );
 			}
 			return true;
 		}
@@ -591,27 +594,30 @@ public sealed class Inventory : Component
 		{
 			
 			Hudmaster.Instance.ShowNotification( "Item is not the equipped item in the expected slot.", "/ui/hud/exit.gif" );
-			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.045f );
 			return false;
 		}
 
 		var firstFreeSlot = _backpackItems.IndexOf( null );
 		if ( firstFreeSlot == -1 )
 		{
-			Log.Error( "No free slot in the backpack." );
+			
+			Hudmaster.Instance.ShowNotification( "No Place in the Backpack.", "/ui/hud/inventory.png" );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.045f );
 			return false;
 		}
 
 		// Entfernen der Statistiken des Items
 		RemoveEquipmentItem( equipment );
 
-		// Hinzufügen des Items zum Rucksack
+		Player.Local?.PlaySuccessSoundFromPath( "sounds/weapons/weapon_holster4.sound", 0.075f );
 
 		// Sicherstellen, dass das Item nicht zerstört wird, wenn es unequipped wird
 		var weaponContainer = Player.Components.Get<WeaponContainer>();
 		if ( weaponContainer != null )
 		{
 			weaponContainer.RemoveWeapon( item.GameObject, false );
+			
 		}
 		else
 		{
@@ -630,8 +636,10 @@ public sealed class Inventory : Component
 	public bool DropItem( ItemComponent item )
 	{
 		if(IsProxy) return true;
+
 		if ( item is ItemEquipment equipment && equipment.Equipped )
 			RemoveEquipmentItem( equipment );
+
 		else if ( item.State == ItemState.Backpack )
 			RemoveBackpackItem( item, _backpackItems.IndexOf( item ) );
 
@@ -735,6 +743,7 @@ public sealed class Inventory : Component
 		if ( weaponContainer != null )
 		{
 			weaponContainer.Give( item.GameObject, true );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.075f );
 		}
 		else
 		{
@@ -1167,7 +1176,13 @@ public sealed class Inventory : Component
 		if ( freeSlotIndex != -1 )
 		{
 			_backpackItems[freeSlotIndex] = equipment;
-			
+
+			var weaponContainer = Player.Components.Get<WeaponContainer>();
+			if ( weaponContainer != null )
+			{
+				weaponContainer.RemoveWeapon( equipment.GameObject, true );
+			}
+
 		}
 		else
 		{
@@ -1240,6 +1255,12 @@ public sealed class Inventory : Component
 					weapon.Deploy();
 				}
 			}
+			var equippedmelee = weaponContainer.GetEquippedItems( new EquipSlot[] { EquipSlot.Hand } ).FirstOrDefault();
+			if ( equippedmelee != null )
+			{
+				equippedmelee.Deploy();
+			}
+
 		}
 
 

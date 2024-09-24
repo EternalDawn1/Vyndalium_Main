@@ -15,6 +15,7 @@ public class FoliageRenderer : Component, Component.ExecuteInEditor
 		if ( FoliageRenderers.ContainsKey( foliage.ResourceId ) )
 		{
 			FoliageRenderers[foliage.ResourceId].Add( transform );
+			UpdateRenderers();
 		}
 		else
 		{
@@ -85,24 +86,38 @@ public class FoliageRenderer : Component, Component.ExecuteInEditor
 		
 	}
 
-
+	
 	public void UpdateRenderers()
 	{
 		foreach ( var val in Renderers )
 		{
 			val.Delete();
+			
 		}
+
+		
+		
 		Renderers.Clear();
 		foreach ( var folRenderer in FoliageRenderers )
 		{
+			var transformArray = folRenderer.Value.ToArray();
 			var folInstance = ResourceLibrary.Get<FoliageResource>( folRenderer.Key );
+			
+			
 			var folSceneObject = new FoliageSceneObject( GameObject.Scene.SceneWorld, folInstance.Model )
 			{
-				Transforms = folRenderer.Value,
-				Color = folInstance.Color // Set the color of the foliage
+				Transforms = transformArray
 			};
+
+			
+			
 			Renderers.Add( folSceneObject );
+
+
+
+
 		}
+		
 	}
 	public void ClearAll()
 	{
@@ -118,27 +133,23 @@ public class FoliageRenderer : Component, Component.ExecuteInEditor
 public class FoliageSceneObject : SceneCustomObject
 {
 	public Model RenderModel;
-	public List<Transform> Transforms = new();
-	public Color Color { get; set; } = Color.White;
-	public FoliageSceneObject( SceneWorld sceneWorld, Model renderModel ) : base( sceneWorld )
+	public Transform[] Transforms = Array.Empty<Transform>();
+	public FoliageSceneObject(SceneWorld sceneWorld, Model renderModel) : base(sceneWorld)
 	{
 		RenderModel = renderModel;
 	}
 
-	public void AddTransform( Transform transform )
+	
+	public void AddTransform(Transform transform)
 	{
-		Transforms.Add( transform );
+		//Transforms.Add( transform );
 	}
 
 	public override void RenderSceneObject()
 	{
 		base.RenderSceneObject();
-
-		// Erstelle eine Instanz von RenderAttributes und füge die Farbe hinzu
-		var renderAttributes = new RenderAttributes();
-		renderAttributes.Set( "Color", Color );
-
-		// Verwende die RenderAttributes beim Rendern
-		Graphics.DrawModelInstanced( RenderModel, Transforms.ToArray().AsSpan(), renderAttributes );
+		Graphics.DrawModelInstanced( RenderModel, Transforms.AsSpan() );
+		
+		
 	}
 }

@@ -64,7 +64,7 @@ public static class SceneHandler2
         if ( lobby.HasValue )
         {
             Log.Info( "Lobby" );
-            var connected = GameNetworkSystem.TryConnectSteamId( lobby.Value );
+            Networking.Connect( lobby.Value );
             // Return if connection fails.
         }
        
@@ -83,7 +83,7 @@ public static class SceneHandler2
         // Zerstören der alten Szene
         DeleteCurrentScene();
 
-
+        
 
     }
     

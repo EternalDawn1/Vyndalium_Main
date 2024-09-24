@@ -88,9 +88,15 @@
               "MagicDefense": 0,
               "MagicPower": 0,
               "Mana": 0,
+              "MaxArmor": 0,
+              "MaxArmorValue": 0,
               "MaxAttackValue": 0,
+              "MaxDMG": 0,
               "MaxStack": 1,
+              "MinArmor": 0,
+              "MinArmorValue": 0,
               "MinAttackValue": 0,
+              "MinDMG": 0,
               "Missions": true,
               "MoveSpeed": 0,
               "PER": 0,
@@ -845,6 +851,62 @@
       "Name": "Shop-Human",
       "Position": "-1978.099,-1177.5,-61.36618",
       "Enabled": true,
+      "Components": [
+        {
+          "__type": "VNBase.UI.VNHud",
+          "__guid": "0d984a1c-d391-4231-b586-0aea77b05da0",
+          "Player": {
+            "_type": "component",
+            "component_id": "1fd6f868-f123-47be-8b6f-28eccebf3fe5",
+            "go": "d746cf32-2e78-421c-9520-eff190c7a14d",
+            "component_type": "ScriptPlayer"
+          }
+        },
+        {
+          "__type": "VNBase.ScriptPlayer",
+          "__guid": "1fd6f868-f123-47be-8b6f-28eccebf3fe5",
+          "ActiveLabel": {
+            "Name": "",
+            "Text": {
+              "Text": ""
+            },
+            "Characters": [],
+            "Choices": [],
+            "Assets": []
+          },
+          "ActiveScript": {
+            "Dialogue": "",
+            "Path": ""
+          },
+          "Characters": [],
+          "DialogueFinished": false,
+          "DialogueText": "hello",
+          "Hud": {
+            "_type": "component",
+            "component_id": "0d984a1c-d391-4231-b586-0aea77b05da0",
+            "go": "d746cf32-2e78-421c-9520-eff190c7a14d",
+            "component_type": "VNHud"
+          },
+          "Settings": {
+            "_type": "component",
+            "component_id": "866151f3-1a70-41d2-bded-ff6146ed04bc",
+            "go": "d746cf32-2e78-421c-9520-eff190c7a14d",
+            "component_type": "Settings"
+          }
+        },
+        {
+          "__type": "VNBase.Settings",
+          "__guid": "866151f3-1a70-41d2-bded-ff6146ed04bc",
+          "SkipActionEnabled": true,
+          "SkipActions": [
+            {
+              "Action": "jump"
+            }
+          ],
+          "TextEffectDelay": 55,
+          "TextEffectEnabled": true
+        }
+      ],
       "Children": [
         {
           "__guid": "fac84fce-3995-4eda-8e73-a6c6546ab627",
@@ -906,9 +968,15 @@
               "MagicDefense": 0,
               "MagicPower": 0,
               "Mana": 0,
+              "MaxArmor": 0,
+              "MaxArmorValue": 0,
               "MaxAttackValue": 0,
+              "MaxDMG": 0,
               "MaxStack": 1,
+              "MinArmor": 0,
+              "MinArmorValue": 0,
               "MinAttackValue": 0,
+              "MinDMG": 0,
               "Missions": false,
               "MoveSpeed": 0,
               "Name": "Merchant Dealer",
@@ -1971,98 +2039,6 @@
           }
         }
       ]
-    },
-    {
-      "__guid": "ba49bfe0-c544-4f0c-958c-d91dc0ba19d8",
-      "Flags": 0,
-      "Name": "Spawner",
-      "Position": "-1223.492,-540.8304,169.5545",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "682c78c0-58b4-4771-9a49-23a10a9ee61a",
-          "destroyChance": 0.01,
-          "DrawProximityRangeGizmo": false,
-          "IsSpawning": false,
-          "Level10To15": false,
-          "Level15To20": false,
-          "Level1To5": true,
-          "Level20To25": false,
-          "Level25To30": false,
-          "Level30To35": false,
-          "Level35To40": false,
-          "Level40To45": false,
-          "Level45To50": false,
-          "Level50To55": false,
-          "Level55To60": false,
-          "Level5To10": false,
-          "Level60To65": false,
-          "Level65To70": false,
-          "Level70To75": false,
-          "Level75To80": false,
-          "Level80To85": false,
-          "Level85To90": false,
-          "Level90To95": false,
-          "Level95To100": false,
-          "MaxSpawns": 1,
-          "PlayerProximityDistance": 1000,
-          "Randomized": false,
-          "RandomizePropertiesOnRain": false,
-          "RandomizeTierOnSpawn": true,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "cb65a69b-fc68-4efc-af51-810ba767476d",
-      "Flags": 0,
-      "Name": "Spawner (1)",
-      "Position": "-1223.492,-411.9119,169.5545",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "889ea316-6325-42d1-a0ab-24bacc41ac5b",
-          "destroyChance": 0.01,
-          "DrawProximityRangeGizmo": false,
-          "IsSpawning": false,
-          "Level10To15": false,
-          "Level15To20": false,
-          "Level1To5": false,
-          "Level20To25": false,
-          "Level25To30": false,
-          "Level30To35": false,
-          "Level35To40": false,
-          "Level40To45": false,
-          "Level45To50": false,
-          "Level50To55": false,
-          "Level55To60": false,
-          "Level5To10": false,
-          "Level60To65": false,
-          "Level65To70": false,
-          "Level70To75": false,
-          "Level75To80": false,
-          "Level80To85": false,
-          "Level85To90": false,
-          "Level90To95": false,
-          "Level95To100": false,
-          "MaxSpawns": 10,
-          "PlayerProximityDistance": 1000,
-          "Randomized": false,
-          "RandomizePropertiesOnRain": false,
-          "RandomizeTierOnSpawn": true,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
-          }
-        }
-      ]
     }
   ],
   "SceneProperties": {
@@ -2097,5 +2073,6 @@
     "reizer.wood_box_01a",
     "starblue.forklifttruck"
   ],
+  "IsValid": true,
   "__version": 1
 }

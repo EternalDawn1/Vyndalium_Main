@@ -6,6 +6,7 @@ public struct ItemSave
 {
 	[JsonInclude] public string Path;
 	[JsonInclude] public Dictionary<string, string> Data;
+	[JsonInclude] public string Description;
 	[JsonInclude] public ItemState State;
 	[JsonInclude] public int Index;
 	[JsonInclude] public int IndexStorage;
@@ -252,6 +253,7 @@ partial class Player
 			item.BuyPrice = item.BuyPrice;
 			item.MaxStack = item.MaxStack;
 			item.Count = item.Count;
+			item.Description = item.Description;
 
 
 		
@@ -271,6 +273,7 @@ partial class Player
 				BuyPrice = item.BuyPrice,
 				MaxStack = item.MaxStack,
 				Count = item.Count,
+				Description = item.Description,
 				DMG = item.DMG,
 				STG = item.STG,
 				HE = item.HE,
@@ -540,6 +543,7 @@ partial class Player
 				var item = obj.Components.Get<ItemComponent>();
 				if ( item != null )
 				{
+					item.Description = data.Description;
 					item.RequiredLevel = data.RequiredLevel;	
 					item.State = data.State;
 					item.SellPrice = (int)data.SellPrice;
@@ -610,7 +614,7 @@ partial class Player
 
 				player.Inventory.EquipItemFromWorld( equipment );
 				ReadData( data, o );
-
+				equipment.Description = data.Description;
 				equipment.RequiredLevel = data.RequiredLevel;
 				equipment.MinArmorValue = data.MinArmorValue;
 				equipment.MaxArmorValue = data.MaxArmorValue;
@@ -681,6 +685,7 @@ partial class Player
 					continue;
 				player.Inventory.SetItem( item, data.Index );
 				ReadData( data, o );
+				item.Description = data.Description;
 				item.RequiredLevel = data.RequiredLevel;	
 				item.MinArmorValue = data.MinArmorValue;
 				item.MaxArmorValue = data.MaxArmorValue;
@@ -745,7 +750,7 @@ partial class Player
 					continue;
 				player.Inventory.GiveStorageItem( item, data.Index );
 				ReadData( data, o );
-
+				item.Description = data.Description;
 				item.MaxStack = data.MaxStack;
 				item.Count = data.Count;
 				item.MinArmorValue = data.MinArmorValue;

@@ -19,9 +19,6 @@ public class FoliageResource : GameResource
 	public bool RandomRotation { get; set; } = false;
 	[Category("placement")]
 	public RangedFloat ZOffset { get; set; } = new RangedFloat( 0f );
-	
-	[Category( "appearance" ), Description( "Color of the foliage" )]
-	public Color Color { get; set; } = Color.White;
 	protected override void PostLoad()
 	{
 		All.Add( this );

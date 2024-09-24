@@ -64,8 +64,8 @@ public static class SceneHandler
 		if ( lobby.HasValue )
 		{
 			Log.Info( "Lobby" );
-			var connected = GameNetworkSystem.TryConnectSteamId( lobby.Value );
-			// Return if connection fails.
+			 Networking.Connect( lobby.Value );
+			
 		}
 
 

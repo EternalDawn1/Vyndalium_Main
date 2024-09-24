@@ -48,6 +48,19 @@
           "bin/placeholder/jigglebones.dll": {}
         }
       },
+      "libevents/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Base Library": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/libevents.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/libevents.dll": {}
+        }
+      },
       "scenefoliagepainter/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -74,13 +87,28 @@
           "bin/placeholder/shadergraph.dll": {}
         }
       },
+      "vnbase_library/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Base Library": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/vnbase_library.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/vnbase_library.dll": {}
+        }
+      },
       "vyndalium/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Base Library": "1.0.0",
           "jigglebones": "1.0.0",
-          "scenefoliagepainter": "1.0.0"
+          "libevents": "1.0.0",
+          "scenefoliagepainter": "1.0.0",
+          "vnbase_library": "1.0.0"
         },
         "compile": {
           "bin/placeholder/vyndalium.dll": {}
@@ -112,6 +140,11 @@
       "path": "../Libraries/facepunch.jigglebones/Code/jigglebones.csproj",
       "msbuildProject": "../Libraries/facepunch.jigglebones/Code/jigglebones.csproj"
     },
+    "libevents/1.0.0": {
+      "type": "project",
+      "path": "../Libraries/facepunch.libevents/Code/libevents.csproj",
+      "msbuildProject": "../Libraries/facepunch.libevents/Code/libevents.csproj"
+    },
     "scenefoliagepainter/1.0.0": {
       "type": "project",
       "path": "../Libraries/stellawisps.scenefoliagepainter/Code/scenefoliagepainter.csproj",
@@ -121,6 +154,11 @@
       "type": "project",
       "path": "../../../SteamLibrary/steamapps/common/sbox/editor/ShaderGraph/Code/shadergraph.csproj",
       "msbuildProject": "../../../SteamLibrary/steamapps/common/sbox/editor/ShaderGraph/Code/shadergraph.csproj"
+    },
+    "vnbase_library/1.0.0": {
+      "type": "project",
+      "path": "../Libraries/spoonstuff.vnbase_library/Code/vnbase_library.csproj",
+      "msbuildProject": "../Libraries/spoonstuff.vnbase_library/Code/vnbase_library.csproj"
     },
     "vyndalium/1.0.0": {
       "type": "project",

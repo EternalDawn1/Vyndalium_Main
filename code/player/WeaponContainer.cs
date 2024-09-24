@@ -13,6 +13,7 @@ public partial class WeaponContainer : Component
 	[Property] public Player PlayrControl { get; set; }
 	[Property] public Inventory Inventory { get; set; }
 	public BaseGun Equipped { get; set; }
+	public BaseMelee EquippedMelee { get; set; }
 
 
 	private WeaponComponent _deployed;
@@ -104,12 +105,12 @@ public partial class WeaponContainer : Component
 		}
 	}
 
-	public void Give( GameObject prefab, bool shouldDeploy = false )
+	public async void Give( GameObject prefab, bool shouldDeploy = false )
 	{
 		if(IsProxy)
 		return;
 		
-		Task.Delay( 1 );
+		await Task.Delay( 1 );
 
 		if ( Player.Local == null )
 		{
@@ -158,6 +159,7 @@ public partial class WeaponContainer : Component
 		{
 			rigidBody.Destroy();
 		}
+		
 
 		var weaponGo = prefab.Clone();
 		var weapon = weaponGo.Components?.GetInDescendantsOrSelf<WeaponComponent>( true );
@@ -205,6 +207,11 @@ public partial class WeaponContainer : Component
 			}
 			nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;
 			nextWeaponGo.IsDeployed = !Deployed.IsValid();
+		}
+		var melee = weaponGo.Components.GetInDescendantsOrSelf<BaseMelee>( true );
+		if ( melee.IsValid() )
+		{
+			melee.IsDeployed = !Deployed.IsValid();
 		}
 
 		weaponGo.NetworkSpawn();

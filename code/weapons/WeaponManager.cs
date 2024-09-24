@@ -9,6 +9,7 @@ public class WeaponManager : Component
 {
 	public static WeaponManager Instance { get; private set; }
 	public List<BaseGun> Weapons { get; set; } = new();
+	public List<BaseMelee> MeleeWeapons { get; set; } = new();
 	
 	
 	[Property] public List<PrefabScene> Prefabs { get; set; }
@@ -26,6 +27,9 @@ public class WeaponManager : Component
 			var weapon = prefab.Components.Get<BaseGun>();
 			weapon.InitializeAmmo( ammoContainer );
 			Weapons.Add( weapon );
+			Components.GetOrCreate<Interactions>();
+			var melee = prefab.Components.Get<BaseMelee>();
+			MeleeWeapons.Add( melee );
 			Components.GetOrCreate<Interactions>();
 		}
 

@@ -1,0 +1,50 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using System;
+@using System.Linq;
+
+@namespace VNBase.UI
+
+@attribute [Title("VN Hud")]
+@attribute [Category("VNBase")]
+@inherits PanelComponent
+
+@if ( Player is not null && Player.ActiveScript is not null )
+{
+    <root style="background-image: url('@(Player.Background)')">
+        <CharacterPortraits Player="@Player" Hud="@this"/>
+        <TextInput class="centered" Player="@Player" Hud="@this"/>
+        <Choices class="centered" Player="@Player" Hud="@this"/>
+        <DialogueBox Player="@Player" Hud="@this"/>
+        <ControlPanel Player="@Player" Hud="@this"/>
+    </root> 
+}
+
+@code {
+    [Property, RequireComponent] public ScriptPlayer Player { get; set; }
+
+    protected override void OnStart()
+    {
+        if (Player is null)
+        {
+            try
+            {
+                Player = Scene.GetAllComponents<ScriptPlayer>().First();
+            }
+            catch( InvalidOperationException )
+            {
+                ScriptPlayer.Log.Warning("No ScriptPlayer assigned to VNHud and VNHud could not find a ScriptPlayer in the scene!");
+            }
+        }
+    }
+
+    public T GetSubPanel<T>() where T : SubPanel
+    {
+        return Panel.Children.OfType<T>().FirstOrDefault();
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Player, Player?.ActiveScript, Player?.Background);
+    }
+}

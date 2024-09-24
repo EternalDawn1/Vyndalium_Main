@@ -9,7 +9,6 @@ public class FoliageSettings
 	[Property, Range( 0, 100 )] public float PaintSpeed { get; set; } = 5;
 	[Property, ResourceType(".fol")] public FoliageResource Foliage { get; set; }
 	[Property] public bool EraseOnlySelectedFoliage { get; set; } = true;
-	[Property] public Color FoliageColor { get; set; } = Color.White;
 }
 
 public class FoliageSettingsWidgetWindow : WidgetWindow
@@ -44,7 +43,6 @@ public class FoliageSettingsWidgetWindow : WidgetWindow
 		cs.AddRow( so.GetProperty( nameof( FoliageSettings.PaintSpeed) ) );
 		cs.AddRow( so.GetProperty( nameof( FoliageSettings.Foliage ) ) );
 		cs.AddRow( so.GetProperty( nameof( FoliageSettings.EraseOnlySelectedFoliage ) ) );
-		cs.AddRow( so.GetProperty( nameof( FoliageSettings.FoliageColor ) ) );
 		cs.SetMinimumColumnWidth( 0, 50 );
 		cs.Margin = new Sandbox.UI.Margin( 8, 0, 4, 0 );
 		

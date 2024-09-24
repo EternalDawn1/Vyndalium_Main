@@ -1,5 +1,6 @@
 using Sandbox;
 using GeneralGame;
+using Sandbox.Citizen;
 
 namespace GeneralGame;
 
@@ -15,8 +16,30 @@ public partial class Player : Component
     private bool wasJumping = false;
     private bool RegenDelayed { get; set; }
 	private const float RegenDelayDuration = 2.5f;
+    public Vector3 Position => Transform.Position;
+    public bool IsSwimming { get; private set; }
 
+    public void SetSwimming( bool isSwimming )
+    {
+        var citizen = Components.Get<CitizenAnimationHelper>();
+        
+        
 
+        IsSwimming = isSwimming;
+
+        if ( isSwimming )
+        {
+            // Logik zum Wechseln in den Schwimm-Modus
+            citizen.IsSwimming = true;
+            // Weitere Logik zum Schwimmen
+        }
+        else
+        {
+            // Logik zum Wechseln in den normalen Geh-Modus
+            citizen.IsGrounded = true;
+            // Weitere Logik zum Gehen
+        }
+    }
 
     private void RegenerateStamina()
     {

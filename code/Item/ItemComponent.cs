@@ -72,6 +72,7 @@ public class SerializedItemComponent
 public class ItemComponent : Component
 {
 	
+
 	[Property, Group( "Type" )]
 	public bool IsMaterial { get; set; }
 	[Property , Group( "Type" )]
@@ -108,7 +109,7 @@ public class ItemComponent : Component
 	public int MinArmorValue { get; set; }
 	[Property, Group( "Stats" )]
 	public int MaxArmorValue { get; set; }
-
+	
 
 	public int CalculateBuyPrice()
 	{
@@ -482,45 +483,35 @@ public class ItemComponent : Component
 	}
 	public void GenerateRandomStats()
 	{
+		if ( IsWeapon )
+		{
+			GenerateWeaponStats();
+		}
+		else if ( IsArmor )
+		{
+			GenerateArmorStats();
+		}
+	}
+
+	private void GenerateWeaponStats()
+	{
 		Random random = new Random();
 
-		// Definieren Sie die Bereiche für jede Statistik
-		
-		int minSTG = 5, maxSTG = 50;
-		int minHE = 1, maxHE = 10;
-		int minDEX = 2, maxDEX = 20;
-		int minPER = 3, maxPER = 30;
-		int minINT = 4, maxINT = 40;
+		// Definieren Sie die Bereiche für Waffenstatistiken
+		int minSTG = 5, maxSTG = 15;
+		int minInt = 5, maxInt = 15;
 		int minMana = 10, maxMana = 100;
-		int minHealth = 50, maxHealth = 100;
-		int minCritHitDamage = 1, maxCritHitDamage = 10;
-		int minCritHitChance = 1, maxCritHitChance = 10;
-		int minAbilityHaste = 1, maxAbilityHaste = 10;
+		int minCritHitDamage = 1, maxCritHitDamage = 15;
+		int minCritHitChance = 1, maxCritHitChance = 15;
 		int minAttackPower = 10, maxAttackPower = 100;
 		int minMagicPower = 10, maxMagicPower = 100;
-		int minAttackSpeed = 1, maxAttackSpeed = 10;
-		int minMoveSpeed = 1, maxMoveSpeed = 10;
-		int minArmor = 5, maxArmor = 50;
-		int minMagicDefense = 5, maxMagicDefense = 50;
-		int minEvasion = 1, maxEvasion = 10;
-		int minCover = 1, maxCover = 10;
-		int minBonusEXP = 10, maxBonusEXP = 100;
+		int minAttackSpeed = 1, maxAttackSpeed = 14;
+		int minMoveSpeed = 1, maxMoveSpeed = 100;
 		int minBonusScore = 10, maxBonusScore = 100;
+		int minBonusEXP = 10, maxBonusEXP = 100;
 		int minBonusVyndalium = 10, maxBonusVyndalium = 100;
-		int minTenacity = 1, maxTenacity = 10;
-		int minStunResistance = 1, maxStunResistance = 10;
-		int minBlindResistance = 1, maxBlindResistance = 10;
-		int minBleedResistance = 1, maxBleedResistance = 10;
-		int minSlowResistence = 1, maxSlowResistence = 10;
-		int minFireResistence = 1, maxFireResistence = 10;
-		int minPoisonResistence = 1, maxPoisonResistence = 10;
-		int minIceResistence = 1, maxIceResistence = 10;
-		int minLightningResistence = 1, maxLightningResistence = 10;
-		int minHolyResistence = 1, maxHolyResistence = 10;
-		int minShadowResistence = 1, maxShadowResistence = 10;
-		
 
-		// Bestimmen Sie die maximale Anzahl der Statistiken basierend auf dem Tier
+		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
 		int maxStats = 0;
 		switch ( Tier )
 		{
@@ -544,52 +535,81 @@ public class ItemComponent : Component
 		// Generieren Sie zufällige Werte innerhalb der definierten Bereiche
 		List<Action> statsGenerators = new List<Action>
 		{
-			() => DMG = GenerateRandomDMG(Tier),
 			() => STG = random.Next(minSTG, maxSTG + 1),
-			() => HE = random.Next(minHE, maxHE + 1),
-			() => DEX = random.Next(minDEX, maxDEX + 1),
-			() => PER = random.Next(minPER, maxPER + 1),
-			() => INT = random.Next(minINT, maxINT + 1),
+			() => INT = random.Next(minInt, maxInt + 1),
 			() => Mana = random.Next(minMana, maxMana + 1),
-			() => Health = random.Next(minHealth, maxHealth + 1),
 			() => CritHitDamage = random.Next(minCritHitDamage, maxCritHitDamage + 1),
 			() => CritHitChance = random.Next(minCritHitChance, maxCritHitChance + 1),
-			() => AbilityHaste = random.Next(minAbilityHaste, maxAbilityHaste + 1),
 			() => AttackPower = random.Next(minAttackPower, maxAttackPower + 1),
 			() => MagicPower = random.Next(minMagicPower, maxMagicPower + 1),
 			() => AttackSpeed = random.Next(minAttackSpeed, maxAttackSpeed + 1),
+			() => MoveSpeed = random.Next(minMoveSpeed, maxMoveSpeed + 1),
+			() => BonusScore = random.Next(minBonusScore, maxBonusScore + 1),
+			() => BonusEXP = random.Next(minBonusEXP, maxBonusEXP + 1),
+			() => BonusVyndalium = random.Next(minBonusVyndalium, maxBonusVyndalium + 1),
+			() => ItemLevel = GenerateRandomItemLevel(random),
+		};
+
+		// Wählen Sie zufällig eine bestimmte Anzahl von Statistiken aus
+		statsGenerators.OrderBy( x => random.Next() ).Take( maxStats ).ToList().ForEach( action => action() );
+	}
+
+	private void GenerateArmorStats()
+	{
+		Random random = new Random();
+
+		int minPER = 5, maxPER = 15;
+		int minDex = 5, maxDex = 15;
+		int minTenacity = 1, maxTenacity = 10;
+		int minMoveSpeed = 1, maxMoveSpeed = 100;
+		int minArmor = 5, maxArmor = 50;
+		int minMagicDefense = 5, maxMagicDefense = 50;
+		int minEvasion = 1, maxEvasion = 10;
+		int minCover = 1, maxCover = 10;
+		int minAbilityHaste = 1, maxAbilityHaste = 10;
+		int minMana = 10, maxMana = 250;
+		int minHealth = 50, maxHealth = 250;
+
+		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
+		int maxStats = 0;
+		switch ( Tier )
+		{
+			case Tier.C:
+				maxStats = 1;
+				break;
+			case Tier.B:
+				maxStats = 2;
+				break;
+			case Tier.A:
+				maxStats = 5;
+				break;
+			case Tier.S:
+				maxStats = 6;
+				break;
+			case Tier.SSS:
+				maxStats = 7;
+				break;
+		}
+
+		// Generieren Sie zufällige Werte innerhalb der definierten Bereiche
+		List<Action> statsGenerators = new List<Action>
+		{
+			() => PER = random.Next(minPER, maxPER + 1),
+			() => DEX = random.Next(minDex, maxDex + 1),
+			() => Tenacity = random.Next(minTenacity, maxTenacity + 1),
 			() => MoveSpeed = random.Next(minMoveSpeed, maxMoveSpeed + 1),
 			() => Armor = random.Next(minArmor, maxArmor + 1),
 			() => MagicDefense = random.Next(minMagicDefense, maxMagicDefense + 1),
 			() => Evasion = random.Next(minEvasion, maxEvasion + 1),
 			() => Cover = random.Next(minCover, maxCover + 1),
-			() => BonusEXP = random.Next(minBonusEXP, maxBonusEXP + 1),
-			() => BonusScore = random.Next(minBonusScore, maxBonusScore + 1),
-			() => BonusVyndalium = random.Next(minBonusVyndalium, maxBonusVyndalium + 1),
-			() => Tenacity = random.Next(minTenacity, maxTenacity + 1),
-			() => StunResistance = random.Next(minStunResistance, maxStunResistance + 1),
-			() => BlindResistance = random.Next(minBlindResistance, maxBlindResistance + 1),
-			() => BleedResistance = random.Next(minBleedResistance, maxBleedResistance + 1),
-			() => SlowResistence = random.Next(minSlowResistence, maxSlowResistence + 1),
-			() => FireResistence = random.Next(minFireResistence, maxFireResistence + 1),
-			() => PoisonResistence = random.Next(minPoisonResistence, maxPoisonResistence + 1),
-			() => IceResistence = random.Next(minIceResistence, maxIceResistence + 1),
-			() => LightningResistence = random.Next(minLightningResistence, maxLightningResistence + 1),
-			() => HolyResistence = random.Next(minHolyResistence, maxHolyResistence + 1),
-			() => ShadowResistence = random.Next(minShadowResistence, maxShadowResistence + 1),
-			() => ItemTier = new TierClass() { Tier = (Tier)random.Next(0, 6) },
+			() => AbilityHaste = random.Next(minAbilityHaste, maxAbilityHaste + 1),
+			() => Mana = random.Next(minMana, maxMana + 1),
+			() => Health = random.Next(minHealth, maxHealth + 1),
 			() => ItemLevel = GenerateRandomItemLevel(random),
-			 
 		};
 
-		// Mischen Sie die Statistiken und wählen Sie die maximale Anzahl aus
-		statsGenerators = statsGenerators.OrderBy( x => random.Next() ).ToList();
-		for ( int i = 0; i < maxStats; i++ )
-		{
-			statsGenerators[i]();
-		}
-
-		// Weitere zufällige Statistiken können hier hinzugefügt werden...
+		// Wählen Sie zufällig eine bestimmte Anzahl von Statistiken aus
+		statsGenerators.OrderBy( x => random.Next() ).Take( maxStats ).ToList().ForEach( action => action() );
 	}
 
 	private int GenerateRandomItemLevel( Random random )

@@ -186,8 +186,6 @@ public class WeaponComponent : Component
 			return;
 		}
 
-		
-
 		var playerDresser = Owner.Components.Get<PlayerDresser>();
 		if ( playerDresser != null )
 		{
@@ -270,7 +268,7 @@ public class WeaponComponent : Component
 		var player = Components.GetInAncestors<Player>();
 		if ( player == null )
 		{
-			Log.Error( "Player is null in CreateViewModel" );
+			
 			return;
 		}
 

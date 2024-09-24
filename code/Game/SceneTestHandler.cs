@@ -10,7 +10,7 @@ public enum GeneralScenetest
 
 public static class SceneHandlertest
 {
-	public static async void ChangeScenetest( GeneralScene scene, ulong? lobby = null, bool stopSound = true )
+	public static  void ChangeScenetest( GeneralScene scene, ulong? lobby = null, bool stopSound = true )
 	{
 		var path = scene switch
 		{
@@ -33,9 +33,8 @@ public static class SceneHandlertest
 		// If is game.
 		if ( lobby.HasValue )
 		{
-			var connected = await GameNetworkSystem.TryConnectSteamId( lobby.Value );
-			if ( !connected )
-				return;
+			Networking.Connect( lobby.Value );
+			
 		}
 
 

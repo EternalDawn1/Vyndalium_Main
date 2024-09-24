@@ -285,12 +285,14 @@ namespace GeneralGame
                                 var attackValues = CalculateAttackValues( tier, itemComponent);
                                 itemComponent.MinAttackValue = attackValues.MinAttack;
                                 itemComponent.MaxAttackValue = attackValues.MaxAttack;
+                                itemComponent.GenerateRandomStats();
                             }
                             else if ( itemComponent.IsArmor )
                             {
                                 var armorValues = CalculateArmorValues( tier, Level, itemComponent, playerLevel );
                                 itemComponent.MinArmorValue = armorValues.MinArmor;
                                 itemComponent.MaxArmorValue = armorValues.MaxArmor;
+                                itemComponent.GenerateRandomStats();
                             }
                         }
                         Items.Add( itemComponent );
@@ -298,6 +300,7 @@ namespace GeneralGame
                 }
             }
         }
+        
         private int GetPlayerLevel()
         {
             // Implementierung zur Ermittlung des Spielerlevels
@@ -406,8 +409,40 @@ namespace GeneralGame
             minAttack += randomFactor;
             maxAttack += randomFactor;
 
+            UpdateDescription( itemComponent );
+
             return (minAttack, maxAttack);
         }
+        public static void UpdateDescription( ItemComponent item )
+        {
+            string randomName;
+            if ( item.IsWeapon )
+            {
+                randomName = NameGenerator.GenerateRandomName( item.Tier, true );
+            }
+            else if ( item.IsArmor )
+            {
+                randomName = NameGenerator.GenerateRandomName( item.Tier, false );
+            }
+            else
+            {
+                randomName = "Unknown Item"; // Fallback für den Fall, dass weder Waffe noch Rüstung
+            }
+
+            string color = item.Tier switch
+            {
+                Tier.SSS => "gold",
+                Tier.SS => "purple",
+                Tier.S => "blue",
+                Tier.A => "green",
+                Tier.B => "white",
+                Tier.C => "gray",
+                _ => "white"
+            };
+
+            item.Description = randomName;
+        }
+
         public (int MinArmor, int MaxArmor) CalculateArmorValues( string tier, int level, ItemComponent itemComponent, int playerLevel )
         {
             var baseValues = tierArmorValues[tier];
@@ -459,6 +494,8 @@ namespace GeneralGame
 
             minArmor += randomFactor;
             maxArmor += randomFactor;
+
+            UpdateDescription( itemComponent );
 
             return (minArmor, maxArmor);
         }
@@ -559,5 +596,138 @@ namespace GeneralGame
              // Setzen der Variable, um anzuzeigen, dass die Kiste geschlossen ist
         }
 
+    }
+}
+public class NameGenerator
+{
+    private static readonly Dictionary<Tier, List<string>> WeaponNames = new Dictionary<Tier, List<string>>
+    {
+        { Tier.SSS, new List<string> {
+            "Golden", "Divine", "Legendary", "Mythic", "Eternal", "Ascendant", "Celestial", "Transcendent", "Immortal", "Radiant",
+            "Empyrean", "Godly", "Exemplary", "Omniscient", "Primordial", "Invincible", "Supreme", "Exalted", "Seraphic", "Infinite",
+            "Almighty", "Paragon", "Venerated", "Sublime", "Enlightened" } },
+
+        { Tier.SS, new List<string> {
+            "Epic", "Mystic", "Arcane", "Enchanted", "Celestial", "Runic", "Phantasmal", "Spectral", "Revered", "Exalted",
+            "Resplendent", "Glorified", "Majestic", "Ornate", "Shimmering", "Ethereal", "Illustrious", "Mythical", "Radiant", "Otherworldly",
+            "Magnificent", "Resonant", "Divinized", "Ancestral", "Myriad" } },
+
+        { Tier.S, new List<string> {
+            "Rare", "Ancient", "Sacred", "Fabled", "Heroic", "Glorious", "Valorous", "Venerable", "Imperial", "Exquisite",
+            "Prestigious", "Honored", "Exemplary", "Virtuous", "Noble", "Chivalrous", "Gallant", "Dignified", "Sovereign", "Gallant",
+            "Majestic", "Hallowed", "Illustrious", "Revered", "Lauded" } },
+
+        { Tier.A, new List<string> {
+            "Uncommon", "Valiant", "Noble", "Gallant", "Brave", "Stalwart", "Resilient", "Resolute", "Steadfast", "Bold",
+            "Courageous", "Fearless", "Vigilant", "Loyal", "Dependable", "Dutiful", "Honorable", "Fierce", "Intrepid", "Dauntless",
+            "Vigorous", "Staunch", "Indomitable", "Fearless", "Fortified" } },
+
+        { Tier.B, new List<string> {
+            "Common", "Sturdy", "Reliable", "Trusty", "Solid", "Dependable", "Durable", "Robust", "Steady", "Firm",
+            "Resilient", "Tough", "Hardy", "Secure", "Unyielding", "Resistant", "Faithful", "Sound", "Lasting", "Proven",
+            "Ironclad", "Formidable", "Rugged", "Steady", "Constant" } },
+
+        { Tier.C, new List<string> {
+            "Basic", "Plain", "Simple", "Ordinary", "Mundane", "Modest", "Unremarkable", "Average", "Standard", "Routine",
+            "Unadorned", "Dull", "Practical", "Basic", "Unimpressive", "Humble", "Serviceable", "Everyday", "Functional", "Drab",
+            "Utilitarian", "Plain", "Crude", "Standardized", "Standard" } }
+    };
+
+    private static readonly Dictionary<Tier, List<string>> ArmorNames = new Dictionary<Tier, List<string>>
+    {
+        { Tier.SSS, new List<string> {
+            "Golden", "Divine", "Legendary", "Mythic", "Eternal", "Ascendant", "Celestial", "Transcendent", "Immortal", "Radiant",
+            "Empyrean", "Godly", "Exemplary", "Omniscient", "Primordial", "Invincible", "Supreme", "Exalted", "Seraphic", "Infinite",
+            "Almighty", "Paragon", "Venerated", "Sublime", "Enlightened" } },
+
+        { Tier.SS, new List<string> {
+            "Epic", "Mystic", "Arcane", "Enchanted", "Celestial", "Runic", "Phantasmal", "Spectral", "Revered", "Exalted",
+            "Resplendent", "Glorified", "Majestic", "Ornate", "Shimmering", "Ethereal", "Illustrious", "Mythical", "Radiant", "Otherworldly",
+            "Magnificent", "Resonant", "Divinized", "Ancestral", "Myriad" } },
+
+        { Tier.S, new List<string> {
+            "Rare", "Ancient", "Sacred", "Fabled", "Heroic", "Glorious", "Valorous", "Venerable", "Imperial", "Exquisite",
+            "Prestigious", "Honored", "Exemplary", "Virtuous", "Noble", "Chivalrous", "Gallant", "Dignified", "Sovereign", "Gallant",
+            "Majestic", "Hallowed", "Illustrious", "Revered", "Lauded" } },
+
+        { Tier.A, new List<string> {
+            "Uncommon", "Valiant", "Noble", "Gallant", "Brave", "Stalwart", "Resilient", "Resolute", "Steadfast", "Bold",
+            "Courageous", "Fearless", "Vigilant", "Loyal", "Dependable", "Dutiful", "Honorable", "Fierce", "Intrepid", "Dauntless",
+            "Vigorous", "Staunch", "Indomitable", "Fearless", "Fortified" } },
+
+        { Tier.B, new List<string> {
+            "Common", "Sturdy", "Reliable", "Trusty", "Solid", "Dependable", "Durable", "Robust", "Steady", "Firm",
+            "Resilient", "Tough", "Hardy", "Secure", "Unyielding", "Resistant", "Faithful", "Sound", "Lasting", "Proven",
+            "Ironclad", "Formidable", "Rugged", "Steady", "Constant" } },
+
+        { Tier.C, new List<string> {
+            "Basic", "Plain", "Simple", "Ordinary", "Mundane", "Modest", "Unremarkable", "Average", "Standard", "Routine",
+            "Unadorned", "Dull", "Practical", "Basic", "Unimpressive", "Humble", "Serviceable", "Everyday", "Functional", "Drab",
+            "Utilitarian", "Plain", "Crude", "Standardized", "Standard" } }
+    };
+
+    private static readonly Dictionary<Tier, List<string>> RandomWeaponNames = new Dictionary<Tier, List<string>>
+    {
+        { Tier.SSS, new List<string> {
+            "Excalibur", "Thunderfury", "Doomhammer", "Ashbringer", "Dragonwrath",
+            "Atiesh", "Soulreaper", "Moonblade", "Starbreaker", "Skyshatter" } },
+
+        { Tier.SS, new List<string> {
+            "Shadowmourne", "Frostmourne", "Warglaive", "Sulfuron", "Bloodthirst",
+            "Oblivion", "Stormbreaker", "Nightfall", "Phantomstrike", "Earthsplitter" } },
+
+        { Tier.S, new List<string> {
+            "Skullcrusher", "Firebrand", "Dreadblade", "Warbringer", "Darkbane",
+            "Ravager", "Obsidian Edge", "Silver Fang", "Thunderstrike", "Flamecaller" } },
+
+        { Tier.A, new List<string> {
+            "Valiant Edge", "Brave Sword", "Hero's Fang", "Mystic Blade", "Storm Edge",
+            "Arcane Saber", "Fierce Mace", "Fiery Blade", "Noble Cleaver", "Resolute Bow" } },
+
+        { Tier.B, new List<string> {
+            "Iron Blade", "Sturdy Axe", "Solid Mace", "Common Sword", "Bronze Spear",
+            "Battle Hammer", "Reliable Staff", "Trusty Sword", "Hardy Cleaver", "Solid Bow" } },
+
+        { Tier.C, new List<string> {
+            "Basic Gun", "Plain Dagger", "Simple Weapon", "Crude Mace", "Rusty Knife",
+            "Wooden Spear", "Unpolished Blade", "Simple Hammer", "Weak Staff", "Rusty Cleaver" } }
+    };
+
+    private static readonly Dictionary<Tier, List<string>> RandomArmorNames = new Dictionary<Tier, List<string>>
+    {
+        { Tier.SSS, new List<string> {
+            "Aegis", "Titan", "Vanguard", "Colossus", "Fortress",
+            "Iron Wall", "Bulwark of Dawn", "Sanctum", "Citadel", "Watchtower" } },
+
+        { Tier.SS, new List<string> {
+            "Bulwark", "Defender", "Sentinel", "Warden", "Protector",
+            "Palisade", "Stronghold", "Safeguard", "Retreat", "Redoubt" } },
+
+        { Tier.S, new List<string> {
+            "Guardian", "Garrison", "Bastion", "Rampart", "Armament",
+            "Iron Guard", "Shield of Light", "Wall of Valor", "Barrier", "Shield of Honor" } },
+
+        { Tier.A, new List<string> {
+            "Sturdy Shield", "Valiant Guard", "Gallant Armor", "Steel Helm", "Iron Greaves",
+            "Defender's Plate", "Fortified Chestplate", "Steel Leggings", "Vigorous Shield", "Noble Breastplate" } },
+
+        { Tier.B, new List<string> {
+            "Reliable Armor", "Trusty Shield", "Solid Helm", "Common Armor", "Bronze Greaves",
+            "Sturdy Gauntlets", "Durable Chestplate", "Iron Helm", "Tough Boots", "Solid Shield" } },
+
+        { Tier.C, new List<string> {
+            "Basic Shield", "Plain Armor", "Simple Helm", "Crude Shield", "Rusty Greaves",
+            "Weak Gauntlets", "Simple Chestplate", "Rough Boots", "Plain Helm", "Crude Shield" } }
+    };
+
+    private static readonly Random Random = new Random();
+
+    public static string GenerateRandomName( Tier tier, bool isWeapon )
+    {
+        var tierNameList = isWeapon ? WeaponNames[tier] : ArmorNames[tier];
+        var randomNameList = isWeapon ? RandomWeaponNames[tier] : RandomArmorNames[tier];
+        string tierName = tierNameList[Random.Next( tierNameList.Count )];
+        string randomName = randomNameList[Random.Next( randomNameList.Count )];
+        return $"{tierName} {randomName}";
     }
 }

@@ -15,12 +15,12 @@ namespace GeneralGame
         {
             
 
-            if ( !GameNetworkSystem.IsActive && !IsProxy && StartServer )
+            if ( !Networking.IsActive && !IsProxy && StartServer )
             {
 
                 await Task.DelayRealtimeSeconds( 0.1f );
                
-                GameNetworkSystem.CreateLobby();
+                Networking.CreateLobby();
                 
                 return;
             }
@@ -29,7 +29,7 @@ namespace GeneralGame
             {
                 
                 SceneHandler.ChangeScene( GeneralScene.MainMenu );
-                GameNetworkSystem.Disconnect();
+                Networking.Disconnect();
                 return;
             }
             
@@ -45,7 +45,7 @@ namespace GeneralGame
             if ( Player.All.Count >= MAX_PLAYERS )
             {
                 SceneHandler.ChangeScene( GeneralScene.MainMenu );
-                GameNetworkSystem.Disconnect();
+                Networking.Disconnect();
                 return;
             }
 
@@ -94,7 +94,7 @@ namespace GeneralGame
             if ( ignoreHost && Connection.Local.Id == HostId )
                 return;
 
-            GameNetworkSystem.Disconnect();
+            Networking.Disconnect();
            
             SceneHandler.ChangeScene( GeneralScene.MainMenu );
         }
@@ -105,15 +105,15 @@ namespace GeneralGame
                 return;
 
             // Start lobby.
-            if ( !GameNetworkSystem.IsActive )
+            if ( !Networking.IsActive )
             {
-                GameNetworkSystem.CreateLobby();
+                Networking.CreateLobby();
                 return;
             }
 
             // Close lobby.
             ServerClose( true );
-            GameNetworkSystem.Disconnect();
+            Networking.Disconnect();
 
             for ( int i = 0; i < Player.All.Count; i++ )
             {
