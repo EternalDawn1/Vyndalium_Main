@@ -1,18 +1,27 @@
 ﻿using Sandbox;
 using System;
 using System.Numerics;
+using Sandbox; // Für GameObject, Transform, etc.
+using Sandbox.Physics;
 
 namespace GeneralGame;
 
 public class BaseGun : WeaponComponent, IUse
 {
-
+	[Property]public bool IsMelee { get; set; }
 	[Property, Category( "Parameters" )] public DamageType DamageType { get; set; } = DamageType.Serious;
 	[Property, Category( "Parameters" )] public WeaponType Type { get; set; }
 	[Property, Category( "Parameters" )] public float ReloadTime { get; set; } = 2f;
 	[Property, Category( "Parameters" )] public float EmptyReloadTime { get; set; } = 2f;
 	[Property, Category( "Parameters" )] public float Spread { get; set; } = 0.01f;
 	[Property, Category( "Parameters" )] public float HitForce { get; set; } = 300;
+
+
+	[Property, Category( "Parameters_melee" )] public float MeleeRange { get; set; } = 1.5f;
+	[Property, Category( "Parameters_melee" )] public float MeleeDamage { get; set; } = 10f;
+	[Property, Category( "Parameters_melee" )] public float MeleeCooldown { get; set; } = 1f;
+
+	public TimeUntil NextMeleeAttackTime { get; set; }
 	[Property] public Angles Recoil { get; set; }
 	[Property] public SoundEvent FireSound { get; set; }
 	[Property] public bool IsAuto { get; set; } = false;
@@ -109,17 +118,23 @@ public class BaseGun : WeaponComponent, IUse
 	}
 	public void IncreaseAmmo( int amount )
 	{
-		AmmoCount += amount;
+		if ( !IsMelee )
+		{
+			AmmoCount += amount;
+		}
 	}
 	public void DecreaseAmmo( int amount )
 	{
-		if ( AmmoCount - amount >= 0 )
+		if ( !IsMelee )
 		{
-			AmmoCount -= amount;
-		}
-		else
-		{
-			AmmoCount = 0;
+			if ( AmmoCount - amount >= 0 )
+			{
+				AmmoCount -= amount;
+			}
+			else
+			{
+				AmmoCount = 0;
+			}
 		}
 	}
 	public int GetAmmoCount()
@@ -134,7 +149,10 @@ public class BaseGun : WeaponComponent, IUse
 		// Standardmunition setzen, wenn sie nicht bereits gesetzt ist
 		if ( AmmoCount == 0 )
 		{
-			AmmoCount = DefaultAmmo;
+			if ( !IsMelee )
+			{
+				AmmoCount = DefaultAmmo;
+			}
 		}
 		Hitprefab = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ) );
 
@@ -169,11 +187,14 @@ public class BaseGun : WeaponComponent, IUse
 		if ( player.Weapons.Has( GameObject ) )
 		{
 
-			var ammoToGive = DefaultAmmo - player.Ammo.Get( AmmoType );
-
-			if ( ammoToGive > 0 )
+			if ( !IsMelee )
 			{
-				player.Ammo.Give( AmmoType, ammoToGive );
+				var ammoToGive = DefaultAmmo - player.Ammo.Get( AmmoType );
+
+				if ( ammoToGive > 0 )
+				{
+					player.Ammo.Give( AmmoType, ammoToGive );
+				}
 			}
 
 			GameObject.Destroy();
@@ -215,7 +236,17 @@ public class BaseGun : WeaponComponent, IUse
 	public override void PrimaryAction()
 	{
 		IsFiering = true;
-		FireBullet( Player.Local );
+
+		if ( IsMelee )
+		{
+			// Nahkampfangriff ausführen
+			PerformMeleeAttack( Player.Local );
+		}
+		else
+		{
+			// Fernkampfangriff ausführen
+			FireBullet( Player.Local );
+		}
 	}
 
 	public override void PrimaryActionRelease()
@@ -226,6 +257,155 @@ public class BaseGun : WeaponComponent, IUse
 	public override void SecondaryAction()
 	{
 		Owner.IsAiming = true;
+		if ( IsMelee )
+		{
+			if ( Player.Local.Mana < 25 )
+			{
+				// Nicht genug Mana, um die magische Waffe abzufeuern
+				return;
+			}
+
+			Player.Local.ChangeMana( -25 );
+
+			var player = Player.Local;
+			GameObject knife = new GameObject();
+			knife.Transform.Position = Owner.PlyCamera.Transform.Position;
+
+			// Füge einen Rigidbody hinzu, um die Physik zu handhaben
+			Rigidbody rb = knife.Components.Create<Rigidbody>();
+			rb.RigidbodyFlags = RigidbodyFlags.DisableCollisionSounds;
+			rb.Gravity = false;
+			rb.Components.Create<ModelRenderer>().Model = Model.Load( "models/weapons/sbox_melee_trenchknife/w_trenchknife.vmdl" );
+
+			// Füge einen Collider hinzu, um Kollisionen zu erkennen
+			ModelCollider collider = knife.Components.Create<ModelCollider>();
+			collider.IsTrigger = true;
+			collider.Model = Model.Load( "models/glock/w/w_glock20lod0.vmdl" );
+
+			// Füge einen TrailRenderer hinzu, um einen visuellen Effekt zu erzeugen
+			TrailRenderer trailRenderer = knife.Components.Create<TrailRenderer>();
+			trailRenderer.Color = Color.Red;
+			trailRenderer.Width = 0.6f;
+			trailRenderer.LifeTime = 0.4f;
+
+			// Setze die Fluggeschwindigkeit des Messers
+			float knifeSpeed = 1500f;
+
+			// Berechne die Flugbahn des Messers
+			Vector3 direction = Owner.PlyCamera.Transform.Rotation.Forward;
+			rb.Velocity = direction * knifeSpeed;
+
+			// Definiere die Start- und Endposition des Traces
+			var startPos = Owner.PlyCamera.Transform.Position;
+			var endPos = startPos + direction * 5000f;
+
+			// Führe einen Trace aus, um zu überprüfen, ob das Messer etwas trifft
+			var trace = Scene.Trace.Ray( startPos, endPos )
+				.IgnoreGameObjectHierarchy( GameObject.Root )
+				.WithoutTags( "player" )
+				.UseHitboxes()
+				.UsePhysicsWorld()
+				.Run();
+			
+
+			// Wenn das Messer etwas trifft, füge Schaden hinzu
+			if ( trace.Hit )
+			{
+				IHealthComponent damageable = null;
+				var attachment = EffectRenderer.GetAttachment( "muzzle" );
+				var damage = Damage;
+				var origin = attachment?.Position ?? startPos;
+
+				SendAttackMessage( origin, trace.EndPosition, trace.Distance );
+
+				if ( trace.Component.IsValid() )
+				{
+					damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+				}
+
+
+				if ( damageable is not null )
+				{
+
+
+
+					Random random = new Random();
+					float playerAttackValue = random.Next( (int)player.MinAttackValue, (int)player.MaxAttackValue + 1 );
+					var playerAttackPower = player.AttackPower;
+					var playerCritChance = player.CritHitChance;
+					var playerCritDamage = player.CritHitDamage;
+
+					damage += (int)(damage * (playerAttackValue / 300.0f));
+
+					int calculatedDamage = (int)(damage * (playerAttackPower / 50.0f));
+					damage += random.Next( 0, calculatedDamage + 1 );
+
+					int critRoll = random.Next( 0, 101 );
+					{
+						if ( critRoll <= playerCritChance )
+						{
+							damage += (int)(damage * 0.5f + playerCritDamage);
+							isCriticalHit = true;
+
+						}
+						else
+						{
+							isCriticalHit = false;
+						}
+					}
+
+					damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
+
+					GameObject hitinfo = Hitprefab.Clone( trace.EndPosition );
+					FaceThing facething = hitinfo.Components.Get<FaceThing>();
+					facething.Thing = player.GameObject;
+					TextRenderer textRenderer = hitinfo.Components.Get<TextRenderer>();
+
+					if ( isCriticalHit )
+					{
+						textRenderer.Color = Color.Red;
+					}
+					else
+					{
+						textRenderer.Color = Color.White;
+					}
+					textRenderer.Text = $"{damage}";
+					ScaleTextWithDistance scaleTextWithDistance = hitinfo.Components.Get<ScaleTextWithDistance>();
+					scaleTextWithDistance.Thing = player.GameObject;
+
+				}
+				else if ( trace.Hit )
+				{
+					SendImpactMessage( trace.EndPosition, trace.Normal );
+				}
+
+
+
+
+				var target = trace.GameObject;
+				if ( target != null )
+				{
+					if ( target.Components.TryGet<Rigidbody>( out var body ) )
+						body.ApplyImpulseAt( trace.HitPosition, trace.Direction * HitForce );
+
+					if ( target.Components.TryGet<HealthComponent>( out var health ) )
+						health.Damage( Damage, DamageType, player.GameObject, trace.HitPosition, trace.Direction, HitForce );
+				}
+				else if ( trace.Hit )
+				{
+					SendImpactMessage( trace.EndPosition, trace.Normal );
+				}
+				EffectRenderer.Set( "b_attack", true );
+				
+				NextMeleeAttackTime = MeleeCooldown;
+				
+				
+			}
+			knife.Destroy( );
+			
+
+
+		}
 	}
 	public override void SeccondaryActionRelease()
 	{
@@ -240,7 +420,7 @@ public class BaseGun : WeaponComponent, IUse
 
 	public override void ReloadAction()
 	{
-
+		if ( IsReloading ) return;
 
 		var ammoToTake = ClipSize - AmmoInClip;
 		if ( ammoToTake <= 0 )
@@ -259,7 +439,115 @@ public class BaseGun : WeaponComponent, IUse
 
 		SendReloadMessage();
 	}
+	
 
+	private void PerformMeleeAttack( Player player )
+	{
+		if ( NextMeleeAttackTime > 0 ) return;
+
+		if ( player == null ) return;
+
+		var attachment = EffectRenderer.GetAttachment( "muzzle" );
+		var startPos = player.PlyCamera.Transform.Position;
+		var direction = player.PlyCamera.Transform.Rotation.Forward;
+		direction += Vector3.Random * Spread;
+		float slashRadius = 1.0f;
+
+		var endPos = startPos + direction * 100f;
+		var trace = Scene.Trace.Sphere( slashRadius,startPos, endPos )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.WithoutTags( "player" )
+			.Size( slashRadius )
+			.UseHitboxes()
+			.Run();
+
+		var damage = Damage;
+		var origin = attachment?.Position ?? startPos;
+
+		SendAttackMessage( origin, trace.EndPosition, trace.Distance );
+
+		
+
+		IHealthComponent damageable = null;
+
+		if ( trace.Component.IsValid() )
+			damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+
+
+		if ( damageable is not null )
+		{
+			
+
+
+			Random random = new Random();
+			float playerAttackValue = random.Next( (int)player.MinAttackValue, (int)player.MaxAttackValue + 1 );
+			var playerAttackPower = player.AttackPower;
+			var playerCritChance = player.CritHitChance;
+			var playerCritDamage = player.CritHitDamage;
+
+			damage += (int)(damage * (playerAttackValue / 300.0f));
+
+			int calculatedDamage = (int)(damage * (playerAttackPower / 50.0f));
+			damage += random.Next( 0, calculatedDamage + 1 );
+
+			int critRoll = random.Next( 0, 101 );
+			{
+				if ( critRoll <= playerCritChance )
+				{
+					damage += (int)(damage * 0.5f + playerCritDamage);
+					isCriticalHit = true;
+
+				}
+				else
+				{
+					isCriticalHit = false;
+				}
+			}
+
+			damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
+
+			GameObject hitinfo = Hitprefab.Clone( trace.EndPosition );
+			FaceThing facething = hitinfo.Components.Get<FaceThing>();
+			facething.Thing = player.GameObject;
+			TextRenderer textRenderer = hitinfo.Components.Get<TextRenderer>();
+
+			if ( isCriticalHit )
+			{
+				textRenderer.Color = Color.Red;
+			}
+			else
+			{
+				textRenderer.Color = Color.White;
+			}
+			textRenderer.Text = $"{damage}";
+			ScaleTextWithDistance scaleTextWithDistance = hitinfo.Components.Get<ScaleTextWithDistance>();
+			scaleTextWithDistance.Thing = player.GameObject;
+			
+		}
+		else if ( trace.Hit )
+		{
+			SendImpactMessage( trace.EndPosition, trace.Normal );
+		}
+
+
+
+
+		var target = trace.GameObject;
+		if ( target != null )
+		{
+			if ( target.Components.TryGet<Rigidbody>( out var body ) )
+				body.ApplyImpulseAt( trace.HitPosition, trace.Direction * HitForce );
+
+			if ( target.Components.TryGet<HealthComponent>( out var health ) )
+				health.Damage( Damage, DamageType, player.GameObject, trace.HitPosition, trace.Direction, HitForce );
+		}
+		else if ( trace.Hit )
+		{
+			SendImpactMessage( trace.EndPosition, trace.Normal );
+		}
+		EffectRenderer.Set( "b_attack", true );
+		NextMeleeAttackTime = MeleeCooldown;
+	}
 
 	public virtual void FireBullet( Player shooter )
 	{
@@ -273,7 +561,9 @@ public class BaseGun : WeaponComponent, IUse
 		if ( AmmoInClip <= 0 )
 		{
 			SendEmptyClipMessage();
+			ReloadAction();
 			NextAttackTime = 1f / FireRate;
+			
 			return;
 		}
 		if ( IsMagicWeapon && Player.Local.Mana < 10 )
@@ -319,14 +609,16 @@ public class BaseGun : WeaponComponent, IUse
 
 		if ( damageable is not null )
 		{
+		
 			Random random = new Random();
 			float playerAttackValue = random.Next( (int)shooter.MinAttackValue, (int)shooter.MaxAttackValue + 1 );
 			var playerAttackPower = shooter.AttackPower;
 			var playerCritChance = shooter.CritHitChance;
 			var playerCritDamage = shooter.CritHitDamage;
 
-			damage += (int)(damage * (playerAttackValue / 300.0f));
+			damage += (int)(damage * (playerAttackValue / 150.0f));
 			
+
 			int calculatedDamage = (int)(damage * (playerAttackPower / 50.0f));
 			damage += random.Next( 0, calculatedDamage + 1 );
 
@@ -343,7 +635,7 @@ public class BaseGun : WeaponComponent, IUse
 					isCriticalHit = false;
 				}
 			}
-
+		
 			damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
 			
 			GameObject hitinfo = Hitprefab.Clone( trace.EndPosition );
@@ -428,7 +720,7 @@ public class BaseGun : WeaponComponent, IUse
 		}
 
 		ReloadSound?.Update( Transform.Position );
-
+		
 
 		base.OnUpdate();
 	}
@@ -456,13 +748,18 @@ public class BaseGun : WeaponComponent, IUse
 	[Broadcast]
 	private void SendEmptyClipMessage()
 	{
-		if ( Player.Local.LifeState == LifeState.Dead )
+		if ( Player.Local == null || Player.Local.LifeState == LifeState.Dead )
 		{
-			// Spieler ist tot, keine Reload-Nachricht senden
+			// Spieler ist tot oder Player.Local ist null, keine Reload-Nachricht senden
 			return;
 		}
 		if ( EmptyClipSound != null && !IsSoundPlaying )
 		{
+			if ( Transform == null )
+			{
+				Log.Warning( "Transform is null." );
+				return;
+			}
 			Sound.Play( EmptyClipSound, Transform.Position );
 			IsSoundPlaying = true;
 			SoundDuration = EmptyClipSoundDuration; // Setzen Sie die Dauer des Sounds
@@ -494,11 +791,40 @@ public class BaseGun : WeaponComponent, IUse
 	[Broadcast]
 	private void SendAttackMessage(Vector3 startPos, Vector3 endPos, float distance)
 	{
+		if ( IsMelee ) // Überprüfe, ob der Boolean-Wert wahr ist
+		{
+			if ( Player.Local == null || Player.Local.LifeState == LifeState.Dead )
+			{
+				// Spieler ist tot, keine Nachricht senden
+				return;
+			}
+			if ( Scene.SceneWorld == null )
+			{
+				throw new InvalidOperationException( "SceneWorld is null." );
+			}
+			var p2 = new SceneParticles( Scene.SceneWorld, "particles/tracer/trail_bullet.vpcf" );
+			p2.SetControlPoint( 0, startPos );
+			p2.SetControlPoint( 1, endPos );
+			p2.SetControlPoint( 20, distance );
+			p2.PlayUntilFinished( Task );
+			
+			if ( FireSound != null )
+			{
+				Sound.Play( FireSound, startPos );
+			}
+			else
+			{
+				Log.Warning( "FireSound is null." );
+			}
+		}
+
+
 		if (Player.Local == null || Player.Local.LifeState == LifeState.Dead)
 		{
 			// Spieler ist tot, keine Nachricht senden
 			return;
 		}
+		
 		if (Scene.SceneWorld == null)
 		{
 			throw new InvalidOperationException("SceneWorld is null.");

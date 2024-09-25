@@ -8,7 +8,7 @@ namespace GeneralGame.HUD
     public partial class ShopPanel : Panel
     {
         public int currentPage = 0;
-        private int itemsPerPage = 12; // Anzahl der Items pro Seite
+        private int itemsPerPage = 20; // Anzahl der Items pro Seite
         private int totalPages => (int)Math.Ceiling( (double)Player.Local.Inventory.StorageItems.Count / itemsPerPage );
         public ItemComponent upgradeItem;
         private bool isUpgradePanelVisible = false;

@@ -191,6 +191,12 @@ public class Interaction
 
 		return false;
 	}
+	public string Name { get; set; }
+
+
+	
+
+	
 }
 
 
@@ -334,7 +340,18 @@ public class Interactions : Component
 }
 	protected override void OnUpdate()
 	{
-		
+		var player = Player.Local;
+		var targetObject = player.TargetedGameObject;
+
+		if ( targetObject == null )
+			return;
+
+		var interactionComponent = targetObject.Components.Get<Interaction>();
+		if ( interactionComponent != null )
+		{
+			interactionComponent.Action?.Invoke( player, targetObject ); // Hier wird der Fehler verursacht
+		}
+
 		if (  IsProxy )
 		{
 			Highlight( true );

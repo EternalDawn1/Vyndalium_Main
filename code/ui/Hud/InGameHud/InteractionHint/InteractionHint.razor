@@ -89,6 +89,9 @@
 		SetClass("visible", ShowHint());
 		if (!HasClass("visible"))
 			return;
+		if (Player.Local == null)
+        	return;
+
 
 		var pos = FromHands ? 1 : (Player.Local.InteractionBounds == null ? Player.Local.TargetedGameObject.Transform.Position : Player.Local.TargetedGameObject.Transform.World.PointToWorld(Player.Local.InteractionBounds.Value.Center));
 
@@ -202,12 +205,17 @@
 		// Prüfen, ob das Zielobjekt gültig ist
 		if (!_targetObject.IsValid())
 			return false;
+
 		// Prüfen, ob Interaktionen vorhanden sind
 		if (!_targetObject.Components.TryGet<Interactions>(out var interactions))
 			return false;
+
 		// Prüfen, ob die Liste der Interaktionen leer ist
 		if (!interactions.AllInteractions.Any())
 			return false; // Keine Interaktionen vorhanden, also kein Hinweis
+
+		// Überprüfen, ob der Spieler eine Waffe in der Hand trägt, die einem anderen Spieler gehört
+		// Die Waffe gehört einem anderen Spieler, also kein Hinweis
 
 		return true;
 	}

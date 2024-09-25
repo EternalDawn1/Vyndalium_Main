@@ -6,10 +6,7 @@ namespace GeneralGame
 {
     public class BaseMeleeWeapon : BaseGun
     {
-        [Property, Category( "Parameters" )] public float MeleeRange { get; set; } = 1.5f;
-        [Property, Category( "Parameters" )] public float MeleeDamage { get; set; } = 10f;
-        [Property, Category( "Parameters" )] public float MeleeCooldown { get; set; } = 1f;
-        public TimeUntil NextMeleeAttackTime { get; set; }
+        
 
         public override void PrimaryAction()
         {

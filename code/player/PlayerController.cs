@@ -270,6 +270,7 @@ public partial class Player : Component, IHealthComponent
 	{
 		Mana += amount;
 	}
+	
 
 
 	public void ApplyRecoil( Angles recoil )

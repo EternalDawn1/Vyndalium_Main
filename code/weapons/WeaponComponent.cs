@@ -34,9 +34,11 @@ public class WeaponComponent : Component
 	[Property] public bool IsDeployed { get; set; } = false;
 	[Property] public Vector3 IdlePos { get; set; }
 	[Property] public Vector3 AimPos { get; set; }
+	[Property]public Rotation CurRot { get; set; }
 	[Property] public Rotation AimRotation { get; set; }
 	[Property] public Rotation RunRotation { get; set; }
-	
+	[Property] public Rotation AimRotationOffset { get; set; }
+
 	public bool HasViewModel => ViewModel.IsValid();
 	public Player Owner { get; set; }
 	public SkinnedModelRenderer ModelRenderer { get; set; }

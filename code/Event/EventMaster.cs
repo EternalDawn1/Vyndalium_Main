@@ -72,6 +72,7 @@ public class EventMaster : Component
 		Instance = this;
 		AllEvents = Scene.Components.GetAll<EventDefinition>( FindMode.EverythingInSelfAndDescendants );
 		CurrentEvents = new();
+		EventMaster.Instance = this;
 		LoadEventsProgression();
 	}
 
@@ -248,13 +249,53 @@ public class EventMaster : Component
 	[Broadcast]
 	public static void InteractionInvoked( string interaction, Guid target, Guid player )
 	{
+		if ( EventMaster.Instance == null )
+		{
+			
+			return;
+		}
+
+		var targetObject = Game.ActiveScene.GetAllObjects( true )
+			.FirstOrDefault( x => x.Id == target );
+		var playerObject = Game.ActiveScene.GetAllObjects( true )
+			.FirstOrDefault( x => x.Id == player );
+
+		if ( targetObject == null )
+		{
+			Log.Error( $"Target object with ID {target} not found" );
+			return;
+		}
+
+		if ( playerObject == null )
+		{
+			Log.Error( $"Player object with ID {player} not found" );
+			return;
+		}
+
+		// Führen Sie die Interaktion durch
+		var interactionComponent = targetObject.Components.Get<Interaction>();
+		if ( interactionComponent != null )
+		{
+			var playerComp = playerObject.Components.Get<Player>();
+			if ( playerComp != null )
+			{
+				interactionComponent.Action?.Invoke( playerComp, targetObject );
+			}
+			else
+			{
+				Log.Error( $"Player component not found on player object with ID {player}" );
+			}
+		}
+		else
+		{
+			Log.Error( $"InteractionComponent not found on target object with ID {target}" );
+		}
+
 		var allTriggers = Game.ActiveScene.GetAllComponents<EventInteractionTrigger>();
 		var foundTarget = Game.ActiveScene.GetAllObjects( true )
-			.Where( x => x.Id == target )
-			.FirstOrDefault();
+			.FirstOrDefault( x => x.Id == target );
 		var foundPlayer = Game.ActiveScene.GetAllObjects( true )
-			.Where( x => x.Id == player )
-			.FirstOrDefault();
+			.FirstOrDefault( x => x.Id == player );
 
 		foreach ( var trigger in allTriggers )
 		{
@@ -408,3 +449,4 @@ public class EventMaster : Component
 		Log.Info( $"Disable a total of {amount} events. Some asynchronous logic may still be running." );
 	}
 }
+

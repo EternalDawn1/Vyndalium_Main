@@ -120,7 +120,7 @@ public sealed class ViewModel : Component
 
 
 
-		CalcShakeMoves();
+		//CalcShakeMoves();
 
 
 

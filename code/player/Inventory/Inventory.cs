@@ -16,9 +16,9 @@ public sealed class Inventory : Component
 	
 	[Property] Player Player { get; set; }
 
-	public const int MAX_BACKPACK_SLOTS = 30;
-	public const int MAX_STORAGE_SLOTS = 48;
-	private const int ItemsPerPage = 12;
+	public int MAX_BACKPACK_SLOTS = 40;
+	public  int MAX_STORAGE_SLOTS = 100;
+	private const int ItemsPerPage = 20;
 	public const int MAX_UPGRADE_SLOTS = 1;
 
 
@@ -156,11 +156,14 @@ public sealed class Inventory : Component
 	}
 	public static void EquipItemStats( ItemComponent item )
 	{
-		Player.Local.AttackValue += item.DMG;
-		Player.Local.MinAttackValue += item.MinDMG;
-		Player.Local.MaxAttackValue += item.MaxDMG;
-		Player.Local.MinArmorValue += item.MinArmor;
-		Player.Local.MaxArmorValue += item.MaxArmor;
+		//Player.Local.AttackValue += item.DMG;
+
+		Player.Local.MinAttackValue += item.MinAttackValue;
+		Player.Local.MaxAttackValue += item.MaxAttackValue;
+
+		Player.Local.MinArmorValue += item.MinArmorValue;
+		Player.Local.MaxArmorValue += item.MaxArmorValue;
+
 		Player.Local.Health += item.HE;
 		Player.Local.Armor += item.Armor;
 		Player.Local.STG += item.STG;
@@ -199,12 +202,15 @@ public sealed class Inventory : Component
 
 	public static void UnequipItemStats( ItemComponent item )
 	{
-		Player.Local.MinAttackValue -= item.MinDMG;
-		Player.Local.MaxAttackValue -= item.MaxDMG;
+		Player.Local.MinAttackValue -= item.MinAttackValue;
+		Player.Local.MaxAttackValue -= item.MaxAttackValue;
+
 		Player.Local.MinArmorValue -= item.MinArmorValue;
 		Player.Local.MaxArmorValue -= item.MaxArmorValue;
-		Player.Local.AttackValue -= item.DMG;
+
+		//Player.Local.AttackValue -= item.DMG;
 		Player.Local.Armor -= item.Armor;
+		
 		Player.Local.STG -= item.STG;
 		Player.Local.HE -= item.HE;
 		Player.Local.DEX -= item.DEX;
@@ -238,6 +244,21 @@ public sealed class Inventory : Component
 		Player.Local.LightResist -= item.HolyResistence;
 		Player.Local.ShadowResist -= item.ShadowResistence;
 	}
+	[ConCmd( "reset" )]
+	public static void SetPlayerAttackValuesToZero()
+	{
+		if ( Player.Local != null )
+		{
+			Player.Local.MinAttackValue = 0;
+			Player.Local.MaxAttackValue = 0;
+			Log.Info( "MinAttackValue und MaxAttackValue des Spielers wurden auf 0 gesetzt." );
+		}
+		else
+		{
+			Log.Info( "Spieler nicht gefunden." );
+			
+		}
+	}
 	public ItemComponent GetNextEquippedWeapon( ItemComponent currentWeapon )
 	{
 		// Filtern der ausgerüsteten Waffen, die vollständig initialisiert sind (nicht null und haben gültige Werte)
@@ -260,9 +281,14 @@ public sealed class Inventory : Component
 
 	public Inventory()
 	{
-		
 
-		_backpackItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACK_SLOTS] );
+
+		_backpackItems = new List<ItemComponent>( MAX_BACKPACK_SLOTS );
+		for ( int i = 0; i < MAX_BACKPACK_SLOTS; i++ )
+		{
+			_backpackItems.Add( null );
+		}
+
 		_storageItems = new List<ItemComponent>( new ItemComponent[MAX_STORAGE_SLOTS] );
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 		_storageBoxItems = new List<ItemComponent>();
@@ -324,22 +350,25 @@ public sealed class Inventory : Component
 
 		return true;
 	}
-	private int FindNextFreeStorageSlotOnPage( int currentPage )
+	private int totalPages => (int)Math.Ceiling( (double)_storageItems.Count / ItemsPerPage );
+	private int FindNextFreeStorageSlot()
 	{
-		int startIndex = currentPage * ItemsPerPage;
-		int endIndex = Math.Min( startIndex + ItemsPerPage, _storageItems.Count );
-
-		for ( int i = startIndex; i < endIndex; i++ )
+		for ( int currentPage = 0; currentPage < totalPages; currentPage++ )
 		{
-			if ( _storageItems[i] == null )
+			int startIndex = currentPage * ItemsPerPage;
+			int endIndex = Math.Min( startIndex + ItemsPerPage, _storageItems.Count );
+
+			for ( int i = startIndex; i < endIndex; i++ )
 			{
-				return i;
+				if ( _storageItems[i] == null )
+				{
+					return i;
+				}
 			}
 		}
 
-		// Wenn kein freier Slot auf der aktuellen Seite gefunden wurde, erweitern wir die Liste um eine neue Seite
-		_storageItems.AddRange( new ItemComponent[ItemsPerPage] );
-		return _storageItems.Count - ItemsPerPage; // Rückgabe des ersten Slots der neuen Seite
+		// Wenn kein freier Slot gefunden wurde, geben wir -1 zurück
+		return -1;
 	}
 	public void MoveItemToUpgrade( ItemComponent item )
 	{
@@ -371,7 +400,7 @@ public sealed class Inventory : Component
 
 		if ( _backpackItems.Contains( item ) )
 		{
-			int freeSlot = FindNextFreeStorageSlotOnPage( currentPage );
+			int freeSlot = FindNextFreeStorageSlot();
 			if ( freeSlot != -1 )
 			{
 				int itemIndex = _backpackItems.IndexOf( item );

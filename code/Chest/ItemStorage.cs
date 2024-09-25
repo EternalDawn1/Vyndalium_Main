@@ -54,7 +54,7 @@ namespace GeneralGame
         }
         public ItemStorage()
         {
-            Items = new List<ItemComponent>();
+          
             
             LoadPrefabs();
             GenerateRandomStatsForItems();
@@ -178,10 +178,13 @@ namespace GeneralGame
         };
         private void LoadPrefabs()
         {
+            
             int minLevel = 0;
             int maxLevel = 100;
             int playerLevel = GetPlayerLevel(); // Spielerlevel ermitteln
             LoadRandomTierPrefabs( playerLevel, minLevel, maxLevel );
+
+           
         }
 
         public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
@@ -303,8 +306,16 @@ namespace GeneralGame
         
         private int GetPlayerLevel()
         {
-            // Implementierung zur Ermittlung des Spielerlevels
-            return Player.Local.Level; // Beispielwert
+            if ( Player.Local != null )
+            {
+                return Player.Local.Level;
+            }
+            else
+            {
+                // Fallback-Wert, wenn Player.Local null ist
+                return Player.Local.Level; // Beispielwert, kann angepasst werden
+            }
+
         }
         public virtual int DetermineRequiredLevelForTier( string tier )
         {
