@@ -89,9 +89,11 @@ namespace GeneralGame
             SpawnRandomPrefab( position );
 
         }
+
         [Broadcast]
         public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
         {
+            
             if ( LifeState == LifeState.Dead )
                 return;
 
@@ -104,16 +106,12 @@ namespace GeneralGame
                 p.PlayUntilFinished( Task );
             }
 
-        
-
             if ( Network.IsProxy )
                 return;
 
             Health = Math.Clamp( Health - amount, 0f, MaxHealth );
-
             OnTakeDamage?.Invoke();
 
-            
             if ( Health <= 0f )
             {
                 LifeState = LifeState.Dead;
@@ -125,7 +123,6 @@ namespace GeneralGame
                 }
 
                 var killer = Scene.Directory.FindByGuid( attackerId );
-
                 if ( killer == null )
                 {
                     return;
@@ -138,7 +135,6 @@ namespace GeneralGame
                 }
 
                 int npcLevel = 1; // Beispielwert, ersetzen Sie dies durch die tatsächliche Logik zur Bestimmung des Levels
-
                 int vyndaliumPointsToAdd = CalculateVyndaliumReward( npcLevel );
                 int xpPointsToAdd = CalculateXpReward( npcLevel );
 
@@ -155,12 +151,14 @@ namespace GeneralGame
                         {
                             vyndaliumFaceThing.Thing = killerPlayer.GameObject;
                         }
+
                         TextRenderer vyndaliumTextRenderer = vyndaliumHitInfo.Components.Get<TextRenderer>();
                         if ( vyndaliumTextRenderer != null )
                         {
                             vyndaliumTextRenderer.Color = Color.Yellow;
                             vyndaliumTextRenderer.Text = $"+{vyndaliumPointsToAdd} $";
                         }
+
                         ScaleTextWithDistance vyndaliumScaleText = vyndaliumHitInfo.Components.Get<ScaleTextWithDistance>();
                         if ( vyndaliumScaleText != null )
                         {
@@ -176,19 +174,12 @@ namespace GeneralGame
                         {
                             xpFaceThing.Thing = killerPlayer.GameObject;
                         }
-                        TextRenderer xpTextRenderer = xpHitInfo.Components.Get<TextRenderer>();
-                        if ( xpTextRenderer != null )
-                        {
-                            xpTextRenderer.Color = Color.Blue;
-                            xpTextRenderer.Text = $"+{xpPointsToAdd} XP";
-                        }
-                        ScaleTextWithDistance xpScaleText = xpHitInfo.Components.Get<ScaleTextWithDistance>();
-                        if ( xpScaleText != null )
-                        {
-                            xpScaleText.Thing = killerPlayer.GameObject;
-                        }
                     }
+                    
                 }
+                Vector3 position = this.GameObject.Transform.Position;
+                SpawnRandomPrefab( position );
+
                 var ragdoll = Ragdoll.Clone( Transform.Position );
                 if ( ragdoll != null )
                 {
@@ -196,7 +187,6 @@ namespace GeneralGame
                     ragdoll.Transform.Position = Transform.Position;
                     ragdoll.NetworkSpawn();
                 }
-                OnBoxDestroyed();
                 GameObject.Destroy();
             }
         }

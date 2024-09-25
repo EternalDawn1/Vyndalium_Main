@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("libevents.unittest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+521385fe657b9e7f3e4755f057e9d26c3ccfd84f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aee87902431ae4c31a3c6ed1c396430c68278f80")]
 [assembly: System.Reflection.AssemblyProductAttribute("libevents.unittest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("libevents.unittest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

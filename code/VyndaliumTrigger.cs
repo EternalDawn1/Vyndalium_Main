@@ -10,6 +10,7 @@ namespace GeneralGame
 		[Property] private int MinVyndaliumAmount { get; set; }
 		[Property] private int MaxVyndaliumAmount { get; set; }
 		
+		
 		public void OnTriggerEnter(Collider other)
 		{
 			var player = other.Components.Get<Player>();

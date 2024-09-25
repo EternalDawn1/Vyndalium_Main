@@ -216,7 +216,8 @@ public partial class Player : Component, IHealthComponent
 	
 	public void AddVyndalium(int vyndaliumPointsToAdd)
 	{
-		Sandbox.Services.Stats.Increment( "vyndalium_count", vyndaliumPointsToAdd );
+		Sandbox.Services.Stats.Increment( "vyndalium_count1", vyndaliumPointsToAdd );
+		Log.Info( "Vyndalium Points: " + vyndaliumPointsToAdd );
 	}
 
 
@@ -253,14 +254,14 @@ public partial class Player : Component, IHealthComponent
 		Vyndalium -= amount;
 		return true;
 	}
-	[Broadcast]
+
 	public void GiveVyndalium( int amount )
 	{
 		Vyndalium += amount;
 		
 
 	}
-	[Broadcast]
+	
 	public void GiveXp( int amount )
 	{
 		AddExperience( amount );

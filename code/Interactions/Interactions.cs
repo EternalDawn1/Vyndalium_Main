@@ -341,7 +341,7 @@ public class Interactions : Component
 	protected override void OnUpdate()
 	{
 		var player = Player.Local;
-		var targetObject = player.TargetedGameObject;
+		var targetObject = player?.TargetedGameObject;
 
 		if ( targetObject == null )
 			return;
@@ -349,22 +349,31 @@ public class Interactions : Component
 		var interactionComponent = targetObject.Components.Get<Interaction>();
 		if ( interactionComponent != null )
 		{
-			interactionComponent.Action?.Invoke( player, targetObject ); // Hier wird der Fehler verursacht
+			if ( interactionComponent.Action != null )
+			{
+				interactionComponent.Action.Invoke( player, targetObject ); // Null-Prüfung hinzugefügt
+			}
+			else
+			{
+				
+			}
+		}
+		else
+		{
+			
 		}
 
-		if (  IsProxy )
+		if ( IsProxy )
 		{
 			Highlight( true );
-
 		}
 		else
 		{
 			Highlight( false );
-			
 		}
 	}
 
-	
-	
+
+
 
 }

@@ -61,6 +61,11 @@
 
 @code
 {
+    public static Leaderboard Instance { get; private set; }
+    public Leaderboard()
+    {
+        Instance = this;
+    }
    private void CloseMission()
     {
         Player.Local.BlockInputs = false;
@@ -69,32 +74,38 @@
     Sandbox.Services.Leaderboards.Board2 leaderboard;
     Sandbox.Services.Leaderboards.Board2 leaderboard2;
   
-
-    protected override void OnAfterTreeRender(bool firstTime)
+    public override void Tick()
     {
-        
-        base.OnAfterTreeRender(firstTime);
+                Log.Info("Leaderboard Tick");
+                leaderboard = Sandbox.Services.Leaderboards.GetFromStat("vyndalium_count");
+                leaderboard.Refresh();
+                
+                if (leaderboard != null)
+                {
+                    leaderboard.Refresh();
+                    leaderboard.SetAggregationMax();
+                  
+                }
+                else
+                {
+                    Log.Warning("Leaderboard 'vyndalium_count1' not found.");
+                }
 
-        if (firstTime)
-        {
-            leaderboard = Sandbox.Services.Leaderboards.GetFromStat("vyndalium_count");
-            leaderboard.SetAggregationMax();
-            
-            
-           
-            
-            leaderboard2 = Sandbox.Services.Leaderboards.GetFromStat("npc");
-            
-            leaderboard2.SetAggregationSum();
-
-            
-            Refresh();
-        }
-        
+                leaderboard2 = Sandbox.Services.Leaderboards.GetFromStat("npc");
+                if (leaderboard2 != null)
+                {
+                    leaderboard2.Refresh();
+                    leaderboard2.SetAggregationMax();
+                }
+                else
+                {
+                    Log.Warning("Leaderboard 'npc' not found.");
+                }
     }
+  
     
 
-     async void Refresh()
+    async void Refresh()
     {
             if (leaderboard != null)
             {
@@ -111,17 +122,10 @@
         StateHasChanged();
     }
 
-    protected override int BuildHash()
+   protected override int BuildHash()
     {
-        int hash = base.BuildHash();
-        if (leaderboard != null)
-        {
-            hash += leaderboard.GetHashCode();
-        }
-        if (leaderboard2 != null)
-        {
-            hash += leaderboard2.GetHashCode();
-        }
-        return hash;
+        return HashCode.Combine(
+            leaderboard,
+            leaderboard2);
     }
 }
