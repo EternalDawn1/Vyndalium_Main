@@ -9,6 +9,7 @@
 	return;
 
 <root>
+	
 
 	@if (FullScreenManager.Instance?.ActivePanel != FullScreenManager.FullScreenPanel.InGameHud)
 	{
@@ -37,8 +38,7 @@
 				var totalAmmo = player.Ammo.Get(bsGun.AmmoType);
 			}
 			<label class="clip">@bsGun.AmmoInClip</label>/<label class="total">@totalAmmo</label>
-			<div class="icon">
-			</div>
+			
 		</div>
 
 	}
@@ -46,17 +46,32 @@
 	<div class="center">
 		@if (!weapon.IsValid() && player.IsValid())
 		{
-			<div class="crosshair1"></div>
+			<div class="crosshair1">
+				<div class="bar vertical top"></div>
+				<div class="bar vertical bottom"></div>
+				<div class="bar horizontal left"></div>
+				<div class="bar horizontal right"></div>
+			</div>
 		}
 		else
 		{
 			@if (player.IsAiming && player.IsValid())
 			{
-				<div class="crosshair"></div>
+				<div class="crosshair1">
+					<div class="bar vertical top"></div>
+					<div class="bar vertical bottom"></div>
+					<div class="bar horizontal left"></div>
+					<div class="bar horizontal right"></div>
+				</div>
 			}
 			else
 			{
-				<div class="crosshair1"></div>
+				<div class="crosshair1">
+					<div class="bar vertical top"></div>
+					<div class="bar vertical bottom"></div>
+					<div class="bar horizontal left"></div>
+					<div class="bar horizontal right"></div>
+				</div>
 			}
 		}
 
@@ -139,7 +154,7 @@
 	{
 		if (player == null || !player.IsValid())
 		{
-			player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.OwnerConnection == Connection.Local);
+			player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.Owner == Connection.Local);
 		}
 	}
 	private string GetHealthBarColor()

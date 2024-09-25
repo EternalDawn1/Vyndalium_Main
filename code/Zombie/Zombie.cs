@@ -4,9 +4,27 @@ using Sandbox.Citizen;
 using Sandbox.UI;
 using System.Linq;
 using Sandbox;
-using static GeneralGame.NpcNodes;
+
 using System;
 
+public enum NpcState
+{
+	Idle,
+	Attacking,
+	Walking,
+	Running
+}
+public enum HoldTypes
+{
+	None,
+	Pistol,
+	Rifle,
+	Shotgun,
+	HoldItem,
+	Punch,
+	Swing,
+	RPG
+}
 
 
 public enum WeightType
@@ -28,55 +46,31 @@ public enum WeightType
 public partial class Npc : Component, IHealthComponent
 {
 	[Property]
-	public string Name { get; set; } = "Default";
-
+	public string Name { get; set; }
+	[Property,HostSync]public int Level { get; set; }
+	
 	[Property]
 	public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject ZombieRagedol { get; set; }
 	[Property] public SkinnedModelRenderer Model { get; set; }
-	[Sync, Property] public float MaxHealth { get; private set; } = 100f;
-	[Sync, Property] public float Health { get; private set; } = 100f;
+	[Sync, Property] public float MaxHealth { get; set; } = 100f;
+	[Sync, Property] public float Health { get;  set; } = 100f;
 	[Property] public HealthComponent Healthone { get; set; }
 
-	[Property]
-	public NavigationType WalkingType { get; set; } = NavigationType.Dumb;
-
-	[Property]
-	public NavigationType RunningType { get; set; } = NavigationType.Smart;
-
-	public NavigationType NavigationType => IsRunning ? RunningType : WalkingType;
+	[Property] public SoundEvent DeathSounds { get; set; }
+	
 	public Guid LastAttackerId { get; set; }
 
+	[Property]private HoldTypes CurrentHoldType = HoldTypes.None;
 
 
-	/// <summary>
-	/// How much this creature weights (To handle ragdol force amount and duration)
-	/// </summary>
-	[Property]
-	[Category( "Stats" )]
-	public WeightType Weight { get; set; } = WeightType.Middle;
-
-	/// <summary>
-	/// Should the stats scale linearly with the scale of the object
-	/// </summary>
-	[Property]
-	[Category( "Stats" )]
-	public bool ScaleStats { get; set; } = true;
-	public float Scale => ScaleStats ? MathF.Max( MathF.Max( GameObject.Transform.Scale.x, GameObject.Transform.Scale.y ), GameObject.Transform.Scale.z ) : 1f;
-
-	/// <summary>
-	/// Doesn't move (Don't add a MoveHelper if this is on)
-	/// </summary>
-	[Property]
-	[Category( "Stats" )]
-	public bool Static { get; set; } = false;
 
 	/// <summary>
 	/// For animations. How many units per second the run animation is tuned to (This is automatically scaled by the scale)
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[HideIf( "Static", true )]
+	
 	public float MaxRunAnimationSpeed { get; set; } = 150f;
 
 	/// <summary>
@@ -84,7 +78,7 @@ public partial class Npc : Component, IHealthComponent
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[HideIf( "Static", true )]
+
 	[Range( 0f, 600f, 10f, false )]
 	public float WalkSpeed { get; set; } = 90f;
 
@@ -93,7 +87,7 @@ public partial class Npc : Component, IHealthComponent
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[HideIf( "Static", true )]
+
 	[Range( 0f, 600f, 10f, false )]
 	public float RunSpeed { get; set; } = 180f;
 
@@ -102,7 +96,7 @@ public partial class Npc : Component, IHealthComponent
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[HideIf( "Static", true )]
+
 	public bool FaceTowardsVelocity { get; set; } = true;
 
 	/// <summary>
@@ -129,12 +123,13 @@ public partial class Npc : Component, IHealthComponent
 	public TagSet EnemyTags { get; set; }
 
 	/// <summary>
+	
 	/// How far away the NPC can detect an enemy
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
 	[Range( 0f, 1024f, 16f, false )]
-	public float DetectRange { get; set; } = 256f;
+	public float DetectRange { get; set; } = 356f;
 
 	/// <summary>
 	/// How far away the NPC can see the enemy before losing sight
@@ -212,7 +207,13 @@ public partial class Npc : Component, IHealthComponent
 	[Property]
 	[Category( "Triggers" )]
 	public NpcTrigger OnKilled { get; set; }
-
+	/// <summary>
+	/// Should the stats scale linearly with the scale of the object
+	/// </summary>
+	[Property]
+	[Category( "Stats" )]
+	public bool ScaleStats { get; set; } = true;
+	public float Scale => ScaleStats ? MathF.Max( MathF.Max( GameObject.Transform.Scale.x, GameObject.Transform.Scale.y ), GameObject.Transform.Scale.z ) : 1f;
 	/// <summary>
 	/// When the NPC has no target it will occasionally fire this off
 	/// </summary>
@@ -245,23 +246,26 @@ public partial class Npc : Component, IHealthComponent
 	public bool IsAttacking { get; set; } = false;
 	public bool IsDamaged { get; set; } = false;
 
-	[Property] private float PlayerProximityDistance { get; set; } = 400f;
+	[Property] private float PlayerProximityDistance { get; set; } = 80f;
 	public Guid KillerId { get; set; } // Fügen Sie diese Eigenschaft hinzu
-	public float ForceMultiplier
-	{
-		get
-		{
-			return Weight switch
-			{
-				WeightType.Feather => 2f,
-				WeightType.Light => 1.5f,
-				WeightType.Middle => 1f,
-				WeightType.Heavy => 0.75f,
-				WeightType.Massive => 0.5f,
-				_ => 1f
-			};
-		}
-	}
+
+	[Property] public bool HasIceAbility { get; set; }
+
+	[Property]public NpcState CurrentState { get; set; } = NpcState.Idle;
+	public static Random random = new Random();
+
+	public GameObject Hitprefab { get; set; }
+
+
+	[Property]
+	public NavigationType WalkingType { get; set; } = NavigationType.Dumb;
+
+	[Property]
+	public NavigationType RunningType { get; set; } = NavigationType.Smart;
+
+	public NavigationType NavigationType => IsRunning ? RunningType : WalkingType;
+
+
 
 
 
@@ -269,7 +273,7 @@ public partial class Npc : Component, IHealthComponent
 	{
 		Tags.Set( "npc", true );
 
-
+		Hitprefab = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ) );
 		NpcId = Scene.GetAllComponents<Npc>().OrderByDescending( x => x.NpcId ).First().NpcId + 1;
 
 		if ( MoveHelper != null )
@@ -280,6 +284,7 @@ public partial class Npc : Component, IHealthComponent
 
 	protected override void OnAwake()
 	{
+		
 		var spawnTrace = Scene.Trace.Ray( Transform.Position + Vector3.Up * 30f, Transform.Position - Vector3.Up * 200f )
 			.Size( 5f )
 			.IgnoreGameObjectHierarchy( GameObject )
@@ -291,23 +296,56 @@ public partial class Npc : Component, IHealthComponent
 
 		SpawnPosition = spawnTrace.Hit ? spawnTrace.HitPosition : Transform.Position;
 
-		if ( MoveHelper != null )
-		{
-			MoveHelper.StepHeight *= Scale;
-			MoveHelper.TraceRadius *= Scale;
-			MoveHelper.TraceHeight *= Scale;
-			MoveHelper.StopSpeed *= Scale;
-		}
 
-		BroadcastOnSpawn();
+		
+
+
 	}
-
-
-	[Broadcast]
-	private void BroadcastOnSpawn()
+	public void InitializeNPC()
 	{
-		OnSpawn?.Invoke();
+		// Set a random target position around the spawn point
+		TargetPosition = GetRandomPositionAround( Transform.Position );
+		FollowingTargetObject = false;
 	}
+	public void MoveToTargetPosition()
+	{
+		if ( Transform.Position.Distance( TargetPosition ) <= 5f )
+		{
+			TargetPosition = GetRandomPositionAround( Transform.Position );
+		}
+		else
+		{
+			var direction = (TargetPosition - Transform.Position).Normal;
+			Transform.Position += direction * (IsRunning ? RunSpeed : WalkSpeed) * Time.Delta;
+		}
+	}
+
+	public  void TryFreezePlayer( float durationInSeconds , Player player )
+	{
+		
+		if ( HasIceAbility )
+		{
+			int freezeChance = Level switch
+			{
+				<= 15 => 15,
+				<= 30 => 30,
+				<= 55 => 55,
+				<= 70 => 70,
+				<= 90 => 90,
+				_ => 100
+			};
+
+			if ( random.Next( 100 ) < freezeChance )
+			{
+				
+
+				
+			}
+		}
+	}
+	
+
+
 	private bool IsPlayerNearby()
 	{
 		if ( Network.IsProxy )
@@ -326,20 +364,18 @@ public partial class Npc : Component, IHealthComponent
 	protected override void OnUpdate()
 	{
 		// Überprüfe auf Vorbedingungen, um eine ungültige Ausführung zu vermeiden
-		if ( Model == null || Static || (Healthone != null && !Healthone.Alive) )
+		if ( Model == null || (Healthone != null && !Healthone.Alive) )
 			return;
 
 		bool isPlayerNearby = IsPlayerNearby();
 
-
-
-
+			
 
 		// Suchen Sie nach allen Spielern in der Szene
 		var players = Scene.GetAllComponents<Player>();
 
 		// Finden Sie den Spieler, der dem NPC am nächsten ist
-		Player closestPlayer = null;
+		Player closestPlayer = players.FirstOrDefault();
 		var closestDistanceSquared = float.MaxValue;
 
 		foreach ( var player in players )
@@ -354,42 +390,97 @@ public partial class Npc : Component, IHealthComponent
 			}
 		}
 
+		if (PogMode)
+		{
+			
+		}
+
 		if ( closestPlayer != null )
 		{
 			var closestDistance = MathF.Sqrt( closestDistanceSquared );
-			SetTarget( closestPlayer.GameObject );
 
-			// Richte den NPC auf die Bewegungsrichtung aus, falls erforderlich
-			if ( Ragdoll == null && FaceTowardsVelocity )
+			// Überprüfen, ob der Spieler innerhalb der Reichweite ist
+			if ( closestDistance <= VisionRange || IsWithinRange( closestPlayer.GameObject, DetectRange ) )
 			{
-				if ( !MoveHelper.Velocity.IsNearlyZero( 1f ) )
+				
+				SetTarget( closestPlayer.GameObject );
+
+				// Richte den NPC auf die Bewegungsrichtung aus, falls erforderlich
+				if ( Ragdoll == null && FaceTowardsVelocity )
 				{
-					Transform.Rotation = Rotation.Lerp( Transform.Rotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * (IsRunning ? 10f : 5f) );
+					if ( !MoveHelper.Velocity.IsNearlyZero( 1f ) )
+					{
+						Transform.Rotation = Rotation.Lerp( Transform.Rotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * 5.0f );
+					}
 				}
-			}
 
-			UpdateAnimations( closestPlayer );
+				UpdateAnimations( closestPlayer );
+				float maxProximityDistance = 80f;
 
-			// Überprüfe die Entfernung zum nächsten Spieler und passe die Bewegungsart entsprechend an
-			if ( closestDistance < 80f )
-			{
-				AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Walk;
-				agent.Stop();
-				NormalTrace();
+				// Überprüfe die Entfernung zum nächsten Spieler und passe die Bewegungsart entsprechend an
+				if ( closestDistance < maxProximityDistance )
+				{
+					CurrentState = NpcState.Walking;
+					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Walk;
+					agent.Stop();
+					NormalTrace();
+				}
+				else
+				{
+					CurrentState = NpcState.Attacking;
+
+					// Setze den HoldType basierend auf dem aktuellen HoldType
+					switch ( CurrentHoldType )
+					{
+						case HoldTypes.None:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+							break;
+						case HoldTypes.Pistol:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
+							break;
+						case HoldTypes.Rifle:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Rifle;
+							break;
+						case HoldTypes.Shotgun:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Shotgun;
+							break;
+						case HoldTypes.HoldItem:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.HoldItem;
+							break;
+						case HoldTypes.Punch:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
+							break;
+						case HoldTypes.Swing:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
+							break;
+						case HoldTypes.RPG:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.RPG;
+							break;
+						default:
+							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+							break;
+					}
+
+					agent.MoveTo( closestPlayer.Transform.Position );
+					if ( !isPlayerNearby )
+					{
+						CurrentState = NpcState.Running;
+						AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
+					}
+				}
 			}
 			else
 			{
-				AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
-				agent.MoveTo( closestPlayer.Transform.Position );
-				if ( !isPlayerNearby )
-				{
-					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
-				}
-
+				// Spieler ist außerhalb der Reichweite, NPC sollte aufhören, ihn zu verfolgen
+				Undetected();
+				
+				MoveToTargetPosition();
+			
 			}
 		}
 		else
 		{
+			CurrentState = NpcState.Idle;
 			if ( TargetObject != null )
 			{
 				// Überprüfen, ob das Ziel immer noch gültig ist, oder es außerhalb der Reichweite ist
@@ -397,19 +488,34 @@ public partial class Npc : Component, IHealthComponent
 				{
 					// Ziel außerhalb der Reichweite, verfolge weiterhin das letzte Ziel
 					agent.MoveTo( TargetObject.Transform.Position );
+
 				}
 				else
 				{
 					DetectAround();
-
+					
 				}
 			}
-
-
-
+			else
+			{
+				// Wenn kein Zielobjekt vorhanden ist, bewege den NPC zu einer zufälligen Position
+				MoveToTargetPosition();
+			
+				DetectAround();
+				
+			}
 		}
+		if ( RecentlyDamaged && Time.Now - LastDamageTime > DamageCooldown )
+		{
+			RecentlyDamaged = false;
+		}
+
+		// Wenn kein Zielobjekt vorhanden ist, bewege den NPC zur letzten bekannten Position des Spielers
+		
+
 		UpdateFootAnimations();
 	}
+	
 
 	void UpdateAnimations( Player player )
 	{
@@ -421,18 +527,28 @@ public partial class Npc : Component, IHealthComponent
 		Body.Transform.Rotation = Rotation.Slerp( Body.Transform.Rotation, targetRotation, Time.Delta * 5.0f );
 
 		// Setzen Sie die Bewegungsart nur, wenn sich die Geschwindigkeit ändert
-		var moveStyle = IsRunning ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
-		if ( AnimationHelper.MoveStyle != moveStyle )
+		switch ( CurrentState )
 		{
-			AnimationHelper.MoveStyle = moveStyle;
-
+			case NpcState.Idle:
+				// Set idle animations
+				break;
+			case NpcState.Walking:
+				// Set walking animations
+				break;
+			case NpcState.Running:
+				// Set running animations
+				break;
+			case NpcState.Attacking:
+				// Set attacking animations
+				break;
 		}
+
 	}
 
 	void UpdateFootAnimations()
 	{
 		// Holen Sie die Geschwindigkeit des NPCs
-		var scaledSpeed = MaxRunAnimationSpeed * Scale;
+		var scaledSpeed = MaxRunAnimationSpeed ;
 		var forwardVelocity = Vector3.Dot( MoveHelper.Velocity, Model.Transform.Rotation.Forward ) / scaledSpeed;
 		var rightVelocity = Vector3.Dot( MoveHelper.Velocity, Model.Transform.Rotation.Right ) / scaledSpeed;
 
@@ -448,6 +564,7 @@ public partial class Npc : Component, IHealthComponent
 	}
 	public void NormalTrace()
 	{
+		
 		var tr = Scene.Trace.Ray( Body.Transform.Position, Body.Transform.Position + Body.Transform.Rotation.Forward * 100 ).Run();
 
 		if ( tr.Hit && timeSinceHit > 1.5f && GameObject != null )
@@ -456,12 +573,48 @@ public partial class Npc : Component, IHealthComponent
 
 			if ( tr.GameObject.Tags.Has( "player" ) || tr.GameObject.Tags.Has( "npc" ) )
 			{
+				// Annahme: tr.GameObject kann in Player umgewandelt werden
+				var player = tr.GameObject.Components.Get<Player>();
+				if ( player != null )
+				{
+					//TryFreezePlayer( durationInSeconds, player );
+					
+				}
+				else
+				{
+					// Fehlerbehandlung, wenn player null ist
+					
+				}
+				// Generiere einen zufälligen Basis-Schaden zwischen 1 und 15
+				Random random = new Random();
+				int baseDamage = random.Next( 1, 16 );
+
+				// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
+				int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
+				int exponentialDamage = (int)(baseDamage * Math.Pow( 1.1, npcLevel ));
+
 				// Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
-				damageable.TakeDamage( DamageType.Bullet, 10, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
+				damageable.TakeDamage( DamageType.Bullet, exponentialDamage, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
 
 				AnimationHelper.Target.Set( "b_attack", true );
 
-				if ( Model != null ) Model.Set( "slime_attack", true );
+				if ( Model != null )
+				{
+					// Erzeuge eine Zufallszahl zwischen 0 und 1
+					Random random2 = new Random();
+					int randomNumber = random2.Next( 0, 2 ); // 0 oder 1
+
+					// Wähle zufällig zwischen den beiden Animationen
+					if ( randomNumber == 0 )
+					{
+						Model.Set( "slime_attack", true );
+					}
+					else
+					{
+						Model.Set( "slime_attack_v2", true );
+						
+					}
+				}
 				timeSinceHit = 0;
 
 				Sound.Play( HitSounds, Transform.Position );
@@ -491,11 +644,7 @@ public partial class Npc : Component, IHealthComponent
 
 				if ( MoveHelper == null ) return;
 				{
-					if ( !Static )
-					{
-						ComputeNavigation();
-						MoveHelper.Move();
-					}
+					
 				}
 
 
@@ -525,33 +674,39 @@ public partial class Npc : Component, IHealthComponent
 
 	public void DetectAround()
 	{
-		if ( TargetObject == null ) // Check if there is a target object
-		{
-			var currentTick = (int)(Time.Now / Time.Delta);
-			if ( currentTick % 20 != NpcId % 20 ) return; // Check every 20 ticks
-
-			var foundAround = Scene.FindInPhysics( new Sphere( Transform.Position, DetectRange * Scale ) ) // Find gameobjects nearby
-				.Where( x => x.Enabled )
-				.Where( x => EnemyTags != null && x.Tags.HasAny( EnemyTags ) ) // Do they have any of our enemy tags
-				.Where( x => x.Components.Get<HealthComponent>()?.Alive ?? true ); // Are they dead or undead
-
-			if ( foundAround.Any() )
-				Detected( foundAround.First(), true ); // If we don't have any target yet, pick the first one around us
-		}
-		else // There is a target object
+		if ( TargetObject != null )
 		{
 			if ( IsWithinRange( TargetObject ) ) // Is the target within reach
 			{
-				if ( NextAttack ) // Is it time to attack
+				if ( NextAttack )
 				{
 					BroadcastOnAttack();
 					NextAttack = AttackCooldown;
 				}
 			}
-			else // Target is out of range
-			{
+		}
+
+		var currentTick = (int)(Time.Now / Time.Delta);
+		if ( currentTick % 20 != NpcId % 20 ) return; // Check every 20 ticks
+
+		var foundAround = Scene.FindInPhysics( new Sphere( Transform.Position, DetectRange * Scale ) ) // Find gameobjects nearby
+			.Where( x => x.Enabled )
+			.Where( x => EnemyTags != null && x.Tags.HasAny( EnemyTags ) ) // Do they have any of our enemy tags
+			.Where( x => x.Components.Get<HealthComponent>()?.Alive ?? true ); // Are they dead or undead
+
+		if ( TargetObject == null )
+		{
+			if ( foundAround.Any() )
+				Detected( foundAround.First(), true ); // If we don't have any target yet, pick the first one around us
+		}
+		else
+		{
+			var healthComponent = TargetObject.Components.Get<IHealthComponent>();
+			var targetDead = healthComponent?.LifeState == LifeState.Dead;
+			var targetEscaped = TargetObject.Transform.Position.Distance( Transform.Position ) > VisionRange * Scale; // Did our target get out of vision range
+
+			if ( targetEscaped || targetDead ) // Did our target die or escape
 				Undetected();
-			}
 		}
 	}
 
@@ -577,7 +732,7 @@ public partial class Npc : Component, IHealthComponent
 		if ( alertOthers && AlertOthers )
 		{
 			var otherNpcs = Scene.GetAllComponents<Npc>()
-				.Where( x => x.Transform.Position.Distance( Transform.Position ) <= x.VisionRange * x.Scale )
+				.Where( x => x.Transform.Position.Distance( Transform.Position ) <= x.VisionRange  )
 				.Where( x => x.Healthone?.Alive ?? true )
 				.Where( x => x.TargetObject == null )
 				.Where( x => x != this )
@@ -610,7 +765,7 @@ public partial class Npc : Component, IHealthComponent
 
 		TargetObject = null;
 		TargetPosition = Transform.Position;
-		ReachedDestination = true;
+		
 	}
 
 	[Broadcast]
@@ -631,15 +786,14 @@ public partial class Npc : Component, IHealthComponent
 		{
 			TargetObject = null;
 			FollowingTargetObject = false;
-			ReachedDestination = true;
+		
 			TargetPosition = Transform.Position;
 		}
 		else
 		{
 			TargetObject = target;
 			FollowingTargetObject = !escapeFrom;
-			MoveTo( GetPreferredTargetPosition( TargetObject ) );
-			ReachedDestination = false;
+			
 		}
 	}
 
@@ -652,7 +806,7 @@ public partial class Npc : Component, IHealthComponent
 	{
 		if ( !GameObject.IsValid() ) return false;
 
-		return IsWithinRange( target, AttackRange * Scale );
+		return IsWithinRange( target, AttackRange  );
 	}
 
 	/// <summary>
@@ -666,6 +820,12 @@ public partial class Npc : Component, IHealthComponent
 		if ( !GameObject.IsValid() ) return false;
 
 		return target.Transform.Position.Distance( Transform.Position ) <= range;
+	}
+	public void SetHealthBasedOnLevel()
+	{
+		// Berechne das MaxHealth und Health basierend auf dem Level
+		MaxHealth = (float)(100 * Math.Pow( 1.09, Level ));
+		Health = MaxHealth;
 	}
 
 	/// <summary>
@@ -719,7 +879,7 @@ public partial class Npc : Component, IHealthComponent
 		var targetPosition = target.Transform.Position;
 
 		var direction = (Transform.Position - targetPosition).Normal;
-		var offset = FollowingTargetObject ? direction * AttackRange * Scale / 2f : direction * VisionRange * Scale;
+		var offset = FollowingTargetObject ? direction * AttackRange  / 2f : direction * VisionRange ;
 		var wishPos = targetPosition + offset;
 
 		var groundTrace = Scene.Trace.Ray( wishPos + Vector3.Up * 64f, wishPos + Vector3.Down * 64f )
@@ -731,8 +891,100 @@ public partial class Npc : Component, IHealthComponent
 		return groundTrace.Hit && !groundTrace.StartedSolid ? groundTrace.HitPosition : (FollowingTargetObject ? targetPosition : targetPosition + offset);
 	}
 	public static Player Host { get; set; }
+	[Property] public bool PogMode { get; private set; }
 
+	public event Action OnTakeDamage;
+	private bool RecentlyDamaged { get; set; }
+	private float DamageCooldown = 5.0f; // Zeit in Sekunden, wie lange der NPC nach Schaden den Spieler verfolgt
+	private float LastDamageTime;
+	private int CalculateVyndaliumReward( int npcLevel )
+	{
+		if ( npcLevel <= 10 )
+		{
+			return new Random().Next( 5, 10 ); // 5-15 Vyndalium für Level 1-10
+		}
+		else if ( npcLevel <= 20 )
+		{
+			return new Random().Next( 10, 15 ); // 15-30 Vyndalium für Level 11-20
+		}
+		else if ( npcLevel <= 30 )
+		{
+			return new Random().Next( 15, 60 ); // 30-50 Vyndalium für Level 21-30
+		}
+		else if ( npcLevel <= 40 )
+		{
+			return new Random().Next( 250, 510 ); // 50-70 Vyndalium für Level 31-40
+		}
+		else if ( npcLevel <= 50 )
+		{
+			return new Random().Next( 700, 910 ); // 70-90 Vyndalium für Level 41-50
+		}
+		else if ( npcLevel <= 60 )
+		{
+			return new Random().Next( 900, 1110 ); // 90-110 Vyndalium für Level 51-60
+		}
+		else if ( npcLevel <= 70 )
+		{
+			return new Random().Next( 1100, 1310 ); // 110-130 Vyndalium für Level 61-70
+		}
+		else if ( npcLevel <= 80 )
+		{
+			return new Random().Next( 1300, 1510 ); // 130-150 Vyndalium für Level 71-80
+		}
+		else if ( npcLevel <= 90 )
+		{
+			return new Random().Next( 1500, 1710 ); // 150-170 Vyndalium für Level 81-90
+		}
+		else
+		{
+			return new Random().Next( 1700, 2010 ); // 170-200 Vyndalium für Level 91-100
+		}
+	}
+	private int CalculateXpReward( int npcLevel )
+	{
+		int halfNpcLevel = npcLevel / 2;
 
+		if ( npcLevel <= 10 )
+		{
+			return new Random().Next( 2, 8) * halfNpcLevel; // 5-15 XP pro halbes Level für Level 1-10
+		}
+		else if ( npcLevel <= 20 )
+		{
+			return new Random().Next( 8, 17 ) * halfNpcLevel; // 15-30 XP pro halbes Level für Level 11-20
+		}
+		else if ( npcLevel <= 30 )
+		{
+			return new Random().Next( 16, 31 ) * halfNpcLevel; // 30-50 XP pro halbes Level für Level 21-30
+		}
+		else if ( npcLevel <= 40 )
+		{
+			return new Random().Next( 31, 48 ) * halfNpcLevel; // 50-70 XP pro halbes Level für Level 31-40
+		}
+		else if ( npcLevel <= 50 )
+		{
+			return new Random().Next( 48, 65 ) * halfNpcLevel; // 70-90 XP pro halbes Level für Level 41-50
+		}
+		else if ( npcLevel <= 60 )
+		{
+			return new Random().Next( 65, 80 ) * halfNpcLevel; // 90-110 XP pro halbes Level für Level 51-60
+		}
+		else if ( npcLevel <= 70 )
+		{
+			return new Random().Next( 81, 100) * halfNpcLevel; // 110-130 XP pro halbes Level für Level 61-70
+		}
+		else if ( npcLevel <= 80 )
+		{
+			return new Random().Next( 100, 151 ) * halfNpcLevel; // 130-150 XP pro halbes Level für Level 71-80
+		}
+		else if ( npcLevel <= 90 )
+		{
+			return new Random().Next( 150, 171 ) * halfNpcLevel; // 150-170 XP pro halbes Level für Level 81-90
+		}
+		else
+		{
+			return new Random().Next( 170, 201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+	}
 	[Broadcast]
 	public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
@@ -742,6 +994,7 @@ public partial class Npc : Component, IHealthComponent
 
 		if ( type == DamageType.Bullet || type == DamageType.Serious )
 		{
+
 			var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
 			p.SetControlPoint( 0, hitPosition );
 			p.SetControlPoint( 0, Rotation.LookAt( hitDirection.Normal * -1f ) );
@@ -749,12 +1002,20 @@ public partial class Npc : Component, IHealthComponent
 			p.PlayUntilFinished( Task );
 		}
 		if ( Model != null ) Model.Set( "slime_damage", true );
+		
+		
 
 		if ( Network.IsProxy )
 			return;
 
 		Health = Math.Clamp( Health - amount, 0f, MaxHealth );
 
+		
+
+		OnTakeDamage?.Invoke();
+
+		RecentlyDamaged = true;
+		LastDamageTime = Time.Now;
 
 		if ( Health <= 0f ) // checks if zombie is dead
 		{
@@ -763,9 +1024,8 @@ public partial class Npc : Component, IHealthComponent
 			var zombie = ZombieRagedol.Clone( this.GameObject.Transform.Position, this.GameObject.Transform.Rotation );
 			zombie.NetworkSpawn();
 
-			Log.Info( $"Killer attacker + {attackerId}" );
 			KillerId = attackerId;
-			Log.Info( $"Zombie killed by: {KillerId}" ); // yes
+
 
 			GameObject.Destroy();
 
@@ -773,36 +1033,120 @@ public partial class Npc : Component, IHealthComponent
 
 			if ( killer == null )
 			{
-				Log.Info( $"Killer with the id {KillerId} not found" );  // yes
+				// yes
 				return;
 			}
 
-			Log.Info( "Killer found" + killer );
+
 
 			var killerPlayer = killer.Components.Get<Player>( FindMode.EverythingInSelfAndAncestors );
+			if ( killerPlayer == null )
+			{
+				// Logge oder handle den Fehler
+				return;
+			}
+			if ( this == null )
+			{
+				// Logge oder handle den Fehler
+				return;
+			}
 
-			Log.Info( $"Killer with the id {KillerId} is found" ); // no
-			int vyndaliumPointsToAdd = new Random().Next( 1, 500 );
-			int xpPointsToAdd = new Random().Next( 75, 125 );
+			int npcLevel = this.Level;
 
-			// Geben Sie dem Killer Vyndalium und XP
+			// Skalieren der Punkte basierend auf dem Level des NPC
+			int vyndaliumPointsToAdd = CalculateVyndaliumReward( npcLevel );
+			int xpPointsToAdd = CalculateXpReward( npcLevel );
+
+
+			if ( DeathSounds != null )
+			{
+				
+				Sound.Play( DeathSounds, Player.Local.Head.Transform.Position );
+			}
 			killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );
+			killerPlayer.AddVyndalium( vyndaliumPointsToAdd );
 			killerPlayer.GiveXp( xpPointsToAdd );
+
+			if ( Hitprefab != null && this.GameObject != null )
+			{
+				GameObject vyndaliumHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 30, 0, 25 ) );
+				if ( vyndaliumHitInfo != null )
+				{
+					FaceThing vyndaliumFaceThing = vyndaliumHitInfo.Components.Get<FaceThing>();
+					if ( vyndaliumFaceThing != null )
+					{
+						vyndaliumFaceThing.Thing = killerPlayer.GameObject;
+					}
+
+					TextRenderer vyndaliumTextRenderer = vyndaliumHitInfo.Components.Get<TextRenderer>();
+					if ( vyndaliumTextRenderer != null )
+					{
+						vyndaliumTextRenderer.Color = Color.Yellow;
+						
+						vyndaliumTextRenderer.Text = $"+{vyndaliumPointsToAdd} $";
+					}
+
+					ScaleTextWithDistance vyndaliumScaleText = vyndaliumHitInfo.Components.Get<ScaleTextWithDistance>();
+					if ( vyndaliumScaleText != null )
+					{
+						vyndaliumScaleText.Thing = killerPlayer.GameObject;
+						
+					}
+
+					// Start coroutine to move and destroy the hit info
+					
+				}
+
+				GameObject xpHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 0, 0, 50 ) );
+				if ( xpHitInfo != null )
+				{
+					FaceThing xpFaceThing = xpHitInfo.Components.Get<FaceThing>();
+					if ( xpFaceThing != null )
+					{
+						xpFaceThing.Thing = killerPlayer.GameObject;
+					}
+
+					TextRenderer xpTextRenderer = xpHitInfo.Components.Get<TextRenderer>();
+					if ( xpTextRenderer != null )
+					{
+						xpTextRenderer.Color = Color.Blue;
+						xpTextRenderer.Text = $"+{xpPointsToAdd} XP";
+						
+					}
+
+					ScaleTextWithDistance xpScaleText = xpHitInfo.Components.Get<ScaleTextWithDistance>();
+					if ( xpScaleText != null )
+					{
+						xpScaleText.Thing = killerPlayer.GameObject;
+					}
+
+					// Start coroutine to move and destroy the hit info
+					
+				}
+			}
+			
+
+
+
+
+
+
+			killerPlayer.OnZombieKilled();
 
 
 		};
 
 	}
+	
 
 
-
-
+	
 
 	public event Action<int> VyndaliumAdded; // Declare the event "VyndaliumAdded"
 
 	public bool GiveVyndalium( int amount )
 	{
-		Log.Info( $"Vyndalium-Punkte hinzugefügt: {amount}" );
+
 		VyndaliumPoints += amount;
 		VyndaliumPointsChanged?.Invoke( VyndaliumPoints );
 		VyndaliumAdded?.Invoke( amount ); // Benachrichtige alle Abonnenten über die Änderung der Vyndalium-Punkte

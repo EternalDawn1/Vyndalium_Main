@@ -6,27 +6,444 @@
 
 
 <root onclick=@(() => Close())>
-	@if (_item is ItemEquipment equipment)
-	{
-		<ContextMenuOption ] Description=@(equipment.Equipped ? "Unequip" : "Equip")
-			ImagePath="ui/hud/inv_actions_equip.png" onclick=@(() => ToggleEquip(equipment)) />
-	}
-	<ContextMenuOption ] Description="Inspect" ImagePath="ui/hud/inv_actions_inspect.png" onclick=@(() =>
-		Inspect(_item)) />
-	<ContextMenuOption ] Description="Drop" ImagePath="ui/hud/inv_actions_drop.png" onclick=@(() => {
-		Player.Local.Inventory.DropItem(_item); Inventory.Instance?.OnChanged(); }) />
+    @if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
+    {
+        @if (_item != null && StorageBox.Instance.itemStorage.items.Contains(_item))
+        {
+            <ContextMenuOption Description="Take"
+                               ImagePath="ui/hud/hand_slot.png"
+                               onclick=@(() => AddItemToPlayerInventory(_item)) />
+        }
+        else
+        {
+            <ContextMenuOption Description="Deposit"
+                               ImagePath="ui/hud/storage.png"
+                               onclick=@(() => DepositItemToStorageBox(_item)) />
+        }
+    }
+	
+	else if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
+    {
+        
+        @if (_item != null)
+    {
+        @if (_item.Count > 0)
+        {
+           <ContextMenuOption Description="Sell All (@_item.Count)"
+                   ImagePath="ui/hud/shop.png"
+                
+                   onclick=@(() => SellItem(_item)) />
+        }
+        else
+        {
+            <ContextMenuOption Description="Sell"
+                            ImagePath="ui/hud/shop.png"
+                            onclick=@(() => SellItem(_item)) />
+        }
 
+        @if (_item.Count > 1)
+        {
+            <ContextMenuOption Description="Sell 1x"
+                            ImagePath="ui/hud/shop.png"
+                            onclick=@(() => SellSingleItem(_item)) />
+        }
+    }
+        
+    }
+    else if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.StoreItems)
+    {
+        @if (_item != null && Player.Local.Inventory.BackpackItems.Contains(_item))
+		{
+			<ContextMenuOption Description="Move to Storage"
+							   ImagePath="ui/hud/storage.png"
+							   onclick=@(() => MoveItemToStorage(_item)) />
+		}
+		else
+		{
+            <ContextMenuOption Description="Move to Backpack"
+                               ImagePath="ui/hud/inventory.png"
+                               onclick=@(() => Player.Local.Inventory.MoveItemToBackpack(_item)) />
+			<ContextMenuOption Description="Sell"
+							   ImagePath="ui/hud/shop.png"
+							   onclick=@(() => SellItem(_item)) />
+        }
+    }
+	else if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Accessories)
+	{
+		@if (_item != null)
+		{
+			<ContextMenuOption Description="Buy"
+							   ImagePath="ui/hud/shop.png"
+							   onclick=@(() => BuyItem(_item)) />
+		}
+        @if (_item.IsMaterial || _item.IsPotion) // Überprüfen, ob das Item ein Material oder ein Trank ist
+        {
+            <ContextMenuOption Description="Buy 10x"
+                               ImagePath="ui/hud/shop.png"
+                               onclick=@(() => BuyStack(_item)) />
+        }
+	}
+    else if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Weapons)
+    {
+        @if (_item != null && Player.Local.Inventory.BackpackItems.Contains(_item) && !_item.IsMaterial && !_item.IsPotion)
+        {
+            <ContextMenuOption Description="Move to Upgrade"
+                            ImagePath="ui/hud/shop.png"
+                            onclick=@(() => Upgrade(_item)) />
+        }
+        else if (_item != null && !_item.IsMaterial && !_item.IsPotion)
+        {
+            <ContextMenuOption Description="Move to Backpack"
+                               ImagePath="ui/hud/inventory.png"
+                               onclick=@(() => MoveToBackpackUpgrade(_item)) />
+        }
+    }
+	
+    else
+    {
+		@if (_item is HealthPotion healthPotion)
+		{
+			<ContextMenuOption Description="Use Health Potion"
+							ImagePath="ui/hud/potions.png"
+							onclick=@(() => UseHealthPotion(healthPotion)) />
+		}
+        @if (_item is ItemEquipment equipment)
+        {
+            @if (equipment != null)
+            {
+                <ContextMenuOption Description=@(equipment.Equipped ? "Unequip" : "Equip")
+                                   ImagePath="ui/hud/hand_slot.png"
+                                   onclick=@(() => ToggleEquip(equipment)) />
+            }
+        }
+        <ContextMenuOption Description="View"
+                           ImagePath="ui/hud/inv_actions_inspect.png"
+                           onclick=@(() => Inspect(_item)) />
+        <ContextMenuOption Description="Drop"
+                           ImagePath="ui/hud/inv_actions_drop.png"
+                           onclick=@(() => {
+                               Player.Local.Inventory.DropItem(_item);
+                               Inventory.Instance?.OnChanged();
+                           }) />
+        @if (_item != null && _item.Count > 1)
+        {
+            <ContextMenuOption Description="Split"
+                               ImagePath="ui/hud/split.gif"
+                               onclick=@(() => OpenSplitPanel(_item)) />
+        }
+       
+    }
 </root>
 
 @code {
-
-
+	
+	private static Player player => Player.Local;
+	
 	private static ContextMenu _instance;
 	private ItemComponent _item;
+	private List<ItemComponent> selectedItems = new();
+    private int CalculateTotalSellPrice(ItemComponent item)
+        {
+            return item.SellPrice * item.Count;
+        }
+    private void BuyStack(ItemComponent item)
+    {
+        var player = Player.Local;
+        int stackSize = 10; // Definieren Sie die Stapelgröße
 
+        if (player.Vyndalium >= item.BuyPrice * stackSize)
+        {
+            player.Vyndalium -= item.BuyPrice * stackSize;
 
+            for (int i = 0; i < stackSize; i++)
+            {
+                var newItem = GenerateNewItem(item);
+                player.Inventory.AddItem(newItem);
+                newItem.GameObject.Enabled = false;
+            }
+
+            Hudmaster.Instance.ShowNotification($"Bought {stackSize}x {item.Name} for {item.BuyPrice * stackSize} Vyndalium.", "/ui/hud/shop.png");
+        }
+        else
+        {
+            Hudmaster.Instance.ShowNotification("Nicht genug Vyndalium.", "/ui/hud/shop.png");
+        }
+    }
+    public void Upgrade(ItemComponent item)
+    {
+        Player.Local.Inventory.MoveItemToUpgrade(item);
+    }
+     public void MoveToBackpackUpgrade(ItemComponent item)
+    {
+        
+        Player.Local.Inventory.MoveItemFromUpgradeToBackpack(item);
+        ShopPanel.Instance?.CheckUpgradeSlot();
+        StateHasChanged();
+    }
+    
+	private void UseHealthPotion(HealthPotion healthPotion)
+    {
+        if (healthPotion.Count > 1)
+        {
+            healthPotion.Count--;
+        }
+        else
+        {
+            Player.Local.Inventory.RemoveItem(healthPotion);
+        }
+
+        healthPotion.Use(player);
+        Inventory.Instance?.OnChanged();
+        Hudmaster.Instance.ShowNotification($"Player healed by {healthPotion.HealthAmount}", "/ui/hud/potions.png");
+    }
+		public void MoveItemToStorage(ItemComponent item)
+        {
+            int currentPage = ShopPanel.Instance.currentPage;
+            Player.Local.Inventory.MoveItemToStorage(item, currentPage);
+        }
+	public void BuyItem(ItemComponent item)
+	{
+		var player = Player.Local;
+		if (player.Vyndalium >= item.BuyPrice)
+		{
+			player.Vyndalium -= item.BuyPrice;
+			var newItem = GenerateNewItem(item);
+			player.Inventory.AddItem(newItem);
+			item.GameObject.Enabled = false;
+
+			// Deaktivieren des ModelRenderers
+			var modelRenderer = item.GameObject.Components.Get<ModelRenderer>();
+			if (modelRenderer != null)
+			{
+				modelRenderer.Enabled = false;
+			}
+
+			// Deaktivieren des ModelColliders
+			var modelCollider = item.GameObject.Components.Get<ModelCollider>();
+			if (modelCollider != null)
+			{
+				modelCollider.Enabled = false;
+			}
+			
+			
+			Hudmaster.Instance.ShowNotification($"Item {item.Name} was bought for {item.BuyPrice} Vyndalium.", "/ui/hud/shop.png");
+			Inventory.Instance?.OnChanged();
+			
+		}
+		else
+		{
+			
+			Hudmaster.Instance.ShowNotification("Not Enough Money", "/ui/hud/shop.png");
+		}
+	}
+    
+	private ItemComponent ConvertPrefabToItemComponent(PrefabFile prefab)
+        {
+            var obj = SceneUtility.GetPrefabScene(prefab).Clone();
+            obj.NetworkMode = NetworkMode.Object;
+            obj.NetworkSpawn();
+
+            var itemComponent = obj.Components.Get<ItemComponent>();
+            if (itemComponent == null)
+            {
+                obj.Destroy();
+                return null;
+            }
+            obj.Enabled = false;
+            return itemComponent;
+        }
+	private ItemComponent GenerateNewItem(ItemComponent item)
+        {
+            // Erstellen Sie eine neue Instanz des Items basierend auf dem Prefab
+            var prefab = ResourceLibrary.Get<PrefabFile>(item.Prefab);
+            if (prefab == null)
+            {
+                Log.Error($"Prefab {item.Prefab} nicht gefunden.");
+                return null;
+            }
+
+            var newItem = ConvertPrefabToItemComponent(prefab);
+            if (newItem == null)
+            {
+                Log.Error($"Fehler beim Erstellen des Items aus dem Prefab {item.Prefab}.");
+                return null;
+            }
+
+            // Kopieren Sie die Eigenschaften des ursprünglichen Items
+            newItem.Name = item.Name;
+            newItem.SellPrice = item.SellPrice;
+            newItem.BuyPrice = item.BuyPrice;
+            newItem.DMG = item.DMG;
+            newItem.STG = item.STG;
+            newItem.HE = item.HE;
+            newItem.DEX = item.DEX;
+            newItem.PER = item.PER;
+            newItem.INT = item.INT;
+            newItem.Mana = item.Mana;
+            newItem.Health = item.Health;
+            newItem.ItemLevel = item.ItemLevel;
+            newItem.CritHitDamage = item.CritHitDamage;
+            newItem.CritHitChance = item.CritHitChance;
+            newItem.AbilityHaste = item.AbilityHaste;
+            newItem.AttackPower = item.AttackPower;
+            newItem.MagicPower = item.MagicPower;
+            newItem.Tier = item.Tier;
+            newItem.DamageBalance = item.DamageBalance;
+            newItem.Durability = item.Durability;
+            newItem.AttackSpeed = item.AttackSpeed;
+            newItem.MoveSpeed = item.MoveSpeed;
+            newItem.Armor = item.Armor;
+            newItem.MagicDefense = item.MagicDefense;
+            newItem.Evasion = item.Evasion;
+            newItem.Cover = item.Cover;
+            newItem.BonusEXP = item.BonusEXP;
+            newItem.BonusScore = item.BonusScore;
+            newItem.BonusVyndalium = item.BonusVyndalium;
+            newItem.Tenacity = item.Tenacity;
+            newItem.StunResistance = item.StunResistance;
+            newItem.BlindResistance = item.BlindResistance;
+            newItem.SlowResistence = item.SlowResistence;
+            newItem.FireResistence = item.FireResistence;
+            newItem.BleedResistance = item.BleedResistance;
+            newItem.PoisonResistence = item.PoisonResistence;
+            newItem.IceResistence = item.IceResistence;
+            newItem.LightningResistence = item.LightningResistence;
+            newItem.HolyResistence = item.HolyResistence;
+
+            
+
+            return newItem;
+        }
+	
+	
+
+	private void DepositItemToStorageBox(ItemComponent item)
+	{
+		if (item == null) return;
+		var storageBox = StorageBox.Instance?.itemStorage;
+		if (storageBox != null)
+		{
+			storageBox.Items.Add(item);
+			player.Inventory.RemoveItem(item);
+			
+			Hudmaster.Instance.ShowNotification($"Deposit {item.Name}","/ui/hud/storage.png");
+			Inventory.Instance?.OnChanged();
+		}
+	}
+
+	
+	private void SellItem(ItemComponent item)
+    {
+        if (item == null) return;
+
+        // Berechne den Gesamtverkaufspreis basierend auf der Anzahl der Items im Stapel
+        int totalSellPrice = item.Count > 0 ? item.SellPrice * item.Count : item.SellPrice;
+
+        // Entferne das Item aus dem Inventar des Spielers
+        player.Inventory.RemoveItem(item);
+        player.Vyndalium += totalSellPrice;
+
+        // Füge den Gesamtverkaufspreis zum Vyndalium des Spielers hinzu
+        player.Vyndalium += totalSellPrice;
+        Log.Info($"Item {item.Name} verkauft für {totalSellPrice} Vyndalium.");
+        Hudmaster.Instance.ShowNotification($"Item {item.Name} was sold for {totalSellPrice} Vyndalium.", "/ui/hud/shop.png");
+        item.GameObject.Destroy();
+        Inventory.Instance?.OnChanged();
+    }
+    private void SellSingleItem(ItemComponent item)
+    {
+        if (item == null || item.Count <= 0) return;
+
+        // Berechne den Verkaufspreis für ein einzelnes Item
+        int singleSellPrice = item.SellPrice;
+
+        // Reduziere die Anzahl der Items im Stapel um eins
+        item.Count -= 1;
+         player.Vyndalium += singleSellPrice;
+
+        // Füge den Verkaufspreis zum Vyndalium des Spielers hinzu
+        player.Vyndalium += singleSellPrice;
+        
+        Hudmaster.Instance.ShowNotification($"Einzelnes Item {item.Name} was sold for {singleSellPrice} Vyndalium.", "/ui/hud/shop.png");
+
+        // Wenn die Anzahl der Items im Stapel null erreicht, entferne das Item
+        if (item.Count == 0)
+        {
+            player.Inventory.RemoveItem(item);
+            item.GameObject.Destroy();
+        }
+
+        Inventory.Instance?.OnChanged();
+    }
+	private void AddItemToPlayerInventory(ItemComponent item)
+    {
+        if (item == null) return;
+
+        var inventory = player.Inventory;
+        var firstFreeSlot = inventory._backpackItems.IndexOf(null);
+
+        // Überprüfen Sie, ob das Item bereits im Inventar ist
+        if (inventory._backpackItems.Contains(item))
+        {
+            Log.Info($"Item {item.Name} ist bereits im Inventar.");
+            return;
+        }
+
+        // Überprüfen Sie, ob ein freier Slot verfügbar ist
+        if (firstFreeSlot != -1)
+        {
+            // Fügen Sie das Item in den ersten freien Slot ein
+            inventory._backpackItems[firstFreeSlot] = item;
+            item.State = ItemState.Backpack;
+
+           // Aktualisieren Sie den Zustand des Items
+                
+
+            // Entfernen Sie das Item aus der StorageBox
+            var storageBox = StorageBox.Instance?.itemStorage;
+            if (storageBox != null && storageBox.Items.Contains(item))
+            {
+                storageBox.Items.Remove(item);
+                
+            }
+
+            Inventory.Instance?.OnChanged();
+			Hudmaster.Instance.ShowNotification($"received {item.Name}", "/ui/hud/hand_slot.png");
+        }
+        else
+        {
+            Log.Error("Kein freier Slot im Rucksack verfügbar.");
+        }
+    }
+	private void SellAllSelectedItems()
+	{
+		foreach (var item in selectedItems)
+		{
+			SellItem(item);
+		}
+		selectedItems.Clear();
+		Inventory.Instance?.OnChanged();
+	}
+
+	private void ToggleSelectItem(ItemComponent item)
+	{
+		if (selectedItems.Contains(item))
+		{
+			selectedItems.Remove(item);
+		}
+		else
+		{
+			selectedItems.Add(item);
+		}
+	}
+	private bool IsItemInEquipSlot(ItemComponent item)
+    {
+        return player.Inventory.EquippedItems.Contains(item);
+    }
+	
 	public static void Open(ItemComponent item)
 	{
+		
 
 		Close();
 
@@ -40,7 +457,46 @@
 
 		Hudmaster.Instance.Panel.AddChild(_instance);
 	}
+	private void OpenSplitPanel(ItemComponent item)
+    {
+        if (item.Count < 2)
+        {
+            // Gegenstand kann nicht gesplittet werden, wenn er weniger als 2 Einheiten hat
+            return;
+        }
 
+        var inventory = player.Inventory;
+        var firstFreeSlot = inventory._backpackItems.IndexOf(null);
+
+        // Überprüfen Sie, ob ein freier Slot verfügbar ist
+        if (firstFreeSlot == -1)
+        {
+            Log.Error("Kein freier Slot im Rucksack verfügbar.");
+            return;
+        }
+
+        // Berechne die Anzahl der Einheiten, die gesplittet werden sollen
+        int splitCount = item.Count / 2;
+
+        // Erstelle einen neuen Gegenstand mit der gesplitteten Anzahl
+        var newItem = GenerateNewItem(item);
+        if (newItem == null)
+        {
+            Log.Error("Fehler beim Generieren des neuen Items.");
+            return;
+        }
+        newItem.Count = splitCount;
+
+        // Reduziere die Anzahl der Einheiten im ursprünglichen Gegenstand
+        item.Count -= splitCount;
+
+        // Füge den neuen Gegenstand in das Inventar ein
+        inventory._backpackItems[firstFreeSlot] = newItem;
+        newItem.State = ItemState.Backpack; // Aktualisieren Sie den Zustand des neuen Items
+
+        Inventory.Instance?.OnChanged();
+        Hudmaster.Instance.ShowNotification($"received {newItem.Name}", "/ui/hud/hand_slot.png");
+    }
 	public static bool IsOpen()
 	{
 		return _instance != null && _instance.IsValid();
@@ -54,24 +510,27 @@
 
 	private void Inspect(ItemComponent item)
 	{
-		Inventory.Instance.Inspect(item);
+		Inventory.Instance?.Inspect(item);
+		CharacterMenu.Instance?.Inspect(item);
+		
 	}
 
 	private void ToggleEquip(ItemEquipment equipment)
 	{
+		if (equipment == null)
+		{
+			
+			return;
+		}
 
 		if (equipment.Equipped)
-			Player.Local.Inventory.UnequipItem(equipment);
-
+			Player.Local.Inventory?.UnequipItem(equipment);
 		else
-			Player.Local.Inventory.EquipItemFromBackpack(equipment);
-
-
+			Player.Local.Inventory?.EquipItemFromBackpack(equipment);
 
 		Inventory.Instance?.OnChanged();
-
-
 	}
+	
 
 	public override void Tick()
 	{
@@ -82,7 +541,12 @@
 		if (!boxRect.IsInside(mousePosition))
 			Close();
 		if (FullScreenManager.Instance.ActivePanel != FullScreenManager.FullScreenPanel.Inventory)
+		if (FullScreenManager.Instance.ActivePanel != FullScreenManager.FullScreenPanel.StorageBox)
+		if (FullScreenManager.Instance.ActivePanel != FullScreenManager.FullScreenPanel.ShopPanel)
+		
+		
 			Close();
+		
 	}
 
 	protected override int BuildHash()

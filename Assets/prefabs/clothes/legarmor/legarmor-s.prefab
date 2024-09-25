@@ -1,0 +1,180 @@
+{
+  "RootObject": {
+    "__guid": "2a075b75-f89c-4c88-9f91-bd76a9a577ad",
+    "Flags": 0,
+    "Name": "legarmor-s",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "Components": [
+      {
+        "__type": "Sandbox.ModelRenderer",
+        "__guid": "041e70bc-6abf-48d2-b3b9-0f3100541b4f",
+        "BodyGroups": 18446744073709551615,
+        "Model": "models/citizen_clothes/trousers/legarmour/models/leg_armour.vmdl",
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      },
+      {
+        "__type": "GeneralGame.ItemEquipment",
+        "__guid": "4a6e855d-c669-4f1c-9d27-e5255f00943d",
+        "AbilityHaste": 0,
+        "Armor": 0,
+        "Attachment": "hand_R",
+        "AttachmentTransform": {
+          "UniformScale": 1,
+          "IsValid": true,
+          "ForwardRay": {
+            "Forward": "1,0,0"
+          },
+          "Scale": "1,1,1",
+          "Rotation": "0,0,0,1"
+        },
+        "AttackPower": 0,
+        "AttackSpeed": 0,
+        "BleedResistance": 0,
+        "BlindResistance": 0,
+        "BonusEXP": 0,
+        "BonusScore": 0,
+        "BonusVyndalium": 0,
+        "BuyPrice": 8000,
+        "Count": 0,
+        "Cover": 0,
+        "CritHitChance": 0,
+        "CritHitDamage": 0,
+        "DamageBalance": 0,
+        "Description": "Leg Armor",
+        "DEX": 0,
+        "DMG": 0,
+        "Durability": 0,
+        "Evasion": 0,
+        "FireResistence": 0,
+        "HE": 0,
+        "Health": 0,
+        "HideBodygroups": "Legs",
+        "HoldType": "Item",
+        "HolyResistence": 0,
+        "IceResistence": 0,
+        "Icon": {
+          "Model": "models/citizen_clothes/trousers/legarmour/models/leg_armour.vmdl",
+          "MaterialGroup": "",
+          "Colour": "1,1,1,1",
+          "Position": "-12.75,19.5,18.75",
+          "Rotation": "0.6692746,0.2257613,-0.1701704,0.6871284",
+          "Guid": "28ce42b7-7f76-4f9d-b2fa-5a71ac274f51"
+        },
+        "INT": 0,
+        "IsAccessory": false,
+        "IsArmor": true,
+        "IsBackable": false,
+        "IsConsumable": false,
+        "IsEquipment": false,
+        "IsItem": false,
+        "IsMaterial": false,
+        "IsPotion": false,
+        "IsWeapon": false,
+        "ItemLevel": 0,
+        "LightningResistence": 0,
+        "MagicDefense": 0,
+        "MagicPower": 0,
+        "Mana": 0,
+        "MaxArmorValue": 0,
+        "MaxAttackValue": 0,
+        "MaxStack": 0,
+        "MinArmorValue": 0,
+        "MinAttackValue": 0,
+        "MoveSpeed": 0,
+        "Name": "Armor",
+        "PER": 0,
+        "PoisonResistence": 0,
+        "Price": 0,
+        "RequiredLevel": 0,
+        "SellPrice": 1250,
+        "ShadowResistence": 0,
+        "Slot": "Legs",
+        "SlowResistence": 0,
+        "Stats": [],
+        "STG": 0,
+        "StunResistance": 0,
+        "Tenacity": 0,
+        "Tier": "S",
+        "UpdatePosition": false,
+        "UseSkinTint": false,
+        "WeightInGrams": 0
+      },
+      {
+        "__type": "GeneralGame.Interactions",
+        "__guid": "ffab15c0-4989-41f5-8839-c952eee68df0",
+        "HideOnEmpty": false,
+        "ObjectInteractions": []
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "8060187c-ddff-49dd-88a5-6a28bd84eb78",
+        "Center": "0,0,4.8",
+        "IsTrigger": false,
+        "Scale": "27,27,7.5",
+        "Static": false
+      },
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "32c44682-40c5-45c8-9002-d72fd0823a12",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassCenterOverride": "0,0,0",
+        "MassOverride": 0,
+        "MotionEnabled": false,
+        "OverrideMassCenter": false,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "432a63ba-b0d8-4ca6-b535-c7696c2cfe13",
+        "Flags": 0,
+        "Name": "GameObject",
+        "Position": "0,0,5",
+        "Rotation": "0,0.7071068,0,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.WorldPanel",
+            "__guid": "1813aa56-c2c0-4557-90a8-9e4c83d24734",
+            "HorizontalAlign": "Center",
+            "InteractionRange": 1000,
+            "LookAtCamera": false,
+            "PanelSize": "512,512",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderScale": 1,
+            "VerticalAlign": "Center"
+          },
+          {
+            "__type": "GeneralGame.IconWorldPanel",
+            "__guid": "147c541c-d8b3-44fe-bc38-fb56dcaf43cd"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

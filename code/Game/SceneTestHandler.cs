@@ -10,12 +10,12 @@ public enum GeneralScenetest
 
 public static class SceneHandlertest
 {
-	public static async void ChangeScenetest( GeneralScene scene, ulong? lobby = null, bool stopSound = true )
+	public static  void ChangeScenetest( GeneralScene scene, ulong? lobby = null, bool stopSound = true )
 	{
 		var path = scene switch
 		{
 			GeneralScene.Creation => "scenes/creation.scene",
-			GeneralScene.Game => "scenes/dom.scene",
+			GeneralScene.Game => "scenes/dungeon_1.scene",
 			GeneralScene.MainMenu => "scenes/lobby.scene",
 			GeneralScene.Starting => "scenes/startlobby.scene",
 			_ => null
@@ -33,9 +33,8 @@ public static class SceneHandlertest
 		// If is game.
 		if ( lobby.HasValue )
 		{
-			var connected = await GameNetworkSystem.TryConnectSteamId( lobby.Value );
-			if ( !connected )
-				return;
+			Networking.Connect( lobby.Value );
+			
 		}
 
 

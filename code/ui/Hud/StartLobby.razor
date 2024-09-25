@@ -9,7 +9,11 @@
 @if (IsProxy)
 	return;
 <root>
-	<div class="center">
+	<div class="video-container @(_state != IntroState.Logo ? "hidden" : "")">
+		
+		<VideoPanel Source="ui/hud/intro/vyndalium.mp4"/>
+	</div>
+	<div class="center @(_state != IntroState.Next ? "hidden" : "")">
 		<div class="left">
 			<div class="title">
 				Vyndalium
@@ -32,7 +36,7 @@
 					Coop Config
 				</div>
 				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => Singleplayer() )>
-					Singleplayer
+					Play
 				</div>
 
 				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => ToggleMainMenu() )>
@@ -99,6 +103,16 @@
 
 @code
 {
+	private IntroState _state = IntroState.Logo;
+	
+	private RealTimeUntil _introIsOver = IntroTime;
+	private const float IntroTime = 12f;
+	private enum IntroState
+	{
+		Logo,
+		Disclaimer,
+		Next
+	}
 	private int MaxPlayers { get; set; } = 1;
 	private bool IsRefreshing { get; set; }
 	private List<LobbyInformation> List { get; set; } = new();
@@ -118,10 +132,7 @@
 		_ = RefreshLobbyList();
 	}
 
-	protected override void OnUpdate()
-	{
-
-	}
+	
 
 	protected override int BuildHash() => HashCode.Combine(RealTime.Now);
 
@@ -143,18 +154,18 @@
 
 	private void OpenLobby(LobbyInformation lobby)
 	{
-		GameNetworkSystem.Connect(lobby.LobbyId);
+		Networking.Connect(lobby.LobbyId);
 	}
 
 	private void Singleplayer()
 	{
 
-		Game.ActiveScene.LoadFromFile("scenes/startlobby.scene");
+		Game.ActiveScene.LoadFromFile("scenes/startlobbynew.scene");
 	}
 	private void CreateServer()
 	{
 
-		Game.ActiveScene.LoadFromFile("scenes/startlobby.scene");
+		Game.ActiveScene.LoadFromFile("scenes/startlobbynew.scene");
 	}
 	private void Options()
 	{

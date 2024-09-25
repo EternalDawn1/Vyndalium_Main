@@ -1,0 +1,912 @@
+@namespace GeneralGame.HUD
+@inherits Panel
+@using Sandbox
+@attribute [StyleSheet]
+
+
+
+<root>
+    <SideButton 
+        Title="Exit" 
+        
+        OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud))
+        IsInverted=@(true)
+        ImagePath="ui/hud/exit.gif"
+        style="position: absolute; top: 30px; right: 0px;" 
+    />
+    <SideButton 
+        Title="Inventory" 
+      
+        OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Inventory))
+        IsInverted=@(true)
+        ImagePath="ui/hud/player.png"
+        style="position: absolute; top: 150px; right: 0px;" 
+    />
+    <SideButton 
+        Title="Character Menu" 
+      
+        OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.CharacterMenu))
+        IsInverted=@(true)
+        ImagePath="ui/hud/muscles.png"
+        style="position: absolute; top: 270px; right: 0px; " 
+    />
+    <div class="sidehud">
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Abilities)) IsInverted=@(true)
+			ImagePath="ui/hud/Tree.png" />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Endurance)) IsInverted=@(true) ImagePath="ui/hud/shield.png" />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Strength)) IsInverted=@(true) ImagePath="ui/hud/strength.png" />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Agility)) IsInverted=@(true) ImagePath="ui/hud/running.png" />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Intelligence)) IsInverted=@(true) ImagePath="ui/hud/brain.png" />
+
+            
+    </div>
+    <h2 class="playe3">
+        <div class="playe2"> Status Points</div> 
+        <span class="nu">@Player.Local.StatsPoints</span>
+    </h2>
+    <div class="main">
+        
+        <div class="panel">
+            
+            <div class="panel-header" style="opacity: @(currentPanel == PanelType.Abilities ? 1 : 0)">
+                <button class="panel-header-text"
+                >Abilities</button>
+                <p> Work In Progress</p>
+            </div>
+            <div class="panel-header" style="opacity: @(currentPanel == PanelType.Endurance ? 1 : 0)">
+                <button class="panel-header-text" 
+                    >Endurance</button>
+            </div>
+            <div class="panel-header" style="opacity: @(currentPanel == PanelType.Strength ? 1 : 0)">
+                <button class="panel-header-text">Strength</button>
+            </div>
+            <div class="panel-header" style="opacity: @(currentPanel == PanelType.Agility ? 1 : 0)">
+                <button class="panel-header-text">Dexterity</button>
+            </div>
+            <div class="panel-header" style="opacity: @(currentPanel == PanelType.Intelligence ? 1 : 0)">
+                <button class="panel-header-text">Intelligence</button>
+            </div>
+
+
+            <div class="panel-content" style="opacity: @(currentPanel == PanelType.Endurance ? 1 : 0)">
+                
+                <div class="panel-content-text">
+                    <div class="panel-content-layout">
+                        <div class="panel-button-layout">
+                            <div class="box"
+                                style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
+                                <p class="txt" style="background-color: rgb(114, 114, 114);">Endurance-Stats</p>
+                                <div class="amount">Player-Stats</div>
+                                <div class="coast">Stat-Costs</div>
+                                <button class="Button1">Upgrade</button>
+                                <button class="info1">Information</button>
+
+                            </div>
+                            <div class="box">
+                                <p class="txt2">Endurance</p>
+                                <div class="amount">@Player.Local.PER</div>
+                                
+                                <div class="coast">Cost: @Player.Local.EnduranceCost</div>
+                                <button class="Button2" @onclick="@EnduranceUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.Endurance))">?</button>
+                            </div>
+
+                            <div class="box">
+                                <p class="txt">Slow Resistance</p>
+                                <div class="amount">@Player.Local.SlowResist</div>
+                               
+                                <div class="coast">Cost: @Player.Local.SlowResistanceCost</div>
+                                <button class="Button2" @onclick="@SlowResistanceUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.SlowResistance))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Blind Resistance</p>
+                                <div class="amount">@Player.Local.BlindResist</div>
+                                
+                                <div class="coast">Cost: @Player.Local.BlindResistanceCost</div>
+                                <button class="Button2" @onclick="@BlindResistanceUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.BlindResistance))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Stun Resistance</p>
+                                <div class="amount">@Player.Local.StunResist</div>
+                               
+                                <div class="coast">Cost: @Player.Local.StunResistanceCost</div>
+                                <button class="Button2" @onclick="@StunResistanceUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.StunResistance))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Tenacity (TEN)</p>
+                                <div class="amount">@Player.Local.Tenacity</div>
+                                
+                                <div class="coast">Cost: @Player.Local.TenacityCost</div>
+                                <button class="Button2" @onclick="@TenacityUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.Tenacity))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Cover (Block+)</p>
+                                <div class="amount">@Player.Local.Block</div>
+                                
+                                <div class="coast">Cost: @Player.Local.CoverCost</div>
+                                <button class="Button2" @onclick="@CoverUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Cover))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Magic Defense (MD)</p>
+                                <div class="amount">@Player.Local.MagicDefense</div>
+                                
+                                <div class="coast">Cost: @Player.Local.MagicDefenseCost</div>
+                                <button class="Button2" @onclick="@MagicDefenseUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.MagicDefense))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Armor (DEF)</p>
+                                <div class="amount">@Player.Local.Armor</div>
+                               
+                                <div class="coast">Cost: @Player.Local.ArmorCost</div>
+                                <button class="Button2" @onclick="@ArmorUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Armor))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Health (HP)</p>
+                                <div class="amount">@Player.Local.MaxHealth</div>
+                                
+                                <div class="coast">Cost: @Player.Local.HealthCost</div>
+                                <button class="Button2" @onclick="@HealthUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Health))">?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-content-context">
+                    <p class="head">Information:</p>
+                    <p class="text">@GetPanelText(currentPanelText)</p>
+                    <p class="text2">@GetPanelText2(currentPanelText)</p>
+                </div>
+            </div>
+
+            
+            <div class="panel-content" style="opacity: @(currentPanel == PanelType.Strength ? 1 : 0)">
+                
+                    <div class="panel-content-text">
+                        <div class="panel-content-layout">
+                            <div class="panel-button-layout">
+                            <div class="box" style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
+                                <p class="txt" style="background-color: rgb(114, 114, 114);">Strength-Stats</p>
+                                <div class="amount">Player-Stats</div>
+                                <div class="coast">Stat-Costs</div>
+                                <button class="Button1">Upgrade</button>
+                                <button class="info1" >Information</button>
+                                
+                            </div>
+                            <div class="box">
+                               
+                                <p class="txt2">Strength</p>
+                                <div class="amount">@Player.Local.STG</div>
+                               
+                                <div class="coast">Cost: @Player.Local.StrengthCost</div>
+                                <button class="Button2" @onclick="@STGUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Strength))">?</button>
+                            </div>
+
+                            <div class="box">
+                                <p class="txt">Attack Power</p>
+                                <div class="amount">@Player.Local.AttackPower</div>
+                         
+                                <div class="coast">Cost: @Player.Local.AttackPowerCost</div>
+                                <button class="Button2" @onclick="@AP">+</button>
+                                <button class="info"@onclick="@(() => ShowPanelText(PanelTypeText.AttackPower))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Armor Penetration</p>
+                                <div class="amount">@Player.Local.ArmorPenetration</div>
+                           
+                                <div class="coast">Cost: @Player.Local.ArmorPenetrationCost</div>
+                                <button class="Button2" @onclick="@ArmorPenetration">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.ArmorPenetration))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Attack Range</p>
+                                <div class="amount">@Player.Local.AttackRange</div>
+                            
+                                <div class="coast">Cost: @Player.Local.AttackRangeCost</div>
+                                <button class="Button2" @onclick="@AttackRange">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.AttackRange))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Attack Speed</p>
+                                <div class="amount">@Math.Round(Player.Local.AttackSpeed)</div>
+                            
+                                <div class="coast">Cost: @Player.Local.AttackSpeedCost</div>
+                                <button class="Button2" @onclick="@AttackSpeed">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.AttackSpeed))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Critical Chance</p>
+                                <div class="amount">@Player.Local.CritHitChance</div>
+                           
+                                <div class="coast">Cost: @Player.Local.CriticalChanceCost</div>
+                                <button class="Button2" @onclick="@CriticalChance">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.CriticalChance))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Critical Damage</p>
+                                <div class="amount">@Player.Local.CritHitDamage</div>
+                           
+                                <div class="coast">Cost: @Player.Local.CriticalDamageCost</div>
+                                <button class="Button2" @onclick="@CriticalDamage">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.CriticalDamage))">?</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                <div class="panel-content-context">
+                        <p class="head">Information:</p>
+                        <p class="text">@GetPanelText(currentPanelText)</p>
+                        <p class="text2">@GetPanelText2(currentPanelText)</p>
+                </div>
+        </div>  
+        </div>            
+             <div class="panel-content" style="opacity: @(currentPanel == PanelType.Agility ? 1 : 0)">
+                
+                    <div class="panel-content-text">
+                        <div class="panel-content-layout">
+                            <div class="panel-button-layout">
+                            <div class="box"
+                                style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
+                                <p class="txt" style="background-color: rgb(114, 114, 114);">Dexterity-Stats</p>
+                                <div class="amount">Player-Stats</div>
+                                <div class="coast">Stat-Costs</div>
+                                <button class="Button1">Upgrade</button>
+                                <button class="info1">Information</button>
+
+                            </div>
+
+                            <div class="box">
+                                <p class="txt2">Dexterity</p>
+                                <div class="amount">@Player.Local.DEX</div>
+                                
+                                <div class="coast">Cost: @Player.Local.DexterityCost</div>
+                                <button class="Button2" @onclick="@DexterityUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.Dexterity))">?</button>
+                            </div>
+
+                            <div class="box">
+                                <p class="txt">Evasion</p>
+                                <div class="amount">@Math.Round(@Player.Local.Evasion)</div>
+                              
+                                <div class="coast">Cost: @Player.Local.EvasionCost</div>
+                                <button class="Button2" @onclick="@EvasionUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Evasion))">?</button>
+                            </div>
+
+                            <div class="box">
+                                <p class="txt">Ability Haste</p>
+                                <div class="amount">@Player.Local.AbilityHaste</div>
+                               
+                                <div class="coast">Cost: @Player.Local.AbilityHasteCost</div>
+                                <button class="Button2" @onclick="@AbilityHasteUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.AbilityHaste))">?</button>
+                            </div>
+
+                            <div class="box">
+                                <p class="txt">Stamina</p>
+                                <div class="amount">@Player.Local.MaxStamina</div>
+                          
+                                <div class="coast">Cost: @Player.Local.StaminaCost</div>
+                                <button class="Button2" @onclick="@StaminaUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Stamina))">?</button>
+                            </div>
+
+                            <div class="box">
+                                <p class="txt">Walk Speed</p>
+                                <div class="amount">@Player.Local.PlayerWalkSpeed</div>
+                               
+                                <div class="coast">Cost:: @Player.Local.PlayerWalkSpeedCost</div>
+                                <button class="Button2" @onclick="@PlayerWalkSpeedUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.PlayerWalkSpeed))">?</button>
+                            </div>
+
+                            <div class="box">
+                                <p class="txt"> Run Speed</p>
+                                <div class="amount">@Player.Local.PlayerRunSpeed</div>
+                            
+                                <div class="coast">Cost: @Player.Local.PlayerRunSpeedCost</div>
+                                <button class="Button2" @onclick="@PlayerRunSpeedUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.PlayerRunSpeed))">?</button>
+                            </div>
+
+                            <div class="box">
+                                <p class="txt">Mana</p>
+                                <div class="amount">@Player.Local.MaxMana</div>
+                             
+                                <div class="coast">Cost: @Player.Local.ManaCost</div>
+                                <button class="Button2" @onclick="@ManaUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Mana))">?</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-content-context">
+                        <p class="head">Information:</p>
+                        <p class="text">@GetPanelText(currentPanelText)</p>
+                        <p class="text2">@GetPanelText2(currentPanelText)</p>
+                    </div>
+                </div>
+             </div>
+                <div class="panel-content" style="opacity: @(currentPanel == PanelType.Intelligence ? 1 : 0)">
+                <div class="panel-content-text">
+                    <div class="panel-content-layout">
+                        <div class="panel-button-layout">
+                            <div class="box"
+                                style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
+                                <p class="txt" style="background-color: rgb(114, 114, 114);">Intelligence-Stats</p>
+                                <div class="amount">Player-Stats</div>
+                                <div class="coast">Stat-Costs</div>
+                                <button class="Button1">Upgrade</button>
+                                <button class="info1">Information</button>
+
+                            </div>
+                            <div class="box">
+                                <p class="txt2">Intelligence</p>
+                                <div class="amount">@Player.Local.INT</div>
+                               
+                                <div class="coast">Cost: @Player.Local.IntelligenceCost</div>
+                                <button class="Button2" @onclick="@INTUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Intelligence))">?</button>
+                            </div>
+
+                            <div class="box">
+                                <p class="txt">Magic Power (MAP)</p>
+                                <div class="amount">@Math.Round(Player.Local.MagicPower)</div>
+                              
+                                <div class="coast">Cost: @Player.Local.MagicPowerCost</div>
+                                <button class="Button2" @onclick="@MagicPowerUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.MagicPower))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Magic Penetration (MP)</p>
+                                <div class="amount">@Player.Local.MagicPenetration</div>
+                              
+                                <div class="coast">Cost: @Player.Local.MagicPenetrationCost</div>
+                                <button class="Button2" @onclick="@MagicPenetrationUpgrade">+</button>
+                                <button class="info"
+                                    @onclick="@(() => ShowPanelText(PanelTypeText.MagicPenetration))">?</button>
+                            </div>
+                            <div class="box">
+                                <p class="txt">Bonus EXP Gain (EXP+)</p>
+                                <div class="amount">@Math.Round(Player.Local.BonusEXPGain, 2)</div>
+                              
+                                <div class="coast">Cost: @Player.Local.BonusEXPGainCost</div>
+                                <button class="Button2" @onclick="@BonusEXPGainUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.BonusEXPGain))">?</button>
+                            </div>
+
+                            <div class="box">
+                                <p class="txt">Bonus Vyndalium Gain (Vynd+)</p>
+                                <div class="amount">@Player.Local.BonusVyndalium</div>
+                              
+                                <div class="coast">Cost: @Player.Local.BonusVyndaliumGainCost</div>
+                                <button class="Button2" @onclick="@BonusVyndaliumGainUpgrade">+</button>
+                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.BonusVyndaliumGain))">?</button>
+                            </div>
+
+                            
+
+                        </div>
+                    </div>
+                    <div class="panel-content-context">
+                        <p class="head">Information:</p>
+                        <p class="text">@GetPanelText(currentPanelText)</p>
+                        <p class="text2">@GetPanelText2(currentPanelText)</p>
+                    </div>
+                </div>
+</div>
+        </div>
+        
+
+    
+        
+    
+</root>
+@code{
+    
+    public static Abilities Instance { get; private set; }
+    public Abilities() => Instance = this;
+    public void Display()
+    {
+        FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Abilities);
+    }
+    public void Hide()
+    {
+        FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud);
+    }
+    
+   private enum PanelType
+    {
+        Abilities,
+        Endurance,
+        Strength,
+        Agility,
+        Intelligence
+    }
+    private enum PanelTypeText
+    {
+        Strength,
+        AttackPower,
+        ArmorPenetration,
+        AttackRange,
+        AttackSpeed,
+        CriticalChance,
+        CriticalDamage,
+
+
+// Endurance         
+        Endurance,
+        SlowResistance,
+        BlindResistance,
+        StunResistance,
+        Tenacity,
+        Cover,
+        MagicDefense,
+        Armor,
+        Health,
+
+        // Agility
+        Dexterity,
+        Evasion,
+        AbilityHaste,
+        Stamina,
+        PlayerWalkSpeed,
+        PlayerRunSpeed,
+        Mana,
+        // Intelligence
+        Intelligence,
+        MagicPower,
+        MagicPenetration,
+        BonusEXPGain,
+        BonusVyndaliumGain
+
+    }
+    private string GetPanelText(PanelTypeText panelText)
+    {
+        return panelText switch
+        {
+            PanelTypeText.Strength => "Strength increases your physical power and allows you to carry heavier items.",
+            PanelTypeText.AttackPower => "Attack Power boosts your damage output.",
+            PanelTypeText.ArmorPenetration => "Armor Penetration allows you to bypass enemy defenses.",
+            PanelTypeText.AttackRange => "Attack Range extends the distance you can hit enemies.",
+            PanelTypeText.AttackSpeed => "Attack Speed increases the rate at which you can attack.",
+            PanelTypeText.CriticalChance => "Critical Chance increases the likelihood of landing critical hits.",
+            PanelTypeText.CriticalDamage => "Critical Damage boosts the damage of your critical hits.",
+            PanelTypeText.Endurance => "Endurance increases your stamina and allows you to perform actions for longer periods.",
+            PanelTypeText.SlowResistance => "Slow Resistance reduces the effect of slowing debuffs on you.",
+            PanelTypeText.BlindResistance => "Blind Resistance reduces the effect of blinding debuffs on you.",
+            PanelTypeText.StunResistance => "Stun Resistance reduces the effect of stunning debuffs on you.",
+            PanelTypeText.Tenacity => "Tenacity reduces the duration of crowd control effects on you.",
+            PanelTypeText.Cover => "Cover increases your defense when taking cover.",
+            PanelTypeText.MagicDefense => "Magic Defense reduces the damage taken from magical attacks.",
+            PanelTypeText.Armor => "Armor reduces the damage taken from physical attacks.",
+            PanelTypeText.Health => "Health increases your maximum hit points.",
+            PanelTypeText.Dexterity => "Dexterity improves your agility and reflexes.",
+            PanelTypeText.Evasion => "Evasion increases your chance to dodge attacks.",
+            PanelTypeText.AbilityHaste => "Ability Haste reduces the cooldown of your abilities.",
+            PanelTypeText.Stamina => "Stamina increases your endurance and energy.",
+            PanelTypeText.PlayerWalkSpeed => "Player Walk Speed increases your walking speed.",
+            PanelTypeText.PlayerRunSpeed => "Player Run Speed increases your running speed.",
+            PanelTypeText.Mana => "Mana is used to cast spells and abilities.",
+            PanelTypeText.Intelligence => "Intelligence increases your magical power and knowledge.",
+            PanelTypeText.MagicPower => "Magic Power boosts the damage of your magical attacks.",
+            PanelTypeText.MagicPenetration => "Magic Penetration allows you to bypass enemy magical defenses.",
+            PanelTypeText.BonusEXPGain => "Bonus EXP Gain increases the amount of experience points you earn.",
+            PanelTypeText.BonusVyndaliumGain => "Bonus Vyndalium Gain increases the amount of Vyndalium you earn.",
+
+            
+            _ => "Unknown ability."
+        };
+    }
+    private string GetPanelText2(PanelTypeText panelText)
+    {
+        return panelText switch
+        {
+            PanelTypeText.Strength => "| STG + 1 | Armor + 5 | AttackPower + 5 |",
+            PanelTypeText.AttackPower => "| Attack Power + 5 |",
+            PanelTypeText.ArmorPenetration => "| Armor Penetration + 5 |",
+            PanelTypeText.AttackRange => "| Attack Range + 5 |",
+            PanelTypeText.AttackSpeed => "| Attack Speed + 5 |",
+            PanelTypeText.CriticalChance => "| Critical Chance + 5% |",
+            PanelTypeText.CriticalDamage => "| Critical Damage + 5 |",
+            PanelTypeText.Endurance => "| Endurance + 1 |",
+            PanelTypeText.SlowResistance => "| Slow Resistance + 1 |",
+            PanelTypeText.BlindResistance => "| Blind Resistance + 1 |",
+            PanelTypeText.StunResistance => "| Stun Resistance + 1 |",
+            PanelTypeText.Tenacity => "| Tenacity + 1 |",
+            PanelTypeText.Cover => "| Cover + 1 |",
+            PanelTypeText.MagicDefense => "| Magic Defense + 5 |",
+            PanelTypeText.Armor => "| Armor + 5 |",
+            PanelTypeText.Health => "| Health + 10 |",
+            PanelTypeText.Dexterity => "| Dexterity + 3 |",
+            PanelTypeText.Evasion => "| Evasion + 4 |",
+            PanelTypeText.AbilityHaste => "| Ability Haste + 5 |",
+            PanelTypeText.Stamina => "| Stamina + 6 |",
+            PanelTypeText.PlayerWalkSpeed => "| Player Walk Speed + 14 |",
+            PanelTypeText.PlayerRunSpeed => "| Player Run Speed + 18 |",
+            PanelTypeText.Mana => "| Mana + 9 |",
+            PanelTypeText.Intelligence => "| Intelligence + 1 |",
+            PanelTypeText.MagicPower => "| Magic Power + 2 |",
+            PanelTypeText.MagicPenetration => "| Bonus EXP Gain + 15% |",
+            PanelTypeText.BonusEXPGain => "| Bonus EXP Gain + 15% |",
+            PanelTypeText.BonusVyndaliumGain => "| Bonus Vyndalium Gain + 0,3 |",
+
+
+            _ => "| Unknown panel text. |"
+        };
+    }
+    private PanelType currentPanel = PanelType.Abilities;
+    private PanelTypeText currentPanelText;
+    
+    private void ShowPanel(PanelType panel)
+    {
+        currentPanel = panel;
+    }
+    
+    
+    private void ShowPanelText(PanelTypeText panelText)
+    {
+        currentPanelText = panelText;
+        StateHasChanged();
+        
+        
+    }
+   
+   
+    
+    
+   
+    public void STGUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.StrengthCost)
+        {
+            
+            Player.Local.STG += 1;
+            Player.Local.Armor += 5;
+            Player.Local.AttackPower += 15;
+            if (Player.Local.PER > 0 && Player.Local.DEX < Player.Local.STG)
+            {
+                Player.Local.Block += Player.Local.PER;
+
+            }
+            if (Player.Local.Block != Player.Local.PER)
+            {
+                Player.Local.Block = Player.Local.PER;
+                Player.Local.Evasion = 0;
+            }
+
+            if (Player.Local.STG % 4 == 0)
+            {
+                Player.Local.MaxStamina -= 2;
+                Player.Local.PlayerRunSpeed -= 1;
+                Player.Local.MAX_BACKPACK_SLOTS += 1;
+
+            }
+            if (Player.Local.STG % 8 == 0)
+            {
+                Player.Local.MagicPower -= 4;
+                Player.Local.MagicDefense += 20;
+            }
+            if (Player.Local.STG % 20 == 0)
+            {
+                Player.Local.PER += 8;
+                Player.Local.Tenacity += 10;
+            }
+            Player.Local.StatsPoints -= Player.Local.StrengthCost;
+            Player.Local.StrengthCost++;
+            
+
+        }
+    }
+
+    public void AP()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.AttackPowerCost)
+        {
+            Player.Local.AttackPower += 25;
+            Player.Local.StatsPoints -= Player.Local.AttackPowerCost;
+            Player.Local.AttackPowerCost++;
+        }
+    }
+    public void ArmorPenetration()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.ArmorPenetrationCost)
+        {
+            Player.Local.ArmorPenetration += 5;
+            Player.Local.StatsPoints -= Player.Local.ArmorPenetrationCost;
+            Player.Local.ArmorPenetrationCost++;
+        }
+    }
+    public void AttackRange()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.AttackRangeCost)
+        {
+            Player.Local.AttackRange += 5;
+            Player.Local.StatsPoints -= Player.Local.AttackRangeCost;
+            Player.Local.AttackRangeCost++;
+        }
+    }
+    public void AttackSpeed()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.AttackSpeedCost)
+        {
+            Player.Local.AttackSpeed += 5;
+            Player.Local.StatsPoints -= Player.Local.AttackSpeedCost;
+            Player.Local.AttackSpeedCost++;
+        }
+    }
+    public void CriticalChance()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.CriticalChanceCost)
+        {
+            Player.Local.CritHitChance += 5;
+            Player.Local.StatsPoints -= Player.Local.CriticalChanceCost;
+            Player.Local.CriticalChanceCost++;
+        }
+    }
+    public void CriticalDamage()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.CriticalDamageCost)
+        {
+            Player.Local.CritHitDamage += 5;
+            Player.Local.StatsPoints -= Player.Local.CriticalDamageCost;
+            Player.Local.CriticalDamageCost++;
+        }
+    }
+    private void EnduranceUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.EnduranceCost)
+        {
+            Player.Local.PER += 1;
+            Player.Local.StatsPoints -= Player.Local.EnduranceCost;
+            
+        }
+    }
+
+    private void SlowResistanceUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.SlowResistanceCost)
+        {
+            Player.Local.SlowResist += 1;
+            Player.Local.StatsPoints -= Player.Local.SlowResistanceCost;
+            Log.Info("Slow Resistance upgraded.");
+        }
+    }
+
+    private void BlindResistanceUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.BlindResistanceCost)
+        {
+            Player.Local.BlindResist += 1;
+            Player.Local.StatsPoints -= Player.Local.BlindResistanceCost;
+            Log.Info("Blind Resistance upgraded.");
+        }
+    }
+
+    private void StunResistanceUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.StunResistanceCost)
+        {
+            Player.Local.StunResist += 1;
+            Player.Local.StatsPoints -= Player.Local.StunResistanceCost;
+            Log.Info("Stun Resistance upgraded.");
+        }
+    }
+
+    private void TenacityUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.TenacityCost)
+        {
+            Player.Local.Tenacity += 1;
+            Player.Local.StatsPoints -= Player.Local.TenacityCost;
+            Log.Info("Tenacity upgraded.");
+        }
+    }
+
+    private void CoverUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.CoverCost)
+        {
+            Player.Local.Block += 1;
+            Player.Local.StatsPoints -= Player.Local.CoverCost;
+            Log.Info("Cover upgraded.");
+        }
+    }
+
+    private void MagicDefenseUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.MagicDefenseCost)
+        {
+            Player.Local.MagicDefense += 1;
+            Player.Local.StatsPoints -= Player.Local.MagicDefenseCost;
+            Log.Info("Magic Defense upgraded.");
+        }
+    }
+
+    private void ArmorUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.ArmorCost)
+        {
+            Player.Local.Armor += 7;
+            Player.Local.StatsPoints -= Player.Local.ArmorCost;
+            Log.Info("Armor upgraded.");
+        }
+    }
+
+    private void HealthUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.HealthCost)
+        {
+            Player.Local.MaxHealth += 6;
+            Player.Local.StatsPoints -= Player.Local.HealthCost;
+            Log.Info("Health upgraded.");
+        }
+    }
+    public void DexterityUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.DexterityCost)
+        {
+            Player.Local.DEX += 5;
+            Player.Local.StatsPoints -= Player.Local.DexterityCost;
+            Player.Local.DexterityCost++;
+        }
+    }
+
+    public void EvasionUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.EvasionCost)
+        {
+            Player.Local.Evasion += 5;
+            Player.Local.StatsPoints -= Player.Local.EvasionCost;
+            Player.Local.EvasionCost++;
+        }
+    }
+
+    public void AbilityHasteUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.AbilityHasteCost)
+        {
+            Player.Local.AbilityHaste += 5;
+            Player.Local.StatsPoints -= Player.Local.AbilityHasteCost;
+            Player.Local.AbilityHasteCost++;
+        }
+    }
+
+    public void StaminaUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.StaminaCost)
+        {
+            Player.Local.MaxStamina += 10;
+            Player.Local.StatsPoints -= Player.Local.StaminaCost;
+            Player.Local.StaminaCost++;
+        }
+    }
+
+    public void PlayerWalkSpeedUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.PlayerWalkSpeedCost)
+        {
+            Player.Local.PlayerWalkSpeed += 14;
+            Player.Local.StatsPoints -= Player.Local.PlayerWalkSpeedCost;
+            Player.Local.PlayerWalkSpeedCost++;
+        }
+    }
+
+    public void PlayerRunSpeedUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.PlayerRunSpeedCost)
+        {
+            Player.Local.PlayerRunSpeed += 18;
+            Player.Local.StatsPoints -= Player.Local.PlayerRunSpeedCost;
+            Player.Local.PlayerRunSpeedCost++;
+        }
+    }
+
+    public void ManaUpgrade()
+    {
+        if (Player.Local.StatsPoints >= Player.Local.ManaCost)
+        {
+            Player.Local.MaxMana += 15;
+            Player.Local.StatsPoints -= Player.Local.ManaCost;
+            Player.Local.ManaCost++;
+        }
+    }
+    private void INTUpgrade()
+    {
+        // Implementierung der Methode
+        if (Player.Local.StatsPoints >= Player.Local.IntelligenceCost)
+        {
+            Player.Local.INT += 1;
+            Player.Local.StatsPoints -= Player.Local.IntelligenceCost;
+            Player.Local.IntelligenceCost++;
+        }
+    }
+
+    private void MagicPowerUpgrade()
+    {
+        // Implementierung der Methode
+        if (Player.Local.StatsPoints >= Player.Local.MagicPowerCost)
+        {
+            Player.Local.MagicPower += 5;
+            Player.Local.StatsPoints -= Player.Local.MagicPowerCost;
+            Player.Local.MagicPowerCost++;
+        }
+    }
+    private void MagicPenetrationUpgrade()
+    {
+        // Implementierung der Methode
+        if (Player.Local.StatsPoints >= Player.Local.MagicPenetrationCost)
+        {
+            Player.Local.MagicPenetration += 5;
+            Player.Local.StatsPoints -= Player.Local.MagicPenetrationCost;
+            Player.Local.MagicPenetrationCost++;
+        }
+    }
+
+    private void BonusEXPGainUpgrade()
+    {
+        // Implementierung der Methode
+        if (Player.Local.StatsPoints >= Player.Local.BonusEXPGainCost)
+        {
+            Player.Local.BonusEXPGain += 0.1f;
+            Player.Local.StatsPoints -= Player.Local.BonusEXPGainCost;
+            Player.Local.BonusEXPGainCost++;
+        }
+    }
+
+    private void BonusVyndaliumGainUpgrade()
+    {
+        // Implementierung der Methode
+        if (Player.Local.StatsPoints >= Player.Local.BonusVyndaliumGainCost)
+        {
+            Player.Local.BonusVyndalium += 1;
+            Player.Local.StatsPoints -= Player.Local.BonusVyndaliumGainCost;
+            Player.Local.BonusVyndaliumGainCost++;
+        }
+    }
+    public void CheckBackpackSlots()
+    {
+        var playerInstance = Player.Local; // Annahme, dass Player.Local eine Instanz von Player ist
+        int maxSlots = playerInstance.MAX_BACKPACK_SLOTS;
+        // Verwenden Sie maxSlots nach Bedarf
+    }
+
+
+    protected override int BuildHash()
+    {
+
+        if (Player.Local is null || Player.Local.Inventory == null)
+            return -1;
+
+        return HashCode.Combine(
+        Player.Local.Level,
+        Player.Local.MAX_BACKPACK_SLOTS,
+        PanelTypeText.Strength,
+        PanelTypeText.AttackPower,
+        Player.Local.Inventory.BackpackItems.HashCombine(i => i?.GetHashCode() ?? -1),
+        Player.Local.Inventory.EquippedItems.HashCombine(i => i?.GetHashCode() ?? -1)
+        );
+    }
+    
+}

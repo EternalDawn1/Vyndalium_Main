@@ -1,0 +1,103 @@
+{
+  "RootObject": {
+    "__guid": "978ebd06-49b0-43b6-a33c-6277cf074ae3",
+    "Flags": 0,
+    "Name": "itemobject3prefab",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "Components": [
+      {
+        "__type": "Sandbox.Prop",
+        "__guid": "c723f542-b433-4c97-a1b6-27989e7d3bcc",
+        "BodyGroups": 18446744073709551615,
+        "Health": 0,
+        "IsStatic": true,
+        "Model": "models/rust_props/wooden_crates/wooden_crate_a.vmdl",
+        "StartAsleep": false,
+        "Tint": "1,1,1,1"
+      },
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "33cf5f04-17df-4da1-813b-80cd7990139c",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassCenterOverride": "0,0,0",
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "OverrideMassCenter": false,
+        "RigidbodyFlags": "DisableCollisionSounds",
+        "StartAsleep": false
+      },
+      {
+        "__type": "GeneralGame.ItemObject",
+        "__guid": "a21b82d1-0801-41f8-b31e-158fbe61952e",
+        "prefabPaths": [
+          "prefabs/potions/potion_small.prefab",
+          "prefabs/items/wood_log.prefab",
+          "prefabs/entitys/chestsystem/example1.prefab",
+          null
+        ],
+        "DeathSound": "sounds/upgrade/gold.sound",
+        "Health": 500,
+        "MaxHealth": 500,
+        "Name": "Item",
+        "Ragdoll": {
+          "_type": "gameobject",
+          "prefab": "models/npcs/slime/item.prefab"
+        },
+        "VyndaliumReward": 16,
+        "XpReward": 36
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "564559a3-1a9c-447e-a269-3b10a0febe9e",
+        "Flags": 0,
+        "Name": "hp",
+        "Position": "0,0,78.28467",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "GeneralGame.HUD.ItemUI",
+            "__guid": "bca46d24-c532-481d-86fc-523e1ebddd9e",
+            "item": {
+              "_type": "component",
+              "component_id": "a21b82d1-0801-41f8-b31e-158fbe61952e",
+              "go": "978ebd06-49b0-43b6-a33c-6277cf074ae3",
+              "component_type": "ItemObject"
+            }
+          },
+          {
+            "__type": "Sandbox.WorldPanel",
+            "__guid": "6a573360-3015-40d3-95fa-79ee2f465d61",
+            "HorizontalAlign": "Center",
+            "InteractionRange": 1000,
+            "LookAtCamera": true,
+            "PanelSize": "512,512",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderScale": 1,
+            "VerticalAlign": "Center"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "ResourceVersion": 1,
+  "__references": [
+    "rust.wooden_crate_a"
+  ],
+  "IsValid": true,
+  "__version": 1
+}

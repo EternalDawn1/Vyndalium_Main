@@ -1,5 +1,7 @@
 ﻿
 
+using GeneralGame.HUD;
+
 namespace GeneralGame;
 
 public enum InputMode
@@ -46,6 +48,7 @@ public class Interaction
 	[Property, Category( "Required" )]
 	[InputAction]
 	public string Keybind { get; set; } = HUD.InputAction.Use;
+	
 
 	/// <summary>
 	/// The UI description displayed when interacting
@@ -53,10 +56,10 @@ public class Interaction
 	[Property, Category( "Required" )]
 	public string Description { get; set; } = "";
 
-	[Property, Category( "Requird" )]
+	[Property, Category( "Required" )]
 	public string Stats { get; set; }
 
-	
+
 
 	/// <summary>
 	/// The action that is performed when interacted with
@@ -69,13 +72,13 @@ public class Interaction
 	/// The max distance you can use this interaction from
 	/// </summary>
 	[Property, Category( "Optional" )]
-	public float InteractDistance { get; set; } = 175f;
+	public float InteractDistance { get; set; } = 125f;
 
 	/// <summary>
 	/// Where this interaction is accessible from
 	/// </summary>
 	[Property, Category( "Optional" )]
-    public AccessibleFrom Accessibility { get; set; } = AccessibleFrom.All;
+	public AccessibleFrom Accessibility { get; set; } = AccessibleFrom.All;
 
 	/// <summary>
 	/// Whether or not the interaction can be performed.
@@ -188,16 +191,25 @@ public class Interaction
 
 		return false;
 	}
+	public string Name { get; set; }
+
+
+	
+
+	
 }
+
+
 
 public class Interactions : Component
 {
+	public float InteractDistance { get; set; } = 125f;
 	[Property]
 	public List<Interaction> ObjectInteractions { get; set; }
 
 	[Property]
 	public bool HideOnEmpty { get; set; } = false;
-
+	
 	public IEnumerable<Interaction> AllInteractions => ObjectInteractions.Concat( programmedInteractions ?? new List<Interaction>() );
 
 	private List<Interaction> programmedInteractions;
@@ -265,4 +277,103 @@ public class Interactions : Component
 			}
 		}
 	}
+	private Color GetColorBasedOnTier( Tier tier )
+	{
+		return tier switch
+		{
+			Tier.C => Color.Gray,
+			Tier.B => Color.Blue,
+			Tier.A => Color.Green,
+			Tier.S => Color.Red,
+			Tier.SS => Color.Magenta, // Orange
+			Tier.SSS => Color.Yellow,
+			_ => Color.White, // Standardfarbe, falls keine Übereinstimmung gefunden wird
+		};
+	}
+	
+	public Tier Tier { get; set; }
+	public void Highlight( bool shouldHighlight )
+	{
+		if ( IsProxy || GameObject == null || GameObject.Components == null )
+			return;
+
+		var outline = GameObject.Components.Get<HighlightOutline>();
+
+		bool isCurrentlyHighlighted = outline != null;
+		if ( shouldHighlight == isCurrentlyHighlighted )
+		{
+			if ( outline != null && outline.Color == Color.White && outline.Width == 0.5f && outline.ObscuredColor == Color.White )
+			{
+				return;
+			}
+		}
+
+		if ( shouldHighlight )
+		{
+			if ( outline == null )
+			{
+				outline = GameObject.Components.Create<HighlightOutline>();
+				if ( outline == null ) // Überprüfen, ob die Erstellung erfolgreich war
+					return;
+			}
+			var itemInteractable = GameObject.Components.Get<ItemInteractable>();
+			if ( itemInteractable == null ) // Überprüfen, ob itemInteractable null ist
+				return;
+
+			Color tierColor = GetColorBasedOnTier( itemInteractable.Tier );
+
+			outline.Color = tierColor;
+			outline.Width = 0.8f;
+		}
+		else
+		{
+			if ( outline != null )
+			{
+				outline.Destroy( );
+			}
+		}
+	}
+	public bool IsHighlighted()
+{
+    var outline = GameObject?.Components?.Get<HighlightOutline>();
+    return outline != null;
+}
+	protected override void OnUpdate()
+	{
+		var player = Player.Local;
+		var targetObject = player?.TargetedGameObject;
+
+		if ( targetObject == null )
+			return;
+
+		var interactionComponent = targetObject.Components.Get<Interaction>();
+		if ( interactionComponent != null )
+		{
+			if ( interactionComponent.Action != null )
+			{
+				interactionComponent.Action.Invoke( player, targetObject ); // Null-Prüfung hinzugefügt
+			}
+			else
+			{
+				
+			}
+		}
+		else
+		{
+			
+		}
+
+		if ( IsProxy )
+		{
+			Highlight( true );
+		}
+		else
+		{
+			Highlight( false );
+		}
+	}
+
+
+
+
 }

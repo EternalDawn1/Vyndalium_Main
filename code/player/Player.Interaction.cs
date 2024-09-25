@@ -4,7 +4,7 @@ namespace GeneralGame;
 
 public partial class Player
 {
-	private const float INTERACTION_DISTANCE = 100f;
+	private const float INTERACTION_DISTANCE = 105f;
 	private const float INTERACTION_SIZE = 10f;
 
 	public Ray ViewRay => new( PlyCamera.Transform.Position, PlyCamera.Transform.Rotation.Forward );
@@ -12,6 +12,7 @@ public partial class Player
 	public SceneTraceResult InteractionTrace { get; private set; }
 	public BBox? InteractionBounds { get; private set; }
 
+	[Broadcast]
 	private void UpdateInteractions()
 	{
 		var thinTrace = Scene.Trace.Ray( ViewRay, INTERACTION_DISTANCE )
@@ -72,33 +73,31 @@ public partial class Player
 	}
 
 	// A lot of parameters! We should fix this up at a later point.
-	
+
 	[Broadcast]
 	public void BroadcastInteraction(
-		Vector3 position,
-		Rotation rotation,
-		InteractAnimations animation,
-		Guid interactionObjectId,
-		int soundResourceId,
-		bool playSoundFromPlayer
-	)
+	Vector3 position,
+	Rotation rotation,
+	InteractAnimations animation,
+	Guid interactionObjectId,
+	int soundResourceId,
+	bool playSoundFromPlayer
+)
 	{
 		if ( animation == InteractAnimations.Interact )
 		{
-			ModelRenderer.Set( "right_ik_pos", position );
-			ModelRenderer.Set( "right_ik_rot", rotation );
-			ModelRenderer.Set( "use", true );
+			
+			
 		}
 		else if ( animation == InteractAnimations.Action )
 		{
-			ForceHoldType( HoldType, 0.5f );
-			ModelRenderer.Set( "right_ik_pos", position );
-			ModelRenderer.Set( "right_ik_rot", rotation );
-			ModelRenderer.Set( "action", true );
+			
+			
+			
 		}
 		else if ( animation == InteractAnimations.Reload )
 		{
-			ModelRenderer.Set( "reload", true );
+			
 		}
 
 		var soundEvent = ResourceLibrary.Get<SoundEvent>( soundResourceId );
@@ -109,9 +108,25 @@ public partial class Player
 			.Where( x => x.Id == interactionObjectId )
 			.FirstOrDefault();
 
+		// Null-Prüfung für interactionGameObject
+		if ( interactionGameObject == null )
+		{
+			// Logge eine Warnung oder handle den Fehler entsprechend
+			Log.Info( "interactionGameObject ist null" );
+			return;
+		}
+		if ( Player.Local == null )
+		{
+			// Fehlerbehandlung oder Logging
+			return;
+		}
+
 		
+
+		
+
+
 	}
-	
 }
 
 

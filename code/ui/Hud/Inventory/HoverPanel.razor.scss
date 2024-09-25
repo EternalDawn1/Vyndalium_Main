@@ -1,18 +1,21 @@
 @import "/ui/Hud/Style.scss";
 
 HoverPanel {
+    z-index: 500;
     position: absolute;
-    transition: all 0.2s ease-in;
+    transition: all 0.1s ease-in;
 
     &:intro {
-        transform: translateY(2);
+        transform: translateY(0);
         opacity: 0;
+        transition: all 0.1s ease-out;
+        
     }
 
     &:outro {
         
-        transform: translateY(4);
+        transform: translateY(1);
         opacity: 0.01;
-        transition: all 0.5s ease-out;
+        transition: all 0.1s ease-out;
     }
 }

@@ -1,0 +1,131 @@
+@namespace GeneralGame.HUD
+@attribute [StyleSheet]
+@using System
+@using System.ComponentModel.DataAnnotations
+@using System.Collections.Generic
+@using System.Linq
+@using System.Threading.Tasks
+@using Sandbox
+@using Sandbox.Services
+@using Sandbox.UI
+@using Sandbox.UI.Construct
+
+@using Sandbox.Network
+@using GeneralGame
+
+
+@using Sandbox.Menu;
+
+
+<root>
+    @if (leaderboard != null && leaderboard.Entries.Count() > 1)
+    {
+        <button class="exit-button" @onclick="@(() => CloseMission())"></button>
+        <div class="header">Leaderboard</div>
+        
+        <div class="main-panel">
+            <div class="header2">Avg. Most Vyndalium Count
+                <div class="entries">
+                    @foreach (var entry in leaderboard.Entries)
+                    {
+                        var offset = 0;
+                        var entryClass = entry.Rank == 1 ? "entry top-rank" : entry.Rank <= 10 ? $"entry top-ten rank-{entry.Rank}" : "entry";
+                        <div class="@entryClass" style="flex-shrink: 0;">
+                            <label class="rank">##@(entry.Rank - offset)</label>
+                            <label class="name">@entry.DisplayName</label>
+                            <label class="value">@entry.Value</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="header2">Avg. Most NPC kills
+                <div class="entries">
+                    @if (leaderboard2 != null && leaderboard2.Entries.Any())
+                    {
+                        @foreach (var entry in leaderboard2.Entries)
+                        {
+                            var offset = 0;
+                            var entryClass = entry.Rank == 1 ? "entry top-rank" : entry.Rank <= 10 ? $"entry top-ten rank-{entry.Rank}" : "entry";
+                            <div class="@entryClass">
+                                <label class="rank">##@(entry.Rank - offset)</label>
+                                <label class="name">@entry.DisplayName</label>
+                                <label class="value">@entry.Value</label>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</root>
+
+@code
+{
+    public static Leaderboard Instance { get; private set; }
+    public Leaderboard()
+    {
+        Instance = this;
+    }
+   private void CloseMission()
+    {
+        Player.Local.BlockInputs = false;
+        FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud);
+    }
+    Sandbox.Services.Leaderboards.Board2 leaderboard;
+    Sandbox.Services.Leaderboards.Board2 leaderboard2;
+  
+    public override void Tick()
+    {
+                Log.Info("Leaderboard Tick");
+                leaderboard = Sandbox.Services.Leaderboards.GetFromStat("vyndalium_count");
+                leaderboard.Refresh();
+                
+                if (leaderboard != null)
+                {
+                    leaderboard.Refresh();
+                    leaderboard.SetAggregationMax();
+                  
+                }
+                else
+                {
+                    Log.Warning("Leaderboard 'vyndalium_count1' not found.");
+                }
+
+                leaderboard2 = Sandbox.Services.Leaderboards.GetFromStat("npc");
+                if (leaderboard2 != null)
+                {
+                    leaderboard2.Refresh();
+                    leaderboard2.SetAggregationMax();
+                }
+                else
+                {
+                    Log.Warning("Leaderboard 'npc' not found.");
+                }
+    }
+  
+    
+
+    async void Refresh()
+    {
+            if (leaderboard != null)
+            {
+                await leaderboard.Refresh();
+                leaderboard.MaxEntries = 27;
+            }
+            if (leaderboard2 != null)
+            {
+                leaderboard2.MaxEntries = 27;
+                await leaderboard2.Refresh();
+            }
+
+            
+        StateHasChanged();
+    }
+
+   protected override int BuildHash()
+    {
+        return HashCode.Combine(
+            leaderboard,
+            leaderboard2);
+    }
+}

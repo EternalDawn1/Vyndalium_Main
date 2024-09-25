@@ -1,0 +1,57 @@
+.notification-panel {
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    width: 20%;
+    z-index: 1; // Niedriger Z-Index für das Benachrichtigungsfeld
+    justify-content: center;
+    flex-direction: column;
+    font-family: geneva;
+
+    .notification {
+        position: relative;
+        width: 100%;
+
+        background: linear-gradient(to right, rgba(14, 218, 82, 0.671), rgba(0, 0, 0, 0.192));
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        font-size: 16px;
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        animation: fadeOutUp 5s forwards; 
+        
+        
+        .notification-icon {
+            position: relative;
+            justify-content: center;
+            
+                    width: 24px;
+                    /* oder eine andere gewünschte Größe */
+                    height: 24px;
+                    /* oder eine andere gewünschte Größe */
+                    margin-right: 8px;
+                    /* Abstand zwischen Icon und Text */
+                   
+            }// Animation hinzufügen
+    }
+}
+
+@keyframes fadeOutUp {
+    0% {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+
+    80% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}

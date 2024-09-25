@@ -1,0 +1,55 @@
+{
+  "RootObject": {
+    "__guid": "4d578573-3a43-4362-b9fa-f50cdcc564ea",
+    "Flags": 0,
+    "Name": "skeleton",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "c8136301-718a-403d-9f32-83ff2503db88",
+        "BodyGroups": 18446744073709551615,
+        "CreateBoneObjects": false,
+        "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
+        "Model": "models/citizen/skin/skeleton/models/skeleton_skin.vmdl",
+        "Morphs": {},
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
+        "RenderType": "On",
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
+      },
+      {
+        "__type": "Sandbox.ModelPhysics",
+        "__guid": "a6d17e15-c521-44e7-aa06-23ed72dba34f",
+        "Locking": {},
+        "Model": "models/citizen/citizen.vmdl",
+        "MotionEnabled": true,
+        "Renderer": {
+          "_type": "component",
+          "component_id": "c8136301-718a-403d-9f32-83ff2503db88",
+          "go": "4d578573-3a43-4362-b9fa-f50cdcc564ea",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "RigidbodyFlags": "DisableCollisionSounds"
+      },
+      {
+        "__type": "GeneralGame.ZombieRagdoll",
+        "__guid": "db10403f-bffd-45d8-8e64-67a635df38ed"
+      }
+    ],
+    "Children": [],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

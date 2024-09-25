@@ -2,92 +2,19 @@
 @using System.Linq
 @using Sandbox;
 @using Sandbox.UI
-@attribute [StyleSheet]
+
 @using GeneralGame
 @inherits Panel
 @namespace GeneralGame.HUD
-@page "/confirm"
-
-
-@if (Player.Local is null)
-	return;
 
 <root>
-   @if (isDialogVisible)
-    {
-        <div class="dialog">
-            <div class="text"> 
-                @dialogMessage
-                
-            </div>
-
-            <button class="button" @onclick="@ConfirmPurchase">Yes</button>
-            <button class="button2" @onclick="@CancelPurchase">No</button>
-            
-        </div>
-    }
-
+    
+    
+    <div class="confirm-dialog">
+        <p class="message">@dialogMessage</p>
+        <button class="button" @onclick="@ConfirmAction">Yes</button>
+        <button class="button" @onclick="CancelAction">No</button>
+    </div>
+    
 </root>
 
-@code 
-{
-    public ItemComponent SelectedItem { get; set; }
-    public static Confirm Instance { get; private set; } 
-    public Confirm() => Instance = this;
-
-    private Player player { get; set;}
-    private bool isDialogVisible = false;
-    private string dialogMessage = "";
-    private TaskCompletionSource<bool> taskCompletionSource;
-
-   public async Task<bool> ShowConfirmationDialog(ItemComponent item)
-    {
-        if (item == null)
-        {
-            Log?.Info("ShowConfirmationDialog called with null item");
-        }
-        else
-        {
-            Log?.Info($"ShowConfirmationDialog called with item: {item.Name}");
-        }
-        SelectedItem = item;
-        dialogMessage = $"Do you want to buy {item.Name} for {item.Price} Vyndalium?";
-        
-        FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Confirm);
-        isDialogVisible = true;
-        StateHasChanged();
-        taskCompletionSource = new TaskCompletionSource<bool>();
-        return await taskCompletionSource.Task;
-    }
-
-    private void ConfirmPurchase()
-    {
-        if (!isDialogVisible ||SelectedItem == null || player == null)
-    {
-        Log?.Info("No item selected or player not initialized");
-        return;
-    }
-
-    Log?.Info($"SelectedItem is: {SelectedItem.Name}");
-        
-    if(player.TrySpendVyndalium(SelectedItem.Price))
-    {
-        player.Vyndalium -= SelectedItem.Price;
-        player.Inventory.GiveItem(SelectedItem);
-    }
-        HideDialog();
-        taskCompletionSource.SetResult(true);
-    }
-
-    private void CancelPurchase()
-    {
-        HideDialog();
-        taskCompletionSource.SetResult(false);
-        FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud);
-    }
-
-    private void HideDialog()
-    {
-        isDialogVisible = false;
-    }
-}

@@ -1,7 +1,7 @@
 namespace GeneralGame;
 
 
-public class RandomItemDrop : Component
+public class RandomItemDrop : GameResource
 {
     [Property] public List<GameObject> RandomItems { get; set; } = new();
     public List<GameObject> DroppedItems { get; private set; } = new();
@@ -14,8 +14,7 @@ public class RandomItemDrop : Component
         if (randomItem != null)
         {
             var item = randomItem.Clone();
-            item.Transform.Position = Transform.Position + Vector3.Up * 20;
-            item.Transform.Rotation = Transform.Rotation;
+           
             item.NetworkSpawn();
 			Log.Info("hello");
             DroppedItems.Add(item);

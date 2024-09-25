@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net7.0": {
+      "actiongraph/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Base Editor Library": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/actiongraph.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/actiongraph.dll": {}
+        }
+      },
       "Base Editor Library/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -22,42 +35,162 @@
           "bin/placeholder/Base Library.dll": {}
         }
       },
-      "new_game_two/1.0.0": {
+      "hammer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Base Editor Library": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/hammer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/hammer.dll": {}
+        }
+      },
+      "jigglebones/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Base Library": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/new_game_two.dll": {}
+          "bin/placeholder/jigglebones.dll": {}
         },
         "runtime": {
-          "bin/placeholder/new_game_two.dll": {}
+          "bin/placeholder/jigglebones.dll": {}
+        }
+      },
+      "libevents/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Base Library": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/libevents.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/libevents.dll": {}
+        }
+      },
+      "scenefoliagepainter/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Base Library": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/scenefoliagepainter.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/scenefoliagepainter.dll": {}
+        }
+      },
+      "shadergraph/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Base Editor Library": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/shadergraph.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/shadergraph.dll": {}
+        }
+      },
+      "vnbase_library/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Base Library": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/vnbase_library.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/vnbase_library.dll": {}
+        }
+      },
+      "vyndalium/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Base Library": "1.0.0",
+          "jigglebones": "1.0.0",
+          "libevents": "1.0.0",
+          "scenefoliagepainter": "1.0.0",
+          "vnbase_library": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/vyndalium.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/vyndalium.dll": {}
         }
       }
     }
   },
   "libraries": {
+    "actiongraph/1.0.0": {
+      "type": "project",
+      "path": "../../../SteamLibrary/steamapps/common/sbox/editor/ActionGraph/Code/actiongraph.csproj",
+      "msbuildProject": "../../../SteamLibrary/steamapps/common/sbox/editor/ActionGraph/Code/actiongraph.csproj"
+    },
     "Base Editor Library/1.0.0": {
       "type": "project",
-      "path": "R:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\tools\\Code\\Base Editor Library.csproj",
-      "msbuildProject": "R:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\tools\\Code\\Base Editor Library.csproj"
+      "path": "../../../SteamLibrary/steamapps/common/sbox/addons/tools/Code/Base Editor Library.csproj",
+      "msbuildProject": "../../../SteamLibrary/steamapps/common/sbox/addons/tools/Code/Base Editor Library.csproj"
     },
     "Base Library/1.0.0": {
       "type": "project",
-      "path": "R:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\Code\\Base Library.csproj",
-      "msbuildProject": "R:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\Code\\Base Library.csproj"
+      "path": "../../../SteamLibrary/steamapps/common/sbox/addons/base/Code/Base Library.csproj",
+      "msbuildProject": "../../../SteamLibrary/steamapps/common/sbox/addons/base/Code/Base Library.csproj"
     },
-    "new_game_two/1.0.0": {
+    "hammer/1.0.0": {
       "type": "project",
-      "path": "../Code/new_game_two.csproj",
-      "msbuildProject": "../Code/new_game_two.csproj"
+      "path": "../../../SteamLibrary/steamapps/common/sbox/editor/Hammer/Code/hammer.csproj",
+      "msbuildProject": "../../../SteamLibrary/steamapps/common/sbox/editor/Hammer/Code/hammer.csproj"
+    },
+    "jigglebones/1.0.0": {
+      "type": "project",
+      "path": "../Libraries/facepunch.jigglebones/Code/jigglebones.csproj",
+      "msbuildProject": "../Libraries/facepunch.jigglebones/Code/jigglebones.csproj"
+    },
+    "libevents/1.0.0": {
+      "type": "project",
+      "path": "../Libraries/facepunch.libevents/Code/libevents.csproj",
+      "msbuildProject": "../Libraries/facepunch.libevents/Code/libevents.csproj"
+    },
+    "scenefoliagepainter/1.0.0": {
+      "type": "project",
+      "path": "../Libraries/stellawisps.scenefoliagepainter/Code/scenefoliagepainter.csproj",
+      "msbuildProject": "../Libraries/stellawisps.scenefoliagepainter/Code/scenefoliagepainter.csproj"
+    },
+    "shadergraph/1.0.0": {
+      "type": "project",
+      "path": "../../../SteamLibrary/steamapps/common/sbox/editor/ShaderGraph/Code/shadergraph.csproj",
+      "msbuildProject": "../../../SteamLibrary/steamapps/common/sbox/editor/ShaderGraph/Code/shadergraph.csproj"
+    },
+    "vnbase_library/1.0.0": {
+      "type": "project",
+      "path": "../Libraries/spoonstuff.vnbase_library/Code/vnbase_library.csproj",
+      "msbuildProject": "../Libraries/spoonstuff.vnbase_library/Code/vnbase_library.csproj"
+    },
+    "vyndalium/1.0.0": {
+      "type": "project",
+      "path": "../Code/vyndalium.csproj",
+      "msbuildProject": "../Code/vyndalium.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
       "Base Editor Library >= 1.0.0",
-      "new_game_two >= 1.0.0"
+      "actiongraph >= 1.0.0",
+      "hammer >= 1.0.0",
+      "shadergraph >= 1.0.0",
+      "vyndalium >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -66,11 +199,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Recep\\OneDrive\\Dokumente\\s&box projects\\Vyndalium_Main\\sbox_vyndalium_main\\Vyndalium_Main\\Editor\\new_game_two.editor.csproj",
-      "projectName": "new_game_two.editor",
-      "projectPath": "C:\\Users\\Recep\\OneDrive\\Dokumente\\s&box projects\\Vyndalium_Main\\sbox_vyndalium_main\\Vyndalium_Main\\Editor\\new_game_two.editor.csproj",
+      "projectUniqueName": "R:\\sbox\\Vyndalium_Main\\Editor\\vyndalium.editor.csproj",
+      "projectName": "vyndalium.editor",
+      "projectPath": "R:\\sbox\\Vyndalium_Main\\Editor\\vyndalium.editor.csproj",
       "packagesPath": "C:\\Users\\Recep\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Recep\\OneDrive\\Dokumente\\s&box projects\\Vyndalium_Main\\sbox_vyndalium_main\\Vyndalium_Main\\Editor\\obj\\",
+      "outputPath": "R:\\sbox\\Vyndalium_Main\\Editor\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Recep\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -87,11 +220,20 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Recep\\OneDrive\\Dokumente\\s&box projects\\Vyndalium_Main\\sbox_vyndalium_main\\Vyndalium_Main\\Code\\new_game_two.csproj": {
-              "projectPath": "C:\\Users\\Recep\\OneDrive\\Dokumente\\s&box projects\\Vyndalium_Main\\sbox_vyndalium_main\\Vyndalium_Main\\Code\\new_game_two.csproj"
+            "R:\\sbox\\Vyndalium_Main\\Code\\vyndalium.csproj": {
+              "projectPath": "R:\\sbox\\Vyndalium_Main\\Code\\vyndalium.csproj"
             },
             "R:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\tools\\Code\\Base Editor Library.csproj": {
               "projectPath": "R:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\tools\\Code\\Base Editor Library.csproj"
+            },
+            "R:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\ActionGraph\\Code\\actiongraph.csproj": {
+              "projectPath": "R:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\ActionGraph\\Code\\actiongraph.csproj"
+            },
+            "R:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\Hammer\\Code\\hammer.csproj": {
+              "projectPath": "R:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\Hammer\\Code\\hammer.csproj"
+            },
+            "R:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\ShaderGraph\\Code\\shadergraph.csproj": {
+              "projectPath": "R:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\ShaderGraph\\Code\\shadergraph.csproj"
             }
           }
         }

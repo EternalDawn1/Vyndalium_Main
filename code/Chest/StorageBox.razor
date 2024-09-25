@@ -1,0 +1,41 @@
+@inherits Panel
+@namespace GeneralGame.HUD
+
+
+
+<root>
+    <div class="main-panel">
+            <div class="Panel">
+                <div class="section2">
+                    <div class="title">Inventory</div>
+                        <div class="items2 @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
+                            @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+                            {
+                                var item = Player.Local.Inventory.BackpackItems[index];
+                                <InventorySlot Item=@item BackpackSlotIndex=@index />
+                            }
+                        </div>
+                    <div style="align-items: center; margin: 20px 5px;"></div>
+                </div>
+            </div>
+
+        <div class="Panel2">
+            <div class="chest-inventory">
+                <div class="title2">Chest</div>
+                <button class="exit-button" @onclick="@(() => @itemStorage.CloseInventory())"></button>
+                <div class="items2 @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
+                    
+                        @for (var index = 0; index < 20; index++) // 10 Slots für die Kiste
+                        {
+                            var item = (index < itemStorage.items.Count) ? itemStorage.items[index] : null;
+                            <InventorySlot Item=@item IndependentSlotIndex=@index />
+                        }
+                    
+                </div>
+                <div style="align-items: center; margin: 20px 5px;"></div>
+            </div>
+        </div>
+    </div>
+</root>
+
+

@@ -1,0 +1,604 @@
+ShopPanel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: all;
+    font-family: Geneva;
+    .sidehud {
+        position: absolute;
+        right: 88%;
+        top: 1%;
+        height: 80%;
+        width: 7%;
+        font-size: 20px;
+        z-index: 10;
+        padding: 20px;
+        background-color: rgba(56, 54, 54, 0.747);
+       
+        flex-direction: column;
+        
+        border-radius: 10px;
+        margin-top: 10px;
+        gap: 45px;
+        
+
+
+    }
+        .exit-button {
+    
+    
+    
+            z-index: 100;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 32px;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            background-image: url(/ui/hud/exit.gif);
+            background-position: center;
+            background-size: cover;
+    
+            color: white;
+            border-width: 5px;
+            border-color: black;
+            right: 20;
+            top: 20;
+            padding: 5px;
+            cursor: pointer;
+    
+            :hover {
+    
+    
+    
+                position: relative;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                align-items: center;
+                justify-content: center;
+    
+            }
+        }
+    .panel-content{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-family: Geneva;
+            flex-direction: row;
+            padding: 10px;
+            .panel-content-text{
+                position: relative;
+                    width: 100%;
+                
+                    .panel-content-layout
+                    {
+                        position: relative;
+                            width: 100%;
+                            background-color: rgba(0, 0, 0, 0.568);
+                            border-radius: 10px;
+                            border-color: rgba(255, 255, 255, 0.404);
+                            border-width: 4px;
+                            padding: 15px;
+                            color: white;
+                            font-size: 23px;
+                            margin-left: 5px;
+                            margin-bottom: 5px;
+                            .title {
+                            
+                                    justify-content: center;
+                                    align-items: center;
+                                    background-color: #1996628c;
+                                    border-width: 1px;
+                                    border-color: #000000;
+                                    color: #ffffff;
+                                    font-size: 30px;
+                                    font-weight: bold;
+                                    font-style: italic;
+                            
+                            
+                                    padding: 10px;
+                                    border-radius: 10px;
+                                    margin-bottom: 10px;
+                            
+                                }
+                           
+                        .upgrade-section
+                        {
+                            top: 0%;
+                                left: 26%;
+                                padding: 20px;
+                                gap: 10px;
+                                flex-direction: column;
+                                position: relative;
+                                width: 70%;
+                                height: 82.5%;
+                                background-color: rgba(39, 39, 39, 0.815);
+                                border-radius: 10px;
+                                border-width: 1px;
+                                border-color: #000000;
+                             
+                            .items2{
+                                    position: relative;
+                                    
+                                    justify-content: center;
+                                    gap: 1px;
+                                    align-items: center;
+                                    padding: 5%;
+                                    flex-wrap: wrap;
+                                    width: 50%;
+                                    height: 100%;
+                                    overflow-x: scroll;
+                                    border-color: #000000;
+                                    background-color: #00000091;
+                                    border-width: 1px;
+                            }
+                            .upgrade-slot{
+                                right: 15%;
+                                bottom:60%;
+                                position: absolute;
+                                width: 20%;
+                                height: 20%;
+                                justify-content: center;
+                                align-items: center;
+
+                                
+                               
+                            }
+                            .money{
+                                            position: absolute;
+                                            bottom:92.5%;
+                                            left: 88%;
+                                            color:yellow;
+                                            font-size: 30px;
+                                            font-weight: bold;
+                                            font-style: italic;
+                                            gap: 10px;
+                                            
+                                            
+                                        }
+                            .upgrade-panel
+                            {
+                                position: absolute;
+                                width: 25%;
+                                right: 12%;
+                                top: 45%;
+                                height: 55%;
+                                
+                                flex-direction: column;  
+                                justify-content: center;
+                                align-items: center;
+                                transition: ease-in-out 15.5s;
+                                opacity: 0;
+
+                                &.visible {
+                                        opacity: 1;
+                                    }
+                                
+                                    &.fade {
+                                        opacity: 0;
+                                        transition: opacity 1s ease-in-out;
+                                    }
+                                .upgrade-cost{
+                                    position: relative;
+                                    width: 100%;
+                                    height: 100%;
+                                   
+                                   
+                                    
+                                    border-color: #000000;
+                                    color: #ffffff;
+                                    font-size: 30px;
+                                    font-weight: bold;
+                                    font-style: italic;
+                                    gap: 15px;
+                              
+                                    margin-bottom: 10px;
+                                    justify-content: center;
+                                    align-items: center;
+                                    flex-direction: column;
+                                    .number{
+                                        position: relative;
+                                        width: 80%;
+                                        height: 50%;
+                                        justify-content: center;
+                                        align-items: center;
+                                        background-color: #1996628c;
+                                        border-width: 1px;
+                                        border-color: #000000;
+                                        color: #ffffff;
+                                        font-size: 26px;
+                                        font-weight: bold;
+                                        font-style: italic;
+                                        padding: 10px;
+                                        border-radius: 10px;
+                                        margin-bottom: 10px;
+                                    }
+                                }
+                                .upgrade-level{
+                                    position: relative;
+                                    width: 100%;
+                                    height: 100%;
+                                    background-color: #058a2625;
+                                    top: 0%;
+                                    border-width: 1px;
+                                    border-color: #000000;
+                                    color: #ffffff;
+                                    font-size: 24px;
+                                    font-weight: bold;
+                                    font-style: italic;
+                                    gap: 10px;
+                                    border-radius: 10px;
+                                    margin-bottom: 10px;
+                                    justify-content: center;
+                                    align-items: center;
+                                    .total-materials{
+                                        color:green;
+                                        width: 100%;
+                                        height: 100%;
+                                        position: relative;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+                                    .missing-materials{
+                                        color:rgb(128, 36, 36);
+                                        width: 100%;
+                                        height: 100%;
+                                        position: relative;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+
+                                    
+
+                                }
+                                .upgrade-balance{
+                                    position: relative;
+                                    width: 100%;
+                                    height:100%;
+                                    
+                                    top: 0%;
+                                 
+                                    border-color: #000000;
+                                    color: #ffffff;
+                                    font-size: 24px;
+                                    font-weight: bold;
+                                    font-style: italic;
+                                    gap: 20px;
+                                    border-radius: 10px;
+                                    margin-bottom: 10px;
+                                    justify-content: center;
+                                    align-items: center;
+                                    flex-direction: column;
+                                    .number{
+                                        position: relative;
+                                        width: 80%;
+                                        height: 100%;
+                                        justify-content: center;
+                                        align-items: center;
+                                        background-color: #1996628c;
+                                        border-width: 1px;
+                                        border-color: #000000;
+                                        color: #ffffff;
+                                        font-size: 26px;
+                                        font-weight: bold;
+                                        font-style: italic;
+                                        padding: 10px;
+                                        border-radius: 10px;
+                                        margin-bottom: 10px;
+                                    }
+
+                                }    
+                                .upgrade-button{
+                                    position: relative;
+                                    width: 50%;
+                                    height: 100%;
+                                    background-color: #1996628c;
+                                    
+                                    border-width: 1px;
+                                    border-color: #000000;
+                                    color: #ffffff;
+                                    font-size: 30px;
+                                    font-weight: bold;
+                                    font-style: italic;
+                                    padding: 10px;
+                                    border-radius: 10px;
+                                    margin-bottom: 10px;
+                                    justify-content: center;
+                                    align-items: center;
+                                    :hover{
+                                        position: relative;
+                                        
+                                        background-color: #0cbd5b;
+                                        width: 100%;
+                                        align-items: center;
+                                        justify-content: center;
+                                        border-radius: 10px;
+                                        padding: 0px 1px;
+                                        sound-in: 'hover';
+                                        color: #000000;
+                                    }
+                                }                         
+                            }
+                        }   
+
+                        .main-panel {
+                                position: absolute;
+                                width: 100%;
+                                height: 100%;
+                                background-color: #f0f0f000;
+                                border-radius: 10px;
+                                padding: 10px;
+                                right: 5%;
+                                
+                        
+                                .Panel {
+                                    position: relative;
+                                    justify-content: center;
+                                 
+                        
+                                    background-color: #da2f2f00;
+                        
+                        
+                                    width: 100%;
+                                    height: 100%;
+                        
+                                    .section2 {
+                                        top: 0%;
+                                        left: 7%;
+                                        padding:20px;
+                                        gap: 10px;
+                                        flex-direction: column;
+                                        position: relative;
+                                        width: 70%;
+                                        height: 82.5%;
+                                        background-color: rgba(39, 39, 39, 0.815);
+                                        border-radius: 10px;
+                                        border-width: 1px;
+                                        border-color: #000000;
+                                        .title-container{
+                                            .title0 {
+                                            position: relative;
+                                            width: 100%;
+                                            height: 100%;
+                                            justify-content: center;
+                                            align-items: center;
+                                            background-color: #1996628c;
+                                            border-width: 1px;
+                                            border-color: #000000;
+                                            border-width: 1px;
+                                           
+                                            color: #ffffff;
+                                            font-size: 30px;
+                                            font-weight: bold;
+                                            font-style: italic;
+                        
+                        
+                                            padding: 10px;
+                                            border-radius: 10px;
+                                            margin-bottom: 10px;
+                        
+                                        }
+                                        }
+                                        .title {
+                                            
+                                            justify-content: center;
+                                            align-items: center;
+                                            background-color: #1996628c;
+                                            border-width: 1px;
+                                            border-color: #000000;
+                                            color: #ffffff;
+                                            font-size: 30px;
+                                            font-weight: bold;
+                                            font-style: italic;
+                        
+                        
+                                            padding: 10px;
+                                            border-radius: 10px;
+                                            margin-bottom: 10px;
+                        
+                                        }
+                                        
+                                        .title2 {
+                                            position: relative;
+                                            left: 24%;
+                                            width: 12%;
+                                            height: 5%;
+                                            justify-content: center;
+                                            align-items: center;
+                                            background-color: #ffffff8c;
+                                            border-width: 1px;
+                                            border-color: #000000;
+                                            color: #ffffff;
+                                            font-size: 30px;
+                                            font-weight: bold;
+                                            font-style: italic;
+                        
+                        
+                                            padding: 10px;
+                                            border-radius: 10px;
+                                            margin-bottom: 10px;
+                        
+                                        }
+                                        .items0 {
+                                                    position: relative;
+                                            
+                                                    justify-content: center;
+                                                    gap: 1px;
+                                                    align-items: center;
+                                                    padding: 5%;
+                                                    flex-wrap: wrap;
+                                                    width: 50%;
+                                                    height: 100%;
+                                                    overflow-x: scroll;
+                                                    border-color: #000000;
+                                                    background-color: #00000091;
+                                                    border-width: 1px;
+                                            
+                                                }
+                                        
+                                        
+
+                                        
+
+                                    
+                        
+                                        .money{
+                                            position: absolute;
+                                            bottom:92.5%;
+                                            left: 88%;
+                                            color:yellow;
+                                            font-size: 30px;
+                                            font-weight: bold;
+                                            font-style: italic;
+                                            gap: 10px;
+                                            
+                                            
+                                        }
+                                        .items-container{
+                                            gap: 10px;
+                                            position: relative;
+                                           
+                                            
+                                            
+                                            .items2 
+                                            {
+                                                    position: relative;
+                                                    margin-top: 10px;
+                                                    justify-content: center;
+                                                    
+                                                    align-items: center;
+                                                    
+                                                    flex-wrap: wrap;
+                                                    width: 100%;
+                                                    height: 100%;
+                                                    overflow-x: scroll;
+                                                    border-color: #000000;
+                                                    
+                                                    
+                                                    
+                                            
+                                            }
+                                            .pagination-controls {
+                                            position: absolute;
+                                            right: 0%;
+                                            top: 100%;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            margin-top: 20px;
+                                            }
+
+                                            .pagination-controls button {
+                                                margin: 0 10px;
+                                                padding: 5px 10px;
+                                                cursor: pointer;
+                                                
+                                                :hover:not(.disabled) 
+                                                {
+                                                    background-color: #0cbd5b;
+                                                    padding: 0px 1px;
+                                                    sound-in: 'hover';
+                                                    color: #000000;
+                                                }
+                                                &:active:not(.disabled) 
+                                                {
+                                                    
+                                                sound-in: 'light_click';
+                                                transform: scale(0.95);
+                                                
+                                                
+                                                
+                                                }
+                                            }
+
+                                            .pagination-controls span {
+                                                margin: 0 10px;
+                                            }
+                                            
+                                        }
+                                        .items-container2
+                                        {
+                                            width: 100%;
+                                            height: 100%;
+                                            overflow-y: scroll;
+
+                                            .items3{
+                                               
+                                                    flex-direction: column;
+                                                    position: relative;
+                                                    overflow-x: scroll; // Ermöglicht das Scrollen im Container
+                                                    width: 100%;
+                                                    height: 2000px; // Beispielhöhe, anpassen nach Bedarf
+                                                    
+                                                    .box{
+                                                        position: relative;
+                                                        
+                                                        flex-direction: column;
+                                                        gap: 20px;
+                                                        
+                                                        .potions, .weapon, .armor, .accessories, .consumables, .materials{
+                                                            position: relative;
+                                                            width: 100%;
+                                                            justify-content: center;
+                                                            
+                                                        }
+                                                        
+                                                        .title3{
+                                                            position: relative;
+                                                            width: 100%;
+                                                            height: 20%;
+                                                            justify-content: center;
+                                                            align-items: center;
+                                                            background-color: #1996628c;
+                                                            border-width: 1px;
+                                                            border-color: #000000;
+                                                            color: #ffffff;
+                                                            font-size: 30px;
+                                                            font-weight: bold;
+                                                            font-style: italic;
+                                                            padding: 10px;
+                                                            border-radius: 10px;
+                                                            margin-bottom: 10px;
+                                                            
+                                                            
+
+                                                        }
+                                                    }
+                                               
+                                            
+                                                
+                                                
+                                                
+
+                                            }
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                       
+                                
+                    }
+                    
+                    
+            }
+            
+        }
+    
+    
+
+    
+
+        
+
+
+
+    }
+}
+.fade {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}

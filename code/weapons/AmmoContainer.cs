@@ -6,11 +6,32 @@ namespace GeneralGame;
 
 [Group( "Arena" )]
 [Title( "Ammo Container" )]
-public sealed class AmmoContainer : Component
+public class AmmoContainer : Component
 {
-	private Dictionary<AmmoType, int> AmmoCount { get; set; } = new();
-	
-	
+	[Property]public Dictionary<AmmoType, int> AmmoCount = new Dictionary<AmmoType, int>();
+	[Property]private Dictionary<AmmoType, int> defaultAmmo = new Dictionary<AmmoType, int>();
+
+	public int GetAmmoCount( AmmoType ammoType )
+	{
+		if ( AmmoCount.TryGetValue( ammoType, out int count ) )
+		{
+			return count;
+		}
+		return 0;
+	}
+
+	public void RemoveAmmo( AmmoType ammoType, int count )
+	{
+		if ( AmmoCount.ContainsKey( ammoType ) )
+		{
+			AmmoCount[ammoType] = Math.Max( 0, AmmoCount[ammoType] - count );
+		}
+	}
+
+	public void SetAmmoCount( AmmoType ammoType, int count )
+	{
+		AmmoCount[ammoType] = count;
+	}
 
 	public void Give( AmmoType type, int ammo )
 	{
@@ -19,6 +40,7 @@ public sealed class AmmoContainer : Component
 
 		AmmoCount[type] += ammo;
 	}
+	
 
 	public bool TryTake( AmmoType type, int amount, out int taken )
 	{
@@ -63,5 +85,27 @@ public sealed class AmmoContainer : Component
 	public int Get( AmmoType type )
 	{
 		return CollectionExtensions.GetValueOrDefault( AmmoCount, type, 0 );
+	}
+
+	// Neue Methoden für DefaultAmmo
+	public void SetDefaultAmmo( AmmoType ammoType, int count )
+	{
+		defaultAmmo[ammoType] = count;
+	}
+
+	public int GetDefaultAmmo( AmmoType ammoType )
+	{
+		return CollectionExtensions.GetValueOrDefault( defaultAmmo, ammoType, 0 );
+	}
+
+	// Serialisierungsmethoden
+	public string Serialize()
+	{
+		return JsonSerializer.Serialize( this );
+	}
+
+	public static AmmoContainer Deserialize( string jsonString )
+	{
+		return JsonSerializer.Deserialize<AmmoContainer>( jsonString );
 	}
 }

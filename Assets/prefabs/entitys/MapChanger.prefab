@@ -1,0 +1,63 @@
+{
+  "RootObject": {
+    "__guid": "ffbb442b-f12f-4914-ae66-ca53f5b3c7a0",
+    "Flags": 0,
+    "Name": "mapchanger",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "Sandbox.ModelRenderer",
+        "__guid": "7e8df6e1-5bc8-4228-a5b6-4c8687502401",
+        "BodyGroups": 18446744073709551615,
+        "Model": "models/sbox_props/cardboard_box/cardboard_box.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "62e089d9-1376-40a5-b61e-7a8f63d70de1",
+        "Center": "0,0,0",
+        "IsTrigger": true,
+        "Scale": "50,50,50",
+        "Static": false
+      },
+      {
+        "__type": "GeneralGame.SceneChangeTrigger",
+        "__guid": "5e90195f-827b-4419-80cf-6cd4eaaef684",
+        "SceneToLoad": "StartBase"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "d57a1e98-c5b2-4213-9ef8-1f18c750b1ec",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "-0,0,86.00391",
+        "Rotation": "0,0,0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.TextRenderer",
+            "__guid": "f08c35c7-7eb0-46c6-8e65-79b3de898011",
+            "Color": "1,1,1,1",
+            "FontFamily": "Poppins",
+            "FontSize": 90.47,
+            "FontWeight": 800,
+            "Scale": 0.08,
+            "Text": "CONTINUE",
+            "TextAlignment": "Center"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.cardboard_box"
+  ],
+  "__version": 1
+}

@@ -4,8 +4,6 @@
     "Flags": 0,
     "Name": "aksu",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
@@ -36,7 +34,7 @@
         "EmptyReloadSoundSequence": "models/aksu/aksu_reload_empty.sndseq",
         "EmptyReloadTime": 3,
         "FireRate": 9,
-        "FireSound": "models/aksu/ak74u shoot.sound",
+        "FireSound": "sounds/guns/akm/akm.shoot.sound",
         "HitForce": 300,
         "HoldType": "Rifle",
         "HolsterSound": "sounds/weapons/weapon_holster3.sound",
@@ -70,8 +68,10 @@
         "Gravity": true,
         "LinearDamping": 0,
         "Locking": {},
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
       },
@@ -84,11 +84,15 @@
         "AttachmentTransform": {
           "UniformScale": 1,
           "IsValid": true,
+          "ForwardRay": {
+            "Forward": "1,0,0"
+          },
           "Scale": "1,1,1",
           "Rotation": "0,0,0,1"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
+        "BleedResistance": 0,
         "BlindResistance": 0,
         "BonusEXP": 0,
         "BonusScore": 0,
@@ -105,6 +109,7 @@
         "Evasion": 0,
         "FireResistence": 0,
         "HE": 0,
+        "Health": 0,
         "HideBodygroups": "None",
         "HoldType": "Rifle",
         "HolyResistence": 0,
@@ -118,9 +123,13 @@
           "Guid": "e23adcb4-7a59-4c04-92ce-88d76b9b52d2"
         },
         "INT": 0,
+        "IsBackable": false,
+        "IsEquipment": false,
+        "IsItem": true,
         "ItemLevel": 0,
         "LightningResistence": 0,
         "MagicDefense": 0,
+        "MagicPower": 0,
         "Mana": 0,
         "MaxStack": 0,
         "MoveSpeed": 0,
@@ -130,11 +139,15 @@
         "SellPrice": -1,
         "ShadowResistence": 0,
         "Slot": "Hand",
-        "SlowResistence": 0,
+        "SlowResistence": 0.1,
+        "Stats": [
+          79,
+          53
+        ],
         "STG": 0,
         "StunResistance": 0,
         "Tenacity": 0,
-        "Tier": "C",
+        "Tier": "SSS",
         "UpdatePosition": false,
         "UseSkinTint": false,
         "WeightInGrams": 0
@@ -144,7 +157,15 @@
         "__guid": "76983340-a12a-40a2-8f50-42ba01750baf"
       }
     ],
-    "Children": []
+    "Children": [],
+    "__variables": [
+      {
+        "Id": "SSS-AKM",
+        "Title": "SSS-AKM",
+        "Group": "Tier-Level",
+        "Targets": []
+      }
+    ]
   },
   "ShowInMenu": false,
   "MenuPath": null,

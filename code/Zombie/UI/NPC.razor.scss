@@ -1,0 +1,62 @@
+Npc {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .zombie-healthbar-container {
+        position: absolute;
+        left: 2%;
+        width: 29%;
+        height: 15%;
+        bottom: 15%;
+        background-color: grey;
+        border: 1px solid black;
+        z-index: 0;
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+
+        .zombie-healthbar {
+            width: 400px;
+            height: 32px;
+            bottom: 25px;
+            left: 7%;
+            background-blend-mode: multiply;
+            background-size: 100%;
+            
+            padding: 5px;
+            border-radius: 100px;
+
+            .inner {
+                flex-grow: 10;
+
+                .fill {
+                    height: 100%;
+                    border-right: 1px solid rgb(124, 124, 124);
+                    border-right-width: -11px;
+                    border: 4px rgba(0, 0, 0, 0.521);
+                    border-top-right-radius: -50px -50px;
+                    border-top-width: 3px;
+                    border-top-color: rgba(255, 255, 255, 0.219);
+                    border-bottom-right-radius: 50px;
+                    border-bottom-width: 1px;
+                    transition: width 0.5s ease-out;
+                }
+            }
+        }
+
+        >p {
+            position: absolute;
+            left: 105%;
+            top: 0%;
+            color: white;
+            font-size: 22px;
+            border-radius: 10%;
+            font-family: Geneva;
+            font-weight: 1500;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1;
+            background-color: rgba(206, 206, 206, 0.384);
+            padding: 0px 5px;
+        }
+    }
+}

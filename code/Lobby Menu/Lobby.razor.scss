@@ -1,0 +1,123 @@
+Lobby {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: all;
+    font-family: Geneva;
+
+    .sidehud {
+        position: absolute;
+        right: 88%;
+        top: 9%;
+        height: 80%;
+        width: 7%;
+        font-size: 20px;
+        z-index: 10;
+        padding: 20px;
+        background-color: rgb(56, 54, 54);
+
+        flex-direction: column;
+
+        border-radius: 10px;
+        margin-top: 10px;
+        gap: 45px;
+
+
+
+    }
+
+    .exit-button {
+
+
+
+        z-index: 100;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 32px;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        background-image: url(/ui/hud/exit.gif);
+        background-position: center;
+        background-size: cover;
+
+        color: white;
+        border-width: 5px;
+        border-color: black;
+        right: 5%;
+        top: 5%;
+        padding: 5px;
+        cursor: pointer;
+
+        :hover {
+
+
+
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+
+        }
+    }
+
+    .panel-content {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        font-family: Geneva;
+        flex-direction: row;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0);
+        .panel-content-text {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(245, 222, 179, 0);
+
+            .panel-content-layout {
+                flex-direction: column;
+                position: relative;
+                width: 50%;
+                height: 100%;
+                left: 30%;
+             
+                background-color: rgb(0, 0, 0);
+                border-radius: 10px;
+                border-color: rgba(255, 255, 255, 0.404);
+                border-width: 4px;
+                padding: 15px;
+                .main-panel{
+                    flex-direction: column;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    border-radius: 10px;
+                    border-color: rgba(255, 255, 255, 0.404);
+                    border-width: 4px;
+                    padding: 15px;
+                    gap: 20px;
+                    overflow-y: scroll;
+                    .box{
+                        flex-direction: column;
+                    }
+                    .title{
+                        color:white;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 34px;
+                        font-weight: bold;
+                        font-style: italc;
+
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+}

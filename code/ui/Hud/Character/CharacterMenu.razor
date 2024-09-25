@@ -7,35 +7,35 @@
 @using Sandbox;
 
 
-@if (Player.Local is null)
-{
-	return;
-}
+
 
 <root>
 
 
 	<SideButton Title="Exit" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud)) IsInverted=@(true)
-		ImagePath="ui/hud/goback.png" style="position: absolute; top: 30px; right: 0px;" style="z-index: 100;" />
+		ImagePath="ui/hud/exit.gif" style="position: absolute; top: 30px; right: 0px;" style="z-index: 100;" />
 	<SideButton Title="Inventory" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Inventory)) IsInverted=@(true)
 		ImagePath="ui/hud/player.png" style="position: absolute; top: 150px; right: 0px;" style="z-index: 100;" />
-	<div class="sidehud">
-		<SideButton ImagePath="ui/hud/success.gif" OnClick=@(() => ShowPanel(PanelType.Upgrade)) IsInverted=@(true)
-			IsDisabled=@(Player.Local.StatsPoints <= 0)
-			style="opacity : @(Player.Local.StatsPoints > 0 && currentpanel == PanelType.Attribute ? 1 : 0 );"
-			style="background-color: green;" />
-		<SideButton ImagePath="ui/hud/social.gif" OnClick=@(() => ShowPanel(PanelType.Attribute)) IsInverted=@(true)
-			style="opacity : @(currentpanel == PanelType.Upgrade ? 1 : 0 );" />
-	</div>
+	<SideButton Title="Abilities" OnClick=@(() =>
+		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Abilities)) IsInverted=@(true)
+		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 270px; right: 0px; " style="z-index: 100;" />
+	
 
 
 
 	<div class="section" style="opacity : @(currentpanel == PanelType.Attribute ? 1 : 1 )">
 
+		<h2 class="header2">
+			<li class="head" @onclick="@ShowMainStats"> Main Stats </li>
+			<button class="sidestats" @onclick="@ShowSideStats">Side Stats</button>
+			<button class="resist" @onclick="@ShowResistStats">Resist</button>
+			
+		</h2>
 
-		<div class="stats">
+		<div class="stats" style="opacity: @(currentpanel == PanelType.MainStats ? 1 : 0)">
+			
 			<h2 class="stats2">
 				<li>💘Health (HP)</li> <span class="n">@(Math.Round(Player.Local.MaxHealth))</span>
 				<div class="tooltip-text">
@@ -114,7 +114,7 @@
 
 
 		</div>
-		<div class="statsone">
+		<div class="statsone" style="opacity: @(currentpanel == PanelType.SideStats ? 1 : 0)">
 
 			<h2 class="stats4">
 				<li>⚔️Attack Speed (ATS)</li> <span class="n">@Math.Round(Player.Local.AttackSpeed, 2)</span>
@@ -163,17 +163,19 @@
 				</div>
 			</h2>
 
-			<h2 class="stats4">
-				<li>💯Attack Value (ATK)</li> <span class="n">@Math.Round(Player.Local.AttackValue, 2)</span>
+			<h2 class="stats4" style="flex-direction: column; justify-content: center; align-items: center; top: 10%;">
+				<li>💯Min ATK (ATK)</li> <span class="n">@Math.Round(Player.Local.MinAttackValue, 2)</span>
+				<li>💯Max ATK (ATK)</li> <span class="n">@Math.Round(Player.Local.MaxAttackValue, 2)</span>
 				<div class="tooltip-text">
 					<div class="header">💯Attack value of the player</div>
 				</div>
 			</h2>
 
 
+
 		</div>
 
-		<div class="statstwo">
+		<div class="statstwo" style="opacity: @(currentpanel == PanelType.ResistStats ? 1 : 0)">
 			<h2 class="stats3">
 				<li>🤒Tenacity (TEN)</li> <span class="n">@Math.Round(Player.Local.Tenacity, 2)</span>
 				<div class="tooltip-text">
@@ -229,79 +231,36 @@
 
 
 	</div>
-	<div class="items2" style="opacity : @(currentpanel == PanelType.Upgrade ? 1 : 0 )">
-		<h2 class="playe3">
-			<li class="title">Health </li>
-			<li class="title2">
-				[HE+]
-				<span class="tooltip-text2"> How much -% the Player is reducing Slow-Effects</span>
-			</li>
-			<div class="amount">@Math.Round(@Player.Local.MaxHealth)</div>
-			<button class="Button2" @onclick="@HealthUpgrade">
-				HP+
-
-			</button>
-
-		</h2>
-		<h2 class="playe3">
-			<li class="title">Strength</li>
-			<li class="title2">[STG+]</li>
-			<div class="amount">@Player.Local.STG</div>
-			<button class="Button2" @onclick="@STGUpgrade">ATP+</button>
-
-		</h2>
-		<h2 class="playe3">
-			<li class="title">Intelligence</li>
-			<li class="title2">[INT+]</li>
-			<div class="amount">@Player.Local.INT</div>
-			<button class="Button2" @onclick="@INTUpgrade">MAP+</button>
-
-		</h2>
-		<h2 class="playe3">
-			<li class="title">Dexerity</li>
-			<li class="title2">[DEX+]</li>
-			<div class="amount">@Player.Local.DEX</div>
-			<button class="Button2" @onclick="@DEXUpgrade">STM+</button>
-
-		</h2>
-		<h2 class="playe3">
-			<li class="title">Perception </li>
-			<li class="title2">[PER+]</li>
-			<div class="amount">@Player.Local.PER</div>
-			<button class="Button2" @onclick="@PERUpgrade">EVA+</button>
-
-		</h2>
-
-	</div>
+	
 	<div class="character">
 		<CharacterRenderer @ref=_renderer />
 		<div class="box">
 
 			<div class="EquippedItems">
-				<InventorySlot EquipSlotIndex=@EquipSlot.Head
+				<InventorySlot EquipSlotIndex=@EquipSlot.Head style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head] />
-				<InventorySlot EquipSlotIndex=@EquipSlot.Body
+				<InventorySlot EquipSlotIndex=@EquipSlot.Body style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Body] />
-				<InventorySlot EquipSlotIndex=@EquipSlot.Legs
+				<InventorySlot EquipSlotIndex=@EquipSlot.Legs style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Legs] />
-				<InventorySlot EquipSlotIndex=@EquipSlot.Feet
+				<InventorySlot EquipSlotIndex=@EquipSlot.Feet style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Feet] />
-				<InventorySlot EquipSlotIndex=@EquipSlot.Hand
+				<InventorySlot EquipSlotIndex=@EquipSlot.Hand style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] />
 			</div>
 			<div class="Access">
-				<InventorySlot EquipSlotIndex=@EquipSlot.Face
+				<InventorySlot EquipSlotIndex=@EquipSlot.Face style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
-				<InventorySlot EquipSlotIndex=@EquipSlot.Face
+				<InventorySlot EquipSlotIndex=@EquipSlot.Face style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
 
 
-				<InventorySlot EquipSlotIndex=@EquipSlot.Belt
+				<InventorySlot EquipSlotIndex=@EquipSlot.Belt style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt] />
-				<InventorySlot EquipSlotIndex=@EquipSlot.Bracer
+				<InventorySlot EquipSlotIndex=@EquipSlot.Bracer style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Bracer] />
 
-				<InventorySlot EquipSlotIndex=@EquipSlot.Back
+				<InventorySlot EquipSlotIndex=@EquipSlot.Back style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back] />
 			</div>
 
@@ -311,40 +270,40 @@
 	</div>
 	<div class="section2">
 		<div class="items">
-			<h2 class="playe">
-				<h2 class="playe1">
-					@foreach (var entry in Connection.All)
-					{
-						var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.OwnerConnection ==
-						entry);
+			<div class="playe">
+				
+				<div class="playerst">
+					<div class="playe1">
+						@foreach (var entry in Connection.All)
+						{
+							var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.Owner ==
+							entry);
 
+							<div class="row-item">
+								@if (entry.IsHost)
+								{
+									<div>👑</div>
+								}
 
-
-						<div class="row-item">
-							@if (entry.IsHost)
-							{
-								<div>👑</div>
-							}
-
-							@entry.DisplayName
-						</div>
-					}
-				</h2>
-				<h2 class="playe1">
-					<li>Level</li> <span class="nu">@Player.Local.Level</span>
-				</h2>
-				<h2 class="playe4">
-					<li>Experience</li> <span class="nu"> @Player.Local.Experience / @Player.Local.ExpPerLevel </span>
-				</h2>
-				<h2 class="playe3">
-					<li>Stats Points</li> <span class="nu">@Player.Local.StatsPoints</span>
-				</h2>
-				<h2 class="playe2">
-					<li>🪙 Vyndalium</li>
-					<div class="playic"></div>
-					<span class="Vyndn">@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
-				</h2>
-			</h2>
+								@entry.DisplayName
+							</div>
+						}
+					<div class="playe1">
+						<li>Level</li> <span class="nu">@Player.Local.Level</span>
+					</div>
+					<div class="playe4">
+						<li>Experience</li> <span class="nu">@Player.Local.Experience / @Player.Local.ExpPerLevel</span>
+					</div>
+					<div class="playe3">
+						<li>Stats Points</li> <span class="nu">@Player.Local.StatsPoints</span>
+					</div>
+					<div class="playe2">
+						<li>Money</li>
+						<div class="playic"></div>
+						<span class="Vyndn">@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -367,17 +326,70 @@
 		Attribute,
 		Upgrade,
 		Abilities,
-		CharacterStats
+		CharacterStats,
+		MainStats,
+		SideStats,
+		ResistStats
 	}
+	
+	public void Inspect(ItemComponent item)
+    {
+        // Überprüfen Sie, ob das Panel gültig ist
+        if (item == null)
+        {
+            Log.Error("Item is null");
+            return;
+        }
 
+        // Erstellen Sie das Inspektionspanel
+        var inspectionPanel = new InspectItem(item);
+
+        // Überprüfen Sie, ob das Panel bereits ein Kind eines anderen Panels ist
+        if (inspectionPanel.Parent != null)
+        {
+            Log.Error("InspectionPanel already has a parent");
+            return;
+        }
+
+        // Überprüfen Sie, ob das Panel gültig ist
+        if (!inspectionPanel.IsValid())
+        {
+            Log.Error("InspectionPanel is not valid");
+            return;
+        }
+
+        // Fügen Sie das Inspektionspanel als Kind hinzu
+        try
+        {
+            AddChild(inspectionPanel);
+        }
+        catch (Exception ex)
+        {
+            Log.Error($"Failed to add child panel: {ex.Message}");
+        }
+    }
 	CharacterRenderer _renderer;
 	public static CharacterMenu Instance { get; private set; }
 	public CharacterMenu() => Instance = this;
 
-	private PanelType currentpanel = PanelType.Attribute;
+	private PanelType currentpanel = PanelType.MainStats;
 	private void ShowPanel(PanelType panel)
 	{
 		currentpanel = panel;
+	}
+	private void ShowMainStats()
+	{
+		currentpanel = PanelType.MainStats;
+	}
+
+	private void ShowSideStats()
+	{
+		currentpanel = PanelType.SideStats;
+	}
+
+	private void ShowResistStats()
+	{
+		currentpanel = PanelType.ResistStats;
 	}
 
 	public void OnChanged()

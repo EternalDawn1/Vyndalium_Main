@@ -8,55 +8,61 @@ CharacterMenu {
     background-color: $fullscreen-bg;
     backdrop-filter: $fullscreen-blur;
     pointer-events: all;
+    
 
-    .sidehud {
-        position: absolute;
-        right: 88%;
-        top: 1%;
-        height: 100%;
-        width: 7%;
-        z-index: 10;
-        padding: 10px;
-        background-color: rgba(255, 255, 255, 0.068);
-        margin-top: 10px;
-        flex-direction: column;
-        border-radius: 10px;
-        gap: 35%;
-    }
+    
 
     .section {
         border-color: rgb(78, 78, 78);
         border-width: 0.2%;
         z-index: 1;
+        
+    }
+    .header2 {
+        top: 16%;
+
+        gap: 15px;
+        position: absolute;
+        flex-direction: column;
+        height: 5%;
+        width: 25%;
+        z-index: 500;
+        color: rgb(218, 218, 218);
+        left: 50%;
+        flex-direction: row;
+        
+        
+        .head, .sidestats, .resist{
+                position: relative;
+                
+                font-size: 16px;
+                top: -40%;
+                gap: 5px;
+                padding: 10px;
+                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);
+                border-radius: 5px;
+                color: rgb(255, 254, 254);
+                border-width: 1px;
+                border-color: rgba(255, 255, 255, 0.2);
+                font-family: geneva;
+            :hover {
+                    background-color: rgb(0, 255, 136);
+                    padding: 0 1%;
+                    border-radius: 5%;
+                    color:black;
+                    font-weight: bold;
+            
+            
+            
+            
+            
+            
+                }
+            
+        }
     }
 
-    .button {
-        position: relative;
-        top: 10%;
-        width: 10%;
-        left: 40%;
-        color: red;
-        font-size: 32%;
-        font-weight: 1000;
-
-        padding: 0 1%;
-
-        :hover:not(.disabled) {
-            background-color: rgba(0, 255, 136, 0.397);
-            cursor: pointer;
-            sound-in: 'hover';
-            padding: 0 1%;
-            border-radius: 5%;
-            transform: scale(1.1);
-        }
-
-        &:active:not(.disabled) {
-            sound-in: 'light_click';
-            background-color: rgb(250, 134, 39);
-            padding: 0 1%;
-            border-radius: 5%;
-        }
-    }
+    
 
     .stats {
         position: absolute;
@@ -64,37 +70,46 @@ CharacterMenu {
         height: 100%;
         width: 14%;
         z-index: 5;
-        color: rgb(20, 0, 0);
-        left: 48%;
-        top: 15%;
+        color: rgb(218, 218, 218);
+        left: 50%;
+        top: 24.7%;
         gap: 4%;
         margin-bottom: 5%;
+        
+        .head, .sidestats, .resist{
+            position: relative;
+            align-content: center;     
+            justify-content: center;
+            justify-content: space-between;
+            font-family: geneva;
+            font-size: 16px;
+            color: rgb(9, 255, 0);
+            
+            
+        }
 
 
 
         .stats2 {
-            justify-content: space-between;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.719) 0%, rgb(236, 236, 236), rgb(226, 226, 226)100%);
-            font-size: 20%;
-            font-weight: 1000;
-            padding: 0 4%;
-            z-index: 5;
-            height: 2%;
+                position: relative;
+                justify-content: space-between;
+                font-size: 16px;
+                top: -10%;
+                gap: 5px;
+                padding: 10px;
+                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);
+                border-radius: 5px;
+                color: rgb(255, 254, 254);
+                border-width: 1px;
+                border-color: rgba(255, 255, 255, 0.2);
+                font-family: geneva;
+            
+            
 
-            :hover {
-                background-color: rgb(0, 255, 136);
-                padding: 0 1%;
-                border-radius: 5%;
-
-
-
-
-
-
-            }
+            
 
             .n {
-                color: rgb(0, 0, 0);
+                color: rgb(255, 255, 255);
                 font-size: 20px;
                 font-weight: 1000;
             }
@@ -134,16 +149,15 @@ CharacterMenu {
     .statsone {
 
         position: absolute;
-        flex-direction: column;
-        height: 100%;
-        width: 14%;
-        z-index: 5;
-        color: rgb(20, 0, 0);
-        left: 48%;
-        top: 32.5%;
-        gap: 4%;
-        margin-bottom: 5%;
-
+            flex-direction: column;
+            height: 100%;
+            width: 14%;
+            z-index: 5;
+            color: rgb(218, 218, 218);
+            left: 50%;
+            top: 15%;
+            gap: 4%;
+            margin-bottom: 5%;
 
         .tooltip-text {
             opacity: 0;
@@ -180,12 +194,18 @@ CharacterMenu {
 
         .stats4 {
 
-            justify-content: space-between;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.719) 0%, rgb(236, 236, 236), rgb(226, 226, 226)100%);
-            font-size: 20%;
-            font-weight: 1000;
-            padding: 0 4%;
-            height: 2%;
+                position: relative;
+                justify-content: space-between;
+                font-size: 16px;
+                top: 24.7%;
+                gap: 5px;
+                padding: 10px;
+                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);
+                border-radius: 5px;
+                color: rgb(255, 254, 254);
+                border-width: 1px;
+                border-color: rgba(255, 255, 255, 0.2);
+                font-family: geneva;
 
 
 
@@ -193,7 +213,9 @@ CharacterMenu {
 
 
             .n {
-                color: rgb(41, 21, 221);
+                color: rgb(255, 255, 255);
+                    font-size: 20px;
+                    font-weight: 1000;
 
 
             }
@@ -204,15 +226,15 @@ CharacterMenu {
 
     .statstwo {
         position: absolute;
-        flex-direction: column;
-        height: 100%;
-        width: 14%;
-        z-index: 5;
-        color: rgb(20, 0, 0);
-        left: 48%;
-        top: 53%;
-        gap: 4%;
-        margin-bottom: 5%;
+            flex-direction: column;
+            height: 100%;
+            width: 14%;
+            z-index: 5;
+            color: rgb(218, 218, 218);
+            left: 50%;
+            top: 24.7%;
+            gap: 4%;
+            margin-bottom: 5%;
 
 
         .tooltip-text {
@@ -243,156 +265,46 @@ CharacterMenu {
 
 
         .stats3 {
-            justify-content: space-between;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.719) 0%, rgb(236, 236, 236), rgb(226, 226, 226)100%);
-            font-size: 20%;
-            font-weight: 1000;
-            padding: 0 4%;
-            height: 2%;
-
+            position: relative;
+                justify-content: space-between;
+                font-size: 16px;
+                top: -10%;
+                gap: 5px;
+                padding: 10px;
+                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);
+                border-radius: 5px;
+                color: rgb(255, 254, 254);
+                border-width: 1px;
+                border-color: rgba(255, 255, 255, 0.2);
+                font-family: geneva;
 
 
             .n {
-                color: rgb(41, 21, 221);
-            }
-
-
-        }
-
-    }
-
-    .items2 {
-        position: absolute;
-        left: 45%;
-        height: 11%;
-        z-index: 1;
-        width: 30%;
-        gap: 16%;
-        top: 3%;
-        font-size: 14%;
-        font-weight: bold;
-        background-color: rgba(255, 255, 255, 0);
-
-
-
-
-
-
-
-
-        .playe3 {
-            flex-direction: column;
-            top: -31%;
-            color: rgb(0, 0, 0);
-            width: 30%;
-            z-index: 1;
-            border-width: 1px;
-            border-color: rgb(0, 3, 1);
-            align-items: center;
-            background-color: rgb(255, 255, 255);
-            border-radius: 10px;
-            animation: 0.5s;
-
-            .title {
-                font-size: 20%;
-                color: rgb(0, 115, 255);
-            }
-
-            .title2 {
-                font-size: 15%;
-
-                :hover {
-                    transform: scale(1.3);
-                    background-color: rgb(97, 255, 97);
-                    border-radius: 11%;
-                }
-            }
-
-            .amount {
-                color: rgb(0, 0, 0);
-                font-size: 25%;
-
-            }
-
-
-
-
-
-
-
-            .Button2 {
-                position: relative;
-                width: 70%;
-                left: 0%;
-                height: 30px;
-                background-image: url(/ui/hud/giphy.gif);
-
-
-
                 color: rgb(255, 255, 255);
-                font-weight: bold;
-                background-color: white;
-
-                border-radius: 5px;
-                border-width: 1px;
-
-                border-color: rgb(0, 3, 1);
-                font-size: 12px;
-                cursor: pointer;
-                align-items: center;
-                justify-content: center;
-                font-family: Geneva;
-
-                animation: blink 1s linear infinite;
-
-                :hover {
-                    background-color: green;
-                }
-
+                    font-size: 20px;
+                    font-weight: 1000;
             }
 
 
-            .tooltip-text2 {
-
-                width: 120px;
-                background-color: #555;
-                color: #fff;
-                text-align: center;
-                padding: 5px 0;
-                border-radius: 6px;
-
-
-                position: absolute;
-                z-index: 100;
-                top: -30px;
-                /* Place tooltip above the button */
-                left: 50%;
-                margin-left: -60px;
-                /* Use half of the width to center the tooltip */
-
-                /* Fade in tooltip */
-                opacity: 0;
-                transition: opacity 0.3s;
-            }
-
-            .title2:hover .tooltip-text2 {
-
-                opacity: 1;
-            }
         }
+
     }
+
+    
 
     .character {
         position: absolute;
-        right: 62%;
+        right: 70%;
         bottom: 25%;
         width: 20%;
         height: 60%;
         z-index: 99;
+        
 
 
         .box {
-
+            
+            
 
 
             .EquippedItems {
@@ -428,163 +340,69 @@ CharacterMenu {
 
     }
 
-    .section2 {
-        position: absolute;
-        left: 0%;
-        z-index: 1;
-        font-family: Geneva;
-
-        .items {
-
-            z-index: 0;
-
-
-
-
-            .playe {
-
+        .section2 {
+            position: relative;
+                height: 37%;
+                left: 40%;
+                top: 22%;
+    
+            .items {
+                
+                background-color: rgba(245, 222, 179, 0);
                 flex-direction: column;
-                gap: 2%;
-
-
-
-
-                .playe1 {
-                    position: relative;
-                    left: 350%;
-
-                    top: 20%;
-                    width: 80%;
-                    font-size: 20px;
-                    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
-                    border-radius: 1%;
-                    border-color: rgb(255, 255, 255);
-                    color: rgb(255, 255, 255);
-                    border-width: 1%;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 1.7%;
-
-
-
-
-                    .nu {
-                        position: relative;
-                        font-size: 20px;
-                        color: rgb(240, 255, 245);
-                        font-weight: 1000;
-                        border-radius: 1%;
-
-
-
-
-                    }
-                }
-
-                .playe4 {
-                    position: relative;
-                    left: 350%;
-                    top: 20%;
-                    width: 80%;
-                    height: 30%;
-                    font-size: 15px;
-                    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
-                    border-radius: 1%;
-                    border-color: rgb(255, 255, 255);
-                    color: rgb(0, 165, 49);
-                    border-width: 1%;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 1.7%;
-
-
-
-
-                    .nu {
-                        font-size: 20px;
-                        color: rgb(250, 250, 250);
-                        font-weight: 1000;
-                        border-radius: 1%;
-
-
-
-                    }
-                }
-
-                .playe3 {
-                    position: absolute;
+              
+    
+                
+    
+                    
+                    .playerst 
+                    {
+                    z-index: -50;
+                    
+                    gap: 10px; // Abstand zwischen den Elementen
+                    font-family: Geneva;
                     flex-direction: column;
-                    left: 280%;
-                    top: 50%;
-                    width: 70%;
-                    font-size: 20px;
-                    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
-                    border-radius: 1%;
-                    border-color: rgb(255, 255, 255);
-                    color: rgb(0, 245, 33);
-                    border-width: 1%;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 1.7%;
+                    font-size: 15px;
 
-
-
-
-
-                    .nu {
-                        font-size: 20px;
-                        color: rgb(250, 250, 250);
-                        font-weight: 1000;
-                        border-radius: 1%;
-                        animation: blink 1s linear infinite;
-
-                    }
-                }
-
-
-                .playe2 {
-                    position: relative;
-                    left: 350%;
-
-                    top: 280%;
-                    font-size: 18px;
-                    font-weight: 1000;
-                    background: linear-gradient(to left, rgba(0, 0, 0, 0.863), rgba(255, 255, 255, 0));
-                    /* Gradient from right to left */
-                    border-radius: 3%;
-
-                    border-color: rgb(255, 255, 255);
-                    color: rgb(255, 255, 255);
-                    border-width: 1%;
-                    justify-content: space-between;
-
-
-
-
-                    .Vyndn {
-
-                        font-size: 20px;
-                        color: rgb(255, 255, 255);
-                        background: linear-gradient(to left, rgb(0, 0, 0), rgba(0, 0, 0, 0.385));
-                        /* Gradient from right to left */
+                    .playe1, .playe4, .playe3, .playe2 {
+                        z-index: -5;
+                        flex-direction: column;
+                        width: 100%;
+                        gap: 5px;
+                        padding: 10px;
+                        background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);
                         border-radius: 5px;
+                        color: rgb(255, 254, 254);
                         border-width: 1px;
-                        border-left: 0px;
-                        border-right: 0px;
-                        border-top: 0px;
-                        border-bottom: 0px;
+                        border-color: rgba(255, 255, 255, 0.2);
 
-                        width: 150px;
-                        justify-content: flex-end;
+                      
 
+                        .nu {
+                            font-size: 24px;
+                            color: rgb(255, 187, 0);
+                            font-weight: 1000;
+                        }
+
+                        .playic {
+                            width: 20px;
+                            
+                             // Pfad zum Icon-Bild
+                            background-size: cover;
+                            margin-right: 5px;
+                        }
+
+                        .Vyndn {
+                            font-size: 24px;
+                            color: rgb(185, 192, 80);
+                        }
                     }
+                
+    
+                    
                 }
             }
         }
-
-
-
-    }
 
 
 
@@ -601,6 +419,6 @@ CharacterMenu {
     }
 
     100% {
-        color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
     }
 }

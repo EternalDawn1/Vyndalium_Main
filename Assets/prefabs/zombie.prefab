@@ -6,7 +6,6 @@
     "Tags": "bad,npc",
     "Enabled": true,
     "NetworkMode": 1,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.NavMeshAgent",
@@ -43,32 +42,6 @@
         "GroundFriction": 33.7,
         "IgnoreTags": "",
         "MaxUnstuckTries": 20,
-        "OnComponentUpdate": {
-          "__version": 7,
-          "__guid": "86a33efd-75cd-4d0f-b040-b921ec209996",
-          "UserData": {
-            "Title": "On Component Update"
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input"
-            },
-            {
-              "Id": 1,
-              "Type": "output"
-            }
-          ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 1,
-              "DstName": "_signal"
-            }
-          ]
-        },
         "StepHeight": 27,
         "StickToGround": true,
         "StopSpeed": 10,
@@ -103,6 +76,7 @@
       {
         "__type": "Npc",
         "__guid": "f5138eb6-93c9-45bf-bd6a-40af6ddd749a",
+        "CurrentHoldType": "None",
         "AlertOthers": false,
         "AnimationHelper": {
           "_type": "component",
@@ -116,6 +90,7 @@
           "_type": "gameobject",
           "go": "4f2758a4-1f78-40f6-b58b-0e83a899b436"
         },
+        "CurrentState": "Idle",
         "DetectRange": 288,
         "EnemyTags": "player",
         "Eye": {
@@ -123,6 +98,7 @@
           "go": "621aeeee-d514-45d6-9600-312dc15be35e"
         },
         "FaceTowardsVelocity": true,
+        "HasIceAbility": false,
         "Health": 40,
         "Healthone": {
           "_type": "component",
@@ -132,6 +108,7 @@
         },
         "HitSounds": "sounds/grunt/gruntingn.sound",
         "Idle": true,
+        "Level": 0,
         "MaxHealth": 40,
         "MaximumIdleCooldown": 6,
         "MaxRunAnimationSpeed": 150,
@@ -149,283 +126,14 @@
           "component_type": "MoveHelper"
         },
         "Name": "Zombie",
-        "OnAttack": {
-          "__version": 7,
-          "__guid": "a53da344-e1e5-4d85-8e69-bf23913777d0",
-          "UserData": {
-            "Title": "On Attack",
-            "ReferencedComponentTypes": [
-              "package.viwi.new_game_two/HealthComponent"
-            ]
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input",
-              "UserData": {
-                "Position": "-64,32"
-              }
-            },
-            {
-              "Id": 2,
-              "Type": "scene.get",
-              "Properties": {
-                "T": "HealthComponent"
-              },
-              "UserData": {
-                "Position": "96,64"
-              }
-            },
-            {
-              "Id": 3,
-              "Type": "call",
-              "Properties": {
-                "_name": "Damage",
-                "_isStatic": false,
-                "_type": "HealthComponent"
-              },
-              "UserData": {
-                "Position": "512,64"
-              }
-            },
-            {
-              "Id": 5,
-              "Type": "scene.ref",
-              "Properties": {
-                "gameobject": {
-                  "_type": "gameobject",
-                  "go": "2c517218-a442-4b8a-8b08-119237bad306"
-                }
-              },
-              "UserData": {
-                "Position": "96,256"
-              }
-            },
-            {
-              "Id": 6,
-              "Type": "property",
-              "ParentId": 5,
-              "Properties": {
-                "_name": "Transform",
-                "_type": "Sandbox.GameObject"
-              }
-            },
-            {
-              "Id": 7,
-              "Type": "property",
-              "ParentId": 6,
-              "Properties": {
-                "_name": "Position",
-                "_type": "Sandbox.GameTransform"
-              }
-            }
-          ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "enemy",
-              "DstId": 2,
-              "DstName": "_this"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 3,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 2,
-              "SrcName": "_result",
-              "DstId": 3,
-              "DstName": "_target"
-            },
-            {
-              "Value": 40,
-              "DstId": 3,
-              "DstName": "amount"
-            },
-            {
-              "SrcId": 5,
-              "SrcName": "_result",
-              "DstId": 3,
-              "DstName": "attacker"
-            },
-            {
-              "Value": 400,
-              "DstId": 3,
-              "DstName": "force"
-            },
-            {
-              "Value": "Serious",
-              "DstId": 3,
-              "DstName": "type"
-            },
-            {
-              "SrcId": 7,
-              "SrcName": "_result",
-              "DstId": 3,
-              "DstName": "worldHurtPosition"
-            },
-            {
-              "SrcId": 5,
-              "SrcName": "_result",
-              "DstId": 6,
-              "DstName": "_target"
-            },
-            {
-              "SrcId": 6,
-              "SrcName": "_result",
-              "DstId": 7,
-              "DstName": "_target"
-            }
-          ],
-          "Defaults": {
-            "$5.gameobject": {
-              "_type": "gameobject",
-              "go": "2c517218-a442-4b8a-8b08-119237bad306"
-            }
-          }
-        },
-        "OnDetect": {
-          "__version": 7,
-          "__guid": "346d0894-46b1-45bc-8c1b-3d607c72790b",
-          "UserData": {
-            "Title": "On Detect",
-            "ReferencedComponentTypes": []
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input",
-              "UserData": {
-                "Position": "-64,0"
-              }
-            },
-            {
-              "Id": 1,
-              "Type": "npc.startfollowing",
-              "UserData": {
-                "Position": "272,80"
-              }
-            },
-            {
-              "Id": 4,
-              "Type": "scene.ref",
-              "Properties": {
-                "component": {
-                  "_type": "component",
-                  "component_id": "f5138eb6-93c9-45bf-bd6a-40af6ddd749a",
-                  "go": "2c517218-a442-4b8a-8b08-119237bad306",
-                  "component_type": "Npc"
-                }
-              },
-              "UserData": {
-                "Position": "-32,320"
-              }
-            }
-          ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 1,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 4,
-              "SrcName": "_result",
-              "DstId": 1,
-              "DstName": "npc"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "enemy",
-              "DstId": 1,
-              "DstName": "target"
-            }
-          ],
-          "Defaults": {
-            "$4.component": {
-              "_type": "component",
-              "component_id": "f5138eb6-93c9-45bf-bd6a-40af6ddd749a",
-              "go": "2c517218-a442-4b8a-8b08-119237bad306",
-              "component_type": "Npc"
-            }
-          }
-        },
-        "OnKilled": {
-          "__version": 7,
-          "__guid": "4d12df91-d37b-4a61-bbdb-e4bfec0e6ee2",
-          "UserData": {
-            "Title": "On Killed",
-            "ReferencedComponentTypes": []
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input",
-              "UserData": {
-                "Position": "-32,-0"
-              }
-            },
-            {
-              "Id": 4,
-              "Type": "call",
-              "Properties": {
-                "_name": "GiveVyndalium",
-                "_isStatic": false,
-                "_type": "GeneralGame.Player"
-              },
-              "UserData": {
-                "Position": "464,48"
-              }
-            },
-            {
-              "Id": 13,
-              "Type": "player.getplayerwhoiskiller",
-              "UserData": {
-                "Position": "144,-64"
-              }
-            }
-          ],
-          "Links": [
-            {
-              "SrcId": 13,
-              "SrcName": "_signal",
-              "DstId": 4,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 13,
-              "SrcName": "_result",
-              "DstId": 4,
-              "DstName": "_target"
-            },
-            {
-              "Value": 10,
-              "DstId": 4,
-              "DstName": "amount"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 13,
-              "DstName": "_signal"
-            }
-          ]
-        },
         "PlayerProximityDistance": 400,
+        "PogMode": false,
         "RunningType": "Dumb",
-        "RunSpeed": 110,
+        "RunSpeed": 220,
         "ScaleStats": true,
-        "Static": false,
         "VisionRange": 544,
         "WalkingType": "Dumb",
-        "WalkSpeed": 60,
-        "Weight": "Feather",
+        "WalkSpeed": 100,
         "ZombieRagedol": {
           "_type": "gameobject",
           "prefab": "prefabs/ragdoll.prefab"
@@ -448,24 +156,6 @@
           "go": "4f2758a4-1f78-40f6-b58b-0e83a899b436",
           "component_type": "SkinnedModelRenderer"
         }
-      },
-      {
-        "__type": "GeneralGame.RandomItemDrop",
-        "__guid": "625fddb1-2e48-4754-81f0-2b87cd7fe23b",
-        "RandomItems": [
-          {
-            "_type": "gameobject",
-            "prefab": "prefabs/vyndalium.prefab"
-          },
-          {
-            "_type": "gameobject",
-            "prefab": "prefabs/pickupammo.prefab"
-          },
-          {
-            "_type": "gameobject",
-            "prefab": "prefabs/weapons/pm/glock.prefab"
-          }
-        ]
       }
     ],
     "Children": [
@@ -474,8 +164,6 @@
         "Flags": 0,
         "Name": "body",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -486,6 +174,13 @@
             "MaterialGroup": "default",
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
             "Model": "models/citizen/citizen.vmdl",
+            "Morphs": {},
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -519,9 +214,7 @@
         "Flags": 0,
         "Name": "eye",
         "Position": "0,0,64",
-        "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true
+        "Enabled": true
       }
     ],
     "__variables": []
@@ -529,6 +222,7 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

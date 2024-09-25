@@ -1,27 +1,52 @@
 ﻿namespace GeneralGame;
+using Sandbox.Services;
 
 public enum GeneralScene
 {
 	Creation,
 	Game,
 	MainMenu,
-	Starting
+	Starting,
+	Forest,
+	StartBase,
+
+	One,
+	One2,
+	One3,
+
 }
 
 public static class SceneHandler
 {
-	public static async void ChangeScene( GeneralScene scene, ulong? lobby = null, bool stopSound = true )
+	public static GeneralScene CurrentScene { get; private set; }
+
+	public static void ChangeScene( GeneralScene scene, ulong? lobby = null, bool stopSound = true )
 	{
+		if ( !HasRequiredLevel( scene ) )
+		{
+			// Handle insufficient level
+			Log.Info( "Level zu niedrig, um diese Szene zu wechseln." );
+			return;
+		}
+		
+
+		// Lösche die aktuelle Szene
+		DeleteCurrentScene();
+
 		var path = scene switch
 		{
 			GeneralScene.Creation => "scenes/creation.scene",
-			GeneralScene.Game => "scenes/dom.scene",
+			GeneralScene.Game => "scenes/dungeon_1.scene",
 			GeneralScene.MainMenu => "scenes/lobby.scene",
 			GeneralScene.Starting => "scenes/startlobby.scene",
+			GeneralScene.Forest => "scenes/forest.scene",
+			GeneralScene.StartBase => "scenes/startlobbynew.scene",
+			GeneralScene.One => "scenes/One/map1.scene",
+			GeneralScene.One2 => "scenes/One/map1.2.scene",
+			GeneralScene.One3 => "scenes/One/map1.3.scene",
+
 			_ => null
 		};
-
-
 
 		if ( string.IsNullOrEmpty( path ) )
 			return;
@@ -30,25 +55,74 @@ public static class SceneHandler
 			return;
 
 		if ( stopSound )
+		{
 			Sound.StopAll( 5f );
+			Log.Info( "Szene wird gewechselt." );
+		}
 
 		// If is game.
 		if ( lobby.HasValue )
 		{
-			var connected = await GameNetworkSystem.TryConnectSteamId( lobby.Value );
-			if ( !connected )
-				return; // Return if connection fails.
+			Log.Info( "Lobby" );
+			 Networking.Connect( lobby.Value );
+			
 		}
 
 
 
+		Player.Setup();
+		Log.Info( "loading +" + resource );
 
+		
+		// Definieren und Initialisieren der neuen Szene
 
 		Game.ActiveScene.Load( resource );
-		Player.Setup();
-		return;
+		// Speichern der aktuellen Szene
 
 	}
 
+	public static void DeleteCurrentScene()
+	{
+		// Logik zum Löschen der aktuellen Szene
+		if ( CurrentScene != GeneralScene.MainMenu ) // Beispiel: MainMenu als Standardwert
+		{
+			CurrentScene.Reset();
+			CurrentScene = GeneralScene.MainMenu;
+		}
+	}
+
+	public static bool HasRequiredLevel( GeneralScene scene )
+	{
+		int playerLevel = Player.Local.GetLevel(); // Annahme: Es gibt eine Methode, um das Spielerlevel zu bekommen
+		return playerLevel >= scene.GetRequiredLevel();
+	}
 }
 
+
+
+
+public static class GeneralSceneExtensions
+{
+	public static int GetRequiredLevel( this GeneralScene scene )
+	{
+		return scene switch
+		{
+			GeneralScene.Creation => 1,
+			GeneralScene.Game => 0,
+			GeneralScene.MainMenu => 0,
+			GeneralScene.Starting => 5,
+			GeneralScene.Forest => 10,
+			GeneralScene.One => 0,
+			GeneralScene.StartBase => 0,
+			GeneralScene.One2 => 0,
+			GeneralScene.One3 => 0,
+			_ => 0
+		};
+	}
+	public static void Reset( this GeneralScene scene )
+	{
+
+		Log.Info( "Resetting scene: " + scene );
+	}
+
+}

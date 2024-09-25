@@ -4,17 +4,22 @@
     "Flags": 0,
     "Name": "vyndalium",
     "Scale": "0.3,0.3,0.3",
+    "Tags": "light_spot,light,light_point",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.ModelRenderer",
         "__guid": "1ae8da74-c988-45d4-b27e-089c0f9dae95",
         "BodyGroups": 18446744073709551615,
-        "Model": "models/dev/box.vmdl",
+        "Model": "models/prism/prism.vmdl",
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "On",
-        "Tint": "1,0.93333,0,1"
+        "Tint": "0.27496,0.95349,0.5803,1"
       },
       {
         "__type": "Sandbox.BoxCollider",
@@ -27,12 +32,32 @@
       {
         "__type": "GeneralGame.VyndaliumTrigger",
         "__guid": "8dd5cb3a-9597-4eaa-b56c-487278c19317",
-        "MaxVyndaliumAmount": 120,
+        "MaxVyndaliumAmount": 50,
         "MinVyndaliumAmount": 1,
-        "TriggerSoundPath": "sounds/item.pickup.sound"
+        "TriggerSoundPath": "sounds/prism_pickup/prism_pickup.sound"
       }
     ],
-    "Children": []
+    "Children": [
+      {
+        "__guid": "9167196c-da79-4f26-8e36-62ab2410bb8a",
+        "Flags": 0,
+        "Name": "Object",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.PointLight",
+            "__guid": "1ab86ca9-d328-4355-b457-8bb85c49f9c2",
+            "Attenuation": 10,
+            "FogMode": "Enabled",
+            "FogStrength": 1,
+            "LightColor": "0.95814,0.83061,0.50804,1",
+            "Radius": 64,
+            "Shadows": true
+          }
+        ]
+      }
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

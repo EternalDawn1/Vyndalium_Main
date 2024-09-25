@@ -3,24 +3,25 @@
   "GameObjects": [
     {
       "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
+      "Flags": 0,
       "Name": "MapObjects",
       "Position": "-16.73947,-31.52794,131.4671",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Children": [
         {
           "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
+          "Flags": 0,
           "Name": "Map",
           "Position": "767.2023,-2519.431,1584.684",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MapInstance",
               "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
+              "__version": 1,
+              "EnableCollision": true,
               "MapName": "maps/koruland.vmap",
+              "NoOrigin": true,
               "UseMapFromLaunch": false
             }
           ],
@@ -30,11 +31,11 @@
     },
     {
       "__guid": "e47368dc-2aa1-43c7-9701-476845bc0e7d",
+      "Flags": 0,
       "Name": "GameManager",
       "Position": "-4687.136,-3009.619,2645.524",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "GeneralGame.PrefabInitializer",
@@ -46,19 +47,20 @@
           "Prefab": {
             "_type": "gameobject",
             "prefab": "prefabs/player.prefab"
-          }
+          },
+          "SpawnPoints": [],
+          "StartServer": true
         }
       ]
     },
     {
       "__guid": "8f8e0bbb-0ebe-4d7e-b45a-d02855084809",
+      "Flags": 0,
       "Name": "Object",
       "Position": "-112.513,702.8104,61.97736",
       "Scale": "-0.7654113,0.9841333,0.6492278",
       "Tags": "interactable",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ModelRenderer",
@@ -88,11 +90,11 @@
     },
     {
       "__guid": "f753371b-1b8b-4cf8-93d4-7597e403ecc9",
+      "Flags": 0,
       "Name": "Object",
       "Position": "510.4106,560.3522,62.47365",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "GeneralGame.PickupSpawner",
@@ -108,16 +110,28 @@
     },
     {
       "__guid": "019efa89-9489-4e8e-9c46-a0c22acfc0a4",
+      "Flags": 0,
       "Name": "Object (1)",
       "Position": "464.0758,560.3522,62.47365",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "GeneralGame.ZombieSpawner",
           "__guid": "e21bde92-f3e4-4ec4-85bb-ff897ded1bcd",
           "__enabled": false,
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": false,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 10,
+          "PlayerProximityDistance": 1000,
+          "Randomized": false,
           "RespawnTime": 5,
           "ZombiePrefab": {
             "_type": "gameobject",
@@ -128,52 +142,161 @@
     },
     {
       "__guid": "d974ea0d-df4a-465b-bcc4-1e1f148b45e8",
+      "Flags": 0,
       "Name": "glock",
       "Position": "598.1561,783.0393,40.00001",
       "Rotation": "-0.00000002980232,0,0.9999999,0",
       "Scale": "1.5,1.5,1.5",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/pm/glock.prefab"
+      "__Prefab": "prefabs/weapons/pm/glock.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "e1ad3f8c-2065-4a6b-8733-f1a46ba6e859",
+      "Flags": 0,
       "Name": "spawner",
       "Position": "-1216.029,223.3884,128.2761",
       "Rotation": "-0.08639657,0.08639652,0.7018088,0.7018089",
       "Scale": "-0.7654113,0.9841333,0.6492278",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/spawner.prefab"
+      "__Prefab": "prefabs/spawner.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "694484ef-4fb8-4dda-83c2-492f219b4202",
+      "Flags": 0,
       "Name": "aksu",
       "Position": "471.2376,583.7712,52",
       "Scale": "1.5,1.5,1.5",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/weapons/aksu/aksu.prefab"
+      "__Prefab": "prefabs/weapons/aksu/aksu.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "d71c2760-1c7f-4926-a57e-ff79e9db9fac",
+      "Flags": 0,
       "Name": "Shop",
       "Position": "-135.8674,191.0689,99.79269",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.WorldPanel",
           "__guid": "e16d33f3-3e95-42a2-863d-8fe23429c143",
           "HorizontalAlign": "Center",
+          "InteractionRange": 1000,
           "LookAtCamera": false,
           "PanelSize": "512,512",
           "RenderScale": 1,
           "VerticalAlign": "Center"
+        }
+      ]
+    },
+    {
+      "__guid": "8d1d476b-b824-4d2b-b40e-47aaef06ac08",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-343.645,-1287.86,1253.814",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "136cbaba-333f-4d4e-85d5-e1472b685a8c",
+          "Color": "0.8902,0.31765,0.05098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d2a8545d-c014-436e-868a-31b995513182",
+      "Flags": 0,
+      "Name": "box_normal_small (2)",
+      "Position": "-318.6618,-1709.71,1205.12",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "2619c847-3b85-43ff-a47c-7efad8c77d3a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/box_legendary/legendary chest.vmdl",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "1e04cbd3-9045-4dc6-afe0-c352805eef47",
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "IsDoor": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxStack": 0,
+          "MoveSpeed": 0,
+          "Name": "Legendary Chest",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "PrefabList": [],
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "Stats": [],
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SSS",
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "46e25cde-43b9-44ff-bc5c-cc5e3cb7a651",
+      "Flags": 0,
+      "Name": "HUD",
+      "Position": "1885.432,1272,33.87576",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "GeneralGame.HUD.Hudmaster",
+          "__guid": "a3450c7e-6de6-4bbb-97ee-6f21e8a67b6b"
+        },
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "af758741-8a66-4387-99a5-6c8125108ca1",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
+          "ZIndex": 100
         }
       ]
     }
@@ -201,8 +324,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-05-05T13:23:29.6837181\u002B02:00",
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

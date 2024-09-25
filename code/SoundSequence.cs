@@ -28,7 +28,7 @@ public class SoundSequence
 		CurrentIndex = 0;
 
 		var entry = Data.Entries[CurrentIndex];
-		Handle = Sound.Play( entry.Sound, position );
+		//Handle = Sound.Play( entry.Sound, position );
 		NextSoundTime = entry.Duration;
 
 		IsActive = true;

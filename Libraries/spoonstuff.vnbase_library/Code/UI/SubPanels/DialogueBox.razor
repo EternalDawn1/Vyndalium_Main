@@ -1,0 +1,44 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using System;
+@using System.Linq;
+@using System.Collections.Generic;
+
+@namespace VNBase.UI
+@inherits SubPanel
+
+<root>
+    @if (Player.SpeakingCharacter is not null)
+    {
+        <div class="characterPanel">
+            <label class="character" style="color: @Player.SpeakingCharacter.NameColor.Rgba">@Player.SpeakingCharacter.Name</label>
+            @if (!string.IsNullOrEmpty(Player.SpeakingCharacter.Title))
+            {
+                <label class="title" style="color: @Player.SpeakingCharacter.TitleColor.Rgba">@Player.SpeakingCharacter.Title</label>
+            }
+        </div>
+    }
+
+    <div class="dialoguePanel">
+        <label class="dialogueText">@Player.DialogueText</label>
+
+        @if (CanContinue)
+        {
+            <img class="finished-icon" src="/materials/ui/icons/dialoguefinished.png" />
+        }
+    </div>
+</root>
+
+@code {
+    private TextInput TextInput => Hud.GetSubPanel<TextInput>();
+
+    private bool CanContinue
+    {
+        get => Player.DialogueFinished && !Player.DialogueChoices.Any() && (TextInput?.Entry is null || TextInput.CanContinue);
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Player.DialogueText, Player.DialogueFinished, Player.SpeakingCharacter, Player.DialogueChoices.Count, TextInput?.CanContinue);
+    }
+}

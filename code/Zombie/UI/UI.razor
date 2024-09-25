@@ -1,0 +1,57 @@
+@inherits PanelComponent
+@namespace GeneralGame.HUD
+
+
+
+<root>
+    @if (npc != null)
+    {
+        <div class="npc">
+            <div class="npc-name">@npc.Name</div>
+            <div class="npc-level">Lvl.@npc.Level</div>
+            <div class="npc-ability @(npc.HasIceAbility ? "show" : "")">ICE</div>
+
+            <div class="zombie-healthbar-container @(isTakingDamage ? "show" : "")">
+                <div class="zombie-healthbar">
+                    <div class="inner">
+                        <div class="fill" style="width: @(npc.Health / npc.MaxHealth * 100f)%"></div>
+                    </div>
+                </div>
+
+                <div class="zombie-backbar">
+                    <div class="inner">
+                        <div class="fill" style="width: @(npc.Health / npc.MaxHealth * 100f)%"></div>
+                    </div>
+                </div>
+
+                <p>@Math.Round(npc.Health) / @Math.Round(npc.MaxHealth)</p>
+            </div>
+        </div>
+    }
+</root>
+
+@code
+{
+   
+    protected override void OnUpdate()
+    {
+        if (npc != null)
+        {
+            npc.OnTakeDamage += HandleTakeDamage;
+        }
+    }
+    private bool isTakingDamage = false;
+    [Property] private Npc npc { get; set; } = new Npc();
+
+    protected override int BuildHash() => HashCode.Combine(RealTime.Now);
+
+    [Broadcast]
+    public  void HandleTakeDamage()
+    {
+        isTakingDamage = true;
+        StateHasChanged();
+        
+    }
+
+    
+}

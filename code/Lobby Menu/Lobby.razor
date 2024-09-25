@@ -1,0 +1,394 @@
+@namespace GeneralGame.HUD
+@attribute [StyleSheet]
+@using System
+@using System.ComponentModel.DataAnnotations
+@using System.Collections.Generic
+@using System.Linq
+@using System.Threading.Tasks
+@using Sandbox
+@using Sandbox.Network
+@using GeneralGame
+@using GeneralGame.HUD
+
+
+<root>
+    <div class="sidehud">
+        <SideButton OnClick=@(() => ShowPanel(PanelType.CTier)) 
+            IsInverted=@(true) 
+            ImagePath="ui/hud/item/shield (4).png" 
+            title="C-Tier" 
+            TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"   
+        />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.BTier)) 
+            IsInverted=@(true) 
+            ImagePath="ui/hud/item/shield (2).png" 
+            title="B-Tier" 
+            TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"   
+        />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.ATier)) 
+            IsInverted=@(true) 
+            ImagePath="ui/hud/item/shield (1).png" 
+            title="A-Tier" 
+            TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"   
+        />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.STier)) 
+            IsInverted=@(true) 
+            ImagePath="ui/hud/item/shield (6).png" 
+            title="S-Tier" 
+            TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"   
+        />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.SSTier)) 
+            IsInverted=@(true) 
+            ImagePath="ui/hud/item/shield (3).png" 
+            title="SS-Tier" 
+            TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"
+        />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.SSSTier)) 
+            IsInverted=@(true) 
+            ImagePath="ui/hud/item/shield (5).png" 
+            title="SSS-Tier" 
+            TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"   
+        />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Bonus)) 
+            IsInverted=@(true) 
+            ImagePath="ui/hud/item/attack.png" 
+            title="Bonus" 
+            TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"
+        
+    </div>
+    <button class="exit-button" @onclick="@(() => CloseMission())"></button>
+
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.CTier ? 1 : 0)">
+    <div class="panel-content-text">
+        <div class="panel-content-layout">
+            <div class="main-panel">
+                <div class="box">
+                    <div class="title"> Level.1-5</div>
+                    <SideButton 
+                        Title="Dungeon 1-1" 
+                        Subtitle="required. lvl. 1 [TESTED + Finished]" 
+                        OnClick=@(() => ChangeScene2(GeneralScene2.One)) 
+                        ImagePath=@GetImagePath(playerLevel, GeneralScene2.One.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
+                        style=""
+                    />
+                </div>
+                <div class="box">
+                    <div class="title"> Level.10-15</div>
+                    <SideButton 
+                        Title="Dungeon 2-1" 
+                        Subtitle="required. lvl. 10 [TESTED + Finished]" 
+                        OnClick=@(() => ChangeScene2(GeneralScene2.Forest)) 
+                        ImagePath=@GetImagePath(playerLevel, GeneralScene2.Forest.GetRequiredLevel2(), "ui/hud/tree.png", "ui/hud/exit.gif") 
+                        style="" 
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.BTier ? 1 : 0)">
+        <div class="panel-content-text">
+            <div class="panel-content-layout">
+                <div class="main-panel">
+                    <div class="box">
+                        <div class="title"> [WIP] Level.16-20</div>
+                        <SideButton 
+                            Title="Dungeon 3-1" 
+                            Subtitle="required. lvl. 16 [TESTED + Finished]" 
+                            
+                            style=""
+                        />
+                    </div>
+                    <div class="box">
+                                <div class="title"> [WIP] Level.21-25</div>
+                        <SideButton 
+                            Title="Dungeon 4-1" 
+                            Subtitle="required. lvl. 21 [TESTED + Finished]" 
+                            
+                            style="" 
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.ATier ? 1 : 0)">
+        <div class="panel-content-text">
+            <div class="panel-content-layout">
+                <div class="main-panel">
+                    <div class="box">
+                                <div class="title"> [WIP] Level.26-30</div>
+                        <SideButton 
+                            Title="Dungeon 5-1" 
+                            Subtitle="required. lvl. 26 [TESTED + Finished]" 
+                            
+                            style=""
+                        />
+                    </div>
+                    <div class="box">
+                                <div class="title">[WIP] Level.31-35</div>
+                        <SideButton 
+                            Title="Dungeon 6-1" 
+                            Subtitle="required. lvl. 31 [TESTED + Finished]" 
+                            
+                            style="" 
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.STier ? 1 : 0)">
+    <div class="panel-content-text">
+        <div class="panel-content-layout">
+            <div class="main-panel">
+                <div class="box">
+                                <div class="title"> [WIP] Level.36-40</div>
+                    <SideButton 
+                        Title="Dungeon 7-1" 
+                        Subtitle="required. lvl. 36 [TESTED + Finished]" 
+                        
+                        style=""
+                    />
+                </div>
+                <div class="box">
+                                <div class="title"> [WIP] Level.41-45</div>
+                    <SideButton 
+                        Title="Dungeon 8-1" 
+                        Subtitle="required. lvl. 41 [TESTED + Finished]" 
+                        
+                        style="" 
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.SSTier ? 1 : 0)">
+        <div class="panel-content-text">
+            <div class="panel-content-layout">
+                <div class="main-panel">
+                    <div class="box">
+                                <div class="title">[WIP] Level.46-50</div>
+                        <SideButton 
+                            Title="Dungeon 9-1" 
+                            Subtitle="required. lvl. 46 [TESTED + Finished]" 
+                            
+                            style=""
+                        />
+                    </div>
+                    <div class="box">
+                                <div class="title"> [WIP] Level.51-55</div>
+                        <SideButton 
+                            Title="Dungeon 10-1" 
+                            Subtitle="required. lvl. 51 [TESTED + Finished]" 
+                           
+                            style="" 
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.SSSTier ? 1 : 0)">
+        <div class="panel-content-text">
+            <div class="panel-content-layout">
+                <div class="main-panel">
+                    <div class="box">
+                                <div class="title">[WIP] Level.56-60</div>
+                        <SideButton 
+                            Title="Dungeon 11-1" 
+                            Subtitle="required. lvl. 56 [TESTED + Finished]" 
+                           
+                            style=""
+                        />
+                    </div>
+                    <div class="box">
+                                <div class="title"> [WIP] Level.61-65</div>
+                        <SideButton 
+                            Title="Dungeon 12-1" 
+                            Subtitle="required. lvl. 61 [TESTED + Finished]" 
+                            
+                            style="" 
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.Bonus ? 1 : 0)">
+        <div class="panel-content-text">
+            <div class="panel-content-layout">
+                <div class="main-panel">
+                    <div class="box">
+                                <div class="title">[WIP] Alpha Maps</div>
+                        <SideButton 
+                            Title="StartBase " 
+                            Subtitle="required. lvl. 5" 
+                            ImagePath=@GetImagePath(playerLevel, GeneralScene2.Starting.GetRequiredLevel2(), "ui/hud/tree.png", "ui/hud/exit.gif")
+                            OnClick=@(() => ChangeScene2(GeneralScene2.Starting)) 
+                            style=""
+                        />
+                        <SideButton 
+                            Title="Dungeon" 
+                            Subtitle="required. lvl. 0" 
+                            ImagePath=@GetImagePath(playerLevel, GeneralScene2.Game.GetRequiredLevel2(), "ui/hud/tree.png", "ui/hud/exit.gif")
+                            OnClick=@(() => ChangeScene2(GeneralScene2.Game)) 
+                            style=""
+                        />
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</root>
+
+@code {
+   
+   
+    private void CloseMission()
+    {
+        Player.Local.BlockInputs = false;
+        FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud);
+    }
+
+    private PanelType currentPanel = PanelType.CTier;
+
+    private void ShowPanel(PanelType panel)
+    {
+        currentPanel = panel;
+    }
+
+    
+
+    public enum PanelType
+    {
+       
+        CTier,
+        BTier,
+        ATier,
+        STier,
+        SSTier,
+        SSSTier,
+        Bonus
+    }
+    private void InitializeRequiredLevel(GeneralScene2 scene)
+    {
+        requiredLevel = scene.GetRequiredLevel2();
+        StateHasChanged();
+    }
+   
+    private bool isSceneChanging = false;
+   
+    private int playerLevel = Player.Local.Level; 
+    private int requiredLevel { get; set; }
+
+   
+
+    public static void ToggleReadyStatusOnServer(bool readyStatus)
+    {
+        // Logik zum Senden des Status an den Server
+    }
+     private string GetImagePath(int playerLevel, int requiredLevel, string normalImagePath, string fallbackImagePath)
+    {
+        StateHasChanged();
+        return playerLevel >= requiredLevel ? normalImagePath : fallbackImagePath;
+    }
+   
+    private void ChangeScene2(GeneralScene2 scene)
+        {
+            if (isSceneChanging)
+        {
+            return;
+        }
+        var player = Player.Local;
+        if (player == null)
+        {
+            Log.Error("Player.Local is null.");
+            return;
+        }
+        if (isSceneChanging)
+        {
+            
+            return;
+        }
+        int playerLevel = Player.Local.GetLevel();
+        int requiredLevel = scene.GetRequiredLevel2();
+        
+        
+        if (!SceneHandler2.HasRequiredLevel2(scene))
+        {
+           
+
+            Hudmaster.Instance.ShowNotification(
+            "lvl. " + playerLevel + "\n" +
+            "required lvl. " + requiredLevel + "\n" +
+            "level too low",
+            "/ui/hud/exit.gif"
+            );
+            Player.Local?.PlaySuccessSoundFromPath("sounds/upgrade/error2.sound", 0.025f);
+            return;
+        }
+
+        Player.Save();
+        isSceneChanging = true;
+        SceneHandler2.DeleteCurrentScene();
+        
+        // Hier die Logik zum tatsächlichen Wechsel der Szene hinzufügen
+        // Beispiel:
+        switch (scene)
+        {
+            case GeneralScene2.Forest:
+                // Logik zum Wechseln zur Forest-Szene
+                
+                SceneHandler2.ChangeScene2(scene);
+                
+                break;
+            case GeneralScene2.Game:
+                // Logik zum Wechseln zur Game-Szene
+               
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            case GeneralScene2.Starting:
+                // Logik zum Wechseln zur Starting-Szene
+              
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            case GeneralScene2.StartBase:
+                // Logik zum Wechseln zur StartBase-Szene
+            
+                SceneHandler2.ChangeScene2(scene);
+                break;
+
+            case GeneralScene2.One:
+                // Logik zum Wechseln zur One-Szene
+               
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            case GeneralScene2.One2:
+                // Logik zum Wechseln zur Two-Szene
+               
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            case GeneralScene2.One3:
+                // Logik zum Wechseln zur Three-Szene
+               
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            default:
+                Log.Info("No scene?");
+                break;
+        }
+
+        isSceneChanging = false;
+    }
+    
+    // Beispielwert, ersetzen Sie dies durch die tatsächliche Spielerlevel-Variable
+
+}

@@ -1,0 +1,119 @@
+namespace GeneralGame.HUD
+{
+	[StyleSheet]
+	public partial class StorageBox : Panel
+	{
+		public static new bool IsVisible { get; set; }
+		public ItemStorage itemStorage;
+		private ItemInteractable itemInteractable;
+		private bool visibilityChanged = false;
+		private bool isInitialized = false;
+		private static bool IsDragging { get; set; }
+		public static StorageBox Instance { get; private set; }
+		
+
+		public StorageBox()
+		{
+			Instance = this;
+			itemStorage = new ItemStorage();
+			itemInteractable = new ItemInteractable();
+			
+			IsVisible = false;
+		}
+		protected void OnAwake()
+		{
+			
+			if ( itemStorage == null )
+			{
+				itemStorage = new ItemStorage();
+				itemStorage.IsOpened = false; // Stellen Sie sicher, dass itemStorage anfangs geschlossen ist
+				IsVisible = false;
+			}
+			
+		}
+
+		public void OnUpdate()
+		{
+			if ( !isInitialized )
+			{
+				itemStorage.IsOpened = false;
+				IsVisible = false;
+				isInitialized = true;
+				 // Aktualisieren Sie die UI
+			}
+			else
+			{
+				bool isOpened = itemStorage?.IsOpened ?? false;
+
+				if ( isOpened != IsVisible ) // Prüft, ob der Zustand synchronisiert werden muss
+				{
+					ToggleVisibility(); // Aktualisiert IsVisible basierend auf dem Zustand von IsOpened
+					visibilityChanged = isOpened;
+				}
+			}
+		}
+
+		public void ToggleVisibility()
+		{
+			if ( itemStorage == null )
+			{
+				return;
+			}
+
+			// Umschalten des Zustands
+			bool newState = !itemStorage.IsOpened;
+			itemStorage.IsOpened = newState;
+			IsVisible = newState;
+
+			// Optional: Aufrufen von StateHasChanged(), wenn Sie in einer Blazor-Komponente sind, um die UI zu aktualisieren
+			
+		}
+
+		public void OpenStorage()
+		{
+			if ( itemStorage != null && !itemStorage.IsOpened )
+			{
+				itemStorage.IsOpened = true;
+				IsVisible = true;
+				// Optional: UI aktualisieren
+				
+			}
+		}
+
+		public void CloseStorage()
+		{
+			if ( itemStorage != null && itemStorage.IsOpened )
+			{
+				itemStorage.IsOpened = false;
+				IsVisible = false;
+				 // Aktualisiert die UI
+			}
+		}
+
+		public void ClosePanel()
+		{
+			CloseStorage(); // Ruft die Methode zum Schließen des Speichers auf
+		}
+
+		public void ResetVisibility()
+		{
+			IsVisible = false;
+			// Aktualisiert die UI
+		}
+
+		protected override int BuildHash()
+		{
+			return HashCode.Combine(
+				IsVisible,
+				Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 ),
+				itemStorage?.Items.HashCombine( i => i?.GetHashCode() ?? -1 ) ?? 0
+			);
+		}
+
+		public void SetPanelVisibility( bool isVisible )
+		{
+			IsVisible = isVisible;
+			 // Aktualisiert die UI
+		}
+	}
+}

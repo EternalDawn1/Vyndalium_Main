@@ -7,8 +7,6 @@
       "Name": "MapObjects",
       "Position": "-16.73947,-31.52794,131.4671",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Children": [
         {
           "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
@@ -16,17 +14,41 @@
           "Name": "Map",
           "Position": "767.2023,-2519.431,1584.684",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MapInstance",
               "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
+              "__version": 1,
+              "EnableCollision": true,
               "MapName": "maps/start.vmap",
+              "NoOrigin": true,
               "UseMapFromLaunch": false
             }
           ],
           "Children": []
+        },
+        {
+          "__guid": "8fa0e408-e34c-4cd4-8ac2-ff0a3b7bb08e",
+          "Flags": 0,
+          "Name": "HUD",
+          "Position": "127.2338,-747.0987,-129.3547",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ScreenPanel",
+              "__guid": "dc01ddf9-01fd-4612-b6a5-43a1fc9ac463",
+              "AutoScreenScale": true,
+              "Opacity": 1,
+              "Scale": 1,
+              "ScaleStrategy": "ConsistentHeight",
+              "ZIndex": 100
+            },
+            {
+              "__type": "GeneralGame.HUD.Hudmaster",
+              "__guid": "9f754a4d-7088-425c-a4a1-b86346247342"
+            }
+          ]
         }
       ]
     },
@@ -37,7 +59,6 @@
       "Position": "-4687.136,-3009.619,2645.524",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "GeneralGame.PrefabInitializer",
@@ -51,137 +72,9 @@
             "prefab": "prefabs/player.prefab"
           },
           "SpawnPoints": [
-            {
-              "_type": "gameobject",
-              "go": "58420db4-1b17-4fef-958b-ac3c16a57fcd"
-            }
+            null
           ],
           "StartServer": true
-        }
-      ]
-    },
-    {
-      "__guid": "8f8e0bbb-0ebe-4d7e-b45a-d02855084809",
-      "Flags": 0,
-      "Name": "Starting",
-      "Position": "-71.67389,1092.026,182.1559",
-      "Scale": "-0.7654113,0.9841333,0.6492278",
-      "Tags": "interactable",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "94ad274e-f3fb-49e8-a242-ed263b217efd",
-          "BodyGroups": 18446744073709551615,
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Sandbox.BoxCollider",
-          "__guid": "21060743-0eb2-4afe-bb4d-4df4258b5248",
-          "Center": "0,0,0",
-          "IsTrigger": true,
-          "Scale": "50,50,50",
-          "Static": false
-        },
-        {
-          "__type": "GeneralGame.SceneChangeDungeon",
-          "__guid": "2851095b-e6c8-487c-86c7-7eb564566d1a",
-          "SceneToLoad": "Game"
-        }
-      ]
-    },
-    {
-      "__guid": "70cae0d8-53fe-41e0-9ed7-42c2f6f040bc",
-      "Flags": 0,
-      "Name": "Starting (1)",
-      "Position": "-62.72311,1019.366,198.8367",
-      "Scale": "-0.7654113,0.9841333,0.6492278",
-      "Tags": "interactable",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "1b70a170-ee60-4fdb-8bbb-44f1d7293175",
-          "BodyGroups": 18446744073709551615,
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Sandbox.BoxCollider",
-          "__guid": "8f794720-3565-4c03-8a52-7b2a536c3f14",
-          "Center": "0,0,0",
-          "IsTrigger": true,
-          "Scale": "50,50,50",
-          "Static": false
-        },
-        {
-          "__type": "GeneralGame.SceneChangeTriggertest",
-          "__guid": "f7075f35-1e2c-4797-9543-216b56a290e6",
-          "SceneToLoad": "Game"
-        }
-      ]
-    },
-    {
-      "__guid": "fda8f9e3-0ef2-47fd-bd0b-74d64ea16c1a",
-      "Flags": 0,
-      "Name": "Starting (2)",
-      "Position": "-16.51645,810.188,296.8",
-      "Scale": "-0.7654113,0.9841333,0.6492278",
-      "Tags": "interactable",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "b0724159-3089-467b-9fa4-a7f4d44c8023",
-          "BodyGroups": 18446744073709551615,
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Sandbox.BoxCollider",
-          "__guid": "80842f75-045b-4dd3-8a75-ea660187259f",
-          "Center": "0,0,0",
-          "IsTrigger": true,
-          "Scale": "50,50,50",
-          "Static": false
-        },
-        {
-          "__type": "GeneralGame.SceneChangeTriggertest",
-          "__guid": "6fcfb6e0-022d-49b2-9c59-5e76abeadae1",
-          "SceneToLoad": "Game"
-        }
-      ]
-    },
-    {
-      "__guid": "d71c2760-1c7f-4926-a57e-ff79e9db9fac",
-      "Flags": 0,
-      "Name": "Shop",
-      "Position": "606.2068,638.8074,114.163",
-      "Rotation": "0,0,0.7071068,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.WorldPanel",
-          "__guid": "e16d33f3-3e95-42a2-863d-8fe23429c143",
-          "HorizontalAlign": "Center",
-          "InteractionRange": 1000,
-          "LookAtCamera": false,
-          "PanelSize": "4904.1,2840.603",
-          "RenderScale": 1,
-          "VerticalAlign": "Center"
-        },
-        {
-          "__type": "GeneralGame.HUD.ShopWorldPanel",
-          "__guid": "62af8d0c-30d7-45fd-b62e-2e32a39430d6"
         }
       ]
     },
@@ -192,8 +85,6 @@
       "Position": "-776.1601,-293.9969,220.5923",
       "Rotation": "0,0,1,-0.00000004371139",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.WorldPanel",
@@ -212,376 +103,12 @@
       ]
     },
     {
-      "__guid": "fb523d4e-d999-45f2-9790-b09953f6d876",
-      "Flags": 0,
-      "Name": "vyndalium",
-      "Position": "267.9038,700.4773,40.00002",
-      "Scale": "0.3,0.3,0.3",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/vyndalium.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "39977245-bc58-4143-896d-90caff855242",
-      "Flags": 0,
-      "Name": "vyndalium (1)",
-      "Position": "276.1658,755.7661,40",
-      "Scale": "0.3,0.3,0.3",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/vyndalium.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "7148d314-0230-4d43-8048-f51b4b1520ad",
-      "Flags": 0,
-      "Name": "vyndalium (2)",
-      "Position": "153.1422,662.1309,40",
-      "Scale": "0.3,0.3,0.3",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/vyndalium.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "eeb49d66-8bde-4bd2-a17a-d96bad81b07f",
-      "Flags": 0,
-      "Name": "aksu (1)",
-      "Position": "426.1948,743.7094,40.0179",
-      "Rotation": "0.6313837,-0.07334033,-0.05778167,0.7698294",
-      "Scale": "1.5,1.5,1.5",
-      "Tags": "interactable",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SkinnedModelRenderer",
-          "__guid": "fee4e1cb-db71-40ba-a1ad-ac1c464892f6",
-          "AnimationGraph": "models/aksu/aksu.vanmgrph",
-          "BodyGroups": 9493,
-          "CreateBoneObjects": false,
-          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1",
-          "UseAnimGraph": true
-        },
-        {
-          "__type": "GeneralGame.BaseGun",
-          "__guid": "3c2caccc-39e4-44df-bfe2-ea66aae56ad8",
-          "AimPos": "-1,1.92,0.57",
-          "AimRotation": "0,0,0,0",
-          "AmmoType": "Rifle",
-          "ClipSize": 30,
-          "Damage": 20,
-          "DamageForce": 5,
-          "DamageType": "Bullet",
-          "DefaultAmmo": 360,
-          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
-          "DeployTime": 0.5,
-          "DisplayName": "Ak74U",
-          "EmptyClipSound": "models/aksu/ak74u_magout.sound",
-          "EmptyReloadSoundSequence": "models/aksu/aksu_reload_empty.sndseq",
-          "EmptyReloadTime": 3,
-          "FireRate": 9,
-          "FireSound": "models/aksu/ak74u shoot.sound",
-          "HitForce": 300,
-          "HoldType": "Rifle",
-          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
-          "IdlePos": "-3,0,0",
-          "ImpactEffect": "particles/impact.generic.vpcf",
-          "IsAuto": true,
-          "IsDeployed": false,
-          "IsMagicWeapon": false,
-          "Recoil": "-5,0,0",
-          "ReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
-          "ReloadTime": 3,
-          "RunRotation": "-0.02574534,0.1378373,0.06286959,0.9881222",
-          "Spread": 0.01,
-          "Type": "Ranged",
-          "ViewModelPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/weapons/aksu/vm_aksu.prefab"
-          }
-        },
-        {
-          "__type": "Sandbox.ModelCollider",
-          "__guid": "94dbae8d-553c-42f3-9daf-8d11cc150e8c",
-          "IsTrigger": false,
-          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-          "Static": false
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "da506e5f-dc6f-45c0-b4bb-72158a9c7f97",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
-          "__type": "GeneralGame.ItemEquipment",
-          "__guid": "c8f78392-785c-4e0c-8694-fa9e937309db",
-          "AbilityHaste": 0,
-          "Armor": 0,
-          "Attachment": "hand_R",
-          "AttachmentTransform": {
-            "UniformScale": 1,
-            "IsValid": true,
-            "ForwardRay": {
-              "Forward": "1,0,0"
-            },
-            "Scale": "1,1,1",
-            "Rotation": "0,0,0,1"
-          },
-          "AttackPower": 0,
-          "AttackSpeed": 0,
-          "BleedResistance": 0,
-          "BlindResistance": 0,
-          "BonusEXP": 0,
-          "BonusScore": 0,
-          "BonusVyndalium": 0,
-          "Count": 0,
-          "Cover": 0,
-          "CritHitChance": 0,
-          "CritHitDamage": 0,
-          "DamageBalance": 0,
-          "Description": "An AK",
-          "DEX": 0,
-          "DMG": 200,
-          "Durability": 0,
-          "Evasion": 0,
-          "FireResistence": 0,
-          "HE": 0,
-          "Health": 0,
-          "HideBodygroups": "None",
-          "HoldType": "Rifle",
-          "HolyResistence": 0,
-          "IceResistence": 0,
-          "Icon": {
-            "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-            "MaterialGroup": "",
-            "Colour": "1,1,1,1",
-            "Position": "-1.8,4.5,0",
-            "Rotation": "0,0,0.7071068,0.7071068",
-            "Guid": "e23adcb4-7a59-4c04-92ce-88d76b9b52d2"
-          },
-          "INT": 0,
-          "IsBackable": false,
-          "ItemLevel": 0,
-          "LightningResistence": 0,
-          "MagicDefense": 0,
-          "MagicPower": 0,
-          "Mana": 0,
-          "MaxStack": 0,
-          "MoveSpeed": 0,
-          "Name": "AKM",
-          "PER": 0,
-          "PoisonResistence": 0,
-          "SellPrice": -1,
-          "ShadowResistence": 0,
-          "Slot": "Hand",
-          "SlowResistence": 0,
-          "STG": 0,
-          "StunResistance": 0,
-          "Tenacity": 0,
-          "Tier": "C",
-          "UpdatePosition": false,
-          "UseSkinTint": false,
-          "WeightInGrams": 0
-        },
-        {
-          "__type": "GeneralGame.Interactable",
-          "__guid": "8bf3b351-c3b5-4a5e-a330-bf24ff20c926"
-        },
-        {
-          "__type": "GeneralGame.Interactions",
-          "__guid": "bf6008d9-9649-4b3e-80ab-5573c2919bdf",
-          "HideOnEmpty": false,
-          "ObjectInteractions": []
-        }
-      ]
-    },
-    {
-      "__guid": "062ac88f-360d-4340-8325-75fff4b469fc",
-      "Flags": 0,
-      "Name": "aksu (2)",
-      "Position": "418.3477,694.3129,34.88499",
-      "Rotation": "0.6313836,-0.0733403,-0.05778171,0.7698293",
-      "Scale": "1.5,1.5,1.5",
-      "Tags": "interactable",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SkinnedModelRenderer",
-          "__guid": "ef5a4367-d1a7-4852-a3d4-f94a2d728a01",
-          "AnimationGraph": "models/aksu/aksu.vanmgrph",
-          "BodyGroups": 9493,
-          "CreateBoneObjects": false,
-          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1",
-          "UseAnimGraph": true
-        },
-        {
-          "__type": "GeneralGame.BaseGun",
-          "__guid": "7e591fb7-21e2-480f-bed9-d1fd691475c0",
-          "AimPos": "-1,1.92,0.57",
-          "AimRotation": "0,0,0,0",
-          "AmmoType": "Rifle",
-          "ClipSize": 30,
-          "Damage": 20,
-          "DamageForce": 5,
-          "DamageType": "Bullet",
-          "DefaultAmmo": 360,
-          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
-          "DeployTime": 0.5,
-          "DisplayName": "Ak74U",
-          "EmptyClipSound": "models/aksu/ak74u_magout.sound",
-          "EmptyReloadSoundSequence": "models/aksu/aksu_reload_empty.sndseq",
-          "EmptyReloadTime": 3,
-          "FireRate": 9,
-          "FireSound": "models/aksu/ak74u shoot.sound",
-          "HitForce": 300,
-          "HoldType": "Rifle",
-          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
-          "IdlePos": "-3,0,0",
-          "ImpactEffect": "particles/impact.generic.vpcf",
-          "IsAuto": true,
-          "IsDeployed": false,
-          "IsMagicWeapon": false,
-          "Recoil": "-5,0,0",
-          "ReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
-          "ReloadTime": 3,
-          "RunRotation": "-0.02523804,0.1292066,0.0627908,0.9893059",
-          "Spread": 0.01,
-          "Type": "Ranged",
-          "ViewModelPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/weapons/aksu/vm_aksu.prefab"
-          }
-        },
-        {
-          "__type": "Sandbox.ModelCollider",
-          "__guid": "a2aae4ec-d964-4829-b7ba-f382e2cf76d3",
-          "IsTrigger": false,
-          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-          "Static": false
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "f529fc22-718d-447d-94ab-9e12946594e2",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
-          "__type": "GeneralGame.ItemEquipment",
-          "__guid": "f518f1b1-f21c-4dc1-8dcb-dbf8a785c609",
-          "AbilityHaste": 0,
-          "Armor": 0,
-          "Attachment": "hand_R",
-          "AttachmentTransform": {
-            "UniformScale": 1,
-            "IsValid": true,
-            "ForwardRay": {
-              "Forward": "1,0,0"
-            },
-            "Scale": "1,1,1",
-            "Rotation": "0,0,0,1"
-          },
-          "AttackPower": 0,
-          "AttackSpeed": 0,
-          "BleedResistance": 0,
-          "BlindResistance": 0,
-          "BonusEXP": 0,
-          "BonusScore": 0,
-          "BonusVyndalium": 0,
-          "Count": 0,
-          "Cover": 0,
-          "CritHitChance": 0,
-          "CritHitDamage": 0,
-          "DamageBalance": 0,
-          "Description": "An AK",
-          "DEX": 0,
-          "DMG": 200,
-          "Durability": 0,
-          "Evasion": 0,
-          "FireResistence": 0,
-          "HE": 0,
-          "Health": 0,
-          "HideBodygroups": "None",
-          "HoldType": "Rifle",
-          "HolyResistence": 0,
-          "IceResistence": 0,
-          "Icon": {
-            "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-            "MaterialGroup": "",
-            "Colour": "1,1,1,1",
-            "Position": "-1.8,4.5,0",
-            "Rotation": "0,0,0.7071068,0.7071068",
-            "Guid": "e23adcb4-7a59-4c04-92ce-88d76b9b52d2"
-          },
-          "INT": 0,
-          "IsBackable": false,
-          "ItemLevel": 0,
-          "LightningResistence": 0,
-          "MagicDefense": 0,
-          "MagicPower": 0,
-          "Mana": 0,
-          "MaxStack": 0,
-          "MoveSpeed": 0,
-          "Name": "AKM",
-          "PER": 0,
-          "PoisonResistence": 0,
-          "SellPrice": -1,
-          "ShadowResistence": 0,
-          "Slot": "Hand",
-          "SlowResistence": 0,
-          "STG": 0,
-          "StunResistance": 0,
-          "Tenacity": 0,
-          "Tier": "C",
-          "UpdatePosition": false,
-          "UseSkinTint": false,
-          "WeightInGrams": 0
-        },
-        {
-          "__type": "GeneralGame.Interactable",
-          "__guid": "93472640-58b7-47ad-a030-aa9620a62eed"
-        },
-        {
-          "__type": "GeneralGame.Interactions",
-          "__guid": "e1d90f1d-32be-4d23-9803-2cb740a879bf",
-          "HideOnEmpty": false,
-          "ObjectInteractions": []
-        }
-      ]
-    },
-    {
       "__guid": "f386fca3-13e7-4dab-b8d5-a1c67f4e64e0",
       "Flags": 0,
       "Name": "Point Light (1)",
       "Position": "339.2738,-554.3819,113.9235",
       "Tags": "light_point,light",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.PointLight",
@@ -601,8 +128,6 @@
           "Name": "Point Light (1)",
           "Position": "-758.1294,1311.542,205.0555",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -622,8 +147,6 @@
           "Name": "Point Light (1)",
           "Position": "-2228.475,1293.21,267.2796",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -643,8 +166,6 @@
           "Name": "Point Light (1)",
           "Position": "-4086.944,1293.21,222.3008",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -664,8 +185,6 @@
           "Name": "Point Light (1)",
           "Position": "-3224.155,1293.21,246.0805",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -688,8 +207,6 @@
       "Position": "1016.974,-557.1262,123.0235",
       "Tags": "light_point,light",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.PointLight",
@@ -708,8 +225,6 @@
           "Flags": 0,
           "Name": "Point Light (1)",
           "Position": "-758.1294,1311.542,205.0555",
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -729,8 +244,6 @@
           "Name": "Point Light (1)",
           "Position": "-4086.944,1293.21,222.3008",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -750,8 +263,6 @@
           "Name": "Point Light (1)",
           "Position": "-3224.155,1293.21,246.0805",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -774,8 +285,6 @@
       "Position": "1016.974,-490.8821,123.0235",
       "Tags": "light_point,light",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.PointLight",
@@ -795,8 +304,6 @@
           "Name": "Point Light (1)",
           "Position": "-758.1294,1311.542,205.0555",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -816,8 +323,6 @@
           "Name": "Point Light (1)",
           "Position": "-2228.475,1293.21,267.2796",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -837,8 +342,6 @@
           "Name": "Point Light (1)",
           "Position": "-4086.944,1293.21,222.3008",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -858,8 +361,6 @@
           "Name": "Point Light (1)",
           "Position": "-3224.155,1293.21,246.0805",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
@@ -876,49 +377,13 @@
       ]
     },
     {
-      "__guid": "0b36a59c-6c71-4af6-8fcb-1267070d1f1f",
-      "Flags": 0,
-      "Name": "Object",
-      "Position": "662.7007,-1802.046,1874.833",
-      "Rotation": "0,0,1,-0.00000004371139",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SpawnPoint",
-          "__guid": "8eb38738-065f-4627-b1c4-6a7fb8fd5946",
-          "Color": "0.8902,0.31765,0.05098,1"
-        }
-      ]
-    },
-    {
-      "__guid": "58420db4-1b17-4fef-958b-ac3c16a57fcd",
-      "Flags": 0,
-      "Name": "Object (3)",
-      "Position": "600.3586,-1672.051,1835.829",
-      "Rotation": "0,0,1,-0.00000004371139",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SpawnPoint",
-          "__guid": "cf07f154-c7dd-4786-95be-e2a41271ecd4",
-          "Color": "0.8902,0.31765,0.05098,1"
-        }
-      ]
-    },
-    {
       "__guid": "24c309d9-5004-4628-bc77-2935bff5962d",
       "Flags": 0,
       "Name": "duck_decoration",
-      "Position": "303.2546,1249.628,32.01669",
-      "Rotation": "0,-0,-0.0897635,0.9959631",
+      "Position": "317.1968,1255.36,32.50429",
+      "Rotation": "-0.0175824,0.03680822,-0.2774595,0.9598711",
       "Scale": "15,15,15",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.Prop",
@@ -939,8 +404,6 @@
       "Rotation": "0,-0,-0.8655882,0.5007564",
       "Tags": "light_point,light,light_spot",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.SpotLight",
@@ -964,8 +427,6 @@
       "Rotation": "-0.005665763,0.02555644,0.2163668,0.9759611",
       "Tags": "light_point,light,light_spot",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.SpotLight",
@@ -985,12 +446,10 @@
       "__guid": "2580598c-4f62-4938-884d-178e43bb2cc9",
       "Flags": 0,
       "Name": "cowboyhat",
-      "Position": "383.7094,1269.567,22.49698",
+      "Position": "406.127,1273.467,24.22424",
       "Rotation": "0.1974681,0.01443192,-0.8848314,0.4217482",
       "Scale": "3,3,3",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ModelRenderer",
@@ -1009,8 +468,6 @@
       "Position": "318.7313,1136.706,122.7018",
       "Rotation": "0,0,0.7071068,-0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.Prop",
@@ -1024,73 +481,12 @@
       ]
     },
     {
-      "__guid": "6c056841-d4ea-45fb-b00f-c7b13243f204",
-      "Flags": 0,
-      "Name": "iron_fence_64",
-      "Position": "175.4309,1134.208,32.00843",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "7208275c-dd99-4107-904c-674764bb3b3e",
-          "BodyGroups": 18446744073709551615,
-          "Health": 100,
-          "IsStatic": false,
-          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
-          "Tint": "1,1,1,1"
-        }
-      ]
-    },
-    {
-      "__guid": "867b81f1-9a61-414b-ad3c-3df5fdeec000",
-      "Flags": 0,
-      "Name": "iron_fence_64 (1)",
-      "Position": "239.3329,1134.208,32.00843",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "d164facc-1323-43fb-8ecd-2cc47df2569b",
-          "BodyGroups": 18446744073709551615,
-          "Health": 100,
-          "IsStatic": false,
-          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
-          "Tint": "1,1,1,1"
-        }
-      ]
-    },
-    {
-      "__guid": "a33b9f7c-384e-4b7d-a854-f7eb2b9206f1",
-      "Flags": 0,
-      "Name": "iron_fence_64 (2)",
-      "Position": "303.4326,1134.208,32.00843",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "5a92dc9a-6b34-4bec-8e16-37fb98386f9a",
-          "BodyGroups": 18446744073709551615,
-          "Health": 100,
-          "IsStatic": false,
-          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
-          "Tint": "1,1,1,1"
-        }
-      ]
-    },
-    {
       "__guid": "3e34ba0b-eeb8-4a67-b6aa-a81a76e9118a",
       "Flags": 0,
       "Name": "iron_fence_64 (3)",
-      "Position": "367.7137,1134.208,32.00843",
+      "Position": "-363.3793,625.9974,85.81741",
+      "Rotation": "0.655022,0.2059681,-0.6571269,-0.3109786",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.Prop",
@@ -1107,17 +503,92 @@
       "__guid": "caf3fd07-1a07-4c9c-a2a1-7e7eb036cf2c",
       "Flags": 0,
       "Name": "iron_fence_64 (4)",
-      "Position": "431.9501,1134.208,32.00843",
+      "Position": "432.298,1147.12,32.05551",
+      "Rotation": "-0.001695806,-0.00005240199,-0.019756,0.9998034",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.Prop",
           "__guid": "8c7a9d11-7628-4591-82e7-a36283488169",
           "BodyGroups": 18446744073709551615,
           "Health": 100,
-          "IsStatic": false,
+          "IsStatic": true,
+          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "79ecb385-d975-4003-b65b-78a978a64ae8",
+      "Flags": 0,
+      "Name": "iron_fence_64 (2)",
+      "Position": "367.6634,1147.12,32.05551",
+      "Rotation": "-0.001695806,-0.00005240199,-0.019756,0.9998034",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "5a533598-0079-4b5d-8371-6c0ef076ef3c",
+          "BodyGroups": 18446744073709551615,
+          "Health": 100,
+          "IsStatic": true,
+          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d132e925-c2ee-41f0-a9cc-bbbe8e53ed48",
+      "Flags": 0,
+      "Name": "iron_fence_64 (5)",
+      "Position": "301.5223,1147.12,32.05551",
+      "Rotation": "-0.001695806,-0.00005240199,-0.019756,0.9998034",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "09d998a1-27a3-491e-aa81-2a5ac2bbd59c",
+          "BodyGroups": 18446744073709551615,
+          "Health": 100,
+          "IsStatic": true,
+          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "bfa99a2e-765b-4ff2-88bd-6117ac7ef236",
+      "Flags": 0,
+      "Name": "iron_fence_64 (6)",
+      "Position": "235.89,1147.12,32.05551",
+      "Rotation": "-0.001695806,-0.00005240199,-0.019756,0.9998034",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "4c54a27b-03a7-4672-b483-c9b5d0d9a566",
+          "BodyGroups": 18446744073709551615,
+          "Health": 100,
+          "IsStatic": true,
+          "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e12f751f-6738-44e7-9c06-f0e0f61dffc3",
+      "Flags": 0,
+      "Name": "iron_fence_64 (7)",
+      "Position": "169.1521,1147.12,32.05551",
+      "Rotation": "-0.001695806,-0.00005240199,-0.019756,0.9998034",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "809ba7f2-a6fe-4d62-93a0-f29115497975",
+          "BodyGroups": 18446744073709551615,
+          "Health": 100,
+          "IsStatic": true,
           "Model": "models/sbox_props/iron_fence/iron_fence_64.vmdl",
           "Tint": "1,1,1,1"
         }
@@ -1131,8 +602,6 @@
       "Rotation": "0,0.258819,0,0.9659258",
       "Tags": "light_directional,light",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.DirectionalLight",
@@ -1146,29 +615,12 @@
       ]
     },
     {
-      "__guid": "e768651f-fe35-488a-937c-5bc2b0d405e9",
-      "Flags": 0,
-      "Name": "GameObject",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true
-    },
-    {
-      "__guid": "5bff495f-7de7-4970-90ba-01fc56d18c7a",
-      "Flags": 0,
-      "Name": "GameObject",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true
-    },
-    {
       "__guid": "2a809193-af72-406a-8ca2-85d32990a80e",
       "Flags": 0,
       "Name": "box_new",
-      "Position": "491.5325,-674.2892,-12.88437",
+      "Position": "572.6783,-728.8385,-13.51867",
+      "Rotation": "-0.003715515,0.0003275593,-0.1115878,0.9937476",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.Prop",
@@ -1185,11 +637,10 @@
       "__guid": "c40d886e-454d-4334-b76f-e6f23f9b4fd1",
       "Flags": 0,
       "Name": "box_new (1)",
-      "Position": "469.1135,-395.9845,5.113955",
-      "Rotation": "0,0,0.7071067,0.7071068",
+      "Position": "503.6727,-278.627,5.114003",
+      "Rotation": "0,0,0.8660253,0.5000001",
+      "Scale": "0.5,0.5,0.5",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.Prop",
@@ -1203,21 +654,328 @@
       ]
     },
     {
-      "__guid": "05c5e692-d66c-48b7-a384-93dd46369f64",
+      "__guid": "d29c5099-7381-4e96-b9f3-f9aa5303266d",
       "Flags": 0,
-      "Name": "Object",
-      "Position": "354.7704,781.3884,72.80389",
+      "Name": "spawner",
+      "Position": "1188.173,-698.6243,61.98526",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "07aa7777-207e-44ed-a427-2bb58234dda4",
+          "__guid": "d31dc757-cf13-474a-b0c4-091721b9617f",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
           "IsSpawning": false,
-          "MaxSpawns": 10,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 50,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "5069276c-868a-440c-b869-5441d966274b",
+      "Flags": 0,
+      "Name": "spawner (23)",
+      "Position": "940.882,-735.9898,61.98524",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "4c9f1a6f-6324-48dc-9451-cc95afa91894",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "c7306656-ea1b-47f7-9184-105557a458db",
+      "Flags": 0,
+      "Name": "spawner (24)",
+      "Position": "906.5714,-336.3043,91.35217",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "be5bdfd5-6df9-4390-89c8-6382d24e272c",
+          "destroyChance": 0.2,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/pm/glock-c.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "fcab9fda-1639-4f2f-8766-69b8df919e9d",
+      "Flags": 0,
+      "Name": "spawner (25)",
+      "Position": "936.6441,-336.3043,91.35217",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "c219f59e-99c4-4e3a-a668-bf9936c7f04d",
+          "destroyChance": 0.8,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/pm/glock-s.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "c90098a5-31f1-4e0b-baa3-6f7d963dcf0a",
+      "Flags": 0,
+      "Name": "spawner (26)",
+      "Position": "976.9175,-336.3043,91.35217",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "cb365715-3400-44f1-a6cf-9c47bc21112f",
+          "destroyChance": 0.99,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/pm/glock-sss.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "5d15f62e-2f75-448c-a359-ef99918642af",
+      "Flags": 0,
+      "Name": "spawner (27)",
+      "Position": "1140.987,-336.3043,91.35217",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "d06f0619-8a14-4a6e-87df-d16e44cfd0eb",
+          "destroyChance": 0.5,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/pm/glock-a.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "e773b25d-b694-4a9a-95d6-f208f57241e8",
+      "Flags": 0,
+      "Name": "spawner (28)",
+      "Position": "1171.981,-336.3043,91.35217",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "34e366e7-8fab-4744-9135-6c3e79531f9a",
+          "destroyChance": 0.15,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/pm/glock-b.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "ebaa56d2-079d-4cc5-9572-310d3751e0db",
+      "Flags": 0,
+      "Name": "spawner (29)",
+      "Position": "1211.293,-336.3043,91.35217",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "4fd51fff-adaa-4bbe-b8c6-be33725f4740",
+          "destroyChance": 0.7,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/pm/glock-ss.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "ad8ae6b1-865a-4bc6-853d-449394a6f5bf",
+      "Flags": 0,
+      "Name": "spawner (3)",
+      "Position": "1188.173,-497.4169,61.98526",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "716b05ce-017e-4369-a2ab-b9774aa64e78",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": false,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "8dc06767-48b5-4356-b7d9-8071edc564eb",
+      "Flags": 0,
+      "Name": "spawner (4)",
+      "Position": "299.8596,1050.991,61.98528",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "dc848c88-1721-4b99-95d1-b46d3077c897",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": false,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/pistoleammo.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "7abdf14b-a68e-4616-9200-fb5ce2e568e8",
+      "Flags": 0,
+      "Name": "spawner (5)",
+      "Position": "392.3897,1050.991,61.98528",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "769cce68-9641-4ec2-b194-fe08be23af16",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": false,
+          "RespawnTime": 1,
           "ZombiePrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/pickupammo.prefab"
@@ -1226,142 +984,679 @@
       ]
     },
     {
-      "__guid": "849b5b40-7d5f-484d-ae2c-1c7bbc934ff6",
+      "__guid": "63aed175-8795-48e4-9040-f594ef31568c",
+      "Flags": 0,
+      "Name": "spawner (6)",
+      "Position": "-1039.543,1050.991,145.5339",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "570712a3-b56a-4d19-9eab-054c76ef28f5",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "a0824bc1-1ce1-4e53-99b4-b29d3df722fe",
+      "Flags": 0,
+      "Name": "spawner (19)",
+      "Position": "-526.1679,-59.64417,209.6094",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "01d2295d-32c1-4163-aecf-ba857444ddbe",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "f0ec9ef0-714f-459b-8ff3-2c20316da7ab",
+      "Flags": 0,
+      "Name": "spawner (20)",
+      "Position": "-619.8945,-284.7381,209.6094",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "af314217-a3b0-4300-a5f2-c55dd1cd8c64",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "4f3d95b5-858d-46eb-b26d-0726f9fb2e5b",
+      "Flags": 0,
+      "Name": "spawner (21)",
+      "Position": "-994.4422,-149.0764,209.6094",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "35f18eec-b0ed-4929-8f7e-15e308de78dd",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "dc5fb492-3d0c-4d7c-a46b-d56b36815541",
+      "Flags": 0,
+      "Name": "spawner (22)",
+      "Position": "-1039.554,-341.3959,209.6094",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "a7c82c4c-5cd1-40df-9b78-1777f40e6e84",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "771dd542-fc4f-41f6-95bc-505aa3edd53f",
+      "Flags": 0,
+      "Name": "spawner (7)",
+      "Position": "-1218.826,1050.991,145.5339",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "56c6c1b9-52a1-4c65-a0ea-6ea15330ef10",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "c2601714-eba8-4f5e-9f30-54481371e14f",
+      "Flags": 0,
+      "Name": "spawner (16)",
+      "Position": "-1606.453,1050.991,145.5339",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "83c85d26-7d3d-4d7f-a74a-a342f060f062",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "d4c7a186-28e8-45cb-94f9-4ae61e2106cd",
+      "Flags": 0,
+      "Name": "spawner (17)",
+      "Position": "-1606.453,604.8134,145.5339",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "45407e1b-dc3f-415e-ac40-2247335bb89d",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "d47510ca-0128-476a-a075-cb43a4674b5a",
+      "Flags": 0,
+      "Name": "spawner (18)",
+      "Position": "-1772.811,779.7406,145.534",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "91b90ff7-c957-42d0-810b-f83f4b572cdc",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "b7aa0bbd-b341-4bdf-b8bc-49b64f527771",
+      "Flags": 0,
+      "Name": "spawner (8)",
+      "Position": "-1469.493,714.4379,145.5339",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "6654e3a2-9ed4-48a3-9f5a-db5e043c3725",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "1ec8fd60-8bdd-474b-9881-f2524c43d860",
+      "Flags": 0,
+      "Name": "spawner (10)",
+      "Position": "-2680.739,714.4379,-49.11562",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "775c9610-4167-4670-aa7f-b996af7aef1b",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": true,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "c85efb55-68ca-4169-a31a-d30e0658c765",
+      "Flags": 0,
+      "Name": "spawner (11)",
+      "Position": "-2837.241,1073.806,-49.1155",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "8896111e-7e09-4455-a527-19c6a6698c1d",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": true,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "5ef99e42-b7f4-4d20-b16a-79a9aaf4ee35",
+      "Flags": 0,
+      "Name": "spawner (12)",
+      "Position": "-2510.415,1127.518,-49.11548",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "7c2419c2-adff-4aac-97ea-a14f40e1042f",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": true,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "058ab88b-5905-4ccd-9acd-0c86cec43688",
+      "Flags": 0,
+      "Name": "spawner (13)",
+      "Position": "-2602.786,410.41,-49.11545",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "c769b042-1828-45a0-9b93-f18c3568b11c",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": true,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "f3b60873-8c20-4a20-b1cf-0d689de37575",
+      "Flags": 0,
+      "Name": "spawner (14)",
+      "Position": "-3145.085,464.9259,-17.9886",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "5d86eeae-5075-4b2e-8dcb-2ae3a6695a84",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": true,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "5d52d4a7-a8d0-4380-bf4e-0bc1aa4fbbe6",
+      "Flags": 0,
+      "Name": "spawner (15)",
+      "Position": "-3335.719,953.6478,28.32901",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "2a610ae5-144b-4f75-bbd7-0f51dddd344c",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": true,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "3e2284c3-b875-4ed6-afce-986ed4179394",
+      "Flags": 0,
+      "Name": "spawner (9)",
+      "Position": "-1133.023,582.0011,145.534",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "57dd1982-d75e-45eb-a4dc-982b86dd55cd",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 2,
+          "PlayerProximityDistance": 400,
+          "Randomized": true,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "c1f68b4f-538d-4b28-b180-6102ed5896a6",
+      "Flags": 0,
+      "Name": "spawner (1)",
+      "Position": "-595.9984,-172.0742,175.0003",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "80b41f85-19ef-4556-a783-d7c9f100c5d8",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": false,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "0f94feb0-e75d-486f-a48c-3ceebc24c099",
+      "Flags": 0,
+      "Name": "spawner (2)",
+      "Position": "-1037.311,-172.0742,175.0003",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "b5267b24-7043-4b6c-beb3-19d37220a14f",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "IsSpawning": false,
+          "Level15To30": false,
+          "Level1To15": true,
+          "Level30To55": false,
+          "Level55To70": false,
+          "Level70To90": false,
+          "Level90To100": false,
+          "MaxSpawns": 5,
+          "PlayerProximityDistance": 400,
+          "Randomized": false,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/npc/zombie_new_1.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "e337b182-7704-4f56-aae4-a2cfae0a9bd8",
+      "Flags": 0,
+      "Name": "glock-c",
+      "Position": "320.0605,1092.93,48.46001",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/pm/glock-c.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "edfb00b9-95f6-472b-91b5-aa32e4e771f4",
       "Flags": 0,
       "Name": "Object",
-      "Position": "-1359.127,750.6964,187.1959",
+      "Position": "329.5234,1101.587,57.04277",
+      "Rotation": "0,0,0.7071067,0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "abc63bdf-ff95-4fc3-b246-d4ced2ec35a8",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "5977b473-e5e2-4bf2-a4c4-1f0f2df28148",
+          "Color": "1,0,0,1",
+          "FontFamily": "Poppins",
+          "FontSize": 68.79,
+          "FontWeight": 800,
+          "Scale": 0.3,
+          "Text": "Weapon \u003C---",
+          "TextAlignment": "Center"
         }
       ]
     },
     {
-      "__guid": "4e49f16a-3928-4281-a655-521cd8ff77c1",
+      "__guid": "d4c0d269-5b34-4458-9079-6decb2aa20b8",
       "Flags": 0,
       "Name": "Object (2)",
-      "Position": "-1359.127,832.6461,187.1959",
+      "Position": "160.5611,782.0016,94.98034",
+      "Rotation": "0,0,0.9999999,0.0000001490116",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "3311fda8-365f-4459-9b7e-39e7e991e611",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "90838869-c055-466e-99b9-c1a44e4b011e",
+          "Color": "1,0,0,1",
+          "FontFamily": "Poppins",
+          "FontSize": 68.79,
+          "FontWeight": 800,
+          "Scale": 0.3,
+          "Text": "W.I.P\nSecond Stage [ Map 2]\n\n",
+          "TextAlignment": "Center"
         }
       ]
     },
     {
-      "__guid": "ac35f559-06d7-4c50-97eb-6f6de293e0e7",
+      "__guid": "df889726-6d2c-455b-9508-492da43d0684",
       "Flags": 0,
-      "Name": "Object (4)",
-      "Position": "-1359.127,928.0455,187.1959",
+      "Name": "Object",
+      "Position": "602.7617,810.6713,222.1499",
+      "Rotation": "0,0,0.9914448,0.1305264",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "26a58567-bee9-4096-957c-b7cc370f4252",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "dc79fdc5-f9de-453c-a6ae-bd5c9c6ea870",
+          "Color": "0.8902,0.31765,0.05098,1"
         }
       ]
     },
     {
-      "__guid": "4c8e27b4-42c9-4fa9-b78b-83beb67f9643",
+      "__guid": "d02870a7-7538-4194-813a-8cfaf2482f15",
       "Flags": 0,
-      "Name": "Object (5)",
-      "Position": "-1359.127,981.5682,187.1959",
+      "Name": "Hub",
+      "Position": "-3670.951,348.969,-37.3687",
+      "Rotation": "-0.01328725,0,0.9999117,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "41dcd70f-96df-4ee5-a02e-3fdd403acb3a",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
-        }
-      ]
+      "__Prefab": "prefabs/entitys/exit.prefab",
+      "__PrefabVariables": {}
     },
     {
-      "__guid": "a1e30686-b24a-4be8-ba6d-22a11d25f223",
+      "__guid": "287c249c-aec1-4a66-a9c6-2e6d5c5b6da8",
       "Flags": 0,
-      "Name": "Object (6)",
-      "Position": "-1359.127,673.7067,187.1959",
+      "Name": "usp",
+      "Position": "335.9649,1101.677,40.00833",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "a5b5c6b7-a8de-498e-9f7e-c01b6dcd6cdc",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
-        }
-      ]
+      "__Prefab": "prefabs/weapons/facepunch/usp/uspa.prefab",
+      "__PrefabVariables": {}
     },
     {
-      "__guid": "a99be4f7-59d2-4637-944e-8339948cf885",
+      "__guid": "d5daf525-6c45-4c95-a32a-770ecaf555a0",
       "Flags": 0,
-      "Name": "Object (7)",
-      "Position": "-1359.127,870.4258,187.1959",
+      "Name": "usp (1)",
+      "Position": "-3703.872,800.6279,-39.24416",
+      "Rotation": "-0.01328725,0,0.9999117,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "5d963dc3-0af7-4321-822d-01fb25a2f873",
-          "IsSpawning": false,
-          "MaxSpawns": 100,
-          "PlayerProximityDistance": 1000,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/zombie.prefab"
-          }
-        }
-      ]
+      "__Prefab": "prefabs/weapons/facepunch/usp/uspss.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "aeafb44c-b089-4887-ad22-57c76148faa3",
+      "Flags": 0,
+      "Name": "mp5ss",
+      "Position": "-3690.059,831.1334,-38.87699",
+      "Rotation": "-0.01328725,0,0.9999117,0",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/facepunch/mp5/mp5ss.prefab",
+      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {
@@ -1387,7 +1682,6 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-26T08:52:43.2318652\u002B02:00",
   "ResourceVersion": 1,
   "__references": [
     "baik.roadsign_stop",

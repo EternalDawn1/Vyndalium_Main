@@ -1,0 +1,192 @@
+Leaderboard {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: all;
+    flex-direction: column;
+    .exit-button {
+    
+    
+    
+            z-index: 100;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 32px;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            background-image: url(/ui/hud/exit.gif);
+            background-position: center;
+            background-size: cover;
+    
+            color: white;
+            border-width: 5px;
+            border-color: black;
+            right: 5%;
+            top: 5%;
+            padding: 5px;
+            cursor: pointer;
+    
+            :hover {
+    
+    
+    
+                position: relative;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                align-items: center;
+                justify-content: center;
+    
+            }
+        }
+
+    .header {
+        position: relative;
+        width: 100%;
+        bottom: 0%;
+        height: 25%;
+        background-color: #ffffff00;
+        font-size: 48px;
+        color:white;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        border-width: 10px;
+        font-weight: bold;
+        border-radius: 100px;
+        border-top-color: rgb(255, 255, 255);
+        border-top-width: 16px;
+        border-bottom-color: rgba(255, 255, 255, 0.863);
+        border-bottom-width: 16px;
+        border-right-color: rgba(245, 222, 179, 0);
+        border-left-color: rgba(245, 222, 179, 0);
+
+        
+    }
+
+    .main-panel {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        
+
+        .header2 {
+            position: relative;
+            width:100%;
+            height: 100%;
+            color:white;
+            background-color: rgba(0, 36, 82, 0.39);
+            background-image: url("/ui/hud/background.gif");
+            gap: 50px;
+            background-size: 100%;
+            font-size: 45px;
+            border-width: 50px;
+            padding: 50px;
+            align-items: center;
+            font-weight: bold;
+            border-width: 10px;
+            border-color: #000000;
+            flex-direction: column;
+           
+            pointer-events: all;
+
+           
+            
+
+            .entries {
+                position: relative;
+                
+                flex-direction: column;
+                width: 100%;
+                
+                height: 100%;
+               
+                font-size: 25px;
+                gap: 25px;
+                overflow-y: scroll;
+                
+
+                .entry {
+                    height: 5%;
+                    font-size: 25px;
+                    justify-content: space-between;
+                    align-items: center;
+                   
+                    padding: 5px 50px;
+                        align-items: center;
+                        border-radius: 10px;
+
+                    .rank {
+                        font-size: 25px;
+                        color: rgb(255, 255, 255);
+                      
+                        padding: 5px 50px;
+                            align-items: center;
+                            border-radius: 10px;
+                    }
+
+                    .name {
+                        font-size: 25px;
+                        color: rgb(255, 255, 255);
+                       
+                        padding: 5px 50px;
+                            align-items: center;
+                            border-radius: 10px;
+                    }
+
+                    .value {
+                        font-size: 25px;
+                        color: rgb(255, 255, 255);
+                   
+                        padding: 5px 50px;
+                            align-items: center;
+                            border-radius: 10px;
+                        
+                    }
+
+                    &.top-rank {
+                        .rank, .name, .value {
+                            color: gold;
+                            background-image: url("/ui/hud/gold3.gif");
+                            padding: 10px 50px;
+                            border-radius: 10px;
+                            font-style: oblique;
+                            font-weight: bolder;
+                            align-items: center;
+                         
+                            
+                        }
+                    }
+
+                    &.top-ten {
+                        .rank, .name, .value {
+                            color: rgb(255, 255, 255);
+                            font-size: 25px;
+                            background-image: url("/ui/hud/pink.gif");
+                            padding: 5px 50px;
+                            align-items: center;
+                            border-radius: 10px;
+                          
+                        }
+                    }
+
+                    &.rank-2 { .rank, .name, .value { opacity: 1; } }
+                    &.rank-3 { .rank, .name, .value { opacity: 0.9; } }
+                    &.rank-4 { .rank, .name, .value { opacity: 0.8; } }
+                    &.rank-5 { .rank, .name, .value { opacity: 0.7; } }
+                    &.rank-6 { .rank, .name, .value { opacity: 0.6; } }
+                    &.rank-7 { .rank, .name, .value { opacity: 0.5; } }
+                    &.rank-8 { .rank, .name, .value { opacity: 0.4; } }
+                    &.rank-9 { .rank, .name, .value { opacity: 0.3; } }
+                    &.rank-10 { .rank, .name, .value { opacity: 0.2; } }
+                }
+            }
+        }
+    }
+}

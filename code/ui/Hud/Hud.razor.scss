@@ -8,30 +8,26 @@
 
 	.ammo {
 		position: absolute;
-		font-family: Forte;
-		font-size: 48%;
-		color: white;
+		font-family: Geneva;
+		font-size: 32px;
+		color: rgb(255, 255, 255);
 		right: 5%;
 		bottom: 10%;
 		z-index: 5;
+		transition: opacity 1s ease-in-out;
+		border-width: 1px;
+		border-radius: 10px;
+		background-color: rgba(0, 0, 0, 0.5);
+		border-color: rgba(10, 0, 0, 0.5);
+		padding: 10px;
 
 
 		>.clip {
-			color: rgb(63, 253, 142);
+			color: rgb(0, 194, 26);
 
 		}
 
-		>.icon {
-			position: absolute;
-			background-image: url("/materials/bullet.png");
-			background-size: 100%;
-			position: absolute;
-			width: 55%;
-			height: 100%;
-			left: 100%;
-			bottom: 15%;
-			z-index: 1;
-		}
+		
 
 
 	}
@@ -45,25 +41,70 @@
 		align-items: center;
 	}
 
-	.crosshair1 {
-		position: absolute;
-		opacity: 1;
-		transition: transform 2.05s ease-in-out;
-		width: 25px;
-		height: 25px;
-		border: 2px solid white;
-		background-color: transparent;
-		border-radius: 55px;
-		border-right-color: transparent;
-		border-right-width: 5px;
-		border-left-width: 5px;
-		border-left-color: transparent;
-		border-top-width: 1px;
-		border-bottom-width: 1px;
-
-
-
-	}
+								.crosshair1 {
+									position: relative;
+									opacity: 1;
+									transition: transform 2.05s ease-in-out;
+									width: 50px;
+									/* Breite des Fadenkreuzes */
+									height: 50px;
+									/* Höhe des Fadenkreuzes */
+									background-color: transparent;
+									
+								}
+				
+								.crosshair1 .bar {
+									position: absolute;
+									background-color: rgb(30, 255, 0);
+								}
+				
+								.crosshair1 .bar.vertical {
+									width: 2px;
+									/* Dicke des vertikalen Balkens */
+								}
+				
+								.crosshair1 .bar.horizontal {
+									height: 2px;
+									/* Dicke des horizontalen Balkens */
+									width: 20px;
+									/* Breite des horizontalen Balkens */
+								}
+				
+								.crosshair1 .bar.top {
+									height: 11px;
+									/* Höhe des oberen Balkens */
+									top: 6;
+									left: 50%;
+									transform: translateX(-50%);
+								}
+				
+								.crosshair1 .bar.bottom {
+									height: 11px;
+									/* Höhe des unteren Balkens */
+									bottom: 6;
+									left: 50%;
+									transform: translateX(-50%);
+								}
+				
+								.crosshair1 .bar.left {
+									height: 2px;
+									/* Dicke des horizontalen Balkens */
+									width: 11px;
+									/* Breite des linken Balkens */
+									top: 50%;
+									left: 6;
+									transform: translateY(-50%);
+								}
+				
+								.crosshair1 .bar.right {
+									height: 2px;
+									/* Dicke des horizontalen Balkens */
+									width: 11px;
+									/* Breite des rechten Balkens */
+									top: 50%;
+									right: 6;
+									transform: translateY(-50%);
+								}
 
 	&.hitmarker {
 		.crosshair1 {
@@ -118,7 +159,7 @@
 	.expbar {
 		position: absolute;
 		left: 65%;
-		bottom: 5%;
+		bottom: 10%;
 		transition: opacity 1s ease-in-out;
 
 	}
@@ -136,38 +177,59 @@
 
 	.vyndalium {
 		position: absolute;
-		left: 3%;
+		right: 5%;
 		bottom: 90%;
 		z-index: 1;
-		padding: 1%;
+		width: 12%;
+		height: 5%;
+		transition: opacity 1s ease-in-out;
+		border-width: 1px;
+		border-radius: 10px;
+		background-color: rgba(0, 0, 0, 0.5);
+		border-color: rgba(10, 0, 0, 0.5);
+		
+		padding:5px;
+		
 
 
 		.vyndalium1 {
 
-			position: absolute;
+			position: relative;
+			
+			width: 100%;
+			height: 100%;
 			flex-direction: column;
-			flex-direction: row-reverse;
-
-
+		
+			border-width: 1px;
+				border-radius: 10px;
+				background-color: rgba(253, 253, 253, 0);
+				border-color: rgba(255, 255, 255, 0);
+				justify-content: space-between;
 
 
 			.p {
-				color: rgb(255, 187, 0);
-				font-size: 36px;
-				font-family: Arial, Helvetica, sans-serif;
+				position: relative;
+				color: rgb(255, 209, 84);
+				font-size: 30px;
+				font-family: Geneval;
 				gap: 15px;
-				transition: opacity 0.5s ease-in-out;
+				transition: opacity 5.5s ease-in-out;
 				opacity: 1;
-
-
+				
+				justify-content: space-between;
+				align-items: center;
 
 
 
 				.icon1 {
+					position: relative;
 					background-image: url("/ui/hud/vynd.png");
 					background-size: 100%;
-					width: 64px;
-					height: 64px;
+					
+					align-items: center;
+					
+					width: 32px;
+					height: 32px;
 
 
 				}
@@ -221,30 +283,47 @@
 
 		>.healthbar {
 			width: 400px;
-			height: 32px;
+			height: 35px;
 			bottom: 25px;
 			left: 7%;
-			background-blend-mode: multiply;
+			//background-blend-mode: multiply;
 			background-size: 100%;
-			//background-position: center;
-			background-image: url("/ui/hud/hpbar2.png");
+			//background-position: center; 
+			//background-image: url("/ui/hud/hpbar2.png");
+			border-right: 1px solid rgb(199, 199, 199);
+			
+			border-right-width: -11px;
+			border: 4px rgba(0, 0, 0, 0.61);
 
+			border-top-right-radius: -50px -50px;
+			border-top-width: 4px;
+			border-top-color: rgba(255, 255, 255, 0.219);
+
+			border-bottom-right-radius: 50px;
+			border-bottom-width: 1px;
 			padding: 5px;
-			border-radius: 100px;
+
+			
 
 
 
 
 			>.inner {
-
+				
 				flex-grow: 10;
-
+				background-color:rgba(0, 0, 0, 0.884);
+				
+				border-right: 1px solid rgba(199, 199, 199, 0);
+				border-bottom-right-radius: 50px;
+				
 
 				>.fill {
+					
+					
 					height: 100%;
-					border-right: 1px solid rgb(124, 124, 124);
+					border-right: 1px solid rgba(124, 124, 124, 0.089);
 					border-right-width: -11px;
-					border: 4px rgba(0, 0, 0, 0.521);
+					border: 4px rgba(0, 0, 0, 0.589);
 
 					border-top-right-radius: -50px -50px;
 					border-top-width: 3px;
@@ -267,16 +346,17 @@
 
 		>p {
 			position: absolute;
-			left: 105%;
+			
+			left: 5%;
 			top: 0%;
-			color: white;
-			font-size: 22px;
+			color: rgb(0, 0, 0);
+			font-size: 20px;
 			border-radius: 10%;
 			font-family: Geneva;
-			font-weight: 1500;
+			font-weight: bold;
 			transition: opacity 0.5s ease-in-out;
 			opacity: 1;
-			background-color: rgba(206, 206, 206, 0.384);
+			background-color: rgba(206, 206, 206, 0);
 			padding: 0px 5px;
 		}
 	}
@@ -301,27 +381,26 @@
 
 		>.manabar {
 			width: 370px;
-			height: 32px;
+			height: 36px;
 			bottom: 60px;
 			left: 22px;
-			background-color: rgba(0, 0, 0, 0.774);
+			background-color: rgba(0, 0, 0, 0);
 			padding: 5px;
 			border-radius: 8px;
 
 
 			>.manainner {
-				background-color: rgba(0, 0, 0, 0.774);
+				background-color: rgba(0, 0, 0, 0.219);
 
 				flex-grow: 1;
 
 				>.manafill {
 					height: 100%;
 					background-image: url("/ui/hud/manabar.png");
-
+					background-blend-mode: darken;
 					background-position-x: center;
-
 					border-radius: 0px;
-					border-right: 5px solid rgba(255, 255, 255, 0.795);
+					border-right: 15px solid rgba(255, 255, 255, 0.795);
 					border-right-width: -11px;
 
 					border: 5px rgba(116, 116, 116, 0.356);
@@ -341,16 +420,16 @@
 
 			>p {
 				position: absolute;
-				left: 105%;
-				top: 0%;
-				color: white;
+				left: 6%;
+				top: 7%;
+				color: rgb(255, 255, 255);
 				font-size: 22px;
 				border-radius: 10%;
 				font-family: Geneva;
 				font-weight: 1500;
-				transition: opacity 0.5s ease-in-out;
+				transition: opacity 1.5s ease-in-out;
 				opacity: 1;
-				background-color: rgba(128, 128, 128, 0.24);
+				background-color: rgba(128, 128, 128, 0);
 				padding: 0px 5px;
 			}
 		}

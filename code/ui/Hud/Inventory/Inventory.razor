@@ -2,12 +2,11 @@
 @namespace GeneralGame.HUD
 @attribute [StyleSheet]
 
-@if (Player.Local is null)
-	return;
+
 <root>
 	<SideButton title="Exit" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud)) IsInverted=@(true)
-		ImagePath="ui/hud/goback.png" style="position: absolute; top: 30px; right: 0px;" style="z-index: 100;" />
+		ImagePath="ui/hud/exit.gif" style="position: absolute; top: 30px; right: 0px;" style="z-index: 100;" />
 	<SideButton title="Character Menu" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.CharacterMenu)) IsInverted=@(true)
 		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 270px; right: 0px; " style="z-index: 100;" />
@@ -23,15 +22,16 @@
 	</div>
 	<div class="list">
 		<div class="inventory" style="opacity: @(currentPanel == PanelType.Inventory ? 1 : 0)">
-			<input type="search" class="search-bar" @bind="searchTerm" placeholder="Search..."
-				@oninput="UpdateSearch" />
+			
 			<div class="Hello">Inventory / All</div>
 
 			<div class="section">
 				<div class="character">
-					<CharacterRenderer @ref=_renderer />
+					
 					<div class="box">
-
+						<div class="char">
+							<CharacterRenderer @ref=_renderer />
+						</div>
 						<div class="EquippedItems">
 							<InventorySlot EquipSlotIndex=@EquipSlot.Head
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head] />
@@ -47,7 +47,6 @@
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
 							<InventorySlot EquipSlotIndex=@EquipSlot.Face
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
-
 
 							<InventorySlot EquipSlotIndex=@EquipSlot.Belt
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt] />
@@ -65,13 +64,9 @@
 							<InventorySlot EquipSlotIndex=@EquipSlot.Back
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back] />
 						</div>
-
-
-
-
-
-
-
+						
+						
+						
 					</div>
 				</div>
 
@@ -85,10 +80,11 @@
 						var item = Player.Local.Inventory.BackpackItems[index];
 						<InventorySlot Item=@item BackpackSlotIndex=@index />
 					}
+					
 				</div>
 				<div style="align-items: center; margin: 20px 5px;"></div>
 			</div>
-		</div>
+			
 
 		<div class="Food" style="opacity: @(currentPanel == PanelType.Food ? 1 : 0)">
 
@@ -117,6 +113,15 @@
 
 @code
 {
+	public Hud hud;
+
+	
+
+	private Player player { get; set; }
+
+	
+	
+
 	CharacterRenderer _renderer;
 
 	public void UpdateSearch()

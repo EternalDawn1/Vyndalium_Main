@@ -16,4 +16,6 @@ public static class InputAction
 	public const string Abilities = "Abilities";
 
 	public const string Shop = "Shop";
+
+	public const string Interaction = "Interaction";
 }

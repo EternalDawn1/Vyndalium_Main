@@ -1,0 +1,269 @@
+@inherits Panel
+@using GeneralGame
+@namespace GeneralGame.HUD
+<root>
+    
+
+    <div class="sidehud">
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Inventory)) 
+            IsInverted=@(true) 
+            ImagePath="ui/hud/inventory.png" 
+            title="Sell" 
+            TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"   
+            />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.StoreItems)) IsInverted=@(true) ImagePath="ui/hud/storage.png" title="Storage" TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"    />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Weapons)) IsInverted=@(true) ImagePath="ui/hud/weapons.png" />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Armor)) IsInverted=@(true) ImagePath="ui/hud/armor.png" />
+        <SideButton OnClick=@(() => ShowPanel(PanelType.Accessories)) IsInverted=@(true) ImagePath="ui/hud/money.gif" title="Shop" TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"    />
+    </div>
+    <button class="exit-button" @onclick="@(() => shopStorage.CloseShop())"></button>
+
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.Inventory ? 1 : 0)">
+        <div class="panel-content-text">
+            <div class="panel-content-layout">
+                <div class="main-panel">
+                    <div class="Panel">
+                        
+                        <div class="section2">
+                            
+                            <div class="title">Inventory</div>
+                            <div class="title2">Sell</div>
+                            <div class="items0">
+                                
+                                
+                                @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+                                {
+                                    var item = Player.Local.Inventory.BackpackItems[index];
+                                    <InventorySlot Item=@item BackpackSlotIndex=@index />
+                                }
+                            </div>
+                            <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
+                            <div style="align-items: center; margin: 20px 5px;"></div>
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.StoreItems ? 1 : 0)">
+    <div class="panel-content-text">
+        <div class="panel-content-layout">
+            <div class="main-panel">
+                <div class="Panel">
+                    <div class="section2">
+                        <div class="title-container">
+                                
+                                <div class="title0">Inventory</div>
+                                <div class="title0">Storage</div>
+                        </div>
+                        <div class="items-container">
+                            <div class="items2">
+                                @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+                                {
+                                    var item = Player.Local.Inventory.BackpackItems[index];
+                                    <InventorySlot Item=@item BackpackSlotIndex=@index />
+                                }
+                            </div>
+                            <div class="items2">
+                            @for (var index = currentPage * itemsPerPage; index < (currentPage + 1) * itemsPerPage && index < Player.Local.Inventory.StorageItems.Count; index++)
+                            {
+                                var item = Player.Local.Inventory.StorageItems[index];
+                                <InventorySlot Item=@item StorageSlotIndex=@index />
+                            }
+                            </div>
+
+                            <div class="pagination-controls">
+                                <button @onclick="@PreviousPage" disabled="@(currentPage == 0)">Previous</button>
+                                <span>Page @(currentPage + 1) of @totalPages</span>
+                                <button @onclick="@NextPage" disabled="@(currentPage == totalPages - 1)">Next</button>
+                            </div>
+                                </div>
+                        <div style="align-items: center; margin: 20px 5px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.Weapons ? 1 : 0)">
+    <div class="panel-content-text">
+        <div class="panel-content-layout">
+                
+            <div class="upgrade-section">
+                    <div class="title" style="color:blue">Upgrade</div>
+              
+                        <div class="items2">
+                        
+                                    @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+                                    {
+                                        var item = Player.Local.Inventory.BackpackItems[index];
+                                        <InventorySlot Item=@item BackpackSlotIndex=@index />
+                                    }
+                    </div>
+                    <div class="upgrade-slot">
+                        <div class="items2">
+                            @for (var index = 0; index < Player.Local.Inventory.UpgradeItems.Count; index++)
+                            {
+                                var item = Player.Local.Inventory.UpgradeItems[index];
+                                <InventorySlot Item=@item UpgradeSlotIndex=@index />
+                            }
+                            
+                            
+                                
+                            
+                        </div>
+                       
+                        
+
+                    </div>
+                    <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
+                    @if (isUpgradePanelVisible)
+                    {
+                        <div class="upgrade-panel @(isUpgradePanelVisible ? "visible" : "")">
+                            <p class="upgrade-cost">Upgrade Cost: <p class="number">$@upgradeCost</p></p>
+                           
+                            
+                            
+                            <p class="upgrade-level">lvl. @upgradeItem.ItemLevel >>> lvl. @(upgradeItem.ItemLevel + 1)</p>
+                            @{
+                                var (totalMaterialsText, missingMaterialsText) = GetRequiredMaterialsText();
+                            }
+
+                            <p class="upgrade-level" style="font-size: 16px; flex-direction: column; background-color: rgb(109, 109, 109);">
+                                Required Materials:
+                                <div class="total-materials">
+                                    <p class="number">@totalMaterialsText</p>
+                                </div>
+                                    @if (!string.IsNullOrEmpty(missingMaterialsText))
+                                    {
+                                    <div class="missing-materials">
+                                        <p class="number">@missingMaterialsText</p>
+                                    </div>
+                                    }
+                            </p>
+                            
+                           <p class="upgrade-level"
+                            style="background-color: @(GetBackgroundColor(upgradeItem?.SuccessChance ?? 0)); font-size: 20px; height: 80%;">
+                                <span id="status-text" class="@statusClass">@statusText</span>
+                                <p class="number">@((upgradeItem != null) ? $"{upgradeItem.SuccessChance * 100:F1}%" : "0%")</p>
+                            </p>
+                            
+                            <button class="upgrade-button" @onclick="@UpgradeItem"
+                                disabled="@(Player.Local.Vyndalium < upgradeCost || upgradeItem.ItemLevel >= 27)">Upgrade</button>
+                            <p class="upgrade-balance">Balance:
+                                <p class="number"> @Player.Local.Vyndalium</p>
+                            </p>
+                            
+                            
+                        </div>
+                    }
+
+
+                    
+                
+
+                
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="panel-content" style="opacity: @(currentPanel == PanelType.Armor ? 1 : 0)">
+        <div class="panel-content-text">
+            <div class="panel-content-layout">
+                <!-- Armor Content -->
+            </div>
+        </div>
+    </div>
+
+   <div class="panel-content" style="opacity: @(currentPanel == PanelType.Accessories ? 1 : 0)">
+        <div class="panel-content-text">
+        <div class="panel-content-layout">
+            <div class="main-panel">
+                <div class="Panel">
+                    <div class="section2">
+                        <div class="title" style="color:blue">Item Shop</div>
+                            <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
+                        <div class="items-container2">
+                            <div class="items3">
+                                
+                                <div class="box">
+                                    
+                                    <div class="potions">
+                                        @for (var index = 0; index < 10; index++) // 10 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.AvailableItems.Count) ? shopStorage.AvailableItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Potions</div>
+                                </div>
+
+                                <div class="box">
+                                    <div class="weapon">
+                                        @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.WeaponItems.Count) ? shopStorage.WeaponItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Weapons</div>
+                                </div>
+
+                                <div class="box">
+                                    <div class="armor">
+                                        @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.ArmorItems.Count) ? shopStorage.ArmorItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Armor</div>
+                                </div>
+
+                                <div class="box">
+                                    <div class="materials">
+                                        @for (var index = 0; index < 3; index++) // 3 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.MaterialItems.Count) ? shopStorage.MaterialItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Materials</div>
+                                </div>
+
+                                <div class="box">
+                                    <div class="accessories">
+                                        @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.AccessoryItems.Count) ? shopStorage.AccessoryItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Accessories</div>
+                                </div>
+
+                                <div class="box">
+                                    <div class="consumables">
+                                        @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
+                                        {
+                                            var item = (index < shopStorage.ConsumableItems.Count) ? shopStorage.ConsumableItems[index] : null;
+                                            <InventorySlot Item=@item ShopSlotIndex=@index />
+                                        }
+                                    </div>
+                                    <div class="title3">Consumables</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+</root>

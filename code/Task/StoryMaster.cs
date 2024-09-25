@@ -149,6 +149,7 @@ public class StoryMaster : Component
 			return StoryProgression.GameDay;
 		}
 	}
+	
 
 	public GeneralDay CurrentGeneralDay => StoryDays.TryGetValue( StoryProgression.StoryDay, out var generalDay ) ? generalDay : LastValidGeneralDay;
 	public GeneralDay LastValidGeneralDay => StoryDays.Any() ? StoryDays.Last().Value : null;
@@ -362,42 +363,11 @@ public class StoryMaster : Component
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
-	public static void StartSession()
-	{
-		
-	}
+	
 
 	
 
-	private static void SetupSession()
-	{
-		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().First();
-
-		if ( storyMaster == null ) return;
-
-		if ( storyMaster._taskMaster != null && _instance != null )
-			storyMaster.ClearTasks();
-
-		if ( Connection.Local.IsHost )
-		{
-			if ( storyMaster.CurrentGeneralDay.Completed )
-				storyMaster.NextStoryDay();
-
-			storyMaster.LoadStoryProgression();
-			
-		}
-
-		storyMaster.StartStoryDay();
-		
-
-		EventMaster.Instance.UnloadAllEvents();
-		storyMaster.LoadEventPool();
-		storyMaster.RandomizeClothing();
-
-		if ( Player.Local.IsValid() )
-			Player.Local.Respawn();
-	}
+	
 
 	[Broadcast( NetPermission.HostOnly )]
 	public static void EndSession()
@@ -472,39 +442,14 @@ public class StoryMaster : Component
 		if ( Connection.Local.IsHost )
 		{
 			SaveStoryProgression();
-			_taskMaster.SaveTasksProgression();
+			
 			EventMaster.Instance.SaveEventsProgression();
 		}
 	}
 
 	public List<string> RandomTips = new()
 	{
-		"Take your pants off and press P to piss.",
-		"Pissing on stuff might give different results.",
-		"Airsoft can't hurt large animals, but an Axe could!",
-		"Only a real rifle can hurt the king of the forest.",
-		"If you follow the ? on the compass you might find something...",
-		"The deeper in the forest you go, the rarer the animals.",
-		"The deeper you cast your fishing, the better the fish.",
-		"Foxes kill hares, but they might leave spoils behind!",
-		"To continue with the story you must complete all primary tasks.",
-		"Talk with folks around town, some days they might give you tasks.",
-		"Remember to have pants on in the city, or the cops will attack.",
-		"Remember to take pants off in the city, or the hobos will attack.",
-		"Some of your tasks can be completed by other players.",
-		"Press ESC for useful shortcuts such as the fish collection.",
-		"You can drag items on your character to equip them.",
-		"You can drag items off the inventory to drop them.",
-		"You can zoom by holding the Middle Mouse.",
-		"You can walk by holding the ALT key.",
-		"You can crouch by holding the CTRL key.",
-		"Don't bother shooting humans they don't drop anything.",
-		"Run.",
-		"The day will automatically end in the middle of the night.",
-		"Try to go back home before 3am, weird things happen.",
-		"Only some items can be sold at certain shops.",
-		"If you ever end up losing an item you can buy a replacement at one of the town shops.",
-		"You can view the sell price of an item by mousing over it in your inventory. Some items cannot be sold!"
+		
 	};
 
 	TimeSince _lastTipAttempt = 0f;
@@ -588,13 +533,6 @@ public class StoryMaster : Component
 		scriptedEvent.SignalToComplete = signalToComplete;
 	}
 
-	[ConCmd( "general_save" )]
-	public static void SaveGameCmd()
-	{
-		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
-
-		storyMaster?.SaveGame();
-	}
 
 	[ConCmd( "general_reset" )]
 	public static void DeleteSave()
@@ -604,7 +542,7 @@ public class StoryMaster : Component
 		if ( storyMaster != null )
 		{
 			storyMaster.ResetStoryProgression();
-			storyMaster._taskMaster.ResetTasksProgression( false );
+			
 			EventMaster.Instance.ResetEventsProgression();
 			storyMaster.ResetPlayer();
 		}
@@ -623,32 +561,8 @@ public class StoryMaster : Component
 		Game.Close();
 	}
 
-	[ConCmd( "general_reset_story" )]
-	public static void DeleteStory()
-	{
-		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
+	
 
-		if ( storyMaster != null )
-			storyMaster.ResetStoryProgression();
-	}
-
-	[ConCmd( "general_reset_tasks" )]
-	public static void DeleteTasks()
-	{
-		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
-
-		if ( storyMaster != null )
-			storyMaster._taskMaster.ResetTasksProgression( true );
-	}
-
-	[ConCmd( "general_reset_events" )]
-	public static void DeleteEvents()
-	{
-		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
-
-		if ( storyMaster != null )
-			EventMaster.Instance.ResetEventsProgression();
-	}
 
 	[ConCmd( "general_reset_player" )]
 	public static void DeletePlayer()

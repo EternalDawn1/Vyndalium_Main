@@ -1,0 +1,54 @@
+@inherits PanelComponent
+@namespace GeneralGame.HUD
+@using GeneralGame
+
+<root>
+    @if (item != null)
+    {
+        <div class="item">
+            <div class="item-name">@item.Name</div>
+           
+           
+
+            <div class="item-healthbar-container @(isTakingDamage ? "show" : "")">
+                <div class="item-healthbar">
+                    <div class="inner">
+                        <div class="fill" style="width: @(item.Health / item.MaxHealth * 100f)%"></div>
+                    </div>
+                </div>
+
+                <div class="item-backbar">
+                    <div class="inner">
+                        <div class="fill" style="width: @(item.Health / item.MaxHealth * 100f)%"></div>
+                    </div>
+                </div>
+
+                <p>@Math.Round(item.Health) / @Math.Round(item.MaxHealth)</p>
+            </div>
+        </div>
+    }
+</root>
+
+@code{
+    private bool isTakingDamage = false;
+    
+
+    protected override void OnUpdate()
+    {
+        if (item != null)
+        {
+            item.OnTakeDamage += HandleTakeDamage;
+        }
+    }
+    [Property] public ItemObject item { get; set; } = new ItemObject();
+    protected override int BuildHash() => HashCode.Combine(RealTime.Now);
+
+    [Broadcast]
+    public void HandleTakeDamage()
+    {
+        isTakingDamage = true;
+        StateHasChanged();
+
+    }
+}
+

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Security.Permissions;
 using Sandbox;
 using Sandbox.Citizen;
-using GeneralGame;
-using GeneralGame.HUD;
+
 
 
 namespace GeneralGame;
@@ -21,9 +22,14 @@ public partial class Player : Component, IHealthComponent
 	public WeaponComponent DeployedWeapon { get; set; }
 	[Property] public CameraComponent PlyCamera { get; set; }
 	[Property] public GameObject ViewModelRoot { get; set; }
-	public int DefaultAmmo { get; set; }
-	[Property] public AmmoContainer Ammo { get; } = new AmmoContainer();
-	[Property] public CharacterController CharacterController { get; set; }
+	[Property]public int DefaultAmmo { get; set; }
+	private float crouchProgress = 0f;
+	private const float crouchSpeed = 5f;
+
+	private Vector3 targetCameraPosition;
+	[Property] public AmmoContainer Ammo { get; set; } = new AmmoContainer();
+	public BaseGun CurrentWeapon { get; set; }
+	[Property] public CharacterController2 CharacterController { get; set; }
 	[Property] public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject Head { get; set; }
 	[Property] public GameObject Eye { get; set; }
@@ -31,10 +37,11 @@ public partial class Player : Component, IHealthComponent
 	[Property] public SoundEvent HurtSound { get; set; }
 	[Property] public SoundEvent HurtLowHP { get; set; }
 	[Property] public SoundEvent HurtMidHP { get; set; }
-	[Property] public bool SicknessMode { get; set; }
+	
 	[Property] public float StandHeight { get; set; } = 64f;
-	[Property] public float DuckHeight { get; set; } = 28f;
+	[Property] public float DuckHeight { get; set; } = 29f;
 	[Property] public Action OnJump { get; set; }
+	[Property] public bool isJumping { get; set; }
 	[Sync] public LifeState LifeState { get; private set; } = LifeState.Alive;
 	[Sync] public Angles EyeAngles { get; set; }
 	[Sync] public bool IsAiming { get; set; }
@@ -50,14 +57,21 @@ public partial class Player : Component, IHealthComponent
 	private RealTimeSince TimeSinceManaUsed { get; set; }
 
 	private static bool isFirstSpawn = true;
-
+	[Property]public int MAX_BACKPACK_SLOTS = 20;
 
 	private bool WantsToCrouch { get; set; }
 	private Angles Recoil { get; set; }
 	[Property] public float GroundControl { get; private set; } = 4.0f;
 	[Property] public float Aircontrol { get; private set; } = 0.1f;
 	public static bool DebugCamera { get; set; } = false;
-
+	public void InitializeAmmo()
+	{
+		if ( Ammo == null )
+		{
+			Ammo = new AmmoContainer(); // Ersetzen Sie AmmoContainer durch den tatsächlichen Typ
+			Log.Info( "AmmoContainer wurde initialisiert." );
+		}
+	}
 
 	[Property] public bool ThirdPersonEnabled { get; set; }
 	protected BoxCollider Collider;
@@ -105,6 +119,16 @@ public partial class Player : Component, IHealthComponent
 		get => BlockMovements || _blockMouseAim;
 		set => _blockMouseAim = value;
 	}
+	bool _blockMouseClicks = false;
+	/// <summary>
+	/// Block mouse clicks
+	/// </summary>
+	[Sync]
+	public bool BlockMouseClicks
+	{
+		get => _blockMouseClicks;
+		set => _blockMouseClicks = value;
+	}
 
 	bool _blockInputs = false;
 
@@ -115,7 +139,44 @@ public partial class Player : Component, IHealthComponent
 	public bool BlockInputs
 	{
 		get => BlockMovements || _blockInputs;
-		set => _blockInputs = value;
+		set
+		{
+			_blockInputs = value;
+			if ( _blockInputs )
+			{
+				StopMovement();
+			}
+		}
+	}
+	private void SetPlayerMovement( Vector3 movement )
+	{
+		BuildWishVelocity();
+
+		if ( BlockInputs )
+		{
+			// Setze die Geschwindigkeit des Spielers auf null
+			if ( CharacterController != null )
+			{
+				CharacterController.Velocity = Vector3.Zero;
+			}
+			else
+			{
+				// Loggen Sie eine Warnung oder werfen Sie eine Ausnahme, um das Problem zu debuggen
+			
+			}
+			return;
+		}
+
+		// Normale Bewegungslogik hier...
+	}
+
+	private void StopMovement()
+	{
+		// Setze die Eingaben des Spielers zurück
+		Input.ClearActions();
+
+		// Stoppe die Bewegung des Spielers
+		SetPlayerMovement( Vector3.Zero );
 	}
 	public void ForceHoldType( HoldType type, float time )
 	{
@@ -127,7 +188,10 @@ public partial class Player : Component, IHealthComponent
 
 	[Sync] public HoldType HoldType { get; set; } = HoldType.Idle;
 
-
+	public int GetLevel()
+	{
+		return Level;
+	}
 	public void IncreaseMana( float amount )
 	{
 		MaxMana += amount;
@@ -149,18 +213,28 @@ public partial class Player : Component, IHealthComponent
 	{
 		CritHitChance -= amount;
 	}
-
-	public static void GiveVyndaliumDebug( int money = 0 )
+	
+	public void AddVyndalium(int vyndaliumPointsToAdd)
 	{
-		Player.Local.GiveVyndalium( money );
-		Log.Info( $"Given {money}mk" );
+		Sandbox.Services.Stats.Increment( "vyndalium_count1", vyndaliumPointsToAdd );
+		Log.Info( "Vyndalium Points: " + vyndaliumPointsToAdd );
 	}
 
-	[ConCmd( "newgame_give_statspoints" )]
-	public static void GiveStatsPoints()
+
+	
+	public void OnZombieKilled()
 	{
-		Player.Local.StatsPoints += 10;
+		Sandbox.Services.Stats.Increment( "npc", 1 );
+
+		Sandbox.Services.Stats.Increment( "npc_killed", 1 );
+
 	}
+
+	
+
+
+
+
 	public bool TrySpendVyndalium( int amount )
 	{
 		if ( Vyndalium >= amount )
@@ -180,13 +254,14 @@ public partial class Player : Component, IHealthComponent
 		Vyndalium -= amount;
 		return true;
 	}
-	[Broadcast]
+
 	public void GiveVyndalium( int amount )
 	{
 		Vyndalium += amount;
+		
 
 	}
-	[Broadcast]
+	
 	public void GiveXp( int amount )
 	{
 		AddExperience( amount );
@@ -196,6 +271,7 @@ public partial class Player : Component, IHealthComponent
 	{
 		Mana += amount;
 	}
+	
 
 
 	public void ApplyRecoil( Angles recoil )
@@ -220,6 +296,8 @@ public partial class Player : Component, IHealthComponent
 	}
 	public void EquipWeaponsOnSpawn()
 	{
+		if ( IsProxy )
+			return;
 		foreach ( var item in Inventory.EquippedItems )
 		{
 			if ( item is ItemEquipment equipment )
@@ -228,7 +306,8 @@ public partial class Player : Component, IHealthComponent
 			}
 		}
 	}
-
+	public Transform GetAttachment( string attachment, bool world = true )
+	=> ModelRenderer.GetAttachment( attachment, world ) ?? global::Transform.Zero;
 
 	public void Respawn()
 	{
@@ -239,6 +318,9 @@ public partial class Player : Component, IHealthComponent
 		EquipWeaponsOnSpawn();
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
+		InitializeAmmo();
+		
+
 		LifeState = LifeState.Alive;
 
 
@@ -246,9 +328,10 @@ public partial class Player : Component, IHealthComponent
 		{
 			MaxHealth = 50f;
 			Health = MaxHealth;
-			MaxStamina = 50f;
+			MaxStamina = 100f;
 			MaxMana = 100f;
-			PlayerRunSpeed = 220f;
+			PlayerRunSpeed = 190f;
+			PlayerWalkSpeed = 120f;
 			isFirstSpawn = false; // Markiere den ersten Spawn als abgeschlossen
 		}
 		Health = MaxHealth;
@@ -262,9 +345,11 @@ public partial class Player : Component, IHealthComponent
 
 
 	}
-
+	[AdminAttribute]
 	public async void StartHealthRegen( float regenAmount, float duration )
 	{
+		if ( IsProxy )
+			return;
 		float originalHealth = MaxHealth;
 		float endTime = Time.Now + duration;
 
@@ -277,11 +362,15 @@ public partial class Player : Component, IHealthComponent
 
 
 	}
+	public BaseGun ActiveWeapon { get; set; }
 
 	[Broadcast]
 	public void TakeDamage( DamageType type, Single amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
+		if ( IsProxy )
+			return;
 		if ( LifeState == LifeState.Dead )
+		
 			return;
 
 		if ( type == DamageType.Bullet )
@@ -306,6 +395,8 @@ public partial class Player : Component, IHealthComponent
 		if ( Health <= 0f )
 		{
 			LifeState = LifeState.Dead;
+			BlackScreen( 3f, 1.5f, 1f );
+			ActiveWeapon?.StopReloadSound();
 			Ragdoll.Ragdoll( hitPosition, hitDirection );
 			SendKilledMessage( attackerId );
 
@@ -315,6 +406,8 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual bool CanUncrouch()
 	{
+		if ( IsProxy )
+			return true;
 		if ( !IsCrouching ) return true;
 		if ( LastUngroundedTime < 0.2f ) return false;
 
@@ -324,51 +417,50 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual void OnKilled( GameObject attacker )
 	{
-		if ( attacker.IsValid() )
-		{
-			var chat = Scene.GetAllComponents<Chat>().FirstOrDefault();
-
-			if ( chat.IsValid() )
-
-				if ( attacker.Network.OwnerConnection.DisplayName != this.Network.OwnerConnection.DisplayName )
-				{
-					chat.AddTextLocal( "💀️", $"{this.Network.OwnerConnection.DisplayName} has killed {attacker.Network.OwnerConnection.DisplayName}" );
-				}
-
-			if ( !this.IsProxy )
-			{
-				// We killed this player.
-				this.Kills++;
-			}
-
-
-		}
-
-
+		
 
 		if ( IsProxy )
 			return;
 
-		if ( Weapons.Deployed.IsValid() )
+		if ( Weapons.Deployed != null && Weapons.Deployed.IsValid() )
 		{
 			Weapons.Deployed.Holster();
 		}
 
-
+		
 		RespawnAsync( 3f );
 
 		Deaths++;
 	}
+	
 
 	protected override void OnAwake()
 	{
+		if ( IsProxy )
+			return;
 
-		Inventory = Components.Get<Inventory>( FindMode.EverythingInSelfAndDescendants );
+		if (AmmoContainer == null)
+		{
+			AmmoContainer = new AmmoContainer();
+		}	
+		if(Inventory == null)
+		{
+			Inventory = Components.GetOrCreate<Inventory>( FindMode.EverythingInSelfAndDescendants );
+		}
+		
 
-		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>();
+		
+		if(ModelRenderer == null)
+		{
+			ModelRenderer = Components.Get<SkinnedModelRenderer>();
+		}
 		Collider = Components.Get<BoxCollider>( FindMode.EverythingInSelfAndDescendants );
 
-		CharacterController = Components.GetInDescendantsOrSelf<CharacterController>();
+		if(CharacterController == null)
+		{
+			CharacterController = Components.Get<CharacterController2>();
+		}
+
 		CharacterController.IgnoreLayers.Add( "player" );
 
 		Ragdoll = Components.GetInDescendantsOrSelf<RagdollController>();
@@ -377,23 +469,28 @@ public partial class Player : Component, IHealthComponent
 		{
 			CharacterController.Height = StandHeight;
 		}
+		
 
-		if ( IsProxy )
-			return;
+		
 
 		ResetViewAngles();
+		
 
 
 	}
 
 	protected override void OnStart()
 	{
-		Animators.Add( ShadowAnimator );
-		Animators.Add( AnimationHelper );
+		
 
 		if ( !IsProxy )
 		{
+			BlackScreen( 0f, 2f, 3f );
 			Respawn();
+			
+			Animators.Clear(); // Entfernt alle vorherigen Einträge
+			Animators.Add( ShadowAnimator );
+			Animators.Add( AnimationHelper );
 
 		}
 		if ( !Game.IsPlaying || Scene == GameObject )
@@ -401,7 +498,7 @@ public partial class Player : Component, IHealthComponent
 
 		if ( !IsProxy ) // Load save.
 		{
-
+			
 			Setup( this );
 		}
 
@@ -409,6 +506,33 @@ public partial class Player : Component, IHealthComponent
 		base.OnStart();
 	}
 
+	private void UpdateWeaponModelVisibility()
+	{
+		if(IsProxy) 
+		return;
+		var deployedWeapon = Weapons.Deployed;
+		foreach ( var weapon in Weapons.All )
+		{
+			var modelRenderer = weapon.Components.Get<ModelRenderer>();
+			var itemComponent = weapon.Components.Get<ItemComponent>();
+
+			if ( modelRenderer != null && itemComponent != null )
+			{
+				// Überprüfen, ob die Waffe ein Item ist und ob sie die aktuell eingesetzte Waffe ist
+				if ( itemComponent.IsItem )
+				{
+					modelRenderer.Enabled = weapon == deployedWeapon;
+					weapon.GameObject.Enabled = false;
+				}
+				else
+				{
+					modelRenderer.Enabled = false;
+					// Deaktivieren des GameObjects im weaponbone
+					weapon.GameObject.Enabled = false;
+				}
+			}
+		}
+	}
 
 
 
@@ -419,25 +543,22 @@ public partial class Player : Component, IHealthComponent
 
 		if ( IsProxy ) PlyCamera.Enabled = false;
 
+		UpdateWeaponModelVisibility(); // Neue Methode aufrufen
 
-		var deployedWeapon = Weapons.Deployed;
 		var shadowRenderer = ShadowAnimator.Components.Get<SkinnedModelRenderer>( true );
-		var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
+		var hasViewModel = Weapons.Deployed.IsValid() && Weapons.Deployed.HasViewModel;
 		var clothing = ModelRenderer.Components.GetAll<ClothingComponent>( FindMode.EverythingInSelfAndDescendants );
 
 		if ( hasViewModel )
 		{
 			shadowRenderer.Enabled = false;
-
 			ModelRenderer.Enabled = Ragdoll.IsRagdolled;
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
-
 			foreach ( var c in clothing )
 			{
 				c.ModelRenderer.Enabled = Ragdoll.IsRagdolled;
 				c.ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
 			}
-
 			return;
 		}
 
@@ -454,22 +575,51 @@ public partial class Player : Component, IHealthComponent
 			ModelRenderer.RenderType = IsProxy
 				? Sandbox.ModelRenderer.ShadowRenderType.On
 				: Sandbox.ModelRenderer.ShadowRenderType.Off;
-
 			shadowRenderer.Enabled = true;
 		}
 
 		foreach ( var c in clothing )
 		{
 			c.ModelRenderer.Enabled = true;
-
 			if ( c.Category is Clothing.ClothingCategory.Hair or Clothing.ClothingCategory.Facial or Clothing.ClothingCategory.Hat )
 			{
 				c.ModelRenderer.RenderType = IsProxy ? Sandbox.ModelRenderer.ShadowRenderType.On : Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 			}
 		}
 
+		if ( !PlyCamera.IsValid() || !Eye.IsValid() )
+			return;
+
+		var cameraPosition = PlyCamera.Transform.Position;
+		var cameraDirection = PlyCamera.Transform.Rotation.Forward;
+		var fieldOfView = PlyCamera.FieldOfView;
+		IEnumerable<SceneObject> sceneObjects = GetSceneObjects(); // Annahme: PlyCamera hat eine Eigenschaft FieldOfView
+
+		foreach ( var obj in sceneObjects ) // Pseudocode: Iteriere über alle Objekte in der Szene
+		{
+			var directionToObject = (obj.Transform.Position - cameraPosition).Normal;
+			var angleToObject = Vector3Extensions.AngleBetween( cameraDirection, directionToObject );
+
+			if ( angleToObject <= fieldOfView / 2 )
+			{
+				// Das Objekt ist im Sichtfeld der Kamera
+				obj.SetVisibility( true ); // Pseudocode: Setze die Sichtbarkeit des Objekts
+			}
+			else
+			{
+				// Das Objekt ist außerhalb des Sichtfelds der Kamera
+				obj.SetVisibility( false ); // Pseudocode: Setze die Sichtbarkeit des Objekts
+			}
+		}
+
 
 	}
+	public IEnumerable<SceneObject> GetSceneObjects()
+	{
+		// Implementierung abhängig von der spezifischen Logik Ihrer Anwendung
+		return new List<SceneObject>(); // Beispielrückgabe
+	}
+
 
 	protected override void OnPreRender()
 	{
@@ -526,10 +676,8 @@ public partial class Player : Component, IHealthComponent
 			else
 				PlyCamera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
 
-			if ( SicknessMode )
-				PlyCamera.Transform.Rotation = Rotation.LookAt( Eye.Transform.Rotation.Left ) * Rotation.FromPitch( -10f );
-			else
-				PlyCamera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
+			
+			PlyCamera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
 
 
 			if ( IsCrouching && hasViewModel )
@@ -545,14 +693,17 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnUpdate()
 	{
+		if ( IsProxy )
+			return;
 
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
+		
 
 		if ( !IsProxy )
 		{
 			var angles = EyeAngles.Normal;
-			angles += Input.AnalogLook * 0.5f;
+			angles += Input.AnalogLook * 1.0f;
 			angles += Recoil * Time.Delta;
 			angles.pitch = angles.pitch.Clamp( -80f, 89.9f );
 
@@ -562,6 +713,8 @@ public partial class Player : Component, IHealthComponent
 			Recoil = Recoil.LerpTo( Angles.Zero, Time.Delta * 8f );
 
 		}
+		
+		
 		// Überprüfen Sie den Gesundheitszustand des Spielers
 		// Check the player's health status
 		float healthPercentage = Health / MaxHealth * 100;
@@ -572,7 +725,7 @@ public partial class Player : Component, IHealthComponent
 			case 0: // Gesundheit <= 25%
 				if ( !isLowHealthSoundPlaying && HurtLowHP is not null )
 				{
-					Sound.Play( HurtLowHP, PlyCamera.Transform.Position );
+					Sound.Play( HurtLowHP, Player.Local.Head.Transform.Position );
 					isLowHealthSoundPlaying = true;
 				}
 				break;
@@ -584,7 +737,7 @@ public partial class Player : Component, IHealthComponent
 				}
 				if ( !isMidHealthSoundPlaying && HurtMidHP is not null )
 				{
-					Sound.Play( HurtMidHP, PlyCamera.Transform.Position );
+					Sound.Play( HurtMidHP, Player.Local.Transform.Position );
 					isMidHealthSoundPlaying = true;
 				}
 				break;
@@ -596,7 +749,7 @@ public partial class Player : Component, IHealthComponent
 				}
 				break;
 		}
-
+		UpdateModelVisibility();
 
 
 		var weapon = Weapons.Deployed;
@@ -616,6 +769,8 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual void DoCrouchingInput()
 	{
+		if ( IsProxy )
+			return;
 		WantsToCrouch = CharacterController.IsOnGround && Input.Down( "Duck" );
 
 		if ( WantsToCrouch == IsCrouching )
@@ -623,28 +778,43 @@ public partial class Player : Component, IHealthComponent
 
 		if ( WantsToCrouch )
 		{
-			CharacterController.Height = DuckHeight;
-			IsCrouching = true;
-			// Setzen Sie die Kameraposition auf die DuckHeight
-			PlyCamera.Transform.Position = new Vector3( PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, DuckHeight );
+			crouchProgress = Math.Min( crouchProgress + Time.Delta * crouchSpeed, 1f );
 		}
 		else
 		{
 			if ( !CanUncrouch() )
 				return;
 
-			CharacterController.Height = StandHeight;
-			IsCrouching = false;
-			// Setzen Sie die Kameraposition auf die StandHeight
-			PlyCamera.Transform.Position = new Vector3( PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, StandHeight );
+			crouchProgress = Math.Max( crouchProgress - Time.Delta * crouchSpeed, 0f );
 		}
+
+		CharacterController.Height = Lerp( StandHeight, DuckHeight, crouchProgress );
+		targetCameraPosition = new Vector3( PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, Lerp( StandHeight, DuckHeight, crouchProgress ) );
+		IsCrouching = crouchProgress > 0.5f;
+	}
+	public static float Lerp( float a, float b, float t )
+	{
+		return a + (b - a) * t;
 	}
 
 	protected virtual void DoMovementInput()
 	{
+		if ( IsProxy )
+			return;
+		if ( BlockInputs )
+		{
+			return;
+		}
+
+		if ( isFrozen )
+		{
+			
+			return;
+		}
+
 		BuildWishVelocity();
 
-		if ( CharacterController.IsOnGround && Input.Pressed( "Jump" ) )
+		if ( CharacterController.IsOnGround && Input.Pressed( "Jump" ) && TryJump() )
 		{
 			CharacterController.Punch( Vector3.Up * 300f );
 			SendJumpMessage();
@@ -692,7 +862,7 @@ public partial class Player : Component, IHealthComponent
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
 
-
+		UpdateInteractions();
 
 		if ( TimeSinceDamaged > 5f )
 		{
@@ -706,7 +876,7 @@ public partial class Player : Component, IHealthComponent
 		}
 
 
-
+		
 		RegenerateStamina();
 		DoCrouchingInput();
 		DoMovementInput();
@@ -716,7 +886,7 @@ public partial class Player : Component, IHealthComponent
 		else if ( Input.MouseWheel.y < 0 )
 			Weapons.Previous();
 
-		if ( Input.Pressed( "use" ) )
+		if ( Input.Pressed( "use3" ) )
 		{
 			var startPos = PlyCamera.Transform.Position;
 			var direction = PlyCamera.Transform.Rotation.Forward;
@@ -775,7 +945,7 @@ public partial class Player : Component, IHealthComponent
 
 		if ( IsProxy )
 			return;
-		UpdateInteractions();
+		
 	}
 
 	public void MoveToSpawnPoint()
@@ -790,9 +960,27 @@ public partial class Player : Component, IHealthComponent
 		Transform.Rotation = Rotation.FromYaw( randomSpawnpoint.Transform.Rotation.Yaw() );
 		EyeAngles = Transform.Rotation;
 	}
+	public void Move()
+	{
+		if ( IsProxy )
+			return;
+		// Aktualisiere die Bewegungslogik des Spielers
+		BuildWishVelocity();
+
+		Log.Info( "Player is moving" );
+	}
 
 	private void BuildWishVelocity()
 	{
+		if ( IsProxy )
+			return;
+
+
+		if ( isFrozen )
+		{
+			Log.Info( "Player cannot build wish velocity while frozen" );
+			return;
+		}
 		var rotation = EyeAngles.ToRotation();
 
 		WishVelocity = rotation * Input.AnalogMove;
@@ -814,6 +1002,8 @@ public partial class Player : Component, IHealthComponent
 	[Broadcast]
 	private void SendKilledMessage( Guid attackerId )
 	{
+		if ( IsProxy )
+			return;
 		var attacker = Scene.Directory.FindByGuid( attackerId );
 		OnKilled( attacker );
 	}
@@ -823,12 +1013,16 @@ public partial class Player : Component, IHealthComponent
 	[Broadcast]
 	private void SendJumpMessage()
 	{
+		if ( IsProxy )
+			return;
 		foreach ( var animator in Animators )
 		{
 			animator.TriggerJump();
+			isJumping = true;
 		}
 
 		OnJump?.Invoke();
+		isJumping = false;
 	}
 
 

@@ -8,12 +8,13 @@ namespace GeneralGame;
 public sealed class ViewModel : Component
 {
 	[Property] public SkinnedModelRenderer ModelRenderer { get; set; }
+	[Property, Group( "Components" )] public SkinnedModelRenderer Arms { get; set; }
 	[Property] public bool UseSprintAnimation { get; set; }
 
 	private Rotation CurRotation { get; set; }
 	private Vector3 CurPos { get; set; }
 
-	private float InertiaDamping => 15.0f;
+	private float InertiaDamping => 0f;
 
 	//private Vector3 SieatOffset => new Vector3( 0f, 0f, -5f );
 
@@ -23,8 +24,8 @@ public sealed class ViewModel : Component
 	private float bobAnim;
 	private float bobSpeed;
 
-	private float SwingInfluence => 0.0125f;
-	private float ReturnSpeed => 40.0f;
+	private float SwingInfluence => 0f;
+	private float ReturnSpeed => 0f;
 	private float MaxOffsetLength => 0.125f;
 	private float BobCycleTime => 1;
 
@@ -36,9 +37,23 @@ public sealed class ViewModel : Component
 	public float PitchInertia { get; private set; }
 
 
-	private Player PlayerController => Weapon.Components.GetInAncestors<Player>();
+	private Player PlayerController
+	{
+		get
+		{
+			if ( Weapon == null || Weapon.Components == null )
+			{
+				return null;
+			}
+
+			return Weapon.Components.GetInAncestors<Player>();
+
+		}
+	}
 	private CameraComponent Camera { get; set; }
 	private WeaponComponent Weapon { get; set; }
+	private Rotation targetRotation; // Zielrotation, die erreicht werden soll
+	private float rotationDamping = 0.1f;
 
 	public void SetWeaponComponent( WeaponComponent weapon )
 	{
@@ -67,24 +82,9 @@ public sealed class ViewModel : Component
 
 		}
 	}
-	private void OnPlayerMoved()
-	{
-		ModelRenderer.Set( "b_run", true );
-	}
+	
 
-	protected override void OnDestroy()
-	{
-		if ( IsProxy )
-		{
-			return;
-		}
-		if ( PlayerController.IsValid() )
-		{
-			PlayerController.OnJump -= OnPlayerJumped;
-		}
-
-		base.OnDestroy();
-	}
+	
 
 	protected override void OnAwake()
 	{
@@ -99,7 +99,7 @@ public sealed class ViewModel : Component
 	}
 
 
-	protected override void OnFixedUpdate()
+	protected override void OnUpdate()
 	{
 
 		Vector3 plusPos = Vector3.Zero + Weapon.IdlePos;
@@ -120,7 +120,7 @@ public sealed class ViewModel : Component
 
 
 
-		CalcShakeMoves();
+		//CalcShakeMoves();
 
 
 
@@ -138,7 +138,7 @@ public sealed class ViewModel : Component
 
 		Transform.LocalRotation = CurRotation;
 		Transform.LocalPosition = CurPos;
-
+		Transform.LocalScale = Vector3.One;
 		//base.OnUpdate();
 	}
 
@@ -154,16 +154,18 @@ public sealed class ViewModel : Component
 
 		if ( PlayerController.IsAiming )
 		{
-			CurSmoothRotate = Rotation.From( 0, 0, 0 );
+			targetRotation = Rotation.Identity;
 		}
 		else
 		{
-			// Adjust the smoothing factor to reduce excessive trembling when turning
-			CurSmoothRotate = Rotation.From( Math.Clamp( CurY, -1.1f, 1.1f ), Math.Clamp( CurX, -1.1f, 1.5f ), 0 );
+			// Berechnen Sie die Zielrotation basierend auf den aktuellen Kamerabewegungen
+			targetRotation = Rotation.From( Math.Clamp( CurY, -1.1f, 1.1f ), Math.Clamp( CurX, -1.1f, 1.5f ), 0 );
 		}
 
-		CurRotation *= CurSmoothRotate;
+		// Anwenden der D�mpfung auf die Rotation, um eine sanfte Bewegung zu erreichen
+		CurRotation = Rotation.Slerp( CurRotation, CurRotation * targetRotation, Time.Delta * rotationDamping );
 
+		// Aktualisieren der letzten Kameraberechnung f�r den n�chsten Durchlauf
 		LastCameraCalc = Rotation.Lerp( LastCameraCalc, curCameraCalc, Time.Delta * 30f );
 	}
 
@@ -251,6 +253,18 @@ public sealed class ViewModel : Component
 	private void OnPlayerJumped()
 	{
 		ModelRenderer.Set( "b_jump", true );
+	}
+	private void ApplyRecoil()
+	{
+		// Beispielwerte f�r R�cksto�effekte
+		float recoilAmount = 5.0f; // St�rke des R�cksto�es
+		float recoilRecoverySpeed = 1.5f; // Geschwindigkeit der R�ckkehr
+
+		// Anwendung des R�cksto�es auf die Rotation
+		CurRotation *= Rotation.FromPitch( -recoilAmount );
+
+		// Gl�tten der R�ckkehr zur urspr�nglichen Rotation
+		CurRotation = Rotation.Slerp( CurRotation, Rotation.Identity, Time.Delta * recoilRecoverySpeed );
 	}
 
 

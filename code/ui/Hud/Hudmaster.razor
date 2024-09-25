@@ -3,14 +3,17 @@
 @using Sandbox;
 @using Sandbox.UI;
 
-@if (IsProxy)
-    return;
+
+
 <root>
     <FullScreenManager />
+	<NotificationPanel @ref="notificationPanel" />
 </root>
 
 @code
 {
+	public GameObject hudPrefab; 
+	private NotificationPanel notificationPanel;
     public static Hudmaster Instance { get; private set; } // Ändern Sie "Hud" zu "Hudmaster"
     public Hudmaster() // Ändern Sie "Hud" zu "Hudmaster"
     {
@@ -24,4 +27,23 @@
     {
         Instance.Enabled = !Instance.Enabled;
     }
+	private void InstantiateHUD()
+	{
+		if (hudPrefab != null)
+		{
+			// Erstellen Sie eine Instanz des HUD-Prefabs und fügen Sie es der Szene hinzu
+			GameObject hudInstance = new();
+			// Hier können Sie zusätzliche Initialisierungen durchführen, falls erforderlich
+			
+		}
+		
+	}
+	public void ShowNotification(string message ,string icon)
+	{
+		notificationPanel?.AddNotification(message , icon);
+	}
+	protected override void OnAwake()
+	{
+		InstantiateHUD();
+	}
 }

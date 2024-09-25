@@ -39,10 +39,10 @@ public class ItemEquipment : ItemComponent
 	public ModelRenderer Renderer { get; private set; }
 	public WeaponComponent Weapon { get; private set; }
 
-	private ModelRenderer parcelRenderer;
-	private BoxCollider parcelCollider;
-	private Rigidbody parcelBody;
-	private GameObject iconWorldObject;
+	
+	
+
+	
 
 	private readonly SoundEvent _equipSound = ResourceLibrary.Get<SoundEvent>( "sounds/misc/pickup.sound" );
 
@@ -51,78 +51,11 @@ public class ItemEquipment : ItemComponent
 
 
 
-	public void UpdateEquipped()
-	{
-		if ( Equipped )
-			ToggleRenderer( Equipped );
+	
 
-		// Toggle colliders and rigidbodies, update parcel
-		if ( !IsClothing )
-		{
-			var body = GameObject?.Components.GetAll<Rigidbody>( FindMode.EverythingInSelfAndChildren ).FirstOrDefault( x => x != parcelBody );
-			if ( body != null ) body.Enabled = !Equipped;
+	
 
-			var collider = GameObject?.Components.GetAll<Collider>( FindMode.EverythingInSelfAndChildren ).FirstOrDefault( x => x != parcelCollider );
-			if ( collider != null ) collider.Enabled = !Equipped;
-		}
-		else if ( State != ItemState.Backpack )
-			UpdateParcel( State == ItemState.None );
-	}
-
-	private void ToggleRenderer( bool value )
-	{
-		Renderer ??= Components.GetAll<ModelRenderer>( FindMode.InSelf ).FirstOrDefault( x => x != parcelRenderer );
-		if ( Renderer.IsValid() )
-			Renderer.Enabled = value;
-	}
-
-	private void UpdateParcel( bool value )
-	{
-		ToggleRenderer( !value );
-
-		// Create
-		if ( value )
-		{
-			parcelRenderer ??= Components.Create<ModelRenderer>();
-			parcelRenderer.Enabled = true;
-
-
-			parcelCollider ??= Components.Create<BoxCollider>();
-			parcelCollider.Center = Vector3.Up * 4.8f;
-			parcelCollider.Scale = new Vector3( 27f, 27f, 7.5f );
-			parcelCollider.Enabled = true;
-
-			parcelBody ??= Components.Create<Rigidbody>();
-			parcelBody.Enabled = true;
-
-			CreateIconWorldPanel();
-			iconWorldObject.Enabled = true;
-
-			return;
-		}
-
-		// Remove
-		if ( parcelRenderer == null || iconWorldObject == null || parcelCollider == null || parcelBody == null )
-			return;
-
-		parcelRenderer.Enabled = false;
-		iconWorldObject.Enabled = false;
-		parcelCollider.Enabled = false;
-		parcelBody.Enabled = false;
-	}
-
-	private void CreateIconWorldPanel()
-	{
-		if ( iconWorldObject is not null )
-			return;
-
-		iconWorldObject = new GameObject { Parent = GameObject };
-		iconWorldObject.Transform.LocalPosition = new Vector3( 0, 0, 5 );
-		iconWorldObject.Transform.LocalRotation = Rotation.FromPitch( 90 );
-		iconWorldObject.Components.GetOrCreate<Sandbox.WorldPanel>();
-		iconWorldObject.Components.GetOrCreate<IconWorldPanel>().Icon = IconTexture;
-
-	}
+	
 
 	protected override void OnStart()
 	{
@@ -142,7 +75,7 @@ public class ItemEquipment : ItemComponent
 			Sound = () => _equipSound,
 		} );
 
-		Renderer ??= Components.GetAll<ModelRenderer>( FindMode.InSelf ).FirstOrDefault( x => x != parcelRenderer );
+		
 		if ( Renderer != null ) Renderer.RenderType = ModelRenderer.ShadowRenderType.On;
 	}
 
@@ -159,7 +92,9 @@ public class ItemEquipment : ItemComponent
 		if ( !obj.IsValid() )
 			return;
 
-		_model.RenderingEnabled = false;
+		var transform = player.GetAttachment( Attachment, true ).ToWorld( AttachmentTransform );
+		obj.Transform = transform;
+		(obj as SceneModel)?.Update( RealTime.Delta );
 	}
 
 	#region GIZMO STUFF
@@ -171,7 +106,7 @@ public class ItemEquipment : ItemComponent
 			return null;
 
 		_model ??= new SceneModel( world, "models/citizen/citizen.vmdl", global::Transform.Zero );
-		_model.RenderingEnabled = true;
+		_model.RenderingEnabled = false;
 		return _model;
 	}
 

@@ -1,6 +1,6 @@
 using Sandbox;
 using System;
-
+using GeneralGame.HUD;
 namespace GeneralGame
 {
     public sealed class AmmoPickup : Component, Component.ITriggerListener
@@ -32,6 +32,7 @@ namespace GeneralGame
                 // Add ammo to the player's AmmoContainer
                 ammoContainer.Give( AmmoTypen, Count );
             }
+            Hudmaster.Instance.ShowNotification( $"You picked up {Count}x {AmmoTypen} ammo.", "/ui/hud/bullet.png" );
         }
 
         public void OnTriggerExit( Collider other )

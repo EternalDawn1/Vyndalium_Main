@@ -8,8 +8,9 @@ namespace GeneralGame;
 public class WeaponManager : Component
 {
 	public static WeaponManager Instance { get; private set; }
-
-	public List<GameObject> Weapons { get; set; } = new();
+	public List<BaseGun> Weapons { get; set; } = new();
+	public List<BaseMelee> MeleeWeapons { get; set; } = new();
+	
 	
 	[Property] public List<PrefabScene> Prefabs { get; set; }
 
@@ -18,12 +19,20 @@ public class WeaponManager : Component
 	{
 		Instance = this;
 
+		var player = Player.Local; // Annahme: Player.Local gibt den lokalen Spieler zurück
+		var ammoContainer = player?.Components.Get<AmmoContainer>();
+
 		foreach ( var prefab in Prefabs )
 		{
-			Weapons.Add( prefab );
+			var weapon = prefab.Components.Get<BaseGun>();
+			weapon.InitializeAmmo( ammoContainer );
+			Weapons.Add( weapon );
+			Components.GetOrCreate<Interactions>();
+			var melee = prefab.Components.Get<BaseMelee>();
+			MeleeWeapons.Add( melee );
 			Components.GetOrCreate<Interactions>();
 		}
-		
+
 		base.OnAwake();
 	}
 
