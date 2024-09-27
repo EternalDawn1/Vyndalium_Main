@@ -8,6 +8,7 @@ public enum GeneralScene
 	MainMenu,
 	Starting,
 	Forest,
+	Forest2,
 	StartBase,
 
 	One,
@@ -44,6 +45,7 @@ public static class SceneHandler
 			GeneralScene.One => "scenes/One/map1.scene",
 			GeneralScene.One2 => "scenes/One/map1.2.scene",
 			GeneralScene.One3 => "scenes/One/map1.3.scene",
+			GeneralScene.Forest2 => "scenes/forest2.scene",
 
 			_ => null
 		};
@@ -68,7 +70,10 @@ public static class SceneHandler
 			
 		}
 
-
+		if ( Player.Local == null )
+		{
+			
+		}
 
 		Player.Setup();
 		Log.Info( "loading +" + resource );
@@ -112,6 +117,7 @@ public static class GeneralSceneExtensions
 			GeneralScene.MainMenu => 0,
 			GeneralScene.Starting => 5,
 			GeneralScene.Forest => 10,
+			GeneralScene.Forest2 => 10,
 			GeneralScene.One => 0,
 			GeneralScene.StartBase => 0,
 			GeneralScene.One2 => 0,

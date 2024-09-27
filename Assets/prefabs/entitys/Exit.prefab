@@ -3,14 +3,20 @@
     "__guid": "527bf623-e2c7-44b9-beb7-7838f43df377",
     "Flags": 0,
     "Name": "exit",
-    "Scale": "-5.765408,6.784129,2.249228",
+    "Tags": "light_spot,light,light_point",
     "Enabled": true,
     "Components": [
       {
         "__type": "Sandbox.ModelRenderer",
         "__guid": "b91dac42-3164-4b61-a6e3-dfdd9fc8afd7",
         "BodyGroups": 18446744073709551615,
-        "Model": "models/sbox_props/cardboard_box/cardboard_box.vmdl",
+        "Model": "models/portal/portal.vmdl",
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "On",
         "Tint": "1,1,1,1"
       },
@@ -26,6 +32,16 @@
         "__type": "GeneralGame.SceneChangeTrigger",
         "__guid": "9a9918ce-52b1-452d-88c0-8a0f8d3d30d8",
         "SceneToLoad": "StartBase"
+      },
+      {
+        "__type": "Sandbox.PointLight",
+        "__guid": "8b9ba5aa-60c4-429e-93c8-b8a85f76ecab",
+        "Attenuation": 1,
+        "FogMode": "Enabled",
+        "FogStrength": 1,
+        "LightColor": "0,0.76667,1,1",
+        "Radius": 400,
+        "Shadows": true
       }
     ],
     "Children": [
@@ -40,10 +56,17 @@
           {
             "__type": "Sandbox.TextRenderer",
             "__guid": "d70a565d-e935-476e-98a4-312cae03ebc3",
+            "BlendMode": "Normal",
             "Color": "1,1,1,1",
             "FontFamily": "Poppins",
             "FontSize": 90.47,
             "FontWeight": 800,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "Scale": 0.08,
             "Text": "EXIT",
             "TextAlignment": "Center"
@@ -56,9 +79,9 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [
-    "facepunch.cardboard_box"
-  ],
+  "__references": [],
+  "IsValid": true,
   "__version": 1
 }

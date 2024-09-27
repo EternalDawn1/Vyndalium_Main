@@ -26,7 +26,7 @@
 					<div class="item-price">$@($"{Item.BuyPrice:N0}") <p class="item-price-name"></p>
 					</div>
 				}
-				else if (Item != null && ShopPanel.Instance.currentPanel != ShopPanel.PanelType.Accessories)
+				else if (Item != null || ShopPanel.Instance.currentPanel != ShopPanel.PanelType.Accessories)
 				{
 					<div class="item-price2">
 						<text> 1x $@($"{Item.SellPrice:N0}") </text>

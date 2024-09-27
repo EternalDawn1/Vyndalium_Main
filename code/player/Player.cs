@@ -54,13 +54,13 @@ public partial class Player : Component, Component.ExecuteInEditor
             }
             else
             {
-                Log.Warning( $"SoundHandle für '{soundEventPath}' ist ungültig." );
+                
             }
         }
         else
         {
             // Fehlerbehandlung, falls das SoundEvent nicht gefunden wird
-            Log.Warning( $"SoundEvent '{soundEventPath}' konnte nicht gefunden werden." );
+            
         }
     }
 

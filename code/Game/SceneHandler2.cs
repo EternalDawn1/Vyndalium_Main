@@ -9,6 +9,7 @@ public enum GeneralScene2
     MainMenu,
     Starting,
     Forest,
+    Forest2,
     StartBase,
 
     One,
@@ -44,6 +45,7 @@ public static class SceneHandler2
             GeneralScene2.One => "scenes/One/map1.scene",
             GeneralScene2.One2 => "scenes/One/map1.2.scene",
             GeneralScene2.One3 => "scenes/One/map1.3.scene",
+            GeneralScene2.Forest2 => "scenes/forest2.scene",
 
             _ => null
         };
@@ -125,6 +127,7 @@ public static class GeneralSceneExtensions2
             GeneralScene2.MainMenu => 0,
             GeneralScene2.Starting => 5,
             GeneralScene2.Forest => 10,
+            GeneralScene2.Forest2 => 10,
             GeneralScene2.One => 0,
             GeneralScene2.StartBase => 0,
             GeneralScene2.One2 => 0,

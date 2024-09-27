@@ -217,7 +217,7 @@ public partial class Player : Component, IHealthComponent
 	public void AddVyndalium(int vyndaliumPointsToAdd)
 	{
 		Sandbox.Services.Stats.Increment( "vyndalium_count1", vyndaliumPointsToAdd );
-		Log.Info( "Vyndalium Points: " + vyndaliumPointsToAdd );
+		
 	}
 
 

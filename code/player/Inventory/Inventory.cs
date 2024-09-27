@@ -910,7 +910,17 @@ public sealed class Inventory : Component
 	}
 	public void SetItem( ItemComponent item, int index )
 	{
-		SetOwner( item );
+		if ( item == null )
+		{
+			
+		}
+
+		if ( Player == null )
+		{
+			
+		}
+
+		SetOwner( item ); // Zeile 913
 		GiveBackpackItem( item, index );
 		item.State = ItemState.Backpack;
 		item.GameObject.Enabled = false;
@@ -1075,15 +1085,24 @@ public sealed class Inventory : Component
 		{
 			item.GameObject.SetupNetworking();
 			item.GameObject.Network.TakeOwnership();
-			item.GameObject.Parent = Player.GameObject;
-			item.GameObject.Transform.Position = Player.GameObject.Transform.Position;
-			item.GameObject.Transform.Rotation = Player.GameObject.Transform.Rotation;
-			item.LastOwner = Player;
-			item.GameObject.Enabled = false;
+
+			if ( Player != null && Player.GameObject != null )
+			{
+				item.GameObject.Parent = Player.GameObject;
+				item.GameObject.Transform.Position = Player.GameObject.Transform.Position;
+				item.GameObject.Transform.Rotation = Player.GameObject.Transform.Rotation;
+				item.LastOwner = Player;
+				item.GameObject.Enabled = false;
+			}
+			else
+			{
+				
+				
+			}
 		}
 		else
 		{
-			// Handle the case where GameObject is null or not initialized
+			
 		}
 	}
 
@@ -1209,7 +1228,8 @@ public sealed class Inventory : Component
 			var weaponContainer = Player.Components.Get<WeaponContainer>();
 			if ( weaponContainer != null )
 			{
-				weaponContainer.RemoveWeapon( equipment.GameObject, true );
+				weaponContainer.RemoveWeapon( equipment.GameObject, false );
+
 			}
 
 		}

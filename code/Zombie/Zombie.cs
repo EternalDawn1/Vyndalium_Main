@@ -52,6 +52,59 @@ public partial class Npc : Component, IHealthComponent
 	[Property]
 	public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject ZombieRagedol { get; set; }
+	
+	
+
+	[Property]
+	private readonly List<string> prefabPaths = new List<string>
+	{
+		"prefabs/pickupammo.prefab", // 50% Wahrscheinlichkeit
+        "prefabs/potions/potion.prefab", // 25% Wahrscheinlichkeit
+        "prefabs/items/wood_log.prefab" // 25% Wahrscheinlichkeit
+    };
+
+	private readonly List<float> probabilities = new List<float>
+	{
+		0.5f, // 50% Wahrscheinlichkeit für Munition
+        0.25f, // 25% Wahrscheinlichkeit für Tränke
+        0.25f  // 25% Wahrscheinlichkeit für Holz
+    };
+
+	// Methode zum Spawnen eines zufälligen Prefabs
+	private void SpawnRandomPrefab( Vector3 position )
+	{
+		float totalProbability = 0f;
+		foreach ( var probability in probabilities )
+		{
+			totalProbability += probability;
+		}
+
+		float randomValue = (float)random.NextDouble() * totalProbability;
+		float cumulativeProbability = 0f;
+
+		for ( int i = 0; i < prefabPaths.Count; i++ )
+		{
+			cumulativeProbability += probabilities[i];
+			if ( randomValue <= cumulativeProbability )
+			{
+				var prefab = ResourceLibrary.Get<PrefabFile>( prefabPaths[i] );
+				if ( prefab != null )
+				{
+					var gameObject = GameObject.Clone( prefab );
+					if ( gameObject != null )
+					{
+						// Spawnen des Items in der Luft
+						gameObject.Transform.Position = position + new Vector3( 0, 0, 50 );
+						gameObject.NetworkSpawn();
+
+						
+					}
+				}
+				break;
+			}
+		}
+	}
+
 	[Property] public SkinnedModelRenderer Model { get; set; }
 	[Sync, Property] public float MaxHealth { get; set; } = 100f;
 	[Sync, Property] public float Health { get;  set; } = 100f;
@@ -264,7 +317,8 @@ public partial class Npc : Component, IHealthComponent
 	public NavigationType RunningType { get; set; } = NavigationType.Smart;
 
 	public NavigationType NavigationType => IsRunning ? RunningType : WalkingType;
-
+	[Property] public bool isChibi = false;
+	public bool isSlime = false;
 
 
 
@@ -413,6 +467,7 @@ public partial class Npc : Component, IHealthComponent
 						Transform.Rotation = Rotation.Lerp( Transform.Rotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * 5.0f );
 					}
 				}
+				
 
 				UpdateAnimations( closestPlayer );
 				float maxProximityDistance = 80f;
@@ -421,7 +476,9 @@ public partial class Npc : Component, IHealthComponent
 				if ( closestDistance < maxProximityDistance )
 				{
 					CurrentState = NpcState.Walking;
+					
 					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Walk;
+					
 					agent.Stop();
 					NormalTrace();
 				}
@@ -465,9 +522,21 @@ public partial class Npc : Component, IHealthComponent
 					if ( !isPlayerNearby )
 					{
 						CurrentState = NpcState.Running;
+
 						AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
+						if ( isChibi && Model != null )
+						{
+							
+						
+							Model.Set( "chibi_run", true );
+							
+						}
+							
 					}
+					
 				}
+				// Füge die Logik für den Chibi-Zombie hinzu
+				
 			}
 			else
 			{
@@ -481,6 +550,11 @@ public partial class Npc : Component, IHealthComponent
 		else
 		{
 			CurrentState = NpcState.Idle;
+			if(isChibi && Model != null)
+			{
+				Model.Set( "chibi_idle", true );
+				Log.Info( "Chibi Idle" );
+			}
 			if ( TargetObject != null )
 			{
 				// Überprüfen, ob das Ziel immer noch gültig ist, oder es außerhalb der Reichweite ist
@@ -542,8 +616,10 @@ public partial class Npc : Component, IHealthComponent
 				// Set attacking animations
 				break;
 		}
+		
 
 	}
+	
 
 	void UpdateFootAnimations()
 	{
@@ -562,6 +638,7 @@ public partial class Npc : Component, IHealthComponent
 		Model.Set( "move_x", newX );
 		Model.Set( "move_y", newY );
 	}
+	private Random random2 = new Random();
 	public void NormalTrace()
 	{
 		
@@ -586,8 +663,8 @@ public partial class Npc : Component, IHealthComponent
 					
 				}
 				// Generiere einen zufälligen Basis-Schaden zwischen 1 und 15
-				Random random = new Random();
-				int baseDamage = random.Next( 1, 16 );
+				
+				int baseDamage = random2.Next( 1, 16 );
 
 				// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
 				int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
@@ -597,8 +674,12 @@ public partial class Npc : Component, IHealthComponent
 				damageable.TakeDamage( DamageType.Bullet, exponentialDamage, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
 
 				AnimationHelper.Target.Set( "b_attack", true );
-
-				if ( Model != null )
+				
+				if ( Model != null && isChibi )
+				{
+					Model.Set( "chibi_attack", true );
+				}
+				if ( Model != null && isSlime )
 				{
 					// Erzeuge eine Zufallszahl zwischen 0 und 1
 					Random random2 = new Random();
@@ -615,6 +696,8 @@ public partial class Npc : Component, IHealthComponent
 						
 					}
 				}
+				
+				
 				timeSinceHit = 0;
 
 				Sound.Play( HitSounds, Transform.Position );
@@ -901,15 +984,15 @@ public partial class Npc : Component, IHealthComponent
 	{
 		if ( npcLevel <= 10 )
 		{
-			return new Random().Next( 5, 10 ); // 5-15 Vyndalium für Level 1-10
+			return new Random().Next( 5, 50 ); // 5-15 Vyndalium für Level 1-10
 		}
 		else if ( npcLevel <= 20 )
 		{
-			return new Random().Next( 10, 15 ); // 15-30 Vyndalium für Level 11-20
+			return new Random().Next( 100, 150 ); // 15-30 Vyndalium für Level 11-20
 		}
 		else if ( npcLevel <= 30 )
 		{
-			return new Random().Next( 15, 60 ); // 30-50 Vyndalium für Level 21-30
+			return new Random().Next( 150, 300 ); // 30-50 Vyndalium für Level 21-30
 		}
 		else if ( npcLevel <= 40 )
 		{
@@ -950,15 +1033,15 @@ public partial class Npc : Component, IHealthComponent
 		}
 		else if ( npcLevel <= 20 )
 		{
-			return new Random().Next( 8, 17 ) * halfNpcLevel; // 15-30 XP pro halbes Level für Level 11-20
+			return new Random().Next( 16, 32 ) * halfNpcLevel; // 15-30 XP pro halbes Level für Level 11-20
 		}
 		else if ( npcLevel <= 30 )
 		{
-			return new Random().Next( 16, 31 ) * halfNpcLevel; // 30-50 XP pro halbes Level für Level 21-30
+			return new Random().Next( 32, 45 ) * halfNpcLevel; // 30-50 XP pro halbes Level für Level 21-30
 		}
 		else if ( npcLevel <= 40 )
 		{
-			return new Random().Next( 31, 48 ) * halfNpcLevel; // 50-70 XP pro halbes Level für Level 31-40
+			return new Random().Next( 45, 70 ) * halfNpcLevel; // 50-70 XP pro halbes Level für Level 31-40
 		}
 		else if ( npcLevel <= 50 )
 		{
@@ -1001,7 +1084,16 @@ public partial class Npc : Component, IHealthComponent
 			p.SetControlPoint( 1, new Vector3( 0.5f, 0.1f, 0.1f ) );
 			p.PlayUntilFinished( Task );
 		}
-		if ( Model != null ) Model.Set( "slime_damage", true );
+		if ( Model != null && isSlime )
+		{
+			Model.Set( "slime_damage", true );
+		} 
+		else if ( Model != null && isChibi )
+		{
+			Model.Set( "chibi_damage", true );
+		}
+		
+		
 		
 		
 
@@ -1021,8 +1113,11 @@ public partial class Npc : Component, IHealthComponent
 		{
 
 			LifeState = LifeState.Dead;
+			
 			var zombie = ZombieRagedol.Clone( this.GameObject.Transform.Position, this.GameObject.Transform.Rotation );
 			zombie.NetworkSpawn();
+			SpawnItemAtPosition( this.GameObject.Transform.Position );
+			
 
 			KillerId = attackerId;
 
@@ -1137,10 +1232,14 @@ public partial class Npc : Component, IHealthComponent
 		};
 
 	}
-	
+
+	public void SpawnItemAtPosition( Vector3 position )
+	{
+		SpawnRandomPrefab( position );
+	}
 
 
-	
+
 
 	public event Action<int> VyndaliumAdded; // Declare the event "VyndaliumAdded"
 

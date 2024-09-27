@@ -68,6 +68,12 @@ public sealed class ZombieSpawner : Component
 
 	[Property]public bool Randomized { get; set; } = false;
 	[Property] public float destroyChance { get; set; } = 0.01f;
+	[Property]
+	public GameObject Ragdoll { get; set; }
+
+	[Property]
+	public bool EnableRagdollEffect { get; set; } = false;
+
 	protected override void OnFixedUpdate()
 	{
 		base.OnFixedUpdate();
@@ -110,6 +116,12 @@ public sealed class ZombieSpawner : Component
 
 
 		var zombie = ZombiePrefab.Clone( this.Transform.World );
+		
+		if ( zombie == null || zombie.Components == null )
+		{
+			// Log error or handle the null case
+			return;
+		}
 
 		if ( RandomizeTierOnSpawn )
 		{
@@ -127,6 +139,17 @@ public sealed class ZombieSpawner : Component
 			itemComponent.CalculateSellPrice();
 		
 		}
+		if ( EnableRagdollEffect && Ragdoll != null )
+		{
+			var ragdoll = Ragdoll.Clone( Transform.Position );
+			if ( ragdoll != null )
+			{
+				ragdoll.Transform.Rotation = Transform.Rotation;
+				ragdoll.Transform.Position = Transform.Position;
+				ragdoll.NetworkSpawn();
+			}
+		}
+		Sound.Play( "sounds/levelup/levelup.sound", zombie.Transform.Position );
 		zombie.NetworkSpawn();
 
 
@@ -142,6 +165,10 @@ public sealed class ZombieSpawner : Component
 			{
 				npcComponent.Model.Set( "slime_spawn", true );
 				
+			}
+			else if ( npcComponent is Npc && npcComponent.Model != null )
+			{
+				npcComponent.Model.Set( "chibi_spawn", true );
 			}
 
 		}

@@ -30,7 +30,7 @@
 	}
 
 
-	@if (bsGun.IsValid() && player.LifeState == LifeState.Alive)
+	@if (bsGun.IsValid() && player.LifeState == LifeState.Alive && !bsGun.IsMelee)
 	{
 
 		<div class="ammo">

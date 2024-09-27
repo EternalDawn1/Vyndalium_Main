@@ -683,7 +683,7 @@ partial class Player
 				var item = o.Components.Get<ItemComponent>();
 				if ( item == null )
 					continue;
-				player.Inventory.SetItem( item, data.Index );
+				player.Inventory?.SetItem( item, data.Index );
 				ReadData( data, o );
 				item.Description = data.Description;
 				item.RequiredLevel = data.RequiredLevel;	

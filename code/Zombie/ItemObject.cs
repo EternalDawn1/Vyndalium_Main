@@ -27,16 +27,19 @@ namespace GeneralGame
         [Property]
         private readonly List<string> prefabPaths = new List<string>
         {
-            "prefabs/potions/potion_small.prefab", // 20% Wahrscheinlichkeit
+            "prefabs/potions/potion_small.prefab",
+            "prebabs/pickupammo.prefab",
             "prefabs/items/wood_log.prefab",       // 30% Wahrscheinlichkeit
-            "prefabs/entitys/chestsystem/example1.prefab", // 5% Wahrscheinlichkeit
+            "prefabs/entitys/chestsystem/example1.prefab",
+             // 5% Wahrscheinlichkeit
             null // Restliche Wahrscheinlichkeit (45%) für nichts
         };
 
         private readonly List<float> probabilities = new List<float>
         {
-            0.2f, // 20% Wahrscheinlichkeit für Tränke
-            0.3f, // 30% Wahrscheinlichkeit für Holz
+            0.3f, // 10% Wahrscheinlichkeit für Munition
+            0.1f, // 20% Wahrscheinlichkeit für Tränke
+            0.1f, // 30% Wahrscheinlichkeit für Holz
             0.05f, // 5% Wahrscheinlichkeit für eine Truhe
             0.45f  // 45% Wahrscheinlichkeit für nichts
         };

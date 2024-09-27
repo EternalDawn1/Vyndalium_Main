@@ -439,22 +439,105 @@ public class BaseGun : WeaponComponent, IUse
 
 		SendReloadMessage();
 	}
-	
+	[Property]public LineRenderer lineRenderer { get; set; }
 
+	[Broadcast]
+
+	public void ShowMeleeAttack( Vector3 origin, Vector3 endPosition )
+	{
+		if ( lineRenderer == null )
+		{
+			Log.Error( "LineRenderer is not assigned." );
+			return;
+		}
+
+		// Alpha-Wert auf den Standardwert zurücksetzen und aktivieren
+		SetLineRendererAlpha( lineRenderer, 1.0f );
+		lineRenderer.Enabled = true;
+
+		lineRenderer.UseVectorPoints = true;
+		lineRenderer.VectorPoints = new List<Vector3> { origin, endPosition };
+
+		// Kollisionsabfrage
+		var trace = Scene.Trace.Ray( origin, endPosition )
+			.WithoutTags( "player" )
+			.Run();
+
+		if ( trace.Hit )
+		{
+			IHealthComponent damageable = null;
+
+			if ( trace.Component.IsValid() )
+				damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+			if ( damageable != null )
+			{
+				var damage = Damage;
+				damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
+			}
+		}
+
+		// Starten Sie die asynchrone Methode
+		_ = FadeLineRenderer( lineRenderer, 0.5f );
+	}
+	private async Task FadeLineRenderer( LineRenderer lineRenderer, float duration )
+	{
+		float halfDuration = duration / 2f;
+		float elapsedTime = 0f;
+
+		// Einblenden
+		while ( elapsedTime < halfDuration )
+		{
+			elapsedTime += Time.Delta;
+			float alpha = elapsedTime / halfDuration;
+			SetLineRendererAlpha( lineRenderer, alpha );
+			await Task.Delay( 5 ); // Kleinere Verzögerung für glatteres Fading
+		}
+
+		// Ausblenden
+		elapsedTime = 0f;
+		while ( elapsedTime < halfDuration )
+		{
+			elapsedTime += Time.Delta;
+			float alpha = 1f - (elapsedTime / halfDuration);
+			SetLineRendererAlpha( lineRenderer, alpha );
+			await Task.Delay( 5 ); // Kleinere Verzögerung für glatteres Fading
+		}
+
+		// Linie deaktivieren
+		lineRenderer.Enabled = false;
+	}
+
+	private void SetLineRendererAlpha( LineRenderer lineRenderer, float alpha )
+	{
+		var color = lineRenderer.Color;
+		color.AddAlpha( 0, alpha ); // Setzen Sie den Alpha-Wert der Farbe
+		lineRenderer.Color = color; // Setzen Sie die modifizierte Farbe zurück an den LineRenderer
+	}
 	private void PerformMeleeAttack( Player player )
 	{
 		if ( NextMeleeAttackTime > 0 ) return;
 
 		if ( player == null ) return;
 
-		var attachment = EffectRenderer.GetAttachment( "muzzle" );
-		var startPos = player.PlyCamera.Transform.Position;
-		var direction = player.PlyCamera.Transform.Rotation.Forward;
-		direction += Vector3.Random * Spread;
-		float slashRadius = 1.0f;
 
-		var endPos = startPos + direction * 100f;
-		var trace = Scene.Trace.Sphere( slashRadius,startPos, endPos )
+		var attachment = EffectRenderer.GetAttachment( "muzzle" );
+		var playerPosition = player.PlyCamera.Transform.Position;
+		var forwardDirection = player.PlyCamera.Transform.Rotation.Forward;
+
+		// Berechnen Sie die Startposition 50 Einheiten vor dem Spieler und 25 Einheiten nach links
+		var cameraRight = player.PlyCamera.Transform.Rotation.Right;
+		var startPos = playerPosition + forwardDirection * 50 - cameraRight * 25;
+
+		// Berechnen Sie die Endposition 50 Einheiten vor dem Spieler und 25 Einheiten nach rechts
+		var endPos = playerPosition + forwardDirection * 50 + cameraRight * 25;
+
+		// Zeigen Sie den Nahkampfangriff an
+		ShowMeleeAttack( startPos, endPos );
+		
+
+		// Führen Sie den Nahkampfangriff aus (Ihre bestehende Logik)
+		float slashRadius = 1.0f;
+		var trace = Scene.Trace.Sphere( slashRadius, startPos, endPos )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.WithoutTags( "player" )
 			.Size( slashRadius )
@@ -462,13 +545,14 @@ public class BaseGun : WeaponComponent, IUse
 			.Run();
 
 		var damage = Damage;
+
 		var origin = attachment?.Position ?? startPos;
 
-		SendAttackMessage( origin, trace.EndPosition, trace.Distance );
-
-		
+		SendMeleeAttackMessage( origin, trace.EndPosition, trace.Distance );
 
 		IHealthComponent damageable = null;
+
+		
 
 		if ( trace.Component.IsValid() )
 			damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
@@ -789,7 +873,7 @@ public class BaseGun : WeaponComponent, IUse
 	}
 
 	[Broadcast]
-	private void SendAttackMessage(Vector3 startPos, Vector3 endPos, float distance)
+	private void SendMeleeAttackMessage(Vector3 startPos , Vector3 endPos, float distance)
 	{
 		if ( IsMelee ) // Überprüfe, ob der Boolean-Wert wahr ist
 		{
@@ -802,12 +886,8 @@ public class BaseGun : WeaponComponent, IUse
 			{
 				throw new InvalidOperationException( "SceneWorld is null." );
 			}
-			var p2 = new SceneParticles( Scene.SceneWorld, "particles/tracer/trail_bullet.vpcf" );
-			p2.SetControlPoint( 0, startPos );
-			p2.SetControlPoint( 1, endPos );
-			p2.SetControlPoint( 20, distance );
-			p2.PlayUntilFinished( Task );
-			
+
+
 			if ( FireSound != null )
 			{
 				Sound.Play( FireSound, startPos );
@@ -816,10 +896,16 @@ public class BaseGun : WeaponComponent, IUse
 			{
 				Log.Warning( "FireSound is null." );
 			}
+			
 		}
+	}
+	[Broadcast]
+	private void SendAttackMessage(Vector3 startPos, Vector3 endPos, float distance)
+	{
+		
 
 
-		if (Player.Local == null || Player.Local.LifeState == LifeState.Dead)
+		if (Player.Local == null || Player.Local.LifeState == LifeState.Dead && !IsMelee )
 		{
 			// Spieler ist tot, keine Nachricht senden
 			return;

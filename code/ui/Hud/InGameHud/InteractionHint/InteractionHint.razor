@@ -89,6 +89,7 @@
 		SetClass("visible", ShowHint());
 		if (!HasClass("visible"))
 			return;
+
 		if (Player.Local == null)
         	return;
 
@@ -112,7 +113,12 @@
 				continue;
 
 			if (interaction.HasBounds && !FromHands)
-				pos = Player.Local.TargetedGameObject.Transform.Position + interaction.Position * Player.Local.TargetedGameObject.Transform.Rotation;
+			{
+				if (Player.Local?.TargetedGameObject?.Transform != null)
+				{
+					pos = Player.Local.TargetedGameObject.Transform.Position + interaction.Position * Player.Local.TargetedGameObject.Transform.Rotation;
+				}
+			}
 
 			var coolDown = !interaction.Cooldown || interaction.CooldownTimer;
 
@@ -123,8 +129,8 @@
 
 				interaction.CooldownTimer = interaction.CooldownTime;
 
-				@* For some reason need another null check here :/ *@
-				if (!_targetObject.IsValid())
+				
+				if (_targetObject == null || !_targetObject.IsValid())
 					return;
 
 				if (interaction.InputMode != InputMode.Down)

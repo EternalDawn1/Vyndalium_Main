@@ -103,6 +103,9 @@ namespace GeneralGame
             "prefabs/clothes/helmet/helmet-c.prefab",
             "prefabs/clothes/legarmor/legarmor-c.prefab",
             "prefabs/items/wood_log.prefab",
+            "prefabs/weapons/new/hands.prefab",
+            "prefabs/weapons/new/knife.prefab",
+            "prefabs/weapons/new/machete.prefab",
             // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
         };
 
@@ -118,6 +121,7 @@ namespace GeneralGame
             "prefabs/clothes/helmet/helmet-b.prefab",
             "prefabs/clothes/legarmor/legarmor-b.prefab",
             "prefabs/items/wood_log.prefab",
+
             // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
         };
 
@@ -265,6 +269,7 @@ namespace GeneralGame
                 LoadTierPrefab( prefabPath, tier, minLevel, maxLevel);
             }
         }
+        
 
         public void LoadTierPrefab( string prefabPath, string tier, int minLevel, int maxLevel)
         {
@@ -288,6 +293,7 @@ namespace GeneralGame
                                 var attackValues = CalculateAttackValues( tier, itemComponent);
                                 itemComponent.MinAttackValue = attackValues.MinAttack;
                                 itemComponent.MaxAttackValue = attackValues.MaxAttack;
+                                itemComponent.Tier = Enum.Parse<Tier>( tier );
                                 itemComponent.GenerateRandomStats();
                             }
                             else if ( itemComponent.IsArmor )
@@ -296,6 +302,7 @@ namespace GeneralGame
                                 itemComponent.MinArmorValue = armorValues.MinArmor;
                                 itemComponent.MaxArmorValue = armorValues.MaxArmor;
                                 itemComponent.GenerateRandomStats();
+                                itemComponent.Tier = Enum.Parse<Tier>( tier );
                             }
                         }
                         Items.Add( itemComponent );
@@ -306,6 +313,7 @@ namespace GeneralGame
         
         private int GetPlayerLevel()
         {
+             // Warten, bis der Player.Local initialisiert ist
             if ( Player.Local != null )
             {
                 return Player.Local.Level;

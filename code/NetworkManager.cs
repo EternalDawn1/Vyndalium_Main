@@ -24,15 +24,18 @@ namespace GeneralGame
                 
                 return;
             }
-
-            if ( Player.All.Count >= MAX_PLAYERS )
+            if ( Player.All == null )
             {
                 
+            }
+
+            if ( Player.All == null || Player.All.Count >= MAX_PLAYERS )
+            {
                 SceneHandler.ChangeScene( GeneralScene.MainMenu );
                 Networking.Disconnect();
                 return;
             }
-            
+
 
         }
 
@@ -55,13 +58,19 @@ namespace GeneralGame
             var playerComponent = playerObject.Components.Get<Player>( FindMode.EverythingInSelfAndDescendants );
             if ( playerComponent == null )
             {
-                //Log.Error( "Prefab does not contain a player component." );
+               
                 return;
             }
 
-            //AssignComponentsToAllPlayers( playerComponent );
+            AssignComponentsToAllPlayers( playerComponent );
 
             playerComponent.SetupConnection( channel );
+            
+            if ( Player._InternalPlayers == null )
+            {
+                Log.Error( "Player._InternalPlayers is not initialized." );
+                return;
+            }
             Player._InternalPlayers?.Clear();
             Player._InternalPlayers?.Add( playerComponent );
             playerObject.NetworkSpawn( channel );

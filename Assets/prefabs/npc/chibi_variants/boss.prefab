@@ -1,0 +1,489 @@
+{
+  "RootObject": {
+    "__guid": "3a54138c-5f07-4c5f-be58-8f1650e25d81",
+    "Flags": 0,
+    "Name": "boss",
+    "Tags": "bad,npc",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "Components": [
+      {
+        "__type": "Sandbox.NavMeshAgent",
+        "__guid": "641036c0-c520-466f-922d-dd552a380f06",
+        "Acceleration": 200,
+        "Height": 34.800056,
+        "MaxSpeed": 100,
+        "Radius": 14.699992,
+        "Separation": 1,
+        "UpdatePosition": true,
+        "UpdateRotation": true
+      },
+      {
+        "__type": "GeneralGame.MoveHelper",
+        "__guid": "ba70d2dd-a8ed-4c81-b28d-7b4f83eee53d",
+        "AccelerationCurve": [
+          {
+            "y": 0.38297874
+          },
+          {
+            "x": 0.89285713,
+            "y": 1
+          }
+        ],
+        "AirAcceleration": 400,
+        "AirFriction": 6.5,
+        "Bounce": 0.5,
+        "Collider": {
+          "_type": "component",
+          "component_id": "d75db4bf-8aa6-4f08-b5f7-12246ac8f7ae",
+          "go": "2fe8f844-48a1-44f0-b9c1-51b233116daa",
+          "component_type": "ModelCollider"
+        },
+        "EnableUnstuck": false,
+        "Gravity": "0,0,850",
+        "GroundAcceleration": 2065,
+        "GroundAngle": 45,
+        "GroundFriction": 33.7,
+        "IgnoreTags": "",
+        "MaxUnstuckTries": 20,
+        "OnComponentUpdate": {
+          "__version": 8,
+          "__guid": "6cb2d893-42ac-41f5-b48b-55be52a90f72",
+          "__changeId": 0,
+          "UserData": {
+            "Title": "On Component Update"
+          },
+          "Variables": [],
+          "Nodes": [
+            {
+              "Id": 0,
+              "Type": "input"
+            },
+            {
+              "Id": 1,
+              "Type": "output"
+            }
+          ],
+          "Links": [
+            {
+              "SrcId": 0,
+              "SrcName": "_signal",
+              "DstId": 1,
+              "DstName": "_signal"
+            }
+          ]
+        },
+        "StepHeight": 27,
+        "StickToGround": true,
+        "StopSpeed": 10,
+        "TraceHeight": 64,
+        "TraceRadius": 12,
+        "TraceType": "Capsule",
+        "UseCollider": true,
+        "UseSceneGravity": true
+      },
+      {
+        "__type": "HealthComponent",
+        "__guid": "d1747074-bcc2-4030-9740-4bc7da220d08",
+        "AnimationHelper": {
+          "_type": "component",
+          "component_id": "bef669cb-4b86-408b-b051-0caa65fd5764",
+          "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81",
+          "component_type": "CitizenAnimationHelper"
+        },
+        "CanRegenerate": false,
+        "DamagedBy": "Bullet",
+        "DropOnDeath": [
+          {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/pm/glock.prefab"
+          }
+        ],
+        "Health": 100,
+        "Immortal": false,
+        "MaxHealth": 9,
+        "RegenerationCooldown": 2,
+        "RegenerationTimer": 5,
+        "StunnedBy": "Bullet",
+        "StunWhenDamaged": false
+      },
+      {
+        "__type": "Npc",
+        "__guid": "c1b3310c-6b5e-4247-8f92-64cae837a5f3",
+        "CurrentHoldType": "Punch",
+        "isChibi": true,
+        "AlertOthers": false,
+        "AnimationHelper": {
+          "_type": "component",
+          "component_id": "bef669cb-4b86-408b-b051-0caa65fd5764",
+          "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81",
+          "component_type": "CitizenAnimationHelper"
+        },
+        "AttackCooldown": 7.5,
+        "AttackRange": 80,
+        "Body": {
+          "_type": "gameobject",
+          "go": "2fe8f844-48a1-44f0-b9c1-51b233116daa"
+        },
+        "CurrentState": "Idle",
+        "DeathSounds": "sounds/deathsounds/deathsounds.sound",
+        "DetectRange": 176,
+        "EnemyTags": "player",
+        "Eye": {
+          "_type": "gameobject",
+          "go": "7ac0b990-4c67-4491-b114-b53b6a774c18"
+        },
+        "FaceTowardsVelocity": true,
+        "HasIceAbility": false,
+        "Health": 100,
+        "Healthone": {
+          "_type": "component",
+          "component_id": "d1747074-bcc2-4030-9740-4bc7da220d08",
+          "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81",
+          "component_type": "HealthComponent"
+        },
+        "HitSounds": "sounds/chibi.sound",
+        "Idle": true,
+        "Level": 0,
+        "MaxHealth": 100,
+        "MaximumIdleCooldown": 6,
+        "MaxRunAnimationSpeed": 250,
+        "MinimumIdleCooldown": 4,
+        "Model": {
+          "_type": "component",
+          "component_id": "44abc567-108c-4783-ae12-05ca44d2a8e0",
+          "go": "2fe8f844-48a1-44f0-b9c1-51b233116daa",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "MoveHelper": {
+          "_type": "component",
+          "component_id": "ba70d2dd-a8ed-4c81-b28d-7b4f83eee53d",
+          "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81",
+          "component_type": "MoveHelper"
+        },
+        "Name": "Terror Boss",
+        "OnAttack": {
+          "__version": 8,
+          "__guid": "af137a52-0cf6-473a-b865-8ff82b470c4e",
+          "__changeId": 0,
+          "UserData": {
+            "Title": "On Attack",
+            "ReferencedComponentTypes": [
+              "package.viwi.new_game_two/HealthComponent"
+            ]
+          },
+          "Variables": [],
+          "Nodes": [
+            {
+              "Id": 0,
+              "Type": "input",
+              "UserData": {
+                "Position": "-64,32"
+              }
+            },
+            {
+              "Id": 2,
+              "Type": "scene.get",
+              "Properties": {
+                "T": "HealthComponent"
+              },
+              "UserData": {
+                "Position": "96,64"
+              }
+            },
+            {
+              "Id": 3,
+              "Type": "call",
+              "Properties": {
+                "_isStatic": false,
+                "_name": "Damage",
+                "_type": "HealthComponent"
+              },
+              "UserData": {
+                "Position": "512,64"
+              }
+            },
+            {
+              "Id": 5,
+              "Type": "scene.ref",
+              "UserData": {
+                "Position": "96,256"
+              }
+            },
+            {
+              "Id": 6,
+              "Type": "property",
+              "ParentId": 5,
+              "Properties": {
+                "_name": "Transform",
+                "_type": "Sandbox.GameObject"
+              }
+            },
+            {
+              "Id": 7,
+              "Type": "property",
+              "ParentId": 6,
+              "Properties": {
+                "_name": "Position",
+                "_type": "Sandbox.GameTransform"
+              }
+            }
+          ],
+          "Links": [
+            {
+              "SrcId": 0,
+              "SrcName": "enemy",
+              "DstId": 2,
+              "DstName": "_this"
+            },
+            {
+              "SrcId": 0,
+              "SrcName": "_signal",
+              "DstId": 3,
+              "DstName": "_signal"
+            },
+            {
+              "SrcId": 2,
+              "SrcName": "_result",
+              "DstId": 3,
+              "DstName": "_target"
+            },
+            {
+              "Id": 11,
+              "Value": 40,
+              "DstId": 3,
+              "DstName": "amount"
+            },
+            {
+              "SrcId": 5,
+              "SrcName": "_result",
+              "DstId": 3,
+              "DstName": "attacker"
+            },
+            {
+              "Id": 12,
+              "Value": 400,
+              "DstId": 3,
+              "DstName": "force"
+            },
+            {
+              "Id": 13,
+              "Value": "Serious",
+              "DstId": 3,
+              "DstName": "type"
+            },
+            {
+              "SrcId": 7,
+              "SrcName": "_result",
+              "DstId": 3,
+              "DstName": "worldHurtPosition"
+            },
+            {
+              "SrcId": 5,
+              "SrcName": "_result",
+              "DstId": 6,
+              "DstName": "_target"
+            },
+            {
+              "SrcId": 6,
+              "SrcName": "_result",
+              "DstId": 7,
+              "DstName": "_target"
+            }
+          ],
+          "Defaults": {
+            "$5.gameobject": {
+              "_type": "gameobject",
+              "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81"
+            }
+          }
+        },
+        "OnDetect": {
+          "__version": 8,
+          "__guid": "8d3c2497-0678-4c8c-b986-1b268ff1b74e",
+          "__changeId": 2,
+          "UserData": {
+            "Title": "On Detect",
+            "ReferencedComponentTypes": []
+          },
+          "Variables": [],
+          "Nodes": [
+            {
+              "Id": 0,
+              "Type": "input",
+              "UserData": {
+                "Position": "-64,0"
+              }
+            }
+          ],
+          "Links": []
+        },
+        "OnEnemyEscaped": {
+          "__version": 8,
+          "__guid": "e1eb3753-6b11-46f9-b912-757d64dce89b",
+          "__changeId": 2,
+          "UserData": {
+            "Title": "On Enemy Escaped",
+            "ReferencedComponentTypes": []
+          },
+          "Variables": [],
+          "Nodes": [
+            {
+              "Id": 0,
+              "Type": "input"
+            }
+          ],
+          "Links": []
+        },
+        "PlayerProximityDistance": 80,
+        "PogMode": false,
+        "RunningType": "Smart",
+        "RunSpeed": 350,
+        "ScaleStats": true,
+        "VisionRange": 912,
+        "WalkingType": "Dumb",
+        "WalkSpeed": 310,
+        "ZombieRagedol": {
+          "_type": "gameobject",
+          "prefab": "models/npcs/chibi/chibi_ragdoll.prefab"
+        }
+      },
+      {
+        "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+        "__guid": "bef669cb-4b86-408b-b051-0caa65fd5764",
+        "BodyWeight": 1,
+        "EyeSource": {
+          "_type": "gameobject",
+          "go": "7ac0b990-4c67-4491-b114-b53b6a774c18"
+        },
+        "EyesWeight": 1,
+        "HeadWeight": 1,
+        "LookAtEnabled": false,
+        "Target": {
+          "_type": "component",
+          "component_id": "44abc567-108c-4783-ae12-05ca44d2a8e0",
+          "go": "2fe8f844-48a1-44f0-b9c1-51b233116daa",
+          "component_type": "SkinnedModelRenderer"
+        }
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "2fe8f844-48a1-44f0-b9c1-51b233116daa",
+        "Flags": 0,
+        "Name": "body",
+        "Scale": "2,2,2",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "44abc567-108c-4783-ae12-05ca44d2a8e0",
+            "AnimationGraph": "models/npcs/chibi/chibi.vanmgrph",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": false,
+            "MaterialGroup": "default",
+            "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
+            "Model": "models/npcs/chibi/chibi_standard.vmdl",
+            "Morphs": {},
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Tint": "1,0,0,0.86",
+            "UseAnimGraph": true
+          },
+          {
+            "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+            "__guid": "bc6e5718-9ece-4b85-89fa-63acb72f5c57",
+            "BodyWeight": 1,
+            "EyesWeight": 1,
+            "HeadWeight": 1,
+            "Height": 1.04,
+            "LookAtEnabled": false,
+            "Target": {
+              "_type": "component",
+              "component_id": "44abc567-108c-4783-ae12-05ca44d2a8e0",
+              "go": "2fe8f844-48a1-44f0-b9c1-51b233116daa",
+              "component_type": "SkinnedModelRenderer"
+            }
+          },
+          {
+            "__type": "Sandbox.ModelCollider",
+            "__guid": "d75db4bf-8aa6-4f08-b5f7-12246ac8f7ae",
+            "IsTrigger": false,
+            "Model": "models/npcs/chibi/chibi_standard.vmdl",
+            "Static": false
+          },
+          {
+            "__type": "Sandbox.ModelHitboxes",
+            "__guid": "c0990385-b1b8-4d8a-81a3-adb80eafd636",
+            "Renderer": {
+              "_type": "component",
+              "component_id": "44abc567-108c-4783-ae12-05ca44d2a8e0",
+              "go": "2fe8f844-48a1-44f0-b9c1-51b233116daa",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "Target": {
+              "_type": "gameobject",
+              "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81"
+            }
+          }
+        ]
+      },
+      {
+        "__guid": "7ac0b990-4c67-4491-b114-b53b6a774c18",
+        "Flags": 0,
+        "Name": "eye",
+        "Position": "0,0,64",
+        "Enabled": true
+      },
+      {
+        "__guid": "4d785a24-7cf3-42df-af6e-19e66b31d356",
+        "Flags": 0,
+        "Name": "World",
+        "Position": "-1.623636,0,178.6707",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.WorldPanel",
+            "__guid": "790fd4b2-7c15-4713-97c8-13ee1f8dc944",
+            "HorizontalAlign": "Center",
+            "InteractionRange": 1000,
+            "LookAtCamera": false,
+            "PanelSize": "1000,1000",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderScale": 2.3,
+            "VerticalAlign": "Center"
+          },
+          {
+            "__type": "GeneralGame.HUD.UI",
+            "__guid": "562f28a5-66a6-45fb-9625-35e1d56f9092",
+            "npc": {
+              "_type": "component",
+              "component_id": "c1b3310c-6b5e-4247-8f92-64cae837a5f3",
+              "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81",
+              "component_type": "Npc"
+            }
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "ResourceVersion": 1,
+  "__references": [],
+  "IsValid": true,
+  "__version": 1
+}

@@ -23,7 +23,7 @@ public partial class Player
 	private int _experience;
 	[Property] public SoundEvent LevelUp { get; set; }
 
-	public int ExpPerLevel => (int)Math.Floor( Math.Pow( 1.3, Level ) * 100 ) + 150;
+	public int ExpPerLevel => (int)Math.Floor( Math.Pow( 1.2, Level ) * 100 ) + 150;
 
 	public static List<(int MinLevel, string Name)> Ranks = new()
 	{
@@ -52,7 +52,7 @@ public partial class Player
 				break;
 			Experience -= ExpPerLevel;
 			Level++;
-			StatsPoints++;
+			StatsPoints += 3;
 
 			if ( LevelUp is null )
 				return;
