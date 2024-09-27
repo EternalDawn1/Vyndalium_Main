@@ -1,57 +1,62 @@
-﻿@using System
-@using System.Linq
-@using Sandbox;
-@inherits PanelComponent
+﻿@inherits PanelComponent
 @namespace GeneralGame.HUD
-@if (IsProxy)
-	return;
+
 <root>
-	<div class="table">
-		<div class="table-row heading">
-			<div class="row-item">Name</div>
-			<div class="row-item">Kills</div>
-			<div class="row-item">Deaths</div>
-			<div class="row-item">⏲️</div>
-		</div>
+	<div class="pause-menu @(PausePanelEnabled ? "enabled" : "disabled")">
+		<div class="pause-menu-content @(PausePanelEnabled ? "enabled" : "disabled")">
+			<div class="boy">
+				<div class="pause-menu-pic"></div>
+				<div class="pause-menu-title">Pause Menu</div>
+				
+				<div class="pause-menu-buttons">
+					<button class="pause-menu-button" @onclick="@ExitGame">Resume</button>
+					<div class="pause-menu-button" @onclick="@(() => @Game.Overlay.ShowBinds())">Controls</div>
+					<button class="pause-menu-button" @onclick="@(() => @Game.Overlay.ShowSettingsModal())">Settings</button>
+					<button class="pause-menu-button" @onclick="@Abondon">Back to Lobby</button>
+					<button class="pause-menu-button" @onclick="@Quit">Exit</button>
+					
 
-		@foreach (var entry in Connection.All)
-		{
-			var rowClass = string.Empty;
-			var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.Owner == entry);
-
-			if (entry == Connection.Local)
-				rowClass = "me";
-
-			<div class="table-row @rowClass">
-				<div class="row-item">
-					@if (entry.IsHost)
-					{
-						<div>👑</div>
-					}
-
-					@entry.DisplayName
 				</div>
-				<div class="row-item">@(player.IsValid() ? player.Kills : 0)</div>
-				<div class="row-item">@(player.IsValid() ? player.Deaths : 0)</div>
-				<div class="row-item">@GetTime(entry)</div>
+
+
 			</div>
-		}
+			
+			
+		</div>
+		<div class="pause-menu-content2 @(PausePanelEnabled ? "enabled" : "disabled")">
+			<div class="boy2">
+				<div class="discord">
+					
+						<div class="discord-title">Discord</div>
+						<div class="discord-title2"></div>
+						<div class="discord-buttons">
+						<button class="discord-button" >Join</button>
+						<button class="discord-button" >Discord link:</button>
+						</div>
+				</div>
+
+			</div>
+		</div>
 	</div>
+	@if (ShowConfirmationDialog)
+	{
+		<div class="confirmation-dialog">
+			<div class="confirmation-content">
+				<p>Sind Sie sicher, dass Sie das Spiel beenden möchten?</p>
+				<button class="confirmation-button" @onclick="@ConfirmQuit">Exit</button>
+				<button class="confirmation-button" @onclick="@CancelQuit">Nein</button>
+			</div>
+		</div>
+	}
+
+		
+
+
+
+		
+		
+		
+	
+	
+	
 </root>
-
-@code
-{
-	private string GetTime(Connection c)
-	{
-		var time = DateTime.UtcNow - c.ConnectionTime;
-
-		return time.ToString(time.TotalMinutes < 60f ? @"mm\m\ s\s" : @"hh\h\ \m\m");
-	}
-
-	protected override void OnUpdate()
-	{
-		SetClass("hidden", !Input.Down("score"));
-	}
-
-	protected override int BuildHash() => HashCode.Combine(RealTime.Now.CeilToInt());
-}

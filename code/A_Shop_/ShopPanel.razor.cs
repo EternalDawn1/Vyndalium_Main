@@ -272,7 +272,7 @@ namespace GeneralGame.HUD
                         upgradeItem.HolyResistence += (int)(upgradeItem.HolyResistence * 0.3);
 
 
-                    PlaySuccessSoundFromPath( "sounds/upgrade/success.sound",0.15f );
+                    PlaySuccessSoundFromPath( "sounds/upgrade/noti.sound",0.15f );
                     
 
                     CheckUpgradeSlot(); // Aktualisieren Sie den Panel-Zustand

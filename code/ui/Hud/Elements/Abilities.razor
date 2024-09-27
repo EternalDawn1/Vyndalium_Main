@@ -73,68 +73,58 @@
                 <div class="panel-content-text">
                     <div class="panel-content-layout">
                         <div class="panel-button-layout">
-                            <div class="box"
-                                style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
-                                <p class="txt" style="background-color: rgb(114, 114, 114);">Endurance-Stats</p>
-                                <div class="amount">Player-Stats</div>
-                                <div class="coast">Stat-Costs</div>
-                                <button class="Button1">Upgrade</button>
-                                <button class="info1">Info</button>
+                            <div class="box" style="border-bottom-width: 2px; border-bottom-color: rgb(255, 255, 255); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
+                                <p class="txt" style="font-style: italic;">Endurance-Stats</p>
+                                <div class="amount" style="font-style: italic;">Player-Stats</div>
+                                <div class="coast" style="font-style: italic;">Stat-Costs</div>
+                                <button class="Button1" style="font-style: italic;">Upgrade</button>
+                                
 
                             </div>
-                            <div class="box">
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Endurance))">
                                 <p class="txt2">🔰 Endurance</p>
                                 <div class="amount">@Player.Local.PER</div>
-                                
                                 <div class="coast">🌟 @Player.Local.EnduranceCost </div>
                                 <button class="Button2" @onclick="@EnduranceUpgrade">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.Endurance))">?</button>
+                              
                             </div>
-                            <div class="box">
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Health))">
                                 <p class="txt">💘 Health </p>
                                 <div class="amount">@Player.Local.MaxHealth</div>
-
                                 <div class="coast"> 🌟@Player.Local.HealthCost </div>
                                 <button class="Button2" @onclick="@HealthUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Health))">?</button>
+                              
                             </div>
-                            <div class="box">
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Tenacity))">
                                 <p class="txt">⛨ Tenacity</p>
                                 <div class="amount">@Player.Local.Tenacity</div>
-                                
                                 <div class="coast"> 🌟@Player.Local.TenacityCost </div>
                                 <button class="Button2" @onclick="@TenacityUpgrade">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.Tenacity))">?</button>
+                               
                             </div>
-                            <div class="box">
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Cover))">
                                 <p class="txt">🛡️ Cover </p>
                                 <div class="amount">@Player.Local.Block</div>
-                                
                                 <div class="coast"> 🌟@Player.Local.CoverCost </div>
                                 <button class="Button2" @onclick="@CoverUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Cover))">?</button>
+                               
                             </div>
-                            <div class="box">
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.MagicDefense))">
                                 <p class="txt">✨ Magic Defense </p>
                                 <div class="amount">@Player.Local.MagicDefense</div>
-                                
                                 <div class="coast">🌟 @Player.Local.MagicDefenseCost</div>
                                 <button class="Button2" @onclick="@MagicDefenseUpgrade">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.MagicDefense))">?</button>
+                               
+                                 
                             </div>
-                            <div class="box">
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Armor))">
                                 <p class="txt">🪖 Armor </p>
                                 <div class="amount">@Player.Local.Armor</div>
-                               
                                 <div class="coast"> 🌟@Player.Local.ArmorCost</div>
                                 <button class="Button2" @onclick="@ArmorUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Armor))">?</button>
-                            </div>
+                                
                             
-                        </div>
+                            </div>
                     </div>
                 </div>
                 <div class="panel-content-context">
@@ -143,83 +133,69 @@
                     <p class="text2">@GetPanelText2(currentPanelText)</p>
                 </div>
             </div>
-
+        </div>
             
             <div class="panel-content" style="opacity: @(currentPanel == PanelType.Strength ? 1 : 0)">
                 
                     <div class="panel-content-text">
                         <div class="panel-content-layout">
                             <div class="panel-button-layout">
-                            <div class="box" style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
-                                <p class="txt" style="background-color: rgb(114, 114, 114);">Strength-Stats</p>
-                                <div class="amount">Player-Stats</div>
-                                <div class="coast">Stat-Costs</div>
-                                <button class="Button1">Upgrade</button>
-                                <button class="info1" >Information</button>
+                            <div class="box"
+                                style="border-bottom-width: 2px; border-bottom-color: rgb(255, 255, 255); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; font-weight: bold;">
+                                <p class="txt" style="font-style: italic;">Strength-Stats</p>
+                                <div class="amount" style="font-style: italic;">Player-Stats</div>
+                                <div class="coast" style="font-style: italic;">Stat-Costs</div>
+                                <button class="Button1" style="font-style: italic;">Upgrade</button>
+                             
                                 
                             </div>
-                            <div class="box">
-                               
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Strength))">
                                 <p class="txt2">💪 Strength</p>
                                 <div class="amount">@Player.Local.STG</div>
-                               
                                 <div class="coast">🌟 @Player.Local.StrengthCost</div>
                                 <button class="Button2" @onclick="@STGUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Strength))">?</button>
                             </div>
 
-                            <div class="box">
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.AttackPower))">
                                 <p class="txt">🔋 Attack Power</p>
                                 <div class="amount">@Player.Local.AttackPower</div>
-                         
                                 <div class="coast"> 🌟 @Player.Local.AttackPowerCost</div>
                                 <button class="Button2" @onclick="@AP">+</button>
-                                <button class="info"@onclick="@(() => ShowPanelText(PanelTypeText.AttackPower))">?</button>
                             </div>
-                            <div class="box">
+
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.ArmorPenetration))">
                                 <p class="txt">🕯️ Armor Penetration</p>
                                 <div class="amount">@Player.Local.ArmorPenetration</div>
-                           
                                 <div class="coast">🌟@Player.Local.ArmorPenetrationCost</div>
                                 <button class="Button2" @onclick="@ArmorPenetration">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.ArmorPenetration))">?</button>
                             </div>
-                            <div class="box">
+
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.AttackRange))">
                                 <p class="txt">📐 Attack Range</p>
                                 <div class="amount">@Player.Local.AttackRange</div>
-                            
                                 <div class="coast">🌟@Player.Local.AttackRangeCost</div>
                                 <button class="Button2" @onclick="@AttackRange">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.AttackRange))">?</button>
                             </div>
-                            <div class="box">
+
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.AttackSpeed))">
                                 <p class="txt">💨 Attack Speed</p>
                                 <div class="amount">@Math.Round(Player.Local.AttackSpeed)</div>
-                            
-                                <div class="coast"> 🌟@Player.Local.AttackSpeedCost</div>
+                                <div class="coast">🌟 @Player.Local.AttackSpeedCost</div>
                                 <button class="Button2" @onclick="@AttackSpeed">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.AttackSpeed))">?</button>
                             </div>
-                            <div class="box">
-                                <p class="txt">🗡️ Critical Chance</p>
+
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.CriticalChance))">
+                                <p class="txt">🎯 Critical Chance</p>
                                 <div class="amount">@Player.Local.CritHitChance</div>
-                           
                                 <div class="coast">🌟 @Player.Local.CriticalChanceCost</div>
                                 <button class="Button2" @onclick="@CriticalChance">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.CriticalChance))">?</button>
                             </div>
-                            <div class="box">
-                                <p class="txt">🗡️ Critical Damage</p>
+
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.CriticalDamage))">
+                                <p class="txt">💥 Critical Damage</p>
                                 <div class="amount">@Player.Local.CritHitDamage</div>
-                           
                                 <div class="coast">🌟 @Player.Local.CriticalDamageCost</div>
                                 <button class="Button2" @onclick="@CriticalDamage">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.CriticalDamage))">?</button>
                             </div>
                         </div>
                         
@@ -237,79 +213,62 @@
                         <div class="panel-content-layout">
                             <div class="panel-button-layout">
                             <div class="box"
-                                style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
-                                <p class="txt" style="background-color: rgb(114, 114, 114);">Dexterity-Stats</p>
-                                <div class="amount">Player-Stats</div>
-                                <div class="coast">Stat-Costs</div>
-                                <button class="Button1">Upgrade</button>
-                                <button class="info1">Information</button>
+                                style="border-bottom-width: 2px; border-bottom-color: rgb(255, 255, 255); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; font-weight: bold;">
+                                <p class="txt" style="font-style: italic;">Dexterity-Stats</p>
+                                <div class="amount" style="font-style: italic;">Player-Stats</div>
+                                <div class="coast" style="font-style: italic;">Stat-Costs</div>
+                                <button class="Button1" style="font-style: italic;">Upgrade</button>
+                              
 
                             </div>
 
-                            <div class="box">
-                                <p class="txt2">🏃‍♂️ Dexterity</p>
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Dexterity))">
+                                <p class="txt">🏃 Dexterity</p>
                                 <div class="amount">@Player.Local.DEX</div>
-                                
                                 <div class="coast">🌟 @Player.Local.DexterityCost</div>
                                 <button class="Button2" @onclick="@DexterityUpgrade">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.Dexterity))">?</button>
                             </div>
-                            <div class="box">
-                                <p class="txt">💙 Mana</p>
-                                <div class="amount">@Player.Local.MaxMana</div>
 
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Mana))">
+                                <p class="txt">🔮 Mana</p>
+                                <div class="amount">@Player.Local.MaxMana</div>
                                 <div class="coast">🌟 @Player.Local.ManaCost</div>
                                 <button class="Button2" @onclick="@ManaUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Mana))">?</button>
                             </div>
 
-                            <div class="box">
-                                <p class="txt">🕳️ Evasion</p>
-                                <div class="amount">@Math.Round(@Player.Local.Evasion)</div>
-                              
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Evasion))">
+                                <p class="txt">🌀 Evasion</p>
+                                <div class="amount">@Player.Local.Evasion</div>
                                 <div class="coast">🌟 @Player.Local.EvasionCost</div>
                                 <button class="Button2" @onclick="@EvasionUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Evasion))">?</button>
                             </div>
 
-                            <div class="box">
-                                <p class="txt">⛏️ Ability Haste</p>
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.AbilityHaste))">
+                                <p class="txt">⏱️ Ability Haste</p>
                                 <div class="amount">@Player.Local.AbilityHaste</div>
-                               
                                 <div class="coast">🌟 @Player.Local.AbilityHasteCost</div>
                                 <button class="Button2" @onclick="@AbilityHasteUpgrade">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.AbilityHaste))">?</button>
                             </div>
 
-                            <div class="box">
-                                <p class="txt">🎽 Stamina</p>
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Stamina))">
+                                <p class="txt">💪 Stamina</p>
                                 <div class="amount">@Player.Local.MaxStamina</div>
-                          
                                 <div class="coast">🌟 @Player.Local.StaminaCost</div>
                                 <button class="Button2" @onclick="@StaminaUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Stamina))">?</button>
                             </div>
 
-                            <div class="box">
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.PlayerWalkSpeed))">
                                 <p class="txt">🚶 Walk Speed</p>
                                 <div class="amount">@Player.Local.PlayerWalkSpeed</div>
-                               
                                 <div class="coast">🌟 @Player.Local.PlayerWalkSpeedCost</div>
                                 <button class="Button2" @onclick="@PlayerWalkSpeedUpgrade">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.PlayerWalkSpeed))">?</button>
                             </div>
 
-                            <div class="box">
-                                <p class="txt">🏃‍♀️ Run Speed</p>
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.PlayerRunSpeed))">
+                                <p class="txt">🏃 Run Speed</p>
                                 <div class="amount">@Player.Local.PlayerRunSpeed</div>
-                            
                                 <div class="coast">🌟 @Player.Local.PlayerRunSpeedCost</div>
                                 <button class="Button2" @onclick="@PlayerRunSpeedUpgrade">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.PlayerRunSpeed))">?</button>
                             </div>
 
                            
@@ -327,56 +286,47 @@
                     <div class="panel-content-layout">
                         <div class="panel-button-layout">
                             <div class="box"
-                                style="border-width: 2px; border-color: rgb(0, 1, 78); border-bottom-color: white;">
-                                <p class="txt" style="background-color: rgb(114, 114, 114);">Intelligence-Stats</p>
-                                <div class="amount">Player-Stats</div>
-                                <div class="coast">Stat-Costs</div>
-                                <button class="Button1">Upgrade</button>
-                                <button class="info1">Information</button>
+                                style="border-bottom-width: 2px; border-bottom-color: rgb(255, 255, 255); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; font-weight: bold;">
+                                <p class="txt" style="font-style: italic;">Intelligence-Stats</p>
+                                <div class="amount" style="font-style: italic;">Player-Stats</div>
+                                <div class="coast" style="font-style: italic;">Stat-Costs</div>
+                                <button class="Button1" style="font-style: italic;">Upgrade</button>
+                               
 
                             </div>
-                            <div class="box">
-                                <p class="txt2">🧠 Intelligence</p>
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.Intelligence))">
+                                <p class="txt">🧠 Intelligence</p>
                                 <div class="amount">@Player.Local.INT</div>
-                               
                                 <div class="coast">🌟 @Player.Local.IntelligenceCost</div>
                                 <button class="Button2" @onclick="@INTUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Intelligence))">?</button>
                             </div>
 
-                            <div class="box">
-                                <p class="txt">🪄 Magic Power (MAP)</p>
-                                <div class="amount">@Math.Round(Player.Local.MagicPower)</div>
-                              
-                                <div class="coast"> 🌟 @Player.Local.MagicPowerCost</div>
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.MagicPower))">
+                                <p class="txt">🔮 Magic Power</p>
+                                <div class="amount">@Player.Local.MagicPower</div>
+                                <div class="coast">🌟 @Player.Local.MagicPowerCost</div>
                                 <button class="Button2" @onclick="@MagicPowerUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.MagicPower))">?</button>
                             </div>
-                            <div class="box">
-                                <p class="txt">🔮 Magic Penetration (MP)</p>
+
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.MagicPenetration))">
+                                <p class="txt">🪄 Magic Penetration</p>
                                 <div class="amount">@Player.Local.MagicPenetration</div>
-                              
                                 <div class="coast">🌟 @Player.Local.MagicPenetrationCost</div>
                                 <button class="Button2" @onclick="@MagicPenetrationUpgrade">+</button>
-                                <button class="info"
-                                    @onclick="@(() => ShowPanelText(PanelTypeText.MagicPenetration))">?</button>
-                            </div>
-                            <div class="box">
-                                <p class="txt">✨ Bonus EXP Gain (EXP+)</p>
-                                <div class="amount">@Math.Round(Player.Local.BonusEXPGain, 2)</div>
-                              
-                                <div class="coast">🌟 @Player.Local.BonusEXPGainCost</div>
-                                <button class="Button2" @onclick="@BonusEXPGainUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.BonusEXPGain))">?</button>
                             </div>
 
-                            <div class="box">
-                                <p class="txt">💰 Bonus $ Gain (Vynd+)</p>
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.BonusEXPGain))">
+                                <p class="txt">📈 Bonus EXP </p>
+                                <div class="amount">@Player.Local.BonusEXPGain.ToString("F2")</div>
+                                <div class="coast">🌟 @Player.Local.BonusEXPGainCost</div>
+                                <button class="Button2" @onclick="@BonusEXPGainUpgrade">+</button>
+                            </div>
+
+                            <div class="box" @onmouseover="@(() => ShowPanelText(PanelTypeText.BonusVyndaliumGain))">
+                                <p class="txt">💎 Bonus $ </p>
                                 <div class="amount">@Player.Local.BonusVyndalium</div>
-                              
                                 <div class="coast">🌟 @Player.Local.BonusVyndaliumGainCost</div>
                                 <button class="Button2" @onclick="@BonusVyndaliumGainUpgrade">+</button>
-                                <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.BonusVyndaliumGain))">?</button>
                             </div>
 
                             
@@ -398,6 +348,10 @@
     
 </root>
 @code{
+    public override void Tick()
+    {
+        StateHasChanged();
+    }
     
     public static Abilities Instance { get; private set; }
     public Abilities() => Instance = this;
@@ -530,7 +484,7 @@
             _ => "| Unknown panel text. |"
         };
     }
-    private PanelType currentPanel = PanelType.Abilities;
+    private PanelType currentPanel = PanelType.Endurance;
     private PanelTypeText currentPanelText;
     
     private void ShowPanel(PanelType panel)
@@ -589,6 +543,9 @@
             }
             Player.Local.StatsPoints -= Player.Local.StrengthCost;
             Player.Local.StrengthCost++;
+            Hudmaster.Instance.ShowNotification( "Attack Power +","/ui/hud/success.gif");
+
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
             
 
         }
@@ -601,6 +558,9 @@
             Player.Local.AttackPower += 25;
             Player.Local.StatsPoints -= Player.Local.AttackPowerCost;
             Player.Local.AttackPowerCost++;
+            Hudmaster.Instance.ShowNotification( "Attack Power +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
+            
         }
     }
     public void ArmorPenetration()
@@ -610,6 +570,8 @@
             Player.Local.ArmorPenetration += 5;
             Player.Local.StatsPoints -= Player.Local.ArmorPenetrationCost;
             Player.Local.ArmorPenetrationCost++;
+            Hudmaster.Instance.ShowNotification( "Armor Penetration +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
     public void AttackRange()
@@ -619,6 +581,8 @@
             Player.Local.AttackRange += 5;
             Player.Local.StatsPoints -= Player.Local.AttackRangeCost;
             Player.Local.AttackRangeCost++;
+            Hudmaster.Instance.ShowNotification( "Attack Range +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
     public void AttackSpeed()
@@ -628,6 +592,8 @@
             Player.Local.AttackSpeed += 5;
             Player.Local.StatsPoints -= Player.Local.AttackSpeedCost;
             Player.Local.AttackSpeedCost++;
+            Hudmaster.Instance.ShowNotification( "Attack Speed +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
     public void CriticalChance()
@@ -637,6 +603,8 @@
             Player.Local.CritHitChance += 5;
             Player.Local.StatsPoints -= Player.Local.CriticalChanceCost;
             Player.Local.CriticalChanceCost++;
+            Hudmaster.Instance.ShowNotification( "Critical Chance +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
     public void CriticalDamage()
@@ -646,6 +614,8 @@
             Player.Local.CritHitDamage += 5;
             Player.Local.StatsPoints -= Player.Local.CriticalDamageCost;
             Player.Local.CriticalDamageCost++;
+            Hudmaster.Instance.ShowNotification( "Critical Damage +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
     private void EnduranceUpgrade()
@@ -654,39 +624,14 @@
         {
             Player.Local.PER += 1;
             Player.Local.StatsPoints -= Player.Local.EnduranceCost;
+            Player.Local.EnduranceCost++;
+            Hudmaster.Instance.ShowNotification( "Endurance +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
             
         }
     }
 
-    private void SlowResistanceUpgrade()
-    {
-        if (Player.Local.StatsPoints >= Player.Local.SlowResistanceCost)
-        {
-            Player.Local.SlowResist += 1;
-            Player.Local.StatsPoints -= Player.Local.SlowResistanceCost;
-            Log.Info("Slow Resistance upgraded.");
-        }
-    }
-
-    private void BlindResistanceUpgrade()
-    {
-        if (Player.Local.StatsPoints >= Player.Local.BlindResistanceCost)
-        {
-            Player.Local.BlindResist += 1;
-            Player.Local.StatsPoints -= Player.Local.BlindResistanceCost;
-            Log.Info("Blind Resistance upgraded.");
-        }
-    }
-
-    private void StunResistanceUpgrade()
-    {
-        if (Player.Local.StatsPoints >= Player.Local.StunResistanceCost)
-        {
-            Player.Local.StunResist += 1;
-            Player.Local.StatsPoints -= Player.Local.StunResistanceCost;
-            Log.Info("Stun Resistance upgraded.");
-        }
-    }
+  
 
     private void TenacityUpgrade()
     {
@@ -694,7 +639,11 @@
         {
             Player.Local.Tenacity += 1;
             Player.Local.StatsPoints -= Player.Local.TenacityCost;
-            Log.Info("Tenacity upgraded.");
+            Player.Local.TenacityCost++;
+            Hudmaster.Instance.ShowNotification( "Tenacity +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
+
+
         }
     }
 
@@ -704,7 +653,9 @@
         {
             Player.Local.Block += 1;
             Player.Local.StatsPoints -= Player.Local.CoverCost;
-            Log.Info("Cover upgraded.");
+            Hudmaster.Instance.ShowNotification( "Cover +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
+           
         }
     }
 
@@ -714,7 +665,9 @@
         {
             Player.Local.MagicDefense += 1;
             Player.Local.StatsPoints -= Player.Local.MagicDefenseCost;
-            Log.Info("Magic Defense upgraded.");
+            Hudmaster.Instance.ShowNotification( "Magic Defense +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
+
         }
     }
 
@@ -724,7 +677,9 @@
         {
             Player.Local.Armor += 7;
             Player.Local.StatsPoints -= Player.Local.ArmorCost;
-            Log.Info("Armor upgraded.");
+            Hudmaster.Instance.ShowNotification( "Armor +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
+
         }
     }
 
@@ -734,7 +689,9 @@
         {
             Player.Local.MaxHealth += 6;
             Player.Local.StatsPoints -= Player.Local.HealthCost;
-            Log.Info("Health upgraded.");
+            Hudmaster.Instance.ShowNotification( "Health +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
+         
         }
     }
     public void DexterityUpgrade()
@@ -744,6 +701,8 @@
             Player.Local.DEX += 5;
             Player.Local.StatsPoints -= Player.Local.DexterityCost;
             Player.Local.DexterityCost++;
+            Hudmaster.Instance.ShowNotification( "Dexterity +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
 
@@ -754,6 +713,8 @@
             Player.Local.Evasion += 5;
             Player.Local.StatsPoints -= Player.Local.EvasionCost;
             Player.Local.EvasionCost++;
+            Hudmaster.Instance.ShowNotification( "Evasion +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
 
@@ -764,6 +725,8 @@
             Player.Local.AbilityHaste += 5;
             Player.Local.StatsPoints -= Player.Local.AbilityHasteCost;
             Player.Local.AbilityHasteCost++;
+            Hudmaster.Instance.ShowNotification( "Ability Haste +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
 
@@ -774,6 +737,8 @@
             Player.Local.MaxStamina += 10;
             Player.Local.StatsPoints -= Player.Local.StaminaCost;
             Player.Local.StaminaCost++;
+            Hudmaster.Instance.ShowNotification( "Stamina +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
 
@@ -784,6 +749,8 @@
             Player.Local.PlayerWalkSpeed += 14;
             Player.Local.StatsPoints -= Player.Local.PlayerWalkSpeedCost;
             Player.Local.PlayerWalkSpeedCost++;
+            Hudmaster.Instance.ShowNotification( "Player Walk Speed +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
 
@@ -794,6 +761,8 @@
             Player.Local.PlayerRunSpeed += 18;
             Player.Local.StatsPoints -= Player.Local.PlayerRunSpeedCost;
             Player.Local.PlayerRunSpeedCost++;
+            Hudmaster.Instance.ShowNotification( "Player Run Speed +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
 
@@ -804,6 +773,9 @@
             Player.Local.MaxMana += 15;
             Player.Local.StatsPoints -= Player.Local.ManaCost;
             Player.Local.ManaCost++;
+            Hudmaster.Instance.ShowNotification( "Mana +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
+
         }
     }
     private void INTUpgrade()
@@ -814,6 +786,9 @@
             Player.Local.INT += 1;
             Player.Local.StatsPoints -= Player.Local.IntelligenceCost;
             Player.Local.IntelligenceCost++;
+            Hudmaster.Instance.ShowNotification( "Intelligence +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
+
         }
     }
 
@@ -825,6 +800,8 @@
             Player.Local.MagicPower += 5;
             Player.Local.StatsPoints -= Player.Local.MagicPowerCost;
             Player.Local.MagicPowerCost++;
+            Hudmaster.Instance.ShowNotification( "Magic Power +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
     private void MagicPenetrationUpgrade()
@@ -835,6 +812,8 @@
             Player.Local.MagicPenetration += 5;
             Player.Local.StatsPoints -= Player.Local.MagicPenetrationCost;
             Player.Local.MagicPenetrationCost++;
+            Hudmaster.Instance.ShowNotification( "Magic Penetration +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
 
@@ -846,6 +825,8 @@
             Player.Local.BonusEXPGain += 0.1f;
             Player.Local.StatsPoints -= Player.Local.BonusEXPGainCost;
             Player.Local.BonusEXPGainCost++;
+            Hudmaster.Instance.ShowNotification( "Bonus EXP Gain +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
 
@@ -857,6 +838,8 @@
             Player.Local.BonusVyndalium += 1;
             Player.Local.StatsPoints -= Player.Local.BonusVyndaliumGainCost;
             Player.Local.BonusVyndaliumGainCost++;
+            Hudmaster.Instance.ShowNotification( "Bonus Vyndalium Gain +","/ui/hud/success.gif");
+            Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
     public void CheckBackpackSlots()

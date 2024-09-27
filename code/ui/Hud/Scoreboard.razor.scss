@@ -1,67 +1,268 @@
-﻿Scoreboard
-{
+﻿
+
+.pause-menu {
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
-	background-color: #1115;
-	justify-content: center;
-	align-items: center;
+	background-color: rgba(17, 17, 17, 0.56);
+	
 	font-family: Gadugi;
 	font-size: 18px;
-	backdrop-filter: blur( 15px );
+	font-family: Geneva;
 	transition: all 0.2s ease-out;
 	color: #fff;
-
-	.table-row {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-		
-		&:not( .heading ) {
-			background-color: rgba( 0 0 0 0.7 );
+	opacity: 0;
+	display: none;
+	pointer-events: all;
+	z-index: 0;
+	
+	&.enabled {
+			display: flex;
+			opacity: 1;
 		}
-	}
-	
-	.table-row:nth-child( 2 ) {
-		background-color: rgba( 0 0 0 0.5 );
-	}
 
-	.heading {
-		opacity: 0.5;
-	}
-
-	.row-item {
-		flex: 1;
-		display: flex;
-		padding: 8px 0;
-		white-space: nowrap;
-		justify-content: center;
-		transition: all 0.15s ease-in-out;
-	}
-	
-	.table
-	{
+	.pause-menu-content {
+		position: relative;
+		width: 30%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0);
+		padding: 1%;
+		border-radius: 10px;
 		flex-direction: column;
-		transform: scale( 1 );
-		transition: all 0.2s ease-in;
-		display: flex;
-		width: 600px;
-
-		.me
-		{
-			color: lightcyan;
-		}
-	}
-
-	&.hidden
-	{
-		opacity: 0;
-		transition: all 0.2s ease-in;
+		transform: translateX(-100%);
+		transition: transform 0.25s ease-out;
 		
-		.table {
-			transform: scale( 0.5 );
+		
+		
+			&.enabled {
+				transform: translateX(0%);
+				transition: opacity 5.5s ease-out;
+			}
+		
+			&.disabled {
+				transform: translateX(-100%);
+				transition: opacity 5.5s ease-out;
+
+			}
+		
+		.boy{
+			position: relative;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			padding: 10%;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.966);
+			border-radius: 10px;
+			border-width: 1px;
+			.pause-menu-pic{
+				position: relative;
+				width: 100%;
+				height: 50%;
+				background-image: url("/ui/textures/vynd.jpg");
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				border-radius: 10px;
+				opacity: 0.6;
+
+			}
+			.pause-menu-title 
+			{
+					position: relative;
+					width: 100%;
+					text-align: center;
+					justify-content: center;
+					bottom: 580px;
+					font-size: 64px;
+					font-style: italic;
+					text-shadow: 5px 5px 5px rgb(92, 87, 87);
+					
+					text-decoration: underline;
+					
+				}
+			
+				.pause-menu-buttons {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					
+			
+					.pause-menu-button {
+						background-color: rgba(0, 0, 0, 0.5);
+						color: #fff;
+						padding: 10px 20px;
+						margin: 5px;
+						border-radius: 5px;
+						cursor: pointer;
+						transition: all 0.2s ease-out;
+						&:hover {
+								background-color: rgba(255, 255, 255, 0.7);
+							}
+						
+					}
+					
+				}
+		}
+
+	}
+		.pause-menu-content2 {
+			
+			left: 78%;
+			position: relative;
+			width: 30%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0);
+			
+			border-radius: 10px;
+			flex-direction: column;
+			border-radius: 10px;
+			border-width: 1px;
+			transform: translateX(-0%);
+			transition: transform 0.25s ease-in-out;
+			
+				&.enabled {
+					transform: translateX(0%);
+					transition: opacity 5.5s ease-out;
+				}
+			
+				&.disabled {
+					transform: translateX(100%);
+					transition: opacity 5.5s ease-out;
+			
+				}
+			.boy2 
+			{
+					position: relative;
+					
+					flex-direction: column;
+					padding: 10%;
+					width: 100%;
+					height: 100%;
+					background-color: rgba(0, 0, 0, 0.966);
+					border-radius: 10px;
+	
+				.discord 
+				{
+						position: relative;
+						width: 100%;
+						height: 50%;
+						background-color: rgba(0, 21, 103, 0);
+						flex-direction: column;
+						
+						
+				
+						.discord-title {
+							position: relative;
+								width: 100%;
+								text-align: center;
+								justify-content: center;
+								
+								font-size: 64px;
+								font-style: italic;
+								text-shadow: 5px 5px 5px rgb(92, 87, 87);
+							
+								text-decoration: underline;
+							
+						}
+						.discord-title2{
+							position: relative;
+							width: 25%;
+							height: 25%;
+							left: 40%;
+							top: 10%;
+							text-align: center;
+							justify-content: center;
+							background-image: url("/ui/textures/discord.jpg");
+							background-position: center;
+							background-size: cover;
+							border-radius: 50px;
+							
+						}
+				
+						.discord-buttons {
+							position: relative;
+							top:30%;
+							display: flex;
+							flex-direction: column;
+							justify-content: center;
+							align-items: center;
+							background-color: rgba(255, 255, 255, 0.148);
+				
+							.discord-button {
+								background-color: rgba(0, 0, 0, 0.5);
+								color: #fff;
+								padding: 10px 20px;
+								margin: 5px;
+								border-radius: 5px;
+								cursor: pointer;
+								transition: all 0.2s ease-out;
+				
+								&:hover {
+									background-color: rgba(0, 0, 0, 0.7);
+								}
+							}
+						}
+				
+				
+					}
+					
+					
+			}
+			
+			
+	
+		}
+				
+		
+
+		
+
+		
+}
+.confirmation-dialog 
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 25%;
+	height: 25%;
+	background-color: rgba(238, 0, 0, 0.954);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+
+	.confirmation-content {
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 10px;
+		text-align: center;
+	}
+
+	.confirmation-button {
+		pointer-events: all;
+		z-index: 100;
+		margin: 10px;
+		padding: 10px 20px;
+		background-color: #0168d5;
+		color: #fff;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+
+		&:hover {
+			background-color: #0056b3;
 		}
 	}
+}
+
+.pause-menu.enabled {
+	opacity: 1;
+	display: flex;
 }
