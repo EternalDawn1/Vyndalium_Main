@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("vnbase_library")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b94dca5fbdecfab772c62776bbaf2ecc9bd6e02")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af712622b6b989fe7e990adb05f951b8a6b42e63")]
 [assembly: System.Reflection.AssemblyProductAttribute("vnbase_library")]
 [assembly: System.Reflection.AssemblyTitleAttribute("vnbase_library")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

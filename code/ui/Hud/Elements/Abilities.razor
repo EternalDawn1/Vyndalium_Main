@@ -79,7 +79,7 @@
                                 <div class="amount">Player-Stats</div>
                                 <div class="coast">Stat-Costs</div>
                                 <button class="Button1">Upgrade</button>
-                                <button class="info1">Information</button>
+                                <button class="info1">Info</button>
 
                             </div>
                             <div class="box">
@@ -92,7 +92,7 @@
                                     @onclick="@(() => ShowPanelText(PanelTypeText.Endurance))">?</button>
                             </div>
                             <div class="box">
-                                <p class="txt">💘 Health (HP)</p>
+                                <p class="txt">💘 Health </p>
                                 <div class="amount">@Player.Local.MaxHealth</div>
 
                                 <div class="coast"> 🌟@Player.Local.HealthCost </div>
@@ -100,7 +100,7 @@
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Health))">?</button>
                             </div>
                             <div class="box">
-                                <p class="txt">⛨ Tenacity (TEN)</p>
+                                <p class="txt">⛨ Tenacity</p>
                                 <div class="amount">@Player.Local.Tenacity</div>
                                 
                                 <div class="coast"> 🌟@Player.Local.TenacityCost </div>
@@ -109,7 +109,7 @@
                                     @onclick="@(() => ShowPanelText(PanelTypeText.Tenacity))">?</button>
                             </div>
                             <div class="box">
-                                <p class="txt">🛡️ Cover (Block+)</p>
+                                <p class="txt">🛡️ Cover </p>
                                 <div class="amount">@Player.Local.Block</div>
                                 
                                 <div class="coast"> 🌟@Player.Local.CoverCost </div>
@@ -117,16 +117,16 @@
                                 <button class="info" @onclick="@(() => ShowPanelText(PanelTypeText.Cover))">?</button>
                             </div>
                             <div class="box">
-                                <p class="txt">✨ Magic Defense (MD)</p>
-                                <div class="amount">🌟@Player.Local.MagicDefense</div>
+                                <p class="txt">✨ Magic Defense </p>
+                                <div class="amount">@Player.Local.MagicDefense</div>
                                 
-                                <div class="coast"> @Player.Local.MagicDefenseCost</div>
+                                <div class="coast">🌟 @Player.Local.MagicDefenseCost</div>
                                 <button class="Button2" @onclick="@MagicDefenseUpgrade">+</button>
                                 <button class="info"
                                     @onclick="@(() => ShowPanelText(PanelTypeText.MagicDefense))">?</button>
                             </div>
                             <div class="box">
-                                <p class="txt">🪖 Armor (DEF)</p>
+                                <p class="txt">🪖 Armor </p>
                                 <div class="amount">@Player.Local.Armor</div>
                                
                                 <div class="coast"> 🌟@Player.Local.ArmorCost</div>
@@ -316,7 +316,7 @@
                         </div>
                     </div>
                     <div class="panel-content-context">
-                        <p class="head">Information:</p>
+                        <p class="head">Info</p>
                         <p class="text">@GetPanelText(currentPanelText)</p>
                         <p class="text2">@GetPanelText2(currentPanelText)</p>
                     </div>

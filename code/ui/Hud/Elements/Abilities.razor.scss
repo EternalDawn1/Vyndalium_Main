@@ -31,7 +31,7 @@ Abilities{
             position: absolute;
             left: 15%;
             
-            top:5%;
+            top:2%;
             width: 20%;
             background-color: rgba(0, 0, 0, 0);
             color:white;
@@ -41,11 +41,12 @@ Abilities{
             padding:10px;
             border-color: rgb(255, 255, 255);
             border-width:1px;
-            justify-content: space-evenly;
+            justify-content: center;
             
             .playe2{
                 position: relative;
-
+                justify-content: center;
+                align-items: center;
                 height: 100%;
                 width: 100%;
                 color: rgb(0, 245, 33);
@@ -53,18 +54,23 @@ Abilities{
                 
                 
             }
-            
-            
-            
-            
             .nu {
+            position: relative;
+            width: 100%;
             font-size: 25px;
+            justify-content: center;
+            align-items: center;
             color: rgb(0, 255, 64);
             font-weight: 1000;
             animation: blink 1s linear infinite;
             
             
             }
+            
+            
+            
+            
+            
         }
 
         .main{
@@ -162,14 +168,26 @@ Abilities{
                             gap: 30px;
                             flex-direction: column;
                             width: 100%;
+                            height: 100%;
+                           
                             align-content: center;
+                            overflow-y: scroll;
                                                         
                             
                             .box{
+                                
+                                position: relative;
+                                width: 100%;
+                                height: 5%;
+                                gap:5px;
+                                
+                               
+                                
                             .amount {
-                                    position: a;
-                                    width: 25%;
-                                    justify-content: space-evenly;
+                                    position: relative;
+                                    width:100%;
+                                    height: 20%;
+                                   
                                     color: rgb(255, 255, 255);
                                     font-size: 20px;
                             
@@ -177,6 +195,7 @@ Abilities{
                                     border-color: rgb(0, 0, 0);
                                     background-color: rgba(11, 0, 0, 0.73);
                                     justify-content: center;
+                                    
                             
                             
                                 }
@@ -186,27 +205,31 @@ Abilities{
                             
                                     justify-content: space-evenly;
                                     color: rgba(255, 0, 0, 0.495);
-                                    width: 15%;
+                                    width: 100%;
+                                    height: 100%;
                                     font-size: 20px;
                                     color: rgb(0, 0, 0);
                                     border-width: 1%;
                                     border-color: rgb(0, 0, 0);
                                     background-color: rgb(255, 255, 255);
                                     justify-content: center;
+                                    align-items: center;
                             
                                 }
                             
                                 .info {
-                            
+                                    position:  relative;
                                     font-size: 24px;
-                                    width: 15%;
+                                    width: 20%;
+                                    height: 100%;
                                     color: rgb(0, 255, 64);
                                     font-size: 20px;
                             
-                                    border-width: 1%;
+                                   
                                     border-color: rgb(0, 0, 0);
                                     background-color: rgb(136, 136, 136);
                                     justify-content: center;
+                                    align-items: center;
                             
                                     :hover:not(.disabled) {
                             
@@ -223,34 +246,40 @@ Abilities{
                                         background-color: rgb(250, 134, 39);
                                         padding: 0 1%;
                                         border-radius: 5%;
+                                        align-items: center;
                                     }
                             
                                 }
                             
                                 .txt {
-                                    width: 50%;
+                                    width: 100%;
+                                    position: relative;
+                                    height: 100%;
                                     font-size: 20px;
                                     color: rgb(0, 0, 0);
                             
                                     border-color: rgb(0, 0, 0);
                                     background-color: rgba(255, 255, 255, 0.74);
                                     justify-content: center;
+                                    align-items: center;
                             
                                 }
                             
                                 .txt2 {
-                                    width: 50%;
-                                    font-size: 20px;
+                                    width: 100%;
+                                    font-size: 24px;
                                     color: rgb(0, 0, 0);
                             
                                     border-color: rgb(0, 0, 0);
                                     background-color: rgb(198, 233, 0);
                                     justify-content: center;
+                                    align-items: center;
                                 }
                             
                                 .Button2 {
                                     position: relative;
-                                    width: 12%;
+                                    width: 50%;
+
                                     height: 100%;
                                     color: rgb(255, 255, 255);
                                     background-image: url(/ui/hud/menuchar.png);
@@ -259,10 +288,11 @@ Abilities{
                             
                                     font-size: 20px;
                             
-                                    border-width: 1%;
+                                  
                                     border-color: rgb(0, 0, 0);
                                     background-color: rgb(136, 136, 136);
                                     justify-content: center;
+                                    align-items: center;
                             
                                     :hover:not(.disabled) {
                                         background-color: rgba(117, 255, 163, 0.822);
@@ -287,7 +317,7 @@ Abilities{
                             
                                 .Button1 {
                                     position: relative;
-                                    width: 12%;
+                                    width: 50%;
                                     height: 100%;
                                     color: rgb(255, 255, 255);
                                     background-image: url(/ui/hud/menuchar.png);
@@ -300,11 +330,12 @@ Abilities{
                                     border-color: rgb(0, 0, 0);
                                     background-color: rgb(136, 136, 136);
                                     justify-content: center;
+                                    align-items: center;
                                 }
                             
                                 .info1 {
                             
-                                    width: 15%;
+                                    width: 20%;
                                     color: rgb(0, 0, 0);
                                     font-size: 14px;
                                     font-weight: bold;
@@ -312,6 +343,7 @@ Abilities{
                                     border-color: rgb(0, 0, 0);
                                     background-color: rgb(136, 136, 136);
                                     justify-content: center;
+                                    align-items: center;
                                 }
                                 
                             }
