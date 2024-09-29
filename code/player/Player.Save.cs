@@ -5,6 +5,7 @@ namespace GeneralGame;
 public struct ItemSave
 {
 	[JsonInclude] public string Path;
+	[JsonInclude] public bool IsFavorite{ get; set; }
 	[JsonInclude] public Dictionary<string, string> Data;
 	[JsonInclude] public string Description;
 	[JsonInclude] public ItemState State;
@@ -254,7 +255,7 @@ partial class Player
 			item.MaxStack = item.MaxStack;
 			item.Count = item.Count;
 			item.Description = item.Description;
-
+			item.IsFavorite = item.IsFavorite;
 
 		
 		
@@ -263,6 +264,7 @@ partial class Player
 
 			return new ItemSave
 			{
+				IsFavorite = item.IsFavorite,
 				RequiredLevel = item.RequiredLevel,
 				Path = item.Prefab,
 				State = item.State,
@@ -543,6 +545,7 @@ partial class Player
 				var item = obj.Components.Get<ItemComponent>();
 				if ( item != null )
 				{
+					item.IsFavorite = data.IsFavorite;
 					item.Description = data.Description;
 					item.RequiredLevel = data.RequiredLevel;	
 					item.State = data.State;
@@ -614,6 +617,7 @@ partial class Player
 
 				player.Inventory.EquipItemFromWorld( equipment );
 				ReadData( data, o );
+				equipment.IsFavorite = data.IsFavorite;
 				equipment.Description = data.Description;
 				equipment.RequiredLevel = data.RequiredLevel;
 				equipment.MinArmorValue = data.MinArmorValue;
@@ -685,6 +689,7 @@ partial class Player
 					continue;
 				player.Inventory?.SetItem( item, data.Index );
 				ReadData( data, o );
+				item.IsFavorite = data.IsFavorite;
 				item.Description = data.Description;
 				item.RequiredLevel = data.RequiredLevel;	
 				item.MinArmorValue = data.MinArmorValue;
@@ -750,6 +755,7 @@ partial class Player
 					continue;
 				player.Inventory.GiveStorageItem( item, data.Index );
 				ReadData( data, o );
+				item.IsFavorite = data.IsFavorite;
 				item.Description = data.Description;
 				item.MaxStack = data.MaxStack;
 				item.Count = data.Count;

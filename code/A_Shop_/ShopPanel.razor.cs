@@ -8,15 +8,49 @@ namespace GeneralGame.HUD
     public partial class ShopPanel : Panel
     {
         public int currentPage = 0;
-        private int itemsPerPage = 20; // Anzahl der Items pro Seite
-        private int totalPages => (int)Math.Ceiling( (double)Player.Local.Inventory.StorageItems.Count / itemsPerPage );
+        public int itemsPerPage = 20; // Anzahl der Items pro Seite
+        public int totalPages => (int)Math.Ceiling( (double)Player.Local.Inventory.StorageItems.Count / itemsPerPage );
         public ItemComponent upgradeItem;
         private bool isUpgradePanelVisible = false;
         private int upgradeCost = 1500;
 
         private string statusText = "Success Chance:";
         private string statusClass = "visible";
+    
+        private SortDirection currentSortDirection = SortDirection.Ascending;
+        private bool showStorageSortOptions = false;
+        private bool showInventorySortOptions = false;
+        private void ToggleStorageSortOptions()
+        {
+            showStorageSortOptions = !showStorageSortOptions;
+            
+        }
 
+        private void ToggleInventorySortOptions()
+        {
+            showInventorySortOptions = !showInventorySortOptions;
+        }
+        private void SortBackPackItems( SortOption sortOption )
+        {
+            // Umschalten der Sortierrichtung
+            currentSortDirection = currentSortDirection == SortDirection.Ascending
+            ? SortDirection.Descending
+            : SortDirection.Ascending;
+
+            Player.Local.Inventory?.SortBackpackItems( sortOption );
+        }
+
+        private void SortStorageItems( SortOption sortOption )
+        {
+            // Umschalten der Sortierrichtung
+            currentSortDirection = currentSortDirection == SortDirection.Ascending
+            ? SortDirection.Descending
+            : SortDirection.Ascending;
+
+            Player.Local.Inventory?.SortStorageItems( sortOption );
+        }
+
+        
         protected async Task OnAfterRenderAsync( bool firstRender )
         {
             if ( firstRender && upgradeItem != null && upgradeItem.SuccessChance == 0 )
@@ -74,10 +108,10 @@ namespace GeneralGame.HUD
             }
             else
             {
-                
+                upgradeItem = null; // Setze upgradeItem auf null, wenn kein gültiges Upgrade-Item gefunden wird
             }
         }
-        
+
 
         private int CalculateUpgradeCost( int itemLevel, GeneralGame.Tier tier )
         {
@@ -122,7 +156,7 @@ namespace GeneralGame.HUD
                 }
                 else
                 {
-                    Log.Warning( $"SoundHandle für '{soundEventPath}' ist ungültig." );
+                    
                 }
             }
             else
@@ -167,7 +201,7 @@ namespace GeneralGame.HUD
                     Player.Local.Vyndalium -= upgradeCost;
                     upgradeItem.ItemLevel++;
                     Hudmaster.Instance.ShowNotification( $"Item {upgradeItem.Name} has been upgraded to {upgradeItem.ItemLevel}!", "/ui/hud/success.gif" );
-
+                    upgradeItem.SellPrice += (int)(upgradeCost * 0.5);
                     if ( upgradeItem.MinAttackValue > 0 )
                     {
                         upgradeItem.MinAttackValue += (int)2.6;
@@ -384,7 +418,7 @@ namespace GeneralGame.HUD
 
                         if ( upgradeItem.HolyResistence > 0 )
                             upgradeItem.HolyResistence -= (int)(upgradeItem.HolyResistence * 0.3);
-
+                        upgradeItem.SellPrice -= (int)(upgradeCost * 0.5);
                         Hudmaster.Instance.ShowNotification( $"Upgrade failed. Item {upgradeItem.Name} has been downgraded to {upgradeItem.ItemLevel}.", "/ui/hud/exit.gif" );
                         PlaySuccessSoundFromPath("sounds/upgrade/error.sound", 0.15f);
                     }
@@ -396,8 +430,8 @@ namespace GeneralGame.HUD
                         PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.15f );
                         
                         StateHasChanged();
-                    
-                        upgradeItem = null;
+                        CheckUpgradeSlot();
+                        //upgradeItem = null;
                     }
                 }
 

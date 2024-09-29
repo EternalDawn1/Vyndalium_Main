@@ -378,6 +378,33 @@ ShopPanel {
                                             padding: 10px;
                                             border-radius: 10px;
                                             margin-bottom: 10px;
+                                            .toggle
+                                            {
+                                                left: 30%;
+                                                width: 5%;
+                                                height: 50%;
+                                                position: relative;
+                                                background-size: cover;
+                                                background-image: url(/ui/hud/sort2.png);
+                                                background-position: center;
+                                                :hover:not(.disabled) {
+                                                
+                                                
+                                                        cursor: pointer;
+                                                        sound-in: 'hover';
+                                                
+                                                        border-radius: 5%;
+                                                        transform: scale(1.1);
+                                                    }
+                                                
+                                                    &:active:not(.disabled) {
+                                                        sound-in: 'sound4';
+                                                        background-color: rgb(250, 134, 39);
+                                                        padding: 0 1%;
+                                                        border-radius: 5%;
+                                                        align-items: center;
+                                                    }
+                                            }
                         
                                         }
                                         }
@@ -516,8 +543,101 @@ ShopPanel {
                                             .pagination-controls span {
                                                 margin: 0 10px;
                                             }
+                                            .box
+                                            {
+                                                position:absolute;
+                                                flex-direction: column;
+                                                width: 50%;
+                                                height: 100%;
+                                                transition: ease-in-out 5.5s;
+                                                background-color: rgba(0, 0, 0, 0.834);
+                                           
+                                            .sort{
+                                                position: relative;
+                                                width: 100%;
+                                                height: 10%;
+                                                justify-content: center;
+                                                align-items: center;
+                                                background-color: #967d198c;
+                                                border-width: 1px;
+                                                border-color: #000000;
+                                                color: #ffffff;
+                                                font-size: 30px;
+                                                font-weight: bold;
+                                                font-style: italic;
+                                                padding: 10px;
+                                                border-radius: 10px;
+                                                margin-bottom: 10px;
+                                               
+                                                :hover:not(.disabled) {
+                                                
+                                                
+                                                        cursor: pointer;
+                                                        sound-in: 'hover';
+                                                
+                                                        border-radius: 5%;
+                                                        transform: scale(1.1);
+                                                    }
+                                                
+                                                    &:active:not(.disabled) {
+                                                        sound-in: 'sound4';
+                                                        background-color: rgb(250, 134, 39);
+                                                        padding: 0 1%;
+                                                        border-radius: 5%;
+                                                        align-items: center;
+                                                    }
+                                            }
+                                            
+                                    
+                                        }
+                                        .box2
+                                            {
+                                                position:absolute;
+                                                flex-direction: column;
+                                                width: 50%;
+                                                left: 50%;
+                                                height: 100%;
+                                                background-color: rgba(0, 0, 0, 0.834);
+                                            .sort{
+                                                position: relative;
+                                                width: 100%;
+                                                height: 10%;
+                                                justify-content: center;
+                                                align-items: center;
+                                                background-color: #9619288c;
+                                                border-width: 1px;
+                                                border-color: #000000;
+                                                color: #ffffff;
+                                                font-size: 30px;
+                                                font-weight: bold;
+                                                font-style: italic;
+                                                padding: 10px;
+                                                border-radius: 10px;
+                                                margin-bottom: 10px;
+                                                :hover:not(.disabled) {
+                                                
+                                                
+                                                        cursor: pointer;
+                                                        sound-in: 'hover';
+                                                
+                                                        border-radius: 5%;
+                                                        transform: scale(1.1);
+                                                    }
+                                                
+                                                    &:active:not(.disabled) {
+                                                        sound-in: 'sound4';
+                                                        background-color: rgb(250, 134, 39);
+                                                        padding: 0 1%;
+                                                        border-radius: 5%;
+                                                        align-items: center;
+                                                    }
+                                            }
+                                            
+                                    
+                                        }
                                             
                                         }
+                                        
                                         .items-container2
                                         {
                                             width: 100%;

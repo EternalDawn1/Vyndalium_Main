@@ -313,7 +313,7 @@ namespace GeneralGame
         
         private int GetPlayerLevel()
         {
-             // Warten, bis der Player.Local initialisiert ist
+            Task.Delay(1);
             if ( Player.Local != null )
             {
                 return Player.Local.Level;

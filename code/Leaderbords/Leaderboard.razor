@@ -83,6 +83,7 @@
                 if (leaderboard != null)
                 {
                     leaderboard.Refresh();
+                    Refresh();
                     leaderboard.SetAggregationMax();
                   
                 }
@@ -95,7 +96,8 @@
                 if (leaderboard2 != null)
                 {
                     leaderboard2.Refresh();
-                    leaderboard2.SetAggregationMax();
+                    leaderboard2.SetAggregationSum();
+                    Refresh();
                 }
                 else
                 {
@@ -110,11 +112,11 @@
             if (leaderboard != null)
             {
                 await leaderboard.Refresh();
-                leaderboard.MaxEntries = 27;
+                leaderboard.MaxEntries = 150;
             }
             if (leaderboard2 != null)
             {
-                leaderboard2.MaxEntries = 27;
+                leaderboard2.MaxEntries = 150;
                 await leaderboard2.Refresh();
             }
 

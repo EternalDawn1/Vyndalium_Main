@@ -19,6 +19,7 @@ public partial class Player : Component
     public Vector3 Position => Transform.Position;
     public bool IsSwimming { get; private set; }
 
+    
     public void SetSwimming( bool isSwimming )
     {
         var citizen = Components.Get<CitizenAnimationHelper>();

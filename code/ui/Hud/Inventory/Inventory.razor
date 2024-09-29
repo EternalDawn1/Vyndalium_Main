@@ -73,6 +73,20 @@
 			</div>
 
 			<div class="section2">
+				<div class="box">
+					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.Tier))">
+						Tier</button>
+					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.ItemLevel))">Item
+						Lvl</button>
+					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.RequiredLevel))">
+						Req. LVL</button>
+					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.Material))">
+						Material</button>
+					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.Favorite))">
+						Favorite</button>
+
+				</div>
+				
 
 				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
 					@for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
@@ -82,8 +96,10 @@
 					}
 					
 				</div>
+
 				<div style="align-items: center; margin: 20px 5px;"></div>
 			</div>
+			
 			
 
 		<div class="Food" style="opacity: @(currentPanel == PanelType.Food ? 1 : 0)">
@@ -114,8 +130,17 @@
 @code
 {
 	public Hud hud;
+	private SortDirection currentSortDirection = SortDirection.Ascending;
 
-	
+	private void SortBackpackItems(SortOption sortOption)
+	{
+		// Umschalten der Sortierrichtung
+		currentSortDirection = currentSortDirection == SortDirection.Ascending
+		? SortDirection.Descending
+		: SortDirection.Ascending;
+
+		Player.Local.Inventory?.SortBackpackItems(sortOption);
+	}
 
 	private Player player { get; set; }
 

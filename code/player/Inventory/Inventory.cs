@@ -10,7 +10,19 @@ using Sandbox.ui.Hud;
 
 
 namespace GeneralGame;
-
+public enum SortDirection
+{
+	Ascending,
+	Descending
+}
+public enum SortOption
+{
+	Tier,
+	ItemLevel,
+	RequiredLevel,
+	Material,
+	Favorite
+}
 public sealed class Inventory : Component
 {
 	
@@ -68,6 +80,104 @@ public sealed class Inventory : Component
 		
 
 		return false;
+	}
+	private SortOption currentSortOption = SortOption.Tier;
+	private SortDirection currentSortDirection = SortDirection.Ascending;
+
+	public void SortBackpackItems( SortOption sortOption )
+	{
+		ToggleSortDirection();
+		currentSortOption = sortOption;
+		_backpackItems.Sort( CompareItems );
+		 // Aktualisieren Sie das UI nach dem Sortieren
+	}
+	public void SortStorageItems( SortOption sortOption )
+	{
+		ToggleSortDirection();
+		currentSortOption = sortOption;
+
+		int startIndex = ShopPanel.Instance.currentPage * ShopPanel.Instance.itemsPerPage;
+		int endIndex = Math.Min( (ShopPanel.Instance.currentPage + 1) * ShopPanel.Instance.itemsPerPage, _storageItems.Count );
+
+		var itemsToSort = _storageItems.GetRange( startIndex, endIndex - startIndex );
+		itemsToSort.Sort( CompareItems );
+
+		// Set the sorted items back to the original list
+		for ( int i = startIndex; i < endIndex; i++ )
+		{
+			_storageItems[i] = itemsToSort[i - startIndex];
+		}
+
+		// Aktualisieren Sie das UI nach dem Sortieren
+		
+	}
+	private void ToggleSortDirection()
+	{
+		currentSortDirection = currentSortDirection == SortDirection.Ascending
+			? SortDirection.Descending
+			: SortDirection.Ascending;
+	}
+
+	private int CompareItems( ItemComponent x, ItemComponent y )
+	{
+		if ( x == null && y == null ) return 0;
+		if ( x == null ) return 1;
+		if ( y == null ) return -1;
+
+		int comparisonResult = 0;
+
+		switch ( currentSortOption )
+		{
+			case SortOption.Tier:
+				comparisonResult = CompareByTier( x, y );
+				break;
+			case SortOption.ItemLevel:
+				comparisonResult = x.ItemLevel.CompareTo( y.ItemLevel );
+				break;
+			case SortOption.RequiredLevel:
+				comparisonResult = x.RequiredLevel.CompareTo( y.RequiredLevel );
+				break;
+			case SortOption.Material:
+				comparisonResult = CompareByType( x, y );
+				break;
+			case SortOption.Favorite:
+				comparisonResult = CompareByFavorite( x, y );
+				break;
+			default:
+				comparisonResult = 0;
+				break;
+		}
+
+		return currentSortDirection == SortDirection.Ascending ? comparisonResult : -comparisonResult;
+	}
+
+	private int CompareByTier( ItemComponent x, ItemComponent y )
+	{
+		return x.Tier.CompareTo( y.Tier );
+	}
+
+	private int CompareByType( ItemComponent x, ItemComponent y )
+	{
+		if ( x.IsWeapon && !y.IsWeapon ) return -1;
+		if ( !x.IsWeapon && y.IsWeapon ) return 1;
+
+		if ( x.IsArmor && !y.IsArmor ) return -1;
+		if ( !x.IsArmor && y.IsArmor ) return 1;
+
+		if ( x.IsMaterial && !y.IsMaterial ) return -1;
+		if ( !x.IsMaterial && y.IsMaterial ) return 1;
+
+		if ( x.IsPotion && !y.IsPotion ) return -1;
+		if ( !x.IsPotion && y.IsPotion ) return 1;
+
+		return 0;
+	}
+
+	private int CompareByFavorite( ItemComponent x, ItemComponent y )
+	{
+		if ( x.IsFavorite && !y.IsFavorite ) return -1;
+		if ( !x.IsFavorite && y.IsFavorite ) return 1;
+		return 0;
 	}
 	public bool BackpackHasMaterial( string materialName, int quantity )
 	{

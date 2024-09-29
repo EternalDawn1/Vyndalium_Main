@@ -71,8 +71,8 @@ public class SerializedItemComponent
 
 public class ItemComponent : Component
 {
-	
 
+	public bool IsFavorite { get; set; }
 	[Property, Group( "Type" )]
 	public bool IsMaterial { get; set; }
 	[Property , Group( "Type" )]
@@ -420,9 +420,30 @@ public class ItemComponent : Component
 				basePrice = 1500;
 				break;
 		}
+
 		int levelPrice = CalculateLevelPrice( ItemLevel );
-		SellPrice = basePrice + (numberOfStats * additionalPricePerStat) + levelPrice;
+		int upgradeCost = CalculateUpgradeCost( ItemLevel, Tier );
+		int additionalUpgradeCost = (int)(upgradeCost * 0.5);
+
+		SellPrice = basePrice + (numberOfStats * additionalPricePerStat) + levelPrice + additionalUpgradeCost;
 		return SellPrice;
+	}
+	private int CalculateUpgradeCost( int itemLevel, Tier tier )
+	{
+		int baseCost = itemLevel switch
+		{
+			1 => 200,
+			2 => 500,
+			3 => 2000,
+			24 => 5000,
+			25 => 15000,
+			26 => 20000,
+			27 => 25000,
+			_ => (int)(500 * Math.Pow( 1.3, itemLevel - 1 )), // Exponentielle Berechnung für andere Level
+		};
+
+		double tierMultiplier = Math.Pow( 1.6, (double)tier - 1 );
+		return (int)(baseCost * tierMultiplier);
 	}
 	private int CalculateLevelPrice( int level )
 	{

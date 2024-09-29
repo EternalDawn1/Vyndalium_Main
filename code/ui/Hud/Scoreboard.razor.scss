@@ -112,16 +112,15 @@
 	}
 		.pause-menu-content2 {
 			
-			left: 78%;
+			left: 70%;
 			position: relative;
 			width: 30%;
 			height: 100%;
-			background-color: rgba(0, 0, 0, 0);
 			
-			border-radius: 10px;
+			padding: 1%;
+			
 			flex-direction: column;
-			border-radius: 10px;
-			border-width: 1px;
+			
 			transform: translateX(-0%);
 			transition: transform 0.25s ease-in-out;
 			
@@ -145,6 +144,7 @@
 					height: 100%;
 					background-color: rgba(0, 0, 0, 0.966);
 					border-radius: 10px;
+						border-width: 1px;
 	
 				.discord 
 				{
@@ -227,21 +227,30 @@
 .confirmation-dialog 
 {
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 45%;
+	left: 37%;
 	width: 25%;
 	height: 25%;
-	background-color: rgba(238, 0, 0, 0.954);
+	background-color: rgba(238, 0, 0, 0);
 	display: flex;
+	font-size: 24px;
 	justify-content: center;
 	align-items: center;
 	z-index: 1;
 
 	.confirmation-content {
-		background-color: #fff;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background-color: #cecece;
 		padding: 20px;
 		border-radius: 10px;
 		text-align: center;
+		flex-direction: column;
+		justify-content: center;
+			align-items: center;
+			border-width: 1px;
+			border-color: #000;
 	}
 
 	.confirmation-button {
@@ -266,3 +275,39 @@
 	opacity: 1;
 	display: flex;
 }
+WebPanel {
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	width: 1280px;
+	height: 720px;
+	pointer-events: all;
+	
+}
+.webpanel-container {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	pointer-events: all;
+
+	.close-webpanel-button {
+		position: absolute;
+		top: 100px;
+		right:100px;
+		font-size: 32px;
+		background-color: rgba(255, 0, 0, 0.5);
+		color: #fff;
+		padding: 10px 20px;
+		margin: 5px;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: all 0.2s ease-out;
+		z-index: 100;
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.7);
+		}
+	}
+
+}
+

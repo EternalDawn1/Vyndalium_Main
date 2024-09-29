@@ -623,13 +623,22 @@ public partial class Player : Component, IHealthComponent
 
 	protected override void OnPreRender()
 	{
-		base.OnPreRender();
+		
 
-		if ( !Scene.IsValid() || !PlyCamera.IsValid() )
+		
+
+	}
+	bool isLowHealthSoundPlaying = false;
+
+	bool isMidHealthSoundPlaying = false;
+
+	protected override void OnUpdate()
+	{
+		if ( IsProxy )
 			return;
 
-		UpdateModelVisibility();
-
+		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
+			return;
 		if ( IsProxy )
 			return;
 
@@ -644,7 +653,12 @@ public partial class Player : Component, IHealthComponent
 
 		}
 
+		
 
+		if ( !Scene.IsValid() || !PlyCamera.IsValid() )
+			return;
+
+		UpdateModelVisibility();
 
 
 		if ( !IsProxy )
@@ -676,8 +690,9 @@ public partial class Player : Component, IHealthComponent
 			else
 				PlyCamera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
 
-			
-			PlyCamera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
+
+			PlyCamera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch( -20f );
+
 
 
 			if ( IsCrouching && hasViewModel )
@@ -686,19 +701,7 @@ public partial class Player : Component, IHealthComponent
 			}
 		}
 
-	}
-	bool isLowHealthSoundPlaying = false;
 
-	bool isMidHealthSoundPlaying = false;
-
-	protected override void OnUpdate()
-	{
-		if ( IsProxy )
-			return;
-
-		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
-			return;
-		
 
 		if ( !IsProxy )
 		{

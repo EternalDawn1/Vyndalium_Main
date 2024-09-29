@@ -85,7 +85,7 @@ InventorySlot {
         height: 100%;
         width: 100%;
         z-index: -2;
-
+        
         position: absolute;
         background-image: url(/ui/hud/gold3.gif);
         background-size: 150%;
@@ -100,6 +100,13 @@ InventorySlot {
         width: 90%;
         transition: background-color 1.5s ease-in-out;
         z-index: 99;
+        .favorite-icon {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 32px;
+                height: 32px;
+            }
         .item-forground {
            
         }
@@ -113,6 +120,8 @@ InventorySlot {
             cursor: pointer;
             sound-in: 'hover';
             background-color: rgba(255, 255, 255, 0.02);
+           
+            border-width: 1px;
 
         }
 

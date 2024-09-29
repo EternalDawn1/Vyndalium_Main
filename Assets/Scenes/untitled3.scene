@@ -133,8 +133,256 @@
       "Name": "Knife",
       "Position": "440.4558,249.4056,29.95724",
       "Enabled": true,
-      "__Prefab": "prefabs/weapons/new/knife.prefab",
-      "__PrefabVariables": {}
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "f18b56f9-e58b-4e25-8b6d-e27ddb7a8daf",
+          "AnimationGraph": "models/weapons/sbox_melee_trenchknife/v_trenchknife.vanmgrph",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "Model": "models/weapons/sbox_melee_trenchknife/w_trenchknife.vmdl",
+          "Morphs": {},
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "GeneralGame.BaseGun",
+          "__guid": "b1be215c-9705-4e34-9053-6099ac51b6ce",
+          "AimPos": "-1.5,1.8,1",
+          "AimRotation": "0,0,0,0",
+          "AimRotationOffset": "0,0,0,0",
+          "AmmoType": "Pistol",
+          "ClipSize": 15,
+          "CurRot": "0,0,0,0",
+          "Damage": 30,
+          "DamageForce": 5,
+          "DamageType": "Serious",
+          "DefaultAmmo": 60,
+          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
+          "DeployTime": 0.5,
+          "DisplayName": "Knife",
+          "EmptyReloadTime": 3.05,
+          "FireRate": 7,
+          "FireSound": "sounds/guns/knife/knife.swing.sound",
+          "HitForce": 300,
+          "HoldType": "Swing",
+          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+          "IdlePos": "-3,-0.4,-0.5",
+          "ImpactEffect": "particles/impact.generic.vpcf",
+          "IsAuto": true,
+          "IsDeployed": false,
+          "IsMagicWeapon": true,
+          "IsMelee": true,
+          "lineRenderer": {
+            "_type": "component",
+            "component_id": "07f552da-9b53-4411-9cb1-9d1b784ffa22",
+            "go": "ac6d49b4-4114-4bac-a1b7-5496fcabc183",
+            "component_type": "LineRenderer"
+          },
+          "MeleeCooldown": 1,
+          "MeleeDamage": 10,
+          "MeleeRange": 1.5,
+          "Recoil": "-5,1,0",
+          "ReloadTime": 2.7,
+          "RunRotation": "0.02017635,0.06330636,0.02387928,0.9975044",
+          "Spread": 0.01,
+          "Type": "Melee",
+          "ViewModelPrefab": {
+            "_type": "gameobject",
+            "prefab": "models/facepunch/knife/vm_knife.prefab"
+          }
+        },
+        {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "ffe6b2d7-b7ec-4cfd-9979-6f5ee0fbe35e",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Radius": 10,
+          "Static": false
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "c23a89d4-8e58-42c2-905f-9c9c98222fd1",
+          "IsTrigger": false,
+          "Model": "models/glock/w/w_glock20lod0.vmdl",
+          "Static": false
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "27b6403a-73ec-4549-89ac-9e6921dec395",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "453308c8-361d-4b72-82f2-882e5060e5d0",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 1,
+            "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
+            "Scale": "1,1,1",
+            "Rotation": "0,0,0,1"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 90,
+          "Description": "a Knife",
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 1000,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Rifle",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/weapons/sbox_melee_trenchknife/w_trenchknife.vmdl",
+            "MaterialGroup": "",
+            "Colour": "1,1,1,1",
+            "Position": "4.65,1.95,2.4",
+            "Rotation": "0.6075044,-0.6418567,0.3216571,0.3398457",
+            "Guid": "b2287fc4-df81-4451-8df6-5f782dfd7a46"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsBackable": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": true,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Knife",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "Price": 0,
+          "RequiredLevel": 0,
+          "SellPrice": 0,
+          "ShadowResistence": 0,
+          "Slot": "Hand",
+          "SlowResistence": 0,
+          "Stats": [],
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "UpdatePosition": false,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "GeneralGame.Interactions",
+          "__guid": "680b33c2-20a2-4192-b639-051f73a6a8de",
+          "HideOnEmpty": false,
+          "ObjectInteractions": []
+        },
+        {
+          "__type": "GeneralGame.ChargeComponent",
+          "__guid": "fd3e359d-64fe-4c35-b82b-50900fc1658e"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "ac6d49b4-4114-4bac-a1b7-5496fcabc183",
+          "Flags": 0,
+          "Name": "Linerenderer",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.LineRenderer",
+              "__guid": "07f552da-9b53-4411-9cb1-9d1b784ffa22",
+              "CastShadows": true,
+              "Color": {
+                "color": [
+                  {
+                    "c": "1,0,0,1"
+                  },
+                  {
+                    "t": 0.52136755,
+                    "c": "0,0,0,1"
+                  }
+                ],
+                "alpha": []
+              },
+              "EndCap": "None",
+              "Face": "Camera",
+              "Opaque": true,
+              "Points": [],
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "SplineBias": 0,
+              "SplineContinuity": 0,
+              "SplineInterpolation": 0,
+              "SplineTension": 0,
+              "StartCap": "None",
+              "UseVectorPoints": false,
+              "VectorPoints": [],
+              "Width": [
+                {
+                  "x": 0.0014880953,
+                  "y": 0.8484042
+                },
+                {
+                  "x": 0.9181548,
+                  "y": 0.17819148,
+                  "in": -0.7978141,
+                  "out": 0.7978141
+                }
+              ],
+              "Wireframe": false
+            }
+          ]
+        }
+      ]
     },
     {
       "__guid": "8da1f7c5-5bdb-4381-9e41-6fd5b30d220d",
@@ -345,7 +593,6 @@
           "__guid": "fa9a4e19-8872-44fc-ab6b-dabeced678ac",
           "Flags": 0,
           "Name": "Linerenderer",
-          "Position": "0,0,0",
           "Enabled": true,
           "Components": [
             {
@@ -599,53 +846,6 @@
           "__guid": "a8079d59-c0d0-4dea-ae6d-232c2c2d745e",
           "HideOnEmpty": false,
           "ObjectInteractions": []
-        }
-      ]
-    },
-    {
-      "__guid": "93a7d347-79bc-43d5-abb4-18bdab83b77a",
-      "Flags": 0,
-      "Name": "Object",
-      "Position": "101.8191,-146.5569,273.1473",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "GeneralGame.ZombieSpawner",
-          "__guid": "b2343c21-de07-4c22-995d-631e72b1e69b",
-          "destroyChance": 0.01,
-          "DrawProximityRangeGizmo": false,
-          "EnableRagdollEffect": false,
-          "IsSpawning": false,
-          "Level10To15": false,
-          "Level15To20": false,
-          "Level1To5": false,
-          "Level20To25": false,
-          "Level25To30": false,
-          "Level30To35": false,
-          "Level35To40": false,
-          "Level40To45": false,
-          "Level45To50": false,
-          "Level50To55": false,
-          "Level55To60": false,
-          "Level5To10": false,
-          "Level60To65": false,
-          "Level65To70": false,
-          "Level70To75": false,
-          "Level75To80": false,
-          "Level80To85": false,
-          "Level85To90": false,
-          "Level90To95": false,
-          "Level95To100": false,
-          "MaxSpawns": 50,
-          "PlayerProximityDistance": 1000,
-          "Randomized": false,
-          "RandomizePropertiesOnRain": false,
-          "RandomizeTierOnSpawn": true,
-          "RespawnTime": 1,
-          "ZombiePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
-          }
         }
       ]
     }

@@ -3,6 +3,12 @@ using System;
 using System.Numerics;
 using Sandbox; // Für GameObject, Transform, etc.
 using Sandbox.Physics;
+using Sandbox.UI; // Für TextRenderer, FaceThing, etc.
+using System.Threading.Tasks; // Für asynchrone Methoden
+using System.Collections.Generic; // Für Listen
+using System.Linq; // Für LINQ-Abfragen
+
+
 
 namespace GeneralGame;
 
@@ -50,7 +56,7 @@ public class BaseGun : WeaponComponent, IUse
 
 	public bool isCriticalHit = false;
 
-
+	public ChargeComponent chargeComponent { get; set; }
 	[Property] public bool IsMagicWeapon { get; set; }
 
 	public void InitializeAmmo( AmmoContainer ammoContainer )
@@ -155,7 +161,12 @@ public class BaseGun : WeaponComponent, IUse
 			}
 		}
 		Hitprefab = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ) );
+		if(IsMelee )
+		{
+			chargeComponent = Components.GetOrCreate<ChargeComponent>();
+			
 
+		}
 		Components.GetOrCreate<Interactions>();
 
 		base.OnStart();
@@ -231,7 +242,7 @@ public class BaseGun : WeaponComponent, IUse
 		ReloadSound = null;
 
 	}
-	
+
 
 	public override void PrimaryAction()
 	{
@@ -239,8 +250,47 @@ public class BaseGun : WeaponComponent, IUse
 
 		if ( IsMelee )
 		{
+			if ( chargeComponent != null && chargeComponent.IsFullyCharged() )
+			{
+				chargeComponent.FullCharged(); // Aufruf der neuen Methode
+
+				// Katapultiere den Spieler nach vorne
+				var ownerPlayer = Owner as Player;
+				if ( ownerPlayer != null && ownerPlayer.PlyCamera != null && ownerPlayer.CharacterController != null )
+				{
+					var forward = ownerPlayer.PlyCamera.Transform.Rotation.Forward; // Verwenden Sie die Vorwärtsrichtung der Kamera
+					float chargePercentage = chargeComponent.Charge; // Ladezustand in Prozent (0-1)
+					float speedMultiplier = 2000f * chargePercentage; // Passen Sie die Geschwindigkeit nach Bedarf an
+
+					// Überprüfen Sie, ob die Kamera nicht zu stark nach oben zeigt
+					if ( forward.z < 0.2f ) // Der Wert 0.5 kann angepasst werden, um die Empfindlichkeit zu ändern
+					{
+						ownerPlayer.CharacterController.Velocity += forward * speedMultiplier;
+					}
+
+					// Rendern Sie den Effekt hinter dem Spieler
+					if ( Ragdoll != null )
+					{
+						var ragdoll = Ragdoll.Clone( Transform.Position );
+						if ( ragdoll != null )
+						{
+							ragdoll.Transform.Rotation = Transform.Rotation;
+							ragdoll.Transform.Position = Transform.Position;
+							ragdoll.NetworkSpawn();
+						}
+					}
+				}
+				chargeComponent.ResetCharge();
+			}
+			else
+			{
+				// Führen Sie die normale Primäraktion aus
+				if(IsMelee)
+				{
+					PerformMeleeAttack( Player.Local );
+				}
+			}
 			// Nahkampfangriff ausführen
-			PerformMeleeAttack( Player.Local );
 		}
 		else
 		{
@@ -248,24 +298,37 @@ public class BaseGun : WeaponComponent, IUse
 			FireBullet( Player.Local );
 		}
 	}
-
 	public override void PrimaryActionRelease()
 	{
 		IsFiering = false;
 	}
-
+	[Property]public GameObject Ragdoll { get; set; }
 	public override void SecondaryAction()
 	{
 		Owner.IsAiming = true;
+
 		if ( IsMelee )
 		{
+			if ( chargeComponent.IsCharging )
+			{
+				chargeComponent.FullCharged(); // Überprüfen, ob die Aufladung vollständig ist und den Sound abspielen
+
+				chargeComponent.StopCharging();
+			}
+			else
+			{
+				chargeComponent.StartCharging();
+			}
+			
 			if ( Player.Local.Mana < 25 )
 			{
 				// Nicht genug Mana, um die magische Waffe abzufeuern
 				return;
 			}
+			
 
 			Player.Local.ChangeMana( -25 );
+			
 
 			var player = Player.Local;
 			GameObject knife = new GameObject();
@@ -406,6 +469,7 @@ public class BaseGun : WeaponComponent, IUse
 
 
 		}
+
 	}
 	public override void SeccondaryActionRelease()
 	{
@@ -414,8 +478,15 @@ public class BaseGun : WeaponComponent, IUse
 		{
 			return;
 		}
-
 		Owner.IsAiming = false;
+		
+		if (chargeComponent != null && chargeComponent.IsCharging && IsMelee )
+		{
+			chargeComponent.StopCharging();
+			chargeComponent.ResetCharge();
+		}
+		
+		
 	}
 
 	public override void ReloadAction()
@@ -784,6 +855,7 @@ public class BaseGun : WeaponComponent, IUse
 		EffectRenderer.Set( "b_empty", false );
 		IsReloading = false;
 	}
+	private bool hasPlayedChargedSound = false;
 	protected override void OnUpdate()
 	{
 		if ( NextAttackTime && IsFiering && IsAuto ) FireBullet( Player.Local );
@@ -802,10 +874,27 @@ public class BaseGun : WeaponComponent, IUse
 				SoundDuration = 0;
 			}
 		}
-
-		ReloadSound?.Update( Transform.Position );
 		
 
+		ReloadSound?.Update( Transform.Position );
+
+		if ( chargeComponent != null && chargeComponent.IsCharging && IsMelee )
+		{
+			chargeComponent.UpdateCharge( Time.Delta );
+			if ( chargeComponent.IsFullyCharged() )
+			{
+				if ( !hasPlayedChargedSound )
+				{
+					Player.Local.PlaySuccessSoundFromPath( "sounds/charged.sound", 1f );
+					hasPlayedChargedSound = true; // Markiere, dass der Sound abgespielt wurde
+				}
+			}
+			else
+			{
+				EffectRenderer.Set( "b_charge", false );
+				hasPlayedChargedSound = false; // Zurücksetzen, wenn die Aufladung nicht vollständig ist
+			}
+		}
 		base.OnUpdate();
 	}
 	[Broadcast]
@@ -977,3 +1066,57 @@ public class BaseGun : WeaponComponent, IUse
 		}
 	}
 }
+public class ChargeComponent : Component
+
+	
+	{
+		public float Charge { get; private set; }
+		public bool IsCharging { get; private set; }
+		public bool HasPlayedChargedSound { get; set; } = false;
+
+		public void StartCharging()
+		{
+			IsCharging = true;
+			Charge = 0f;
+			HasPlayedChargedSound = false; // Zurücksetzen, wenn das Laden beginnt
+		}
+
+		public void StopCharging()
+		{
+			IsCharging = false;
+		}
+
+		public void UpdateCharge( float deltaTime )
+		{
+			if ( IsCharging )
+			{
+				Charge += deltaTime;
+				if ( Charge > 1f )
+				{
+					Charge = 1f;
+				}
+			}
+		}
+		public void FullCharged()
+		{
+			if ( IsFullyCharged() && !HasPlayedChargedSound )
+			{
+				
+				Player.Local.PlaySuccessSoundFromPath( "/sounds/chargedattack.sound", 1f );
+				HasPlayedChargedSound = true; // Markiere, dass der Sound abgespielt wurde
+			}
+		}
+
+		public bool IsFullyCharged()
+		{
+		
+			return Charge >= 1f;
+		}
+
+		public void ResetCharge()
+		{
+			Charge = 0f;
+			HasPlayedChargedSound = false; // Zurücksetzen, wenn die Aufladung zurückgesetzt wird
+		}
+	}
+

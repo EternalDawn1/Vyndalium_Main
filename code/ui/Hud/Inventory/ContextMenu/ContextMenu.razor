@@ -66,6 +66,9 @@
 			<ContextMenuOption Description="Sell"
 							   ImagePath="ui/hud/shop.png"
 							   onclick=@(() => SellItem(_item)) />
+            <ContextMenuOption Description="Favorite/Unfavorite"
+                   ImagePath="ui/hud/star.gif"
+                   onclick=@(() => ToggleFavorite(_item)) />
         }
     }
 	else if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Accessories)
@@ -125,6 +128,9 @@
                                Player.Local.Inventory.DropItem(_item);
                                Inventory.Instance?.OnChanged();
                            }) />
+        <ContextMenuOption Description="Favorite/Unfavorite"
+                   ImagePath="ui/hud/star.gif"
+                   onclick=@(() => ToggleFavorite(_item)) />
         @if (_item != null && _item.Count > 1)
         {
             <ContextMenuOption Description="Split"
@@ -142,6 +148,14 @@
 	private static ContextMenu _instance;
 	private ItemComponent _item;
 	private List<ItemComponent> selectedItems = new();
+        private void ToggleFavorite(ItemComponent item)
+        {
+            if (item == null) return;
+            item.IsFavorite = !item.IsFavorite;
+            Inventory.Instance?.OnChanged();
+            Hudmaster.Instance.ShowNotification(item.IsFavorite ? $"{item.Name} is now a favorite." : $"{item.Name} is no longer a favorite.", "/ui/hud/star.gif");
+        }
+        
     private int CalculateTotalSellPrice(ItemComponent item)
         {
             return item.SellPrice * item.Count;

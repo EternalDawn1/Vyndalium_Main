@@ -12,7 +12,7 @@
 					<button class="pause-menu-button" @onclick="@ExitGame">Resume</button>
 					<div class="pause-menu-button" @onclick="@(() => @Game.Overlay.ShowBinds())">Controls</div>
 					<button class="pause-menu-button" @onclick="@(() => @Game.Overlay.ShowSettingsModal())">Settings</button>
-					<button class="pause-menu-button" @onclick="@Abondon">Back to Lobby</button>
+					<button class="pause-menu-button" @onclick="@AbandonGame">Back to Lobby</button>
 					<button class="pause-menu-button" @onclick="@Quit">Exit</button>
 					
 
@@ -30,8 +30,9 @@
 						<div class="discord-title">Discord</div>
 						<div class="discord-title2"></div>
 						<div class="discord-buttons">
-						<button class="discord-button" >Join</button>
-						<button class="discord-button" >Discord link:</button>
+						<button class="discord-button" @onclick="@JoinDiscord">Join</button>
+						<button class="discord-button">Discord link: </button>
+						<button class="discord-button">https://discord.gg/vitrolicwithering</button>
 						</div>
 				</div>
 
@@ -42,13 +43,34 @@
 	{
 		<div class="confirmation-dialog">
 			<div class="confirmation-content">
-				<p>Sind Sie sicher, dass Sie das Spiel beenden möchten?</p>
+				<p>Are you sure you want to quit ?</p>
+				<p>unsaved Progress will be lost!</p>
 				<button class="confirmation-button" @onclick="@ConfirmQuit">Exit</button>
-				<button class="confirmation-button" @onclick="@CancelQuit">Nein</button>
+				<button class="confirmation-button" @onclick="@CancelQuit">No</button>
+			</div>
+		</div>
+	}
+	@if(ShowAbandonDialog)
+	{
+		<div class="confirmation-dialog">
+			<div class="confirmation-content">
+				<p>Are you sure you want to abandon the game ?</p>
+				<p>unsaved Progress will be lost!</p>
+				<button class="confirmation-button" @onclick="@Abondon">Abandon</button>
+				<button class="confirmation-button" @onclick="@CancelAbandon">No</button>
 			</div>
 		</div>
 	}
 
+ 	@if (ShowDiscordPanel)
+     {
+        <div class="webpanel-container">
+            <WebPanel Url="https://discord.gg/vitrolicwithering" />
+			<button class="close-webpanel-button" @onclick="@CloseDiscordPanel">Close</button>
+        </div>
+		
+    }
+	
 		
 
 
