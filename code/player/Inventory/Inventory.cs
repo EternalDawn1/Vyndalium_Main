@@ -369,23 +369,7 @@ public sealed class Inventory : Component
 			
 		}
 	}
-	public ItemComponent GetNextEquippedWeapon( ItemComponent currentWeapon )
-	{
-		// Filtern der ausgerüsteten Waffen, die vollständig initialisiert sind (nicht null und haben gültige Werte)
-		var equippedWeapons = _equippedItems
-			.Where( item => item is ItemEquipment && item != null && item.DMG > 0 && item.HE > 0 )
-			.Cast<ItemEquipment>()
-			.ToList();
 
-		if ( !equippedWeapons.Any() )
-		{
-			return null; // Keine gültigen Waffen ausgerüstet
-		}
-
-		var currentIndex = equippedWeapons.IndexOf( currentWeapon as ItemEquipment );
-		var nextIndex = (currentIndex + 1) % equippedWeapons.Count; // Nächsten Index ermitteln, zyklisch durch die Liste gehen
-		return equippedWeapons.ElementAtOrDefault( nextIndex );
-	}
 	
 
 
@@ -731,7 +715,6 @@ public sealed class Inventory : Component
 		var equippedItem = _equippedItems[slotIndex];
 		if ( equippedItem != item )
 		{
-			
 			Hudmaster.Instance.ShowNotification( "Item is not the equipped item in the expected slot.", "/ui/hud/exit.gif" );
 			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.045f );
 			return false;
@@ -740,7 +723,6 @@ public sealed class Inventory : Component
 		var firstFreeSlot = _backpackItems.IndexOf( null );
 		if ( firstFreeSlot == -1 )
 		{
-			
 			Hudmaster.Instance.ShowNotification( "No Place in the Backpack.", "/ui/hud/inventory.png" );
 			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.045f );
 			return false;
@@ -752,15 +734,17 @@ public sealed class Inventory : Component
 		Player.Local?.PlaySuccessSoundFromPath( "sounds/weapons/weapon_holster4.sound", 0.075f );
 
 		// Sicherstellen, dass das Item nicht zerstört wird, wenn es unequipped wird
-		var weaponContainer = Player.Components.Get<WeaponContainer>();
-		if ( weaponContainer != null )
+		if ( equipment.Slot == EquipSlot.Hand )
 		{
-			weaponContainer.RemoveWeapon( item.GameObject, false );
-			
-		}
-		else
-		{
-			Log.Info( "WeaponContainer ist null" );
+			var weaponContainer = Player.Components.Get<WeaponContainer>();
+			if ( weaponContainer != null )
+			{
+				weaponContainer.RemoveWeapon( item.GameObject, false );
+			}
+			else
+			{
+				Log.Info( "WeaponContainer ist null" );
+			}
 		}
 
 		GiveBackpackItem( equipment, firstFreeSlot );
@@ -1335,17 +1319,17 @@ public sealed class Inventory : Component
 		{
 			_backpackItems[freeSlotIndex] = equipment;
 
-			var weaponContainer = Player.Components.Get<WeaponContainer>();
-			if ( weaponContainer != null )
+			if ( equipment.Slot == EquipSlot.Hand )
 			{
-				weaponContainer.RemoveWeapon( equipment.GameObject, false );
-
+				var weaponContainer = Player.Components.Get<WeaponContainer>();
+				if ( weaponContainer != null )
+				{
+					weaponContainer.RemoveWeapon( equipment.GameObject, false );
+				}
 			}
-
 		}
 		else
 		{
-			
 			Hudmaster.Instance.ShowNotification( "no free slot in backpack", "/ui/hud/exit.gif" );
 			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
 		}

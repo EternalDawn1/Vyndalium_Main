@@ -495,8 +495,11 @@ public class BaseGun : WeaponComponent, IUse
 
 		var ammoToTake = ClipSize - AmmoInClip;
 		if ( ammoToTake <= 0 )
+		{
+			// Magazin ist bereits voll, Nachladeanimation stoppen
+			EffectRenderer.Set( "b_reload", false );
 			return;
-
+		}
 
 		if ( !Owner.IsValid() || IsReloading )
 			return;
@@ -841,7 +844,7 @@ public class BaseGun : WeaponComponent, IUse
 
 	}
 
-	
+
 
 
 
@@ -854,6 +857,9 @@ public class BaseGun : WeaponComponent, IUse
 		AmmoInClip += taken;
 		EffectRenderer.Set( "b_empty", false );
 		IsReloading = false;
+
+		// Animation stoppen
+		EffectRenderer.Set( "b_reload", false );
 	}
 	private bool hasPlayedChargedSound = false;
 	protected override void OnUpdate()
@@ -864,6 +870,7 @@ public class BaseGun : WeaponComponent, IUse
 		{
 			OnReloadEnd();
 		}
+
 		if ( IsSoundPlaying )
 		{
 			SoundDuration -= Time.Delta; // Reduzieren Sie die verbleibende Dauer des Sounds
@@ -874,7 +881,6 @@ public class BaseGun : WeaponComponent, IUse
 				SoundDuration = 0;
 			}
 		}
-		
 
 		ReloadSound?.Update( Transform.Position );
 
@@ -892,6 +898,7 @@ public class BaseGun : WeaponComponent, IUse
 			else
 			{
 				EffectRenderer.Set( "b_charge", false );
+
 				hasPlayedChargedSound = false; // Zurücksetzen, wenn die Aufladung nicht vollständig ist
 			}
 		}
@@ -911,7 +918,7 @@ public class BaseGun : WeaponComponent, IUse
 
 		// Stoppe den aktuellen ReloadSound, falls er existiert
 		ReloadSound?.Stop();
-
+		
 		// Initialisiere den ReloadSound neu
 		ReloadSound = new( AmmoInClip == 0 ? EmptyReloadSoundSequence : ReloadSoundSequence );
 		

@@ -79,7 +79,16 @@ namespace GeneralGame
                 }
             }
         }
-       
+        private List<string> basePrefabs = new List<string>
+        {
+            "prefabs/weapons/new/knife.prefab",
+            // Füge hier weitere Basis-Prefabs hinzu
+        };
+
+        private static readonly List<string> tiers = new List<string> { "C", "B", "A", "S", "SS", "SSS" };
+
+
+
         private List<string> nonRandomStatItems = new List<string>
         {
             "prefabs/items/wood_log.prefab",
@@ -121,6 +130,9 @@ namespace GeneralGame
             "prefabs/clothes/helmet/helmet-b.prefab",
             "prefabs/clothes/legarmor/legarmor-b.prefab",
             "prefabs/items/wood_log.prefab",
+             "prefabs/weapons/new/hands.prefab",
+            "prefabs/weapons/new/knife.prefab",
+            "prefabs/weapons/new/machete.prefab",
 
             // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
         };
@@ -136,6 +148,9 @@ namespace GeneralGame
             "prefabs/clothes/armor/armor-a.prefab",
             "prefabs/clothes/helmet/helmet-a.prefab",
             "prefabs/clothes/legarmor/legarmor-a.prefab",
+             "prefabs/weapons/new/hands.prefab",
+            "prefabs/weapons/new/knife.prefab",
+            "prefabs/weapons/new/machete.prefab",
             // Fügen Sie hier weitere A-Tier-Prefab-Dateien hinzu
         };
 
@@ -150,6 +165,9 @@ namespace GeneralGame
             "prefabs/clothes/armor/armor-s.prefab",
             "prefabs/clothes/helmet/helmet-s.prefab",
             "prefabs/clothes/legarmor/legarmor-s.prefab",
+             "prefabs/weapons/new/hands.prefab",
+            "prefabs/weapons/new/knife.prefab",
+            "prefabs/weapons/new/machete.prefab",
             // Fügen Sie hier weitere S-Tier-Prefab-Dateien hinzu
         };
 
@@ -164,6 +182,9 @@ namespace GeneralGame
             "prefabs/clothes/armor/armor-ss.prefab",
             "prefabs/clothes/helmet/helmet-ss.prefab",
             "prefabs/clothes/legarmor/legarmor-ss.prefab",
+             "prefabs/weapons/new/hands.prefab",
+            "prefabs/weapons/new/knife.prefab",
+            "prefabs/weapons/new/machete.prefab",
             // Fügen Sie hier weitere SS-Tier-Prefab-Dateien hinzu
         };
 
@@ -178,6 +199,9 @@ namespace GeneralGame
             "prefabs/clothes/armor/armor-sss.prefab",
             "prefabs/clothes/helmet/helmet-sss.prefab",
             "prefabs/clothes/legarmor/legarmor-sss.prefab",
+             "prefabs/weapons/new/hands.prefab",
+            "prefabs/weapons/new/knife.prefab",
+            "prefabs/weapons/new/machete.prefab",
             // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
         };
         private void LoadPrefabs()
@@ -187,6 +211,7 @@ namespace GeneralGame
             int maxLevel = 100;
             int playerLevel = GetPlayerLevel(); // Spielerlevel ermitteln
             LoadRandomTierPrefabs( playerLevel, minLevel, maxLevel );
+            
 
            
         }
@@ -244,6 +269,7 @@ namespace GeneralGame
             {
                 itemsToSpawn = 1;
             }
+            
 
             var selectedPrefabs = new List<(string prefab, string tier)>();
 
@@ -269,9 +295,9 @@ namespace GeneralGame
                 LoadTierPrefab( prefabPath, tier, minLevel, maxLevel);
             }
         }
-        
 
-        public void LoadTierPrefab( string prefabPath, string tier, int minLevel, int maxLevel)
+
+        public void LoadTierPrefab( string prefabPath, string tier, int minLevel, int maxLevel )
         {
             int playerLevel = GetPlayerLevel();
             var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
@@ -290,7 +316,7 @@ namespace GeneralGame
 
                             if ( itemComponent.IsWeapon )
                             {
-                                var attackValues = CalculateAttackValues( tier, itemComponent);
+                                var attackValues = CalculateAttackValues( tier, itemComponent );
                                 itemComponent.MinAttackValue = attackValues.MinAttack;
                                 itemComponent.MaxAttackValue = attackValues.MaxAttack;
                                 itemComponent.Tier = Enum.Parse<Tier>( tier );
@@ -310,10 +336,10 @@ namespace GeneralGame
                 }
             }
         }
-        
+
         private int GetPlayerLevel()
         {
-            Task.Delay(1);
+            
             if ( Player.Local != null )
             {
                 return Player.Local.Level;

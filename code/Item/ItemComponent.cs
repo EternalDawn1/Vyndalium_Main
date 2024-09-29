@@ -560,26 +560,29 @@ public class ItemComponent : Component
 		var (minBonusVyndalium, maxBonusVyndalium) = GetStatRange( baseMinBonusVyndalium, baseMaxBonusVyndalium );
 
 		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
+		double[] probabilities = { 0.7, 0.1, 0.05, 0.025, 0.0125, 0.01, 0.0075, 0.005 };
+
+		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
 		int maxStats = 0;
 		switch ( Tier )
 		{
 			case Tier.C:
-				maxStats = 1;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 1 ); // Max 1
 				break;
 			case Tier.B:
-				maxStats = 2;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 2 ); // Max 2
 				break;
 			case Tier.A:
-				maxStats = 5;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 5 ); // Max 5
 				break;
 			case Tier.S:
-				maxStats = 6;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 6 ); // Max 6
 				break;
 			case Tier.SS:
-				maxStats = 7;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 7 ); // Max 7
 				break;
 			case Tier.SSS:
-				maxStats = 8;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 8 ); // Max 8
 				break;
 		}
 
@@ -604,7 +607,22 @@ public class ItemComponent : Component
 		// Wählen Sie zufällig eine bestimmte Anzahl von Statistiken aus
 		statsGenerators.OrderBy( x => random.Next() ).Take( maxStats ).ToList().ForEach( action => action() );
 	}
+	private int GetRandomStatCount( double[] probabilities, Random random )
+	{
+		double cumulative = 0.0;
+		double roll = random.NextDouble();
 
+		for ( int i = 0; i < probabilities.Length; i++ )
+		{
+			cumulative += probabilities[i];
+			if ( roll < cumulative )
+			{
+				return i + 1;
+			}
+		}
+
+		return probabilities.Length; // Falls keine Übereinstimmung gefunden wird, geben Sie die maximale Anzahl zurück
+	}
 	private void GenerateArmorStats()
 	{
 		Random random = new Random();
@@ -636,26 +654,30 @@ public class ItemComponent : Component
 		var (minHealth, maxHealth) = GetStatRange( baseMinHealth, baseMaxHealth );
 
 		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
+		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
+		double[] probabilities = { 0.7, 0.1, 0.05, 0.025, 0.0125, 0.01, 0.0075, 0.005 };
+
+		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
 		int maxStats = 0;
 		switch ( Tier )
 		{
 			case Tier.C:
-				maxStats = 1;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 1 ); // Max 1
 				break;
 			case Tier.B:
-				maxStats = 2;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 2 ); // Max 2
 				break;
 			case Tier.A:
-				maxStats = 5;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 5 ); // Max 5
 				break;
 			case Tier.S:
-				maxStats = 6;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 6 ); // Max 6
 				break;
 			case Tier.SS:
-				maxStats = 7;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 7 ); // Max 7
 				break;
 			case Tier.SSS:
-				maxStats = 8;
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 8 ); // Max 8
 				break;
 		}
 
