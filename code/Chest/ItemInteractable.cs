@@ -9,13 +9,33 @@ public class ItemInteractable : BaseInteraction
 
     public ItemStorage Storage { get; set; }
     [Property] public bool IsDoor { get; set; }
-   
+    [Property]public bool IsBossChest { get; set; } = false;
 
+    public void Interact()
+    {
+        var itemStorage = GetComponent<ItemStorage>();
+        if ( itemStorage != null )
+        {
+            itemStorage.IsBossChest = IsBossChest;
+        
+            itemStorage.LoadPrefabs();
+        }
+        else
+        {
+        
+        }
+    }
     protected override void OnStart()
     {
+       
         var interactions = Components.GetOrCreate<Interactions>();
 
         Storage = Components.Create<ItemStorage>();
+
+        if ( IsBossChest )
+        {
+            Interact();
+        }
 
         if ( IsDoor )
         {

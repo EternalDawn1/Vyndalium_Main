@@ -170,6 +170,9 @@ public sealed class Inventory : Component
 		if ( x.IsPotion && !y.IsPotion ) return -1;
 		if ( !x.IsPotion && y.IsPotion ) return 1;
 
+		if (x.IsAccessory && !y.IsAccessory) return -1;
+		if (!x.IsAccessory && y.IsAccessory) return 1;
+
 		return 0;
 	}
 

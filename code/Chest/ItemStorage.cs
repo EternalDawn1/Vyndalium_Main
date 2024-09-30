@@ -17,6 +17,7 @@ namespace GeneralGame
         [Property] SkinnedModelRenderer skinnedModelRenderer { get; set; }
         [Property] public List<ItemComponent> Items { get; set; } = new List<ItemComponent>();
         [Property] public List<ItemComponent> items => Items;
+        [Property]public bool IsBossChest { get; set; } = false;
         public bool IsZombieSpawner { get; set; }
         public int Level { get; set; }
 
@@ -51,14 +52,28 @@ namespace GeneralGame
             {
                 storageBox = new StorageBox();
             }
+            else
+            {
+                // Verhindere die doppelte Erstellung der ItemStorage-Instanz
+                if ( storageBox.itemStorage == null )
+                {
+                    storageBox.itemStorage = this;
+                }
+            }
         }
         public ItemStorage()
         {
           
-            
-            LoadPrefabs();
-            GenerateRandomStatsForItems();
-            
+            if ( !IsBossChest )
+            {
+                LoadPrefabs();
+                GenerateRandomStatsForItems();
+            }
+            else
+            {
+                LoadBossItems();
+             
+            }
         }
         private void GenerateRandomStatsForItems()
         {
@@ -85,11 +100,19 @@ namespace GeneralGame
             // Füge hier weitere Basis-Prefabs hinzu
         };
 
+        private List<string> bossItems = new List<string>
+        {
+            "prefabs/clothes/legarmor/legarmor-sss.prefab",
+             "prefabs/weapons/new/hands.prefab",
+            "prefabs/weapons/new/knife.prefab",
+            "prefabs/weapons/new/machete.prefab",
+            // Füge hier weitere Boss-Items hinzu
+        };
         private static readonly List<string> tiers = new List<string> { "C", "B", "A", "S", "SS", "SSS" };
 
 
 
-        private List<string> nonRandomStatItems = new List<string>
+        public List<string> nonRandomStatItems = new List<string>
         {
             "prefabs/items/wood_log.prefab",
             "prefabs/potions/potion_small.prefab",
@@ -204,16 +227,48 @@ namespace GeneralGame
             "prefabs/weapons/new/machete.prefab",
             // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
         };
-        private void LoadPrefabs()
+        public void LoadPrefabs()
         {
+            if ( IsBossChest )
+            {
+                LoadBossItems();
+             
+            }
+            else
+            {
+                int minLevel = 0;
+                int maxLevel = 100;
+                int playerLevel = GetPlayerLevel(); // Spielerlevel ermitteln
+                LoadRandomTierPrefabs( playerLevel, minLevel, maxLevel );
+            }
             
-            int minLevel = 0;
-            int maxLevel = 100;
-            int playerLevel = GetPlayerLevel(); // Spielerlevel ermitteln
-            LoadRandomTierPrefabs( playerLevel, minLevel, maxLevel );
             
 
            
+        }
+        public void LoadBossItems()
+        {
+            foreach ( var prefabPath in bossItems )
+            {
+                var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
+                if ( prefab != null )
+                {
+                    var itemComponent = ConvertPrefabToItemComponent( prefab );
+                    if ( itemComponent != null )
+                    {
+                        itemComponent.GameObject.Enabled = false;
+                        Items.Add( itemComponent );
+                    }
+                    else
+                    {
+                        Log.Error( $"Failed to convert prefab {prefabPath} to ItemComponent." );
+                    }
+                }
+                else
+                {
+                    Log.Error( $"Prefab {prefabPath} not found." );
+                }
+            }
         }
 
         public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
@@ -221,6 +276,7 @@ namespace GeneralGame
             var random = new Random();
             var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
         {
+          
             (tierCPrefabs, "C", 0.80),
             (tierBPrefabs, "B", 0.10),
             (tierAPrefabs, "A", 0.05),
@@ -330,6 +386,11 @@ namespace GeneralGame
                                 itemComponent.GenerateRandomStats();
                                 itemComponent.Tier = Enum.Parse<Tier>( tier );
                             }
+                            else if ( itemComponent.IsAccessory )
+                            {
+                                itemComponent.GenerateRandomStats();
+                                itemComponent.Tier = Enum.Parse<Tier>( tier );
+                            }
                         }
                         Items.Add( itemComponent );
                     }
@@ -337,7 +398,7 @@ namespace GeneralGame
             }
         }
 
-        private int GetPlayerLevel()
+        public int GetPlayerLevel()
         {
             
             if ( Player.Local != null )
@@ -469,6 +530,10 @@ namespace GeneralGame
             {
                 randomName = NameGenerator.GenerateRandomName( item.Tier, false );
             }
+            else if ( item.IsAccessory )
+            {
+                randomName = NameGenerator.GenerateRandomName( item.Tier, false );
+            }
             else
             {
                 randomName = "Unknown Item"; // Fallback für den Fall, dass weder Waffe noch Rüstung
@@ -564,7 +629,7 @@ namespace GeneralGame
             obj.Enabled = false;
             return itemComponent;
         }
-        
+
 
 
 
@@ -574,13 +639,17 @@ namespace GeneralGame
 
         public void AddItem( ItemComponent item, int index )
         {
-            if ( item == null )
+            if ( item == null ) return;
+
+            // Überprüfen, ob es sich um eine Boss-Truhe handelt
+            if ( IsBossChest && !bossItems.Contains( item.Prefab ) )
             {
+                Log.Error( "Nur Boss-Gegenstände können in eine Boss-Truhe hinzugefügt werden." );
                 return;
             }
 
             Items.Insert( index, item );
-            
+            Log.Info( $"Item {item.Name} wurde hinzugefügt." );
         }
 
         public void OpenInventory()

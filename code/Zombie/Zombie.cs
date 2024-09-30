@@ -303,7 +303,8 @@ public partial class Npc : Component, IHealthComponent
 	public Guid KillerId { get; set; } // Fügen Sie diese Eigenschaft hinzu
 
 	[Property] public bool HasIceAbility { get; set; }
-
+	[Property] public bool HasWindAbility { get; set; }
+	[Property] public float WindAbilityChance { get; set; } = 0.1f;
 	[Property]public NpcState CurrentState { get; set; } = NpcState.Idle;
 	public static Random random = new Random();
 

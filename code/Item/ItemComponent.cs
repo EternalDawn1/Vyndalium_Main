@@ -504,6 +504,11 @@ public class ItemComponent : Component
 		{
 			GenerateArmorStats();
 		}
+		else if ( IsAccessory )
+		{
+			GenerateAccessoryStats();
+		}
+		
 	}
 	private (int min, int max) GetStatRange( int baseMin, int baseMax )
 	{
@@ -695,6 +700,63 @@ public class ItemComponent : Component
 		() => AbilityHaste = random.Next(minAbilityHaste, maxAbilityHaste + 1),
 		() => Mana = random.Next(minMana, maxMana + 1),
 		() => Health = random.Next(minHealth, maxHealth + 1),
+		() => ItemLevel = GenerateRandomItemLevel(random),
+	};
+
+		// Wählen Sie zufällig eine bestimmte Anzahl von Statistiken aus
+		statsGenerators.OrderBy( x => random.Next() ).Take( maxStats ).ToList().ForEach( action => action() );
+	}
+	private void GenerateAccessoryStats()
+	{
+		Random random = new Random();
+
+		// Definieren Sie die Basiswerte für Accessoirestatistiken
+		int baseMinBonusEXP = 10, baseMaxBonusEXP = 100;
+		int baseMinBonusScore = 10, baseMaxBonusScore = 100;
+		int baseMinBonusVyndalium = 10, baseMaxBonusVyndalium = 100;
+		int baseMinTenacity = 1, baseMaxTenacity = 10;
+		int baseMinStunResistance = 1, baseMaxStunResistance = 10;
+
+		// Bestimmen Sie die maximalen Werte basierend auf dem Tier
+		var (minBonusEXP, maxBonusEXP) = GetStatRange( baseMinBonusEXP, baseMaxBonusEXP );
+		var (minBonusScore, maxBonusScore) = GetStatRange( baseMinBonusScore, baseMaxBonusScore );
+		var (minBonusVyndalium, maxBonusVyndalium) = GetStatRange( baseMinBonusVyndalium, baseMaxBonusVyndalium );
+		var (minTenacity, maxTenacity) = GetStatRange( baseMinTenacity, baseMaxTenacity );
+		var (minStunResistance, maxStunResistance) = GetStatRange( baseMinStunResistance, baseMaxStunResistance );
+
+		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
+		double[] probabilities = { 0.7, 0.1, 0.05, 0.025, 0.0125, 0.01, 0.0075, 0.005 };
+		int maxStats = 0;
+		switch ( Tier )
+		{
+			case Tier.C:
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 1 ); // Max 1
+				break;
+			case Tier.B:
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 2 ); // Max 2
+				break;
+			case Tier.A:
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 5 ); // Max 5
+				break;
+			case Tier.S:
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 6 ); // Max 6
+				break;
+			case Tier.SS:
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 7 ); // Max 7
+				break;
+			case Tier.SSS:
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 8 ); // Max 8
+				break;
+		}
+
+		// Generieren Sie zufällige Werte innerhalb der definierten Bereiche
+		List<Action> statsGenerators = new List<Action>
+	{
+		() => BonusEXP = random.Next(minBonusEXP, maxBonusEXP + 1),
+		() => BonusScore = random.Next(minBonusScore, maxBonusScore + 1),
+		() => BonusVyndalium = random.Next(minBonusVyndalium, maxBonusVyndalium + 1),
+		() => Tenacity = random.Next(minTenacity, maxTenacity + 1),
+		() => StunResistance = random.Next(minStunResistance, maxStunResistance + 1),
 		() => ItemLevel = GenerateRandomItemLevel(random),
 	};
 
