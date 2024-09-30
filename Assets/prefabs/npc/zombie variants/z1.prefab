@@ -104,6 +104,12 @@
         "__type": "Npc",
         "__guid": "7ddc556a-265f-48eb-abe7-5c7aee867fc3",
         "CurrentHoldType": "Punch",
+        "isChibi": false,
+        "prefabPaths": [
+          "prefabs/pickupammo.prefab",
+          "prefabs/potions/potion.prefab",
+          "prefabs/items/wood_log.prefab"
+        ],
         "AlertOthers": false,
         "AnimationHelper": {
           "_type": "component",
@@ -126,7 +132,13 @@
           "go": "cab9f80c-e40f-47a2-bb5b-7ac4a38c9628"
         },
         "FaceTowardsVelocity": true,
+        "FireAbilityChance": 0.3,
+        "FireAbilityCooldown": 15,
+        "FireDamage": 10,
+        "FireDamageRadius": 5,
+        "HasFireAbility": false,
         "HasIceAbility": false,
+        "HasWindAbility": false,
         "Health": 100,
         "Healthone": {
           "_type": "component",
@@ -162,6 +174,8 @@
         "VisionRange": 1056,
         "WalkingType": "Dumb",
         "WalkSpeed": 100,
+        "WindAbilityChance": 0.5,
+        "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
           "prefab": "prefabs/ragdoll.prefab"
@@ -267,7 +281,7 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
-            "PanelSize": "1000,1000",
+            "PanelSize": "2000,1000",
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -288,5 +302,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
+  "IsValid": true,
   "__version": 1
 }

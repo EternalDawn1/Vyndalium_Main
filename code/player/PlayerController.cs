@@ -652,8 +652,33 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		}
+		for ( int i = activeStatusEffects.Count - 1; i >= 0; i-- ) 
+		{
+			var effect = activeStatusEffects[i];
 
-		
+			if ( effect is BurnEffect burnEffect )
+			{
+				if ( burnEffect.Duration > 0 )
+				{
+					Health = Math.Max( 0, Health - burnDamagePerSecond * Time.Delta );
+					burnEffect.Duration -= Time.Delta;
+					
+					
+
+					if ( Health <= 0 )
+					{
+						
+						activeStatusEffects.RemoveAt( i );
+					}
+				}
+				else
+				{
+					
+					activeStatusEffects.RemoveAt( i );
+				}
+			}
+		}
+
 
 		if ( !Scene.IsValid() || !PlyCamera.IsValid() )
 			return;

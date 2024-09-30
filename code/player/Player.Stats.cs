@@ -1,5 +1,9 @@
 namespace GeneralGame;
 
+using GeneralGame.HUD;
+using Sandbox;
+using Sandbox.UI;
+using Sandbox.UI.Construct;
 public partial class Player
 {
     /// <summary>
@@ -103,8 +107,8 @@ public partial class Player
     [Sync] public int MagicPenetrationCost { get; set; } = 1; // Beispielwert
     [Sync] public int BonusEXPGainCost { get; set; } = 15; // Beispielwert
     [Sync] public int BonusVyndaliumGainCost { get; set; } = 25;
-
-
+    private int burnDamagePerSecond = 5;
+    public string Name { get; set; }
 
     public void ApplyFreeze( float durationInSeconds )
     {
@@ -120,5 +124,100 @@ public partial class Player
         // Verwenden Sie einen Timer, um die Bewegungslogik nach der angegebenen Dauer wieder zu aktivieren
         
     }
+    private BurningEffect burningEffect;
 
+    public void AddBurningEffect()
+    {
+        if ( burningEffect == null )
+        {
+            burningEffect = new BurningEffect();
+            
+        }
+    }
+
+    public void RemoveBurningEffect()
+    {
+        if ( burningEffect != null )
+        {
+            burningEffect.RemoveFrom( this );
+            burningEffect = null;
+        }
+    }
+
+
+    private List<StatusEffect> activeStatusEffects = new List<StatusEffect>();
+
+
+    public void ApplyStatusEffect( StatusEffect effect )
+    {
+        if ( effect is BurnEffect burnEffect )
+        {
+            activeStatusEffects.Add( burnEffect );
+            AddBurningEffect();
+        }
+    }
+
+
+}
+public class BurnEffect : StatusEffect
+{
+  
+    public BurnEffect( float duration )
+    {
+        Duration = duration;
+    }
+   
+
+ 
+    public override void Apply( Player player )
+    {
+        int damagePerSecond = 5; // Schaden pro Sekunde
+        int totalDuration = (int)Duration;  // Gesamtdauer des Brenneffekts in Sekunden
+
+        // Starten Sie einen Timer, der jede Sekunde Schaden zufügt
+        for ( int i = 0; i < totalDuration; i++ )
+        {
+            // Verzögerung um 1 Sekunde
+            Task.Delay( 1000 ).ContinueWith( _ =>
+            {
+                // Überprüfen, ob der Spieler noch lebt
+                if ( player.LifeState == LifeState.Alive )
+                {
+                    // Fügen Sie dem Spieler Schaden zu
+                    player.TakeDamage( DamageType.fire, damagePerSecond, player.Position, Vector3.Zero, Guid.Empty, player.Id );
+                    Log.Info( $"Burn effect applied to {player.Name}: {damagePerSecond} damage." );
+                }
+            } );
+        }
+    }
+}
+public class BurningEffect
+{
+    private Panel overlay;
+
+    public BurningEffect()
+    {
+        overlay = new Panel();
+        overlay.Style.BackgroundColor = Color.Red.WithAlpha( 0.5f ); // Rotes Overlay mit Transparenz
+        overlay.Style.Width = Length.Percent( 100 );
+        overlay.Style.Height = Length.Percent( 100 );
+        overlay.Style.Position = PositionMode.Absolute;
+        overlay.Style.Top = 0;
+        overlay.Style.Left = 0;
+        overlay.Style.ZIndex = 1000; // Sicherstellen, dass das Overlay oben angezeigt wird
+    }
+ 
+
+   
+
+    public void RemoveFrom( Player player )
+    {
+        overlay.Delete();
+    }
+}
+
+public abstract class StatusEffect
+{
+    public float Duration { get; set; }
+    public abstract void Apply( Player player );
 }
