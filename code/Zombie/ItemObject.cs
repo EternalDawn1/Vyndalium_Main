@@ -37,11 +37,11 @@ namespace GeneralGame
 
         private readonly List<float> probabilities = new List<float>
         {
-            0.3f, // 10% Wahrscheinlichkeit für Munition
-            0.1f, // 20% Wahrscheinlichkeit für Tränke
+            0.4f, // 10% Wahrscheinlichkeit für Munition
+            0.3f, // 20% Wahrscheinlichkeit für Tränke
             0.1f, // 30% Wahrscheinlichkeit für Holz
-            0.05f, // 5% Wahrscheinlichkeit für eine Truhe
-            0.45f  // 45% Wahrscheinlichkeit für nichts
+            0.15f, // 5% Wahrscheinlichkeit für eine Truhe
+            0.25f  // 45% Wahrscheinlichkeit für nichts
         };
 
 

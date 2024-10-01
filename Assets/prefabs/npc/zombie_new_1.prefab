@@ -104,6 +104,12 @@
         "__type": "Npc",
         "__guid": "7ddc556a-265f-48eb-abe7-5c7aee867fc3",
         "CurrentHoldType": "Punch",
+        "isChibi": false,
+        "prefabPaths": [
+          "prefabs/pickupammo.prefab",
+          "prefabs/potions/potion.prefab",
+          "prefabs/items/wood_log.prefab"
+        ],
         "AlertOthers": true,
         "AnimationHelper": {
           "_type": "component",
@@ -126,7 +132,13 @@
           "go": "cab9f80c-e40f-47a2-bb5b-7ac4a38c9628"
         },
         "FaceTowardsVelocity": true,
+        "FireAbilityChance": 0.3,
+        "FireAbilityCooldown": 15,
+        "FireDamage": 10,
+        "FireDamageRadius": 5,
+        "HasFireAbility": false,
         "HasIceAbility": false,
+        "HasWindAbility": false,
         "Health": 100,
         "Healthone": {
           "_type": "component",
@@ -198,12 +210,7 @@
             {
               "Id": 5,
               "Type": "scene.ref",
-              "Properties": {
-                "gameobject": {
-                  "_type": "gameobject",
-                  "go": "ad9e3962-6279-4f25-969b-6399d2793673"
-                }
-              },
+              "Properties": {},
               "UserData": {
                 "Position": "96,256"
               }
@@ -247,6 +254,7 @@
               "DstName": "_target"
             },
             {
+              "Id": 11,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -258,11 +266,13 @@
               "DstName": "attacker"
             },
             {
+              "Id": 12,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
+              "Id": 13,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -364,6 +374,7 @@
               "DstName": "_target"
             },
             {
+              "Id": 15,
               "Value": 10,
               "DstId": 4,
               "DstName": "amount"
@@ -384,6 +395,8 @@
         "VisionRange": 1040,
         "WalkingType": "Smart",
         "WalkSpeed": 100,
+        "WindAbilityChance": 0.5,
+        "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
           "prefab": "models/npcs/zombie/zombie.prefab"
@@ -489,7 +502,7 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
-            "PanelSize": "1000,1000",
+            "PanelSize": "2000,1000",
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -507,7 +520,9 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
+  "IsValid": true,
   "__version": 1
 }

@@ -47,8 +47,9 @@
         "IgnoreTags": "",
         "MaxUnstuckTries": 20,
         "OnComponentUpdate": {
-          "__version": 7,
+          "__version": 8,
           "__guid": "5a77d48a-dd5b-4b0e-ad8b-1e4de8b35dea",
+          "__changeId": 0,
           "UserData": {
             "Title": "On Component Update"
           },
@@ -124,6 +125,7 @@
       {
         "__type": "Slime",
         "__guid": "45b6cfb4-5bf1-4a25-a007-f574e7594f60",
+        "isChibi": false,
         "AlertOthers": true,
         "AnimationHelper": {
           "_type": "component",
@@ -137,12 +139,20 @@
           "_type": "gameobject",
           "go": "eda9331e-66f9-422c-8159-309719348a0b"
         },
+        "CurrentState": "Idle",
         "DetectRange": 256,
         "Eye": {
           "_type": "gameobject",
           "go": "e7aa80c3-bc6d-4c6b-8a2a-8f4e0bbce8fa"
         },
         "FaceTowardsVelocity": true,
+        "FireAbilityChance": 0.3,
+        "FireAbilityCooldown": 15,
+        "FireDamage": 10,
+        "FireDamageRadius": 5,
+        "HasFireAbility": false,
+        "HasIceAbility": false,
+        "HasWindAbility": false,
         "Health": 50,
         "Healthone": {
           "_type": "component",
@@ -152,6 +162,7 @@
         },
         "HitSounds": "sounds/slimeattack/slimeattackone.sound",
         "Idle": true,
+        "Level": 0,
         "MaxHealth": 50,
         "MaximumIdleCooldown": 6,
         "MaxRunAnimationSpeed": 150,
@@ -169,14 +180,15 @@
           "component_type": "MoveHelper"
         },
         "Name": "Slime",
+        "PogMode": false,
         "RunningType": "Smart",
         "RunSpeed": 180,
         "ScaleStats": true,
-        "Static": false,
         "VisionRange": 512,
         "WalkingType": "Dumb",
         "WalkSpeed": 90,
-        "Weight": "Middle",
+        "WindAbilityChance": 0.5,
+        "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
           "prefab": "models/npcs/slime/slime_burst.prefab"
@@ -198,6 +210,13 @@
             "CreateBoneObjects": false,
             "MaterialOverride": "materials/corrugated_steel/corrugated_steel.vmat",
             "Model": "models/npcs/slime/slime.vmdl",
+            "Morphs": {},
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "0.73488,0.28028,0.28028,1",
             "UseAnimGraph": true
@@ -246,13 +265,20 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": true,
-            "PanelSize": "512,512",
+            "PanelSize": "2000,512",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderScale": 4.5999985,
             "VerticalAlign": "Center"
           },
           {
             "__type": "GeneralGame.HUD.UI",
-            "__guid": "5d96eacf-bf83-4a81-9221-df4b072fe8c6"
+            "__guid": "5d96eacf-bf83-4a81-9221-df4b072fe8c6",
+            "npc": null
           }
         ],
         "Children": [
@@ -269,6 +295,7 @@
                 "AutoScreenScale": true,
                 "Opacity": 1,
                 "Scale": 1,
+                "ScaleStrategy": "ConsistentHeight",
                 "ZIndex": 100
               }
             ]
@@ -281,9 +308,11 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "steeldevgroup.corrugated_steel#13558"
   ],
+  "IsValid": true,
   "__version": 1
 }

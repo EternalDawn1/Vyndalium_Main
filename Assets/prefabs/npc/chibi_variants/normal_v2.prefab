@@ -112,6 +112,11 @@
         "__guid": "c1b3310c-6b5e-4247-8f92-64cae837a5f3",
         "CurrentHoldType": "Punch",
         "isChibi": true,
+        "prefabPaths": [
+          "prefabs/pickupammo.prefab",
+          "prefabs/potions/potion.prefab",
+          "prefabs/items/wood_log.prefab"
+        ],
         "AlertOthers": false,
         "AnimationHelper": {
           "_type": "component",
@@ -134,7 +139,13 @@
           "go": "7ac0b990-4c67-4491-b114-b53b6a774c18"
         },
         "FaceTowardsVelocity": true,
+        "FireAbilityChance": 0.3,
+        "FireAbilityCooldown": 15,
+        "FireDamage": 10,
+        "FireDamageRadius": 5,
+        "HasFireAbility": false,
         "HasIceAbility": false,
+        "HasWindAbility": false,
         "Health": 100,
         "Healthone": {
           "_type": "component",
@@ -343,6 +354,8 @@
         "VisionRange": 912,
         "WalkingType": "Dumb",
         "WalkSpeed": 310,
+        "WindAbilityChance": 0.5,
+        "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
           "prefab": "models/npcs/chibi/chibi_ragdoll.prefab"
@@ -452,7 +465,7 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
-            "PanelSize": "1000,1000",
+            "PanelSize": "2000,1000",
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,

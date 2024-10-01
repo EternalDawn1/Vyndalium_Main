@@ -160,6 +160,38 @@ public sealed class ZombieSpawner : Component
 			npcComponent.Level = GetRandomLevel();
 			npcComponent.SetHealthBasedOnLevel();
 			npcComponent.HasIceAbility = DetermineFreezeAbility( npcComponent.Level );
+			npcComponent.HasWindAbility = DetermineWindAbility( npcComponent.Level );
+			npcComponent.HasFireAbility = DetermineFireAbility( npcComponent.Level );
+
+			if ( npcComponent.HasFireAbility )
+			{
+				// Laden Sie das Prefab über die ResourceLibrary
+				var firePrefab = ResourceLibrary.Get<PrefabFile>( "prefabs/npc/slime_variants/fire.prefab" );
+
+				if ( firePrefab != null )
+				{
+					// Erstellen Sie eine Instanz des Prefabs auf dem NPC-GameObject
+					var fireInstance = GameObject.Clone( firePrefab );
+					if ( fireInstance != null )
+					{
+						fireInstance.Parent = GameObject; // Explizite Konvertierung zu GameObject
+						fireInstance.Transform.Position = npcComponent.Transform.Position; // Setzen Sie die Position relativ zum NPC
+						fireInstance.NetworkSpawn();
+
+						var fireNpcComponent = fireInstance.GetComponent<Npc>();
+						if ( fireNpcComponent != null )
+						{
+							fireNpcComponent.Level = GetRandomLevel();
+							fireNpcComponent.SetHealthBasedOnLevel();
+						}
+					}
+				}
+				else
+				{
+					Log.Error( "Fire prefab could not be loaded." );
+				}
+				
+			}
 
 			if ( npcComponent is Slime )
 			{
@@ -294,6 +326,42 @@ public sealed class ZombieSpawner : Component
 			return random.Next( 100 ) < 90;
 		if ( level >= 91 && level <= 100 )
 			return random.Next( 100 ) < 100;
+
+		return false;
+	}
+	private bool DetermineWindAbility(int level)
+	{
+		var random = new Random();
+		if (level >= 1 && level <= 15)
+			return random.Next(100) < 15;
+		if (level >= 16 && level <= 30)
+			return random.Next(100) < 30;
+		if (level >= 31 && level <= 55)
+			return random.Next(100) < 55;
+		if (level >= 56 && level <= 70)
+			return random.Next(100) < 70;
+		if (level >= 71 && level <= 90)
+			return random.Next(100) < 90;
+		if (level >= 91 && level <= 100)
+			return random.Next(100) < 100;
+
+		return false;
+	}
+	private bool DetermineFireAbility(int level)
+	{
+		var random = new Random();
+		if (level >= 1 && level <= 15)
+			return random.Next(100) < 15;
+		if (level >= 16 && level <= 30)
+			return random.Next(100) < 30;
+		if (level >= 31 && level <= 55)
+			return random.Next(100) < 55;
+		if (level >= 56 && level <= 70)
+			return random.Next(100) < 70;
+		if (level >= 71 && level <= 90)
+			return random.Next(100) < 90;
+		if (level >= 91 && level <= 100)
+			return random.Next(100) < 100;
 
 		return false;
 	}

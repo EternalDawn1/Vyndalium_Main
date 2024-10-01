@@ -47,8 +47,9 @@
         "IgnoreTags": "",
         "MaxUnstuckTries": 20,
         "OnComponentUpdate": {
-          "__version": 7,
+          "__version": 8,
           "__guid": "c3992a35-2e68-459f-be3b-ea158f7ceeef",
+          "__changeId": 0,
           "UserData": {
             "Title": "On Component Update"
           },
@@ -124,6 +125,7 @@
       {
         "__type": "Slime",
         "__guid": "0f5ae04d-e230-47a9-bfa5-822d998bb258",
+        "isChibi": false,
         "AlertOthers": true,
         "AnimationHelper": {
           "_type": "component",
@@ -145,7 +147,13 @@
           "go": "1160931a-c772-4e03-93e0-f7e3e815c003"
         },
         "FaceTowardsVelocity": true,
+        "FireAbilityChance": 0.3,
+        "FireAbilityCooldown": 15,
+        "FireDamage": 10,
+        "FireDamageRadius": 5,
+        "HasFireAbility": false,
         "HasIceAbility": false,
+        "HasWindAbility": false,
         "Health": 100,
         "Healthone": {
           "_type": "component",
@@ -180,6 +188,8 @@
         "VisionRange": 992,
         "WalkingType": "Dumb",
         "WalkSpeed": 90,
+        "WindAbilityChance": 0.5,
+        "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
           "prefab": "models/npcs/slime/slime_burst.prefab"
@@ -200,6 +210,13 @@
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
             "Model": "models/npcs/slime/slime.vmdl",
+            "Morphs": {},
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "0.11426,0.62326,0,1",
             "UseAnimGraph": true
@@ -248,7 +265,13 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
-            "PanelSize": "1000,1000",
+            "PanelSize": "2000,1000",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderScale": 2.3,
             "VerticalAlign": "Center"
           },
@@ -270,7 +293,9 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
+  "IsValid": true,
   "__version": 1
 }
