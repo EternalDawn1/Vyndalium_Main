@@ -3,63 +3,29 @@ UI {
     width: 100%;
     height: 100%;
 
-    .npc 
-    {
+    .npc {
         transition: opacity 0.5s ease-in-out;
-        
-        .npc-name {
+    }
+
+    .npc-name {
         position: absolute;
-        
-        top:80px;
-        left: 180px;
+        top: 100px;
+        left: 20px;
         color: white;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 600;
         background-color: rgba(0, 0, 0, 0.5);
         border-width: 1px;
         padding: 5px;
         color: rgb(255, 255, 255);
         border-radius: 5px;
-        }
-        .ability
-        {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        
-        .npc-ability 
-        {
-               
-                position: relative;
-                height: 15%;
-                top: 0px;
-                left: 145px;
-                color: rgb(255, 255, 255);
-                font-size: 20px;
-                font-weight: 600;
-                background-color: rgb(0, 4, 255);
-                border-width: 1px;
-                padding: 5px;
-                opacity: 0;
-                border-radius: 5px;
-        
-                &.show {
-                    opacity: 1;
-                }
-            }
-        }
-        
     }
 
-    
-
     .npc-level {
-        position:absolute;
-        height: 17%;
-        width: 15%;
-        left: 40%;
-        top: 18%;
-        color: rgb(255, 255, 255);
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        color: white;
         font-size: 20px;
         font-weight: 600;
         background-color: rgba(0, 0, 0, 0.5);
@@ -67,14 +33,29 @@ UI {
         padding: 5px;
         border-radius: 5px;
     }
+        .npc-ability {
+            position: absolute;
+            top: 100px;
+            left: 150px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            background-color: rgb(0, 4, 255);
+            border-width: 1px;
+            padding: 5px;
+            opacity: 0;
+            border-radius: 5px;
     
+            &.show {
+                opacity: 1;
+            }
+        }
 
     .zombie-healthbar-container {
-        position: relative;
+        position: absolute;
         width: 100%;
         height: 15%;
-        top:70%;
-        left: 30%;
+        bottom: 0%;
         border: 1px solid rgba(238, 238, 238, 0);
         z-index: 0;
         opacity: 0;
@@ -84,12 +65,12 @@ UI {
         }
 
         .zombie-healthbar {
-            position: relative;
+            position: absolute;
             background-color: rgba(0, 0, 255, 0);
             width: 200px;
             height: 32px;
             bottom: 0px;
-            left: 4%;
+            left: 7%;
             background-blend-mode: multiply;
             background-size: 100%;
             padding: 5px;
@@ -121,7 +102,7 @@ UI {
             width: 200px;
             height: 32px;
             bottom: 0px;
-            left: 4%;
+            left: 7%;
             background-blend-mode: multiply;
             background-size: 100%;
             padding: 5px;

@@ -7,14 +7,9 @@
     @if (npc != null)
     {
         <div class="npc">
-            <div class="npc-level">Lvl.@npc.Level</div>
             <div class="npc-name">@npc.Name</div>
-           
-            <div class="ability">
-                <div class="npc-ability @(npc.HasIceAbility ? "show" : "")">ICE</div>
-                <div class="npc-ability @(npc.HasWindAbility ? "show" : "")" style="background-color: aqua;">WIND</div>
-                <div class="npc-ability @(npc.HasFireAbility ? "show" : "")" style="background-color: orangered;">FIRE</div>
-            </div>
+            <div class="npc-level">Lvl.@npc.Level</div>
+            <div class="npc-ability @(npc.HasIceAbility ? "show" : "")">ICE</div>
 
             <div class="zombie-healthbar-container @(isTakingDamage ? "show" : "")">
                 <div class="zombie-healthbar">

@@ -1121,7 +1121,7 @@ public sealed class Inventory : Component
 	{
 		if ( item == null ) return;
 
-		// Überprüfen, ob das Item ein Material oder ein Trank ist und bereits im Inventar vorhanden ist
+		// Überprüfen, ob das Item ein Material ist und bereits im Inventar vorhanden ist
 		if ( item.IsMaterial || item.IsPotion )
 		{
 			var existingItem = _backpackItems.FirstOrDefault( i => i != null && i.Name == item.Name && i.Count < i.MaxStack );
@@ -1131,9 +1131,8 @@ public sealed class Inventory : Component
 				int remainingSpace = existingItem.MaxStack - existingItem.Count;
 				if ( item.Count <= remainingSpace )
 				{
-					// Erhöhen Sie die Menge des vorhandenen Materials oder Tranks
+					// Erhöhen Sie die Menge des vorhandenen Materials
 					existingItem.Count += item.Count;
-					return;
 				}
 				else
 				{
@@ -1141,12 +1140,12 @@ public sealed class Inventory : Component
 					existingItem.Count = existingItem.MaxStack;
 					item.Count -= remainingSpace;
 					AddItem( item ); // Rekursiver Aufruf, um den Rest hinzuzufügen
-					return;
 				}
+				return;
 			}
 		}
 
-		// Fügen Sie das Item als neues Item hinzu, wenn es kein Material oder Trank ist oder nicht im Inventar vorhanden ist
+		// Fügen Sie das Item als neues Item hinzu, wenn es kein Material ist oder nicht im Inventar vorhanden ist
 		var firstFreeSlot = _backpackItems.IndexOf( null );
 		if ( firstFreeSlot != -1 )
 		{
@@ -1170,31 +1169,6 @@ public sealed class Inventory : Component
 		}
 		else
 		{
-			// Überprüfen, ob das Item gestapelt werden kann, auch wenn das Inventar voll ist
-			if ( item.IsMaterial || item.IsPotion )
-			{
-				var existingItem = _backpackItems.FirstOrDefault( i => i != null && i.Name == item.Name && i.Count < i.MaxStack );
-				if ( existingItem != null )
-				{
-					// Berechnen Sie die verbleibende Menge, die in den vorhandenen Stapel passt
-					int remainingSpace = existingItem.MaxStack - existingItem.Count;
-					if ( item.Count <= remainingSpace )
-					{
-						// Erhöhen Sie die Menge des vorhandenen Materials oder Tranks
-						existingItem.Count += item.Count;
-						return;
-					}
-					else
-					{
-						// Füllen Sie den vorhandenen Stapel und erstellen Sie ein neues Item für den Rest
-						existingItem.Count = existingItem.MaxStack;
-						item.Count -= remainingSpace;
-						AddItem( item ); // Rekursiver Aufruf, um den Rest hinzuzufügen
-						return;
-					}
-				}
-			}
-
 			Log.Error( "Kein freier Slot im Rucksack." );
 			Hudmaster.Instance.ShowNotification( "No Place in the Backpack.", "/ui/hud/inventory.png" );
 			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );

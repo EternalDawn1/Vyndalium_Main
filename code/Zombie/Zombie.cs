@@ -304,16 +304,7 @@ public partial class Npc : Component, IHealthComponent
 
 	[Property] public bool HasIceAbility { get; set; }
 	[Property] public bool HasWindAbility { get; set; }
-	[Property] public bool HasFireAbility { get; set; }
-	[Property] public float WindAbilityChance { get; set; } = 0.5f;
-	[Property] public float WindAbilityCooldown { get; set; } = 10f; // Abklingzeit in Sekunden
-	private DateTime lastWindAbilityUse = DateTime.MinValue;
-	
-	[Property] public float FireAbilityChance { get; set; } = 0.3f;
-	[Property] public float FireAbilityCooldown { get; set; } = 15f; // Abklingzeit in Sekunden
-	private DateTime lastFireAbilityUse = DateTime.MinValue;
-	[Property] public float FireDamageRadius { get; set; } = 5f; // Radius des Schadensbereichs
-	[Property] public float FireDamage { get; set; } = 10f;
+	[Property] public float WindAbilityChance { get; set; } = 0.1f;
 	[Property]public NpcState CurrentState { get; set; } = NpcState.Idle;
 	public static Random random = new Random();
 
@@ -682,12 +673,7 @@ public partial class Npc : Component, IHealthComponent
 
 				// Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
 				damageable.TakeDamage( DamageType.Bullet, exponentialDamage, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
-				if ( HasFireAbility )
-				{
-					// Generiere eine zufällige Brenndauer zwischen 1 und 5 Sekunden
-					int burnDuration = random2.Next( 1, 6 );
-					ApplyBurn( player, burnDuration );
-				}
+
 				AnimationHelper.Target.Set( "b_attack", true );
 				
 				if ( Model != null && isChibi )
@@ -718,17 +704,6 @@ public partial class Npc : Component, IHealthComponent
 				Sound.Play( HitSounds, Transform.Position );
 			}
 		}
-	}
-	private void ApplyBurn( Player player, int duration )
-	{
-		if ( player == null )
-		{
-			
-			return;
-		}
-
-		
-		player.ApplyStatusEffect( new BurnEffect( duration ) );
 	}
 
 
@@ -883,12 +858,7 @@ public partial class Npc : Component, IHealthComponent
 		if ( TargetObject is not null )
 			OnEnemyEscaped?.Invoke( TargetObject );
 	}
-	private bool IsPlayerDetected( GameObject player, Vector3 position, float range )
-	{
-		return Vector3.DistanceBetween( player.Transform.Position, position ) <= range;
-	}
-	private const float DetectionRange = 150.0f;
-	private const float MaxTeleportRange = 70.0f;
+
 	/// <summary>
 	/// Who should the NPC follow, set null to go back to manually setting the target position
 	/// </summary>
@@ -900,115 +870,15 @@ public partial class Npc : Component, IHealthComponent
 		{
 			TargetObject = null;
 			FollowingTargetObject = false;
-
+		
 			TargetPosition = Transform.Position;
-			
 		}
 		else
 		{
-			
 			TargetObject = target;
 			FollowingTargetObject = !escapeFrom;
-
-			if ( HasWindAbility && (DateTime.Now - lastWindAbilityUse).TotalSeconds >= WindAbilityCooldown )
-			{
-				if ( IsPlayerDetected( target, Transform.Position, DetectionRange ) )
-				{
-					Random random = new Random();
-					if ( random.NextDouble() <= WindAbilityChance )
-					{
-						Vector3 randomOffset;
-						do
-						{
-							// Berechnung des Offsets hinter dem Spieler
-							Vector3 playerForward = target.Transform.Rotation.Forward;
-							float offsetDistance = (float)(random.NextDouble() * MaxTeleportRange);
-							randomOffset = -playerForward * offsetDistance;
-
-							// Zufällige Abweichung hinzufügen
-							float offsetX = (float)(random.NextDouble() * 2 - 1) * MaxTeleportRange * 0.2f; // 20% der MaxTeleportRange
-							float offsetY = (float)(random.NextDouble() * 2 - 1) * MaxTeleportRange * 0.2f; // 20% der MaxTeleportRange
-							float offsetZ = (float)(random.NextDouble() * 2 - 1) * MaxTeleportRange * 0.2f; // 20% der MaxTeleportRange
-
-							randomOffset += new Vector3( offsetX, offsetY, offsetZ );
-						} while ( randomOffset.Length < 3 ); // Mindestens 10 Einheiten entfernt
-
-						Vector3 targetPosition = target.Transform.Position + randomOffset;
-
-						// Überprüfen, ob der Zielort innerhalb der maximalen Reichweite liegt
-						if ( (targetPosition - target.Transform.Position).Length <= MaxTeleportRange )
-						{
-							Transform.Position = targetPosition;
-
-							// Spiele den Sound an der neuen Position des NPCs ab
-							Sound.Play( "/sounds/chargedattack.sound", Transform.Position );
-
-							// Aktualisiere den letzten Aktivierungszeitpunkt
-							lastWindAbilityUse = DateTime.Now;
-
-							// Optional: Füge eine visuelle oder akustische Rückmeldung hinzu
-							// z.B. einen Partikeleffekt oder einen Sound
-						}
-					}
-				}
-			}
-			if ( HasFireAbility && (DateTime.Now - lastFireAbilityUse).TotalSeconds >= FireAbilityCooldown )
-			{
-				Random random = new Random();
-				if ( random.NextDouble() <= FireAbilityChance )
-				{
-					// Erzeuge einen Schadensbereich um den NPC
-					CreateFireDamageArea();
-
-					// Spiele den Sound für die Feuerfähigkeit ab
-					Sound.Play( "/sounds/fireattack.sound", Transform.Position );
-
-					// Aktualisiere den letzten Aktivierungszeitpunkt
-					lastFireAbilityUse = DateTime.Now;
-
-					// Optional: Füge eine visuelle oder akustische Rückmeldung hinzu
-					// z.B. einen Partikeleffekt oder einen Sound
-				}
-			}
+			
 		}
-	}
-	
-	private void CreateFireDamageArea()
-	{
-		// Finde alle Spieler im Schadensbereich
-		var playersInRange = FindPlayersInRange( Transform.Position, FireDamageRadius );
-
-		// Füge allen Spielern im Bereich Schaden zu
-		foreach ( var player in playersInRange )
-		{
-			var healthComponent = player.GetComponent<IHealthComponent>();
-			if ( healthComponent != null )
-			{
-				healthComponent.TakeDamage( DamageType.fire, FireDamage, Transform.Position, Vector3.Zero, Guid.Empty, player.Id );
-				
-			}
-		}
-	}
-	
-
-	private IEnumerable<GameObject> FindPlayersInRange( Vector3 position, float radius )
-	{
-		var playersInRange = new List<GameObject>();
-
-		// Verwende Scene.Trace, um alle Spieler im angegebenen Radius zu finden
-		var traceResult = Scene.Trace.Sphere( radius, position, position + Vector3.One * radius )
-			.WithTag( "Player" )
-			.RunAll();
-
-		foreach ( var hit in traceResult )
-		{
-			if ( hit.GameObject != null && hit.GameObject.Tags.Has( "Player" ) )
-			{
-				playersInRange.Add( hit.GameObject );
-			}
-		}
-
-		return playersInRange;
 	}
 
 	/// <summary>

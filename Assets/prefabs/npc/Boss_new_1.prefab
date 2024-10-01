@@ -3,7 +3,7 @@
     "__guid": "ad9e3962-6279-4f25-969b-6399d2793673",
     "Flags": 0,
     "Name": "boss_new_1",
-    "Tags": "npc,bad",
+    "Tags": "bad,npc",
     "Enabled": true,
     "NetworkMode": 1,
     "Components": [
@@ -11,9 +11,9 @@
         "__type": "Sandbox.NavMeshAgent",
         "__guid": "4514d00b-47ba-4c53-8600-0767c1747be3",
         "Acceleration": 100,
-        "Height": 215.89986,
+        "Height": 70.3999,
         "MaxSpeed": 50,
-        "Radius": 27.19998,
+        "Radius": 9.499976,
         "Separation": 1,
         "UpdatePosition": true,
         "UpdateRotation": true
@@ -105,11 +105,6 @@
         "__guid": "7ddc556a-265f-48eb-abe7-5c7aee867fc3",
         "CurrentHoldType": "Punch",
         "isChibi": false,
-        "prefabPaths": [
-          "prefabs/pickupammo.prefab",
-          "prefabs/potions/potion.prefab",
-          "prefabs/items/wood_log.prefab"
-        ],
         "AlertOthers": true,
         "AnimationHelper": {
           "_type": "component",
@@ -132,13 +127,7 @@
           "go": "cab9f80c-e40f-47a2-bb5b-7ac4a38c9628"
         },
         "FaceTowardsVelocity": true,
-        "FireAbilityChance": 0.3,
-        "FireAbilityCooldown": 15,
-        "FireDamage": 10,
-        "FireDamageRadius": 5,
-        "HasFireAbility": false,
         "HasIceAbility": false,
-        "HasWindAbility": false,
         "Health": 100,
         "Healthone": {
           "_type": "component",
@@ -254,7 +243,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 8,
+              "Id": 11,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -266,13 +255,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 9,
+              "Id": 12,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 10,
+              "Id": 13,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -374,7 +363,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 14,
+              "Id": 15,
               "Value": 10,
               "DstId": 4,
               "DstName": "amount"
@@ -395,8 +384,6 @@
         "VisionRange": 1040,
         "WalkingType": "Smart",
         "WalkSpeed": 100,
-        "WindAbilityChance": 0.5,
-        "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
           "prefab": "models/npcs/zombie/zombie.prefab"
@@ -503,7 +490,7 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
-            "PanelSize": "2000,1000",
+            "PanelSize": "1000,1000",
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,

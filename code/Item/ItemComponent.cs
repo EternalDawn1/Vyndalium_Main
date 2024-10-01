@@ -71,7 +71,22 @@ public class SerializedItemComponent
 
 public class ItemComponent : Component
 {
-
+	[Property, Group( "Aspect" )]
+	public bool IsFireAspect { get; set; } = false;
+	[Property, Group( "Aspect" )]
+	public bool IsIceAspect { get; set; } = false;
+	[Property, Group( "Aspect" )]
+	public bool IsLightningAspect { get; set; } = false;
+	[Property, Group( "Aspect" )]
+	public bool IsShadowAspect { get; set; } = false;
+	[Property, Group( "Aspect" )]
+	public bool IsHolyAspect { get; set; } = false;
+	[Property, Group( "Aspect" )]
+	public bool IsPoisonAspect { get; set; } = false;
+	[Property, Group( "Aspect" )]
+	public bool IsBleedAspect { get; set; } = false;
+	[Property, Group( "Aspect" )]
+	
 	public bool IsFavorite { get; set; }
 	[Property, Group( "Type" )]
 	public bool IsMaterial { get; set; }

@@ -1045,7 +1045,14 @@ public class BaseGun : WeaponComponent, IUse
 		{
 			Log.Warning("FireSound is null.");
 		}
+		var itemComponent = Owner.Components.Get<ItemComponent>();
+		if ( itemComponent != null && itemComponent.IsFireAspect )
+		{
+			ApplyFireDamageToNPCs( startPos, endPos );
+		}
 	}
+	
+	
 	public class DamageText : Panel
 	{
 		private Label label;
