@@ -13,17 +13,17 @@ public partial class DoorEntity : Component, IUse
 
 	protected override void OnStart()
 	{
-		DefaultRotation = Transform.Rotation;
+		DefaultRotation = WorldRotation;
 	}
 	protected override void OnUpdate()
 	{
 		if ( Open )
 		{
-			Transform.LocalRotation = Rotation.Lerp( Transform.LocalRotation, DefaultRotation * MoveDir, Time.Delta * 5f );
+			LocalRotation = Rotation.Lerp( LocalRotation, DefaultRotation * MoveDir, Time.Delta * 5f );
 		}
 		else
 		{
-			Transform.LocalRotation = Rotation.Lerp( Transform.LocalRotation, DefaultRotation, Time.Delta * 5f );
+			LocalRotation = Rotation.Lerp( LocalRotation, DefaultRotation, Time.Delta * 5f );
 		}
 	}
 

@@ -94,7 +94,7 @@ public partial class Npc : Component, IHealthComponent
 					if ( gameObject != null )
 					{
 						// Spawnen des Items in der Luft
-						gameObject.Transform.Position = position + new Vector3( 0, 0, 25 );
+						gameObject.WorldPosition = position + new Vector3( 0, 0, 25 );
 						gameObject.NetworkSpawn();
 
 						
@@ -266,7 +266,7 @@ public partial class Npc : Component, IHealthComponent
 	[Property]
 	[Category( "Stats" )]
 	public bool ScaleStats { get; set; } = true;
-	public float Scale => ScaleStats ? MathF.Max( MathF.Max( GameObject.Transform.Scale.x, GameObject.Transform.Scale.y ), GameObject.Transform.Scale.z ) : 1f;
+	public float Scale => ScaleStats ? MathF.Max( MathF.Max( GameObject.WorldScale.x, GameObject.WorldScale.y ), GameObject.WorldScale.z ) : 1f;
 	/// <summary>
 	/// When the NPC has no target it will occasionally fire this off
 	/// </summary>
@@ -349,7 +349,7 @@ public partial class Npc : Component, IHealthComponent
 	protected override void OnAwake()
 	{
 		
-		var spawnTrace = Scene.Trace.Ray( Transform.Position + Vector3.Up * 30f, Transform.Position - Vector3.Up * 200f )
+		var spawnTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 30f, WorldPosition - Vector3.Up * 200f )
 			.Size( 5f )
 			.IgnoreGameObjectHierarchy( GameObject )
 			.WithoutTags( "player", "npc", "trigger" )
@@ -358,7 +358,7 @@ public partial class Npc : Component, IHealthComponent
 		player = Scene.GetAllComponents<Player>().FirstOrDefault();
 		agent = Components.Get<NavMeshAgent>();
 
-		SpawnPosition = spawnTrace.Hit ? spawnTrace.HitPosition : Transform.Position;
+		SpawnPosition = spawnTrace.Hit ? spawnTrace.HitPosition : WorldPosition;
 
 
 		
@@ -368,19 +368,19 @@ public partial class Npc : Component, IHealthComponent
 	public void InitializeNPC()
 	{
 		// Set a random target position around the spawn point
-		TargetPosition = GetRandomPositionAround( Transform.Position );
+		TargetPosition = GetRandomPositionAround( WorldPosition );
 		FollowingTargetObject = false;
 	}
 	public void MoveToTargetPosition()
 	{
-		if ( Transform.Position.Distance( TargetPosition ) <= 5f )
+		if ( WorldPosition.Distance( TargetPosition ) <= 5f )
 		{
-			TargetPosition = GetRandomPositionAround( Transform.Position );
+			TargetPosition = GetRandomPositionAround( WorldPosition );
 		}
 		else
 		{
-			var direction = (TargetPosition - Transform.Position).Normal;
-			Transform.Position += direction * (IsRunning ? RunSpeed : WalkSpeed) * Time.Delta;
+			var direction = (TargetPosition - WorldPosition).Normal;
+			WorldPosition += direction * (IsRunning ? RunSpeed : WalkSpeed) * Time.Delta;
 		}
 	}
 
@@ -419,7 +419,7 @@ public partial class Npc : Component, IHealthComponent
 		foreach ( var player in players )
 		{
 			// Überprüfe, ob der Spieler in der Nähe ist
-			if ( (player.Transform.Position - this.Transform.Position).Length < PlayerProximityDistance )
+			if ( (player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance )
 				return true;
 		}
 		return false;
@@ -444,7 +444,7 @@ public partial class Npc : Component, IHealthComponent
 
 		foreach ( var player in players )
 		{
-			Vector3 direction = player.Transform.Position - Transform.Position;
+			Vector3 direction = player.WorldPosition - WorldPosition;
 			var distanceSquared = direction.LengthSquared;
 
 			if ( distanceSquared < closestDistanceSquared )
@@ -474,7 +474,7 @@ public partial class Npc : Component, IHealthComponent
 				{
 					if ( !MoveHelper.Velocity.IsNearlyZero( 1f ) )
 					{
-						Transform.Rotation = Rotation.Lerp( Transform.Rotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * 5.0f );
+						WorldRotation = Rotation.Lerp( WorldRotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * 5.0f );
 					}
 				}
 				
@@ -528,7 +528,7 @@ public partial class Npc : Component, IHealthComponent
 							break;
 					}
 
-					agent.MoveTo( closestPlayer.Transform.Position );
+					agent.MoveTo( closestPlayer.WorldPosition );
 					if ( !isPlayerNearby )
 					{
 						CurrentState = NpcState.Running;
@@ -571,7 +571,7 @@ public partial class Npc : Component, IHealthComponent
 				if ( !IsWithinRange( TargetObject ) )
 				{
 					// Ziel außerhalb der Reichweite, verfolge weiterhin das letzte Ziel
-					agent.MoveTo( TargetObject.Transform.Position );
+					agent.MoveTo( TargetObject.WorldPosition );
 
 				}
 				else
@@ -606,9 +606,9 @@ public partial class Npc : Component, IHealthComponent
 		AnimationHelper.WithWishVelocity( agent.WishVelocity );
 		AnimationHelper.WithVelocity( MoveHelper.Velocity );
 
-		var playerPosition = player.GameObject.Transform.Position.WithZ( Transform.Position.z );
-		var targetRotation = Rotation.LookAt( playerPosition - Body.Transform.Position );
-		Body.Transform.Rotation = Rotation.Slerp( Body.Transform.Rotation, targetRotation, Time.Delta * 5.0f );
+		var playerPosition = player.GameObject.WorldPosition.WithZ( WorldPosition.z );
+		var targetRotation = Rotation.LookAt( playerPosition - Body.WorldPosition );
+		Body.WorldRotation = Rotation.Slerp( Body.WorldRotation, targetRotation, Time.Delta * 5.0f );
 
 		// Setzen Sie die Bewegungsart nur, wenn sich die Geschwindigkeit ändert
 		switch ( CurrentState )
@@ -635,8 +635,8 @@ public partial class Npc : Component, IHealthComponent
 	{
 		// Holen Sie die Geschwindigkeit des NPCs
 		var scaledSpeed = MaxRunAnimationSpeed ;
-		var forwardVelocity = Vector3.Dot( MoveHelper.Velocity, Model.Transform.Rotation.Forward ) / scaledSpeed;
-		var rightVelocity = Vector3.Dot( MoveHelper.Velocity, Model.Transform.Rotation.Right ) / scaledSpeed;
+		var forwardVelocity = Vector3.Dot( MoveHelper.Velocity, Model.WorldRotation.Forward ) / scaledSpeed;
+		var rightVelocity = Vector3.Dot( MoveHelper.Velocity, Model.WorldRotation.Right ) / scaledSpeed;
 
 		// Lerp nur, wenn sich die Geschwindigkeit ändert
 		var oldX = Model.GetFloat( "move_x" );
@@ -652,7 +652,7 @@ public partial class Npc : Component, IHealthComponent
 	public void NormalTrace()
 	{
 		
-		var tr = Scene.Trace.Ray( Body.Transform.Position, Body.Transform.Position + Body.Transform.Rotation.Forward * 100 ).Run();
+		var tr = Scene.Trace.Ray( Body.WorldPosition, Body.WorldPosition + Body.WorldRotation.Forward * 100 ).Run();
 
 		if ( tr.Hit && timeSinceHit > 1.5f && GameObject != null )
 		{
@@ -715,7 +715,7 @@ public partial class Npc : Component, IHealthComponent
 				
 				timeSinceHit = 0;
 
-				Sound.Play( HitSounds, Transform.Position );
+				Sound.Play( HitSounds, WorldPosition );
 			}
 		}
 	}
@@ -798,7 +798,7 @@ public partial class Npc : Component, IHealthComponent
 		var currentTick = (int)(Time.Now / Time.Delta);
 		if ( currentTick % 20 != NpcId % 20 ) return; // Check every 20 ticks
 
-		var foundAround = Scene.FindInPhysics( new Sphere( Transform.Position, DetectRange * Scale ) ) // Find gameobjects nearby
+		var foundAround = Scene.FindInPhysics( new Sphere( WorldPosition, DetectRange * Scale ) ) // Find gameobjects nearby
 			.Where( x => x.Enabled )
 			.Where( x => EnemyTags != null && x.Tags.HasAny( EnemyTags ) ) // Do they have any of our enemy tags
 			.Where( x => x.Components.Get<HealthComponent>()?.Alive ?? true ); // Are they dead or undead
@@ -812,7 +812,7 @@ public partial class Npc : Component, IHealthComponent
 		{
 			var healthComponent = TargetObject.Components.Get<IHealthComponent>();
 			var targetDead = healthComponent?.LifeState == LifeState.Dead;
-			var targetEscaped = TargetObject.Transform.Position.Distance( Transform.Position ) > VisionRange * Scale; // Did our target get out of vision range
+			var targetEscaped = TargetObject.WorldPosition.Distance( WorldPosition ) > VisionRange * Scale; // Did our target get out of vision range
 
 			if ( targetEscaped || targetDead ) // Did our target die or escape
 				Undetected();
@@ -841,7 +841,7 @@ public partial class Npc : Component, IHealthComponent
 		if ( alertOthers && AlertOthers )
 		{
 			var otherNpcs = Scene.GetAllComponents<Npc>()
-				.Where( x => x.Transform.Position.Distance( Transform.Position ) <= x.VisionRange  )
+				.Where( x => x.WorldPosition.Distance( WorldPosition ) <= x.VisionRange  )
 				.Where( x => x.Healthone?.Alive ?? true )
 				.Where( x => x.TargetObject == null )
 				.Where( x => x != this )
@@ -873,7 +873,7 @@ public partial class Npc : Component, IHealthComponent
 		BroadcastOnEscape();
 
 		TargetObject = null;
-		TargetPosition = Transform.Position;
+		TargetPosition = WorldPosition;
 		
 	}
 
@@ -885,7 +885,7 @@ public partial class Npc : Component, IHealthComponent
 	}
 	private bool IsPlayerDetected( GameObject player, Vector3 position, float range )
 	{
-		return Vector3.DistanceBetween( player.Transform.Position, position ) <= range;
+		return Vector3.DistanceBetween( player.WorldPosition, position ) <= range;
 	}
 	private const float DetectionRange = 150.0f;
 	private const float MaxTeleportRange = 70.0f;
@@ -901,7 +901,7 @@ public partial class Npc : Component, IHealthComponent
 			TargetObject = null;
 			FollowingTargetObject = false;
 
-			TargetPosition = Transform.Position;
+			TargetPosition = WorldPosition;
 			
 		}
 		else
@@ -912,7 +912,7 @@ public partial class Npc : Component, IHealthComponent
 
 			if ( HasWindAbility && (DateTime.Now - lastWindAbilityUse).TotalSeconds >= WindAbilityCooldown )
 			{
-				if ( IsPlayerDetected( target, Transform.Position, DetectionRange ) )
+				if ( IsPlayerDetected( target, WorldPosition, DetectionRange ) )
 				{
 					Random random = new Random();
 					if ( random.NextDouble() <= WindAbilityChance )
@@ -921,7 +921,7 @@ public partial class Npc : Component, IHealthComponent
 						do
 						{
 							// Berechnung des Offsets hinter dem Spieler
-							Vector3 playerForward = target.Transform.Rotation.Forward;
+							Vector3 playerForward = target.WorldRotation.Forward;
 							float offsetDistance = (float)(random.NextDouble() * MaxTeleportRange);
 							randomOffset = -playerForward * offsetDistance;
 
@@ -933,15 +933,15 @@ public partial class Npc : Component, IHealthComponent
 							randomOffset += new Vector3( offsetX, offsetY, offsetZ );
 						} while ( randomOffset.Length < 3 ); // Mindestens 10 Einheiten entfernt
 
-						Vector3 targetPosition = target.Transform.Position + randomOffset;
+						Vector3 targetPosition = target.WorldPosition + randomOffset;
 
 						// Überprüfen, ob der Zielort innerhalb der maximalen Reichweite liegt
-						if ( (targetPosition - target.Transform.Position).Length <= MaxTeleportRange )
+						if ( (targetPosition - target.WorldPosition).Length <= MaxTeleportRange )
 						{
-							Transform.Position = targetPosition;
+							WorldPosition = targetPosition;
 
 							// Spiele den Sound an der neuen Position des NPCs ab
-							Sound.Play( "/sounds/chargedattack.sound", Transform.Position );
+							Sound.Play( "/sounds/chargedattack.sound", WorldPosition );
 
 							// Aktualisiere den letzten Aktivierungszeitpunkt
 							lastWindAbilityUse = DateTime.Now;
@@ -961,7 +961,7 @@ public partial class Npc : Component, IHealthComponent
 					CreateFireDamageArea();
 
 					// Spiele den Sound für die Feuerfähigkeit ab
-					Sound.Play( "/sounds/fireattack.sound", Transform.Position );
+					Sound.Play( "/sounds/fireattack.sound", WorldPosition );
 
 					// Aktualisiere den letzten Aktivierungszeitpunkt
 					lastFireAbilityUse = DateTime.Now;
@@ -976,7 +976,7 @@ public partial class Npc : Component, IHealthComponent
 	private void CreateFireDamageArea()
 	{
 		// Finde alle Spieler im Schadensbereich
-		var playersInRange = FindPlayersInRange( Transform.Position, FireDamageRadius );
+		var playersInRange = FindPlayersInRange( WorldPosition, FireDamageRadius );
 
 		// Füge allen Spielern im Bereich Schaden zu
 		foreach ( var player in playersInRange )
@@ -984,7 +984,7 @@ public partial class Npc : Component, IHealthComponent
 			var healthComponent = player.GetComponent<IHealthComponent>();
 			if ( healthComponent != null )
 			{
-				healthComponent.TakeDamage( DamageType.fire, FireDamage, Transform.Position, Vector3.Zero, Guid.Empty, player.Id );
+				healthComponent.TakeDamage( DamageType.fire, FireDamage, WorldPosition, Vector3.Zero, Guid.Empty, player.Id );
 				
 			}
 		}
@@ -1033,7 +1033,7 @@ public partial class Npc : Component, IHealthComponent
 	{
 		if ( !GameObject.IsValid() ) return false;
 
-		return target.Transform.Position.Distance( Transform.Position ) <= range;
+		return target.WorldPosition.Distance( WorldPosition ) <= range;
 	}
 	public void SetHealthBasedOnLevel()
 	{
@@ -1090,9 +1090,9 @@ public partial class Npc : Component, IHealthComponent
 		if ( !target.IsValid() )
 			return TargetPosition;
 
-		var targetPosition = target.Transform.Position;
+		var targetPosition = target.WorldPosition;
 
-		var direction = (Transform.Position - targetPosition).Normal;
+		var direction = (WorldPosition - targetPosition).Normal;
 		var offset = FollowingTargetObject ? direction * AttackRange  / 2f : direction * VisionRange ;
 		var wishPos = targetPosition + offset;
 
@@ -1245,9 +1245,9 @@ public partial class Npc : Component, IHealthComponent
 
 			LifeState = LifeState.Dead;
 			
-			var zombie = ZombieRagedol.Clone( this.GameObject.Transform.Position, this.GameObject.Transform.Rotation );
+			var zombie = ZombieRagedol.Clone( this.GameObject.WorldPosition, this.GameObject.WorldRotation );
 			zombie.NetworkSpawn();
-			SpawnItemAtPosition( this.GameObject.Transform.Position );
+			SpawnItemAtPosition( this.GameObject.WorldPosition );
 			
 
 			KillerId = attackerId;
@@ -1287,7 +1287,7 @@ public partial class Npc : Component, IHealthComponent
 			if ( DeathSounds != null )
 			{
 				
-				Sound.Play( DeathSounds, Player.Local.Head.Transform.Position );
+				Sound.Play( DeathSounds, Player.Local.Head.WorldPosition );
 			}
 			killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );
 			killerPlayer.AddVyndalium( vyndaliumPointsToAdd );
@@ -1295,7 +1295,7 @@ public partial class Npc : Component, IHealthComponent
 
 			if ( Hitprefab != null && this.GameObject != null )
 			{
-				GameObject vyndaliumHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 30, 0, 25 ) );
+				GameObject vyndaliumHitInfo = Hitprefab.Clone( this.GameObject.WorldPosition + new Vector3( 30, 0, 25 ) );
 				if ( vyndaliumHitInfo != null )
 				{
 					FaceThing vyndaliumFaceThing = vyndaliumHitInfo.Components.Get<FaceThing>();
@@ -1323,7 +1323,7 @@ public partial class Npc : Component, IHealthComponent
 					
 				}
 
-				GameObject xpHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 0, 0, 50 ) );
+				GameObject xpHitInfo = Hitprefab.Clone( this.GameObject.WorldPosition + new Vector3( 0, 0, 50 ) );
 				if ( xpHitInfo != null )
 				{
 					FaceThing xpFaceThing = xpHitInfo.Components.Get<FaceThing>();

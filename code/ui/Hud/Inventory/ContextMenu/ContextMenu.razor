@@ -101,19 +101,25 @@
                                onclick=@(() => MoveToBackpackUpgrade(_item)) />
         }
     }
-    else if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Armor)
+    else if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Armor)
     {
-        @if (_item != null && Player.Local.Inventory.BackpackItems.Contains(_item) && !_item.IsMaterial && !_item.IsPotion)
+        @if (_item != null && Player.Local.Inventory.BackpackItems.Contains(_item) && !_item.IsMaterial && !_item.IsPotion && !_item.IsAspect)
         {
             <ContextMenuOption Description="Move to Upgrade"
                             ImagePath="ui/hud/shop.png"
                             onclick=@(() => Upgrade(_item)) />
         }
+        else if (_item != null && _item.IsAspect)
+        {
+            <ContextMenuOption Description="Move to Aspect Slot"
+                            ImagePath="ui/hud/aspect.png"
+                            onclick=@(() => MoveToAspectSlot(_item)) />
+        }
         else if (_item != null && !_item.IsMaterial && !_item.IsPotion)
         {
             <ContextMenuOption Description="Move to Backpack"
-                               ImagePath="ui/hud/inventory.png"
-                               onclick=@(() => MoveToBackpackUpgrade(_item)) />
+                            ImagePath="ui/hud/inventory.png"
+                            onclick=@(() => MoveToBackpackUpgrade(_item)) />
         }
     }
 	
@@ -163,6 +169,15 @@
 	private static ContextMenu _instance;
 	private ItemComponent _item;
 	private List<ItemComponent> selectedItems = new();
+         private void MoveToAspectSlot(ItemComponent item)
+        {
+           
+            
+            Player.Local.Inventory.MoveItemFromAspectToBackpack(item);
+                
+              
+            
+        }
         private void ToggleFavorite(ItemComponent item)
         {
             if (item == null) return;
@@ -202,6 +217,7 @@
     {
         Player.Local.Inventory.MoveItemToUpgrade(item);
     }
+
      public void MoveToBackpackUpgrade(ItemComponent item)
     {
         

@@ -553,7 +553,29 @@ public sealed class Inventory : Component
 			}
 		}
 	}
+	public void MoveItemFromAspectToBackpack( ItemComponent item )
+	{
+		if ( item == null ) return;
+
+		if ( _backpackItems.Contains( item ) )
+		{
+			int freeSlot = _aspectItems.IndexOf( null );
+			if ( freeSlot != -1 )
+			{
+				int itemIndex = _backpackItems.IndexOf( item );
+				_backpackItems[itemIndex] = null; // Setze den Slot im Aspekt auf null
+				_aspectItems[freeSlot] = item;
+				item.State = ItemState.Aspect;
+				item.GameObject.Enabled = false;
+			}
+			else
+			{
+				Hudmaster.Instance.ShowNotification( "No Slots in Backpack available.", "/ui/hud/exit.gif" );
+			}
+		}
+	}
 	
+
 	public void MoveItemToBackpack( ItemComponent item )
 	{
 		if ( item == null ) return;

@@ -258,7 +258,7 @@ public class BaseGun : WeaponComponent, IUse
 				var ownerPlayer = Owner as Player;
 				if ( ownerPlayer != null && ownerPlayer.PlyCamera != null && ownerPlayer.CharacterController != null )
 				{
-					var forward = ownerPlayer.PlyCamera.Transform.Rotation.Forward; // Verwenden Sie die Vorwärtsrichtung der Kamera
+					var forward = ownerPlayer.PlyCamera.WorldRotation.Forward; // Verwenden Sie die Vorwärtsrichtung der Kamera
 					float chargePercentage = chargeComponent.Charge; // Ladezustand in Prozent (0-1)
 					float speedMultiplier = 2000f * chargePercentage; // Passen Sie die Geschwindigkeit nach Bedarf an
 
@@ -271,11 +271,11 @@ public class BaseGun : WeaponComponent, IUse
 					// Rendern Sie den Effekt hinter dem Spieler
 					if ( Ragdoll != null )
 					{
-						var ragdoll = Ragdoll.Clone( Transform.Position );
+						var ragdoll = Ragdoll.Clone( WorldPosition );
 						if ( ragdoll != null )
 						{
-							ragdoll.Transform.Rotation = Transform.Rotation;
-							ragdoll.Transform.Position = Transform.Position;
+							ragdoll.WorldRotation = WorldRotation;
+							ragdoll.WorldPosition = WorldPosition;
 							ragdoll.NetworkSpawn();
 						}
 					}
@@ -335,11 +335,11 @@ public class BaseGun : WeaponComponent, IUse
 			
 
 			// Berechne die Flugbahn des Messers
-			Vector3 direction = Owner.PlyCamera.Transform.Rotation.Forward;
+			Vector3 direction = Owner.PlyCamera.WorldRotation.Forward;
 			
 
 			// Definiere die Start- und Endposition des Traces
-			var startPos = Owner.PlyCamera.Transform.Position;
+			var startPos = Owner.PlyCamera.WorldPosition;
 			var endPos = startPos + direction * 5000f;
 
 			// Führe einen Trace aus, um zu überprüfen, ob das Messer etwas trifft
@@ -575,11 +575,11 @@ public class BaseGun : WeaponComponent, IUse
 
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
-		var playerPosition = player.PlyCamera.Transform.Position;
-		var forwardDirection = player.PlyCamera.Transform.Rotation.Forward;
+		var playerPosition = player.PlyCamera.WorldPosition;
+		var forwardDirection = player.PlyCamera.WorldRotation.Forward;
 
 		// Berechnen Sie die Startposition 50 Einheiten vor dem Spieler und 25 Einheiten nach links
-		var cameraRight = player.PlyCamera.Transform.Rotation.Right;
+		var cameraRight = player.PlyCamera.WorldRotation.Right;
 		var startPos = playerPosition + forwardDirection * 50 - cameraRight * 25;
 
 		// Berechnen Sie die Endposition 50 Einheiten vor dem Spieler und 25 Einheiten nach rechts
@@ -721,8 +721,8 @@ public class BaseGun : WeaponComponent, IUse
 		Owner.ApplyRecoil( Recoil );
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
-		var startPos = Owner.PlyCamera.Transform.Position;
-		var direction = Owner.PlyCamera.Transform.Rotation.Forward;
+		var startPos = Owner.PlyCamera.WorldPosition;
+		var direction = Owner.PlyCamera.WorldRotation.Forward;
 		direction += Vector3.Random * Spread;
 
 		var endPos = startPos + direction * 5000f;
@@ -862,7 +862,7 @@ public class BaseGun : WeaponComponent, IUse
 			}
 		}
 
-		ReloadSound?.Update( Transform.Position );
+		ReloadSound?.Update( WorldPosition );
 
 		if ( chargeComponent != null && chargeComponent.IsCharging && IsMelee )
 		{
@@ -902,7 +902,7 @@ public class BaseGun : WeaponComponent, IUse
 		// Initialisiere den ReloadSound neu
 		ReloadSound = new( AmmoInClip == 0 ? EmptyReloadSoundSequence : ReloadSoundSequence );
 		
-		ReloadSound.Start( Transform.Position );
+		ReloadSound.Start( WorldPosition );
 	}
 
 	[Broadcast]
@@ -920,7 +920,7 @@ public class BaseGun : WeaponComponent, IUse
 				Log.Warning( "Transform is null." );
 				return;
 			}
-			Sound.Play( EmptyClipSound, Transform.Position );
+			Sound.Play( EmptyClipSound, WorldPosition );
 			IsSoundPlaying = true;
 			SoundDuration = EmptyClipSoundDuration; // Setzen Sie die Dauer des Sounds
 		}

@@ -11,6 +11,7 @@ namespace GeneralGame.HUD
         public int itemsPerPage = 20; // Anzahl der Items pro Seite
         public int totalPages => (int)Math.Ceiling( (double)Player.Local.Inventory.StorageItems.Count / itemsPerPage );
         public ItemComponent upgradeItem;
+        public ItemComponent aspectItem;
         private bool isUpgradePanelVisible = false;
         private int upgradeCost = 1500;
         private Action ConfirmUpgradeAction { get; set; }
@@ -37,6 +38,7 @@ namespace GeneralGame.HUD
             ShowUpgradeConfirmationDialog = true;
             StateHasChanged();
         }
+        
         private bool HasEnoughMaterials( Dictionary<string, int> requiredMaterials )
         {
             foreach ( var material in requiredMaterials )
@@ -174,6 +176,43 @@ namespace GeneralGame.HUD
             else
             {
                 upgradeItem = null; // Setze upgradeItem auf null, wenn kein gültiges Upgrade-Item gefunden wird
+            }
+        }
+        public void CheckAspectAndUpgradeSlot()
+        {
+            if ( shopInteractable == null )
+            {
+                Log.Warning( "shopInteractable ist null." );
+                return;
+            }
+
+            // Überprüfen, ob es gültige Upgrade-Items im Inventar des Spielers gibt
+            bool hasValidUpgradeItem = Player.Local.Inventory.UpgradeItems.Any( item => item != null && item.ItemLevel < 27 );
+            // Überprüfen, ob es gültige Aspekt-Items im Inventar des Spielers gibt
+            bool hasValidAspectItem = Player.Local.Inventory.AspectItems.Any( item => item != null && item.IsAspect );
+
+            isUpgradePanelVisible = hasValidUpgradeItem && hasValidAspectItem;
+
+            if ( isUpgradePanelVisible )
+            {
+                upgradeItem = Player.Local.Inventory.UpgradeItems.FirstOrDefault( item => item != null && item.ItemLevel < 27 );
+                aspectItem = Player.Local.Inventory.AspectItems.FirstOrDefault( item => item != null && item.IsAspect );
+
+                if ( upgradeItem != null && aspectItem != null )
+                {
+                    // Hier können Sie die Upgrade-Kosten basierend auf dem Item-Level berechnen
+                    upgradeCost = CalculateUpgradeCost( upgradeItem.ItemLevel, upgradeItem.Tier );
+                    SetSuccessChance();
+                }
+                else
+                {
+                    Log.Warning( "Kein gültiges Upgrade- oder Aspekt-Item gefunden." );
+                }
+            }
+            else
+            {
+                upgradeItem = null; // Setze upgradeItem auf null, wenn kein gültiges Upgrade-Item gefunden wird
+                aspectItem = null; // Setze aspectItem auf null, wenn kein gültiges Aspekt-Item gefunden wird
             }
         }
 

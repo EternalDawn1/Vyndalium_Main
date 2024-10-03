@@ -29,18 +29,18 @@ public sealed class Zombie : Component, IHealthComponent
 	{
 		AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
 		AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
-		var target = player.Transform.Position;
+		var target = player.WorldPosition;
 		player = Scene.GetAllComponents<Player>().FirstOrDefault();
 		
 		UpdateAnimtions();
-		if (Vector3.DistanceBetween(target, GameObject.Transform.Position ) < 80f)
+		if (Vector3.DistanceBetween(target, GameObject.WorldPosition ) < 80f)
 		{
 			agent.Stop();
 			NormalTrace();
 		}
 		else
 		{
-			agent.MoveTo(player.Transform.Position);
+			agent.MoveTo(player.WorldPosition);
 		}
 	}
 	
@@ -49,12 +49,12 @@ public sealed class Zombie : Component, IHealthComponent
 	{
 		AnimationHelper.WithWishVelocity(agent.WishVelocity);
 		AnimationHelper.WithVelocity(agent.Velocity);
-		var targetRot = Rotation.LookAt(player.GameObject.Transform.Position.WithZ(Transform.Position.z) - Body.Transform.Position);
-		Body.Transform.Rotation = Rotation.Slerp(Body.Transform.Rotation, targetRot, Time.Delta * 5.0f);
+		var targetRot = Rotation.LookAt(player.GameObject.WorldPosition.WithZ(WorldPosition.z) - Body.WorldPosition);
+		Body.WorldRotation = Rotation.Slerp(Body.WorldRotation, targetRot, Time.Delta * 5.0f);
 	}
 	void NormalTrace()
 	{
-		var tr = Scene.Trace.Ray(Body.Transform.Position, Body.Transform.Position + Body.Transform.Rotation.Forward * 100).Run();
+		var tr = Scene.Trace.Ray(Body.WorldPosition, Body.WorldPosition + Body.WorldRotation.Forward * 100).Run();
 
 		if (tr.Hit && tr.GameObject.Tags.Has("player") && timeSinceHit > 1.0f && GameObject is not null)
 		{
@@ -66,7 +66,7 @@ public sealed class Zombie : Component, IHealthComponent
 			AnimationHelper.Target.Set("b_attack", true);
 			timeSinceHit = 0;
 
-			Sound.Play( HitSounds, Transform.Position );
+			Sound.Play( HitSounds, WorldPosition );
 		}
 
 	}
@@ -94,7 +94,7 @@ public sealed class Zombie : Component, IHealthComponent
 		if ( Health <= 0f )
 		{
 			LifeState = LifeState.Dead;
-			var zombie = ZombieRagedol.Clone( this.GameObject.Transform.Position, this.GameObject.Transform.Rotation );
+			var zombie = ZombieRagedol.Clone( this.GameObject.WorldPosition, this.GameObject.WorldRotation );
 			zombie.NetworkSpawn();
 			GameObject.Destroy();
 		}

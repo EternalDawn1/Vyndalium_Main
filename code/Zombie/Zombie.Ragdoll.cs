@@ -71,7 +71,7 @@ public partial class Npc
 			rootPosition = (leftFoot + rightFoot) / 2f;
 		}
 
-		var frontPosition = Ragdoll.PhysicsGroup.Pos + Transform.Rotation.Forward;
+		var frontPosition = Ragdoll.PhysicsGroup.Pos + WorldRotation.Forward;
 
 		if ( Model.GetAttachment( "hand_L" ) != null )
 		{
@@ -106,11 +106,11 @@ public partial class Npc
 				if ( groundTrace.Hit )
 				{
 					_isTransitioning = true;
-					Transform.Position = rootPosition;
+					WorldPosition = rootPosition;
 					_lastPosition = rootPosition;
 
 					MoveHelper.Velocity = 0f;
-					Transform.Rotation = Rotation.LookAt( frontPosition.WithZ( 0f ) - rootPosition.WithZ( 0f ), Vector3.Up );
+					WorldRotation = Rotation.LookAt( frontPosition.WithZ( 0f ) - rootPosition.WithZ( 0f ), Vector3.Up );
 
 					foreach ( var body in Ragdoll.PhysicsGroup.Bodies )
 					{
@@ -145,7 +145,7 @@ public partial class Npc
 
 				if ( _unragdoll.Passed <= transition )
 				{
-					Transform.Position = _lastPosition;
+					WorldPosition = _lastPosition;
 
 					var time = _unragdoll.Passed / transition;
 
@@ -169,12 +169,12 @@ public partial class Npc
 					MoveHelper.Enabled = true;
 
 					MoveHelper.Velocity = 0f;
-					Transform.Rotation = Rotation.LookAt( frontPosition.WithZ( 0f ) - rootPosition.WithZ( 0f ), Vector3.Up );
+					WorldRotation = Rotation.LookAt( frontPosition.WithZ( 0f ) - rootPosition.WithZ( 0f ), Vector3.Up );
 
 					if ( GameObject != Model?.GameObject )
 					{
-						Model.Transform.LocalPosition = Vector3.Zero;
-						Model.Transform.LocalRotation = Rotation.Identity;
+						Model.LocalPosition = Vector3.Zero;
+						Model.LocalRotation = Rotation.Identity;
 					}
 
 					_puppet?.Destroy();

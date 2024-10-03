@@ -5,7 +5,7 @@ public sealed class FaceThing : Component
 	public GameObject Thing { get; set; }
 	protected override void OnUpdate()
 	{
-		Transform.Rotation = Rotation.LookAt( Transform.Position - Thing.Transform.Position );
+		WorldRotation = Rotation.LookAt( WorldPosition - Thing.WorldPosition );
 	}
 	/// <summary>
 	/// Made from TrollFaceReallife47 thanks <3

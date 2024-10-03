@@ -74,7 +74,7 @@ public sealed class ViewModel : Component
 		Transform.LocalPosition = Vector3.Zero;
 		CurRotation = Rotation.Identity;
 		CurSmoothRotate = Rotation.Identity;
-		LastCameraCalc = Camera.Transform.Rotation;
+		LastCameraCalc = Camera.WorldRotation;
 
 		if ( PlayerController.IsValid() )
 		{
@@ -136,9 +136,9 @@ public sealed class ViewModel : Component
 
 		CalcRotateSmooth();
 
-		Transform.LocalRotation = CurRotation;
-		Transform.LocalPosition = CurPos;
-		Transform.LocalScale = Vector3.One;
+		LocalRotation = CurRotation;
+		LocalPosition = CurPos;
+		LocalScale = Vector3.One;
 		//base.OnUpdate();
 	}
 
@@ -147,7 +147,7 @@ public sealed class ViewModel : Component
 		float CurX;
 		float CurY;
 
-		Rotation curCameraCalc = Camera.Transform.Rotation;
+		Rotation curCameraCalc = Camera.WorldRotation;
 
 		CurX = Angles.NormalizeAngle( LastCameraCalc.Yaw() - curCameraCalc.Yaw() );
 		CurY = Angles.NormalizeAngle( LastCameraCalc.Pitch() - curCameraCalc.Pitch() );

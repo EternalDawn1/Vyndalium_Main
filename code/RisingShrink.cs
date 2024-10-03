@@ -7,9 +7,9 @@ public sealed class RisingShrink : Component
 
 	protected override void OnUpdate()
 	{
-		Transform.Position += Vector3.Up * Time.Delta * RiseSpeed;
-		Transform.Scale -= Vector3.One * Time.Delta * ShrinkSpeed;
-		if(Transform.Scale.x < 0.1f)
+		WorldPosition += Vector3.Up * Time.Delta * RiseSpeed;
+		WorldScale -= Vector3.One * Time.Delta * ShrinkSpeed;
+		if(WorldScale.x < 0.1f)
 		{
 			GameObject.Destroy();
 		}

@@ -23,50 +23,22 @@ public enum Tier
 	SS,
 	SSS,
 }
-
-
-public class SerializedItemComponent
+public enum AspectType
 {
-	public int Id { get; set; }
-	public string Name { get; set; }
-	public float DMG { get; set; }
-	public float HE { get; set; }
-	public float Armor { get; set; }
-	public float STG { get; set; }
-	public float DEX { get; set; }
-	public float PER { get; set; }
-	public float INT { get; set; }
-	public float Mana { get; set; }
-	public float Health { get; set; }
-	public float CritHitDamage { get; set; }
-	public float CritHitChance { get; set; }
-	public float AbilityHaste { get; set; }
-	public float AttackPower { get; set; }
-	public float MagicPower { get; set; }
-	public float AttackSpeed { get; set; }
-	public float MoveSpeed { get; set; }
-	public float MagicDefense { get; set; }
-	public float Evasion { get; set; }
-	public float Block { get; set; }
-	public float BonusEXP { get; set; }
-	public float BonusScore { get; set; }
-	public float BonusVyndalium { get; set; }
-	public float Tenacity { get; set; }
-	public float StunResistance { get; set; }
-	public float BlindResistance { get; set; }
-	public float BleedResistance { get; set; }
-	public float SlowResistence { get; set; }
-	public float FireResistence { get; set; }
-	public float PoisonResistence { get; set; }
-	public float IceResistence { get; set; }
-	public float LightningResistence { get; set; }
-	public float HolyResistence { get; set; }
-	public float MinArmorValue { get; set; }
-	public float MaxArmorValue { get; set; }
-	public float MinAttackValue { get; set; }
-	public float MaxAttackValue { get; set; }
-
+	None,
+	Fire,
+	Water,
+	Ice,
+	Air,
+	Earth,
+	Shadow,
+	Holy,
+	Bleed,
+	Poison
 }
+
+
+
 
 
 
@@ -86,57 +58,27 @@ public class ItemComponent : Component
 	public bool IsAccessory { get; set; }
 	[Property , Group( "Type" )]
 	public bool IsConsumable { get; set; }
-
-	public bool IsAvailableInLevel( int level )
-	{
-		return level >= RequiredLevel;
-	}
+	[Property, Group( "Type" )] public bool IsAspect { get; set; }
+	
 	public bool CanEquip( int playerLevel )
 	{
 		return playerLevel >= RequiredLevel;
 	}
+	
 
 	[Property]public int BuyPrice { get; set; }
-	public bool IsSold { get; set; } = false;
+
 	[Property ,Group("Main"),Range(0,100)]public int RequiredLevel { get; set; }
 	
 	
 	
 
-	public int CalculateBuyPrice()
-	{
-		int basePrice = 0;
-		int additionalPricePerStat = 100;
-		int numberOfStats = GetNumberOfStats();
-
-		switch ( Tier )
-		{
-			case Tier.C:
-				basePrice = 0;
-				break;
-			case Tier.B:
-				basePrice = 150;
-				break;
-			case Tier.A:
-				basePrice = 300;
-				break;
-			case Tier.S:
-				basePrice = 600;
-				break;
-			case Tier.SS:
-				basePrice = 900;
-				break;
-			case Tier.SSS:
-				basePrice = 1500;
-				break;
-		}
-		int levelPrice = CalculateLevelPrice( ItemLevel );
-		BuyPrice = basePrice + (numberOfStats * additionalPricePerStat) + levelPrice;
-		return BuyPrice;
-	}
+	
 	public ItemComponent()
 	{
-		InitializeStats();	
+		InitializeStats();
+		IsAspect = false;
+		Aspect = AspectType.None;
 	}
 	private void InitializeStats()
 	{
@@ -146,6 +88,8 @@ public class ItemComponent : Component
 			_isDMGInitialized = true;
 		}
 	}
+	
+	[Property,]public AspectType Aspect { get; set; }
 	/// <summary>
 	/// The name of the item.
 	/// </summary>
@@ -221,15 +165,15 @@ public class ItemComponent : Component
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float LightningResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float HolyResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float ShadowResistence { get; set; }
-	[Property, Group( "Weapon" )]
+
 	
 
 
 
-	public int Price { get; set; }
+	
 
 
-	public bool IsEquipped { get; set; }
+
 
 	public class TierClass
 	{
@@ -298,15 +242,12 @@ public class ItemComponent : Component
 	/// <summary>
 	/// If the item is in the player's inventory (this includes backpack and equipped items).
 	/// </summary>
-	public bool InInventory
-	{
-		get => State != ItemState.None;
-	}
+
 
 	/// <summary>
 	/// Whether the item can be sold.
 	/// </summary>
-	public bool IsSellable => SellPrice != -1;
+
 
 	/// <summary>
 	/// Whether the item can be sold.
@@ -338,19 +279,10 @@ public class ItemComponent : Component
 			
 		}
 	}
-	public ItemComponent Split( int amount )
-	{
-		if ( amount <= 0 || amount >= Count )
-			return null;
 
-		Count -= amount;
-		var newItem = (ItemComponent)GameObject.Clone();
-		newItem.Count = amount;
-		return newItem;
-	}
 	public TierClass ItemTier { get; set; }
 	
-	[Property]public List<int> Stats { get;  set; } = new List<int>();
+
 
 	public int GenerateRandomDMG( Tier tier )
 	{
@@ -797,10 +729,7 @@ public class ItemComponent : Component
 			ItemTier = new TierClass(); // oder eine geeignete Standardinitialisierung
 		}
 
-		if ( Stats == null )
-		{
-			Stats = new List<int>();
-		}
+		
 
 		//GenerateRandomStats();
 	}
@@ -844,11 +773,5 @@ public class ItemComponent : Component
 		
 	}
 
-	protected override void OnDestroy()
-	{
-		if ( IsProxy || !Game.IsPlaying )
-			return;
-
-		Player.Local?.Inventory?.ClearItem( this );
-	}
+	
 }

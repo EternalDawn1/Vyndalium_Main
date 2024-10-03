@@ -15,7 +15,7 @@ namespace GeneralGame
             if ( player != null )
             {
                 GiveAmmoToPlayer( player );
-                Sound.Play( TriggerSoundPath, Transform.Position );
+                Sound.Play( TriggerSoundPath, WorldPosition );
                 GameObject.Destroy();
             }
         }

@@ -28,12 +28,12 @@ public class EntThrow : Component
 			
 			GameObject.Components.Get<ModelRenderer>().Destroy();
 
-			var radSphere = new Sphere( Transform.Position, range );
+			var radSphere = new Sphere( WorldPosition, range );
 			var targets = Scene.FindInPhysics( radSphere );
 			foreach ( var target in targets )
 			{
 				
-				var trace = Scene.Trace.Ray( Transform.Position, target.Transform.Position )
+				var trace = Scene.Trace.Ray( WorldPosition, target.WorldPosition )
 					.IgnoreGameObjectHierarchy( GameObject.Root )
 					.UsePhysicsWorld()
 					.UseHitboxes()
@@ -52,10 +52,10 @@ public class EntThrow : Component
 			}
 
 			var p = new SceneParticles( Scene.SceneWorld, explosionEffect );
-			p.SetControlPoint( 0, Transform.Position );
+			p.SetControlPoint( 0, WorldPosition );
 			p.PlayUntilFinished( Task );
 
-			Sound.Play( explodeSound, Transform.Position );
+			Sound.Play( explodeSound, WorldPosition );
 		}
 
 		if ( removeTime ) { GameObject.Destroy(); }
