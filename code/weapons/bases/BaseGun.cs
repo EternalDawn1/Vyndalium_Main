@@ -331,32 +331,12 @@ public class BaseGun : WeaponComponent, IUse
 			
 
 			var player = Player.Local;
-			GameObject knife = new GameObject();
-			knife.Transform.Position = Owner.PlyCamera.Transform.Position;
-
-			// Füge einen Rigidbody hinzu, um die Physik zu handhaben
-			Rigidbody rb = knife.Components.Create<Rigidbody>();
-			rb.RigidbodyFlags = RigidbodyFlags.DisableCollisionSounds;
-			rb.Gravity = false;
-			rb.Components.Create<ModelRenderer>().Model = Model.Load( "models/weapons/sbox_melee_trenchknife/w_trenchknife.vmdl" );
-
-			// Füge einen Collider hinzu, um Kollisionen zu erkennen
-			ModelCollider collider = knife.Components.Create<ModelCollider>();
-			collider.IsTrigger = true;
-			collider.Model = Model.Load( "models/glock/w/w_glock20lod0.vmdl" );
-
-			// Füge einen TrailRenderer hinzu, um einen visuellen Effekt zu erzeugen
-			TrailRenderer trailRenderer = knife.Components.Create<TrailRenderer>();
-			trailRenderer.Color = Color.Red;
-			trailRenderer.Width = 0.6f;
-			trailRenderer.LifeTime = 0.4f;
-
-			// Setze die Fluggeschwindigkeit des Messers
-			float knifeSpeed = 1500f;
+			
+			
 
 			// Berechne die Flugbahn des Messers
 			Vector3 direction = Owner.PlyCamera.Transform.Rotation.Forward;
-			rb.Velocity = direction * knifeSpeed;
+			
 
 			// Definiere die Start- und Endposition des Traces
 			var startPos = Owner.PlyCamera.Transform.Position;
@@ -464,7 +444,7 @@ public class BaseGun : WeaponComponent, IUse
 				
 				
 			}
-			knife.Destroy( );
+			
 			
 
 
@@ -891,7 +871,7 @@ public class BaseGun : WeaponComponent, IUse
 			{
 				if ( !hasPlayedChargedSound )
 				{
-					Player.Local.PlaySuccessSoundFromPath( "sounds/charged.sound", 1f );
+					Player.Local.PlaySuccessSoundFromPath( "sounds/charged.sound", 0.0125f );
 					hasPlayedChargedSound = true; // Markiere, dass der Sound abgespielt wurde
 				}
 			}
@@ -1109,7 +1089,7 @@ public class ChargeComponent : Component
 			if ( IsFullyCharged() && !HasPlayedChargedSound )
 			{
 				
-				Player.Local.PlaySuccessSoundFromPath( "/sounds/chargedattack.sound", 1f );
+				Player.Local.PlaySuccessSoundFromPath( "/sounds/chargedattack.sound", 0.0125f );
 				HasPlayedChargedSound = true; // Markiere, dass der Sound abgespielt wurde
 			}
 		}

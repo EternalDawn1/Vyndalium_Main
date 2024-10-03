@@ -2,30 +2,40 @@
   "RootObject": {
     "__guid": "8ff97fff-dbad-4fa3-9a06-b209f9bebb52",
     "Flags": 0,
-    "Name": "Fists",
-    "Position": "542.6021,851.7633,164.5038",
+    "Name": "fists",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
-        "__type": "Fists",
+        "__type": "GeneralGame.Fists",
         "__guid": "3790b891-2798-4c00-91c5-d6ce4acf788b",
+        "AimPos": "0,0,0",
+        "AimRotation": "0,0,0,0",
+        "AimRotationOffset": "0,0,0,0",
+        "AmmoType": "Pistol",
+        "ClipSize": 15,
+        "CurRot": "0,0,0,0",
         "Damage": 10,
+        "DamageForce": 5,
         "DamageType": "Serious",
+        "DefaultAmmo": 1,
+        "DeployTime": 0.5,
+        "EmptyReloadTime": 2,
         "FireRate": 3,
-        "fists": {
-          "_type": "component",
-          "component_id": "e862593d-2d5b-47ea-9ae1-83164b6b5212",
-          "go": "21c14c26-524a-470c-810a-cc57a87307d2",
-          "component_type": "SkinnedModelRenderer"
-        },
         "HitForce": 300,
+        "HoldType": "Pistol",
+        "IdlePos": "0,0,0",
+        "IsAuto": false,
+        "IsDeployed": false,
+        "IsMagicWeapon": false,
+        "IsMelee": false,
+        "MeleeCooldown": 1,
+        "MeleeDamage": 10,
+        "MeleeRange": 1.5,
+        "Recoil": "0,0,0",
+        "ReloadTime": 2,
+        "RunRotation": "0,0,0,0",
         "Spread": 0.01,
-        "ViewModelCamera": {
-          "_type": "gameobject",
-          "go": "472de6e1-a1bf-4e96-a1cd-406e8e594eb8"
-        }
+        "Type": "Melee"
       }
     ],
     "Children": [
@@ -35,8 +45,6 @@
         "Name": "fists",
         "Position": "-211.9443,133.2887,-87.86261",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -45,18 +53,28 @@
             "BodyGroups": 21,
             "CreateBoneObjects": false,
             "Model": "models/first_person/first_person_arms.vmdl",
+            "Morphs": {},
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
+  "IsValid": true,
   "__version": 1
 }

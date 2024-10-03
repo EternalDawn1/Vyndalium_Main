@@ -32,6 +32,7 @@ public sealed class Inventory : Component
 	public  int MAX_STORAGE_SLOTS = 100;
 	private const int ItemsPerPage = 20;
 	public const int MAX_UPGRADE_SLOTS = 1;
+	public const int MAX_ASPECT_SLOTS = 1;
 
 
 	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
@@ -39,6 +40,7 @@ public sealed class Inventory : Component
 	[Property] public IReadOnlyList<ItemComponent> StorageBoxItems => _storageBoxItems;
 	[Property]public IReadOnlyList<ItemComponent> StorageItems => _storageItems;
 	[Property] public IReadOnlyList<ItemComponent> UpgradeItems => _upgradeItems;
+	[Property] public IReadOnlyList<ItemComponent> AspectItems => _aspectItems;
 	
 
 	[Property] public readonly  List<ItemComponent> _backpackItems;
@@ -46,6 +48,7 @@ public sealed class Inventory : Component
 	[Property] public readonly List<ItemComponent> _storageBoxItems;
 	[Property] public readonly List<ItemComponent> _storageItems;
 	[Property] public readonly List<ItemComponent> _upgradeItems;
+	[Property] public readonly List<ItemComponent> _aspectItems;
 	
 	
 	public bool RemoveItem( ItemComponent item )
@@ -75,6 +78,14 @@ public sealed class Inventory : Component
 			item.State = ItemState.None;
 			return true;
 		}
+		else if (_aspectItems.Contains(item))
+		{
+			int index = _aspectItems.IndexOf( item );
+			_aspectItems[index] = null;
+			item.State = ItemState.None;
+			return true;
+		}
+		
 		
 		
 		
@@ -390,6 +401,7 @@ public sealed class Inventory : Component
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 		_storageBoxItems = new List<ItemComponent>();
 		_upgradeItems = new List<ItemComponent>( new ItemComponent[MAX_UPGRADE_SLOTS] );
+		_aspectItems = new List<ItemComponent>(new ItemComponent[MAX_ASPECT_SLOTS] );
 		
 	}
 
@@ -411,6 +423,10 @@ public sealed class Inventory : Component
 		else if ( item.State == ItemState.Upgrade )
 		{
 			return _upgradeItems.IndexOf( item );
+		}
+		else if ( item.State == ItemState.Aspect )
+		{
+			return _aspectItems.IndexOf( item );
 		}
 		
 		else 
@@ -632,7 +648,7 @@ public sealed class Inventory : Component
 		{
 			
 			Hudmaster.Instance.ShowNotification( "player level too low.", "/ui/hud/exit.gif" );
-			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.055f );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 			return false;
 		}
 	}
@@ -684,7 +700,7 @@ public sealed class Inventory : Component
 			if ( weaponContainer != null )
 			{
 				weaponContainer.Give( item.GameObject, true );
-				Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.035f );
+				Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.0125f );
 			}
 			return true;
 		}
@@ -692,7 +708,7 @@ public sealed class Inventory : Component
 		{
 			
 			Hudmaster.Instance.ShowNotification( "player level too low", "/ui/hud/exit.gif" );
-			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 
 			return false;
 		}
@@ -719,7 +735,7 @@ public sealed class Inventory : Component
 		if ( equippedItem != item )
 		{
 			Hudmaster.Instance.ShowNotification( "Item is not the equipped item in the expected slot.", "/ui/hud/exit.gif" );
-			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.045f );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 			return false;
 		}
 
@@ -727,14 +743,14 @@ public sealed class Inventory : Component
 		if ( firstFreeSlot == -1 )
 		{
 			Hudmaster.Instance.ShowNotification( "No Place in the Backpack.", "/ui/hud/inventory.png" );
-			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.045f );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 			return false;
 		}
 
 		// Entfernen der Statistiken des Items
 		RemoveEquipmentItem( equipment );
 
-		Player.Local?.PlaySuccessSoundFromPath( "sounds/weapons/weapon_holster4.sound", 0.075f );
+		Player.Local?.PlaySuccessSoundFromPath( "sounds/weapons/weapon_holster4.sound", 0.0125f );
 
 		// Sicherstellen, dass das Item nicht zerstört wird, wenn es unequipped wird
 		if ( equipment.Slot == EquipSlot.Hand )
@@ -869,7 +885,7 @@ public sealed class Inventory : Component
 		if ( weaponContainer != null )
 		{
 			weaponContainer.Give( item.GameObject, true );
-			Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.075f );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.0125f );
 		}
 		else
 		{
@@ -1197,7 +1213,7 @@ public sealed class Inventory : Component
 
 			Log.Error( "Kein freier Slot im Rucksack." );
 			Hudmaster.Instance.ShowNotification( "No Place in the Backpack.", "/ui/hud/inventory.png" );
-			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 		}
 	}
 
@@ -1360,7 +1376,7 @@ public sealed class Inventory : Component
 		else
 		{
 			Hudmaster.Instance.ShowNotification( "no free slot in backpack", "/ui/hud/exit.gif" );
-			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.075f );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 		}
 	}
 	private void UpdateBodygroups()

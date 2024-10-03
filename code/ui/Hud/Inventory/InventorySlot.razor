@@ -124,7 +124,7 @@
 
 	public int? StorageSlotIndex { get; set; } = null;
 	public int? ShopSlotIndex { get; set; } = null;
-
+	public int? AspectSlotIndex { get; set; } = null;
 	public bool IsChestSlot { get; set; } = false;
 
 	//TODO: Add a way to set the slot index from the outside
@@ -276,7 +276,10 @@
 			return true; // Storage slots allow everything!
 		if (StorageSlotIndex != null)
 
-			return true; // Storage slots allow everything!
+			return true;
+		if (AspectSlotIndex != null)
+
+			return true;
 
 		if (EquipSlotIndex != null)
 
@@ -409,6 +412,12 @@
 
 			return;
 
+		}
+		if(AspectSlotIndex != null)
+		{
+			Item = inventory.AspectItems[(int)AspectSlotIndex];
+			StateHasChanged();
+			return;
 		}
 
 
@@ -646,6 +655,14 @@
 			if (targetSlot.BackpackSlotIndex is not null)
 			{
 				var res = inventory.SwapItems(fromSlot.IndependentSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+		}
+		else if (fromSlot.AspectSlotIndex is not null)
+		{
+			if (targetSlot.BackpackSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.AspectSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
 				PlaySound(res ? "drop" : "serror");
 			}
 		}

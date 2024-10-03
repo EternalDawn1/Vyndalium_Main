@@ -312,7 +312,7 @@
         "OnDetect": {
           "__version": 8,
           "__guid": "8d3c2497-0678-4c8c-b986-1b268ff1b74e",
-          "__changeId": 0,
+          "__changeId": 1,
           "UserData": {
             "Title": "On Detect",
             "ReferencedComponentTypes": []
@@ -323,58 +323,16 @@
               "Id": 0,
               "Type": "input",
               "UserData": {
-                "Position": "-64,0"
-              }
-            },
-            {
-              "Id": 1,
-              "Type": "npc.startfollowing",
-              "UserData": {
-                "Position": "272,80"
-              }
-            },
-            {
-              "Id": 4,
-              "Type": "scene.ref",
-              "Properties": {},
-              "UserData": {
-                "Position": "-32,320"
+                "Position": "-60,0"
               }
             }
           ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 1,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 4,
-              "SrcName": "_result",
-              "DstId": 1,
-              "DstName": "npc"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "enemy",
-              "DstId": 1,
-              "DstName": "target"
-            }
-          ],
-          "Defaults": {
-            "$4.component": {
-              "_type": "component",
-              "component_id": "343ea719-e2a6-4c36-8add-0d68f031e949",
-              "go": "939b879f-4387-4260-b9b9-19fed476cde9",
-              "component_type": "Npc"
-            }
-          }
+          "Links": []
         },
         "OnEnemyEscaped": {
           "__version": 8,
           "__guid": "e1eb3753-6b11-46f9-b912-757d64dce89b",
-          "__changeId": 0,
+          "__changeId": 2,
           "UserData": {
             "Title": "On Enemy Escaped",
             "ReferencedComponentTypes": []
@@ -384,48 +342,13 @@
             {
               "Id": 0,
               "Type": "input"
-            },
-            {
-              "Id": 1,
-              "Type": "npc.stopfollow",
-              "UserData": {
-                "Position": "400,64"
-              }
-            },
-            {
-              "Id": 5,
-              "Type": "scene.ref",
-              "Properties": {},
-              "UserData": {
-                "Position": "112,176"
-              }
             }
           ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 1,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 5,
-              "SrcName": "_result",
-              "DstId": 1,
-              "DstName": "npc"
-            }
-          ],
-          "Defaults": {
-            "$5.component": {
-              "_type": "component",
-              "component_id": "343ea719-e2a6-4c36-8add-0d68f031e949",
-              "go": "939b879f-4387-4260-b9b9-19fed476cde9",
-              "component_type": "Npc"
-            }
-          }
+          "Links": []
         },
         "PlayerProximityDistance": 80,
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Dumb",
         "RunSpeed": 110,
         "ScaleStats": true,

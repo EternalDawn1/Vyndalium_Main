@@ -123,8 +123,7 @@
 
     <div class="panel-content" style="opacity: @(currentPanel == PanelType.Weapons ? 1 : 0)">
     <div class="panel-content-text">
-        <div class="panel-content-layout">
-                
+        <div class="panel-content-layout">  
             <div class="upgrade-section">
                     <div class="title" style="color:blue">Upgrade</div>
               
@@ -135,8 +134,9 @@
                                         var item = Player.Local.Inventory.BackpackItems[index];
                                         <InventorySlot Item=@item BackpackSlotIndex=@index />
                                     }
-                    </div>
+                        </div>
                     <div class="upgrade-slot">
+                        <div class="title4" style="color:blue">Equipment</div>
                         <div class="items2">
                             @for (var index = 0; index < Player.Local.Inventory.UpgradeItems.Count; index++)
                             {
@@ -156,41 +156,55 @@
                     @if (isUpgradePanelVisible)
                     {
                         <div class="upgrade-panel @(isUpgradePanelVisible ? "visible" : "")">
-                            <p class="upgrade-cost">Upgrade Cost: <p class="number">$@upgradeCost</p></p>
-                           
-                            
-                            
+                            <p class="upgrade-cost">Upgrade Cost:
+                            <p class="number">$@upgradeCost</p>
+                            </p>
                             <p class="upgrade-level">lvl. @upgradeItem.ItemLevel >>> lvl. @(upgradeItem.ItemLevel + 1)</p>
                             @{
                                 var (totalMaterialsText, missingMaterialsText) = GetRequiredMaterialsText();
                             }
-
-                            <p class="upgrade-level" style="font-size: 16px; flex-direction: column; background-color: rgb(109, 109, 109);">
+                            <p class="upgrade-level"
+                                style="font-size: 16px; flex-direction: column; background-color: rgb(109, 109, 109);">
                                 Required Materials:
-                                <div class="total-materials">
-                                    <p class="number">@totalMaterialsText</p>
+                            <div class="total-materials">
+                                <p class="number">@totalMaterialsText</p>
+                            </div>
+                                @if (!string.IsNullOrEmpty(missingMaterialsText))
+                                {
+                                <div class="missing-materials">
+                                    <p class="number">@missingMaterialsText</p>
                                 </div>
-                                    @if (!string.IsNullOrEmpty(missingMaterialsText))
-                                    {
-                                    <div class="missing-materials">
-                                        <p class="number">@missingMaterialsText</p>
-                                    </div>
-                                    }
+                                }
                             </p>
-                            
-                           <p class="upgrade-level"
-                            style="background-color: @(GetBackgroundColor(upgradeItem?.SuccessChance ?? 0)); font-size: 20px; height: 80%;">
+                            <p class="upgrade-level"
+                                style="background-color: @(GetBackgroundColor(upgradeItem?.SuccessChance ?? 0)); font-size: 20px; height: 80%;">
                                 <span id="status-text" class="@statusClass">@statusText</span>
-                                <p class="number">@((upgradeItem != null) ? $"{upgradeItem.SuccessChance * 100:F1}%" : "0%")</p>
+                            <p class="number">@((upgradeItem != null) ? $"{upgradeItem.SuccessChance * 100:F1}%" : "0%")</p>
                             </p>
-                            
-                            <button class="upgrade-button" @onclick="@UpgradeItem"
+                            <button class="upgrade-button" @onclick="@(() => ShowUpgradeConfirmation(UpgradeItem))"
                                 disabled="@(Player.Local.Vyndalium < upgradeCost || upgradeItem.ItemLevel >= 27)">Upgrade</button>
-                            <p class="upgrade-balance">Balance:
-                                <p class="number"> @Player.Local.Vyndalium</p>
+                            
                             </p>
-                            
-                            
+                        </div>
+                    }
+                    @if (ShowUpgradeConfirmationDialog)
+                    {
+                        <div class="confirmation-dialog">
+                            <div class="confirmation-content">
+                                <p>Are you sure you want to upgrade this item?</p>
+                                <p>This action cannot be undone!</p>
+                                <button class="confirmation-button" @onclick="@ConfirmUpgrade">Yes</button>
+                                <button class="confirmation-button" @onclick="@CancelUpgrade">No</button>
+                            </div>
+                        </div>
+                    }
+                    @if (ShowUpgradeResultDialog)
+                    {
+                        <div class="upgrade-result-dialog">
+                            <div class="upgrade-result-content @UpgradeResultClass">
+                                <p>@UpgradeResultMessage</p>
+                                <button class="upgrade-result-button" @onclick="@CloseUpgradeResult">Close</button>
+                            </div>
                         </div>
                     }
 
@@ -207,6 +221,42 @@
     <div class="panel-content" style="opacity: @(currentPanel == PanelType.Armor ? 1 : 0)">
         <div class="panel-content-text">
             <div class="panel-content-layout">
+                <div class="upgrade-section">
+                    <div class="title" style="color:blue">Aspect</div>
+                    <div class="items2">
+                        @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+                        {
+                            var item = Player.Local.Inventory.BackpackItems[index];
+                            <InventorySlot Item=@item BackpackSlotIndex=@index />
+                        }
+                    </div>
+                    <div class="upgrade-slot">
+                        <div class="title4" style="color:blue">Equipment</div>
+                        <div class="items2">
+                            @for (var index = 0; index < Player.Local.Inventory.UpgradeItems.Count; index++)
+                            {
+                                var item = Player.Local.Inventory.UpgradeItems[index];
+                                <InventorySlot Item=@item UpgradeSlotIndex=@index />
+                            }
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="upgrade-slot" style="left: 65%; background-color: rgba(255, 0, 0, 0); top: 45%;">
+                        <div class="title4" style="color:blue">Aspect</div>
+                        <div class="items2">
+                            @for (var index = 0; index < Player.Local.Inventory.AspectItems.Count; index++)
+                            {
+                                var item = Player.Local.Inventory.AspectItems[index];
+                                <InventorySlot Item=@item AspectSlotIndex=@index />
+                            }
+
+                        </div>
+                    </div>
+                        
+                    <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
+                    
+                </div>
                 <!-- Armor Content -->
             </div>
         </div>

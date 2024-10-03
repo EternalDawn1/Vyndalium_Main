@@ -12,6 +12,7 @@ public enum ItemState
 	Shop,
 	Upgrade,
 	Materials,
+	Aspect,
 }
 public enum Tier 
 {

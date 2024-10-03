@@ -101,6 +101,21 @@
                                onclick=@(() => MoveToBackpackUpgrade(_item)) />
         }
     }
+    else if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel && ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Armor)
+    {
+        @if (_item != null && Player.Local.Inventory.BackpackItems.Contains(_item) && !_item.IsMaterial && !_item.IsPotion)
+        {
+            <ContextMenuOption Description="Move to Upgrade"
+                            ImagePath="ui/hud/shop.png"
+                            onclick=@(() => Upgrade(_item)) />
+        }
+        else if (_item != null && !_item.IsMaterial && !_item.IsPotion)
+        {
+            <ContextMenuOption Description="Move to Backpack"
+                               ImagePath="ui/hud/inventory.png"
+                               onclick=@(() => MoveToBackpackUpgrade(_item)) />
+        }
+    }
 	
     else
     {

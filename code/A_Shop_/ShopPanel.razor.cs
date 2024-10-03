@@ -13,10 +13,75 @@ namespace GeneralGame.HUD
         public ItemComponent upgradeItem;
         private bool isUpgradePanelVisible = false;
         private int upgradeCost = 1500;
-
+        private Action ConfirmUpgradeAction { get; set; }
+        private bool ShowUpgradeConfirmationDialog { get; set; }
+        private bool ShowUpgradeResultDialog { get; set; }
+        private string UpgradeResultMessage { get; set; }
+        private string UpgradeResultClass { get; set; }
         private string statusText = "Success Chance:";
         private string statusClass = "visible";
-    
+        private bool upgradeSuccessful;
+        private void ShowUpgradeConfirmation( Action confirmAction )
+        {
+            var requiredMaterials = GetRequiredMaterials( upgradeItem.ItemLevel, upgradeItem.Tier );
+
+            if ( !HasEnoughMaterials( requiredMaterials ) )
+            {
+                UpgradeResultMessage = "Not enough materials!";
+                ShowUpgradeResultDialog = true;
+                StateHasChanged();
+                return;
+            }
+
+            ConfirmUpgradeAction = confirmAction;
+            ShowUpgradeConfirmationDialog = true;
+            StateHasChanged();
+        }
+        private bool HasEnoughMaterials( Dictionary<string, int> requiredMaterials )
+        {
+            foreach ( var material in requiredMaterials )
+            {
+                if ( !Player.Local.Inventory.BackpackHasMaterial( material.Key, material.Value ) )
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private void ConfirmUpgrade()
+        {
+            ConfirmUpgradeAction?.Invoke();
+            ShowUpgradeConfirmationDialog = false;
+            ShowUpgradeResultDialog = true;
+
+            // Hier die tatsächliche Logik für den Erfolg oder Misserfolg des Upgrades hinzufügen
+          // Beispielhafte Logik, ersetzen Sie dies durch Ihre tatsächliche Logik
+
+            if ( upgradeSuccessful )
+            {
+                UpgradeResultMessage = "Upgrade Successful!";
+                UpgradeResultClass = "success";
+            }
+            else
+            {
+                UpgradeResultMessage = "Upgrade Failed!";
+                UpgradeResultClass = "failed";
+            }
+
+            StateHasChanged();
+        }
+
+        private void CancelUpgrade()
+        {
+            ShowUpgradeConfirmationDialog = false;
+            StateHasChanged();
+        }
+        private void CloseUpgradeResult()
+        {
+            ShowUpgradeResultDialog = false;
+            StateHasChanged();
+        }
+
         private SortDirection currentSortDirection = SortDirection.Ascending;
         private bool showStorageSortOptions = false;
         private bool showInventorySortOptions = false;
@@ -174,17 +239,17 @@ namespace GeneralGame.HUD
                 if ( upgradeItem.IsPotion || upgradeItem.IsMaterial )
                 {
                     Hudmaster.Instance.ShowNotification( "you cannot upgrade that.", "/ui/hud/exit.gif" );
-                    PlaySuccessSoundFromPath( "sounds/upgrade/notenoughmoney.sound", 0.025f );
+                    PlaySuccessSoundFromPath( "sounds/upgrade/notenoughmoney.sound", 0.0125f );
                     return;
                 }
                 // Ab Level 4 werden Materialien benötigt
-                if ( upgradeItem.ItemLevel >= 4 )
+                if ( upgradeItem.ItemLevel >= 14 )
                 {
                     var requiredMaterials = GetRequiredMaterials( upgradeItem.ItemLevel, upgradeItem.Tier );
                     if ( !HasRequiredMaterials( requiredMaterials ) )
                     {
                         Hudmaster.Instance.ShowNotification( "Not enough materials", "/ui/hud/exit.gif" );
-                        PlaySuccessSoundFromPath( "sounds/upgrade/notenoughmoney.sound", 0.025f );
+                        PlaySuccessSoundFromPath( "sounds/upgrade/notenoughmoney.sound", 0.0125f );
                         return;
                     }
                     RemoveRequiredMaterials( requiredMaterials );
@@ -201,6 +266,7 @@ namespace GeneralGame.HUD
                     Player.Local.Vyndalium -= upgradeCost;
                     upgradeItem.ItemLevel++;
                     Hudmaster.Instance.ShowNotification( $"Item {upgradeItem.Name} has been upgraded to {upgradeItem.ItemLevel}!", "/ui/hud/success.gif" );
+                    
                     upgradeItem.SellPrice += (int)(upgradeCost * 0.5);
                     if ( upgradeItem.MinAttackValue > 0 )
                     {
@@ -306,8 +372,8 @@ namespace GeneralGame.HUD
                         upgradeItem.HolyResistence += (int)(upgradeItem.HolyResistence * 0.3);
 
 
-                    PlaySuccessSoundFromPath( "sounds/upgrade/noti.sound",0.15f );
-                    
+                    PlaySuccessSoundFromPath( "sounds/upgrade/noti.sound",0.0125f );
+                    upgradeSuccessful = true;
 
                     CheckUpgradeSlot(); // Aktualisieren Sie den Panel-Zustand
                 }
@@ -420,22 +486,24 @@ namespace GeneralGame.HUD
                             upgradeItem.HolyResistence -= (int)(upgradeItem.HolyResistence * 0.3);
                         upgradeItem.SellPrice -= (int)(upgradeCost * 0.5);
                         Hudmaster.Instance.ShowNotification( $"Upgrade failed. Item {upgradeItem.Name} has been downgraded to {upgradeItem.ItemLevel}.", "/ui/hud/exit.gif" );
-                        PlaySuccessSoundFromPath("sounds/upgrade/error.sound", 0.15f);
+                        PlaySuccessSoundFromPath("sounds/upgrade/error.sound", 0.0125f);
                     }
                     else
                     {
                         
                         Player.Local.Inventory?.RemoveItem( upgradeItem );
                         Hudmaster.Instance.ShowNotification( $"Upgrade failed. Item {upgradeItem.Name} has been destroyed.", "/ui/hud/exit.gif" );
-                        PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.15f );
+                        PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
                         
                         StateHasChanged();
                         CheckUpgradeSlot();
                         //upgradeItem = null;
                     }
+                    upgradeSuccessful = false;
                 }
 
-                // Setze die neue Erfolgschance nach dem Upgrade
+                StateHasChanged();
+                CheckUpgradeSlot();
                 SetSuccessChance();
             }
             else
@@ -461,7 +529,7 @@ namespace GeneralGame.HUD
         {
             // Beispielhafte Berechnung der benötigten Materialien basierend auf dem Item-Level und Tier
             var materials = new Dictionary<string, int>();
-            if ( itemLevel >= 4 )
+            if ( itemLevel >= 14 )
             {
                 materials["Wood"] = tier switch
                 {
@@ -469,6 +537,8 @@ namespace GeneralGame.HUD
                     GeneralGame.Tier.B => 10,
                     GeneralGame.Tier.A => 15,
                     GeneralGame.Tier.S => 20,
+                    GeneralGame.Tier.SS => 25,
+                    GeneralGame.Tier.SSS => 30,
                     _ => 0
                 };
             }
@@ -525,7 +595,7 @@ namespace GeneralGame.HUD
 
         private (string totalMaterialsText, string missingMaterialsText) GetRequiredMaterialsText()
         {
-            if ( upgradeItem == null || upgradeItem.ItemLevel < 4 )
+            if ( upgradeItem == null || upgradeItem.ItemLevel < 14 )
             {
                 return ("No materials required.", string.Empty);
             }
@@ -694,20 +764,23 @@ namespace GeneralGame.HUD
 
         protected override int BuildHash()
         {
-            return HashCode.Combine(
+            int hash = HashCode.Combine(
                 IsVisible,
                 Player.Local.Inventory.BackpackItems.HashCombine( i => i?.GetHashCode() ?? -1 ),
                 shopStorage?.AvailableItems.HashCombine( i => i?.GetHashCode() ?? -1 ) ?? 0,
                 isUpgradePanelVisible,
                 upgradeItem?.GetHashCode() ?? 0,
-                
+                ShowUpgradeConfirmationDialog,
                 Player.Local.Vyndalium,
-                statusText?.GetHashCode() ?? 0,
-                statusClass?.GetHashCode() ?? 0
+                statusText?.GetHashCode() ?? 0
                 
-
-
             );
+            UpgradeResultMessage?.GetHashCode();
+            // Kombinieren Sie das Ergebnis mit den restlichen Argumenten
+            hash = HashCode.Combine( hash, statusClass?.GetHashCode() ?? 0 );
+            
+
+            return hash;
         }
 
         public void SetPanelVisibility( bool isVisible )

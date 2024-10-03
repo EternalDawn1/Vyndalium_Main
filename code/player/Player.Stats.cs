@@ -124,25 +124,9 @@ public partial class Player
         // Verwenden Sie einen Timer, um die Bewegungslogik nach der angegebenen Dauer wieder zu aktivieren
         
     }
-    private BurningEffect burningEffect;
+   
 
-    public void AddBurningEffect()
-    {
-        if ( burningEffect == null )
-        {
-            burningEffect = new BurningEffect();
-            
-        }
-    }
-
-    public void RemoveBurningEffect()
-    {
-        if ( burningEffect != null )
-        {
-            burningEffect.RemoveFrom( this );
-            burningEffect = null;
-        }
-    }
+  
 
 
     private List<StatusEffect> activeStatusEffects = new List<StatusEffect>();
@@ -153,7 +137,7 @@ public partial class Player
         if ( effect is BurnEffect burnEffect )
         {
             activeStatusEffects.Add( burnEffect );
-            AddBurningEffect();
+           
         }
     }
 
@@ -166,6 +150,7 @@ public class BurnEffect : StatusEffect
     {
         Duration = duration;
     }
+
    
 
  
@@ -190,34 +175,13 @@ public class BurnEffect : StatusEffect
             } );
         }
     }
-}
-public class BurningEffect
-{
-    private Panel overlay;
-
-    public BurningEffect()
-    {
-        overlay = new Panel();
-        overlay.Style.BackgroundColor = Color.Red.WithAlpha( 0.5f ); // Rotes Overlay mit Transparenz
-        overlay.Style.Width = Length.Percent( 100 );
-        overlay.Style.Height = Length.Percent( 100 );
-        overlay.Style.Position = PositionMode.Absolute;
-        overlay.Style.Top = 0;
-        overlay.Style.Left = 0;
-        overlay.Style.ZIndex = 1000; // Sicherstellen, dass das Overlay oben angezeigt wird
-    }
- 
-
    
-
-    public void RemoveFrom( Player player )
-    {
-        overlay.Delete();
-    }
 }
+
 
 public abstract class StatusEffect
 {
     public float Duration { get; set; }
     public abstract void Apply( Player player );
+ 
 }

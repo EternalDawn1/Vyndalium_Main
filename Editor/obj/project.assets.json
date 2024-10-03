@@ -48,45 +48,6 @@
           "bin/placeholder/hammer.dll": {}
         }
       },
-      "jigglebones/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "Base Library": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/jigglebones.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/jigglebones.dll": {}
-        }
-      },
-      "libevents/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "Base Library": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/libevents.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/libevents.dll": {}
-        }
-      },
-      "scenefoliagepainter/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "Base Library": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/scenefoliagepainter.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/scenefoliagepainter.dll": {}
-        }
-      },
       "shadergraph/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -100,34 +61,17 @@
           "bin/placeholder/shadergraph.dll": {}
         }
       },
-      "vnbase_library/1.0.0": {
+      "ViWi/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Base Library": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/vnbase_library.dll": {}
+          "bin/placeholder/ViWi.dll": {}
         },
         "runtime": {
-          "bin/placeholder/vnbase_library.dll": {}
-        }
-      },
-      "vyndalium/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "Base Library": "1.0.0",
-          "jigglebones": "1.0.0",
-          "libevents": "1.0.0",
-          "scenefoliagepainter": "1.0.0",
-          "vnbase_library": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/vyndalium.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/vyndalium.dll": {}
+          "bin/placeholder/ViWi.dll": {}
         }
       }
     }
@@ -153,44 +97,24 @@
       "path": "../../../SteamLibrary/steamapps/common/sbox/editor/Hammer/Code/hammer.csproj",
       "msbuildProject": "../../../SteamLibrary/steamapps/common/sbox/editor/Hammer/Code/hammer.csproj"
     },
-    "jigglebones/1.0.0": {
-      "type": "project",
-      "path": "../Libraries/facepunch.jigglebones/Code/jigglebones.csproj",
-      "msbuildProject": "../Libraries/facepunch.jigglebones/Code/jigglebones.csproj"
-    },
-    "libevents/1.0.0": {
-      "type": "project",
-      "path": "../Libraries/facepunch.libevents/Code/libevents.csproj",
-      "msbuildProject": "../Libraries/facepunch.libevents/Code/libevents.csproj"
-    },
-    "scenefoliagepainter/1.0.0": {
-      "type": "project",
-      "path": "../Libraries/stellawisps.scenefoliagepainter/Code/scenefoliagepainter.csproj",
-      "msbuildProject": "../Libraries/stellawisps.scenefoliagepainter/Code/scenefoliagepainter.csproj"
-    },
     "shadergraph/1.0.0": {
       "type": "project",
       "path": "../../../SteamLibrary/steamapps/common/sbox/editor/ShaderGraph/Code/shadergraph.csproj",
       "msbuildProject": "../../../SteamLibrary/steamapps/common/sbox/editor/ShaderGraph/Code/shadergraph.csproj"
     },
-    "vnbase_library/1.0.0": {
+    "ViWi/1.0.0": {
       "type": "project",
-      "path": "../Libraries/spoonstuff.vnbase_library/Code/vnbase_library.csproj",
-      "msbuildProject": "../Libraries/spoonstuff.vnbase_library/Code/vnbase_library.csproj"
-    },
-    "vyndalium/1.0.0": {
-      "type": "project",
-      "path": "../Code/vyndalium.csproj",
-      "msbuildProject": "../Code/vyndalium.csproj"
+      "path": "../Code/ViWi.csproj",
+      "msbuildProject": "../Code/ViWi.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
       "Base Editor Library >= 1.0.0",
+      "ViWi >= 1.0.0",
       "actiongraph >= 1.0.0",
       "hammer >= 1.0.0",
-      "shadergraph >= 1.0.0",
-      "vyndalium >= 1.0.0"
+      "shadergraph >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -199,9 +123,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "R:\\sbox\\Vyndalium_Main\\Editor\\vyndalium.editor.csproj",
-      "projectName": "vyndalium.editor",
-      "projectPath": "R:\\sbox\\Vyndalium_Main\\Editor\\vyndalium.editor.csproj",
+      "projectUniqueName": "R:\\sbox\\Vyndalium_Main\\Editor\\ViWi.editor.csproj",
+      "projectName": "ViWi.editor",
+      "projectPath": "R:\\sbox\\Vyndalium_Main\\Editor\\ViWi.editor.csproj",
       "packagesPath": "C:\\Users\\Recep\\.nuget\\packages\\",
       "outputPath": "R:\\sbox\\Vyndalium_Main\\Editor\\obj\\",
       "projectStyle": "PackageReference",
@@ -220,8 +144,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "R:\\sbox\\Vyndalium_Main\\Code\\vyndalium.csproj": {
-              "projectPath": "R:\\sbox\\Vyndalium_Main\\Code\\vyndalium.csproj"
+            "R:\\sbox\\Vyndalium_Main\\Code\\ViWi.csproj": {
+              "projectPath": "R:\\sbox\\Vyndalium_Main\\Code\\ViWi.csproj"
             },
             "R:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\tools\\Code\\Base Editor Library.csproj": {
               "projectPath": "R:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\tools\\Code\\Base Editor Library.csproj"

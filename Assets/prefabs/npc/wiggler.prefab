@@ -312,7 +312,7 @@
         "OnDetect": {
           "__version": 8,
           "__guid": "b34aef9e-08a4-456b-85af-8901d811a974",
-          "__changeId": 0,
+          "__changeId": 2,
           "UserData": {
             "Title": "On Detect",
             "ReferencedComponentTypes": []
@@ -323,53 +323,11 @@
               "Id": 0,
               "Type": "input",
               "UserData": {
-                "Position": "-64,0"
-              }
-            },
-            {
-              "Id": 1,
-              "Type": "npc.startfollowing",
-              "UserData": {
-                "Position": "272,80"
-              }
-            },
-            {
-              "Id": 4,
-              "Type": "scene.ref",
-              "Properties": {},
-              "UserData": {
-                "Position": "-32,320"
+                "Position": "-60,0"
               }
             }
           ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 1,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 4,
-              "SrcName": "_result",
-              "DstId": 1,
-              "DstName": "npc"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "enemy",
-              "DstId": 1,
-              "DstName": "target"
-            }
-          ],
-          "Defaults": {
-            "$4.component": {
-              "_type": "component",
-              "component_id": "59063e71-a092-4580-84dc-c9849333eb38",
-              "go": "b798520b-180e-4295-831d-8d70421e3855",
-              "component_type": "Npc"
-            }
-          }
+          "Links": []
         },
         "OnKilled": {
           "__version": 8,
@@ -437,6 +395,7 @@
         },
         "PlayerProximityDistance": 80,
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Dumb",
         "RunSpeed": 110,
         "ScaleStats": true,
