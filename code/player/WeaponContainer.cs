@@ -181,8 +181,8 @@ public partial class WeaponContainer : Component
 		}
 
 		weaponGo.SetParent( WeaponBone );
-		weaponGo.Transform.Position = WeaponBone.Transform.Position;
-		weaponGo.Transform.Rotation = WeaponBone.Transform.Rotation;
+		weaponGo.WorldPosition = WeaponBone.WorldPosition;
+		weaponGo.WorldRotation = WeaponBone.WorldRotation;
 
 		var nextWeaponGo = weaponGo.Components.GetInDescendantsOrSelf<BaseGun>( true );
 		if ( nextWeaponGo.IsValid() )

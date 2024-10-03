@@ -12,7 +12,7 @@ public sealed class ScaleTextWithDistance : Component
 	}
 	protected override void OnUpdate()
 	{
-		float distance = (Transform.Position - Thing.Transform.Position).Length;
+		float distance = (WorldPosition - Thing.WorldPosition).Length;
 		textRenderer.Scale = distance * 0.005f * Scale;
 	}
 	/// <summary>

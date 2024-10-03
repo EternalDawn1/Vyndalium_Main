@@ -382,7 +382,7 @@ public partial class Player : Component, IHealthComponent
 
 			if ( HurtSound is not null )
 			{
-				Sound.Play( HurtSound, Transform.Position );
+				Sound.Play( HurtSound, WorldPosition );
 			}
 		}
 
@@ -590,8 +590,8 @@ public partial class Player : Component, IHealthComponent
 		if ( !PlyCamera.IsValid() || !Eye.IsValid() )
 			return;
 
-		var cameraPosition = PlyCamera.Transform.Position;
-		var cameraDirection = PlyCamera.Transform.Rotation.Forward;
+		var cameraPosition = PlyCamera.WorldPosition;
+		var cameraDirection = PlyCamera.WorldRotation.Forward;
 		var fieldOfView = PlyCamera.FieldOfView;
 		IEnumerable<SceneObject> sceneObjects = GetSceneObjects(); // Annahme: PlyCamera hat eine Eigenschaft FieldOfView
 
@@ -647,8 +647,8 @@ public partial class Player : Component, IHealthComponent
 
 		if ( Ragdoll.IsRagdolled )
 		{
-			PlyCamera.Transform.Position = PlyCamera.Transform.Position.LerpTo( Eye.Transform.Position, Time.Delta * 32f );
-			PlyCamera.Transform.Rotation = Rotation.Lerp( PlyCamera.Transform.Rotation, Eye.Transform.Rotation, Time.Delta * 16f );
+			PlyCamera.WorldPosition = PlyCamera.WorldPosition.LerpTo( Eye.WorldPosition, Time.Delta * 32f );
+			PlyCamera.WorldRotation = Rotation.Lerp( PlyCamera.WorldRotation, Eye.WorldRotation, Time.Delta * 16f );
 			return;
 
 		}
@@ -689,10 +689,10 @@ public partial class Player : Component, IHealthComponent
 		if ( !IsProxy )
 
 		{
-			PlyCamera.Transform.LocalPosition = Vector3.Zero;
-			var idealEyePos = Eye.Transform.Position;
-			var headPosition = Transform.Position + Vector3.Up * CharacterController.Height;
-			var headTrace = Scene.Trace.Ray( Transform.Position, headPosition )
+			PlyCamera.LocalPosition = Vector3.Zero;
+			var idealEyePos = Eye.WorldPosition;
+			var headPosition = WorldPosition + Vector3.Up * CharacterController.Height;
+			var headTrace = Scene.Trace.Ray( WorldPosition, headPosition )
 				.UsePhysicsWorld()
 				.IgnoreGameObjectHierarchy( GameObject )
 				.WithAnyTags( "solid" )
@@ -711,18 +711,18 @@ public partial class Player : Component, IHealthComponent
 			var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
 
 			if ( hasViewModel )
-				PlyCamera.Transform.Position = Head.Transform.Position;
+				PlyCamera.WorldPosition = Head.WorldPosition;
 			else
-				PlyCamera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
+				PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
 
 
-			PlyCamera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch( -20f );
+			PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch( -20f );
 
 
 
 			if ( IsCrouching && hasViewModel )
 			{
-				PlyCamera.Transform.Position = PlyCamera.Transform.Position + SieatOffset;
+				PlyCamera.WorldPosition = PlyCamera.WorldPosition + SieatOffset;
 			}
 		}
 
@@ -753,7 +753,7 @@ public partial class Player : Component, IHealthComponent
 			case 0: // Gesundheit <= 25%
 				if ( !isLowHealthSoundPlaying && HurtLowHP is not null )
 				{
-					Sound.Play( HurtLowHP, Player.Local.Head.Transform.Position );
+					Sound.Play( HurtLowHP, Player.Local.Head.WorldPosition );
 					isLowHealthSoundPlaying = true;
 				}
 				break;
@@ -765,7 +765,7 @@ public partial class Player : Component, IHealthComponent
 				}
 				if ( !isMidHealthSoundPlaying && HurtMidHP is not null )
 				{
-					Sound.Play( HurtMidHP, Player.Local.Transform.Position );
+					Sound.Play( HurtMidHP, Player.Local.WorldPosition );
 					isMidHealthSoundPlaying = true;
 				}
 				break;
@@ -817,7 +817,7 @@ public partial class Player : Component, IHealthComponent
 		}
 
 		CharacterController.Height = Lerp( StandHeight, DuckHeight, crouchProgress );
-		targetCameraPosition = new Vector3( PlyCamera.Transform.Position.x, PlyCamera.Transform.Position.y, Lerp( StandHeight, DuckHeight, crouchProgress ) );
+		targetCameraPosition = new Vector3( PlyCamera.WorldPosition.x, PlyCamera.WorldPosition.y, Lerp( StandHeight, DuckHeight, crouchProgress ) );
 		IsCrouching = crouchProgress > 0.5f;
 	}
 	public static float Lerp( float a, float b, float t )
@@ -879,7 +879,7 @@ public partial class Player : Component, IHealthComponent
 			LastGroundedTime = 0f;
 		}
 
-		Transform.Rotation = Rotation.FromYaw( EyeAngles.ToRotation().Yaw() );
+		WorldRotation = Rotation.FromYaw( EyeAngles.ToRotation().Yaw() );
 	}
 
 	protected override void OnFixedUpdate()
@@ -916,8 +916,8 @@ public partial class Player : Component, IHealthComponent
 
 		if ( Input.Pressed( "use3" ) )
 		{
-			var startPos = PlyCamera.Transform.Position;
-			var direction = PlyCamera.Transform.Rotation.Forward;
+			var startPos = PlyCamera.WorldPosition;
+			var direction = PlyCamera.WorldRotation.Forward;
 
 			var endPos = startPos + direction * 10000f;
 			var trace = Scene.Trace.Ray( startPos, endPos )
@@ -984,9 +984,9 @@ public partial class Player : Component, IHealthComponent
 		var spawnpoints = Scene.GetAllComponents<SpawnPoint>();
 		var randomSpawnpoint = Game.Random.FromList( spawnpoints.ToList() );
 
-		Transform.Position = randomSpawnpoint.Transform.Position;
-		Transform.Rotation = Rotation.FromYaw( randomSpawnpoint.Transform.Rotation.Yaw() );
-		EyeAngles = Transform.Rotation;
+		WorldPosition = randomSpawnpoint.WorldPosition;
+		WorldRotation = Rotation.FromYaw( randomSpawnpoint.WorldRotation.Yaw() );
+		EyeAngles = WorldRotation;
 	}
 	public void Move()
 	{

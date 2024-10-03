@@ -26,7 +26,7 @@ public sealed class Flame : Component
             return;
 
         TargetLight.LightColor = GetLightColor();
-        TargetLight.Transform.LocalPosition = GetLightOffset();
+        TargetLight.LocalPosition = GetLightOffset();
     }
 
     private Color GetLightColor()

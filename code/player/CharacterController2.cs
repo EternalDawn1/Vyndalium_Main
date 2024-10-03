@@ -251,7 +251,7 @@ public  class CharacterController2 : Component
 
     public SceneTraceResult TraceDirection( Vector3 direction )
     {
-        return BuildTrace( base.GameObject.Transform.Position, base.GameObject.Transform.Position + direction ).Run();
+        return BuildTrace( base.GameObject.WorldPosition, base.GameObject.WorldPosition + direction ).Run();
     }
 
 
@@ -270,7 +270,7 @@ public  class CharacterController2 : Component
             return;
         }
 
-        Vector3 position = base.GameObject.Transform.Position;
+        Vector3 position = base.GameObject.WorldPosition;
         CharacterControllerHelper characterControllerHelper = new CharacterControllerHelper( BuildTrace( position, position ), position, Velocity );
         RuntimeHelpers.EnsureSufficientExecutionStack();
         characterControllerHelper.Bounce = Bounciness;
@@ -288,7 +288,7 @@ public  class CharacterController2 : Component
         }
 
         RuntimeHelpers.EnsureSufficientExecutionStack();
-        base.Transform.Position = characterControllerHelper.Position;
+        base.WorldPosition = characterControllerHelper.Position;
         RuntimeHelpers.EnsureSufficientExecutionStack();
         Velocity = characterControllerHelper.Velocity;
     }
@@ -296,7 +296,7 @@ public  class CharacterController2 : Component
 
     private void CategorizePosition()
     {
-        Vector3 position = base.Transform.Position;
+        Vector3 position = base.WorldPosition;
         Vector3 to = position + Vector3.Down * 2f;
         Vector3 from = position;
         bool isOnGround = IsOnGround;
@@ -326,7 +326,7 @@ public  class CharacterController2 : Component
         if ( isOnGround && !sceneTraceResult.StartedSolid && sceneTraceResult.Fraction > 0f && sceneTraceResult.Fraction < 1f )
         {
             RuntimeHelpers.EnsureSufficientExecutionStack();
-            base.Transform.Position = sceneTraceResult.EndPosition + sceneTraceResult.Normal * 0.01f;
+            base.WorldPosition = sceneTraceResult.EndPosition + sceneTraceResult.Normal * 0.01f;
         }
     }
 
@@ -390,7 +390,7 @@ public  class CharacterController2 : Component
     {
         if ( !TryUnstuck() )
         {
-            Vector3 position = base.Transform.Position;
+            Vector3 position = base.WorldPosition;
             Vector3 velocity = targetPosition - position;
             CharacterControllerHelper characterControllerHelper = new CharacterControllerHelper( BuildTrace( position, position ), position, velocity );
             RuntimeHelpers.EnsureSufficientExecutionStack();
@@ -407,14 +407,14 @@ public  class CharacterController2 : Component
             }
 
             RuntimeHelpers.EnsureSufficientExecutionStack();
-            base.Transform.Position = characterControllerHelper.Position;
+            base.WorldPosition = characterControllerHelper.Position;
         }
     }
 
 
     private bool TryUnstuck()
     {
-        if ( !BuildTrace( base.Transform.Position, base.Transform.Position ).Run().StartedSolid )
+        if ( !BuildTrace( base.WorldPosition, base.WorldPosition ).Run().StartedSolid )
         {
             RuntimeHelpers.EnsureSufficientExecutionStack();
             _stuckTries = 0;
@@ -424,18 +424,18 @@ public  class CharacterController2 : Component
         int num = 20;
         for ( int i = 0; i < num; i++ )
         {
-            Vector3 vector = base.Transform.Position + Vector3.Random.Normal * ((float)_stuckTries / 2f);
+            Vector3 vector = base.WorldPosition + Vector3.Random.Normal * ((float)_stuckTries / 2f);
             if ( i == 0 )
             {
                 RuntimeHelpers.EnsureSufficientExecutionStack();
-                vector = base.Transform.Position + Vector3.Up * 2f;
+                vector = base.WorldPosition + Vector3.Up * 2f;
             }
 
             RuntimeHelpers.EnsureSufficientExecutionStack();
             if ( !BuildTrace( vector, vector ).Run().StartedSolid )
             {
                 RuntimeHelpers.EnsureSufficientExecutionStack();
-                base.Transform.Position = vector;
+                base.WorldPosition = vector;
                 return false;
             }
         }

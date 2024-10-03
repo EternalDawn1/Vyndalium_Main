@@ -79,7 +79,7 @@ public partial class Npc
 
         CheckNewTargetPos();
 
-        var distanceToTarget = Transform.Position.Distance( TargetPosition );
+        var distanceToTarget = WorldPosition.Distance( TargetPosition );
 
         if ( distanceToTarget <= MoveHelper.TraceRadius / 2f )
         {
@@ -90,7 +90,7 @@ public partial class Npc
         else
         {
             var movement3D = false; 
-            var positionDifference = TargetPosition - Transform.Position;
+            var positionDifference = TargetPosition - WorldPosition;
             var wishDirection = (movement3D ? positionDifference.WithZ( 0f ) : positionDifference).Normal;
 
             var interestVectors = getInterest( wishDirection );
@@ -122,7 +122,7 @@ public partial class Npc
 
         foreach ( var direction in possibleDirections )
         {
-            var startPosition = Transform.Position + Vector3.Up * (MoveHelper.StepHeight + MoveHelper.TraceRadius / 2f);
+            var startPosition = WorldPosition + Vector3.Up * (MoveHelper.StepHeight + MoveHelper.TraceRadius / 2f);
             var endPosition = startPosition + direction * MoveHelper.TraceRadius;
             var dangerTrace = Scene.Trace.Sphere( MoveHelper.TraceRadius, startPosition, endPosition )
                 .IgnoreGameObjectHierarchy( GameObject )

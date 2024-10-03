@@ -141,15 +141,15 @@ public sealed class ZombieSpawner : Component
 		}
 		if ( EnableRagdollEffect && Ragdoll != null )
 		{
-			var ragdoll = Ragdoll.Clone( Transform.Position );
+			var ragdoll = Ragdoll.Clone( WorldPosition );
 			if ( ragdoll != null )
 			{
-				ragdoll.Transform.Rotation = Transform.Rotation;
-				ragdoll.Transform.Position = Transform.Position;
+				ragdoll.WorldRotation = WorldRotation;
+				ragdoll.WorldPosition = WorldPosition;
 				ragdoll.NetworkSpawn();
 			}
 		}
-		Sound.Play( "sounds/levelup/levelup.sound", zombie.Transform.Position );
+		Sound.Play( "sounds/levelup/levelup.sound", zombie.WorldPosition );
 		zombie.NetworkSpawn();
 
 
@@ -175,7 +175,7 @@ public sealed class ZombieSpawner : Component
 					if ( fireInstance != null )
 					{
 						fireInstance.Parent = GameObject; // Explizite Konvertierung zu GameObject
-						fireInstance.Transform.Position = npcComponent.Transform.Position; // Setzen Sie die Position relativ zum NPC
+						fireInstance.WorldPosition = npcComponent.WorldPosition; // Setzen Sie die Position relativ zum NPC
 						fireInstance.NetworkSpawn();
 
 						var fireNpcComponent = fireInstance.GetComponent<Npc>();
@@ -235,12 +235,12 @@ public sealed class ZombieSpawner : Component
 			(float)Random.Shared.NextDouble() * 1.9f + 0.1f,
 			(float)Random.Shared.NextDouble() * 1.9f + 0.1f
 			);
-			zombie.Transform.LocalScale = randomScale;
+			zombie.LocalScale = randomScale;
 		}
 
 		IsSpawning = true;
 
-		CreateSpawnParticle( zombie.Transform.Position );
+		CreateSpawnParticle( zombie.WorldPosition );
 
 		TimeUntilRespawn = null;
 
@@ -383,7 +383,7 @@ public sealed class ZombieSpawner : Component
 		foreach (var player in players)
 		{
 			// Überprüfe, ob der Spieler in der Nähe ist
-			if ((player.Transform.Position - this.Transform.Position).Length < PlayerProximityDistance)
+			if ((player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance)
             return true;
 		}
             return false; 

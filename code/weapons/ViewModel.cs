@@ -71,7 +71,7 @@ public sealed class ViewModel : Component
 		ModelRenderer.Set( "b_deploy", true );
 
 
-		Transform.LocalPosition = Vector3.Zero;
+		LocalPosition = Vector3.Zero;
 		CurRotation = Rotation.Identity;
 		CurSmoothRotate = Rotation.Identity;
 		LastCameraCalc = Camera.WorldRotation;

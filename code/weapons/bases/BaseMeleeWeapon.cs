@@ -15,8 +15,8 @@ namespace GeneralGame
             var player = Owner as Player;
             if ( player == null ) return;
 
-            var startPos = player.PlyCamera.Transform.Position;
-            var direction = player.PlyCamera.Transform.Rotation.Forward;
+            var startPos = player.PlyCamera.WorldPosition;
+            var direction = player.PlyCamera.WorldRotation.Forward;
             var endPos = startPos + direction * MeleeRange;
 
             var trace = Scene.Trace.Ray( startPos, endPos )

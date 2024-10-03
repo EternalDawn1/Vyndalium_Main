@@ -69,7 +69,7 @@ namespace GeneralGame
                         if ( gameObject != null )
                         {
                             // Spawnen des Items in der Luft
-                            gameObject.Transform.Position = position + new Vector3( 0, 0, 50 );
+                            gameObject.WorldPosition = position + new Vector3( 0, 0, 50 );
                             gameObject.NetworkSpawn();
 
                             // Erzeugen eines Partikelemitters in der Mitte
@@ -88,7 +88,7 @@ namespace GeneralGame
        
         public void OnBoxDestroyed()
         {
-            Vector3 position = this.GameObject.Transform.Position;
+            Vector3 position = this.GameObject.WorldPosition;
             SpawnRandomPrefab( position );
 
         }
@@ -122,7 +122,7 @@ namespace GeneralGame
 
                 if ( DeathSound != null )
                 {
-                    Sound.Play( DeathSound, Transform.Position );
+                    Sound.Play( DeathSound, WorldPosition );
                 }
 
                 var killer = Scene.Directory.FindByGuid( attackerId );
@@ -146,7 +146,7 @@ namespace GeneralGame
 
                 if ( Hitprefab != null && this.GameObject != null )
                 {
-                    GameObject vyndaliumHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 50, 0, 25 ) );
+                    GameObject vyndaliumHitInfo = Hitprefab.Clone( this.GameObject.WorldPosition + new Vector3( 50, 0, 25 ) );
                     if ( vyndaliumHitInfo != null )
                     {
                         FaceThing vyndaliumFaceThing = vyndaliumHitInfo.Components.Get<FaceThing>();
@@ -169,7 +169,7 @@ namespace GeneralGame
                         }
                     }
 
-                    GameObject xpHitInfo = Hitprefab.Clone( this.GameObject.Transform.Position + new Vector3( 0, 0, 50 ) );
+                    GameObject xpHitInfo = Hitprefab.Clone( this.GameObject.WorldPosition + new Vector3( 0, 0, 50 ) );
                     if ( xpHitInfo != null )
                     {
                         FaceThing xpFaceThing = xpHitInfo.Components.Get<FaceThing>();
@@ -180,14 +180,14 @@ namespace GeneralGame
                     }
                     
                 }
-                Vector3 position = this.GameObject.Transform.Position;
+                Vector3 position = this.GameObject.WorldPosition;
                 SpawnRandomPrefab( position );
 
-                var ragdoll = Ragdoll.Clone( Transform.Position );
+                var ragdoll = Ragdoll.Clone( WorldPosition );
                 if ( ragdoll != null )
                 {
-                    ragdoll.Transform.Rotation = Transform.Rotation;
-                    ragdoll.Transform.Position = Transform.Position;
+                    ragdoll.WorldRotation = WorldRotation;
+                    ragdoll.WorldPosition = WorldPosition;
                     ragdoll.NetworkSpawn();
                 }
                 GameObject.Destroy();

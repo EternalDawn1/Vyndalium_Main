@@ -193,7 +193,7 @@ public sealed class HealthComponent : Component
         {
             foreach (var item in DropOnDeath)
             {
-                var droppedItem = item.Clone(Transform.Position + Vector3.Up * 30f, Transform.Rotation);
+                var droppedItem = item.Clone(WorldPosition + Vector3.Up * 30f, WorldRotation);
                 droppedItem?.SetupNetworking();
             }
         }

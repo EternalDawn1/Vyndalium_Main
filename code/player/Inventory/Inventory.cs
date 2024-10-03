@@ -841,8 +841,8 @@ public sealed class Inventory : Component
 				.Radius( 1.0f )
 				.Run();
 
-		item.GameObject.Transform.Rotation = Rotation.Identity;
-		item.GameObject.Transform.Position = trace.EndPosition;
+		item.GameObject.WorldRotation = Rotation.Identity;
+		item.GameObject.WorldPosition = trace.EndPosition;
 
 		var velocity = Player.Velocity + Player.ViewRay.Forward * 150f;
 		if ( item.GameObject.Components.TryGet<Rigidbody>( out var rigidbody, FindMode.EverythingInSelf ) )
@@ -853,7 +853,7 @@ public sealed class Inventory : Component
 		else if ( item.GameObject.Components.TryGet<ModelPhysics>( out var modelPhysics, FindMode.EverythingInSelf ) )
 		{
 			item.GameObject.Enabled = false;
-			item.GameObject.Transform.Position = trace.EndPosition;
+			item.GameObject.WorldPosition = trace.EndPosition;
 			item.GameObject.Enabled = true;
 			modelPhysics.PhysicsGroup?.AddVelocity( velocity );
 		}
@@ -1250,8 +1250,8 @@ public sealed class Inventory : Component
 			if ( Player != null && Player.GameObject != null )
 			{
 				item.GameObject.Parent = Player.GameObject;
-				item.GameObject.Transform.Position = Player.GameObject.Transform.Position;
-				item.GameObject.Transform.Rotation = Player.GameObject.Transform.Rotation;
+				item.GameObject.WorldPosition = Player.GameObject.WorldPosition;
+				item.GameObject.WorldRotation = Player.GameObject.WorldRotation;
 				item.LastOwner = Player;
 				item.GameObject.Enabled = false;
 			}

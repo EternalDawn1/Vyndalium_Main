@@ -52,7 +52,7 @@ public sealed class Switch : Component
 		foreach ( var player in players )
 		{
 			// Überprüfe, ob der Spieler in der Nähe ist
-			if ( (player.Transform.Position - this.Transform.Position).Length < PlayerProximityDistance )
+			if ( (player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance )
 				return true;
 		}
 		return false;

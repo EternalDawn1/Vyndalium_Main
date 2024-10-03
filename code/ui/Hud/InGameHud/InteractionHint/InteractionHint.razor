@@ -94,7 +94,7 @@
         	return;
 
 
-		var pos = FromHands ? 1 : (Player.Local.InteractionBounds == null ? Player.Local.TargetedGameObject.Transform.Position : Player.Local.TargetedGameObject.Transform.World.PointToWorld(Player.Local.InteractionBounds.Value.Center));
+		var pos = FromHands ? 1 : (Player.Local.InteractionBounds == null ? Player.Local.TargetedGameObject.WorldPosition : Player.Local.TargetedGameObject.Transform.World.PointToWorld(Player.Local.InteractionBounds.Value.Center));
 
 		foreach (var interaction in _interactions)
 		{
@@ -116,7 +116,7 @@
 			{
 				if (Player.Local?.TargetedGameObject?.Transform != null)
 				{
-					pos = Player.Local.TargetedGameObject.Transform.Position + interaction.Position * Player.Local.TargetedGameObject.Transform.Rotation;
+					pos = Player.Local.TargetedGameObject.WorldPosition + interaction.Position * Player.Local.TargetedGameObject.WorldRotation;
 				}
 			}
 
@@ -139,7 +139,7 @@
 				if (interaction.Identifier != String.Empty)
 					EventMaster.InteractionInvoked(interaction.Identifier, _targetObject.Id, Player.Local.GameObject.Id); // Pass off this interaction for events to find
 
-				var vector = (pos - Player.Local.Transform.Position) * Player.Local.Transform.Rotation.Inverse;
+				var vector = (pos - Player.Local.WorldPosition) * Player.Local.WorldRotation.Inverse;
 				Player.Local.BroadcastInteraction(
 					vector,
 					Rotation.LookAt(vector.Normal),
@@ -243,7 +243,7 @@
 	private bool WithinRange(Interaction interaction)
 	{
 		// Berechnet die Distanz zwischen dem Spieler und dem Zielobjekt
-		var distance = Player.Local.ViewRay.Position.Distance(_targetObject.Transform.Position);
+		var distance = Player.Local.ViewRay.Position.Distance(_targetObject.WorldPosition);
 		// Überprüft, ob die Distanz innerhalb der Interaktionsdistanz liegt
 		return FromHands || distance < interaction.InteractDistance;
 	}

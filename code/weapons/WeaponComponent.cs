@@ -213,7 +213,7 @@ public class WeaponComponent : Component
 
 		if ( DeploySound != null )
 		{
-			Sound.Play( DeploySound, Transform.Position );
+			Sound.Play( DeploySound, WorldPosition );
 		}
 
 		if ( !IsProxy )

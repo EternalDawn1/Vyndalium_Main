@@ -33,7 +33,7 @@ public abstract class PickupComponent : Component
 	protected override void OnStart()
 	{
 		
-		StartPosition = Transform.Position;
+		StartPosition = WorldPosition;
 		Collider.IsTrigger = true;
 		
 		base.OnStart();
@@ -46,6 +46,6 @@ public abstract class PickupComponent : Component
 		if ( PickupSound is null )
 			return;
 		
-		Sound.Play( PickupSound, Transform.Position );
+		Sound.Play( PickupSound, WorldPosition );
 	}
 }

@@ -210,7 +210,7 @@ public class MoveHelper : Component
 			return;
 		}
 
-		Vector3 position = base.GameObject.Transform.Position;
+		Vector3 position = base.GameObject.WorldPosition;
 		CharacterControllerHelper characterControllerHelper = new CharacterControllerHelper( BuildTrace( position, position ), position, Velocity );
 		characterControllerHelper.Bounce = Bounce;
 		characterControllerHelper.MaxStandableAngle = GroundAngle;
@@ -220,13 +220,13 @@ public class MoveHelper : Component
 		else
 			characterControllerHelper.TryMove( Time.Delta );
 
-		base.Transform.Position = characterControllerHelper.Position;
+		base.WorldPosition = characterControllerHelper.Position;
 		Velocity = characterControllerHelper.Velocity;
 	}
 
 	private void CategorizePosition()
 	{
-		Vector3 position = base.Transform.Position;
+		Vector3 position = base.WorldPosition;
 		Vector3 to = position + Vector3.Down * 2f;
 		Vector3 from = position;
 		bool isOnGround = IsOnGround;
@@ -250,7 +250,7 @@ public class MoveHelper : Component
 
 		if ( StickToGround )
 			if ( isOnGround && !physicsTraceResult.StartedSolid && physicsTraceResult.Fraction > 0f && physicsTraceResult.Fraction < 1f )
-				base.Transform.Position = physicsTraceResult.EndPosition + physicsTraceResult.Normal * 0.01f;
+				base.WorldPosition = physicsTraceResult.EndPosition + physicsTraceResult.Normal * 0.01f;
 	}
 
 	//
@@ -321,7 +321,7 @@ public class MoveHelper : Component
 	{
 		if ( !EnableUnstuck || !TryUnstuck() )
 		{
-			Vector3 position = base.Transform.Position;
+			Vector3 position = base.WorldPosition;
 			Vector3 velocity = targetPosition - position;
 			CharacterControllerHelper characterControllerHelper = new CharacterControllerHelper( BuildTrace( position, position ), position, velocity );
 			characterControllerHelper.MaxStandableAngle = GroundAngle;
@@ -331,13 +331,13 @@ public class MoveHelper : Component
 			else
 				characterControllerHelper.TryMove( 1f );
 
-			base.Transform.Position = characterControllerHelper.Position;
+			base.WorldPosition = characterControllerHelper.Position;
 		}
 	}
 
 	private bool TryUnstuck()
 	{
-		if ( !BuildTrace( base.Transform.Position, base.Transform.Position ).Run().StartedSolid )
+		if ( !BuildTrace( base.WorldPosition, base.WorldPosition ).Run().StartedSolid )
 		{
 			_stuckTries = 0;
 			return false;
@@ -346,13 +346,13 @@ public class MoveHelper : Component
 		int num = MaxUnstuckTries;
 		for ( int i = 0; i < num; i++ )
 		{
-			Vector3 vector = base.Transform.Position + Vector3.Random.Normal * ((float)_stuckTries / 2f);
+			Vector3 vector = base.WorldPosition + Vector3.Random.Normal * ((float)_stuckTries / 2f);
 			if ( i == 0 )
-				vector = base.Transform.Position + Vector3.Up * 2f;
+				vector = base.WorldPosition + Vector3.Up * 2f;
 
 			if ( !BuildTrace( vector, vector ).Run().StartedSolid )
 			{
-				base.Transform.Position = vector;
+				base.WorldPosition = vector;
 				return false;
 			}
 		}

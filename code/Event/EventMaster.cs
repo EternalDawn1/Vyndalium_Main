@@ -307,7 +307,7 @@ public class EventMaster : Component
 				{
 					var expandedWorldBox = trigger.WorldBBox.Grow( 10f ); // Expand it a bit to make sure it's included even when on the edges
 
-					if ( expandedWorldBox.Contains( foundTarget.Transform.Position ) )
+					if ( expandedWorldBox.Contains( foundTarget.WorldPosition ) )
 						trigger.CallTrigger( foundPlayer, foundTarget );
 				}
 			}

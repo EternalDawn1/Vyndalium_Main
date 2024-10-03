@@ -57,7 +57,7 @@ public partial class Player
 			if ( LevelUp is null )
 				return;
 
-			Sound.Play( LevelUp, Transform.Position );
+			Sound.Play( LevelUp, WorldPosition );
 		}
 
 		OnExperienceEarned?.Invoke( exp );

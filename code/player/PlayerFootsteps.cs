@@ -30,7 +30,7 @@ public sealed partial class PlayerFootsteps : Component
 		if ( TimeSinceLastStep < 0.2f )
 			return;
 
-		var pos = Transform.Position;
+		var pos = WorldPosition;
 		var trace = Scene.Trace.Ray( pos + Vector3.Up * 10f, pos + Vector3.Down * 10f )
 			.Radius( 1 )
 			.WithoutTags( "trigger" )

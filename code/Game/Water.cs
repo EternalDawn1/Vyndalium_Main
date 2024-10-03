@@ -22,7 +22,7 @@ public sealed class Water : Component, Component.ITriggerListener
 
 			// Physik anpassen, um den Spieler im Wasser schweben zu lassen
 			var playerPosition = playerInside.Position;
-			var waterSurfaceY = Collider.Transform.Position.y + Collider.Transform.Position.y / 2;
+			var waterSurfaceY = Collider.WorldPosition.y + Collider.WorldPosition.y / 2;
 
 			if ( playerInside.Components.TryGet<MoveHelper>( out MoveHelper moveHelper ) )
 			{

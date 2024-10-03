@@ -26,7 +26,7 @@ namespace GeneralGame
 				
 				
 
-				Sound.Play(TriggerSoundPath, Transform.Position);
+				Sound.Play(TriggerSoundPath, WorldPosition);
 
 				GameObject.Destroy();
 			}

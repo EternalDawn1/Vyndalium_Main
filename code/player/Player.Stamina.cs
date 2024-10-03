@@ -16,7 +16,7 @@ public partial class Player : Component
     private bool wasJumping = false;
     private bool RegenDelayed { get; set; }
 	private const float RegenDelayDuration = 2.5f;
-    public Vector3 Position => Transform.Position;
+    public Vector3 Position => WorldPosition;
     public bool IsSwimming { get; private set; }
 
     

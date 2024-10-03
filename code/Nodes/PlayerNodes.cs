@@ -30,7 +30,7 @@ public static partial class PlayerNodes
 	{
 		if ( player == null ) return;
 
-		var punchVector = player.Transform.Position + Vector3.Up * 36f - worldSource;
+		var punchVector = player.WorldPosition + Vector3.Up * 36f - worldSource;
 		var punchDirection = punchVector.Normal;
 		var punch = punchDirection * strength + Vector3.Up * extraVerticalStrength;
 

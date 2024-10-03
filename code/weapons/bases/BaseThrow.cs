@@ -75,9 +75,9 @@ public class BaseThrow : WeaponComponent, IUse
 	{
 		var obj = ThrowPrefab.Clone( this.Transform.World );
 		obj.NetworkSpawn();
-		obj.WorldPosition = Owner.PlyCamera.WorldPosition + Owner.PlyCamera.Transform.Rotation.Forward * 50;
-		obj.Transform.Rotation = Owner.PlyCamera.Transform.Rotation;
-		obj.Components.Get<Rigidbody>().Velocity = Owner.PlyCamera.Transform.Rotation.Forward * 1000;
+		obj.WorldPosition = Owner.PlyCamera.WorldPosition + Owner.PlyCamera.WorldRotation.Forward * 50;
+		obj.WorldRotation = Owner.PlyCamera.WorldRotation;
+		obj.Components.Get<Rigidbody>().Velocity = Owner.PlyCamera.WorldRotation.Forward * 1000;
 		obj.Components.Get<EntThrow>().explodeTime = imidiantly ? 0f : CurPrepareTime;
 	}
 
@@ -96,7 +96,7 @@ public class BaseThrow : WeaponComponent, IUse
 		{
 			IsPreparing = false;
 			WaitingThrow = false;
-			Sound.Play( ThrowSound, Transform.Position );
+			Sound.Play( ThrowSound, WorldPosition );
 			EffectRenderer.Set( "b_throw", true );
 
 			CreateThrow( false );

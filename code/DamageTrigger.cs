@@ -22,7 +22,7 @@ namespace GeneralGame
             if (timer >= 1f && isPlayerInside && playerInside != null)
             {
                 playerInside.TakeDamage(DamageType.Bullet, Amount, new Vector3(), new Vector3(), new Guid(), GameObject.Id);
-                Sound.Play(TriggerSoundPath, Transform.Position);
+                Sound.Play(TriggerSoundPath, WorldPosition);
                 timer = 0f;
             }
 		}
