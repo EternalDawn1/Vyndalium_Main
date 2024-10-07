@@ -60,6 +60,7 @@ public class ItemComponent : Component
 	[Property , Group( "Type" )]
 	public bool IsConsumable { get; set; }
 	[Property, Group( "Type" )] public bool IsAspect { get; set; }
+	[Property, Group( "Type" )] public bool IsBackpack { get; set; }
 	
 	public bool CanEquip( int playerLevel )
 	{

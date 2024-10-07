@@ -49,7 +49,7 @@
 		_sceneDirectionalLight ??= new SceneDirectionalLight( _sceneWorld, global::Rotation.From( 45, -45, 45 ), Color.White * 10f );
 
 		var renderer = _item.Components.Get<ModelRenderer>(FindMode.EverythingInSelfAndDescendants);
-		if ( _item is ItemEquipment equipment && equipment.IsClothing )
+		if ( _item is ItemEquipment equipment && equipment.IsClothing && !equipment.IsAccessory && !equipment.IsAspect && !equipment.IsWeapon && !equipment.IsArmor )
 		{
 			_model ??= new SceneModel( _sceneWorld, "models/citizen/citizen.vmdl", global::Transform.Zero );
 			_child ??= new SceneModel( _sceneWorld, renderer.Model, global::Transform.Zero );
@@ -61,6 +61,11 @@
 
 			_child.SetMaterialGroup( renderer.MaterialGroup );
 			_model.AddChild( "cloth", _child );
+
+			var rotation = global::Rotation.From(0, 90, 0);
+
+			_model.Transform = new global::Transform(_child.Transform.Position, rotation);
+
 			_model.Update( Time.Delta );
 			_child.Update( Time.Delta );
 
