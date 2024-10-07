@@ -63,6 +63,7 @@
 			GeneralGame.Tier.S => "background-tier-s",
 			GeneralGame.Tier.SS => "background-tier-ss",
 			GeneralGame.Tier.SSS => "background-tier-sss",
+			GeneralGame.Tier.Ultimate => "background-tier-ultimate",
 			_ => "background-tier-c", // Standardfall, falls keine Übereinstimmung gefunden wird
 		};
 	}
@@ -73,7 +74,8 @@
 		A,
 		S,
 		SS,
-		SSS
+		SSS,
+		Ultimate,
 		// Fügen Sie weitere Stufen hinzu, falls notwendig
 	}
 	private GeneralGame.Tier ConvertToGeneralGameTier(ItemTier itemTier)
@@ -86,6 +88,7 @@
 			ItemTier.S => GeneralGame.Tier.S,
 			ItemTier.SS => GeneralGame.Tier.SS,
 			ItemTier.SSS => GeneralGame.Tier.SSS,
+			ItemTier.Ultimate => GeneralGame.Tier.Ultimate,
 			_ => throw new ArgumentOutOfRangeException(nameof(itemTier), $"Nicht unterstützter ItemTier: {itemTier}")
 		};
 	}

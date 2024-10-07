@@ -37,21 +37,21 @@
 		<div class="stats" style="opacity: @(currentpanel == PanelType.MainStats ? 1 : 0)">
 			
 			<h2 class="stats2">
-				<li>💘Health (HP)</li> <span class="n">@(Math.Round(Player.Local.MaxHealth))</span>
+				<li>💘Health </li> <span class="n">@(Math.Round(Player.Local.MaxHealth))</span>
 				<div class="tooltip-text">
 					<div class="header">💘Max Health of the Player</div>
 					<p> Health Regen Per Second : @Math.Round(Player.Local.HealthRegenPerSecond, 2)/s</p>
 				</div>
 			</h2>
 			<h2 class="stats2">
-				<li>💙Mana (MP)</li> <span class="n">@(Math.Round(Player.Local.MaxMana))</span>
+				<li>💙Mana )</li> <span class="n">@(Math.Round(Player.Local.MaxMana))</span>
 				<div class="tooltip-text">
 					<div class="header">💙Max Mana of the Player</div>
 					<p> Mana Regen Per Second : @Math.Round(Player.Local.ManaRegenPerSecond, 2)/s</p>
 				</div>
 			</h2>
 			<h2 class="stats2">
-				<li>💦Stamina (STM)</li> <span class="n">@Math.Round(Player.Local.MaxStamina, 2)</span>
+				<li>💦Stamina </li> <span class="n">@Math.Round(Player.Local.MaxStamina, 2)</span>
 				<div class="tooltip-text">
 					<div class="header">💦Max STM of the Player</div>
 					<p> Stamina Regen Per Second : @Math.Round(Player.Local.StaminaPerSecond, 2)/s</p>
@@ -63,7 +63,7 @@
 				</div>
 			</h2>
 			<h2 class="stats2">
-				<li>⚔️Attack Power (AP)</li> <span class="n">@Math.Round(Player.Local.AttackPower)</span>
+				<li>⚔️Attack Power </li> <span class="n">@Math.Round(Player.Local.AttackPower)</span>
 				<div class="tooltip-text">
 					<div class="header">⚔️Overall Attack Power</div>
 
@@ -73,7 +73,7 @@
 				</div>
 			</h2>
 			<h2 class="stats2">
-				<li>🪄Magic Power (MAP)</li> <span class="n">@Math.Round(Player.Local.MagicPower)</span>
+				<li>🪄Magic Power</li> <span class="n">@Math.Round(Player.Local.MagicPower)</span>
 				<div class="tooltip-text">
 					<div class="header">🪄Max Magic Power of the Player</div>
 					<p> Magic Penetration : @Math.Round(Player.Local.MagicPenetration, 2)</p>
@@ -92,7 +92,7 @@
 				</div>
 			</h2>
 			<h2 class="stats2">
-				<li>🛡️Armor (DEF)</li> <span class="n">@Math.Round(Player.Local.Armor)</span>
+				<li>🛡️Armor </li> <span class="n">@Math.Round(Player.Local.Armor)</span>
 				<div class="tooltip-text">
 					<div class="header">🛡️currently Armor of the Player</div>
 
@@ -100,13 +100,13 @@
 				</div>
 			</h2>
 			<h2 class="stats2">
-				<li>✨Magic Defense (MD)</li> <span class="n">@Math.Round(Player.Local.MagicDefense)</span>
+				<li>✨Magic Defense </li> <span class="n">@Math.Round(Player.Local.MagicDefense)</span>
 				<div class="tooltip-text">
 					<div class="header">✨currently Magic Defense of the Player</h1>
 					</div>
 			</h2>
 			<h2 class="stats2">
-				<li>🕧Ability Haste (AH)</li> <span class="n">@Math.Round(Player.Local.AbilityHaste)</span>
+				<li>🕧Ability Haste </li> <span class="n">@Math.Round(Player.Local.AbilityHaste)</span>
 				<div class="tooltip-text">
 					<div class="header">🕧currently Ability Haste of the Player</h1>
 					</div>
@@ -117,7 +117,7 @@
 		<div class="statsone" style="opacity: @(currentpanel == PanelType.SideStats ? 1 : 0)">
 
 			<h2 class="stats4">
-				<li>⚔️Attack Speed (ATS)</li> <span class="n">@Math.Round(Player.Local.AttackSpeed, 2)</span>
+				<li>⚔️Attack Speed </li> <span class="n">@Math.Round(Player.Local.AttackSpeed, 2)</span>
 				<div class="tooltip-text">
 					<div class="header">⚔️AttackSpeed of the Player</div>
 
@@ -126,50 +126,54 @@
 				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>🔅Evasion (EVA)</li> <span class="n">@Math.Round(Player.Local.Evasion, 2)</span>
+				<li>🔅Evasion</li> <span class="n">@Math.Round(Player.Local.Evasion, 2)</span>
 				<div class="tooltip-text">
 					<div class="header">🔅Player is evading attacks in %</div>
 				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>🖐️Cover (Block+)</li> <span class="n">@Math.Round(Player.Local.Block, 2)</span>
+				<li>🖐️Cover </li> <span class="n">@Math.Round(Player.Local.Block, 2)</span>
 				<div class="tooltip-text">
 					<div class="header">🖐️How much the Player is blocking attacks in % ( Reducing DMG)</div>
 				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>🩸Crit Chance (Crit %)</li> <span class="n">@Math.Round(Player.Local.CritHitChance)</span>
+				<li>🩸Crit Chance </li> <span class="n">@Math.Round(Player.Local.CritHitChance)</span>
 				<div class="tooltip-text">
 					<div class="header">🩸How much the Player do Crit% of the (Overall DMG)</div>
 				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>🌀Crit Damage (Crit DMG)</li> <span class="n">@Math.Round(Player.Local.CritHitDamage)</span>
+				<li>🌀Crit Damage</li> <span class="n">@Math.Round(Player.Local.CritHitDamage)</span>
 				<div class="tooltip-text">
 					<div class="header">🌀How much the Player do Crit DMG of the (Overall DMG )</div>
 				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>💸Bonus EXP Gain (EXP+)</li> <span class="n">@Math.Round(Player.Local.BonusEXPGain, 2)</span>
+				<li>💸Bonus EXP Gain</li> <span class="n">@Math.Round(Player.Local.BonusEXPGain, 2)</span>
 				<div class="tooltip-text">
 					<div class="header">💸How much % extra XP gets the Player</div>
 				</div>
 			</h2>
 			<h2 class="stats4">
-				<li>💰Bonus Vyndalium Gain (Vynd+)</li> <span class="n">@Math.Round(Player.Local.BonusVyndalium,
+				<li>💰Bonus Vyndalium Gain</li> <span class="n">@Math.Round(Player.Local.BonusVyndalium,
 					2)</span>
 				<div class="tooltip-text">
 					<div class="header">💰How much % extra Vyndalium gets the Player</div>
 				</div>
 			</h2>
 
-			<h2 class="stats4" style="flex-direction: column; justify-content: center; align-items: center; top: 10%;">
-				<li>💯Min ATK (ATK)</li> <span class="n">@Math.Round(Player.Local.MinAttackValue, 2)</span>
-				<li>💯Max ATK (ATK)</li> <span class="n">@Math.Round(Player.Local.MaxAttackValue, 2)</span>
+			<h2 class="stats4" style="flex-direction: row; justify-content: center; align-items: center; top: 25%;">
+				<li>💯Min ATK</li> <span class="n">@Math.Round(Player.Local.MinAttackValue, 2)</span>
+				<li>💯Max ATK</li> <span class="n">@Math.Round(Player.Local.MaxAttackValue, 2)</span>
 				
 				<div class="tooltip-text">
 					<div class="header">💯Attack value of the player</div>
 				</div>
+			</h2>
+			<h2 class="stats4" style="flex-direction: row; justify-content: center; align-items: center; top: 30%;">
+				<li> 🛡️min DEF</li> <span class="n">@Math.Round(Player.Local.MinArmorValue, 2)</span>
+				<li> 🛡️max DEF</li> <span class="n">@Math.Round(Player.Local.MaxArmorValue, 2)</span>
 			</h2>
 
 
@@ -334,41 +338,10 @@
 	}
 	
 	public void Inspect(ItemComponent item)
-    {
-        // Überprüfen Sie, ob das Panel gültig ist
-        if (item == null)
-        {
-            Log.Error("Item is null");
-            return;
-        }
-
-        // Erstellen Sie das Inspektionspanel
-        var inspectionPanel = new InspectItem(item);
-
-        // Überprüfen Sie, ob das Panel bereits ein Kind eines anderen Panels ist
-        if (inspectionPanel.Parent != null)
-        {
-            Log.Error("InspectionPanel already has a parent");
-            return;
-        }
-
-        // Überprüfen Sie, ob das Panel gültig ist
-        if (!inspectionPanel.IsValid())
-        {
-            Log.Error("InspectionPanel is not valid");
-            return;
-        }
-
-        // Fügen Sie das Inspektionspanel als Kind hinzu
-        try
-        {
-            AddChild(inspectionPanel);
-        }
-        catch (Exception ex)
-        {
-            Log.Error($"Failed to add child panel: {ex.Message}");
-        }
-    }
+	{
+		if (item is not null)
+			AddChild(new InspectItem(item));
+	}
 	CharacterRenderer _renderer;
 	public static CharacterMenu Instance { get; private set; }
 	public CharacterMenu() => Instance = this;

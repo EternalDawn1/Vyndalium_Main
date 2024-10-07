@@ -14,6 +14,7 @@ public enum GeneralScene
 	One,
 	One2,
 	One3,
+	Forest3,
 
 }
 
@@ -46,6 +47,7 @@ public static class SceneHandler
 			GeneralScene.One2 => "scenes/One/map1.2.scene",
 			GeneralScene.One3 => "scenes/One/map1.3.scene",
 			GeneralScene.Forest2 => "scenes/forest2.scene",
+			GeneralScene.Forest3 => "scenes/forest3.scene",
 
 			_ => null
 		};
@@ -122,6 +124,7 @@ public static class GeneralSceneExtensions
 			GeneralScene.StartBase => 0,
 			GeneralScene.One2 => 0,
 			GeneralScene.One3 => 0,
+			GeneralScene.Forest3 => 25,
 			_ => 0
 		};
 	}

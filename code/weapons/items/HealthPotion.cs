@@ -41,6 +41,7 @@ public sealed class HealthPotion : ItemComponent
             Tier.S => 125.0f,
             Tier.SS => 150.0f,
             Tier.SSS => 200.0f,
+            Tier.Ultimate => 250.0f,
             _ => 50.0f,
         };
     }

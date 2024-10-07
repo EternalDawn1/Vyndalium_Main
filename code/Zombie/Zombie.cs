@@ -673,15 +673,24 @@ public partial class Npc : Component, IHealthComponent
 					
 				}
 				// Generiere einen zufälligen Basis-Schaden zwischen 1 und 15
-				
+
+				// Generiere einen zufälligen Basis-Schaden zwischen 1 und 15
 				int baseDamage = random2.Next( 1, 16 );
 
 				// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
 				int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
 				int exponentialDamage = (int)(baseDamage * Math.Pow( 1.1, npcLevel ));
 
+				// Berücksichtige die Rüstung des Spielers als Prozentsatz
+				int playerArmorPercentage = 60; // Angenommen, die Rüstung reduziert den Schaden um 60%
+				double damageReductionFactor = (100 - playerArmorPercentage) / 100.0;
+
+				// Berechne den endgültigen Schaden unter Berücksichtigung der Rüstung
+				int finalDamage = (int)(exponentialDamage * damageReductionFactor);
+
 				// Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
-				damageable.TakeDamage( DamageType.Bullet, exponentialDamage, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
+				damageable.TakeDamage( DamageType.Bullet, finalDamage, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
+
 				if ( HasFireAbility )
 				{
 					// Generiere eine zufällige Brenndauer zwischen 1 und 5 Sekunden

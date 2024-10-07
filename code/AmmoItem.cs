@@ -7,8 +7,9 @@ namespace GeneralGame
     {
         [Property] public SoundEvent TriggerSoundPath { get; set; }
         [Property] public AmmoType AmmoTypen { get; set; }
-        [Property] public int Count { get; set; }
-
+        [Property] public int MinCount { get; set; } // Mindestanzahl der Munition
+        [Property] public int MaxCount { get; set; }
+        private static Random random = new Random();
         public void OnTriggerEnter( Collider other )
         {
             var player = other.Components.Get<Player>();
@@ -22,17 +23,18 @@ namespace GeneralGame
 
         private void GiveAmmoToPlayer( Player player )
         {
+            int count = random.Next( MinCount, MaxCount + 1 ); // Generiere eine zufällige Anzahl von Munition
+
             // Fügen Sie hier den Code hinzu, um dem Spieler Munition hinzuzufügen
-            // Zum Beispiel:
-            player.Ammo.Give( AmmoTypen, Count );
-            player.DefaultAmmo += Count;
+            player.Ammo.Give( AmmoTypen, count );
+            player.DefaultAmmo += count;
             var ammoContainer = player.Components.Get<AmmoContainer>();
             if ( ammoContainer != null )
             {
                 // Add ammo to the player's AmmoContainer
-                ammoContainer.Give( AmmoTypen, Count );
+                ammoContainer.Give( AmmoTypen, count );
             }
-            Hudmaster.Instance.ShowNotification( $"You picked up {Count}x {AmmoTypen} ammo.", "/ui/hud/bullet.png" );
+            Hudmaster.Instance.ShowNotification( $"You picked up {count}x {AmmoTypen} ammo.", "/ui/hud/bullet.png" );
         }
 
         public void OnTriggerExit( Collider other )

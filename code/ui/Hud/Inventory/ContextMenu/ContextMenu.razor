@@ -61,7 +61,7 @@
 		else
 		{
             <ContextMenuOption Description="Move to Backpack"
-                               ImagePath="ui/hud/inventory.png"
+                               ImagePath="ui/hud/back.gif"
                                onclick=@(() => Player.Local.Inventory.MoveItemToBackpack(_item)) />
 			<ContextMenuOption Description="Sell"
 							   ImagePath="ui/hud/shop.png"
@@ -97,7 +97,7 @@
         else if (_item != null && !_item.IsMaterial && !_item.IsPotion)
         {
             <ContextMenuOption Description="Move to Backpack"
-                               ImagePath="ui/hud/inventory.png"
+                               ImagePath="ui/hud/back.gif"
                                onclick=@(() => MoveToBackpackUpgrade(_item)) />
         }
     }
@@ -111,14 +111,23 @@
         }
         else if (_item != null && _item.IsAspect)
         {
-            <ContextMenuOption Description="Move to Aspect Slot"
-                            ImagePath="ui/hud/aspect.png"
-                            onclick=@(() => MoveToAspectSlot(_item)) />
+            @if (Player.Local.Inventory.AspectItems.Contains(_item))
+            {
+                <ContextMenuOption Description="Move to Backpack"
+                                ImagePath="ui/hud/back.gif"
+                                onclick=@(() => MoveToBackpackFromAspectSlot(_item)) />
+            }
+            else
+            {
+                <ContextMenuOption Description="Move to Aspect Slot"
+                                ImagePath="ui/hud/aspect.gif"
+                                onclick=@(() => MoveToAspectSlot(_item)) />
+            }
         }
-        else if (_item != null && !_item.IsMaterial && !_item.IsPotion)
+        else if (_item != null && !_item.IsMaterial && !_item.IsPotion && !_item.IsAspect)
         {
             <ContextMenuOption Description="Move to Backpack"
-                            ImagePath="ui/hud/inventory.png"
+                            ImagePath="ui/hud/back.gif"
                             onclick=@(() => MoveToBackpackUpgrade(_item)) />
         }
     }
@@ -169,15 +178,20 @@
 	private static ContextMenu _instance;
 	private ItemComponent _item;
 	private List<ItemComponent> selectedItems = new();
-         private void MoveToAspectSlot(ItemComponent item)
-        {
-           
-            
-            Player.Local.Inventory.MoveItemFromAspectToBackpack(item);
-                
-              
-            
-        }
+
+	private void MoveToBackpackFromAspectSlot(ItemComponent item)
+    {
+        Player.Local.Inventory.AspectToBackpack(item);
+        ShopPanel.Instance?.CheckAspectSlot();
+        StateHasChanged();
+    }
+
+    private void MoveToAspectSlot(ItemComponent item)
+    {
+        Player.Local.Inventory.MoveItemFromAspectToBackpack(item);
+        ShopPanel.Instance?.CheckAspectSlot();
+        StateHasChanged();
+    }
         private void ToggleFavorite(ItemComponent item)
         {
             if (item == null) return;
@@ -187,9 +201,9 @@
         }
         
     private int CalculateTotalSellPrice(ItemComponent item)
-        {
-            return item.SellPrice * item.Count;
-        }
+    {
+        return item.SellPrice * item.Count;
+    }
     private void BuyStack(ItemComponent item)
     {
         var player = Player.Local;
@@ -556,7 +570,7 @@
 	private void Inspect(ItemComponent item)
 	{
 		Inventory.Instance?.Inspect(item);
-		CharacterMenu.Instance?.Inspect(item);
+		//CharacterMenu.Instance?.Inspect(item);
 		
 	}
 

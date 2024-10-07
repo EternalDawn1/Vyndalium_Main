@@ -22,6 +22,7 @@ public enum Tier
 	S,
 	SS,
 	SSS,
+	Ultimate,
 }
 public enum AspectType
 {
@@ -65,15 +66,23 @@ public class ItemComponent : Component
 		return playerLevel >= RequiredLevel;
 	}
 	
+	public void ApplyAspect( ItemComponent aspectItem )
+	{
+		this.Aspect = aspectItem.Aspect;
+		Log.Info( $"Applied aspect {aspectItem.Aspect} to {Name}" );
+	}
 
 	[Property]public int BuyPrice { get; set; }
 
 	[Property ,Group("Main"),Range(0,100)]public int RequiredLevel { get; set; }
-	
-	
-	
 
-	
+	public string GetAspectAsString()
+	{
+		return Aspect.ToString();
+	}
+
+
+
 	public ItemComponent()
 	{
 		InitializeStats();
@@ -296,6 +305,7 @@ public class ItemComponent : Component
 			Tier.S => 800,
 			Tier.SS => 1000,
 			Tier.SSS => 2000,
+			Tier.Ultimate => 3000,
 			_ => 0
 		};
 		int minimumTierValue = tier switch
@@ -306,6 +316,7 @@ public class ItemComponent : Component
 			Tier.S => 300,
 			Tier.SS => 400,
 			Tier.SSS => 500,
+			Tier.Ultimate => 1000,
 			_ => 0
 		};
 
@@ -351,6 +362,9 @@ public class ItemComponent : Component
 				break;
 			case Tier.SSS:
 				basePrice = 1500;
+				break;
+			case Tier.Ultimate:
+				basePrice = 3000;
 				break;
 		}
 
@@ -459,6 +473,8 @@ public class ItemComponent : Component
 				return (baseMax * 4 / 5, baseMax);
 			case Tier.SSS:
 				return (baseMax, baseMax * 2);
+			case Tier.Ultimate:
+				return (baseMax * 2, baseMax * 3);
 			default:
 				return (baseMin, baseMax);
 		}
@@ -521,6 +537,9 @@ public class ItemComponent : Component
 				break;
 			case Tier.SSS:
 				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 8 ); // Max 8
+				break;
+			case Tier.Ultimate:
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 9 ); // Max 9
 				break;
 		}
 
@@ -617,6 +636,9 @@ public class ItemComponent : Component
 			case Tier.SSS:
 				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 8 ); // Max 8
 				break;
+			case Tier.Ultimate:
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 9 ); // Max 9
+				break;
 		}
 
 		// Generieren Sie zufällige Werte innerhalb der definierten Bereiche
@@ -679,6 +701,9 @@ public class ItemComponent : Component
 				break;
 			case Tier.SSS:
 				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 8 ); // Max 8
+				break;
+			case Tier.Ultimate:
+				maxStats = Math.Min( GetRandomStatCount( probabilities, random ), 9 ); // Max 9
 				break;
 		}
 

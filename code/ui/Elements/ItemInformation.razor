@@ -38,6 +38,12 @@
 						<p class="item-price-name"></p>
 					</div>
 				}
+				@if (Item.Aspect != AspectType.None)
+				{
+					<div class="aspect-description" style="color: @GetAspectColor(Item.Aspect)">
+						<text>Aspect: @Item.GetAspectAsString()</text>
+					</div>
+				}
 				<div class="description"
 					style="justify-content: center;@(!string.IsNullOrEmpty(Item.Description) ? "align-items: center;" : "")">
 				</div>
@@ -61,13 +67,17 @@
 			}
 			@if (Item.MinAttackValue != default(int) && Item.MaxAttackValue != default(int))
 			{
-				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Attack Value:
-					@Item.MinAttackValue - @Item.MaxAttackValue</div>
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">
+					<p class="y">Attack Value:</p>
+					<p class="x">@Item.MinAttackValue - @Item.MaxAttackValue</p>
+				</div>
 			}
 			@if(Item.MinArmorValue != default(int) && Item.MaxArmorValue != default(int))
 			{
-				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Armor Value:
-					@Item.MinArmorValue - @Item.MaxArmorValue</div>
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">
+					<p class="y1">Armor Value:</p>
+					<p class="x">@Item.MinArmorValue - @Item.MaxArmorValue</p>
+				</div>
 			}
 			@if (Item.STG != default(float))
 			{
@@ -253,6 +263,22 @@
 	{
 		return item.SellPrice * item.Count;
 	}
+	private string GetAspectColor(AspectType aspect)
+	{
+		return aspect switch
+		{
+			AspectType.Fire => "red",
+			AspectType.Water => "blue",
+			AspectType.Earth => "green",
+			AspectType.Air => "gray",
+			AspectType.Ice => "lightblue",
+			AspectType.Shadow => "purple",
+			AspectType.Holy => "yellow",
+			AspectType.Bleed => "darkred",
+			AspectType.Poison => "darkgreen",
+			_ => "black" // Standardfarbe
+		};
+	}
 	private string GetTierClass(GeneralGame.Tier tier)
 	{
 		return tier switch
@@ -263,6 +289,7 @@
 			GeneralGame.Tier.S => "tier-s",
 			GeneralGame.Tier.SS => "tier-ss",
 			GeneralGame.Tier.SSS => "tier-sss",
+			GeneralGame.Tier.Ultimate => "tier-ultimate",
 			_ => string.Empty
 		};
 	}

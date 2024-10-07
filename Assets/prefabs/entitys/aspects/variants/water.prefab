@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "16f4a71e-91cc-46d9-bf5e-5f6e44bfc17f",
     "Flags": 0,
-    "Name": "aspect",
+    "Name": "water",
     "Enabled": true,
     "Components": [
       {
@@ -13,6 +13,13 @@
         "MaterialOverride": "materials/effects/fire_cloud1.vmat",
         "Model": "prefabs/entitys/aspects/fire.vmdl",
         "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
         "RenderOptions": {
           "GameLayer": true,
           "OverlayLayer": false,
@@ -20,7 +27,7 @@
           "AfterUILayer": false
         },
         "RenderType": "On",
-        "Tint": "1,0,0,1",
+        "Tint": "0,0.05,1,1",
         "UseAnimGraph": true
       },
       {
@@ -61,7 +68,7 @@
         "__guid": "55b412ec-5706-42f3-b127-00621c79a720",
         "AbilityHaste": 0,
         "Armor": 0,
-        "Aspect": "Fire",
+        "Aspect": "Water",
         "Attachment": "hand_R",
         "AttachmentTransform": {
           "UniformScale": 1,
@@ -99,15 +106,15 @@
         "Icon": {
           "Model": "prefabs/entitys/aspects/fire.vmdl",
           "MaterialGroup": "",
-          "Colour": "0.34419,0,0,1",
+          "Colour": "0.13333,0,1,1",
           "Position": "-7.2,-8.25,0.15",
-          "Rotation": "0.55785,-0.1240573,-0.6223644,-0.5348606",
-          "Guid": "f291db84-4eb2-487f-af86-bc33e251121d"
+          "Rotation": "-0.5578499,0.1240577,0.6223642,0.5348607",
+          "Guid": "61a27edb-5f6d-4bc8-a433-b0fa0ae01228"
         },
         "INT": 0,
-        "IsAccessory": true,
+        "IsAccessory": false,
         "IsArmor": false,
-        "IsAspect": false,
+        "IsAspect": true,
         "IsBackable": false,
         "IsConsumable": false,
         "IsEquipment": false,
@@ -126,7 +133,7 @@
         "MinArmorValue": 0,
         "MinAttackValue": 0,
         "MoveSpeed": 0,
-        "Name": "Fire Aspect",
+        "Name": "Water Aspect",
         "PER": 0,
         "PoisonResistence": 0,
         "RequiredLevel": 0,

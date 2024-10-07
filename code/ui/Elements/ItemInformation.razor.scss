@@ -3,7 +3,7 @@
 ItemInformation {
     position: relative;
     
-    width: 340px;
+    width: 360px;
     height: 100%;
     max-height: 600px;
     align-items: center;
@@ -28,6 +28,8 @@ ItemInformation {
             background-size: cover;
             background-position: center;
             text-shadow: 1px 1px 4px rgb(85, 199, 228);
+            border-width: 1px;
+            border-color: rgb(85, 199, 228);
         }
     
         &.tier-b {
@@ -36,6 +38,8 @@ ItemInformation {
             background-size: cover;
             background-position: center;
             text-shadow: 1px 1px 4px rgb(52, 197, 52);
+            border-width: 1px;
+            border-color: rgb(52, 197, 52);
         }
     
         &.tier-s {
@@ -43,7 +47,11 @@ ItemInformation {
             background-image: url(/ui/hud/red2.gif);
             background-size: cover;
             background-position: center;
-            text-shadow: 1px 1px 4px rgb(233, 113, 1);
+            text-shadow: 1px 1px 4px rgb(255, 0, 0);
+            border-width: 1px;
+            border-color: rgb(255, 0, 0);
+
+            
             
         }
     
@@ -53,6 +61,8 @@ ItemInformation {
             background-size: cover;
             background-position: center;
             text-shadow: 1px 1px 4px rgb(255, 0, 255);
+            border-width: 1px;
+            border-color: rgb(255, 0, 255);
         }
     
         &.tier-sss {
@@ -61,6 +71,21 @@ ItemInformation {
             background-size: cover;
             background-position: center;
             text-shadow: 1px 1px 4px #ffd900;
+            border-width: 1px;
+            border-color: #ffd900;
+            
+        }
+        &.tier-ultimate {
+            
+            background-image: url(/ui/hud/ultimate.gif);
+            background-size: cover;
+            background-position: center;
+            text-shadow: 1px 1px 4px #ff8800;
+            border-width: 1px;
+            border-color: #ff8800;
+            
+            
+            
             
         }
     
@@ -211,7 +236,7 @@ ItemInformation {
 
                     // Define color for Tier A
                     &.S {
-                        color: rgb(233, 113, 1);
+                        color: rgb(255, 0, 0);
                         
                     }
 
@@ -223,6 +248,10 @@ ItemInformation {
                     // Define color for Tier SS
                     &.SSS {
                         color: #ffd900;
+                    }
+                    &.Ultimate {
+                        color: #ff8000;
+                       
                     }
 
                     // Define color for Tier SSS
@@ -362,7 +391,22 @@ ItemInformation {
             
 
         }
-        
+        .aspect-description{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-height: 5%;
+            font-family: Geneva;
+            font-size: 20px;
+            align-items: center;
+            font-weight: bolder;
+            color: rgb(0, 47, 255);
+            border-radius: 1px;
+            gap: 15px;
+            margin: 5px 0px;
+            padding: 5px 0px;
+            justify-content: space-evenly;
+        }
 
 
         .item-description {
@@ -392,6 +436,7 @@ ItemInformation {
             
         }
 
+
         .item-description1 {
             position: relative;
             height: 20%;
@@ -400,6 +445,27 @@ ItemInformation {
             font-size: 16px;
             max-height: 5%;
             color: rgb(130, 255, 140);
+            gap: 10px;
+            
+
+            .x{
+                
+                font-weight: bold;
+                color: rgb(255, 255, 255);
+                font-size: 17px;
+            }
+            .y1{
+                    
+                    font-weight: bold;
+                    color: rgb(168, 167, 200);
+                    font-size: 17px;
+            }
+            .y{
+                
+                font-weight: bold;
+                color: rgb(255, 0, 0);
+                font-size: 17px;
+            }
        
         }
         .item-description1.insufficient-level 

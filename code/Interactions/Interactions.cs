@@ -287,6 +287,7 @@ public class Interactions : Component
 			Tier.S => Color.Red,
 			Tier.SS => Color.Magenta, // Orange
 			Tier.SSS => Color.Yellow,
+			Tier.Ultimate => Color.Orange,
 			_ => Color.White, // Standardfarbe, falls keine Übereinstimmung gefunden wird
 		};
 	}

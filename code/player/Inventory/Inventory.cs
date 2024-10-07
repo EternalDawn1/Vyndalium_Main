@@ -184,6 +184,9 @@ public sealed class Inventory : Component
 		if (x.IsAccessory && !y.IsAccessory) return -1;
 		if (!x.IsAccessory && y.IsAccessory) return 1;
 
+		if(x.IsAspect && !y.IsAspect) return -1;
+		if(!x.IsAspect && y.IsAspect) return 1;
+
 		return 0;
 	}
 
@@ -368,7 +371,8 @@ public sealed class Inventory : Component
 		Player.Local.LightResist -= item.HolyResistence;
 		Player.Local.ShadowResist -= item.ShadowResistence;
 	}
-	[ConCmd( "reset" )]
+	
+	[ConCmd( "reset_attackvalue" )]
 	public static void SetPlayerAttackValuesToZero()
 	{
 		if ( Player.Local != null )
@@ -383,8 +387,23 @@ public sealed class Inventory : Component
 			
 		}
 	}
+	[ConCmd( "reset_armor" )]
+	public static void SetPlayerArmorValuesToZero()
+	{
+		if ( Player.Local != null )
+		{
+			Player.Local.MinArmorValue = 0;
+			Player.Local.MaxArmorValue = 0;
+			Log.Info( "MinArmorValue und MaxArmorValue des Spielers wurden auf 0 gesetzt." );
+		}
+		else
+		{
+			Log.Info( "Spieler nicht gefunden." );
+		}
+	}
 
-	
+
+
 
 
 	public Inventory()
@@ -530,6 +549,29 @@ public sealed class Inventory : Component
 			}
 		}
 	}
+	public void AspectToBackpack( ItemComponent item )
+	{
+		if ( item == null ) return;
+
+		if ( _aspectItems.Contains( item ) )
+		{
+			int freeSlot = _backpackItems.IndexOf( null );
+			if ( freeSlot != -1 )
+			{
+				int itemIndex = _aspectItems.IndexOf( item );
+				_aspectItems[itemIndex] = null; // Setze den Slot im Aspekt auf null
+				_backpackItems[freeSlot] = item;
+				item.State = ItemState.Backpack;
+				item.GameObject.Enabled = false;
+				ShopPanel.Instance?.CheckAspectSlot();
+			}
+			else
+			{
+				
+				Hudmaster.Instance.ShowNotification( "No Slots in Backpack available.", "/ui/hud/exit.gif" );
+			}
+		}
+	}
 	public void MoveItemFromUpgradeToBackpack( ItemComponent item )
 	{
 		if ( item == null ) return;
@@ -553,10 +595,10 @@ public sealed class Inventory : Component
 			}
 		}
 	}
+
 	public void MoveItemFromAspectToBackpack( ItemComponent item )
 	{
 		if ( item == null ) return;
-
 		if ( _backpackItems.Contains( item ) )
 		{
 			int freeSlot = _aspectItems.IndexOf( null );
@@ -567,6 +609,7 @@ public sealed class Inventory : Component
 				_aspectItems[freeSlot] = item;
 				item.State = ItemState.Aspect;
 				item.GameObject.Enabled = false;
+				ShopPanel.Instance?.CheckAspectSlot();
 			}
 			else
 			{
@@ -574,7 +617,7 @@ public sealed class Inventory : Component
 			}
 		}
 	}
-	
+
 
 	public void MoveItemToBackpack( ItemComponent item )
 	{

@@ -30,6 +30,7 @@ public struct ItemSave
 	[JsonInclude] public int AttackPower { get; set; }
 	[JsonInclude] public int MagicPower { get; set; }
 	[JsonInclude] public GeneralGame.Tier Tier { get; set; }
+	[JsonInclude] public AspectType Aspect { get; set; }
 	[JsonInclude] public int RequiredLevel { get; set; }
 	[JsonInclude] public int DamageBalance { get; set; }
 	[JsonInclude] public int MinArmorValue { get; set; }
@@ -57,6 +58,7 @@ public struct ItemSave
 	[JsonInclude] public int LightningResistence { get; set; }
 	[JsonInclude] public int HolyResistence { get; set; }
 	[JsonInclude] public int ShadowResistence { get; set; }
+	
 }
 
 
@@ -256,7 +258,7 @@ partial class Player
 			item.Count = item.Count;
 			item.Description = item.Description;
 			item.IsFavorite = item.IsFavorite;
-
+			item.Aspect = item.Aspect;
 		
 		
 
@@ -265,6 +267,7 @@ partial class Player
 			return new ItemSave
 			{
 				IsFavorite = item.IsFavorite,
+				Aspect = item.Aspect,
 				RequiredLevel = item.RequiredLevel,
 				Path = item.Prefab,
 				State = item.State,
@@ -545,6 +548,7 @@ partial class Player
 				var item = obj.Components.Get<ItemComponent>();
 				if ( item != null )
 				{
+					item.Aspect = data.Aspect;
 					item.IsFavorite = data.IsFavorite;
 					item.Description = data.Description;
 					item.RequiredLevel = data.RequiredLevel;	
@@ -617,6 +621,7 @@ partial class Player
 
 				player.Inventory.EquipItemFromWorld( equipment );
 				ReadData( data, o );
+				equipment.Aspect = data.Aspect;
 				equipment.IsFavorite = data.IsFavorite;
 				equipment.Description = data.Description;
 				equipment.RequiredLevel = data.RequiredLevel;
@@ -689,6 +694,7 @@ partial class Player
 					continue;
 				player.Inventory?.SetItem( item, data.Index );
 				ReadData( data, o );
+				item.Aspect = data.Aspect;
 				item.IsFavorite = data.IsFavorite;
 				item.Description = data.Description;
 				item.RequiredLevel = data.RequiredLevel;	
@@ -755,6 +761,7 @@ partial class Player
 					continue;
 				player.Inventory.GiveStorageItem( item, data.Index );
 				ReadData( data, o );
+				item.Aspect = data.Aspect;
 				item.IsFavorite = data.IsFavorite;
 				item.Description = data.Description;
 				item.MaxStack = data.MaxStack;

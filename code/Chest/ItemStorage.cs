@@ -19,7 +19,7 @@ namespace GeneralGame
         [Property] public List<ItemComponent> items => Items;
         [Property]public bool IsBossChest { get; set; } = false;
         public bool IsZombieSpawner { get; set; }
-        public int Level { get; set; }
+        public int Level { get; set; } = 1;
 
         private Dictionary<string, (int MinAttack, int MaxAttack)> tierAttackValues = new Dictionary<string, (int MinAttack, int MaxAttack)>
         {
@@ -236,10 +236,16 @@ namespace GeneralGame
             }
             else
             {
-                int minLevel = 0;
-                int maxLevel = 100;
-                int playerLevel = GetPlayerLevel(); // Spielerlevel ermitteln
+               
+                if( Player.Local != null )
+                {
+                    int minLevel = 0;
+                    int maxLevel = 100;
+                    int playerLevel = GetPlayerLevel();
                 LoadRandomTierPrefabs( playerLevel, minLevel, maxLevel );
+                }
+                // Spielerlevel ermitteln
+               
             }
             
             
@@ -355,6 +361,7 @@ namespace GeneralGame
 
         public void LoadTierPrefab( string prefabPath, string tier, int minLevel, int maxLevel )
         {
+            
             int playerLevel = GetPlayerLevel();
             var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
             if ( prefab != null )
@@ -400,10 +407,14 @@ namespace GeneralGame
 
         public int GetPlayerLevel()
         {
-            
+            var player = Player.Local;
             if ( Player.Local != null )
             {
-                return Player.Local.Level;
+                return player.Level;
+            }
+            else if( Player.Local == null )
+            {
+                return Level;
             }
             else
             {
@@ -467,6 +478,11 @@ namespace GeneralGame
 
         public( int MinAttack, int MaxAttack ) CalculateAttackValues( string tier, ItemComponent itemComponent )
         {
+            if( Player.Local == null )
+            {
+                return (0, 0);
+            }
+
             int level = Player.Local.Level;
            
             var baseValues = tierAttackValues[tier];
@@ -541,6 +557,7 @@ namespace GeneralGame
 
             string color = item.Tier switch
             {
+                Tier.Ultimate => "orange",
                 Tier.SSS => "gold",
                 Tier.SS => "purple",
                 Tier.S => "blue",
@@ -716,6 +733,8 @@ public class NameGenerator
 {
     private static readonly Dictionary<Tier, List<string>> WeaponNames = new Dictionary<Tier, List<string>>
     {
+        {Tier.Ultimate, new List<string> {
+            "Ultimate", "Supreme", "Divine", "Eternal", "Legendary", "Mythic", "Celestial", "Radiant", "Empyrean", "Godly",}},
         { Tier.SSS, new List<string> {
             "Golden", "Divine", "Legendary", "Mythic", "Eternal", "Ascendant", "Celestial", "Transcendent", "Immortal", "Radiant",
             "Empyrean", "Godly", "Exemplary", "Omniscient", "Primordial", "Invincible", "Supreme", "Exalted", "Seraphic", "Infinite",
@@ -749,6 +768,8 @@ public class NameGenerator
 
     private static readonly Dictionary<Tier, List<string>> ArmorNames = new Dictionary<Tier, List<string>>
     {
+        {Tier.Ultimate, new List<string> {
+            "Ultimate", "Supreme", "Divine", "Eternal", "Legendary", "Mythic", "Celestial", "Radiant", "Empyrean", "Godly",}},
         { Tier.SSS, new List<string> {
             "Golden", "Divine", "Legendary", "Mythic", "Eternal", "Ascendant", "Celestial", "Transcendent", "Immortal", "Radiant",
             "Empyrean", "Godly", "Exemplary", "Omniscient", "Primordial", "Invincible", "Supreme", "Exalted", "Seraphic", "Infinite",
@@ -782,6 +803,9 @@ public class NameGenerator
 
     private static readonly Dictionary<Tier, List<string>> RandomWeaponNames = new Dictionary<Tier, List<string>>
     {
+        {Tier.Ultimate, new List<string> {
+            "Reaper", "Furious", "Slayer", "Eraser", "Wrath",
+            "Shiver", "Soulreaper", "Atyus", "Starbreaker", "Cluster", "Neon", "Zapper", "Venuizer", "Typhoon", "fall" } },
         { Tier.SSS, new List<string> {
             "Excalibur", "Thunderfury", "Doomhammer", "Ashbringer", "Dragonwrath",
             "Atiesh", "Soulreaper", "Moonblade", "Starbreaker", "Skyshatter" } },
@@ -809,6 +833,9 @@ public class NameGenerator
 
     private static readonly Dictionary<Tier, List<string>> RandomArmorNames = new Dictionary<Tier, List<string>>
     {
+        {Tier.Ultimate, new List<string> {
+            "Regis", "Citan", "guard", "Colo", "Fort",
+            " Wall", "Dawn", "Maiden", "Unbreakable", "Shieldrig" } },
         { Tier.SSS, new List<string> {
             "Aegis", "Titan", "Vanguard", "Colossus", "Fortress",
             "Iron Wall", "Bulwark of Dawn", "Sanctum", "Citadel", "Watchtower" } },

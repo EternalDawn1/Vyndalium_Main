@@ -103,8 +103,8 @@ public class BaseGun : WeaponComponent, IUse
 	{
 		Random random = new Random();
 		float baseDamage = random.Next( (int)player.MinAttackValue, (int)player.MaxAttackValue + 1 ); // Verwenden Sie die AttackValue des Spielers als Basis-Schaden
-		float bonusDamage = baseDamage * (player.AttackPower / 100.0f);
-		float magicBonus = baseDamage * (player.MagicPower / 100.0f);
+		float bonusDamage = baseDamage * (player.AttackPower / 45.0f);
+		float magicBonus = baseDamage * (player.MagicPower / 45.0f);
 
 		// Anpassen des Schadens basierend auf dem Schadenstyp der Waffe
 		switch ( DamageType )
@@ -378,7 +378,7 @@ public class BaseGun : WeaponComponent, IUse
 					var playerCritChance = player.CritHitChance;
 					var playerCritDamage = player.CritHitDamage;
 
-					damage += (int)(damage * (playerAttackValue / 300.0f));
+					damage += (int)(damage * (playerAttackValue / 150.0f));
 
 					int calculatedDamage = (int)(damage * (playerAttackPower / 50.0f));
 					damage += random.Next( 0, calculatedDamage + 1 );
@@ -693,17 +693,14 @@ public class BaseGun : WeaponComponent, IUse
 		{
 			return;
 		}
+		if(shooter.LifeState == LifeState.Dead)
+		{
+			return;
+		}
+		 
 		if ( !NextAttackTime ) return;
 		if ( IsReloading ) return;
 
-		if ( AmmoInClip <= 0 )
-		{
-			SendEmptyClipMessage();
-			ReloadAction();
-			NextAttackTime = 1f / FireRate;
-			
-			return;
-		}
 		if ( IsMagicWeapon && Player.Local.Mana < 10 )
 		{
 			// Nicht genug Mana, um die magische Waffe abzufeuern
@@ -716,9 +713,28 @@ public class BaseGun : WeaponComponent, IUse
 			Player.Local.ChangeMana( -10 );
 		}
 
+		if ( AmmoInClip <= 0 )
+		{
+			SendEmptyClipMessage();
+			ReloadAction();
+			NextAttackTime = 1f / FireRate;
+			
+			return;
+		}
 
+		
+
+		
+
+
+		
 		if ( Owner.MoveSpeed > 150f ) return;
 		Owner.ApplyRecoil( Recoil );
+		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+		EffectRenderer?.Set( "b_attack", true );
+		EffectRenderer?.Set( "b_reload", false );
+		NextAttackTime = 1f / FireRate;
+		AmmoInClip--;
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
 		var startPos = Owner.PlyCamera.WorldPosition;
@@ -749,7 +765,7 @@ public class BaseGun : WeaponComponent, IUse
 		{
 		
 			Random random = new Random();
-			float playerAttackValue = random.Next( (int)shooter.MinAttackValue, (int)shooter.MaxAttackValue + 1 );
+			float playerAttackValue = random.Next( (int)shooter.MinAttackValue, (int)shooter.MaxAttackValue + 60 );
 			var playerAttackPower = shooter.AttackPower;
 			var playerCritChance = shooter.CritHitChance;
 			var playerCritDamage = shooter.CritHitDamage;
@@ -814,12 +830,7 @@ public class BaseGun : WeaponComponent, IUse
 				health.Damage( Damage, DamageType, shooter.GameObject, trace.HitPosition, trace.Direction, HitForce );
 		}
 
-		NextAttackTime = 1f / FireRate;
-		AmmoInClip--;
-
-
-		EffectRenderer.Set( "b_empty", AmmoInClip == 0 );
-		EffectRenderer.Set( "b_attack", true );
+		
 
 
 	}
@@ -848,6 +859,7 @@ public class BaseGun : WeaponComponent, IUse
 
 		if ( !IsProxy && ReloadFinishTime && IsReloading )
 		{
+			Log.Info( "Reloading..." );
 			OnReloadEnd();
 		}
 
@@ -887,6 +899,12 @@ public class BaseGun : WeaponComponent, IUse
 	[Broadcast]
 	private void SendReloadMessage()
 	{
+		if ( Player.Local == null )
+		{
+			
+			return;
+		}
+		
 		if ( Player.Local.LifeState == LifeState.Dead )
 		{
 			// Spieler ist tot, keine Reload-Nachricht senden
