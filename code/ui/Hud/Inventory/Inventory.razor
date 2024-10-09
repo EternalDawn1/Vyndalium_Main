@@ -23,7 +23,7 @@
 	<div class="list">
 		<div class="inventory" style="opacity: @(currentPanel == PanelType.Inventory ? 1 : 0)">
 			
-			<div class="Hello">Inventory / All</div>
+			
 
 			<div class="section">
 				<div class="character">
@@ -86,19 +86,40 @@
 						Favorite</button>
 
 				</div>
-				
 
+				<div class="Hello">Inventory</div>
 				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
 				@for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
 				{
 					var item = Player.Local.Inventory.BackpackItems[index];
 					<InventorySlot Item=@item BackpackSlotIndex=@index />
 				}
+
 				</div>
+				@{
+					var backpackBagItems = Player.Local.Inventory.BackpackBagItems;
+				}
+				@if (backpackBagItems.Count > 0)
+				{
+					<div class="box">
+						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.Tier))">
+							Tier</button>
+						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.ItemLevel))">Item
+							Lvl</button>
+						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.RequiredLevel))">
+							Req. LVL</button>
+						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.Material))">
+							Material</button>
+						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.Favorite))">
+							Favorite</button>
+					</div>
+					<div class="Hello">Bag Pack</div>
+				}
+
 				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
-					@for (var index = 0; index < Player.Local.Inventory.BackpackBagItems.Count; index++)
+					@for (var index = 0; index < backpackBagItems.Count; index++)
 					{
-						var item = Player.Local.Inventory.BackpackBagItems[index];
+						var item = backpackBagItems[index];
 						<InventorySlot Item=@item BackpackPackSlotIndex=@index />
 					}
 				</div>
@@ -147,6 +168,16 @@
 
 		Player.Local.Inventory?.SortBackpackItems(sortOption);
 	}
+	private void SortBackpackBagItems(SortOption sortOption)
+	{
+		// Umschalten der Sortierrichtung
+		currentSortDirection = currentSortDirection == SortDirection.Ascending
+		? SortDirection.Descending
+		: SortDirection.Ascending;
+
+		Player.Local.Inventory?.SortBackpackBagItems(sortOption);
+	}
+	
 
 	private Player player { get; set; }
 

@@ -43,15 +43,7 @@ Inventory {
             border-radius: 5px;
             background-color: rgba(0, 0, 0, 0);
 
-            .Hello {
-                position: absolute;
-                left: 100px;
-                top: 40px;
-                font-size: 32px;
-                font-family: Geneva;
-                color: white;
-
-            }
+           
 
 
 
@@ -131,21 +123,29 @@ Inventory {
 
     .section2 {
         flex-direction: column;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        
         .box{
             gap: 10px;
-            position: absolute;
-            top: 8%;
-            left: 20%;
-            height: 2%;
+            position: relative;
+            top: 5%;
+            left: 1%;
+            height: 4%;
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
             .sort 
                 {
                     flex-direction: row;
                     position: relative;
-                    font-size: 14px;
+                    font-size: 20px;
+                    font-style: italic;
+                    font-weight: bold;
                     color: rgb(255, 255, 255);
-                    width: 9%;
+                    width: 10%;
                     height: 100%;
-                    background-color: rgb(0, 0, 0);
+                    background-color: rgb(62, 62, 62);
                     border-width: 1px;
                     justify-content: center;
                     align-items: center;
@@ -178,14 +178,31 @@ Inventory {
                 
         }
                 
+         .Hello {
+             position: relative;
+            width: 100%;
+            height: 7%;
+            top: -5%;
+             font-size: 32px;
+             font-family: Geneva;
+             color: white;
+             z-index: -100;
+       
+             justify-content: center;
+                align-items: center;
     
+         }
 
         .items {
             flex-wrap: wrap;
-            width: 800px;
-            overflow-x: scroll;
+            width: 1000px;
+            
+            
+            
+            
 
         }
+        
     }
         .healthbar {
             position: absolute;

@@ -595,20 +595,9 @@
 		var inventory = Player.Local.Inventory;
 
 		// From storage slot.
-		if (fromSlot.StorageSlotIndex is not null)
-		{
-			// To storage slot.
-			
-			
-			
-			 if(targetSlot.BackpackSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.StorageSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
-		}
+		
 		// From backpack slot.
-		else if (fromSlot.BackpackSlotIndex is not null)
+		if (fromSlot.BackpackSlotIndex is not null)
 		{
 			// To backpack slot.
 			if (targetSlot.BackpackSlotIndex is not null)
@@ -616,54 +605,33 @@
 				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
 				PlaySound(res ? "drop" : "serror");
 			}
-			
-			// To storage slot.
-			else if (targetSlot.StorageSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.StorageSlotIndex.Value, true);
-				PlaySound(res ? "drop" : "serror");
-			}
+			// To backpack pack slot.
 			else if (targetSlot.BackpackPackSlotIndex is not null)
 			{
-				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.BackpackPackSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
-			else if (targetSlot.IndependentSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.IndependentSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
-			else if (targetSlot.AspectSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.AspectSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
-			
-			 
-		}
-		// From shop slot.
-		else if (fromSlot.ShopSlotIndex is not null)
-		{
-			// To backpack slot.
-			if (targetSlot.BackpackSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.ShopSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
-			// To storage slot.
-			else if (targetSlot.StorageSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.ShopSlotIndex.Value, targetSlot.StorageSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
-			// To shop slot.
-			else if (targetSlot.ShopSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.ShopSlotIndex.Value, targetSlot.ShopSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
+				var itemComponent = inventory.BackpackItems[fromSlot.BackpackSlotIndex.Value];
+				int targetBackpackPackSlotIndex = targetSlot.BackpackPackSlotIndex.Value;
+
+				// Überprüfen, ob das Ziel-Slot bereits ein Item enthält
+				if (inventory.BackpackBagItems[targetBackpackPackSlotIndex] != null)
+				{
+					// Swappen der Items
+					var res = inventory.SwapBackpackPackItems(fromSlot.BackpackSlotIndex.Value, targetBackpackPackSlotIndex);
+					PlaySound(res ? "drop" : "serror");
+				}
+				else
+				{
+					// Hinzufügen des Items zum Ziel-Slot
+					bool res = inventory.MoveItemToBackpackPackSlot(itemComponent, targetBackpackPackSlotIndex);
+					if (res)
+					{
+						// Entferne das Item aus dem ursprünglichen Slot
+						inventory.RemoveBackpackItem(itemComponent, fromSlot.BackpackSlotIndex.Value);
+					}
+					PlaySound(res ? "drop" : "serror");
+				}
 			}
 		}
-		// From equip slot.
+		
 		else if (fromSlot.EquipSlotIndex is not null)
 		{
 			// To backpack slot.
@@ -679,28 +647,59 @@
 				PlaySound(res ? "drop" : "serror");
 			}
 		}
-		else if (fromSlot.UpgradeSlotIndex is not null)
+		
+		
+		else if (fromSlot.BackpackPackSlotIndex is not null)
 		{
+			// To backpack slot.
 			if (targetSlot.BackpackSlotIndex is not null)
 			{
-				var res = inventory.SwapItems(fromSlot.UpgradeSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
+				var itemComponent = inventory.BackpackBagItems[fromSlot.BackpackPackSlotIndex.Value];
+				int targetBackpackSlotIndex = targetSlot.BackpackSlotIndex.Value;
+
+				// Überprüfen, ob das Ziel-Slot bereits ein Item enthält
+				if (inventory.BackpackItems[targetBackpackSlotIndex] != null)
+				{
+					// Swappen der Items
+					var res = inventory.SwapBackpackPackItems(fromSlot.BackpackPackSlotIndex.Value, targetBackpackSlotIndex);
+					PlaySound(res ? "drop" : "serror");
+				}
+				else
+				{
+					// Hinzufügen des Items zum Ziel-Slot
+					bool res = inventory.MoveItemToBackpackSlot(itemComponent, targetBackpackSlotIndex);
+					if (res)
+					{
+						// Entferne das Item aus dem ursprünglichen Slot
+						inventory.RemoveBackpackPackItem(itemComponent, fromSlot.BackpackPackSlotIndex.Value);
+					}
+					PlaySound(res ? "drop" : "serror");
+				}
 			}
-		}
-		else if (fromSlot.IndependentSlotIndex is not null)
-		{
-			if (targetSlot.BackpackSlotIndex is not null)
+			// To another backpack pack slot.
+			else if (targetSlot.BackpackPackSlotIndex is not null)
 			{
-				var res = inventory.SwapItems(fromSlot.IndependentSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
-			}
-		}
-		else if (fromSlot.AspectSlotIndex is not null)
-		{
-			if (targetSlot.BackpackSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.AspectSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
-				PlaySound(res ? "drop" : "serror");
+				var itemComponent = inventory.BackpackBagItems[fromSlot.BackpackPackSlotIndex.Value];
+				int targetBackpackPackSlotIndex = targetSlot.BackpackPackSlotIndex.Value;
+
+				// Überprüfen, ob das Ziel-Slot bereits ein Item enthält
+				if (inventory.BackpackBagItems[targetBackpackPackSlotIndex] != null)
+				{
+					// Swappen der Items
+					var res = inventory.SwapBackpackPackItems(fromSlot.BackpackPackSlotIndex.Value, targetBackpackPackSlotIndex);
+					PlaySound(res ? "drop" : "serror");
+				}
+				else
+				{
+					// Hinzufügen des Items zum Ziel-Slot
+					bool res = inventory.MoveItemToBackpackPackSlot(itemComponent, targetBackpackPackSlotIndex);
+					if (res)
+					{
+						// Entferne das Item aus dem ursprünglichen Slot
+						inventory.RemoveBackpackPackItem(itemComponent, fromSlot.BackpackPackSlotIndex.Value);
+					}
+					PlaySound(res ? "drop" : "serror");
+				}
 			}
 		}
 		

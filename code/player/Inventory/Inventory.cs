@@ -56,6 +56,7 @@ public sealed class Inventory : Component
 	[Property] public IReadOnlyList<ItemComponent> AspectItems => _aspectItems;
 	[Property] public IReadOnlyList<ItemComponent> BackpackBagItems => _backpackBagItems;
 	
+	
 
 	[Property] public readonly  List<ItemComponent> _backpackItems;
 	[Property] public readonly List<ItemComponent> _equippedItems;
@@ -64,8 +65,33 @@ public sealed class Inventory : Component
 	[Property] public readonly List<ItemComponent> _upgradeItems;
 	[Property] public readonly List<ItemComponent> _aspectItems;
 	[Property] public readonly List<ItemComponent> _backpackBagItems;
-	
+	public void SortBackpackBagItems( SortOption sortOption )
+	{
+		ToggleSortDirection();
+		currentSortOption = sortOption;
+		_backpackBagItems.Sort( CompareItems );
+		// Aktualisieren Sie das UI nach dem Sortieren
+		_onBackpackSlotsChanged?.Invoke();
+	}
+	public bool MoveItemToBackpackPackSlot( ItemComponent item, int backpackPackSlotIndex )
+	{
+		if ( backpackPackSlotIndex < 0 || backpackPackSlotIndex >= _backpackBagItems.Count )
+			return false;
 
+		if ( _backpackBagItems[backpackPackSlotIndex] != null )
+			return false;
+
+		// Entferne das Item aus dem ursprünglichen Slot
+		int originalSlotIndex = _backpackItems.IndexOf( item );
+		if ( originalSlotIndex >= 0 )
+		{
+			_backpackItems[originalSlotIndex] = null;
+		}
+
+		_backpackBagItems[backpackPackSlotIndex] = item;
+
+		return true;
+	}
 	public bool RemoveItem( ItemComponent item )
 	{
 		if ( item == null )
@@ -115,6 +141,7 @@ public sealed class Inventory : Component
 
 		return false;
 	}
+	
 	private SortOption currentSortOption = SortOption.Tier;
 	private SortDirection currentSortDirection = SortDirection.Ascending;
 
@@ -125,6 +152,7 @@ public sealed class Inventory : Component
 		_backpackItems.Sort( CompareItems );
 		 // Aktualisieren Sie das UI nach dem Sortieren
 	}
+	
 	public void SortStorageItems( SortOption sortOption )
 	{
 		ToggleSortDirection();
@@ -765,7 +793,7 @@ public sealed class Inventory : Component
 			if ( item is Backpack backpack )
 			{
 				MAX_BACKPACKBAG_SLOTS = (int)backpack.SlotAmount;
-				Log.Info( $"Backpack slots: {MAX_BACKPACKBAG_SLOTS}" + $"{backpack.SlotAmount}" );
+				
 				if ( _backpackBagItems.Count < MAX_BACKPACKBAG_SLOTS )
 				{
 					for ( int i = _backpackBagItems.Count; i < MAX_BACKPACKBAG_SLOTS; i++ )
@@ -1025,6 +1053,54 @@ public sealed class Inventory : Component
 		
 
 		return true;
+	}
+	public bool SwapBackpackPackItems( int fromIndex, int toIndex )
+	{
+		var fromItem = _backpackBagItems.ElementAtOrDefault( fromIndex );
+		var toItem = _backpackItems.ElementAtOrDefault( toIndex );
+
+		if ( fromItem is null || toItem is null )
+			return false;
+
+		_backpackBagItems[fromIndex] = toItem;
+		_backpackItems[toIndex] = fromItem;
+
+		return true;
+	}
+
+	public bool MoveItemToBackpackSlot( ItemComponent item, int backpackSlotIndex )
+	{
+		if ( backpackSlotIndex < 0 || backpackSlotIndex >= _backpackItems.Count )
+			return false;
+
+		if ( _backpackItems[backpackSlotIndex] != null )
+			return false;
+
+		// Entferne das Item aus dem ursprünglichen Slot
+		int originalSlotIndex = _backpackBagItems.IndexOf( item );
+		if ( originalSlotIndex >= 0 )
+		{
+			_backpackBagItems[originalSlotIndex] = null;
+		}
+
+		_backpackItems[backpackSlotIndex] = item;
+
+		return true;
+	}
+	public void RemoveBackpackPackItem( ItemComponent item, int index )
+	{
+		if ( index >= 0 && index < _backpackBagItems.Count )
+		{
+			_backpackBagItems[index] = null;
+		}
+	}
+
+	private void GiveBackpackPackItem( ItemComponent item, int index )
+	{
+		if ( index >= 0 && index < _backpackBagItems.Count )
+		{
+			_backpackBagItems[index] = item;
+		}
 	}
 	public bool SwapItems( int index, EquipSlot slot )
 	{
@@ -1518,7 +1594,7 @@ public sealed class Inventory : Component
 	/// <summary>
 	/// The item is removed from the backpack.
 	/// </summary>
-	private void RemoveBackpackItem( ItemComponent item, int index )
+	public void RemoveBackpackItem( ItemComponent item, int index )
 	{
 		if ( index >= 0 && index < _backpackItems.Count )
 			_backpackItems[index] = null;
