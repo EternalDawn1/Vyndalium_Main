@@ -6,11 +6,17 @@ public struct ItemSave
 {
 	[JsonInclude] public string Path;
 	[JsonInclude] public bool IsFavorite{ get; set; }
+	[JsonInclude] public bool IsBackpack{ get; set; }
+	[JsonInclude] public bool IsWeapon{ get; set; }
+	[JsonInclude] public bool IsPotion{ get; set; }
+	[JsonInclude] public bool IsAccessory{ get; set; }
+
 	[JsonInclude] public Dictionary<string, string> Data;
 	[JsonInclude] public string Description;
 	[JsonInclude] public ItemState State;
 	[JsonInclude] public int Index;
 	[JsonInclude] public int IndexStorage;
+	[JsonInclude] public int IndexBackpack;
 	[JsonInclude] public float SellPrice { get; set; }
 	[JsonInclude] public float BuyPrice { get; set; }
 	[JsonInclude] public int DMG { get; set; }
@@ -31,6 +37,7 @@ public struct ItemSave
 	[JsonInclude] public int MagicPower { get; set; }
 	[JsonInclude] public GeneralGame.Tier Tier { get; set; }
 	[JsonInclude] public AspectType Aspect { get; set; }
+	
 	[JsonInclude] public int RequiredLevel { get; set; }
 	[JsonInclude] public int DamageBalance { get; set; }
 	[JsonInclude] public int MinArmorValue { get; set; }
@@ -147,6 +154,7 @@ public struct PlayerSave
 	[JsonInclude] public ItemSave[] Clothes;
 	[JsonInclude] public ItemSave[] Inventory;
 	[JsonInclude] public ItemSave[] StorageItems;
+	[JsonInclude] public ItemSave[] BackpackItems;
 
 }
 
@@ -259,6 +267,13 @@ partial class Player
 			item.Description = item.Description;
 			item.IsFavorite = item.IsFavorite;
 			item.Aspect = item.Aspect;
+			item.IsAccessory = item.IsAccessory;
+			item.IsBackpack = item.IsBackpack;
+			item.RequiredLevel = item.RequiredLevel;
+			item.State = item.State;
+			item.IsWeapon = item.IsWeapon;
+			item.IsPotion = item.IsPotion;
+			item.IsAccessory = item.IsAccessory;
 		
 		
 
@@ -267,6 +282,10 @@ partial class Player
 			return new ItemSave
 			{
 				IsFavorite = item.IsFavorite,
+				IsBackpack = item.IsBackpack,
+				IsWeapon = item.IsWeapon,
+				IsPotion = item.IsPotion,
+				IsAccessory = item.IsAccessory,
 				Aspect = item.Aspect,
 				RequiredLevel = item.RequiredLevel,
 				Path = item.Prefab,
@@ -274,6 +293,7 @@ partial class Player
 				Data = data.Count > 0 ? data : null,
 				IndexStorage = player.Inventory._storageBoxItems.IndexOf( item ),
 				Index = player.Inventory.IndexOf( item ),
+				IndexBackpack = player.Inventory._backpackBagItems.IndexOf( item ),	
 				SellPrice = item.SellPrice,
 				BuyPrice = item.BuyPrice,
 				MaxStack = item.MaxStack,
@@ -415,9 +435,12 @@ partial class Player
 				.Where( x => x != null )
 				.Select( Serialize )
 				.ToArray(),
+			BackpackItems = player.Inventory.BackpackBagItems
+				.Where( x => x != null )
+				.Select( Serialize )
+				.ToArray(),
 
-			
-			
+
 		};
 
 		
@@ -433,6 +456,7 @@ partial class Player
 	[ConCmd( "newgame_save" )]
 	public static void SavePlayer()
 	{
+		Log.Info( "Saving player..." );
 		Save();
 	}
 
@@ -550,6 +574,7 @@ partial class Player
 				{
 					item.Aspect = data.Aspect;
 					item.IsFavorite = data.IsFavorite;
+					item.IsBackpack = data.IsBackpack;
 					item.Description = data.Description;
 					item.RequiredLevel = data.RequiredLevel;	
 					item.State = data.State;
@@ -622,6 +647,7 @@ partial class Player
 				player.Inventory.EquipItemFromWorld( equipment );
 				ReadData( data, o );
 				equipment.Aspect = data.Aspect;
+				equipment.IsBackpack = data.IsBackpack;
 				equipment.IsFavorite = data.IsFavorite;
 				equipment.Description = data.Description;
 				equipment.RequiredLevel = data.RequiredLevel;
@@ -694,7 +720,9 @@ partial class Player
 					continue;
 				player.Inventory?.SetItem( item, data.Index );
 				ReadData( data, o );
+				
 				item.Aspect = data.Aspect;
+				item.IsBackpack = data.IsBackpack;
 				item.IsFavorite = data.IsFavorite;
 				item.Description = data.Description;
 				item.RequiredLevel = data.RequiredLevel;	
@@ -761,6 +789,7 @@ partial class Player
 					continue;
 				player.Inventory.GiveStorageItem( item, data.Index );
 				ReadData( data, o );
+				item.IsBackpack = data.IsBackpack;
 				item.Aspect = data.Aspect;
 				item.IsFavorite = data.IsFavorite;
 				item.Description = data.Description;
@@ -813,6 +842,76 @@ partial class Player
 
 			}
 		}
+		if(save.BackpackItems != null)
+		{
+			foreach ( var data in save.BackpackItems )
+			{
+
+				if ( !ResourceLibrary.TryGet<PrefabFile>( data.Path, out var prefab ) )
+					continue;
+				var o = SceneUtility.GetPrefabScene( prefab ).Clone();
+				o.NetworkMode = NetworkMode.Object;
+				if ( !o.Network.Active ) o.NetworkSpawn();
+				var item = o.Components.Get<ItemComponent>();
+				if ( item == null )
+					continue;
+				player.Inventory.GiveBackpackItem( item, data.Index );
+				ReadData( data, o );
+				item.IsBackpack = data.IsBackpack;
+				item.Aspect = data.Aspect;
+				item.IsFavorite = data.IsFavorite;
+				item.Description = data.Description;
+				item.MaxStack = data.MaxStack;
+				item.Count = data.Count;
+				item.MinArmorValue = data.MinArmorValue;
+				item.MaxArmorValue = data.MaxArmorValue;
+				item.MinAttackValue = data.MinAttackValue;
+				item.MaxAttackValue = data.MaxAttackValue;
+				item.RequiredLevel = data.RequiredLevel;
+				item.SellPrice = (int)data.SellPrice;
+				item.BuyPrice = (int)data.BuyPrice;
+				item.DMG = data.DMG;
+				item.STG = data.STG;
+				item.HE = data.HE;
+				item.DEX = data.DEX;
+				item.PER = data.PER;
+				item.INT = data.INT;
+				item.Mana = data.Mana;
+				item.Health = data.Health;
+				item.ItemLevel = data.ItemLevel;
+				item.CritHitDamage = data.CritHitDamage;
+				item.CritHitChance = data.CritHitChance;
+				item.AbilityHaste = data.AbilityHaste;
+				item.AttackPower = data.AttackPower;
+				item.MagicPower = data.MagicPower;
+				item.Tier = (GeneralGame.Tier)data.Tier;
+				item.DamageBalance = data.DamageBalance;
+				item.Durability = data.Durability;
+				item.AttackSpeed = data.AttackSpeed;
+				item.MoveSpeed = data.MoveSpeed;
+				item.Armor = data.Armor;
+				item.MagicDefense = data.MagicDefense;
+				item.Evasion = data.Evasion;
+				item.Cover = data.Cover;
+				item.BonusEXP = data.BonusEXP;
+				item.BonusScore = data.BonusScore;
+				item.BonusVyndalium = data.BonusVyndalium;
+				item.Tenacity = data.Tenacity;
+				item.StunResistance = data.StunResistance;
+				item.BlindResistance = data.BlindResistance;
+				item.SlowResistence = data.SlowResistence;
+				item.FireResistence = data.FireResistence;
+				item.BleedResistance = data.BleedResistance;
+				item.PoisonResistence = data.PoisonResistence;
+				item.IceResistence = data.IceResistence;
+				item.LightningResistence = data.LightningResistence;
+				item.HolyResistence = data.HolyResistence;
+				item.ShadowResistence = data.ShadowResistence;
+			}
+		}
 		return true;
 	}
 }
+		
+	
+

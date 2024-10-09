@@ -15,7 +15,15 @@ public enum HiddenBodyGroup
 	[Icon( "airline_seat_legroom_reduced" )]
 	Legs = 8,
 	[Icon( "do_not_step" )]
-	Feet = 16
+	Feet = 16,
+	[Icon( "backpack" )]
+	Back = 32,
+	[Icon( "visibility_off" )]
+	Face = 64,
+	[Icon( "visibility_off" )]
+	Belt = 128,
+	[Icon( "visibility_off" )]
+	Bracer = 256,
 }
 
 [Icon( "theater_comedy" )]
@@ -56,7 +64,9 @@ public class Character : Component, Component.ExecuteInEditor
 			parent.SetBodyGroup( "torso", HideBodyGroup.HasFlag( HiddenBodyGroup.Torso ) ? 1 : 0 );
 			parent.SetBodyGroup( "hands", HideBodyGroup.HasFlag( HiddenBodyGroup.Hands ) ? 1 : 0 ); // Not implemented
 			parent.SetBodyGroup( "legs", HideBodyGroup.HasFlag( HiddenBodyGroup.Legs ) ? 1 : 0 );
-			parent.SetBodyGroup( "feet", HideBodyGroup.HasFlag( HiddenBodyGroup.Feet ) ? 1 : 0 ); // Not implemented
+			parent.SetBodyGroup( "feet", HideBodyGroup.HasFlag( HiddenBodyGroup.Feet ) ? 1 : 0 );
+			parent.SetBodyGroup( "back", HideBodyGroup.HasFlag( HiddenBodyGroup.Back ) ? 1 : 0 );
+			
 
 			foreach ( var piece in _clothing.Values )
 			{

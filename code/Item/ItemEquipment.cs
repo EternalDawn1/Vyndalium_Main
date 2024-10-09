@@ -10,7 +10,8 @@ public enum EquipSlot : byte
 	Hand,
 	Back,
 	Bracer,
-	Belt
+	Belt,
+	BackpackBagBag
 }
 
 public enum HoldType : byte

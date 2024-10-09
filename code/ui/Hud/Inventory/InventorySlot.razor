@@ -129,6 +129,7 @@
 	public int? ShopSlotIndex { get; set; } = null;
 	public int? AspectSlotIndex { get; set; } = null;
 	public bool IsChestSlot { get; set; } = false;
+	public int? BackpackPackSlotIndex { get; set; } = null;
 
 	//TODO: Add a way to set the slot index from the outside
 
@@ -285,7 +286,14 @@
 			return true;
 
 		if (EquipSlotIndex != null)
+		{
+			return true;
+		}
 
+		if (BackpackPackSlotIndex != null)
+		{
+			return true;
+		}
 		{
 
 			if (CurrentDraggable.ItemComponent is not ItemEquipment itemEquipment)
@@ -422,6 +430,12 @@
 			StateHasChanged();
 			return;
 		}
+		if (BackpackPackSlotIndex != null)
+		{
+			Item = inventory.BackpackBagItems[(int)BackpackPackSlotIndex];
+			StateHasChanged();
+			return;
+		}
 
 
 
@@ -441,12 +455,13 @@
 		// Verwenden Sie die Methode aus dem Inventar
 		Player.Local.Inventory.MoveItemToStorage(item, currentPage);
 	}
-
 	private void MoveItemToBackpack(ItemComponent item)
 	{
 		// Verwenden Sie die Methode aus dem Inventar
 		Player.Local.Inventory.MoveItemToBackpack(item);
 	}
+
+	
 
 	
 	protected override void OnMouseDown(MousePanelEvent e)
@@ -511,6 +526,10 @@
 
 			// Verschiebe das Item vom Inventar zum Storage oder umgekehrt
 			if (BackpackSlotIndex != null)
+			{
+				MoveItemToStorage(Item);
+			}
+			else if(BackpackPackSlotIndex != null)
 			{
 				MoveItemToStorage(Item);
 			}
@@ -579,13 +598,10 @@
 		if (fromSlot.StorageSlotIndex is not null)
 		{
 			// To storage slot.
-			if (targetSlot.StorageSlotIndex is not null)
-			{
-				var res = inventory.SwapItems(fromSlot.StorageSlotIndex.Value, targetSlot.StorageSlotIndex.Value, true);
-				PlaySound(res ? "drop" : "serror");
-			}
-			// To backpack slot.
-			else if (targetSlot.BackpackSlotIndex is not null)
+			
+			
+			
+			 if(targetSlot.BackpackSlotIndex is not null)
 			{
 				var res = inventory.SwapItems(fromSlot.StorageSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
 				PlaySound(res ? "drop" : "serror");
@@ -600,12 +616,30 @@
 				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
 				PlaySound(res ? "drop" : "serror");
 			}
+			
 			// To storage slot.
 			else if (targetSlot.StorageSlotIndex is not null)
 			{
 				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.StorageSlotIndex.Value, true);
 				PlaySound(res ? "drop" : "serror");
 			}
+			else if (targetSlot.BackpackPackSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.BackpackPackSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+			else if (targetSlot.IndependentSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.IndependentSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+			else if (targetSlot.AspectSlotIndex is not null)
+			{
+				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.AspectSlotIndex.Value);
+				PlaySound(res ? "drop" : "serror");
+			}
+			
+			 
 		}
 		// From shop slot.
 		else if (fromSlot.ShopSlotIndex is not null)
@@ -669,11 +703,13 @@
 				PlaySound(res ? "drop" : "serror");
 			}
 		}
+		
 
 		// Update both slots
 		fromSlot.UpdateItem();
 		targetSlot.UpdateItem();
 	}
+	
 
 	private void MoveOntoCharacter()
 
@@ -799,6 +835,8 @@
 		v.IsHoveredByMouse());
 
 		var targetSlot = Inventory.Instance.Descendants.OfType<InventorySlot>().FirstOrDefault(v => v.IsHoveredByMouse());
+		
+		
 
 		
 
@@ -908,6 +946,8 @@
 			return;
 		if (Item == null)
 			return; // Ignore itemless slot
+
+			
 		ChildDraggable = new DraggableItem(this, holdPoint: Mouse.Position - Box.Rect.TopLeft);
 		ChildDraggable.SetPositionInScreenPixels(Mouse.Position);
 		var fraction = (Mouse.Position - Box.Rect.Size / 2f) / Screen.Size;

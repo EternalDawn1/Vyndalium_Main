@@ -253,8 +253,29 @@
 
                         </div>
                     </div>
-                        
                     <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
+                    
+                    @if (isAspectPanelVisible)
+                    {
+                        <div class="aspect-panel @(isAspectPanelVisible ? "visible" : "")">
+                            <p class="aspect-cost">Aspect Cost:
+                            <p class="number">$@aspectCost</p>
+                            </p>
+                          
+                            <p class="aspect-level"
+                                style="background-color: @(GetBackgroundColor(aspectSuccessChance)); font-size: 20px; height:10%;">
+                                <span id="status-text" class="@statusClass">@statusText</span>
+                            <p class="number">@($"{aspectSuccessChance * 100:F1}%")</p>
+                            </p>
+                            <button class="aspect-button" @onclick="@(() => ShowAspectConfirmation(aspectItem))"
+                                disabled="@(Player.Local.Vyndalium < aspectCost)">Apply Aspect</button>
+                            
+                            </p>
+                        </div>
+                    }
+
+                    
+                    
                     
                 </div>
                 <!-- Armor Content -->

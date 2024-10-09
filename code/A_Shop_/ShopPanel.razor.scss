@@ -120,6 +120,108 @@ ShopPanel {
                                 border-radius: 10px;
                                 border-width: 1px;
                                 border-color: #000000;
+
+                            .aspect-panel{
+                                position: absolute;
+                                    width: 25%;
+                                    right: 12%;
+                                    top: 65%;
+                                    height: 45%;
+                                
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                    transition: ease-in-out 15.5s;
+                                    .aspect-cost{
+                                        position: relative;
+                                        width: 100%;
+                                        height: 20%;
+                                       
+                                        border-color: #000000;
+                                        color: #ffffff;
+                                        font-size: 30px;
+                                        font-weight: bold;
+                                        font-style: italic;
+                                        gap: 15px;
+                                  
+                                        margin-bottom: 10px;
+                                        justify-content: center;
+                                        align-items: center;
+                                        flex-direction: column;
+                                        .number{
+                                            position: relative;
+                                            width: 80%;
+                                            height: 50%;
+                                            justify-content: center;
+                                            align-items: center;
+                                            background-color: #1996628c;
+                                            border-width: 1px;
+                                            border-color: #000000;
+                                            color: #ffffff;
+                                            font-size: 26px;
+                                            font-weight: bold;
+                                            font-style: italic;
+                                            padding: 10px;
+                                            border-radius: 10px;
+                                            margin-bottom: 10px;
+                                        }
+                                    }
+                                    
+                                    .aspect-level{
+                                        position: relative;
+                                        width: 100%;
+                                        height: 10%;
+                                        background-color: #058a2625;
+                                        top: 0%;
+                                        border-width: 1px;
+                                        border-color: #000000;
+                                        color: #ffffff;
+                                        font-size: 16px;
+                                        font-weight: bold;
+                                        font-style: italic;
+                                        gap: 10px;
+                                        border-radius: 10px;
+                                        margin-bottom: 10px;
+                                        justify-content: center;
+                                        align-items: center;
+                                        
+                                       
+                                
+                                    }
+                                    .aspect-button{
+                                        position: relative;
+                                        width: 50%;
+                                        height: 20%;
+                                        background-color: #1996628c;
+                                        
+                                        border-width: 1px;
+                                        border-color: #000000;
+                                        color: #ffffff;
+                                        font-size: 25px;
+                                        font-weight: bold;
+                                        font-style: italic;
+                                        padding: 10px;
+                                        border-radius: 10px;
+                                        margin-bottom: 10px;
+                                        justify-content: center;
+                                        align-items: center;
+
+                                        :hover{
+                                            position: relative;
+                                            
+                                            background-color: #0cbd5b;
+                                            width: 100%;
+                                            align-items: center;
+                                            justify-content: center;
+                                            border-radius: 10px;
+                                            padding: 0px 1px;
+                                            sound-in: 'hover';
+                                            color: #000000;
+                                        }
+                                    } 
+                                    
+
+                            }
                              
                             .items2{
                                     position: relative;
@@ -427,15 +529,20 @@ ShopPanel {
                         }
 
                         .upgrade-result-content.success {
-                            background-color: #d4edda;
-                            color: #155724;
+                            background-color: #009a24;
+                            color: #000f04;
                             border: 1px solid #c3e6cb;
                         }
 
                         .upgrade-result-content.failed {
-                            background-color: #f8d7da;
-                            color: #721c24;
-                            border: 1px solid #f5c6cb;
+                            background-color: #430006;
+                            color: #f00018;
+                            border: 1px solid #ac6c72;
+                        }
+                        .upgrade-result-content.destroyed{
+                            background-color: #000000;
+                            color: #f00018;
+                            border: 1px solid #ac6c72;
                         }
 
                         .upgrade-result-button {

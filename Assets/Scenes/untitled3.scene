@@ -108,6 +108,26 @@
       ]
     },
     {
+      "__guid": "9472c2b9-868b-4087-a4a0-959161eed6eb",
+      "Flags": 0,
+      "Name": "Point Light (2)",
+      "Position": "723.6117,48.20674,377.6331",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "a01cb17d-573b-41ff-a593-a0e67c229969",
+          "Attenuation": 0,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 946.7504,
+          "Shadows": true
+        }
+      ]
+    },
+    {
       "__guid": "f7356054-ca86-4161-b77a-a835211ffc66",
       "Flags": 0,
       "Name": "Point Light (1)",
@@ -289,6 +309,7 @@
           "IsArmor": false,
           "IsAspect": false,
           "IsBackable": false,
+          "IsBackpack": false,
           "IsConsumable": false,
           "IsEquipment": false,
           "IsItem": false,
@@ -562,6 +583,7 @@
           "IsArmor": false,
           "IsAspect": false,
           "IsBackable": false,
+          "IsBackpack": false,
           "IsConsumable": false,
           "IsEquipment": false,
           "IsItem": false,
@@ -829,6 +851,7 @@
           "IsArmor": false,
           "IsAspect": false,
           "IsBackable": false,
+          "IsBackpack": false,
           "IsConsumable": false,
           "IsEquipment": false,
           "IsItem": false,
@@ -1266,6 +1289,7 @@
           "IsAccessory": false,
           "IsArmor": false,
           "IsAspect": false,
+          "IsBackpack": false,
           "IsBossChest": true,
           "IsConsumable": false,
           "IsDoor": false,
@@ -2043,6 +2067,7 @@
           "IsArmor": false,
           "IsAspect": false,
           "IsBackable": false,
+          "IsBackpack": false,
           "IsConsumable": false,
           "IsEquipment": false,
           "IsItem": false,
@@ -2381,6 +2406,7 @@
           "IsArmor": false,
           "IsAspect": true,
           "IsBackable": false,
+          "IsBackpack": false,
           "IsConsumable": false,
           "IsEquipment": false,
           "IsItem": true,
@@ -2560,6 +2586,7 @@
           "IsArmor": false,
           "IsAspect": false,
           "IsBackable": false,
+          "IsBackpack": false,
           "IsConsumable": false,
           "IsEquipment": false,
           "IsItem": false,
@@ -2632,16 +2659,6 @@
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.Prop",
-          "__guid": "b416da00-e96b-4d2f-9136-eea3e48080f4",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": false,
-          "Model": "models/props/backpack/v1/bag_1.vmdl",
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        },
-        {
           "__type": "GeneralGame.ItemEquipment",
           "__guid": "4e4c0dfd-fc0b-4cca-9a68-cb9f0707d01d",
           "AbilityHaste": 0,
@@ -2694,9 +2711,10 @@
           "IsArmor": false,
           "IsAspect": false,
           "IsBackable": false,
+          "IsBackpack": true,
           "IsConsumable": false,
           "IsEquipment": false,
-          "IsItem": true,
+          "IsItem": false,
           "IsMaterial": false,
           "IsPotion": false,
           "IsWeapon": false,
@@ -2728,6 +2746,33 @@
           "WeightInGrams": 0
         }
       ]
+    },
+    {
+      "__guid": "cecca83c-86c7-4075-9947-82dd92dcfb4c",
+      "Flags": 0,
+      "Name": "bag",
+      "Position": "446.5456,-69.90045,14.89639",
+      "Enabled": true
+    },
+    {
+      "__guid": "f71abb73-6e18-488f-b492-fe059ba2ee17",
+      "Flags": 0,
+      "Name": "backpack_small",
+      "Position": "465.3008,-22.86124,4.500008",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "__Prefab": "prefabs/items/bags/backpack_small.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "e0b57157-7e6f-4dd2-bc30-22669d83a6b2",
+      "Flags": 0,
+      "Name": "backpack_big",
+      "Position": "410.6411,-8.048506,28.53535",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "__Prefab": "prefabs/items/bags/backpack_big.prefab",
+      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {

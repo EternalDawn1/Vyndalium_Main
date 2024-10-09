@@ -22,6 +22,9 @@ namespace GeneralGame.HUD
         private string statusText = "Success Chance:";
         private string statusClass = "visible";
         private bool upgradeSuccessful;
+        private bool upgradeDestroyed;
+        
+       
         private void ShowUpgradeConfirmation( Action confirmAction )
         {
             var requiredMaterials = GetRequiredMaterials( upgradeItem.ItemLevel, upgradeItem.Tier );
@@ -50,28 +53,33 @@ namespace GeneralGame.HUD
             }
             return true;
         }
-        private void ConfirmUpgrade()
+       private void ConfirmUpgrade()
+    {
+        ConfirmUpgradeAction?.Invoke();
+        ShowUpgradeConfirmationDialog = false;
+        ShowUpgradeResultDialog = true;
+
+        // Hier die tatsächliche Logik für den Erfolg, Misserfolg oder Zerstörung des Upgrades hinzufügen
+        // Beispielhafte Logik, ersetzen Sie dies durch Ihre tatsächliche Logik
+        StateHasChanged();
+        if (upgradeSuccessful)
         {
-            ConfirmUpgradeAction?.Invoke();
-            ShowUpgradeConfirmationDialog = false;
-            ShowUpgradeResultDialog = true;
-
-            // Hier die tatsächliche Logik für den Erfolg oder Misserfolg des Upgrades hinzufügen
-          // Beispielhafte Logik, ersetzen Sie dies durch Ihre tatsächliche Logik
-
-            if ( upgradeSuccessful )
-            {
-                UpgradeResultMessage = "Upgrade Successful!";
-                UpgradeResultClass = "success";
-            }
-            else
-            {
-                UpgradeResultMessage = "Upgrade Failed!";
-                UpgradeResultClass = "failed";
-            }
-
-            StateHasChanged();
+            UpgradeResultMessage = "Upgrade Successful!";
+            UpgradeResultClass = "success";
         }
+        else if (upgradeDestroyed)
+        {
+            UpgradeResultMessage = "Upgrade Destroyed!";
+            UpgradeResultClass = "destroyed";
+        }
+        else
+        {
+            UpgradeResultMessage = "Upgrade Failed!";
+            UpgradeResultClass = "failed";
+        }
+
+        StateHasChanged();
+    }
 
         private void CancelUpgrade()
         {
@@ -124,6 +132,8 @@ namespace GeneralGame.HUD
             {
                 await ChangeStatusText();
             }
+           
+
         }
 
         private async Task ChangeStatusText()
@@ -148,7 +158,6 @@ namespace GeneralGame.HUD
 
 
 
-
         public void CheckUpgradeSlot()
         {
             if ( shopInteractable == null )
@@ -156,6 +165,9 @@ namespace GeneralGame.HUD
                 Log.Warning( "shopInteractable ist null." );
                 return;
             }
+           
+
+            
 
             // Überprüfen, ob es gültige Upgrade-Items im Inventar des Spielers gibt
             isUpgradePanelVisible = Player.Local.Inventory.UpgradeItems.Any( item => item != null && item.ItemLevel < 27 );
@@ -175,47 +187,123 @@ namespace GeneralGame.HUD
             }
             else
             {
-                upgradeItem = null; // Setze upgradeItem auf null, wenn kein gültiges Upgrade-Item gefunden wird
+                upgradeItem = null;
             }
         }
-        public void CheckAspectAndUpgradeSlot()
+        private bool isAspectPanelVisible;
+     
+     
+   
+      
+        private int aspectCost;
+        private float aspectSuccessChance;
+        public void CheckAspectSlot()
         {
             if ( shopInteractable == null )
             {
-                Log.Warning( "shopInteractable ist null." );
                 return;
             }
 
-            // Überprüfen, ob es gültige Upgrade-Items im Inventar des Spielers gibt
-            bool hasValidUpgradeItem = Player.Local.Inventory.UpgradeItems.Any( item => item != null && item.ItemLevel < 27 );
-            // Überprüfen, ob es gültige Aspekt-Items im Inventar des Spielers gibt
-            bool hasValidAspectItem = Player.Local.Inventory.AspectItems.Any( item => item != null && item.IsAspect );
+            var aspectItems = Player.Local.Inventory.AspectItems;
+            var upgradeItems = Player.Local.Inventory.UpgradeItems;
 
-            isUpgradePanelVisible = hasValidUpgradeItem && hasValidAspectItem;
-
-            if ( isUpgradePanelVisible )
+            if ( aspectItems == null || upgradeItems == null )
             {
-                upgradeItem = Player.Local.Inventory.UpgradeItems.FirstOrDefault( item => item != null && item.ItemLevel < 27 );
-                aspectItem = Player.Local.Inventory.AspectItems.FirstOrDefault( item => item != null && item.IsAspect );
+                Log.Warning( "AspectItems or UpgradeItems is null." );
+                return;
+            }
 
-                if ( upgradeItem != null && aspectItem != null )
+            isAspectPanelVisible = aspectItems.Any( item => item != null );
+            if ( isAspectPanelVisible )
+            {
+                aspectItem = aspectItems.FirstOrDefault( item => item != null );
+                var upgradeItem = upgradeItems.FirstOrDefault( item => item != null ); // Sicherstellen, dass upgradeItem nicht null ist
+                if ( aspectItem != null && upgradeItem != null )
                 {
-                    // Hier können Sie die Upgrade-Kosten basierend auf dem Item-Level berechnen
-                    upgradeCost = CalculateUpgradeCost( upgradeItem.ItemLevel, upgradeItem.Tier );
-                    SetSuccessChance();
+                    isAspectPanelVisible = true;
+                    aspectCost = CalculateAspectCost( aspectItem.Tier ); // Explizite Konvertierung
+                    aspectSuccessChance = CalculateAspectSuccessChance( (int)aspectItem.Tier ); // Explizite Konvertierung
                 }
                 else
                 {
-                    Log.Warning( "Kein gültiges Upgrade- oder Aspekt-Item gefunden." );
+                    Log.Warning( "AspectItem or UpgradeItem is null." );
                 }
             }
             else
             {
-                upgradeItem = null; // Setze upgradeItem auf null, wenn kein gültiges Upgrade-Item gefunden wird
-                aspectItem = null; // Setze aspectItem auf null, wenn kein gültiges Aspekt-Item gefunden wird
+                aspectItem = null;
             }
         }
+        private void ShowAspectConfirmation( ItemComponent aspectItem )
+        {
+           
+            PerformUpgrade();
+        }
+        private int CalculateAspectCost( GeneralGame.Tier tier )
+        {
+            // Basis-Kosten
+            int baseCost = 5000;
 
+            // Kosten pro Tier-Level
+            int costPerTier = 1000;
+
+            // Berechne die Gesamtkosten
+            int totalCost = baseCost + ((int)tier * costPerTier);
+
+            return totalCost;
+        }
+        private float CalculateAspectSuccessChance( int tier )
+        {
+            // Berechnen Sie die Erfolgsrate basierend auf dem Tier des Aspekt-Items
+            return 1.0f - (tier * 0.1f); // Beispielberechnung
+        }
+        private void PerformUpgrade()
+        {
+            Log.Info( "PerformUpgrade called" );
+
+            if ( aspectItem == null || upgradeItem == null )
+            {
+                return;
+            }
+
+            
+
+            if ( aspectItem != null )
+            {
+                // Logik zum Ausführen des Upgrades
+                ApplyAspectToUpgradeItem( upgradeItem, aspectItem ); // Übertrage die Aspekt-Informationen auf das Upgrade-Item
+
+                // Berechne die Kosten für das Upgrade
+                int tier = (int)upgradeItem.Tier; // Angenommen, das Upgrade-Item hat eine Tier-Eigenschaft
+                int cost = CalculateAspectCost( (GeneralGame.Tier)tier );
+
+                // Überprüfen, ob der Spieler genug Guthaben hat
+                if ( Player.Local.Vyndalium >= cost )
+                {
+                    // Ziehe die Kosten vom Guthaben des Spielers ab
+                    Player.Local.Vyndalium -= cost;
+
+                    // Setze das Aspekt-Item auf null (zerstören)
+                    Player.Local.Inventory?.RemoveItem( aspectItem );
+                    CheckAspectSlot();
+                    StateHasChanged();
+
+                    // Aktualisiere die Anzeige
+                    Inventory.Instance?.OnChanged();
+                    Hudmaster.Instance.ShowNotification( "Upgrade erfolgreich durchgeführt.", "/ui/hud/success.gif" );
+                }
+                else
+                {
+                    Hudmaster.Instance.ShowNotification( "Nicht genügend Guthaben für das Upgrade.", "/ui/hud/error.gif" );
+                }
+                StateHasChanged();
+                CheckAspectSlot();
+            }
+        }
+        private void ApplyAspectToUpgradeItem( ItemComponent upgradeItem, ItemComponent aspectItem )
+        {
+            upgradeItem.ApplyAspect( aspectItem ); // Übertrage die Aspekt-Informationen auf das Upgrade-Item
+        }
 
         private int CalculateUpgradeCost( int itemLevel, GeneralGame.Tier tier )
         {
@@ -537,6 +625,7 @@ namespace GeneralGame.HUD
                         StateHasChanged();
                         CheckUpgradeSlot();
                         //upgradeItem = null;
+                        upgradeDestroyed = true;
                     }
                     upgradeSuccessful = false;
                 }
@@ -578,6 +667,8 @@ namespace GeneralGame.HUD
                     GeneralGame.Tier.S => 20,
                     GeneralGame.Tier.SS => 25,
                     GeneralGame.Tier.SSS => 30,
+                    GeneralGame.Tier.Ultimate => 35,
+
                     _ => 0
                 };
             }
@@ -784,6 +875,7 @@ namespace GeneralGame.HUD
 
         public void CloseShop()
         {
+            
             if ( shopStorage != null && shopStorage.IsOpened )
             {
                 shopStorage.IsOpened = false;
@@ -810,14 +902,17 @@ namespace GeneralGame.HUD
                 isUpgradePanelVisible,
                 upgradeItem?.GetHashCode() ?? 0,
                 ShowUpgradeConfirmationDialog,
+             
                 Player.Local.Vyndalium,
                 statusText?.GetHashCode() ?? 0
                 
+                
             );
+
+
             UpgradeResultMessage?.GetHashCode();
-            // Kombinieren Sie das Ergebnis mit den restlichen Argumenten
-            hash = HashCode.Combine( hash, statusClass?.GetHashCode() ?? 0 );
-            
+            hash  = HashCode.Combine( hash, statusClass?.GetHashCode() ?? 0 );
+           
 
             return hash;
         }

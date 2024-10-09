@@ -71,8 +71,9 @@ public class PrefabDefinition
 public static class PrefabLibrary
 {
 	public static IReadOnlyDictionary<PrefabFile, PrefabDefinition> All => all;
-	private static Dictionary<PrefabFile, PrefabDefinition> all;
+	
 
+	private static Dictionary<PrefabFile, PrefabDefinition> all = new Dictionary<PrefabFile, PrefabDefinition>();
 	public static void Initialize()
 	{
 		all = ResourceLibrary.GetAll<PrefabFile>()
@@ -111,6 +112,7 @@ public static class PrefabLibrary
 						Prefab = def
 					} );
 				}
+				
 
 				// Return a PrefabDefinition with all relevant data.
 				return def;
@@ -126,9 +128,16 @@ public static class PrefabLibrary
 	/// <typeparam name="T"></typeparam>
 	/// <returns></returns>
 	public static IEnumerable<PrefabDefinition> FindByComponent<T>() where T : Component
-		=> all
-			.Where( kvp => kvp.Value.Components.Any( component => component?.Type?.TargetType.IsAssignableTo( typeof( T ) ) ?? false ) )
+	{
+		if ( all == null )
+		{
+			throw new ArgumentNullException( nameof( all ), "The collection 'all' cannot be null." );
+		}
+
+		return all
+			.Where( kvp => kvp.Value != null && kvp.Value.Components.Any( component => component?.Type?.TargetType.IsAssignableTo( typeof( T ) ) ?? false ) )
 			.Select( kvp => kvp.Value );
+	}
 
 	/// <summary>
 	/// Converts PrefabFile to a PrefabDefinition.

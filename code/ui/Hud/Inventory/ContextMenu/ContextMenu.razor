@@ -140,7 +140,9 @@
 							ImagePath="ui/hud/potions.png"
 							onclick=@(() => UseHealthPotion(healthPotion)) />
 		}
-        @if (_item is ItemEquipment equipment)
+       
+        
+        @if (_item is ItemEquipment equipment && !equipment.IsAspect)
         {
             @if (equipment != null)
             {
@@ -167,6 +169,18 @@
                                ImagePath="ui/hud/split.gif"
                                onclick=@(() => OpenSplitPanel(_item)) />
         }
+       @if (Player.Local.Inventory.BackpackItems.Contains(_item))
+            {
+                <ContextMenuOption Description="Move to BackpackBag"
+                                   ImagePath="ui/hud/backpackbag.png"
+                                   onclick=@(() => MoveToBackpackBag(_item)) />
+            }
+            else if (Player.Local.Inventory.BackpackBagItems.Contains(_item))
+            {
+                <ContextMenuOption Description="Move to Backpack"
+                                   ImagePath="ui/hud/backpack.png"
+                                   onclick=@(() => MoveToBackpack(_item)) />
+            }
        
     }
 </root>
@@ -178,7 +192,21 @@
 	private static ContextMenu _instance;
 	private ItemComponent _item;
 	private List<ItemComponent> selectedItems = new();
+   private void MoveToBackpackBag(ItemComponent item)
+    {
+       
+       Player.Local.Inventory.MoveItemToBackpackBag(item);
+        Inventory.Instance?.OnChanged();
+    }
 
+    private void MoveToBackpack(ItemComponent item)
+    {
+       
+        Player.Local.Inventory.MoveItemToBackpackBagBag(item);
+       
+       
+        Inventory.Instance?.OnChanged();
+    }
 	private void MoveToBackpackFromAspectSlot(ItemComponent item)
     {
         Player.Local.Inventory.AspectToBackpack(item);
@@ -575,6 +603,21 @@
 	}
 
 	private void ToggleEquip(ItemEquipment equipment)
+	{
+		if (equipment == null)
+		{
+			
+			return;
+		}
+
+		if (equipment.Equipped)
+			Player.Local.Inventory?.UnequipItem(equipment);
+		else
+			Player.Local.Inventory?.EquipItemFromBackpack(equipment);
+
+		Inventory.Instance?.OnChanged();
+	}
+    private void ToggleBackPackEquip(Backpack equipment)
 	{
 		if (equipment == null)
 		{

@@ -65,6 +65,11 @@
 				<div class="@(IsLevelSufficient ? "item-description" : "item-description1 insufficient-level")">Heals:
 					@healthPotion.HealthAmount HP</div>
 			}
+			@if(Item is Backpack backpack)
+			{
+				<div class="@(IsLevelSufficient ? "item-description" : "item-description1 insufficient-level")">Backpack
+					Slots: @backpack.SlotAmount</div>
+			}
 			@if (Item.MinAttackValue != default(int) && Item.MaxAttackValue != default(int))
 			{
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">

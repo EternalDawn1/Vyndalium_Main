@@ -13,6 +13,8 @@ public enum ItemState
 	Upgrade,
 	Materials,
 	Aspect,
+	BackpackBag,
+
 }
 public enum Tier 
 {

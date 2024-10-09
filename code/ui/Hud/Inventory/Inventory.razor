@@ -89,12 +89,18 @@
 				
 
 				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
-					@for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+				@for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+				{
+					var item = Player.Local.Inventory.BackpackItems[index];
+					<InventorySlot Item=@item BackpackSlotIndex=@index />
+				}
+				</div>
+				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
+					@for (var index = 0; index < Player.Local.Inventory.BackpackBagItems.Count; index++)
 					{
-						var item = Player.Local.Inventory.BackpackItems[index];
-						<InventorySlot Item=@item BackpackSlotIndex=@index />
+						var item = Player.Local.Inventory.BackpackBagItems[index];
+						<InventorySlot Item=@item BackpackPackSlotIndex=@index />
 					}
-					
 				</div>
 
 				<div style="align-items: center; margin: 20px 5px;"></div>
@@ -167,6 +173,7 @@
 		Materials,
 		Potions
 	}
+	
 	private PanelType currentPanel = PanelType.Inventory;
 	public void ShowPanel(PanelType panel)
 	{
@@ -182,6 +189,7 @@
 	{
 
 	}
+	
 
 	protected override int BuildHash()
 	{
@@ -192,6 +200,7 @@
 		return HashCode.Combine(
 		Player.Local.Level,
 		Player.Local.Inventory.BackpackItems.HashCombine(i => i?.GetHashCode() ?? -1),
+		Player.Local.Inventory.BackpackBagItems.HashCombine(i => i?.GetHashCode() ?? -1),
 		Player.Local.Inventory.EquippedItems.HashCombine(i => i?.GetHashCode() ?? -1)
 		);
 	}

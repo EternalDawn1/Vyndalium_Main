@@ -27,12 +27,25 @@ public sealed class Inventory : Component
 {
 	
 	[Property] Player Player { get; set; }
-
-	public int MAX_BACKPACK_SLOTS = 40;
+	public CharacterRenderer _renderer;
+	private event Action _onBackpackSlotsChanged;
+	public event Action OnBackpackSlotsChanged
+	{
+		add
+		{
+			_onBackpackSlotsChanged += value;
+		}
+		remove
+		{
+			_onBackpackSlotsChanged -= value;
+		}
+	}
+	public int MAX_BACKPACK_SLOTS = 30;
 	public  int MAX_STORAGE_SLOTS = 100;
 	private const int ItemsPerPage = 20;
 	public const int MAX_UPGRADE_SLOTS = 1;
 	public const int MAX_ASPECT_SLOTS = 1;
+	public static int MAX_BACKPACKBAG_SLOTS = 0;
 
 
 	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
@@ -41,6 +54,7 @@ public sealed class Inventory : Component
 	[Property]public IReadOnlyList<ItemComponent> StorageItems => _storageItems;
 	[Property] public IReadOnlyList<ItemComponent> UpgradeItems => _upgradeItems;
 	[Property] public IReadOnlyList<ItemComponent> AspectItems => _aspectItems;
+	[Property] public IReadOnlyList<ItemComponent> BackpackBagItems => _backpackBagItems;
 	
 
 	[Property] public readonly  List<ItemComponent> _backpackItems;
@@ -49,8 +63,9 @@ public sealed class Inventory : Component
 	[Property] public readonly List<ItemComponent> _storageItems;
 	[Property] public readonly List<ItemComponent> _upgradeItems;
 	[Property] public readonly List<ItemComponent> _aspectItems;
+	[Property] public readonly List<ItemComponent> _backpackBagItems;
 	
-	
+
 	public bool RemoveItem( ItemComponent item )
 	{
 		if ( item == null )
@@ -85,6 +100,14 @@ public sealed class Inventory : Component
 			item.State = ItemState.None;
 			return true;
 		}
+		else if (_backpackBagItems.Contains(item))
+		{
+			int index = _backpackBagItems.IndexOf( item );
+			_backpackBagItems[index] = null;
+			item.State = ItemState.None;
+			return true;
+		}
+		
 		
 		
 		
@@ -404,12 +427,12 @@ public sealed class Inventory : Component
 
 
 
-
+	public static Inventory Instance { get; private set; }
 
 	public Inventory()
 	{
 
-
+		Instance = this;
 		_backpackItems = new List<ItemComponent>( MAX_BACKPACK_SLOTS );
 		for ( int i = 0; i < MAX_BACKPACK_SLOTS; i++ )
 		{
@@ -421,7 +444,17 @@ public sealed class Inventory : Component
 		_storageBoxItems = new List<ItemComponent>();
 		_upgradeItems = new List<ItemComponent>( new ItemComponent[MAX_UPGRADE_SLOTS] );
 		_aspectItems = new List<ItemComponent>(new ItemComponent[MAX_ASPECT_SLOTS] );
-		
+		_backpackBagItems = new List<ItemComponent>(new ItemComponent[MAX_BACKPACKBAG_SLOTS] );
+		InitializeBackpackSlots();
+
+
+	}
+	public void InitializeBackpackSlots()
+	{
+		for ( int i = 0; i < MAX_BACKPACKBAG_SLOTS; i++ )
+		{
+			_backpackBagItems.Add( null ); // Initialisiere den Slot, wenn er nicht existiert
+		}
 	}
 
 	public int IndexOf( ItemComponent item )
@@ -502,6 +535,8 @@ public sealed class Inventory : Component
 		// Wenn kein freier Slot gefunden wurde, geben wir -1 zurück
 		return -1;
 	}
+
+	
 	public void MoveItemToUpgrade( ItemComponent item )
 	{
 		if ( item == null ) return;
@@ -617,7 +652,28 @@ public sealed class Inventory : Component
 			}
 		}
 	}
+	public void MoveItemToBackpackBagBag( ItemComponent item )
+	{
+		if ( item == null ) return;
 
+		if ( _backpackBagItems.Contains( item ) )
+		{
+			int freeSlot = _backpackItems.IndexOf( null );
+			if ( freeSlot != -1 )
+			{
+				int itemIndex = _backpackBagItems.IndexOf( item );
+				_backpackBagItems[itemIndex] = null; // Setze den Slot im Storage auf null
+				_backpackItems[freeSlot] = item;
+				item.State = ItemState.Backpack;
+				item.GameObject.Enabled = false;
+			}
+			else
+			{
+
+				Hudmaster.Instance.ShowNotification( "Slot occupied / no Slots available.", "/ui/hud/exit.gif" );
+			}
+		}
+	}
 
 	public void MoveItemToBackpack( ItemComponent item )
 	{
@@ -693,10 +749,11 @@ public sealed class Inventory : Component
 
 		if ( item.CanEquip( Player.Level ) )
 		{
-			// Logik zum Anziehen der Waffe
+			
 			GiveEquipmentItem( equipment );
 			equipment.State = ItemState.Equipped;
 			TaskMaster.SubmitTriggerSignal( $"item.equipped.{item.Name}", Player );
+			_renderer?.Refresh();
 
 			var weaponContainer = Player.Components.Get<WeaponContainer>();
 			if ( weaponContainer != null )
@@ -705,6 +762,20 @@ public sealed class Inventory : Component
 				
 				Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.025f );
 			}
+			if ( item is Backpack backpack )
+			{
+				MAX_BACKPACKBAG_SLOTS = (int)backpack.SlotAmount;
+				Log.Info( $"Backpack slots: {MAX_BACKPACKBAG_SLOTS}" + $"{backpack.SlotAmount}" );
+				if ( _backpackBagItems.Count < MAX_BACKPACKBAG_SLOTS )
+				{
+					for ( int i = _backpackBagItems.Count; i < MAX_BACKPACKBAG_SLOTS; i++ )
+					{
+						_backpackBagItems.Add( null );
+					}
+					return true;
+				}
+			}
+
 
 			index = _backpackItems?.IndexOf( item ) ?? -1;
 			return true;
@@ -716,6 +787,7 @@ public sealed class Inventory : Component
 			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 			return false;
 		}
+		
 	}
 	public int GetFirstFreeBackpackSlot()
 	{
@@ -767,6 +839,13 @@ public sealed class Inventory : Component
 				weaponContainer.Give( item.GameObject, true );
 				Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.0125f );
 			}
+			if ( item is Backpack backpack )
+			{
+				MAX_BACKPACKBAG_SLOTS = (int)backpack.SlotAmount;
+			}
+
+			item.GameObject.Enabled = false;
+
 			return true;
 		}
 		else
@@ -830,7 +909,15 @@ public sealed class Inventory : Component
 				Log.Info( "WeaponContainer ist null" );
 			}
 		}
+		if ( item is Backpack )
+		{
+			MAX_BACKPACKBAG_SLOTS = 0; // Zurücksetzen auf den Standardwert
 
+			// Entfernen der zusätzlichen Slots
+			_backpackBagItems.RemoveRange( 0, _backpackBagItems.Count );
+		}
+
+		item.GameObject.Enabled = false;
 		GiveBackpackItem( equipment, firstFreeSlot );
 		equipment.State = ItemState.Backpack;
 
@@ -839,6 +926,32 @@ public sealed class Inventory : Component
 		return true;
 	}
 
+
+
+	private void UnlockBackpackSlots()
+	{
+		for ( int i = 0; i < MAX_BACKPACKBAG_SLOTS; i++ )
+		{
+			
+				_backpackBagItems.Add( null );
+				
+			
+		}
+
+		// Ereignis auslösen
+		_onBackpackSlotsChanged?.Invoke();
+	}
+
+	private void LockBackpackSlots()
+	{
+		if ( _backpackBagItems.Count > MAX_BACKPACKBAG_SLOTS )
+		{
+			_backpackBagItems.RemoveRange( MAX_BACKPACKBAG_SLOTS, _backpackBagItems.Count - MAX_BACKPACKBAG_SLOTS );
+		}
+
+		// Ereignis auslösen
+		_onBackpackSlotsChanged?.Invoke();
+	}
 
 	public bool DropItem( ItemComponent item )
 	{
@@ -960,6 +1073,36 @@ public sealed class Inventory : Component
 
 		return true;
 	}
+
+
+	public void MoveItemToBackpackBag( ItemComponent item )
+	{
+		if ( item == null ) return;
+
+		if ( _backpackItems.Contains( item ) )
+		{
+			int freeSlot = _backpackBagItems.IndexOf( null );
+			if ( freeSlot != -1 )
+			{
+				int itemIndex = _backpackItems.IndexOf( item );
+				_backpackItems[itemIndex] = null; // Setze den Slot im Rucksack auf null
+				_backpackBagItems[freeSlot] = item;
+				item.State = ItemState.BackpackBag;
+				item.GameObject.Enabled = false;
+				
+			}
+			else
+			{
+				Hudmaster.Instance.ShowNotification( "Slot occupied.", "/ui/hud/exit.gif" );
+			}
+		}
+	}
+
+	
+
+
+
+
 	private void RemoveStorageItem( ItemComponent item, int index )
 	{
 		if ( item == null || index < 0 || index >= _storageItems.Count )
@@ -1355,6 +1498,21 @@ public sealed class Inventory : Component
 			item.GameObject.Enabled = false;
 		}
 	}
+	public void GiveBackpackItem( ItemComponent item )
+	{
+		if ( item == null ) return;
+
+		int freeSlot = GetFirstFreeBackpackSlot();
+		if ( freeSlot != -1 )
+		{
+			GiveBackpackItem( item, freeSlot );
+		}
+		else
+		{
+			Hudmaster.Instance.ShowNotification( "No Place in the Backpack.", "/ui/hud/inventory.png" );
+			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
+		}
+	}
 	
 
 	/// <summary>
@@ -1515,15 +1673,15 @@ public sealed class Inventory : Component
 			}
 
 		}
-
+		
 
 		base.OnUpdate();
 	}
+
+
 	
 
 
-
-	
 	public static void GiveItem( string name )
 	{
 		
