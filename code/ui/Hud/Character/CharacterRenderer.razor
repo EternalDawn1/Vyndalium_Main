@@ -36,6 +36,7 @@
 		_sceneLight ??= new SceneLight( _sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 4f );
 		_sceneDirectionalLight ??= new SceneDirectionalLight( _sceneWorld, global::Rotation.From( 45, -45, 45 ), Color.White * 10f );
 		_character ??= new SceneModel( _sceneWorld, "models/citizen/citizen.vmdl", new Transform( Vector3.Zero, Rotation.From( 0, _yaw, 0 ) ) );
+		
 		if ( firstTime ) Refresh();
 
 		_scenePanel.World = _sceneWorld;
@@ -70,7 +71,7 @@
 		var slots = Enum.GetValues<EquipSlot>();
 		var bodygroups = HiddenBodyGroup.None;
 		_clothes ??= new SceneModel[slots.Length];
-
+		
 		for ( int i = 0; i < _clothes.Length; i++ )
 		{
 			if ( inventory?.EquippedItems?.ElementAtOrDefault( i ) is not ItemEquipment equipment )
@@ -80,11 +81,26 @@
 			if ( renderer == null )
 				continue;
 
-			var cloth = _clothes[i] = new SceneModel( _sceneWorld, renderer.Model, global::Transform.Zero );
-			cloth.SetMaterialGroup( renderer.MaterialGroup );
+			Transform transform = global::Transform.Zero;
+			if (slots[i] == EquipSlot.Back)
+			{
+				// Setze die gewünschte Position und Rotation für den `EquipSlot.Back`
+				transform = new Transform(new Vector3(0, 15, 50), Rotation.From(0, 90, 0));
+			}
+			if (slots[i] == EquipSlot.Hand)
+			{
+				// Setze die gewünschte Position und Rotation für den `EquipSlot.Hand`
+				transform = new Transform(new Vector3(0, 15, 50), Rotation.From(0, 90, 0));
+			}
+			
+
+			var cloth = _clothes[i] = new SceneModel(_sceneWorld, renderer.Model, transform);
+			cloth.SetMaterialGroup(renderer.MaterialGroup);
 			bodygroups |= equipment.HideBodygroups;
 
 			_character.AddChild( $"clothing_{i}_{equipment.Name}", cloth );
+
+			
 			
 		}
 
@@ -93,17 +109,22 @@
 		_character.SetBodyGroup( "hands", bodygroups.HasFlag( HiddenBodyGroup.Hands ) ? 1 : 0 );
 		_character.SetBodyGroup( "legs", bodygroups.HasFlag( HiddenBodyGroup.Legs ) ? 1 : 0 );
 		_character.SetBodyGroup( "feet", bodygroups.HasFlag( HiddenBodyGroup.Feet ) ? 1 : 0 );
+		_character.SetBodyGroup( "face", bodygroups.HasFlag( HiddenBodyGroup.Face ) ? 1 : 0 );
+		_character.SetBodyGroup( "belt", bodygroups.HasFlag( HiddenBodyGroup.Belt ) ? 1 : 0 );
+		_character.SetBodyGroup( "bracer", bodygroups.HasFlag( HiddenBodyGroup.Bracer ) ? 1 : 0 );
+		_character.SetBodyGroup( "back", bodygroups.HasFlag( HiddenBodyGroup.Back ) ? 1 : 0 );
 
 		Update();
 	}
+	
 
 	private void Update()
 	{
 		var mousePos = MousePosition;
-        var headPos = _scenePanel.Camera.ToScreen( (_character.GetAttachment( "eyes" ) ?? Transform.Zero).Position );
-        var localPos = mousePos - headPos;
+		var headPos = _scenePanel.Camera.ToScreen((_character.GetAttachment("eyes") ?? Transform.Zero).Position);
+		var localPos = mousePos - headPos;
 
-        _character.SetAnimParameter( "lookat", new Vector3( 1000f, localPos.x, -localPos.y ) * _character.Rotation.Inverse );
+		_character.SetAnimParameter("lookat", new Vector3(1000f, localPos.x, -localPos.y) * _character.Rotation.Inverse);
 
 		_character.Update( RealTime.Delta );
 		_character.SetAnimParameter( "hold_type", (int)Player.Local.HoldType );
@@ -149,7 +170,7 @@
 
 		base.OnButtonEvent( e );
 	}
-
+	
 	public override void Tick()
 	{
 		if ( _character is null )
@@ -159,6 +180,10 @@
 			_yaw += Mouse.Delta.x * 0.20f;
 
 		Update();
+		
+		
 	}
+	
+	
 
 }

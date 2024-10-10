@@ -686,24 +686,103 @@ public class BaseGun : WeaponComponent, IUse
 		EffectRenderer.Set( "b_attack", true );
 		NextMeleeAttackTime = MeleeCooldown;
 	}
+	private void FireBulletWithFireAspect( Player shooter )
+	{
+		// Implementiere die Logik für das Abfeuern eines Feuer-Aspekt-Geschosses
+		Log.Info( "Fire aspect bullet fired!" );
+		// Beispiel: Erzeuge ein Feuerprojektil
+	}
+
+	private void FireBulletWithWaterAspect( Player shooter )
+	{
+		// Implementiere die Logik für das Abfeuern eines Wasser-Aspekt-Geschosses
+		Log.Info( "Water aspect bullet fired!" );
+		// Beispiel: Erzeuge ein Wasserprojektil
+	}
+
+	private void FireBulletWithIceAspect( Player shooter )
+	{
+		// Implementiere die Logik für das Abfeuern eines Eis-Aspekt-Geschosses
+		Log.Info( "Ice aspect bullet fired!" );
+		// Beispiel: Erzeuge ein Eisprojektil
+	}
+
+	private void FireBulletWithAirAspect( Player shooter )
+	{
+		// Implementiere die Logik für das Abfeuern eines Luft-Aspekt-Geschosses
+		Log.Info( "Air aspect bullet fired!" );
+		// Beispiel: Erzeuge ein Luftprojektil
+	}
+
+	private void FireBulletWithEarthAspect( Player shooter )
+	{
+		// Implementiere die Logik für das Abfeuern eines Erd-Aspekt-Geschosses
+		Log.Info( "Earth aspect bullet fired!" );
+		// Beispiel: Erzeuge ein Erdprojektil
+	}
+
+	private void FireBulletWithShadowAspect( Player shooter )
+	{
+		// Implementiere die Logik für das Abfeuern eines Schatten-Aspekt-Geschosses
+		Log.Info( "Shadow aspect bullet fired!" );
+		// Beispiel: Erzeuge ein Schattenprojektil
+	}
+
+	private void FireBulletWithHolyAspect( Player shooter )
+	{
+		// Implementiere die Logik für das Abfeuern eines Heilig-Aspekt-Geschosses
+		Log.Info( "Holy aspect bullet fired!" );
+		// Beispiel: Erzeuge ein Heiligprojektil
+	}
+
+	private void FireBulletWithBleedAspect( Player shooter )
+	{
+		// Implementiere die Logik für das Abfeuern eines Blutungs-Aspekt-Geschosses
+		Log.Info( "Bleed aspect bullet fired!" );
+		// Beispiel: Erzeuge ein Blutungsprojektil
+	}
+
+	private void FireBulletWithPoisonAspect( Player shooter )
+	{
+		// Implementiere die Logik für das Abfeuern eines Gift-Aspekt-Geschosses
+		Log.Info( "Poison aspect bullet fired!" );
+		// Beispiel: Erzeuge ein Giftprojektil
+	}
+
+	private void FireDefaultBullet( Player shooter )
+	{
+		// Implementiere die Standard-Logik für das Abfeuern eines Geschosses
+		Log.Info( "Default bullet fired!" );
+		// Beispiel: Erzeuge ein Standardprojektil
+	}
 
 	public virtual void FireBullet( Player shooter )
 	{
 		if ( shooter == null || Owner == null || EffectRenderer == null || Scene == null )
 		{
+			Log.Info( "FireBullet: shooter, Owner, EffectRenderer, or Scene is null" );
 			return;
 		}
-		if(shooter.LifeState == LifeState.Dead)
+		if ( shooter.LifeState == LifeState.Dead )
 		{
+			Log.Info( "FireBullet: shooter is dead" );
 			return;
 		}
-		 
-		if ( !NextAttackTime ) return;
-		if ( IsReloading ) return;
+
+		if ( !NextAttackTime )
+		{
+			Log.Info( "FireBullet: NextAttackTime is false" );
+			return;
+		}
+		if ( IsReloading )
+		{
+			Log.Info( "FireBullet: IsReloading is true" );
+			return;
+		}
 
 		if ( IsMagicWeapon && Player.Local.Mana < 10 )
 		{
-			// Nicht genug Mana, um die magische Waffe abzufeuern
+			Log.Info( "FireBullet: Not enough mana" );
 			return;
 		}
 
@@ -715,19 +794,59 @@ public class BaseGun : WeaponComponent, IUse
 
 		if ( AmmoInClip <= 0 )
 		{
+			Log.Info( "FireBullet: AmmoInClip is 0" );
 			SendEmptyClipMessage();
 			ReloadAction();
 			NextAttackTime = 1f / FireRate;
-			
 			return;
 		}
 
-		
+		var itemComponent = Owner.Components.Get<ItemComponent>();
+		if ( itemComponent != null )
+		{
+			Log.Info( $"Aspect: {itemComponent.Aspect}" ); // Debug-Ausgabe zur Überprüfung des Aspekts
+			switch ( itemComponent.Aspect )
+			{
+				case AspectType.Fire:
+					FireBulletWithFireAspect( shooter );
+					break;
+				case AspectType.Water:
+					FireBulletWithWaterAspect( shooter );
+					break;
+				case AspectType.Ice:
+					FireBulletWithIceAspect( shooter );
+					break;
+				case AspectType.Air:
+					FireBulletWithAirAspect( shooter );
+					break;
+				case AspectType.Earth:
+					FireBulletWithEarthAspect( shooter );
+					break;
+				case AspectType.Shadow:
+					FireBulletWithShadowAspect( shooter );
+					break;
+				case AspectType.Holy:
+					FireBulletWithHolyAspect( shooter );
+					break;
+				case AspectType.Bleed:
+					FireBulletWithBleedAspect( shooter );
+					break;
+				case AspectType.Poison:
+					FireBulletWithPoisonAspect( shooter );
+					break;
+				default:
+					FireDefaultBullet( shooter );
+					break;
+			}
+		}
+		else
+		{
+			Log.Info( "FireBullet: itemComponent is null" );
+			FireDefaultBullet( shooter );
+		}
 
-		
 
 
-		
 		if ( Owner.MoveSpeed > 150f ) return;
 		Owner.ApplyRecoil( Recoil );
 		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );

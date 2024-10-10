@@ -26,7 +26,7 @@ public enum HoldType : byte
 
 public class ItemEquipment : ItemComponent
 {
-
+	public static Model Parcel = Model.Load( "models/citizen/citizen.vmdl" );
 	[Property, Category( "Equipment" )] public bool IsBackable { get; set; }
 	[Property, Category( "Equipment" )] public EquipSlot Slot { get; set; } = EquipSlot.Hand;
 	[Property, Category( "Equipment" )] public HiddenBodyGroup HideBodygroups { get; set; }
@@ -36,14 +36,78 @@ public class ItemEquipment : ItemComponent
 	[Property, Category( "Holding" )] public bool UpdatePosition { get; set; }
 	[Property, Category( "Holding" ), ShowIf( "UpdatePosition", true )] public string Attachment { get; set; } = "hand_R";
 	[Property, Category( "Holding" ), ShowIf( "UpdatePosition", true )] public Transform AttachmentTransform { get; set; } = global::Transform.Zero;
-
+	private ModelRenderer parcelRenderer;
+	private BoxCollider parcelCollider;
+	private Rigidbody parcelBody;
 	public ModelRenderer Renderer { get; private set; }
 	public WeaponComponent Weapon { get; private set; }
 
-	
-	
+	public BaseGun Item { get; set; }
 
-	
+	public void UpdateEquipped()
+	{
+		if ( Equipped )
+			ToggleRenderer( Equipped );
+
+		// Use skin color as tint.
+		var player = GameObject.Parent?.Components?.Get<Player>( true );
+		if ( Renderer != null  && player != null )
+			
+
+		// Bonemerge
+		if ( Renderer is SkinnedModelRenderer skinned && !UpdatePosition )
+		{
+			skinned.BoneMergeTarget = Equipped
+				? GameObject.Parent?.Components.Get<SkinnedModelRenderer>( FindMode.EverythingInChildren )
+				: null;
+		}
+
+		// Toggle colliders and rigidbodies, update parcel
+		if ( !IsClothing )
+		{
+			var body = GameObject?.Components.GetAll<Rigidbody>( FindMode.EverythingInSelfAndChildren ).FirstOrDefault( x => x != parcelBody );
+			if ( body != null ) body.Enabled = !Equipped;
+
+			var collider = GameObject?.Components.GetAll<Collider>( FindMode.EverythingInSelfAndChildren ).FirstOrDefault( x => x != parcelCollider );
+			if ( collider != null ) collider.Enabled = !Equipped;
+		}
+		else if ( State != ItemState.Backpack )
+			UpdateParcel( State == ItemState.None );
+	}
+	private void UpdateParcel( bool value )
+	{
+		ToggleRenderer( !value );
+
+		// Create
+		if ( value )
+		{
+			parcelRenderer ??= Components.Create<ModelRenderer>();
+			parcelRenderer.Enabled = true;
+			parcelRenderer.Model = Parcel;
+
+			parcelCollider ??= Components.Create<BoxCollider>();
+			parcelCollider.Center = Vector3.Up * 4.8f;
+			parcelCollider.Scale = new Vector3( 27f, 27f, 7.5f );
+			parcelCollider.Enabled = true;
+
+			parcelBody ??= Components.Create<Rigidbody>();
+			parcelBody.Enabled = true;
+
+		
+			
+
+			return;
+		}
+
+		// Remove
+		if ( parcelRenderer == null  || parcelCollider == null || parcelBody == null )
+			return;
+
+		parcelRenderer.Enabled = false;
+		parcelCollider.Enabled = false;
+		parcelBody.Enabled = false;
+	}
+
 
 	private readonly SoundEvent _equipSound = ResourceLibrary.Get<SoundEvent>( "sounds/misc/pickup.sound" );
 
@@ -109,6 +173,12 @@ public class ItemEquipment : ItemComponent
 		_model ??= new SceneModel( world, "models/citizen/citizen.vmdl", global::Transform.Zero );
 		_model.RenderingEnabled = false;
 		return _model;
+	}
+	private void ToggleRenderer( bool value )
+	{
+		Renderer ??= Components.GetAll<ModelRenderer>( FindMode.InSelf ).FirstOrDefault( x => x != parcelRenderer );
+		if ( Renderer.IsValid() )
+			Renderer.Enabled = value;
 	}
 
 	protected override void DrawGizmos()

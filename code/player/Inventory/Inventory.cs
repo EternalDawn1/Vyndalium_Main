@@ -726,18 +726,6 @@ public sealed class Inventory : Component
 		}
 	}
 
-	public bool GiveItem( PrefabFile prefabFile )
-	{
-		var obj = SceneUtility.GetPrefabScene( prefabFile ).Clone();
-		obj.NetworkMode = NetworkMode.Object;
-		obj.NetworkSpawn();
-
-		var res = GiveItem( obj.Components.Get<ItemComponent>() );
-		if ( !res )
-			obj.Destroy();
-		
-		return res;
-	}
 
 
 	public bool EquipItemFromBackpack( ItemComponent item )
@@ -781,7 +769,7 @@ public sealed class Inventory : Component
 			GiveEquipmentItem( equipment );
 			equipment.State = ItemState.Equipped;
 			TaskMaster.SubmitTriggerSignal( $"item.equipped.{item.Name}", Player );
-			_renderer?.Refresh();
+			
 
 			var weaponContainer = Player.Components.Get<WeaponContainer>();
 			if ( weaponContainer != null )
@@ -870,6 +858,15 @@ public sealed class Inventory : Component
 			if ( item is Backpack backpack )
 			{
 				MAX_BACKPACKBAG_SLOTS = (int)backpack.SlotAmount;
+
+				if ( _backpackBagItems.Count < MAX_BACKPACKBAG_SLOTS )
+				{
+					for ( int i = _backpackBagItems.Count; i < MAX_BACKPACKBAG_SLOTS; i++ )
+					{
+						_backpackBagItems.Add( null );
+					}
+					return true;
+				}
 			}
 
 			item.GameObject.Enabled = false;
@@ -885,7 +882,7 @@ public sealed class Inventory : Component
 			return false;
 		}
 	}
-	public WeaponContainer Weapons { get; set; }
+
 
 
 	public bool UnequipItem( ItemComponent item )
@@ -956,30 +953,7 @@ public sealed class Inventory : Component
 
 
 
-	private void UnlockBackpackSlots()
-	{
-		for ( int i = 0; i < MAX_BACKPACKBAG_SLOTS; i++ )
-		{
-			
-				_backpackBagItems.Add( null );
-				
-			
-		}
 
-		// Ereignis auslösen
-		_onBackpackSlotsChanged?.Invoke();
-	}
-
-	private void LockBackpackSlots()
-	{
-		if ( _backpackBagItems.Count > MAX_BACKPACKBAG_SLOTS )
-		{
-			_backpackBagItems.RemoveRange( MAX_BACKPACKBAG_SLOTS, _backpackBagItems.Count - MAX_BACKPACKBAG_SLOTS );
-		}
-
-		// Ereignis auslösen
-		_onBackpackSlotsChanged?.Invoke();
-	}
 
 	public bool DropItem( ItemComponent item )
 	{
@@ -1054,6 +1028,10 @@ public sealed class Inventory : Component
 
 		return true;
 	}
+	public void Refreshing()
+	{
+		_renderer?.Refresh();
+	}
 	public bool SwapBackpackPackItems( int fromIndex, int toIndex )
 	{
 		var fromItem = _backpackBagItems.ElementAtOrDefault( fromIndex );
@@ -1095,13 +1073,7 @@ public sealed class Inventory : Component
 		}
 	}
 
-	private void GiveBackpackPackItem( ItemComponent item, int index )
-	{
-		if ( index >= 0 && index < _backpackBagItems.Count )
-		{
-			_backpackBagItems[index] = item;
-		}
-	}
+
 	public bool SwapItems( int index, EquipSlot slot )
 	{
 		var item = _backpackItems.ElementAtOrDefault( index );
@@ -1322,23 +1294,10 @@ public sealed class Inventory : Component
 		item.State = ItemState.Backpack;
 		item.GameObject.Enabled = false;
 	}
-	public void SetStorageItem( ItemComponent item, int index )
-	{
-		SetOwner( item );
-		GiveStorageItem( item, index );
-		item.State = ItemState.Storage;
-		item.GameObject.Enabled = false;
-	}
+
 	
 
-	public bool RemoveAmountEasy( string name, int count = 1, bool destroy = true )
-	{
-		foreach ( var item in _backpackItems )
-			if ( item.Name.ToLower().Replace( " ", "" ) == name.ToLower().Replace( " ", "" ) )
-				return RemoveAmount( item, count, destroy );
-
-		return false;
-	}
+	
 	/// <summary>
 	/// Removes a specific amount from an item if the item is stackable and has more than the amount.
 	/// </summary>
@@ -1574,21 +1533,7 @@ public sealed class Inventory : Component
 			item.GameObject.Enabled = false;
 		}
 	}
-	public void GiveBackpackItem( ItemComponent item )
-	{
-		if ( item == null ) return;
 
-		int freeSlot = GetFirstFreeBackpackSlot();
-		if ( freeSlot != -1 )
-		{
-			GiveBackpackItem( item, freeSlot );
-		}
-		else
-		{
-			Hudmaster.Instance.ShowNotification( "No Place in the Backpack.", "/ui/hud/inventory.png" );
-			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
-		}
-	}
 	
 
 	/// <summary>
@@ -1705,22 +1650,7 @@ public sealed class Inventory : Component
 		return BackpackItems.Where( x => x.IsValid() && x.Tags.Has( tag ) )?.Count() ?? 0;
 	}
 
-	public bool HasItem( string name, int count )
-	{
-		int totalCount = 0;
-		foreach ( var item in _backpackItems )
-		{
-			if ( item != null && item.Name == name )
-			{
-				totalCount += item.Count;
-				if ( totalCount >= count )
-				{
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+	
 	protected override void OnUpdate()
 	{
 		if ( Player != null )
@@ -1758,75 +1688,10 @@ public sealed class Inventory : Component
 	
 
 
-	public static void GiveItem( string name )
-	{
-		
-		var player = Player.Local;
-		if ( player == null )
-			return;
-
-		var item = PrefabLibrary.FindByComponent<ItemComponent>()
-			.FirstOrDefault( x => x.Name.ToLower() == name.ToLower() )
-			?.Prefab;
-
-		if ( item == null )
-		{
-			var itemNames = string.Join( ',', PrefabLibrary.FindByComponent<ItemComponent>().Select( v => v.Name ) );
-			Log.Warning( $"couldn't find {name}" );
-			Log.Warning( $"valid item names: {itemNames}" );
-			return;
-		}
-
-		var obj = SceneUtility.GetPrefabScene( item ).Clone();
-		obj.NetworkMode = NetworkMode.Object;
-		obj.NetworkSpawn();
-		player.Inventory.GiveItem( obj );
-		
-
-		 
-	}
 
 
 
 	
-	public static void DebugGiveItem( string name )
-	{
-		var allItems = PrefabLibrary.FindByComponent<ItemComponent>();
-		var foundItem = allItems.Where( itemPrefab =>
-		{
-			var toFind = name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
-			var item = itemPrefab.GetComponent<ItemComponent>();
-			var itemName = item.Get<string>( "Name" ).ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
-			var objectName = itemPrefab.Name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
-
-			if ( itemName == toFind || objectName == toFind )
-				return true;
-
-			if ( itemName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) || objectName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) )
-				return true;
-
-			return false;
-		} ).FirstOrDefault();
-
-
-		if ( foundItem != null )
-		{
-			var obj = SceneUtility.GetPrefabScene( foundItem.Prefab ).Clone();
-			obj.NetworkMode = NetworkMode.Object;
-			obj.NetworkSpawn();
-			Player.Local.Inventory.GiveItem( obj );
-		}
-		else
-		{
-			
-
-			var availableItems = "";
-
-			foreach ( var availableItem in allItems )
-				availableItems += $"[{availableItem.GetComponent<ItemComponent>().Get<string>( "Name" )}], ";
-
-			
-		}
-	}
+	
 
 }
