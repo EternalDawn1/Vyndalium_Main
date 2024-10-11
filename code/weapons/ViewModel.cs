@@ -36,7 +36,17 @@ public sealed class ViewModel : Component
 	public float YawInertia { get; private set; }
 	public float PitchInertia { get; private set; }
 
+	public event Action<SceneModel.FootstepEvent> OnFootstepEvent;
 
+	// Beispielmethode, um ein Fußschritt-Ereignis auszulösen
+	public void TriggerFootstepEvent( int footId, float volume )
+	{
+		OnFootstepEvent?.Invoke( new SceneModel.FootstepEvent
+		{
+			FootId = footId,
+			Volume = volume
+		} );
+	}
 	private Player PlayerController
 	{
 		get

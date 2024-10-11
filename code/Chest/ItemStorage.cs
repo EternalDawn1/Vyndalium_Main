@@ -47,6 +47,7 @@ namespace GeneralGame
         {
             itemInteractable = this.Components.Get<ItemInteractable>();
             skinnedModelRenderer = this.Components.Get<SkinnedModelRenderer>();
+            
             base.OnAwake();
             if ( storageBox == null )
             {

@@ -30,7 +30,7 @@ public class ItemInteractable : BaseInteraction
        
         var interactions = Components.GetOrCreate<Interactions>();
 
-        Storage = Components.Create<ItemStorage>();
+       
 
         if ( IsBossChest )
         {
@@ -68,6 +68,7 @@ public class ItemInteractable : BaseInteraction
                     if ( itemInteractable != null && itemInteractable.Storage != null )
                     {
                         itemInteractable.Storage.OpenInventory();
+                        Storage = Components.Create<ItemStorage>();
                     }
                 },
                 Keybind = "use",

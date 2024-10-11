@@ -3,6 +3,7 @@ namespace GeneralGame
 {
     public class ShopStorage : Component
     {
+        private static ShopStorage instance;
         public bool IsOpened { get; set; }
         public bool IsDoorOpen { get; set; }
         [Property] public ShopInteractable shopInteractable { get; set; }
@@ -15,7 +16,17 @@ namespace GeneralGame
         [Property] public List<ItemComponent> MaterialItems { get; private set; } = new List<ItemComponent>(); // Hinzugefügt
 
         [Property] public List<ItemComponent> UpgradeItems { get; private set; } = new List<ItemComponent>();
-
+        public static ShopStorage Instance
+        {
+            get
+            {
+                if ( instance == null )
+                {
+                    instance = new ShopStorage();
+                }
+                return instance;
+            }
+        }
         private bool prefabsLoaded = false;
         protected override void OnAwake()
         {
@@ -24,13 +35,19 @@ namespace GeneralGame
             if ( shopPanel == null )
             {
                 shopPanel = new ShopPanel();
+                
             }
 
             
         }
-
-        public ShopStorage() 
+		protected override void OnStart()
+		{
+			base.OnStart();
+            
+		}
+		public ShopStorage() 
         {
+            
             AvailableItems = new List<ItemComponent>();
             WeaponItems = new List<ItemComponent>();
             ArmorItems = new List<ItemComponent>(); // Hinzugefügt
@@ -43,7 +60,7 @@ namespace GeneralGame
         public void LoadPrefabs()
         {
             if ( prefabsLoaded ) return;
-            // Beispiel-Prefabs laden
+            
             var potionPrefabs = new List<string>
             {
                 "prefabs/potions/potion_big.prefab",
@@ -177,6 +194,7 @@ namespace GeneralGame
                 
                 FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.ShopPanel );
                 Player.Local.BlockInputs = true;
+                IsOpened = true;
             }
             else
             {
@@ -189,6 +207,7 @@ namespace GeneralGame
             Player.Save();
             Player.Local.BlockInputs = false;
             FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
+            IsOpened = false;
         }
 
         public void BuyItem( ItemComponent item )

@@ -489,7 +489,7 @@ partial class Player
 		{
 			player.AmmoContainer.SetAmmoCount( ammo.Key, ammo.Value );
 		}
-		
+		// Setup basic player information.
 		player.Stamina = save.Stamina;
 		player.ArmorPenetration = save.ArmorPenetration;
 		player.AttackRange = save.AttackRange;
@@ -539,6 +539,7 @@ partial class Player
 		player.INT = save.INT;
 		player.DEX = save.DEX;
 		player.PER = save.PER;
+
 		
 		player.StrengthCost = save.StrengthCost;
         player.AttackPowerCost = save.AttackPowerCost;
@@ -646,6 +647,7 @@ partial class Player
 
 				player.Inventory.EquipItemFromWorld( equipment );
 				ReadData( data, o );
+
 				equipment.Aspect = data.Aspect;
 				equipment.IsBackpack = data.IsBackpack;
 				equipment.IsFavorite = data.IsFavorite;

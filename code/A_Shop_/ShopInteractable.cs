@@ -12,7 +12,7 @@ public class ShopInteractable : BaseInteraction
     {
         var interactions = Components.GetOrCreate<Interactions>();
 
-        Storage = Components.Create<ShopStorage>();
+        
 
         if ( Missions )
         {
@@ -65,6 +65,7 @@ public class ShopInteractable : BaseInteraction
                 Action = ( Player interactor, GameObject obj ) =>
                 {
                     var shopInteractable = obj.Components.Get<ShopInteractable>();
+                    Storage = Components.GetOrCreate<ShopStorage>();
                     if ( shopInteractable != null && shopInteractable.Storage != null )
                     {
                         shopInteractable.Storage.OpenShop();
@@ -83,6 +84,7 @@ public class ShopInteractable : BaseInteraction
                 Action = ( Player interactor, GameObject obj ) =>
                 {
                     var shopInteractable = obj.Components.Get<ShopInteractable>();
+                    
                     if ( shopInteractable != null && shopInteractable.Storage != null )
                     {
                         // Kauf-Interaktion

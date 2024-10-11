@@ -459,23 +459,12 @@ public sealed class Inventory : Component
 
 	public Inventory()
 	{
-
-		Instance = this;
-		_backpackItems = new List<ItemComponent>( MAX_BACKPACK_SLOTS );
-		for ( int i = 0; i < MAX_BACKPACK_SLOTS; i++ )
-		{
-			_backpackItems.Add( null );
-		}
-
 		_storageItems = new List<ItemComponent>( new ItemComponent[MAX_STORAGE_SLOTS] );
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 		_storageBoxItems = new List<ItemComponent>();
 		_upgradeItems = new List<ItemComponent>( new ItemComponent[MAX_UPGRADE_SLOTS] );
 		_aspectItems = new List<ItemComponent>(new ItemComponent[MAX_ASPECT_SLOTS] );
 		_backpackBagItems = new List<ItemComponent>(new ItemComponent[MAX_BACKPACKBAG_SLOTS] );
-		InitializeBackpackSlots();
-
-
 	}
 	public void InitializeBackpackSlots()
 	{
@@ -523,8 +512,9 @@ public sealed class Inventory : Component
 
 	public ItemComponent GetItemInSlot( EquipSlot slot ) => _equippedItems.ElementAtOrDefault( (int)slot );
 	public bool IsSlotOccupied( EquipSlot slot ) => GetItemInSlot( slot ) is not null;
-	
 
+	
+	// wenn der spieler etwas aufhebt		
 	public bool GiveItem( ItemComponent item )
 	{
 		
@@ -1028,10 +1018,7 @@ public sealed class Inventory : Component
 
 		return true;
 	}
-	public void Refreshing()
-	{
-		_renderer?.Refresh();
-	}
+	
 	public bool SwapBackpackPackItems( int fromIndex, int toIndex )
 	{
 		var fromItem = _backpackBagItems.ElementAtOrDefault( fromIndex );
@@ -1279,6 +1266,7 @@ public sealed class Inventory : Component
 	}
 	public void SetItem( ItemComponent item, int index )
 	{
+		
 		if ( item == null )
 		{
 			
@@ -1587,7 +1575,7 @@ public sealed class Inventory : Component
 
 		// Fügen Sie die Statistiken der neuen Waffe hinzu
 		EquipItemStats( equipment );
-
+		
 		TaskMaster.SubmitTriggerSignal( $"item.equipped.{equipment.Name}", Player );
 		UpdateBodygroups();
 	}
@@ -1598,7 +1586,7 @@ public sealed class Inventory : Component
 	private void RemoveEquipmentItem( ItemEquipment equipment )
 	{
 		// Entfernen Sie die Statistiken der ausgerüsteten Waffe
-		UnequipItemStats( equipment );
+		
 
 		_equippedItems[(int)equipment.Slot] = null;
 
@@ -1614,6 +1602,8 @@ public sealed class Inventory : Component
 				if ( weaponContainer != null )
 				{
 					weaponContainer.RemoveWeapon( equipment.GameObject, false );
+					UnequipItemStats( equipment );
+
 				}
 			}
 		}
@@ -1623,6 +1613,7 @@ public sealed class Inventory : Component
 			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 		}
 	}
+	[Broadcast]
 	private void UpdateBodygroups()
 	{
 		var bodygroups = HiddenBodyGroup.None;
@@ -1683,15 +1674,5 @@ public sealed class Inventory : Component
 
 		base.OnUpdate();
 	}
-
-
-	
-
-
-
-
-
-	
-	
 
 }
