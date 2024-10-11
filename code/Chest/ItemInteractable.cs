@@ -8,6 +8,7 @@ public class ItemInteractable : BaseInteraction
 {
 
     public ItemStorage Storage { get; set; }
+    [Property] public GameObject Ragdoll { get; set; }
     [Property] public bool IsDoor { get; set; }
     [Property]public bool IsBossChest { get; set; } = false;
 
@@ -20,10 +21,7 @@ public class ItemInteractable : BaseInteraction
         
             itemStorage.LoadPrefabs();
         }
-        else
-        {
-        
-        }
+       
     }
     protected override void OnStart()
     {
@@ -64,12 +62,27 @@ public class ItemInteractable : BaseInteraction
                 Identifier = "item.openloot",
                 Action = ( Player interactor, GameObject obj ) =>
                 {
+                     Storage = Components.Create<ItemStorage>();
                     var itemInteractable = obj.Components.Get<ItemInteractable>();
                     if ( itemInteractable != null && itemInteractable.Storage != null )
                     {
+                       
                         itemInteractable.Storage.OpenInventory();
-                        Storage = Components.Create<ItemStorage>();
+                        
+                        var ragdoll = Ragdoll.Clone( WorldPosition );
+                        if ( ragdoll != null )
+                        {
+                            ragdoll.WorldRotation = WorldRotation;
+                            ragdoll.WorldPosition = WorldPosition;
+                            ragdoll.NetworkSpawn();
+                        }
+                        Task.Delay(10000);
+                        itemInteractable.Storage.DestroyAfterOpen();
+
+
                     }
+                   
+                 
                 },
                 Keybind = "use",
                 Description = "Open/Close",
@@ -88,11 +101,13 @@ public class ItemInteractable : BaseInteraction
                 Accessibility = AccessibleFrom.All,
             } );
         }
+        
 
         
     }
+   
 
-    
+
 
 
 

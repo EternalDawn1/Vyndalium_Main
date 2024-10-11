@@ -45,4 +45,54 @@ public sealed class HealthPotion : ItemComponent
             _ => 50.0f,
         };
     }
+    public void GeneratePotionStats()
+    {
+        int baseMinHeal = 0, baseMaxHeal = 0;
+        double tierMultiplier = 1.0;
+
+        // Definieren Sie die Basiswerte und den Multiplikator je nach Tier
+        switch ( Tier )
+        {
+            case Tier.C:
+                baseMinHeal = 5;
+                baseMaxHeal = 25;
+                tierMultiplier = 1.0;
+                break;
+            case Tier.B:
+                baseMinHeal = 5;
+                baseMaxHeal = 200;
+                tierMultiplier = 1.0 + (1.0 * RequiredLevel / 100);
+                break;
+            case Tier.A:
+                baseMinHeal = 5;
+                baseMaxHeal = 350;
+                tierMultiplier = 1.0 + (2.0 * RequiredLevel / 100);
+                break;
+            case Tier.S:
+                baseMinHeal = 5;
+                baseMaxHeal = 400;
+                tierMultiplier = 1.0 + (3.0 * RequiredLevel / 100);
+                break;
+            case Tier.SS:
+                baseMinHeal = 5;
+                baseMaxHeal = 650;
+                tierMultiplier = 1.0 + (4.0 * RequiredLevel / 100);
+                break;
+            case Tier.SSS:
+                baseMinHeal = 5;
+                baseMaxHeal = 1000;
+                tierMultiplier = 1.0 + (8.0 * RequiredLevel / 100);
+                break;
+            default:
+                // Keine Erhöhung für unbekannte Tiers
+                break;
+        }
+
+        // Skalieren Sie die Basiswerte basierend auf dem Tier-Multiplikator
+        int minHeal = (int)(baseMinHeal * tierMultiplier);
+        int maxHeal = (int)(baseMaxHeal * tierMultiplier);
+
+        // Setzen Sie die HealthAmount basierend auf den berechneten Werten
+        HealthAmount = (minHeal + maxHeal) / 2; // Durchschnittswert
+    }
 }

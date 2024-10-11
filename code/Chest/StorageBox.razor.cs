@@ -4,8 +4,9 @@ namespace GeneralGame.HUD
 	public partial class StorageBox : Panel
 	{
 		public static new bool IsVisible { get; set; }
+		
 		public ItemStorage itemStorage;
-		private ItemInteractable itemInteractable;
+		
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;
 		private static bool IsDragging { get; set; }
@@ -16,7 +17,7 @@ namespace GeneralGame.HUD
 		{
 			Instance = this;
 			itemStorage = new ItemStorage();
-			itemInteractable = new ItemInteractable();
+			
 			
 			IsVisible = false;
 		}
@@ -25,7 +26,7 @@ namespace GeneralGame.HUD
 			
 			if ( itemStorage == null )
 			{
-				itemStorage = new ItemStorage();
+				
 				itemStorage.IsOpened = false; // Stellen Sie sicher, dass itemStorage anfangs geschlossen ist
 				IsVisible = false;
 			}
@@ -69,37 +70,19 @@ namespace GeneralGame.HUD
 			
 		}
 
-		public void OpenStorage()
-		{
-			if ( itemStorage != null && !itemStorage.IsOpened )
-			{
-				itemStorage.IsOpened = true;
-				IsVisible = true;
-				// Optional: UI aktualisieren
-				
-			}
-		}
-
+	
 		public void CloseStorage()
 		{
 			if ( itemStorage != null && itemStorage.IsOpened )
 			{
 				itemStorage.IsOpened = false;
 				IsVisible = false;
+				Log.Info( "Storage closed" );
 				 // Aktualisiert die UI
 			}
 		}
 
-		public void ClosePanel()
-		{
-			CloseStorage(); // Ruft die Methode zum Schließen des Speichers auf
-		}
 
-		public void ResetVisibility()
-		{
-			IsVisible = false;
-			// Aktualisiert die UI
-		}
 
 		protected override int BuildHash()
 		{
@@ -110,10 +93,5 @@ namespace GeneralGame.HUD
 			);
 		}
 
-		public void SetPanelVisibility( bool isVisible )
-		{
-			IsVisible = isVisible;
-			 // Aktualisiert die UI
-		}
 	}
 }

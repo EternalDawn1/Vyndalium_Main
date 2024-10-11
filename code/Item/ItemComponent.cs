@@ -458,9 +458,29 @@ public class ItemComponent : Component
 		{
 			GenerateAccessoryStats();
 		}
+		else if ( IsConsumable )
+		{
+
+		}
+		else if ( IsAspect )
+		{
+
+		}
+		else if ( IsBackpack )
+		{
+
+		}
+		else if ( IsMaterial )
+		{
+
+		}
+		else if ( IsPotion )
+		{
+			
+		}
 		
 	}
-	private (int min, int max) GetStatRange( int baseMin, int baseMax )
+	public (int min, int max) GetStatRange( int baseMin, int baseMax )
 	{
 		switch ( Tier )
 		{
@@ -482,7 +502,9 @@ public class ItemComponent : Component
 				return (baseMin, baseMax);
 		}
 	}
+	
 
+	
 
 	private void GenerateWeaponStats()
 	{

@@ -139,6 +139,10 @@ namespace GeneralGame
             "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
+            "prefabs/items/wood_log.prefab",
+            "prefabs/potions/potion_small.prefab",
+            "prefabs/potions/potion_mid.prefab",
+            "prefabs/potions/potion_big.prefab",
             // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
         };
 
@@ -157,6 +161,10 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
+            "prefabs/items/wood_log.prefab",
+            "prefabs/potions/potion_small.prefab",
+            "prefabs/potions/potion_mid.prefab",
+            "prefabs/potions/potion_big.prefab",
 
             // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
         };
@@ -175,6 +183,10 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
+            "prefabs/items/wood_log.prefab",
+            "prefabs/potions/potion_small.prefab",
+            "prefabs/potions/potion_mid.prefab",
+            "prefabs/potions/potion_big.prefab",
             // Fügen Sie hier weitere A-Tier-Prefab-Dateien hinzu
         };
 
@@ -192,6 +204,10 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
+            "prefabs/items/wood_log.prefab",
+            "prefabs/potions/potion_small.prefab",
+            "prefabs/potions/potion_mid.prefab",
+            "prefabs/potions/potion_big.prefab",
             // Fügen Sie hier weitere S-Tier-Prefab-Dateien hinzu
         };
 
@@ -209,6 +225,10 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
+            "prefabs/items/wood_log.prefab",
+            "prefabs/potions/potion_small.prefab",
+            "prefabs/potions/potion_mid.prefab",
+            "prefabs/potions/potion_big.prefab",
             // Fügen Sie hier weitere SS-Tier-Prefab-Dateien hinzu
         };
 
@@ -226,10 +246,17 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
+            "prefabs/items/wood_log.prefab",
+            "prefabs/potions/potion_small.prefab",
+            "prefabs/potions/potion_mid.prefab",
+            "prefabs/potions/potion_big.prefab",
             // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
         };
+        private bool itemsLoaded = false;
         public void LoadPrefabs()
         {
+          
+
             if ( IsBossChest )
             {
                 LoadBossItems();
@@ -243,7 +270,8 @@ namespace GeneralGame
                     int minLevel = 0;
                     int maxLevel = 100;
                     int playerLevel = GetPlayerLevel();
-                LoadRandomTierPrefabs( playerLevel, minLevel, maxLevel );
+                    LoadRandomTierPrefabs( playerLevel, minLevel, maxLevel );
+                  
                 }
                 // Spielerlevel ermitteln
                
@@ -280,17 +308,18 @@ namespace GeneralGame
 
         public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
+            if ( itemsLoaded ) return;
+
             var random = new Random();
             var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
-        {
-          
-            (tierCPrefabs, "C", 0.80),
-            (tierBPrefabs, "B", 0.10),
-            (tierAPrefabs, "A", 0.05),
-            (tierSPrefabs, "S", 0.025),
-            (tierSSPrefabs, "SS", 0.015),
-            (tierSSSPrefabs, "SSS", 0.01)
-        };
+            {
+                (tierCPrefabs, "C", 0.80),
+                (tierBPrefabs, "B", 0.10),
+                (tierAPrefabs, "A", 0.05),
+                (tierSPrefabs, "S", 0.025),
+                (tierSSPrefabs, "SS", 0.015),
+                (tierSSSPrefabs, "SSS", 0.01)
+            };
 
             int itemsToSpawn;
 
@@ -332,7 +361,6 @@ namespace GeneralGame
             {
                 itemsToSpawn = 1;
             }
-            
 
             var selectedPrefabs = new List<(string prefab, string tier)>();
 
@@ -355,14 +383,14 @@ namespace GeneralGame
 
             foreach ( var (prefabPath, tier) in selectedPrefabs )
             {
-                LoadTierPrefab( prefabPath, tier, minLevel, maxLevel);
+                LoadTierPrefab( prefabPath, tier, minLevel, maxLevel );
             }
-        }
 
+            itemsLoaded = true;
+        }
 
         public void LoadTierPrefab( string prefabPath, string tier, int minLevel, int maxLevel )
         {
-            
             int playerLevel = GetPlayerLevel();
             var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
             if ( prefab != null )
@@ -373,9 +401,7 @@ namespace GeneralGame
                     var requiredLevel = DetermineRequiredLevelForTier( tier );
                     if ( requiredLevel >= minLevel && requiredLevel <= maxLevel )
                     {
-                        itemComponent.GameObject.Enabled = false;
-                        if ( !nonRandomStatItems.Contains( prefabPath ) )
-                        {
+                        
                             itemComponent.RequiredLevel = requiredLevel;
 
                             if ( itemComponent.IsWeapon )
@@ -399,11 +425,34 @@ namespace GeneralGame
                                 itemComponent.GenerateRandomStats();
                                 itemComponent.Tier = Enum.Parse<Tier>( tier );
                             }
-                        }
-                        Items.Add( itemComponent );
+                            else if ( itemComponent.IsConsumable )
+                            {
+                                itemComponent.Tier = Enum.Parse<Tier>( tier );
+                            }
+                            else if ( itemComponent.IsMaterial )
+                            {
+                                itemComponent.Tier = Enum.Parse<Tier>( tier );
+                            }
+                            else if ( itemComponent.IsAspect )
+                            {
+                                itemComponent.Tier = Enum.Parse<Tier>( tier );
+                            }
+                            else if ( itemComponent.IsPotion )
+                            {
+                                itemComponent.Tier = Enum.Parse<Tier>( tier );
+                                var healthPotion = itemComponent as HealthPotion;
+                                healthPotion?.GeneratePotionStats();
+                            }
+
+                            Items.Add( itemComponent );
+                        
+
                     }
+                   
                 }
+                
             }
+            
         }
 
         public int GetPlayerLevel()
@@ -655,20 +704,6 @@ namespace GeneralGame
 
 
 
-        public void AddItem( ItemComponent item, int index )
-        {
-            if ( item == null ) return;
-
-            // Überprüfen, ob es sich um eine Boss-Truhe handelt
-            if ( IsBossChest && !bossItems.Contains( item.Prefab ) )
-            {
-                Log.Error( "Nur Boss-Gegenstände können in eine Boss-Truhe hinzugefügt werden." );
-                return;
-            }
-
-            Items.Insert( index, item );
-            Log.Info( $"Item {item.Name} wurde hinzugefügt." );
-        }
 
         public void OpenInventory()
         {
@@ -692,7 +727,9 @@ namespace GeneralGame
             }
             else
             {
+                Log.Info( "Inventory is already opened." );
                 CloseInventory();
+               
             }
         }
 
@@ -704,6 +741,7 @@ namespace GeneralGame
                 if ( FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox )
                 {
                     FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
+                    
                 }
                 else
                 {
@@ -712,8 +750,10 @@ namespace GeneralGame
                     {
                         skinnedModelRenderer.Set( "chest_close", true );
                     }
+                   
                 }
             }
+            
 
             if ( Player.Local != null )
             {
@@ -727,6 +767,12 @@ namespace GeneralGame
 
              // Setzen der Variable, um anzuzeigen, dass die Kiste geschlossen ist
         }
+        public void DestroyAfterOpen()
+        {
+            // Logik zum Zerstören des GameObjects
+            GameObject.Destroy( );
+        }
+
 
     }
 }
