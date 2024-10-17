@@ -302,7 +302,7 @@ public partial class Player : Component, IHealthComponent
 		{
 			if ( item is ItemEquipment equipment )
 			{
-				Inventory.GiveEquipmentItem( equipment );
+				
 			}
 		}
 	}
@@ -506,6 +506,7 @@ public partial class Player : Component, IHealthComponent
 		base.OnStart();
 	}
 
+
 	private void UpdateWeaponModelVisibility()
 	{
 		if(IsProxy) 
@@ -652,6 +653,8 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		}
+	
+
 		for ( int i = activeStatusEffects.Count - 1; i >= 0; i-- ) 
 		{
 			var effect = activeStatusEffects[i];

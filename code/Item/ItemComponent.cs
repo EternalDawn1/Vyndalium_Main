@@ -63,6 +63,7 @@ public class ItemComponent : Component
 	public bool IsConsumable { get; set; }
 	[Property, Group( "Type" )] public bool IsAspect { get; set; }
 	[Property, Group( "Type" )] public bool IsBackpack { get; set; }
+	[Property, Group( "Type" )] public bool IsWorld { get; set; }
 	
 	public bool CanEquip( int playerLevel )
 	{
@@ -288,6 +289,7 @@ public class ItemComponent : Component
 		set
 		{
 			_state = value;
+			UpdateState();
 			
 		}
 	}
@@ -782,6 +784,12 @@ public class ItemComponent : Component
 		
 
 		//GenerateRandomStats();
+	}
+	private void UpdateState()
+	{
+		GameObject.Enabled = State != ItemState.Backpack;
+		if ( this is ItemEquipment equipment )
+			equipment.UpdateEquipped();
 	}
 
 	protected override void OnStart()

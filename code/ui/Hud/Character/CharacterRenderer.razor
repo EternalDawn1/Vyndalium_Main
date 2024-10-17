@@ -82,16 +82,7 @@
 				continue;
 
 			Transform transform = global::Transform.Zero;
-			if (slots[i] == EquipSlot.Back)
-			{
-				// Setze die gewünschte Position und Rotation für den `EquipSlot.Back`
-				transform = new Transform(new Vector3(0, 15, 50), Rotation.From(0, 90, 0));
-			}
-			if (slots[i] == EquipSlot.Hand)
-			{
-				// Setze die gewünschte Position und Rotation für den `EquipSlot.Hand`
-				transform = new Transform(new Vector3(0, 15, 50), Rotation.From(0, 90, 0));
-			}
+		
 			
 
 			var cloth = _clothes[i] = new SceneModel(_sceneWorld, renderer.Model, transform);

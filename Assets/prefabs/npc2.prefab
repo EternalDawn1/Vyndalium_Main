@@ -111,6 +111,12 @@
         "__type": "Npc",
         "__guid": "343ea719-e2a6-4c36-8add-0d68f031e949",
         "CurrentHoldType": "Punch",
+        "isChibi": false,
+        "prefabPaths": [
+          "prefabs/pickupammo.prefab",
+          "prefabs/potions/potion.prefab",
+          "prefabs/items/wood_log.prefab"
+        ],
         "AlertOthers": false,
         "AnimationHelper": {
           "_type": "component",
@@ -133,7 +139,13 @@
           "go": "048bdef6-1718-4d02-87ca-a43dd778d2b7"
         },
         "FaceTowardsVelocity": true,
+        "FireAbilityChance": 0.3,
+        "FireAbilityCooldown": 15,
+        "FireDamage": 10,
+        "FireDamageRadius": 5,
+        "HasFireAbility": false,
         "HasIceAbility": false,
+        "HasWindAbility": false,
         "Health": 100,
         "Healthone": {
           "_type": "component",
@@ -205,7 +217,6 @@
             {
               "Id": 5,
               "Type": "scene.ref",
-              "Properties": {},
               "UserData": {
                 "Position": "96,256"
               }
@@ -343,9 +354,11 @@
         "VisionRange": 1008,
         "WalkingType": "Dumb",
         "WalkSpeed": 90,
+        "WindAbilityChance": 0.5,
+        "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
-          "prefab": "models/npcs/skeleton2/skeleton2.prefab"
+          "prefab": "prefabs/entitys/chestsystem/5.prefab"
         }
       },
       {
@@ -384,6 +397,13 @@
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
             "Model": "models/playermodels/skeleman.vmdl",
             "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,

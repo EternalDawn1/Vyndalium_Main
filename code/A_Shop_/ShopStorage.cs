@@ -43,6 +43,8 @@ namespace GeneralGame
 		protected override void OnStart()
 		{
 			base.OnStart();
+           shopInteractable = new ShopInteractable();
+           
             
 		}
 		public ShopStorage() 

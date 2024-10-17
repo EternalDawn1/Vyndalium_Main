@@ -1,0 +1,1706 @@
+{
+  "__guid": "4f1e547d-7e89-44df-be85-fe9992e06e8e",
+  "GameObjects": [
+    {
+      "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
+      "Flags": 0,
+      "Name": "MapObjects",
+      "Position": "-16.73947,-31.52794,131.4671",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
+          "Flags": 0,
+          "Name": "Map",
+          "Position": "498.2042,530.4957,103.5412",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.MapInstance",
+              "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
+              "__version": 1,
+              "EnableCollision": true,
+              "MapName": "maps/openworld/first.vmap",
+              "NoOrigin": true,
+              "OnMapLoaded": null,
+              "OnMapUnloaded": null,
+              "UseMapFromLaunch": false
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "__guid": "e47368dc-2aa1-43c7-9701-476845bc0e7d",
+      "Flags": 0,
+      "Name": "GameManager",
+      "Position": "-4687.136,-3009.619,2645.524",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "GeneralGame.NetworkManager",
+          "__guid": "fa171ab4-1bf0-4b91-a947-0fb928804480",
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          },
+          "SpawnPoints": [
+            null
+          ],
+          "StartServer": true
+        },
+        {
+          "__type": "GeneralGame.AdminPanel",
+          "__guid": "455f5741-447b-443d-b0f2-9cac9e59d7e9"
+        }
+      ]
+    },
+    {
+      "__guid": "252c9332-957d-4473-b4ab-860bad446d3b",
+      "Flags": 0,
+      "Name": "HUD",
+      "Position": "947.7009,710.3586,20.02546",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "GeneralGame.HUD.Hudmaster",
+          "__guid": "bae3682a-2933-42b6-ad4a-a1d29d60ef22"
+        },
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "c9a8dcc6-bb02-4d63-a6a6-4c6eb90f815e",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
+          "ZIndex": 100
+        },
+        {
+          "__type": "GeneralGame.Blackscreen",
+          "__guid": "fc057f82-322c-4e02-ab59-9197b56778da",
+          "BlackTransition": 2,
+          "EndingTransition": 3,
+          "StartingTransition": 0
+        },
+        {
+          "__type": "GeneralGame.Blackscreen",
+          "__guid": "c75496ab-fa2a-4d11-ae6e-54f880101cbd",
+          "BlackTransition": 2,
+          "EndingTransition": 3,
+          "StartingTransition": 0
+        },
+        {
+          "__type": "GeneralGame.Blackscreen",
+          "__guid": "882987c1-6529-43d7-97db-29087b1be296",
+          "BlackTransition": 2,
+          "EndingTransition": 3,
+          "StartingTransition": 0
+        },
+        {
+          "__type": "GeneralGame.Blackscreen",
+          "__guid": "00c3c7ff-2dcc-4a75-b726-58e3c3b7d6a2",
+          "BlackTransition": 2,
+          "EndingTransition": 3,
+          "StartingTransition": 0
+        }
+      ]
+    },
+    {
+      "__guid": "a88bde63-d08b-49a7-9827-e9f58da10eff",
+      "Flags": 0,
+      "Name": "Sun",
+      "Position": "-2235.354,2691.343,2968.598",
+      "Rotation": "0,0.3826834,0,0.9238796",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "c44d883a-faf7-4898-ade2-79093ca9e7a3",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Shadows": true,
+          "SkyColor": "0,0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "97a29001-47bf-4f5d-88fc-7c23c6820607",
+      "Flags": 0,
+      "Name": "Shop-Human",
+      "Position": "865.5213,520.8647,434.5091",
+      "__Prefab": "prefabs/interactables/shop.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "957b05c2-f520-490e-9d86-b4c022940653",
+      "Flags": 0,
+      "Name": "Point Light",
+      "Position": "509.7396,357.1898,683.7052",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "41e24817-db8b-4207-b2f6-14437dc768a7",
+          "Attenuation": 0.15,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 1168.499,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "7f44aa79-a794-459d-b017-de5df1dbc77c",
+      "Flags": 0,
+      "Name": "example 5",
+      "Position": "420.8468,325.7184,497.3899",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "150fb975-d089-4e87-880d-9dbf0bc3a0fb",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/box_legendary/legendary chest.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "b7974963-4cc7-4ec0-a772-f1d0d3d60faf",
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "None",
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackpack": false,
+          "IsBossChest": false,
+          "IsConsumable": false,
+          "IsDoor": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Legendary Chest",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "Ragdoll": {
+            "_type": "gameobject",
+            "prefab": "models/npcs/slime/chest.prefab"
+          },
+          "RequiredLevel": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SSS",
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "07cdb4d3-72ac-4973-aa8b-76b328164a57",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "X": true,
+            "Y": true,
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "f3790f13-54bd-4121-93de-42ec9a6881b1",
+      "Flags": 0,
+      "Name": "example 5 (1)",
+      "Position": "420.8468,349.8038,497.3899",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "ff9d2584-538c-4bef-a888-6b47194fcb49",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/box_legendary/legendary chest.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "231b952d-dcce-48e5-8f6c-2e415ba3d0f2",
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "None",
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackpack": false,
+          "IsBossChest": false,
+          "IsConsumable": false,
+          "IsDoor": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Legendary Chest",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "Ragdoll": {
+            "_type": "gameobject",
+            "prefab": "models/npcs/slime/chest.prefab"
+          },
+          "RequiredLevel": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SSS",
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "e148044c-6d40-41f5-ad49-c14b791b97f1",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "X": true,
+            "Y": true,
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "6db91e54-3c31-46df-95d5-b265bb3445c8",
+      "Flags": 0,
+      "Name": "example 5 (2)",
+      "Position": "420.8468,393.9879,497.3899",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "bc05e1ba-f73b-411a-9cec-00dc0cae20d6",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/box_legendary/legendary chest.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "9ca8bf4d-690d-4c78-8bf1-3a4fdf76539e",
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "None",
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackpack": false,
+          "IsBossChest": false,
+          "IsConsumable": false,
+          "IsDoor": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Legendary Chest",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "Ragdoll": {
+            "_type": "gameobject",
+            "prefab": "models/npcs/slime/chest.prefab"
+          },
+          "RequiredLevel": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SSS",
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "fea9f3f9-790e-49a1-90e6-6f678be755ac",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "X": true,
+            "Y": true,
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "3a611879-a822-4119-84ec-b34d04cbeb1e",
+      "Flags": 0,
+      "Name": "example 5 (3)",
+      "Position": "420.8468,440.0527,497.3899",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "b1530753-bfd4-4666-8b6b-f78e45f1948e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/box_legendary/legendary chest.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "65c873e8-1b2c-4a34-8a19-f3b822ab92c2",
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "None",
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackpack": false,
+          "IsBossChest": false,
+          "IsConsumable": false,
+          "IsDoor": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Legendary Chest",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "Ragdoll": {
+            "_type": "gameobject",
+            "prefab": "models/npcs/slime/chest.prefab"
+          },
+          "RequiredLevel": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SSS",
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "3a22a757-2541-4b9f-98e5-1c08a38e6196",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "X": true,
+            "Y": true,
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "8f8538da-950d-47fa-aea7-95d12a877887",
+      "Flags": 0,
+      "Name": "example 5 (4)",
+      "Position": "420.8468,495.0894,497.3899",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "4af24236-8197-44ca-a222-616010e34b36",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/props/box_legendary/legendary chest.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "GeneralGame.ItemInteractable",
+          "__guid": "d2479a9a-144f-45f6-a841-d897129a2bcb",
+          "isLocked": false,
+          "isOpen": false,
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "None",
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {},
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackpack": false,
+          "IsBossChest": false,
+          "IsConsumable": false,
+          "IsDoor": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Legendary Chest",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "Ragdoll": {
+            "_type": "gameobject",
+            "prefab": "models/npcs/slime/chest.prefab"
+          },
+          "RequiredLevel": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SSS",
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "fce4da25-75b8-4b6a-ad91-35dd11f38328",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "X": true,
+            "Y": true,
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        }
+      ]
+    },
+    {
+      "__guid": "8a648bbf-21f5-45ce-bb84-90e534e2243a",
+      "Flags": 0,
+      "Name": "sss",
+      "Position": "426.3647,256.385,509.39",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "f85c93da-3d1b-432d-8163-70d0f3698ecb",
+          "AnimationGraph": "models/aksu/aksu.vanmgrph",
+          "BodyGroups": 9493,
+          "CreateBoneObjects": false,
+          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+          "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "GeneralGame.BaseGun",
+          "__guid": "9a3cc737-3899-4651-be27-c617f3453e59",
+          "AimPos": "-1,1.92,0.57",
+          "AimRotation": "0,0,0,0",
+          "AimRotationOffset": "0,0,0,0",
+          "AmmoType": "Rifle",
+          "ClipSize": 30,
+          "CurRot": "0,0,0,0",
+          "Damage": 20,
+          "DamageForce": 50,
+          "DamageType": "Bullet",
+          "DefaultAmmo": 360,
+          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
+          "DeployTime": 0.5,
+          "DisplayName": "Ak74U",
+          "EmptyClipSound": "models/aksu/ak74u_magout.sound",
+          "EmptyReloadSoundSequence": "models/aksu/aksu_reload_empty.sndseq",
+          "EmptyReloadTime": 3,
+          "FireRate": 9,
+          "FireSound": "models/aksu/ak74u shoot.sound",
+          "HitForce": 300,
+          "HoldType": "Rifle",
+          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+          "IdlePos": "-3,0,0",
+          "ImpactEffect": "particles/impact.generic.vpcf",
+          "IsAuto": true,
+          "IsDeployed": false,
+          "IsMagicWeapon": false,
+          "IsMelee": false,
+          "MeleeCooldown": 1,
+          "MeleeDamage": 10,
+          "MeleeRange": 1.5,
+          "Recoil": "-5,0,0",
+          "ReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
+          "ReloadTime": 3,
+          "RunRotation": "-0.02523804,0.1292066,0.0627908,0.9893059",
+          "Spread": 0.01,
+          "Type": "Ranged",
+          "ViewModelPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/aksu/vm_aksu.prefab"
+          }
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "21781261-d610-41d5-acb0-8227e54e3c85",
+          "IsTrigger": false,
+          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+          "Static": false
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "a74b8e88-f63c-4055-8242-dcafc617640d",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "d6d5760f-6e63-41cd-ab22-ff6ca93ce794",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "Fire",
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 1,
+            "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
+            "Scale": "1,1,1",
+            "Rotation": "0,0,0,1"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "An AK",
+          "DEX": 0,
+          "DMG": 900,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Rifle",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+            "MaterialGroup": "",
+            "Colour": "1,1,1,1",
+            "Position": "-1.8,4.5,0",
+            "Rotation": "0,0,0.7071068,0.7071068",
+            "Guid": "e23adcb4-7a59-4c04-92ce-88d76b9b52d2"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackable": false,
+          "IsBackpack": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": true,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": true,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "AKM",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "Slot": "Hand",
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SSS",
+          "UpdatePosition": false,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "GeneralGame.Interactable",
+          "__guid": "f9298264-afcc-4673-bdcc-8f7d0a8b36ab",
+          "OnInteraction": {
+            "__version": 8,
+            "__guid": "637e35ba-6176-4aff-8627-dc544c7502ed",
+            "__changeId": 4,
+            "UserData": {
+              "Title": "On Interaction"
+            },
+            "Variables": [],
+            "Nodes": [
+              {
+                "Id": 0,
+                "Type": "input"
+              },
+              {
+                "Id": 1,
+                "Type": "call",
+                "Properties": {
+                  "_isStatic": false,
+                  "_name": "Get",
+                  "_type": "Sandbox.IComponentLister",
+                  "T": "GeneralGame.Player"
+                },
+                "UserData": {
+                  "Position": "240,132"
+                }
+              }
+            ],
+            "Links": [
+              {
+                "SrcId": 0,
+                "SrcName": "player",
+                "DstId": 1,
+                "DstName": "_target"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "4578cb7e-7bba-4d5b-89a7-c2bb8a66ad82",
+      "Flags": 0,
+      "Name": "pickupammo",
+      "Position": "446.3174,265.6337,491.4899",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "6ec46939-903c-47b0-800b-0f9b7c2478ce",
+      "Flags": 0,
+      "Name": "pickupammo (3)",
+      "Position": "444.5931,225.5683,491.4899",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "6e137036-ef15-4d92-884e-0245b28dc369",
+      "Flags": 0,
+      "Name": "pickupammo (4)",
+      "Position": "434.9146,189.5871,491.4899",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "ce0ba937-0770-460c-a3f6-5ac66e80330f",
+      "Flags": 0,
+      "Name": "pickupammo (5)",
+      "Position": "416.3422,189.0263,491.4899",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "00b35aa3-04d3-4aa0-aa3e-707643a40348",
+      "Flags": 0,
+      "Name": "pickupammo (6)",
+      "Position": "451.033,187.3728,491.4899",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "684239b8-b510-4727-be3d-732bcdaf69d3",
+      "Flags": 0,
+      "Name": "pickupammo (7)",
+      "Position": "466.9008,199.8743,491.4899",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "8f69b5c1-ec02-49bd-8936-f4fb2602e01c",
+      "Flags": 0,
+      "Name": "pickupammo (8)",
+      "Position": "477.4069,233.752,491.4899",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "97eaf82b-8d2c-45d8-9eff-c99b3b7ade0f",
+      "Flags": 0,
+      "Name": "pickupammo (9)",
+      "Position": "474.5867,264.0778,491.4899",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "7bcd832a-842e-49f7-9624-6ac6f02e165b",
+      "Flags": 0,
+      "Name": "pickupammo (1)",
+      "Position": "422.4913,246.4037,491.4899",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "825a5d1a-e629-421f-9a8f-157106661b65",
+      "Flags": 0,
+      "Name": "pickupammo (2)",
+      "Position": "399.1174,233.9294,491.4899",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "10d57c19-e809-446c-8cba-c96c209434c1",
+      "Flags": 0,
+      "Name": "moon",
+      "Position": "366.6829,237.1933,566.4868",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "5ee4bdd3-68a9-4e85-b66d-10b48db61aee",
+          "IsTrigger": false,
+          "Model": "models/blade_moon/blade_moon.vmdl",
+          "Static": false
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "d3abb4d4-c1b0-44c7-afa4-64a979de8153",
+          "AngularDamping": 0,
+          "Gravity": false,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "545376a6-1155-4c92-8863-c93e87feed53",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "None",
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 0.5,
+            "IsValid": true,
+            "ForwardRay": {
+              "Position": "1.241,-15.185,-1.911",
+              "Forward": "-0.4033214,0.1460047,-0.9033353"
+            },
+            "Position": "1.241,-15.185,-1.911",
+            "Scale": "0.5,0.5,0.7",
+            "Rotation": "-0.2853113,0.6353251,0.5459146,0.4657648"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Melee",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/blade_moon/blade_moon.vmdl",
+            "MaterialGroup": "",
+            "Colour": "1,1,1,1",
+            "Position": "20.1,26.7,72.3",
+            "Rotation": "0.00000004122323,0.9430776,-0.3325727,-0.00000001453722",
+            "Guid": "6d2c5fe9-399b-46e4-9d2c-ba52eda68eeb"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackable": false,
+          "IsBackpack": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": true,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": true,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "moon_sword",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "Slot": "Hand",
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "UpdatePosition": true,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "d0784366-7cfc-4e77-908b-40c25ce96719",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/blade_moon/blade_moon.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e9422046-d7f7-4ae6-9278-054fbc8777a7",
+      "Flags": 0,
+      "Name": "backpack_big",
+      "Position": "359.0205,161.2887,523.8899",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "__Prefab": "prefabs/items/bags/backpack_big.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "31b32b79-dc02-4c2d-8298-755572ed6013",
+      "Flags": 0,
+      "Name": "Shop-Human (1)",
+      "Position": "665.1591,277.2842,434.5091",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "__Prefab": "prefabs/interactables/shop.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "399e59a5-3740-46c7-a052-1856ca5e9090",
+      "Flags": 0,
+      "Name": "fire",
+      "Position": "620.1234,201.5092,467.3856",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/fire.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "fe58c15f-e867-4a8e-bd7a-45e5dde4f792",
+      "Flags": 0,
+      "Name": "m4a1-sss",
+      "Position": "398.8378,889.4243,652.6461",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/m4a1/m4a1-sss.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "263a1b30-d623-474f-9100-b2cb7d7efdda",
+      "Flags": 0,
+      "Name": "m4a1-sss (1)",
+      "Position": "471.1489,313.3414,543.5641",
+      "Rotation": "0.000002775447,0.7024052,-0.000002812479,0.7117773",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/m4a1/m4a1-sss.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "a8ecac63-eae2-45b8-927e-dedb8789051c",
+      "Flags": 0,
+      "Name": "slime_new",
+      "Position": "1186.312,-102.9216,455.9254",
+      "Tags": "npc,bad",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.NavMeshAgent",
+          "__guid": "a0c20197-eb9a-4061-a0a9-0c5718e6cb04",
+          "Acceleration": 237.39967,
+          "Height": 31.700174,
+          "MaxSpeed": 0,
+          "Radius": 19.400007,
+          "Separation": 1,
+          "UpdatePosition": true,
+          "UpdateRotation": true
+        },
+        {
+          "__type": "GeneralGame.MoveHelper",
+          "__guid": "c94de994-138e-41a9-86e0-59d1630bfffd",
+          "AccelerationCurve": [
+            {
+              "y": 0.38297874
+            },
+            {
+              "x": 0.89285713,
+              "y": 1
+            }
+          ],
+          "AirAcceleration": 400,
+          "AirFriction": 6.5,
+          "Bounce": 0.5,
+          "Collider": {
+            "_type": "component",
+            "component_id": "458ee515-05f9-405a-94ef-4d7fbfd458bb",
+            "go": "7cb065ee-1ce2-4f2c-b424-1d05b55831a8",
+            "component_type": "ModelCollider"
+          },
+          "EnableUnstuck": false,
+          "Gravity": "0,0,850",
+          "GroundAcceleration": 2065,
+          "GroundAngle": 45,
+          "GroundFriction": 33.7,
+          "IgnoreTags": "",
+          "MaxUnstuckTries": 20,
+          "OnComponentUpdate": {
+            "__version": 8,
+            "__guid": "c3992a35-2e68-459f-be3b-ea158f7ceeef",
+            "__changeId": 0,
+            "UserData": {
+              "Title": "On Component Update"
+            },
+            "Variables": [],
+            "Nodes": [
+              {
+                "Id": 0,
+                "Type": "input"
+              },
+              {
+                "Id": 1,
+                "Type": "output"
+              }
+            ],
+            "Links": [
+              {
+                "SrcId": 0,
+                "SrcName": "_signal",
+                "DstId": 1,
+                "DstName": "_signal"
+              }
+            ]
+          },
+          "StepHeight": 31,
+          "StickToGround": true,
+          "StopSpeed": 10,
+          "TraceHeight": 64,
+          "TraceRadius": 12,
+          "TraceType": "Capsule",
+          "UseCollider": true,
+          "UseSceneGravity": true
+        },
+        {
+          "__type": "HealthComponent",
+          "__guid": "e6ce07a9-5b9d-4dfb-8ed2-91b1bf570386",
+          "AnimationHelper": {
+            "_type": "component",
+            "component_id": "b0674bb8-4a8d-4aeb-9f3b-992cf5d67c9d",
+            "go": "a8ecac63-eae2-45b8-927e-dedb8789051c",
+            "component_type": "CitizenAnimationHelper"
+          },
+          "CanRegenerate": false,
+          "DamagedBy": "Bullet",
+          "DropOnDeath": [
+            null
+          ],
+          "Health": 100,
+          "Immortal": false,
+          "MaxHealth": 9,
+          "RegenerationCooldown": 2,
+          "RegenerationTimer": 5,
+          "StunnedBy": "Bullet",
+          "StunWhenDamaged": false
+        },
+        {
+          "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+          "__guid": "b0674bb8-4a8d-4aeb-9f3b-992cf5d67c9d",
+          "BodyWeight": 1,
+          "EyeSource": {
+            "_type": "gameobject",
+            "go": "562f9c75-1f24-412f-955e-81569a2e5b81"
+          },
+          "EyesWeight": 1,
+          "HeadWeight": 1,
+          "LookAtEnabled": false,
+          "Target": {
+            "_type": "component",
+            "component_id": "d2f3839e-da6d-4282-9da9-c55a14a9034f",
+            "go": "7cb065ee-1ce2-4f2c-b424-1d05b55831a8",
+            "component_type": "SkinnedModelRenderer"
+          }
+        },
+        {
+          "__type": "Slime",
+          "__guid": "06199503-2f2b-44b9-a901-524c0d000e4a",
+          "isChibi": false,
+          "AlertOthers": true,
+          "AnimationHelper": {
+            "_type": "component",
+            "component_id": "b0674bb8-4a8d-4aeb-9f3b-992cf5d67c9d",
+            "go": "a8ecac63-eae2-45b8-927e-dedb8789051c",
+            "component_type": "CitizenAnimationHelper"
+          },
+          "AttackCooldown": 5,
+          "AttackRange": 80,
+          "Body": {
+            "_type": "gameobject",
+            "go": "7cb065ee-1ce2-4f2c-b424-1d05b55831a8"
+          },
+          "CurrentState": "Idle",
+          "DeathSounds": "sounds/deathsounds/deathsounds.sound",
+          "DetectRange": 400,
+          "EnemyTags": "player",
+          "Eye": {
+            "_type": "gameobject",
+            "go": "562f9c75-1f24-412f-955e-81569a2e5b81"
+          },
+          "FaceTowardsVelocity": true,
+          "FireAbilityChance": 0.3,
+          "FireAbilityCooldown": 15,
+          "FireDamage": 10,
+          "FireDamageRadius": 5,
+          "HasFireAbility": false,
+          "HasIceAbility": false,
+          "HasWindAbility": false,
+          "Health": 10000,
+          "Healthone": {
+            "_type": "component",
+            "component_id": "e6ce07a9-5b9d-4dfb-8ed2-91b1bf570386",
+            "go": "a8ecac63-eae2-45b8-927e-dedb8789051c",
+            "component_type": "HealthComponent"
+          },
+          "HitSounds": "sounds/slimeattack/slimeattackone.sound",
+          "Idle": true,
+          "Level": 0,
+          "MaxHealth": 10000,
+          "MaximumIdleCooldown": 6,
+          "MaxRunAnimationSpeed": 150,
+          "MinimumIdleCooldown": 4,
+          "Model": {
+            "_type": "component",
+            "component_id": "d2f3839e-da6d-4282-9da9-c55a14a9034f",
+            "go": "7cb065ee-1ce2-4f2c-b424-1d05b55831a8",
+            "component_type": "SkinnedModelRenderer"
+          },
+          "MoveHelper": {
+            "_type": "component",
+            "component_id": "c94de994-138e-41a9-86e0-59d1630bfffd",
+            "go": "a8ecac63-eae2-45b8-927e-dedb8789051c",
+            "component_type": "MoveHelper"
+          },
+          "Name": "Slime",
+          "PogMode": false,
+          "RunningType": "Smart",
+          "RunSpeed": 0,
+          "ScaleStats": true,
+          "VisionRange": 1040,
+          "WalkingType": "Dumb",
+          "WalkSpeed": 90,
+          "WindAbilityChance": 0.5,
+          "WindAbilityCooldown": 10,
+          "ZombieRagedol": {
+            "_type": "gameobject",
+            "prefab": "models/npcs/slime/slime_burst.prefab"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "7cb065ee-1ce2-4f2c-b424-1d05b55831a8",
+          "Flags": 0,
+          "Name": "body",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "d2f3839e-da6d-4282-9da9-c55a14a9034f",
+              "AnimationGraph": "models/npcs/slime/slime.vanmgrph",
+              "BodyGroups": 18446744073709551615,
+              "CreateBoneObjects": false,
+              "Model": "models/npcs/slime/slime.vmdl",
+              "Morphs": {},
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            },
+            {
+              "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+              "__guid": "8f8bf84a-9445-441e-a10f-cd35d27962f6",
+              "BodyWeight": 1,
+              "EyesWeight": 1,
+              "HeadWeight": 1,
+              "Height": 0.96,
+              "LookAtEnabled": false,
+              "Target": {
+                "_type": "component",
+                "component_id": "d2f3839e-da6d-4282-9da9-c55a14a9034f",
+                "go": "7cb065ee-1ce2-4f2c-b424-1d05b55831a8",
+                "component_type": "SkinnedModelRenderer"
+              }
+            },
+            {
+              "__type": "Sandbox.ModelCollider",
+              "__guid": "458ee515-05f9-405a-94ef-4d7fbfd458bb",
+              "IsTrigger": false,
+              "Model": "models/dev/error.vmdl",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "562f9c75-1f24-412f-955e-81569a2e5b81",
+          "Flags": 0,
+          "Name": "eye",
+          "Position": "0,0,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "c9707710-bc43-4dad-b371-9ab94d3f14d1",
+          "Flags": 0,
+          "Name": "World",
+          "Position": "-1.323636,-0.5550555,59.80241",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.WorldPanel",
+              "__guid": "3bd5e6e5-4867-49fc-8d3b-6b1001dfa253",
+              "HorizontalAlign": "Center",
+              "InteractionRange": 1000,
+              "LookAtCamera": false,
+              "PanelSize": "2000,1000",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderScale": 2.3,
+              "VerticalAlign": "Center"
+            },
+            {
+              "__type": "GeneralGame.HUD.UI",
+              "__guid": "3528da2d-6a4a-42af-b0c9-cef88debc166",
+              "npc": {
+                "_type": "component",
+                "component_id": "06199503-2f2b-44b9-a901-524c0d000e4a",
+                "go": "a8ecac63-eae2-45b8-927e-dedb8789051c",
+                "component_type": "Slime"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "d88f0ee5-fbad-4ebf-b039-17bb591d77b0",
+      "Flags": 0,
+      "Name": "ice",
+      "Position": "634.3865,169.3398,436.9254",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/ice.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "78f51641-cdd4-4bbb-830e-48bc22bccf1a",
+      "Flags": 0,
+      "Name": "shadow",
+      "Position": "648.0356,130.3352,440.2391",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/shadow.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "3fce6dcf-8373-48a6-b1f9-ed890073ff73",
+      "Flags": 0,
+      "Name": "water",
+      "Position": "657.3577,90.76183,428.9254",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/water.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "382bb924-3178-4f30-ac8f-359ea19b7fa8",
+      "Flags": 0,
+      "Name": "terrain1",
+      "Position": "694.3882,-317.7739,2",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Terrain",
+          "__guid": "10390a52-5ee4-4ff4-8934-684803241bae",
+          "__version": 1,
+          "ClipMapLodExtentTexels": 256,
+          "ClipMapLodLevels": 6,
+          "EnableCollision": true,
+          "IsTrigger": false,
+          "RenderType": "Off",
+          "Static": true,
+          "Storage": "terrain/test1.terrain",
+          "TerrainHeight": 10000,
+          "TerrainSize": 19968
+        }
+      ]
+    },
+    {
+      "__guid": "09b6b0a2-4965-4e43-8f1a-493f44ee317e",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "16115.35,2023.944,5697.302",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "e05c6570-3002-4ea2-8b27-58b716d39d0c",
+          "Color": "0.8902,0.31765,0.05098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "1b465ad6-6f2f-49dd-82db-a2683b9c87a3",
+      "Flags": 0,
+      "Name": "Object (1)",
+      "Position": "16115.35,14494.52,5697.302",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "50f36471-4bb5-4bdb-8c8a-93c9e94d7f56",
+          "Color": "0.8902,0.31765,0.05098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e7f4cbeb-a32b-4ebc-9b07-aa0c59b0d1d5",
+      "Flags": 0,
+      "Name": "Object (2)",
+      "Position": "7726.428,14494.52,5697.302",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "a6819468-8f27-4857-954e-eb89deec98c0",
+          "Color": "0.8902,0.31765,0.05098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "27156c64-8d52-4fe5-bdfe-dc1cbeffea25",
+      "Flags": 0,
+      "Name": "Object (3)",
+      "Position": "4582.323,6339.232,5697.302",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "25355600-3017-4df4-8647-1addde5cc29f",
+          "Color": "0.8902,0.31765,0.05098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "6524fd31-bd06-4991-8106-d9d532b8510e",
+      "Flags": 0,
+      "Name": "Terrain",
+      "Position": "22693.74,-11264.7,19248.21",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Terrain",
+          "__guid": "a1c89eba-0bf6-4303-80c7-55d4f3bbf1d0",
+          "__version": 1,
+          "ClipMapLodExtentTexels": 256,
+          "ClipMapLodLevels": 6,
+          "EnableCollision": true,
+          "IsTrigger": false,
+          "RenderType": "Off",
+          "Static": false,
+          "Storage": "untitled.terrain",
+          "TerrainHeight": 10000,
+          "TerrainSize": 19968
+        }
+      ]
+    },
+    {
+      "__guid": "74c24da0-d39c-4458-b3f0-9c5cadbb1471",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "44653.29,18421.6,28382.01",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "fbcafe03-e947-423e-b2ef-2b3c93bd09a4",
+          "Color": "0,0,0,1",
+          "EndDistance": 212.90036,
+          "FalloffExponent": 1,
+          "Height": 100,
+          "StartDistance": 0,
+          "VerticalFalloffExponent": 1
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 128,
+    "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": true,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 0.49989566,
+      "AgentStepSize": 23.700022,
+      "AgentMaxSlope": 1388.1989,
+      "ExcludedBodies": "npc,solid",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "minimal",
+  "Description": "",
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

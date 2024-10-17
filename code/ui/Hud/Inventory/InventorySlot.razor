@@ -605,6 +605,18 @@
 				var res = inventory.SwapItems(fromSlot.BackpackSlotIndex.Value, targetSlot.BackpackSlotIndex.Value);
 				PlaySound(res ? "drop" : "serror");
 			}
+			else if (fromSlot.StorageSlotIndex is not null)
+			{
+				// To backpack slot.
+				if (targetSlot.BackpackSlotIndex is not null)
+				{
+					var itemComponent = inventory.StorageItems[fromSlot.StorageSlotIndex.Value];
+					inventory.MoveItemToBackpack(itemComponent, targetSlot.BackpackSlotIndex.Value);
+					inventory.RemoveStorageItem(itemComponent, fromSlot.StorageSlotIndex.Value);
+
+					PlaySound("drop");
+				}
+			}
 			// To backpack pack slot.
 			else if (targetSlot.BackpackPackSlotIndex is not null)
 			{
@@ -631,6 +643,18 @@
 				}
 			}
 		}
+		else if (fromSlot.StorageSlotIndex is not null)
+		{
+			// To backpack slot.
+			if (targetSlot.BackpackSlotIndex is not null)
+			{
+				var itemComponent = inventory.StorageItems[fromSlot.StorageSlotIndex.Value];
+				inventory.MoveItemToBackpack(itemComponent, targetSlot.BackpackSlotIndex.Value);
+				inventory.RemoveStorageItem(itemComponent, fromSlot.StorageSlotIndex.Value);
+				
+				PlaySound("drop");
+			}
+		}
 		
 		else if (fromSlot.EquipSlotIndex is not null)
 		{
@@ -647,6 +671,7 @@
 				PlaySound(res ? "drop" : "serror");
 			}
 		}
+		
 		
 		
 		else if (fromSlot.BackpackPackSlotIndex is not null)

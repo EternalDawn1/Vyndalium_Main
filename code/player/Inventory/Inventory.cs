@@ -818,6 +818,7 @@ public sealed class Inventory : Component
 		if ( item is not ItemEquipment equipment )
 			return false;
 
+		
 		if ( IsSlotOccupied( equipment.Slot ) && !forceReplace )
 			return false;
 
@@ -859,7 +860,7 @@ public sealed class Inventory : Component
 				}
 			}
 
-			item.GameObject.Enabled = false;
+		
 
 			return true;
 		}
@@ -1109,7 +1110,10 @@ public sealed class Inventory : Component
 		return true;
 	}
 
-
+	/// <summary>
+	/// Move item to BackpackBag - Backpack inventory Slot
+	/// </summary>
+	/// <param name="item"></param>
 	public void MoveItemToBackpackBag( ItemComponent item )
 	{
 		if ( item == null ) return;
@@ -1132,13 +1136,31 @@ public sealed class Inventory : Component
 			}
 		}
 	}
+	public void MoveItemToBackpack( ItemComponent item, int backpackSlotIndex )
+	{
+		if ( item == null ) return;
 
-	
+		if ( _backpackItems.Contains( item ) )
+		{
+			int freeSlot = _storageItems.IndexOf( null );
+			if ( freeSlot != -1 )
+			{
+				int itemIndex = _backpackItems.IndexOf( item );
+				_backpackItems[itemIndex] = null; // Setze den Slot im Rucksack auf null
+				_storageItems[freeSlot] = item;
+				item.State = ItemState.Storage;
+				item.GameObject.Enabled = false;
+			}
+			else
+			{
+				Hudmaster.Instance.ShowNotification( "Slot occupied.", "/ui/hud/exit.gif" );
+			}
+		}
+	}
 
 
 
-
-	private void RemoveStorageItem( ItemComponent item, int index )
+	public void RemoveStorageItem( ItemComponent item, int index )
 	{
 		if ( item == null || index < 0 || index >= _storageItems.Count )
 			return;
@@ -1266,7 +1288,7 @@ public sealed class Inventory : Component
 	}
 	public void SetItem( ItemComponent item, int index )
 	{
-		
+		Log.Info( $"SetItem: {item?.Name} at {index}" );
 		if ( item == null )
 		{
 			
@@ -1401,19 +1423,27 @@ public sealed class Inventory : Component
 			item.State = ItemState.Backpack;
 
 			// Deaktivieren der ModelRenderer-Komponenten
-			var modelRenderer = item.GameObject.Components.Get<ModelRenderer>();
-			if ( modelRenderer != null )
+			if(item.IsWorld)
 			{
-				modelRenderer.Enabled = false;
+				Log.Info( "Item is world item." );
 			}
-
-			var skinnedModelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
-			if ( skinnedModelRenderer != null )
+			else
 			{
-				skinnedModelRenderer.Enabled = false;
-			}
+				Log.Info( "Item is not world item." );	
+				var modelRenderer = item.GameObject.Components.Get<ModelRenderer>();
+				if ( modelRenderer != null )
+				{
+					modelRenderer.Enabled = false;
+				}
 
-			item.GameObject.Enabled = false; // Aktualisieren Sie den Zustand des Items
+				var skinnedModelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
+				if ( skinnedModelRenderer != null )
+				{
+					skinnedModelRenderer.Enabled = false;
+				}
+
+				item.GameObject.Enabled = false;
+			}
 		}
 		else
 		{
@@ -1462,7 +1492,7 @@ public sealed class Inventory : Component
 				item.GameObject.WorldPosition = Player.GameObject.WorldPosition;
 				item.GameObject.WorldRotation = Player.GameObject.WorldRotation;
 				item.LastOwner = Player;
-				item.GameObject.Enabled = false;
+				
 			}
 			else
 			{
@@ -1577,6 +1607,7 @@ public sealed class Inventory : Component
 		EquipItemStats( equipment );
 		
 		TaskMaster.SubmitTriggerSignal( $"item.equipped.{equipment.Name}", Player );
+		Log.Info( $"Item equipped: {equipment.Name}" );
 		UpdateBodygroups();
 	}
 

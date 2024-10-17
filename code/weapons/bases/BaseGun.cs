@@ -336,8 +336,46 @@ public class BaseGun : WeaponComponent, IUse
 
 			// Berechne die Flugbahn des Messers
 			Vector3 direction = Owner.PlyCamera.WorldRotation.Forward;
-			
 
+			string attackType = "default";
+			var itemComponent = GetComponent<ItemComponent>();
+			if ( itemComponent == null )
+			{
+				switch ( itemComponent.Aspect )
+				{
+					case AspectType.Fire:
+						attackType = "fire";
+						break;
+					case AspectType.Water:
+						attackType = "water";
+						break;
+					case AspectType.Ice:
+						attackType = "ice";
+						break;
+					case AspectType.Air:
+						attackType = "air";
+						break;
+					case AspectType.Earth:
+						attackType = "earth";
+						break;
+					case AspectType.Shadow:
+						attackType = "shadow";
+						break;
+					case AspectType.Holy:
+						attackType = "holy";
+						break;
+					case AspectType.Bleed:
+						attackType = "bleed";
+						break;
+					case AspectType.Poison:
+						attackType = "poison";
+						break;
+					default:
+						attackType = "default";
+						break;
+				}
+			}
+			
 			// Definiere die Start- und Endposition des Traces
 			var startPos = Owner.PlyCamera.WorldPosition;
 			var endPos = startPos + direction * 5000f;
@@ -349,6 +387,7 @@ public class BaseGun : WeaponComponent, IUse
 				.UseHitboxes()
 				.UsePhysicsWorld()
 				.Run();
+
 			
 
 			// Wenn das Messer etwas trifft, füge Schaden hinzu
@@ -359,7 +398,7 @@ public class BaseGun : WeaponComponent, IUse
 				var damage = Damage;
 				var origin = attachment?.Position ?? startPos;
 
-				SendAttackMessage( origin, trace.EndPosition, trace.Distance );
+				SendAttackMessage( origin, trace.EndPosition, trace.Distance , attackType );
 
 				if ( trace.Component.IsValid() )
 				{
@@ -689,14 +728,14 @@ public class BaseGun : WeaponComponent, IUse
 	private void FireBulletWithFireAspect( Player shooter )
 	{
 		// Implementiere die Logik für das Abfeuern eines Feuer-Aspekt-Geschosses
-		Log.Info( "Fire aspect bullet fired!" );
+		
 		// Beispiel: Erzeuge ein Feuerprojektil
 	}
 
 	private void FireBulletWithWaterAspect( Player shooter )
 	{
 		// Implementiere die Logik für das Abfeuern eines Wasser-Aspekt-Geschosses
-		Log.Info( "Water aspect bullet fired!" );
+	
 		// Beispiel: Erzeuge ein Wasserprojektil
 	}
 
@@ -760,29 +799,29 @@ public class BaseGun : WeaponComponent, IUse
 	{
 		if ( shooter == null || Owner == null || EffectRenderer == null || Scene == null )
 		{
-			Log.Info( "FireBullet: shooter, Owner, EffectRenderer, or Scene is null" );
+		
 			return;
 		}
 		if ( shooter.LifeState == LifeState.Dead )
 		{
-			Log.Info( "FireBullet: shooter is dead" );
+			
 			return;
 		}
 
 		if ( !NextAttackTime )
 		{
-			Log.Info( "FireBullet: NextAttackTime is false" );
+		
 			return;
 		}
 		if ( IsReloading )
 		{
-			Log.Info( "FireBullet: IsReloading is true" );
+		
 			return;
 		}
 
 		if ( IsMagicWeapon && Player.Local.Mana < 10 )
 		{
-			Log.Info( "FireBullet: Not enough mana" );
+		
 			return;
 		}
 
@@ -794,45 +833,55 @@ public class BaseGun : WeaponComponent, IUse
 
 		if ( AmmoInClip <= 0 )
 		{
-			Log.Info( "FireBullet: AmmoInClip is 0" );
+		
 			SendEmptyClipMessage();
 			ReloadAction();
 			NextAttackTime = 1f / FireRate;
 			return;
 		}
-
-		var itemComponent = Owner.Components.Get<ItemComponent>();
+		string attackType = "default";
+		var itemComponent = Components.Get<ItemComponent>();
 		if ( itemComponent != null )
+
 		{
-			Log.Info( $"Aspect: {itemComponent.Aspect}" ); // Debug-Ausgabe zur Überprüfung des Aspekts
+			
 			switch ( itemComponent.Aspect )
 			{
 				case AspectType.Fire:
 					FireBulletWithFireAspect( shooter );
+					attackType = "fire";
 					break;
 				case AspectType.Water:
 					FireBulletWithWaterAspect( shooter );
+					attackType = "water";
 					break;
 				case AspectType.Ice:
 					FireBulletWithIceAspect( shooter );
+					attackType = "ice";
 					break;
 				case AspectType.Air:
 					FireBulletWithAirAspect( shooter );
+					attackType = "air";
 					break;
 				case AspectType.Earth:
 					FireBulletWithEarthAspect( shooter );
+					attackType = "earth";
 					break;
 				case AspectType.Shadow:
 					FireBulletWithShadowAspect( shooter );
+					attackType = "shadow";
 					break;
 				case AspectType.Holy:
 					FireBulletWithHolyAspect( shooter );
+					attackType = "holy";
 					break;
 				case AspectType.Bleed:
 					FireBulletWithBleedAspect( shooter );
+					attackType = "bleed";
 					break;
 				case AspectType.Poison:
 					FireBulletWithPoisonAspect( shooter );
+					attackType = "poison";
 					break;
 				default:
 					FireDefaultBullet( shooter );
@@ -872,7 +921,7 @@ public class BaseGun : WeaponComponent, IUse
 
 
 
-		SendAttackMessage( origin, trace.EndPosition, trace.Distance );
+		SendAttackMessage( origin, trace.EndPosition, trace.Distance , attackType );
 
 		IHealthComponent damageable = null;
 
@@ -978,7 +1027,7 @@ public class BaseGun : WeaponComponent, IUse
 
 		if ( !IsProxy && ReloadFinishTime && IsReloading )
 		{
-			Log.Info( "Reloading..." );
+			
 			OnReloadEnd();
 		}
 
@@ -1113,39 +1162,72 @@ public class BaseGun : WeaponComponent, IUse
 		}
 	}
 	[Broadcast]
-	private void SendAttackMessage(Vector3 startPos, Vector3 endPos, float distance)
+	private void SendAttackMessage( Vector3 startPos, Vector3 endPos, float distance, string attackType )
 	{
-		
-
-
-		if (Player.Local == null || Player.Local.LifeState == LifeState.Dead && !IsMelee )
+		if ( Player.Local == null || Player.Local.LifeState == LifeState.Dead && !IsMelee )
 		{
 			// Spieler ist tot, keine Nachricht senden
 			return;
 		}
-		
-		if (Scene.SceneWorld == null)
+
+		if ( Scene.SceneWorld == null )
 		{
-			throw new InvalidOperationException("SceneWorld is null.");
+			throw new InvalidOperationException( "SceneWorld is null." );
 		}
 
-		var p = new SceneParticles(Scene.SceneWorld, "particles/tracer/trail_smoke.vpcf");
-		p.SetControlPoint(0, startPos);
-		p.SetControlPoint(1, endPos);
-		p.SetControlPoint(2, distance);
-		p.PlayUntilFinished(Task);
-
-		if (MuzzleFlash != null)
+		string particleEffect;
+		switch ( attackType )
 		{
-			if (EffectRenderer.SceneModel != null)
-			{
-				var transform = EffectRenderer.SceneModel.GetAttachment("muzzle");
+			case "fire":
+				particleEffect = "particles/trail_bullet_fire.vpcf";
+				break;
+			case "ice":
+				particleEffect = "particles/trail_bullet_ice.vpcf";
+				break;
+			case "water":
+				particleEffect = "particles/trail_bullet_water.vpcf";
+				break;
+			case "shadow":
+				particleEffect = "particles/trail_bullet_shadow.vpcf";
+				break;
+			case "electric":
+				particleEffect = "particles/electric/electric_effect.vpcf";
+				break;
+			default:
+				particleEffect = "particles/tracer/trail_smoke.vpcf";
+				break;
+		}
 
-				if (transform.HasValue)
+		var trace = Scene.Trace.Ray( startPos, endPos )
+		.UseHitboxes()
+		.IgnoreGameObjectHierarchy( GameObject.Root )
+		.WithoutTags( "player" )// 'this' als gültiges GameObject übergeben
+		.Run();
+
+		// Trefferposition ermitteln
+		var hitPosition = trace.EndPosition;
+		var distanceToHit = (hitPosition - startPos).Length; // Umbenennung von 'distance' zu 'distanceToHit'
+
+		// Partikel erstellen und Kontrollpunkte setzen
+		var p = new SceneParticles( Scene.SceneWorld, particleEffect );
+		p.SetControlPoint( 0, startPos );
+		p.SetControlPoint( 1, hitPosition ); // Endposition des Strahls
+		p.SetControlPoint( 2, distanceToHit );
+
+
+		p.PlayUntilFinished( Task );
+
+		if ( MuzzleFlash != null )
+		{
+			if ( EffectRenderer.SceneModel != null )
+			{
+				var transform = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
+
+				if ( transform.HasValue )
 				{
-					p = new SceneParticles(Scene.SceneWorld, MuzzleFlash);
-					p.SetControlPoint(0, transform.Value);
-					p.PlayUntilFinished(Task);
+					p = new SceneParticles( Scene.SceneWorld, MuzzleFlash );
+					p.SetControlPoint( 0, transform.Value );
+					p.PlayUntilFinished( Task );
 				}
 			}
 			else
@@ -1154,13 +1236,13 @@ public class BaseGun : WeaponComponent, IUse
 			}
 		}
 
-		if (FireSound != null)
+		if ( FireSound != null )
 		{
-			Sound.Play(FireSound, startPos);
+			Sound.Play( FireSound, startPos );
 		}
 		else
 		{
-			Log.Warning("FireSound is null.");
+			Log.Warning( "FireSound is null." );
 		}
 	}
 	public class DamageText : Panel

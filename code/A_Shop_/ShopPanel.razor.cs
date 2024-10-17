@@ -813,7 +813,7 @@ namespace GeneralGame.HUD
         public ShopPanel()
         {
             Instance = this;
-            shopStorage = ShopStorage.Instance;
+            shopStorage = new ShopStorage();
             shopInteractable = new ShopInteractable();
             IsVisible = false;
             shopStorage.LoadPrefabs();

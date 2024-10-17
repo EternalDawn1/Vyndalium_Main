@@ -1,4 +1,5 @@
 ﻿namespace GeneralGame;
+using Sandbox.Citizen;
 
 public enum EquipSlot : byte
 {
@@ -32,17 +33,19 @@ public class ItemEquipment : ItemComponent
 	[Property, Category( "Equipment" )] public HiddenBodyGroup HideBodygroups { get; set; }
 	[Property, Category( "Equipment" )] public bool UseSkinTint { get; set; }
 
-	[Property, Category( "Holding" ), ShowIf( "Slot", EquipSlot.Hand )] public HoldType HoldType { get; set; } = HoldType.Item;
+	[Property, Category( "Holding" ), ShowIf( "Slot", EquipSlot.Hand  ), ShowIf( "Slot", EquipSlot.Back)] public HoldType HoldType { get; set; } = HoldType.Item;
 	[Property, Category( "Holding" )] public bool UpdatePosition { get; set; }
 	[Property, Category( "Holding" ), ShowIf( "UpdatePosition", true )] public string Attachment { get; set; } = "hand_R";
 	[Property, Category( "Holding" ), ShowIf( "UpdatePosition", true )] public Transform AttachmentTransform { get; set; } = global::Transform.Zero;
 	private ModelRenderer parcelRenderer;
 	private BoxCollider parcelCollider;
 	private Rigidbody parcelBody;
+	private GameObject iconWorldObject;
 	public ModelRenderer Renderer { get; private set; }
 	public WeaponComponent Weapon { get; private set; }
 
-	public BaseGun Item { get; set; }
+
+
 
 	public void UpdateEquipped()
 	{
@@ -51,7 +54,7 @@ public class ItemEquipment : ItemComponent
 
 		// Use skin color as tint.
 		var player = GameObject.Parent?.Components?.Get<Player>( true );
-		if ( Renderer != null  && player != null )
+		if ( Renderer != null && UseSkinTint && player != null )
 			
 
 		// Bonemerge
@@ -74,6 +77,7 @@ public class ItemEquipment : ItemComponent
 		else if ( State != ItemState.Backpack )
 			UpdateParcel( State == ItemState.None );
 	}
+
 	private void UpdateParcel( bool value )
 	{
 		ToggleRenderer( !value );
@@ -93,17 +97,18 @@ public class ItemEquipment : ItemComponent
 			parcelBody ??= Components.Create<Rigidbody>();
 			parcelBody.Enabled = true;
 
-		
-			
+			CreateIconWorldPanel();
+			iconWorldObject.Enabled = true;
 
 			return;
 		}
 
 		// Remove
-		if ( parcelRenderer == null  || parcelCollider == null || parcelBody == null )
+		if ( parcelRenderer == null || iconWorldObject == null || parcelCollider == null || parcelBody == null )
 			return;
 
 		parcelRenderer.Enabled = false;
+		iconWorldObject.Enabled = false;
 		parcelCollider.Enabled = false;
 		parcelBody.Enabled = false;
 	}
@@ -114,13 +119,23 @@ public class ItemEquipment : ItemComponent
 	public bool IsClothing => Slot != EquipSlot.Hand;
 	public bool Equipped => State == ItemState.Equipped;
 
+	private void CreateIconWorldPanel()
+	{
+		if ( iconWorldObject is not null )
+			return;
+
+		iconWorldObject = new GameObject { Parent = GameObject };
+		iconWorldObject.LocalPosition = new Vector3( 0, 0, 5 );
+		iconWorldObject.LocalRotation = Rotation.FromPitch( 90 );
+		iconWorldObject.Components.GetOrCreate<Sandbox.WorldPanel>();
+		iconWorldObject.Components.GetOrCreate<IconWorldPanel>().Icon = IconTexture;
+	}
 
 
-	
 
-	
 
-	
+
+
 
 	protected override void OnStart()
 	{
@@ -140,7 +155,8 @@ public class ItemEquipment : ItemComponent
 			Sound = () => _equipSound,
 		} );
 
-		
+
+		Renderer ??= Components.GetAll<SkinnedModelRenderer>( FindMode.InSelf ).FirstOrDefault( x => x != parcelRenderer );
 		if ( Renderer != null ) Renderer.RenderType = ModelRenderer.ShadowRenderType.On;
 	}
 
@@ -160,7 +176,53 @@ public class ItemEquipment : ItemComponent
 		var transform = player.GetAttachment( Attachment, true ).ToWorld( AttachmentTransform );
 		obj.Transform = transform;
 		(obj as SceneModel)?.Update( RealTime.Delta );
+
+		if ( Input.Pressed( "Attack1" ) && IsWorld )
+		{
+			Swing();
+		}
 	}
+	private void ToggleRenderer( bool value )
+	{
+		Renderer ??= Components.GetAll<ModelRenderer>( FindMode.InSelf ).FirstOrDefault( x => x != parcelRenderer );
+		if ( Renderer.IsValid() )
+			Renderer.Enabled = value;
+	}
+
+	public void Swing()
+	{
+		if(IsWorld && IsItem )
+		{
+			var player = Player.Local;
+			if ( player == null )
+			{
+				Log.Error( "Player is null in Swing. GameObject: " + GameObject + ", Parent: " + GameObject?.Parent );
+				return;
+			}
+
+			if ( !player.IsValid() )
+			{
+				Log.Error( "Player is not valid in Swing" );
+				return;
+			}
+
+			var animator = player.AnimationHelper;
+			if ( animator == null )
+			{
+				Log.Error( "Animator is null in Swing" );
+				return;
+			}
+
+			Log.Info( "Setting HoldType to Swing" );
+			animator.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
+			Log.Info( "HoldType set to: " + animator.HoldType );
+			animator.Target?.Set( "b_attack", true );
+
+			Log.Info( "Swing ausgeführt!" );
+		}
+	}
+
+
 
 	#region GIZMO STUFF
 	private SceneModel _model;
@@ -171,14 +233,8 @@ public class ItemEquipment : ItemComponent
 			return null;
 
 		_model ??= new SceneModel( world, "models/citizen/citizen.vmdl", global::Transform.Zero );
-		_model.RenderingEnabled = false;
+		_model.RenderingEnabled = true;
 		return _model;
-	}
-	private void ToggleRenderer( bool value )
-	{
-		Renderer ??= Components.GetAll<ModelRenderer>( FindMode.InSelf ).FirstOrDefault( x => x != parcelRenderer );
-		if ( Renderer.IsValid() )
-			Renderer.Enabled = value;
 	}
 
 	protected override void DrawGizmos()
