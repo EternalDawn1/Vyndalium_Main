@@ -3,8 +3,11 @@
 	_class = "CParticleSystemDefinition"
 	m_nBehaviorVersion = 10
 	m_nMaxParticles = 10
-	m_ConstantColor = [ 107, 0, 0, 255 ]
-	m_flConstantRadius = 55.0
+	m_ConstantColor = [ 255, 208, 0, 255 ]
+	m_BoundingBoxMin = [ -10.0, -10.0, -100.0 ]
+	m_ConstantNormal = [ 0.0, 0.0, 0.0 ]
+	m_flConstantRotationSpeed = 90.0
+	m_flStartFadeDistance = 1.0
 	m_controlPointConfigurations = 
 	[
 		{
@@ -274,7 +277,7 @@
 				m_nType = "PF_TYPE_LITERAL"
 				m_nMapType = "PF_MAP_TYPE_DIRECT"
 				m_NamedValue = ""
-				m_flLiteralValue = 10.0
+				m_flLiteralValue = 25.0
 				m_nControlPoint = 0
 				m_nScalarAttribute = 3
 				m_nVectorAttribute = 6
@@ -325,10 +328,21 @@
 		},
 		{
 			_class = "C_OP_BasicMovement"
+			m_Gravity = [ 0.0, 0.0, -5.0 ]
 		},
 		{
 			_class = "C_OP_Decay"
 			m_flOpTimeOffsetMax = 1.0
+		},
+		{
+			_class = "C_OP_SpinYaw"
+			m_nSpinRateDegrees = 1
+		},
+		{
+			_class = "C_OP_Spin"
+			m_nSpinRateDegrees = 1
+			m_nSpinRateMinDegrees = 30
+			m_flOpEndFadeInTime = 5.0
 		},
 	]
 	m_ForceGenerators = 
@@ -343,7 +357,7 @@
 	[
 		{
 			_class = "C_OP_RenderTrails"
-			m_flMaxLength = 5000.0
+			m_flMaxLength = 500.0
 			m_vecHeadColorScale = 
 			{
 				m_nType = "PVEC_TYPE_LITERAL_COLOR"
@@ -1102,7 +1116,7 @@
 				}
 			}
 			m_flAnimationRate = 5.0
-			m_flMinLength = 500.0
+			m_flMinLength = 50.0
 			m_bDisableOperator = true
 		},
 		{
@@ -1316,28 +1330,32 @@
 							m_Color = [ 255, 0, 0, 255 ]
 						},
 						{
-							m_flPosition = 0.317829
+							m_flPosition = 0.48062
 							m_Color = [ 237, 255, 0, 255 ]
 						},
 						{
-							m_flPosition = 0.604651
+							m_flPosition = 0.607235
+							m_Color = [ 246, 212, 0, 255 ]
+						},
+						{
+							m_flPosition = 0.74677
 							m_Color = [ 255, 170, 0, 255 ]
 						},
 					]
 				}
 			}
 			m_flAnimationRate = 1.0
-			m_hTexture = resource:"particles/textures/fire.vtex"
+			m_hTexture = resource:"particles/fire/flame001_side.vtex"
 			m_bDistanceAlpha = true
 			m_bParticleShadows = true
 			m_bOutline = true
-			m_OutlineColor = [ 255, 212, 0, 255 ]
+			m_OutlineColor = [ 255, 0, 0, 255 ]
 			m_flAlphaScale = 
 			{
 				m_nType = "PF_TYPE_LITERAL"
 				m_nMapType = "PF_MAP_TYPE_DIRECT"
 				m_NamedValue = ""
-				m_flLiteralValue = 100.0
+				m_flLiteralValue = 1000.0
 				m_nControlPoint = 0
 				m_nScalarAttribute = 3
 				m_nVectorAttribute = 6
@@ -1379,6 +1397,11 @@
 				}
 			}
 			m_nAnimationType = "ANIMATION_TYPE_FIT_LIFETIME"
+			m_flMaxSize = 500.0
+			m_bSoftEdges = true
+			m_bNormalMap = true
+			m_nColorBlendType = "PARTICLE_COLOR_BLEND_ADD"
+			m_bPerVertexLighting = true
 		},
 		{
 			_class = "C_OP_RenderProjected"
