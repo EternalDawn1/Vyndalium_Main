@@ -37,7 +37,8 @@ public enum AspectType
 	Shadow,
 	Holy,
 	Bleed,
-	Poison
+	Poison,
+	Lightning,
 }
 
 

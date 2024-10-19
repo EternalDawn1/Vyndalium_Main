@@ -4,6 +4,16 @@ public struct IconSettings : IEquatable<IconSettings>
 {
 	public string Model { get; set; }
 	public string MaterialGroup { get; set; }
+	public string MaterialOverride { get; set; }
+	
+	public float LightBrightness { get; set; }
+	public float LightRadius { get; set; }
+	public Color LightColour { get; set; }
+	public float DirectionalLightBrightness { get; set; }
+	public Angles DirectionalLightRotation { get; set; }
+	public Color DirectionalLightColour { get; set; }
+	
+
 	public Color Colour { get; set; }
 	public Vector3 Position { get; set; }
 	public Rotation Rotation { get; set; }

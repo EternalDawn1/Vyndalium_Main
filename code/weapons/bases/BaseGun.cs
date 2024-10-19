@@ -766,6 +766,12 @@ public class BaseGun : WeaponComponent, IUse
 		Log.Info( "Shadow aspect bullet fired!" );
 		// Beispiel: Erzeuge ein Schattenprojektil
 	}
+	private void FireBulletWithLightningAspect( Player shooter )
+	{
+		// Implementiere die Logik für das Abfeuern eines Blitz-Aspekt-Geschosses
+		Log.Info( "Lightning aspect bullet fired!" );
+		// Beispiel: Erzeuge ein Blitzprojektil
+	}
 
 	private void FireBulletWithHolyAspect( Player shooter )
 	{
@@ -866,6 +872,11 @@ public class BaseGun : WeaponComponent, IUse
 				case AspectType.Earth:
 					FireBulletWithEarthAspect( shooter );
 					attackType = "earth";
+					break;
+				case AspectType.Lightning:
+					FireBulletWithLightningAspect( shooter );
+					attackType = "lightning";
+
 					break;
 				case AspectType.Shadow:
 					FireBulletWithShadowAspect( shooter );
@@ -1190,9 +1201,19 @@ public class BaseGun : WeaponComponent, IUse
 			case "shadow":
 				particleEffect = "particles/trail_bullet_shadow.vpcf";
 				break;
-			case "electric":
-				particleEffect = "particles/electric/electric_effect.vpcf";
+			case "lightning":
+				particleEffect = "particles/trail_bullet_lightning.vpcf";
 				break;
+			case "air":
+				particleEffect = "particles/trail_bullet_air.vpcf";
+				break;
+			case "earth":
+				particleEffect = "particles/trail_bullet_earth.vpcf";
+				break;
+			case "holy":
+				particleEffect = "particles/trail_bullet_holy.vpcf";
+				break;
+				
 			default:
 				particleEffect = "particles/tracer/trail_smoke.vpcf";
 				break;

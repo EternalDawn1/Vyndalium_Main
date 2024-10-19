@@ -12,14 +12,14 @@ public class IconEditorPopup : PopupWidget
 	public IconEditorPopup( Widget parent, SerializedProperty property ) : base( parent )
 	{
 		Property = property;
-		MinimumSize = new Vector2( 375, 480 );
+		MinimumSize = new Vector2( 375, 980 );
 
 		_editor = new IconEditor( this );
 		_editor.Size = MinimumSize;
 		_editor.MinimumSize = _editor.Size;
 
 		Layout = Layout.Column();
-		Layout.Margin = 8;
+		Layout.Margin = 18;
 		Layout.Add( _editor );
 	}
 }
