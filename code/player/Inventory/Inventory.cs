@@ -578,14 +578,34 @@ public sealed class Inventory : Component
 			}
 		}
 	}
+	private int FindNextFreeSlotInPage( int currentPage )
+	{
+		// Implementiere die Logik, um den nächsten freien Slot auf der aktuellen Seite zu finden
+		// Beispiel:
+		int startIndex = currentPage * ItemsPerPage;
+		int endIndex = startIndex + ItemsPerPage;
 
+		for ( int i = startIndex; i < endIndex; i++ )
+		{
+			if ( _storageItems[i] == null )
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
 	public void MoveItemToStorage( ItemComponent item, int currentPage )
 	{
 		if ( item == null ) return;
 
 		if ( _backpackItems.Contains( item ) )
 		{
-			int freeSlot = FindNextFreeStorageSlot();
+			int freeSlot = FindNextFreeSlotInPage( currentPage );
+			if ( freeSlot == -1 )
+			{
+				freeSlot = FindNextFreeStorageSlot();
+			}
+
 			if ( freeSlot != -1 )
 			{
 				int itemIndex = _backpackItems.IndexOf( item );
@@ -593,11 +613,9 @@ public sealed class Inventory : Component
 				_storageItems[freeSlot] = item;
 				item.State = ItemState.Storage;
 				item.GameObject.Enabled = false;
-				
 			}
 			else
 			{
-				
 				Hudmaster.Instance.ShowNotification( "Slot occupied / too full.", "/ui/hud/exit.gif" );
 			}
 		}

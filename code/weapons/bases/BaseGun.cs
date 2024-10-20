@@ -727,9 +727,7 @@ public class BaseGun : WeaponComponent, IUse
 	}
 	private void FireBulletWithFireAspect( Player shooter )
 	{
-		// Implementiere die Logik für das Abfeuern eines Feuer-Aspekt-Geschosses
 		
-		// Beispiel: Erzeuge ein Feuerprojektil
 	}
 
 	private void FireBulletWithWaterAspect( Player shooter )
@@ -948,6 +946,7 @@ public class BaseGun : WeaponComponent, IUse
 			var playerAttackPower = shooter.AttackPower;
 			var playerCritChance = shooter.CritHitChance;
 			var playerCritDamage = shooter.CritHitDamage;
+			
 
 			damage += (int)(damage * (playerAttackValue / 150.0f));
 			
@@ -1212,6 +1211,9 @@ public class BaseGun : WeaponComponent, IUse
 				break;
 			case "holy":
 				particleEffect = "particles/trail_bullet_holy.vpcf";
+				break;
+			case "bleed":
+				particleEffect = "particles/trail_bullet_bleed.vpcf";
 				break;
 				
 			default:
