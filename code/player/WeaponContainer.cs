@@ -214,7 +214,7 @@ public partial class WeaponContainer : Component
 			melee.IsDeployed = !Deployed.IsValid();
 		}
 
-		weaponGo.NetworkSpawn();
+		//weaponGo.NetworkSpawn();
 	}
 	public void RemoveWeapon( GameObject prefab, bool shouldDeploy = false )
 	{

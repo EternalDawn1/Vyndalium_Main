@@ -74,7 +74,7 @@ public class ItemInteractable : BaseInteraction
                         {
                             ragdoll.WorldRotation = WorldRotation;
                             ragdoll.WorldPosition = WorldPosition;
-                            ragdoll.NetworkSpawn();
+                            //ragdoll.NetworkSpawn();
                         }
                         Task.Delay(10000);
                         itemInteractable.Storage.DestroyAfterOpen();

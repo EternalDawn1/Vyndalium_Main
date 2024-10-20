@@ -142,7 +142,7 @@ namespace GeneralGame
         {
             var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
             obj.NetworkMode = NetworkMode.Object;
-            obj.NetworkSpawn();
+            //obj.NetworkSpawn();
 
             var itemComponent = obj.Components.Get<ItemComponent>();
             if ( itemComponent == null )

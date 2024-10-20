@@ -276,7 +276,7 @@ public class BaseGun : WeaponComponent, IUse
 						{
 							ragdoll.WorldRotation = WorldRotation;
 							ragdoll.WorldPosition = WorldPosition;
-							ragdoll.NetworkSpawn();
+							//ragdoll.NetworkSpawn();
 						}
 					}
 				}

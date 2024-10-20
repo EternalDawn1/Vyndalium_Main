@@ -1725,35 +1725,420 @@
       ]
     },
     {
-      "__guid": "8533b066-6ecb-4f07-99f1-7407e927fa68",
+      "__guid": "dca7ad46-2a0b-425f-8db7-76c433b7a828",
+      "Flags": 0,
+      "Name": "water",
+      "Position": "952.5948,584.5325,456.0844",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/water.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "feabae53-5882-431a-901e-74143344fa39",
+      "Flags": 0,
+      "Name": "water (1)",
+      "Position": "952.5948,551.5074,456.0844",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "9937d7f4-0c4c-49f0-b637-fa5a17f16f77",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "MaterialOverride": "materials/effects/fire_cloud1.vmat",
+          "Model": "prefabs/entitys/aspects/fire.vmdl",
+          "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0,0.05,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "22d57651-7cf0-46ef-8289-555f092150e3",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Radius": 10,
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "c7eb0484-e90e-40d3-ab5b-43a490c1e45b",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "d3926d19-e169-4efd-a9dc-088610f1da9d",
+          "IsTrigger": false,
+          "Model": "models/items/ammo.vmdl",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "6fc5a3e0-11e2-455b-b288-a87e94a2ea8c",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "Water",
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 1,
+            "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
+            "Scale": "1,1,1",
+            "Rotation": "0,0,0,1"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 1,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Item",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "prefabs/entitys/aspects/fire.vmdl",
+            "MaterialGroup": "",
+            "Colour": "0.13333,0,1,1",
+            "Position": "-7.2,-8.25,0.15",
+            "Rotation": "-0.5578499,0.1240577,0.6223642,0.5348607",
+            "Guid": "61a27edb-5f6d-4bc8-a433-b0fa0ae01228"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": true,
+          "IsBackable": false,
+          "IsBackpack": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": true,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 1,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Water Aspect",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "SellPrice": 0,
+          "ShadowResistence": 0,
+          "Slot": "Face",
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SS",
+          "UpdatePosition": false,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "d5c1aedc-335c-4e47-9434-94fa696aa832",
+      "Flags": 0,
+      "Name": "water (2)",
+      "Position": "952.5948,519.6593,456.0844",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "78dcda89-4505-4293-92bb-242992dc8e6b",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "MaterialOverride": "materials/effects/fire_cloud1.vmat",
+          "Model": "prefabs/entitys/aspects/fire.vmdl",
+          "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0,0.05,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "365e5d45-66cd-416c-b80e-dfbbbf7a923d",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Radius": 10,
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "208b3a84-615d-44d0-b9b4-ad7312d838ae",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "a786b347-a86b-41e5-b5d8-632a15d8c745",
+          "IsTrigger": false,
+          "Model": "models/items/ammo.vmdl",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "3905cf8c-a308-4f80-9652-da9bf8327731",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "Water",
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 1,
+            "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
+            "Scale": "1,1,1",
+            "Rotation": "0,0,0,1"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 1,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Item",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "prefabs/entitys/aspects/fire.vmdl",
+            "MaterialGroup": "",
+            "Colour": "0.13333,0,1,1",
+            "Position": "-7.2,-8.25,0.15",
+            "Rotation": "-0.5578499,0.1240577,0.6223642,0.5348607",
+            "Guid": "61a27edb-5f6d-4bc8-a433-b0fa0ae01228"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": true,
+          "IsBackable": false,
+          "IsBackpack": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": true,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 1,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Water Aspect",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "SellPrice": 0,
+          "ShadowResistence": 0,
+          "Slot": "Face",
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "Ultimate",
+          "UpdatePosition": false,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "7a8736b4-7554-4969-918a-5f0e624b7655",
+      "Flags": 0,
+      "Name": "shadow",
+      "Position": "997.3113,631.2643,455.3486",
+      "Rotation": "-0.7071068,0,0.7071068,0",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/shadow.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "ebb8ffca-401c-4457-b8a5-309157719845",
       "Flags": 0,
       "Name": "lightning",
-      "Position": "981.3582,506.2723,452.8372",
+      "Position": "1008.625,621.4316,481.1121",
+      "Rotation": "-0.7071068,0,0.7071068,0",
       "Enabled": true,
       "__Prefab": "prefabs/entitys/aspects/variants/lightning.prefab",
       "__PrefabVariables": {}
     },
     {
-      "__guid": "9f4c2294-2ef3-4235-ae43-b1d61859b9b5",
+      "__guid": "6a424233-af22-4c8b-9209-e645064c2a56",
       "Flags": 0,
-      "Name": "Bleed",
-      "Position": "981.3582,482.4073,452.8372",
+      "Name": "ice",
+      "Position": "1000.625,628.3511,507.1332",
+      "Rotation": "-0.7071068,0,0.7071068,0",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/ice.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "ffb98b4d-99b8-4644-82b7-5e668e0c0de6",
+      "Flags": 0,
+      "Name": "holy",
+      "Position": "1008.625,619.3574,515.2589",
+      "Rotation": "-0.7071068,0,0.7071068,0",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/holy.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "fa9a3e73-ae6e-4b7d-88f7-e34c4b27bfe7",
+      "Flags": 0,
+      "Name": "fire",
+      "Position": "996.697,625.6816,449.6999",
+      "Rotation": "0.4920329,0.5083865,-0.4914888,0.5078243",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/fire.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "9d99b817-322c-405d-8434-b861a3ef1547",
+      "Flags": 0,
+      "Name": "earth",
+      "Position": "994.9478,615.4174,479.324",
+      "Rotation": "0.4920329,0.5083865,-0.4914888,0.5078243",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/earth.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "5a9fcfd1-ee1b-46a2-bff1-5f7a69b50be5",
+      "Flags": 0,
+      "Name": "bleed",
+      "Position": "985.3377,622.2801,509.0767",
+      "Rotation": "0.4920329,0.5083865,-0.4914888,0.5078243",
       "Enabled": true,
       "__Prefab": "prefabs/entitys/aspects/variants/bleed.prefab",
       "__PrefabVariables": {}
     },
     {
-      "__guid": "c648a87c-2fd5-4fd3-9287-80c4a445a993",
+      "__guid": "8c61cde7-f93b-475e-bdf4-dd4404aece91",
+      "Flags": 0,
+      "Name": "air",
+      "Position": "1008.625,631.3226,522.2147",
+      "Rotation": "-0.7071068,0.00000006080369,0.7071068,0.00000006080369",
+      "Enabled": true,
+      "__Prefab": "prefabs/entitys/aspects/variants/air.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "93ae7d09-6b88-43f5-878f-512d8992a6a3",
       "Flags": 0,
       "Name": "pickupammo",
-      "Position": "1006.525,624.5938,454.3715",
-      "Rotation": "-0.7071068,0,0.7071068,0",
+      "Position": "985.7847,626.7485,477.6643",
+      "Rotation": "-0.7068893,-0.00007644702,0.7073242,-0.00007649406",
       "Scale": "0.3,0.3,0.3",
       "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.ModelRenderer",
-          "__guid": "41f1b647-efc3-4a94-8360-03e998ba9fa8",
+          "__guid": "0b1b4b33-b505-495e-af2a-6b6464134b5b",
           "BodyGroups": 18446744073709551615,
           "Model": "models/props/ammo_box/ammobox.vmdl",
           "RenderOptions": {
@@ -1767,7 +2152,7 @@
         },
         {
           "__type": "Sandbox.BoxCollider",
-          "__guid": "dd80353e-7f04-43fc-92e6-ecdfef79e7b8",
+          "__guid": "352a8de0-f9b1-4151-86aa-ffb803dc40df",
           "Center": "0,0,0",
           "IsTrigger": true,
           "Scale": "50,50,50",
@@ -1776,22 +2161,22 @@
         },
         {
           "__type": "GeneralGame.AmmoPickup",
-          "__guid": "91097038-c808-48e7-95e1-4ec3880c248a",
+          "__guid": "a9af19d7-87f0-49bd-b468-7f14333b91a2",
           "AmmoTypen": "Rifle",
-          "MaxCount": 47483648,
-          "MinCount": 0
+          "MaxCount": 5555555,
+          "MinCount": 10
         },
         {
           "__type": "GeneralGame.AmmoPickup",
-          "__guid": "266267be-762f-45d0-a824-1b3e7dd506a1",
+          "__guid": "2d4bd449-45ba-4d8e-b6e3-67107e529956",
           "AmmoTypen": "Pistol",
-          "MaxCount": 1000000000,
-          "MinCount": 0
+          "MaxCount": 5555555,
+          "MinCount": 10
         }
       ],
       "Children": [
         {
-          "__guid": "fe6d8a4e-2ebb-48a0-b701-a851650693fc",
+          "__guid": "1e9a1e9c-1522-4b3b-9618-733f82200a6b",
           "Flags": 0,
           "Name": "Object",
           "Tags": "light_point,light",
@@ -1799,7 +2184,7 @@
           "Components": [
             {
               "__type": "Flame",
-              "__guid": "7df684af-3936-455b-9542-f5139714317c",
+              "__guid": "d712a23d-44c5-4552-96f7-35084a69ec4e",
               "BaseLightColor": "0.51628,1,0.44186,1",
               "FlickerFrequency": 63.72,
               "FlickerIntensity": 1,
@@ -1808,14 +2193,14 @@
               "JitterFrequency": 0,
               "TargetLight": {
                 "_type": "component",
-                "component_id": "2bedf5cc-1ef4-40c8-b947-413f96fed805",
-                "go": "fe6d8a4e-2ebb-48a0-b701-a851650693fc",
+                "component_id": "fcb536a5-9bef-4e8e-ae15-2965c1639267",
+                "go": "1e9a1e9c-1522-4b3b-9618-733f82200a6b",
                 "component_type": "PointLight"
               }
             },
             {
               "__type": "Sandbox.PointLight",
-              "__guid": "2bedf5cc-1ef4-40c8-b947-413f96fed805",
+              "__guid": "fcb536a5-9bef-4e8e-ae15-2965c1639267",
               "Attenuation": 0.59,
               "FogMode": "Enabled",
               "FogStrength": 1,
@@ -1853,6 +2238,8 @@
   "Title": "minimal",
   "Description": "",
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "fish.shotgun-ammo#23080"
+  ],
   "__version": 1
 }
