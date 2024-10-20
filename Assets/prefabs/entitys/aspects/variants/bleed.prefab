@@ -1,16 +1,16 @@
 {
   "RootObject": {
-    "__guid": "16f4a71e-91cc-46d9-bf5e-5f6e44bfc17f",
+    "__guid": "9f4c2294-2ef3-4235-ae43-b1d61859b9b5",
     "Flags": 0,
-    "Name": "lightning",
+    "Name": "bleed",
     "Enabled": true,
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
-        "__guid": "49beec7c-e402-40e1-96d8-dab52bf5ac78",
+        "__guid": "6c81b24f-5ed2-42d1-abc5-b1daa0e10fe0",
         "BodyGroups": 18446744073709551615,
         "CreateBoneObjects": false,
-        "MaterialOverride": "models/citizen_clothes/shirt/flannel_shirt/variations/blue_shirt/blue_shirt.vmat",
+        "MaterialOverride": "materials/playermodels/skelemanbloody.vmat",
         "Model": "prefabs/entitys/aspects/fire.vmdl",
         "Morphs": {},
         "Parameters": {
@@ -27,12 +27,12 @@
           "AfterUILayer": false
         },
         "RenderType": "On",
-        "Tint": "0.1,0,1,1",
+        "Tint": "1,0,0,1",
         "UseAnimGraph": true
       },
       {
         "__type": "Sandbox.SphereCollider",
-        "__guid": "da77b556-b5c4-40e7-8dea-c924f971cbd8",
+        "__guid": "4193bd70-79b4-419f-9c00-88fb23f4f41d",
         "Center": "0,0,0",
         "IsTrigger": true,
         "Radius": 10,
@@ -41,7 +41,7 @@
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "682f5b37-0181-4b27-8e7f-500409ef1785",
+        "__guid": "7ff76439-0117-4f45-b498-51bdde2b6ad3",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
@@ -59,7 +59,7 @@
       },
       {
         "__type": "Sandbox.ModelCollider",
-        "__guid": "9d907425-1685-44b3-899b-596ad1239665",
+        "__guid": "3d3d1457-1bf8-48f2-afa9-63d33df4acf4",
         "IsTrigger": false,
         "Model": "models/items/ammo.vmdl",
         "Static": false,
@@ -67,10 +67,10 @@
       },
       {
         "__type": "GeneralGame.ItemEquipment",
-        "__guid": "55b412ec-5706-42f3-b127-00621c79a720",
+        "__guid": "dcdbd457-3129-409d-ab5f-a38cfece8e02",
         "AbilityHaste": 0,
         "Armor": 0,
-        "Aspect": "Lightning",
+        "Aspect": "Bleed",
         "Attachment": "hand_R",
         "AttachmentTransform": {
           "UniformScale": 1,
@@ -108,7 +108,7 @@
         "Icon": {
           "Model": "prefabs/entitys/aspects/fire.vmdl",
           "MaterialGroup": "",
-          "MaterialOverride": "models/citizen_clothes/shirt/flannel_shirt/variations/blue_shirt/blue_shirt.vmat",
+          "MaterialOverride": "materials/playermodels/skelemanbloody.vmat",
           "LightBrightness": 1,
           "LightRadius": 1000,
           "LightColour": "1,1,1,1",
@@ -116,9 +116,9 @@
           "DirectionalLightRotation": "45,-45,45",
           "DirectionalLightColour": "10,10,10,10",
           "Colour": "1,1,1,1",
-          "Position": "-7.2,-8.25,0.15",
-          "Rotation": "-0.5978462,0.03770953,0.6634361,0.448342",
-          "Guid": "7f1b35e8-ca4d-475f-89f5-4d79131dc44b"
+          "Position": "-5.85,-8.25,0.45",
+          "Rotation": "-0.5883257,0.05159515,0.6625009,0.4607639",
+          "Guid": "5c844b0e-76e9-4b43-a686-205b4a23e467"
         },
         "INT": 0,
         "IsAccessory": false,
@@ -144,7 +144,7 @@
         "MinArmorValue": 0,
         "MinAttackValue": 0,
         "MoveSpeed": 0,
-        "Name": "Lightning Aspect",
+        "Name": "Bleed Aspect",
         "PER": 0,
         "PoisonResistence": 0,
         "RequiredLevel": 0,
@@ -170,7 +170,8 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
-    "fish.shotgun-ammo#23080"
+    "fish.shotgun-ammo#23080",
+    "luke.skeleman#19898"
   ],
   "__version": 1
 }
