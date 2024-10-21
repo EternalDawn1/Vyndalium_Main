@@ -72,6 +72,7 @@ public class WeaponComponent : Component
 		else
 		{
 			OnHolstered();
+			ModelRenderer?.Set( "b_holster", true );
 		}
 
 		base.OnStart();
@@ -122,12 +123,14 @@ public class WeaponComponent : Component
 	[Broadcast]
 	public virtual void Holster()
 	{
+		
 		if ( IsDeployed )
 		{
+			
 			OnHolstered();
 
 			IsDeployed = false;
-
+			
 
 		}
 
@@ -228,6 +231,10 @@ public class WeaponComponent : Component
 
 	protected virtual void OnHolstered()
 	{
+		
+		
+		
+
 		ModelRenderer.Enabled = false;
 		var player = Components.GetInAncestors<Player>();
 		if ( player != null )
@@ -249,10 +256,11 @@ public class WeaponComponent : Component
 	public void DestroyViewModel()
 	{
 		if (ViewModel != null && ViewModel.GameObject != null)
-    {
-        ViewModel.GameObject.Destroy();
-        ViewModel = null;
-    }
+		{
+			
+			ViewModel.GameObject.Destroy();
+			ViewModel = null;
+		}
 	}
 
 	public void CreateViewModel()

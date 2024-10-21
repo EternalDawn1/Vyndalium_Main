@@ -927,7 +927,7 @@ public sealed class Inventory : Component
 
 		// Entfernen der Statistiken des Items
 		RemoveEquipmentItem( equipment );
-
+		
 		Player.Local?.PlaySuccessSoundFromPath( "sounds/weapons/weapon_holster4.sound", 0.0125f );
 
 		// Sicherstellen, dass das Item nicht zerstört wird, wenn es unequipped wird
@@ -1306,7 +1306,7 @@ public sealed class Inventory : Component
 	}
 	public void SetItem( ItemComponent item, int index )
 	{
-		Log.Info( $"SetItem: {item?.Name} at {index}" );
+		
 		if ( item == null )
 		{
 			
@@ -1625,7 +1625,7 @@ public sealed class Inventory : Component
 		EquipItemStats( equipment );
 		
 		TaskMaster.SubmitTriggerSignal( $"item.equipped.{equipment.Name}", Player );
-		Log.Info( $"Item equipped: {equipment.Name}" );
+		
 		UpdateBodygroups();
 	}
 

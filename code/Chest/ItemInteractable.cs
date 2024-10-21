@@ -8,7 +8,7 @@ public class ItemInteractable : BaseInteraction
 {
 
     public ItemStorage Storage { get; set; }
-    [Property] public GameObject Ragdoll { get; set; }
+    [Property] public string RagdollPrefabPath { get; set; } = "models/npcs/slime/chest.prefab";
     [Property] public bool IsDoor { get; set; }
     [Property]public bool IsBossChest { get; set; } = false;
 
@@ -66,23 +66,33 @@ public class ItemInteractable : BaseInteraction
                     var itemInteractable = obj.Components.Get<ItemInteractable>();
                     if ( itemInteractable != null && itemInteractable.Storage != null )
                     {
-                       
                         itemInteractable.Storage.OpenInventory();
-                        
-                        var ragdoll = Ragdoll.Clone( WorldPosition );
-                        if ( ragdoll != null )
+
+                        var ragdollPrefab = ResourceLibrary.Get<PrefabFile>( RagdollPrefabPath );
+                        if ( ragdollPrefab != null )
                         {
-                            ragdoll.WorldRotation = WorldRotation;
-                            ragdoll.WorldPosition = WorldPosition;
-                            //ragdoll.NetworkSpawn();
+                            var ragdoll = SceneUtility.GetPrefabScene( ragdollPrefab ).Clone();
+                            if ( ragdoll != null )
+                            {
+                                ragdoll.WorldPosition = WorldPosition;
+                                ragdoll.WorldRotation = WorldRotation;
+                                ragdoll.NetworkSpawn();
+                            }
+                            else
+                            {
+                                Log.Error( "Failed to spawn ragdoll from prefab." );
+                            }
                         }
-                        Task.Delay(10000);
+                        else
+                        {
+                            Log.Error( $"Failed to load prefab: {RagdollPrefabPath}" );
+                        }
+
+                        Task.Delay( 10000 );
                         itemInteractable.Storage.DestroyAfterOpen();
-
-
                     }
-                   
-                 
+
+
                 },
                 Keybind = "use",
                 Description = "Open/Close",
@@ -105,6 +115,7 @@ public class ItemInteractable : BaseInteraction
 
         
     }
+    
    
 
 

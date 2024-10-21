@@ -734,7 +734,7 @@ public partial class Player : Component, IHealthComponent
 		if ( !IsProxy )
 		{
 			var angles = EyeAngles.Normal;
-			angles += Input.AnalogLook * 1.0f;
+			angles += Input.AnalogLook * 2.0f;
 			angles += Recoil * Time.Delta;
 			angles.pitch = angles.pitch.Clamp( -80f, 89.9f );
 
@@ -802,6 +802,7 @@ public partial class Player : Component, IHealthComponent
 	{
 		if ( IsProxy )
 			return;
+		
 		WantsToCrouch = CharacterController.IsOnGround && Input.Down( "Duck" );
 
 		if ( WantsToCrouch == IsCrouching )

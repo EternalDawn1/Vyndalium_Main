@@ -229,7 +229,6 @@ public class BaseGun : WeaponComponent, IUse
 	{
 		base.OnHolstered();
 
-		// Die Waffe wird nicht mehr gehalten
 		IsHeld = false;
 
 		ReloadSound?.Stop();
@@ -276,7 +275,7 @@ public class BaseGun : WeaponComponent, IUse
 						{
 							ragdoll.WorldRotation = WorldRotation;
 							ragdoll.WorldPosition = WorldPosition;
-							//ragdoll.NetworkSpawn();
+							ragdoll.NetworkSpawn();
 						}
 					}
 				}
