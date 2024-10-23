@@ -8,7 +8,7 @@
 <root onclick=@(() => Close())>
     @if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
     {
-        @if (_item != null && StorageBox.Instance.itemStorage.items.Contains(_item))
+        @if (_item != null && StorageBox.Instance.itemStorage.Items.Contains(_item))
         {
             <ContextMenuOption Description="Take"
                                ImagePath="ui/hud/hand_slot.png"

@@ -12,11 +12,11 @@ namespace GeneralGame
         public bool IsOpened { get; set; }
         public bool IsDoorOpen { get; set; }
 
-        private StorageBox storageBox { get; set; }
+        public static ItemStorage Instance { get; private set; } = new ItemStorage();
         [Property] ItemInteractable itemInteractable { get; set; }
         [Property] SkinnedModelRenderer skinnedModelRenderer { get; set; }
         [Property] public List<ItemComponent> Items { get; set; } = new List<ItemComponent>();
-        [Property] public List<ItemComponent> items => Items;
+    
         [Property]public bool IsBossChest { get; set; } = false;
         public bool IsZombieSpawner { get; set; }
         public int Level { get; set; } = 1;
@@ -43,39 +43,18 @@ namespace GeneralGame
 
         private bool itemsGenerated = false;
 
-        protected override void OnAwake()
-        {
-            itemInteractable = this.Components.Get<ItemInteractable>();
-            skinnedModelRenderer = this.Components.Get<SkinnedModelRenderer>();
-            
-            base.OnAwake();
-            if ( storageBox == null )
-            {
-                storageBox = new StorageBox();
-            }
-            else
-            {
-                // Verhindere die doppelte Erstellung der ItemStorage-Instanz
-                if ( storageBox.itemStorage == null )
-                {
-                    storageBox.itemStorage = this;
-                }
-            }
-        }
+
         public ItemStorage()
         {
-          
-            if ( !IsBossChest )
-            {
-                LoadPrefabs();
-                GenerateRandomStatsForItems();
-            }
-            else
-            {
-                LoadBossItems();
-             
-            }
+            Instance = this;
+            //LoadPrefabs();
         }
+
+        protected override void OnAwake()
+        {
+            
+        }
+
         private void GenerateRandomStatsForItems()
         {
             foreach ( var itemComponent in Items )
@@ -255,44 +234,46 @@ namespace GeneralGame
         private bool itemsLoaded = false;
         public void LoadPrefabs()
         {
-          
+            if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
 
             if ( IsBossChest )
             {
+                Log.Info( "Boss chest detected." );
                 LoadBossItems();
-             
             }
             else
             {
-               
-                if( Player.Local != null )
+                Log.Info( "Normal chest detected." );
+                if ( Player.Local != null )
                 {
                     int minLevel = 0;
                     int maxLevel = 100;
                     int playerLevel = GetPlayerLevel();
                     LoadRandomTierPrefabs( playerLevel, minLevel, maxLevel );
-                  
                 }
-                // Spielerlevel ermitteln
-               
             }
-            
-            
 
-           
+            itemsLoaded = true; // Setzen der Variable, um anzuzeigen, dass die Items geladen wurden
+            Log.Info( $"Total Generated Items: {Items.Count}" );
         }
         public void LoadBossItems()
         {
+            if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
+
+            Log.Info( "Loading Boss Items..." );
             foreach ( var prefabPath in bossItems )
             {
+                Log.Info( $"Processing Prefab: {prefabPath}" );
                 var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
                 if ( prefab != null )
                 {
                     var itemComponent = ConvertPrefabToItemComponent( prefab );
                     if ( itemComponent != null )
                     {
+                        Log.Info( $"Converted Prefab to ItemComponent: {itemComponent.GetType().Name}" );
                         itemComponent.GameObject.Enabled = false;
                         Items.Add( itemComponent );
+                        Log.Info( $"Added Boss Item: {prefabPath}" );
                     }
                     else
                     {
@@ -304,11 +285,13 @@ namespace GeneralGame
                     Log.Error( $"Prefab {prefabPath} not found." );
                 }
             }
+
+            itemsLoaded = true; // Setzen der Variable, um anzuzeigen, dass die Items geladen wurden
         }
 
         public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
-            if ( itemsLoaded ) return;
+            if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
 
             var random = new Random();
             var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
@@ -321,76 +304,48 @@ namespace GeneralGame
                 (tierSSSPrefabs, "SSS", 0.01)
             };
 
-            int itemsToSpawn;
+            // Lösche alle vorhandenen Items, bevor neue hinzugefügt werden
 
-            // Wahrscheinlichkeit für die Anzahl der zu spawnenden Items
-            int chance = random.Next( 100 ); // Verwenden Sie 100, um Dezimalstellen zu ermöglichen
-            if ( chance < 70 ) // 70%
-            {
-                itemsToSpawn = 2;
-            }
-            else if ( chance < 80 ) // 10%
-            {
-                itemsToSpawn = 3;
-            }
-            else if ( chance < 85 ) // 5%
-            {
-                itemsToSpawn = 4;
-            }
-            else if ( chance < 87 ) // 2%
-            {
-                itemsToSpawn = 5;
-            }
-            else if ( chance < 89 ) // 2%
-            {
-                itemsToSpawn = 6;
-            }
-            else if ( chance < 91 ) // 2%
-            {
-                itemsToSpawn = 7;
-            }
-            else if ( chance < 93 ) // 2%
-            {
-                itemsToSpawn = 8;
-            }
-            else if ( chance < 95 ) // 2%
-            {
-                itemsToSpawn = 9;
-            }
-            else // Rest (5%)
-            {
-                itemsToSpawn = 1;
-            }
+            Items.Clear();
 
             var selectedPrefabs = new List<(string prefab, string tier)>();
+            var addedPrefabPaths = new HashSet<string>();
+            int totalGenerated = 0;
 
-            for ( int i = 0; i < itemsToSpawn; i++ )
+            foreach ( var (prefabs, tier, probability) in tierPrefabs )
             {
-                double roll = random.NextDouble();
-                double cumulative = 0.0;
-
-                foreach ( var (prefabs, tier, probability) in tierPrefabs )
+                foreach ( var prefabPath in prefabs )
                 {
-                    cumulative += probability;
-                    if ( roll < cumulative )
+                    if ( random.NextDouble() <= probability )
                     {
-                        var selectedPrefab = prefabs[random.Next( prefabs.Count )];
-                        selectedPrefabs.Add( (selectedPrefab, tier) );
-                        break;
+                        selectedPrefabs.Add( (prefabPath, tier) );
+                        totalGenerated++;
                     }
                 }
             }
 
+            Log.Info( $"Total Generated Items: {totalGenerated}" );
+            Items.Clear();
+            int totalAdded = 0;
+
+            // Begrenze die Anzahl der hinzugefügten Items auf die Anzahl der ausgewählten Prefabs
             foreach ( var (prefabPath, tier) in selectedPrefabs )
             {
-                LoadTierPrefab( prefabPath, tier, minLevel, maxLevel );
+                if ( !addedPrefabPaths.Contains( prefabPath ) )
+                {
+                    LoadTierPrefab( prefabPath, tier, minLevel, maxLevel );
+                    Log.Info( $"Added Item: {prefabPath}" );
+                    
+                }
             }
+
+            Log.Info( $"Total Added Items to Chest: {totalAdded}" );
 
             itemsLoaded = true;
         }
-
         public void LoadTierPrefab( string prefabPath, string tier, int minLevel, int maxLevel )
         {
+            Log.Info( $"Loading Tier {tier} Prefab: {prefabPath}" );
             int playerLevel = GetPlayerLevel();
             var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
             if ( prefab != null )
@@ -411,6 +366,7 @@ namespace GeneralGame
                                 itemComponent.MaxAttackValue = attackValues.MaxAttack;
                                 itemComponent.Tier = Enum.Parse<Tier>( tier );
                                 itemComponent.GenerateRandomStats();
+                                Items.Add( itemComponent );
                             }
                             else if ( itemComponent.IsArmor )
                             {
@@ -419,35 +375,47 @@ namespace GeneralGame
                                 itemComponent.MaxArmorValue = armorValues.MaxArmor;
                                 itemComponent.GenerateRandomStats();
                                 itemComponent.Tier = Enum.Parse<Tier>( tier );
+                                Items.Add( itemComponent );
                             }
                             else if ( itemComponent.IsAccessory )
                             {
                                 itemComponent.GenerateRandomStats();
                                 itemComponent.Tier = Enum.Parse<Tier>( tier );
+                                Items.Add( itemComponent );
                             }
                             else if ( itemComponent.IsConsumable )
                             {
                                 itemComponent.Tier = Enum.Parse<Tier>( tier );
+                            Items.Add( itemComponent );
                             }
                             else if ( itemComponent.IsMaterial )
-                            {
-                                itemComponent.Tier = Enum.Parse<Tier>( tier );
+                                {
+                                    itemComponent.Tier = Enum.Parse<Tier>( tier );
+                                Items.Add( itemComponent );
                             }
                             else if ( itemComponent.IsAspect )
-                            {
-                                itemComponent.Tier = Enum.Parse<Tier>( tier );
+                                {
+                                    itemComponent.Tier = Enum.Parse<Tier>( tier );
+                                Items.Add( itemComponent );
                             }
                             else if ( itemComponent.IsPotion )
+                                {
+                                    itemComponent.Tier = Enum.Parse<Tier>( tier );
+                                    var healthPotion = itemComponent as HealthPotion;
+                                    healthPotion?.GeneratePotionStats();
+                                Items.Add( itemComponent );
+                            }
+                            else
                             {
-                                itemComponent.Tier = Enum.Parse<Tier>( tier );
-                                var healthPotion = itemComponent as HealthPotion;
-                                healthPotion?.GeneratePotionStats();
+                                Log.Error( $"Unknown item type: {prefabPath}" );
                             }
 
-                            Items.Add( itemComponent );
-                        
+
+                        Log.Info( $"Added Item: {prefabPath}" );
+
 
                     }
+                    
                    
                 }
                 
@@ -707,19 +675,21 @@ namespace GeneralGame
 
         public void OpenInventory()
         {
+            Log.Info( "Opening inventory..." );
             if ( !IsOpened )
             {
                 IsOpened = true;
 
                 if ( !itemsGenerated ) // Überprüfen, ob die Objekte bereits erstellt wurden
                 {
-                  
-               
+                    // Hier können wir sicherstellen, dass die Items zur StorageBox hinzugefügt werden
+
+                    FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.StorageBox );
+                    Player.Local.BlockInputs = true;
                     itemsGenerated = true; // Setzen der Variable, um anzuzeigen, dass die Objekte erstellt wurden
                 }
 
-                FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.StorageBox );
-                Player.Local.BlockInputs = true;
+               
                 if ( skinnedModelRenderer != null )
                 {
                     skinnedModelRenderer.Set( "chest_open", true );
@@ -729,7 +699,6 @@ namespace GeneralGame
             {
                 Log.Info( "Inventory is already opened." );
                 CloseInventory();
-               
             }
         }
 

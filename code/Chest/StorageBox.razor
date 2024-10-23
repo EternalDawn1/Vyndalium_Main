@@ -27,7 +27,7 @@
                     
                         @for (var index = 0; index < 20; index++) // 10 Slots für die Kiste
                         {
-                            var item = (index < itemStorage.items.Count) ? itemStorage.items[index] : null;
+                            var item = (index < itemStorage.Items.Count) ? itemStorage.Items[index] : null;
                             <InventorySlot Item=@item IndependentSlotIndex=@index />
                         }
                     

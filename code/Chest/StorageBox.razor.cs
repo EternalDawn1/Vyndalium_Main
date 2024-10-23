@@ -5,7 +5,7 @@ namespace GeneralGame.HUD
 	{
 		public static new bool IsVisible { get; set; }
 		
-		public ItemStorage itemStorage;
+		public ItemStorage itemStorage {	get; set; }
 		
 		private bool visibilityChanged = false;
 		private bool isInitialized = false;
@@ -15,10 +15,11 @@ namespace GeneralGame.HUD
 
 		public StorageBox()
 		{
+			Log.Info( "StorageBox created" );
 			Instance = this;
-			itemStorage = new ItemStorage();
-			
-			
+			itemStorage = ItemStorage.Instance ?? new ItemStorage();
+
+
 			IsVisible = false;
 		}
 		protected void OnAwake()
@@ -26,7 +27,7 @@ namespace GeneralGame.HUD
 			
 			if ( itemStorage == null )
 			{
-				
+				itemStorage = ItemStorage.Instance ?? new ItemStorage();
 				itemStorage.IsOpened = false; // Stellen Sie sicher, dass itemStorage anfangs geschlossen ist
 				IsVisible = false;
 			}

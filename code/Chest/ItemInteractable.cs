@@ -14,14 +14,19 @@ public class ItemInteractable : BaseInteraction
 
     public void Interact()
     {
-        var itemStorage = GetComponent<ItemStorage>();
-        if ( itemStorage != null )
+        if ( Storage == null )
         {
-            itemStorage.IsBossChest = IsBossChest;
-        
-            itemStorage.LoadPrefabs();
+            Storage = Components.Create<ItemStorage>();
+            Storage.IsBossChest = IsBossChest; // Attribut übernehmen
+            Storage.LoadPrefabs(); // Prefabs nur einmal laden
         }
-       
+
+        if ( IsBossChest )
+        {
+            Log.Info( "BossChest" );
+            Storage.LoadBossItems();
+        }
+        
     }
     protected override void OnStart()
     {
@@ -30,69 +35,54 @@ public class ItemInteractable : BaseInteraction
 
        
 
-        if ( IsBossChest )
-        {
-            Interact();
-        }
+        
 
-        if ( IsDoor )
+        
+        
         {
             interactions.AddInteraction( new Interaction()
             {
-                Identifier = "door.toggle",
-                Action = ( Player interactor, GameObject obj ) =>
-                {
-                    var itemInteractable = obj.Components.Get<ItemInteractable>();
-                    if ( itemInteractable != null && itemInteractable.Storage != null )
-                    {
-                        // Tür-Interaktion
-                    }
-                },
-                Keybind = "use",
-                Description = "Open/Close Door",
-                Stats = "Toggle",
-                ShowWhenDisabled = () => true,
-                Accessibility = AccessibleFrom.All,
-            } );
-        }
-        else
-        {
-            interactions.AddInteraction( new Interaction()
-            {
+               
                 Identifier = "item.openloot",
                 Action = ( Player interactor, GameObject obj ) =>
                 {
-                     Storage = Components.Create<ItemStorage>();
+                    Log.Info( "XXXXXXXXXXXXXX" );
                     var itemInteractable = obj.Components.Get<ItemInteractable>();
-                    if ( itemInteractable != null && itemInteractable.Storage != null )
+                    if ( itemInteractable != null )
                     {
-                        itemInteractable.Storage.OpenInventory();
-
-                        var ragdollPrefab = ResourceLibrary.Get<PrefabFile>( RagdollPrefabPath );
-                        if ( ragdollPrefab != null )
+                        if ( itemInteractable.Storage == null )
                         {
-                            var ragdoll = SceneUtility.GetPrefabScene( ragdollPrefab ).Clone();
-                            if ( ragdoll != null )
+                            Interact(); // Attribut übernehmen
+                        }
+
+                        if ( itemInteractable.Storage != null )
+                        {
+                            itemInteractable.Storage.OpenInventory();
+
+                            var ragdollPrefab = ResourceLibrary.Get<PrefabFile>( RagdollPrefabPath );
+                            if ( ragdollPrefab != null )
                             {
-                                ragdoll.WorldPosition = WorldPosition;
-                                ragdoll.WorldRotation = WorldRotation;
-                                ragdoll.NetworkSpawn();
+                                var ragdoll = SceneUtility.GetPrefabScene( ragdollPrefab ).Clone();
+                                if ( ragdoll != null )
+                                {
+                                    ragdoll.WorldPosition = WorldPosition;
+                                    ragdoll.WorldRotation = WorldRotation;
+                                    ragdoll.NetworkSpawn();
+                                }
+                                else
+                                {
+                                    Log.Error( "Failed to spawn ragdoll from prefab." );
+                                }
                             }
                             else
                             {
-                                Log.Error( "Failed to spawn ragdoll from prefab." );
+                                Log.Error( $"Failed to load prefab: {RagdollPrefabPath}" );
                             }
-                        }
-                        else
-                        {
-                            Log.Error( $"Failed to load prefab: {RagdollPrefabPath}" );
-                        }
 
-                        Task.Delay( 10000 );
-                        itemInteractable.Storage.DestroyAfterOpen();
+                            Task.Delay( 10000 );
+                            //itemInteractable.Storage.DestroyAfterOpen();
+                        }
                     }
-
-
                 },
                 Keybind = "use",
                 Description = "Open/Close",
