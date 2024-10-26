@@ -9,19 +9,83 @@ CharacterMenu {
     backdrop-filter: $fullscreen-blur;
     pointer-events: all;
     
+    .top{
+        position: absolute;
+        top: 5%;
+        left: 2.5%;
+        width: 80%;
+        height: 85%;
+        background-image: url('/ui/hud/background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 1;
+      
+        
+        z-index: -10;
+        border-width: 1px;
+        border-color: rgba(255, 255, 255, 0.314);
+        border-radius: 5px;
+        
+       
+        
+        padding: 0 20px;
+        color: white;
+        font-size: 20px;
+        font-weight: 1000;
 
+        .top2{
+            position: absolute;
+            top: 5%;
+            left: 2.5%;
+            width: 41.5%;
+            height: 85%;
+            background-image: url('/ui/hud/background3.gif');
+            opacity: 0.5;
+            z-index: -5;
+            border-width: 1px;
+            border-color: rgb(255, 255, 255);
+            border-radius: 5px;
+            padding: 0 20px;
+            color: white;
+            font-size: 20px;
+            font-weight: 1000;
+        }
+        .top3{
+            position: absolute;
+            top: 5%;
+            left: 45%;
+            width: 41.5%;
+            height: 85%;
+            background-image: url('/ui/hud/background2.gif');
+            opacity: 0.5;
+            z-index: -5;
+            border-width: 1px;
+            border-color: rgb(255, 255, 255);
+            border-radius: 5px;
+            padding: 0 20px;
+            color: white;
+            font-size: 20px;
+            font-weight: 1000;
+        }
+    }
     
 
     .section {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.588);
         border-color: rgb(78, 78, 78);
         border-width: 0.2%;
         z-index: 1;
         
     }
+    
     .header2 {
         top: 16%;
 
-        gap: 15px;
+        gap: 15px;  
         position: absolute;
         flex-direction: column;
         height: 5%;
@@ -230,6 +294,7 @@ CharacterMenu {
             height: 100%;
             width: 14%;
             z-index: 5;
+          
             color: rgb(218, 218, 218);
             left: 50%;
             top: 24.7%;

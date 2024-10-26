@@ -20,7 +20,7 @@
 			ImagePath="ui/hud/materials.png" />
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Potions)) IsInverted=@(true) ImagePath="ui/hud/potions.png" />
 	</div>
-	<div class="list">
+	<div class="list" >
 		<div class="inventory" style="opacity: @(currentPanel == PanelType.Inventory ? 1 : 0)">
 			
 			
@@ -72,7 +72,7 @@
 
 			</div>
 
-			<div class="section2">
+			<div class="section2" CanDragScroll="false">
 				<div class="box">
 					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.Tier))">
 						Tier</button>

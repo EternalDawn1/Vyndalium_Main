@@ -60,14 +60,16 @@ public partial class Npc : Component, IHealthComponent
 	{
 		"prefabs/pickupammo.prefab", // 50% Wahrscheinlichkeit
         "prefabs/potions/potion.prefab", // 25% Wahrscheinlichkeit
-        "prefabs/items/wood_log.prefab" // 25% Wahrscheinlichkeit
+        "prefabs/items/wood_log.prefab",
+		"prefabs/entitys/chestsystem/5.prefab" // 25% Wahrscheinlichkeit
     };
 
 	private readonly List<float> probabilities = new List<float>
 	{
 		0.5f, // 50% Wahrscheinlichkeit für Munition
         0.25f, // 25% Wahrscheinlichkeit für Tränke
-        0.25f  // 25% Wahrscheinlichkeit für Holz
+        0.35f,
+		0.1f,  // 25% Wahrscheinlichkeit für Holz
     };
 
 	// Methode zum Spawnen eines zufälligen Prefabs

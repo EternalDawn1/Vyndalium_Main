@@ -24,13 +24,16 @@
 	
 
 
-
+	<div class="top">
+		<div class="top2"></div>
+		<div class="top3"></div>
+	</div>
 	<div class="section" style="opacity : @(currentpanel == PanelType.Attribute ? 1 : 1 )">
-
+	
 		<h2 class="header2">
-			<li class="head" @onclick="@ShowMainStats"> Main Stats </li>
-			<button class="sidestats" @onclick="@ShowSideStats">Side Stats</button>
-			<button class="resist" @onclick="@ShowResistStats">Resist</button>
+			<li class="head" @onmouseover="@ShowMainStats"> Main Stats </li>
+			<button class="sidestats" @onmouseover="@ShowSideStats">Side Stats</button>
+			<button class="resist" @onmouseover="@ShowResistStats">Resist</button>
 			
 		</h2>
 

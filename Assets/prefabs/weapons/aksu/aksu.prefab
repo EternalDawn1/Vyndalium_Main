@@ -12,6 +12,20 @@
         "BodyGroups": 9493,
         "CreateBoneObjects": false,
         "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+        "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "On",
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -21,8 +35,10 @@
         "__guid": "7cc9f136-b83e-41e1-9af9-623822d9c6ad",
         "AimPos": "-1,1.92,0.57",
         "AimRotation": "0,0,0,0",
+        "AimRotationOffset": "0,0,0,0",
         "AmmoType": "Rifle",
         "ClipSize": 30,
+        "CurRot": "0,0,0,0",
         "Damage": 20,
         "DamageForce": 50,
         "DamageType": "Bullet",
@@ -43,6 +59,10 @@
         "IsAuto": true,
         "IsDeployed": false,
         "IsMagicWeapon": false,
+        "IsMelee": false,
+        "MeleeCooldown": 1,
+        "MeleeDamage": 10,
+        "MeleeRange": 1.5,
         "Recoil": "-5,0,0",
         "ReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
         "ReloadTime": 3,
@@ -59,7 +79,8 @@
         "__guid": "8f5325df-9d2c-41e7-87bc-70034e3c153c",
         "IsTrigger": false,
         "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.Rigidbody",
@@ -80,15 +101,18 @@
         "__guid": "07c06f5b-c248-4c40-b7ee-9eb71a0d113e",
         "AbilityHaste": 0,
         "Armor": 0,
+        "Aspect": "None",
         "Attachment": "hand_R",
         "AttachmentTransform": {
           "UniformScale": 1,
           "IsValid": true,
           "ForwardRay": {
-            "Forward": "1,0,0"
+            "Position": "11.37464,4.7256,-7.114826",
+            "Forward": "0.7250171,-0.0227842,-0.6883539"
           },
+          "Position": "11.37464,4.7256,-7.114826",
           "Scale": "1,1,1",
-          "Rotation": "0,0,0,1"
+          "Rotation": "-0.542482,0.3079648,0.2065167,0.7538048"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
@@ -97,6 +121,7 @@
         "BonusEXP": 0,
         "BonusScore": 0,
         "BonusVyndalium": 0,
+        "BuyPrice": 0,
         "Count": 0,
         "Cover": 0,
         "CritHitChance": 0,
@@ -106,6 +131,7 @@
         "DEX": 0,
         "DMG": 200,
         "Durability": 0,
+        "EnableHolding": true,
         "Evasion": 0,
         "FireResistence": 0,
         "HE": 0,
@@ -123,32 +149,42 @@
           "Guid": "e23adcb4-7a59-4c04-92ce-88d76b9b52d2"
         },
         "INT": 0,
+        "IsAccessory": false,
+        "IsArmor": false,
+        "IsAspect": false,
         "IsBackable": false,
+        "IsBackpack": false,
+        "IsConsumable": false,
         "IsEquipment": false,
         "IsItem": true,
+        "IsMaterial": false,
+        "IsPotion": false,
+        "IsWeapon": false,
+        "IsWorld": false,
         "ItemLevel": 0,
         "LightningResistence": 0,
         "MagicDefense": 0,
         "MagicPower": 0,
         "Mana": 0,
+        "MaxArmorValue": 0,
+        "MaxAttackValue": 0,
         "MaxStack": 0,
+        "MinArmorValue": 0,
+        "MinAttackValue": 0,
         "MoveSpeed": 0,
         "Name": "AKM",
         "PER": 0,
         "PoisonResistence": 0,
+        "RequiredLevel": 0,
         "SellPrice": -1,
         "ShadowResistence": 0,
         "Slot": "Hand",
         "SlowResistence": 0.1,
-        "Stats": [
-          79,
-          53
-        ],
         "STG": 0,
         "StunResistance": 0,
         "Tenacity": 0,
         "Tier": "SSS",
-        "UpdatePosition": false,
+        "UpdatePosition": true,
         "UseSkinTint": false,
         "WeightInGrams": 0
       },
@@ -165,11 +201,35 @@
         "Group": "Tier-Level",
         "Targets": []
       }
-    ]
+    ],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

@@ -11,20 +11,25 @@ public class ItemInteractable : BaseInteraction
     [Property] public string RagdollPrefabPath { get; set; } = "models/npcs/slime/chest.prefab";
     [Property] public bool IsDoor { get; set; }
     [Property]public bool IsBossChest { get; set; } = false;
+    [Property] public string RequiredTier { get; set; } = "C";
 
     public void Interact()
     {
         if ( Storage == null )
         {
             Storage = Components.Create<ItemStorage>();
-            Storage.IsBossChest = IsBossChest; // Attribut übernehmen
+            Storage.IsBossChest = IsBossChest;
+          
             Storage.LoadPrefabs(); // Prefabs nur einmal laden
         }
 
         if ( IsBossChest )
         {
             Log.Info( "BossChest" );
-            Storage.LoadBossItems();
+            int minLevel = 0;
+            int maxLevel = 100;
+            int playerLevel = Storage.GetPlayerLevel();
+            Storage.LoadBossTierPrefabs( playerLevel,minLevel,maxLevel );
         }
         
     }
@@ -33,12 +38,12 @@ public class ItemInteractable : BaseInteraction
        
         var interactions = Components.GetOrCreate<Interactions>();
 
-       
 
-        
 
-        
-        
+
+
+        DetermineAndSetRequiredTier();
+
         {
             interactions.AddInteraction( new Interaction()
             {
@@ -79,7 +84,7 @@ public class ItemInteractable : BaseInteraction
                                 Log.Error( $"Failed to load prefab: {RagdollPrefabPath}" );
                             }
 
-                            Task.Delay( 10000 );
+                           
                             //itemInteractable.Storage.DestroyAfterOpen();
                         }
                     }
@@ -105,8 +110,46 @@ public class ItemInteractable : BaseInteraction
 
         
     }
-    
-   
+    private void DetermineAndSetRequiredTier()
+    {
+        // Hier können Sie die Logik hinzufügen, um das Tier basierend auf bestimmten Bedingungen zu bestimmen
+        // Zum Beispiel:
+        if ( IsBossChest )
+        {
+            RequiredTier = "SSS";
+        }
+        else if ( this is ItemComponent itemComponent )
+        {
+            switch ( itemComponent.Tier )
+            {
+                case Tier.C:
+                    RequiredTier = "C";
+                    break;
+                case Tier.B:
+                    RequiredTier = "B";
+                    break;
+                case Tier.A:
+                    RequiredTier = "A";
+                    break;
+                case Tier.S:
+                    RequiredTier = "S";
+                    break;
+                case Tier.SS:
+                    RequiredTier = "SS";
+                    break;
+                case Tier.SSS:
+                    RequiredTier = "SSS";
+                    break;
+                default:
+                    RequiredTier = "C"; // Standardwert
+                    break;
+            }
+        }
+        else
+        {
+            RequiredTier = "C"; // Standardwert, falls keine Bedingungen erfüllt sind
+        }
+    }
 
 
 

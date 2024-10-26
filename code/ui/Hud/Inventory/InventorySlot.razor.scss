@@ -4,14 +4,14 @@ InventorySlot {
     position: relative;
     width: 100px;
     height: 100px;
-    margin-left: 5px;
+    margin-left: 2px;
     margin-bottom: 5px;
     justify-content: center;
     align-items: center;
-    text-shadow: 2px 2px 0px black;
+    text-shadow: 2px 2px 0px rgb(0, 0, 0);
 
     opacity: 1;
-    transform: translateY(0);
+    
 
 
 
@@ -21,7 +21,7 @@ InventorySlot {
         height: 100%;
         width: 100%;
         mask-mode:alpha;
-        mask-image: url('/ui/hud/slot_mask.png');
+        mask-image: url('/ui/hud/slot_mask_thin.png');
         mask-size: 100%;
     }
 
@@ -84,12 +84,13 @@ InventorySlot {
         background: radial-gradient(#ffd000, #ffeb0a);
         height: 100%;
         width: 100%;
-        z-index: -2;
-        
+        z-index: -10;
         position: absolute;
         background-image: url(/ui/hud/gold3.gif);
-        background-size: 150%;
+        background-size: 100%;
         background-position: center;
+       
+
 
 
 

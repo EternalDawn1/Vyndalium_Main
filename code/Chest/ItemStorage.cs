@@ -28,7 +28,8 @@ namespace GeneralGame
             { "A", (107, 114) },
             { "S", (192, 199) },
             { "SS", (207, 214) },
-            { "SSS", (232, 239) }
+            { "SSS", (232, 239) },
+            { "Ultimate", (250, 250) }
         };
 
         private Dictionary<string, (int MinArmor, int MaxArmor)> tierArmorValues = new Dictionary<string, (int MinArmor, int MaxArmor)>
@@ -38,7 +39,8 @@ namespace GeneralGame
             { "A", (107, 114) },
             { "S", (192, 199) },
             { "SS", (207, 214) },
-            { "SSS", (232, 239) }
+            { "SSS", (232, 239) },
+            { "Ultimate", (250, 250) }
         };
 
         private bool itemsGenerated = false;
@@ -82,13 +84,20 @@ namespace GeneralGame
 
         private List<string> bossItems = new List<string>
         {
-            "prefabs/clothes/legarmor/legarmor-sss.prefab",
-             "prefabs/weapons/new/hands.prefab",
-            "prefabs/weapons/new/knife.prefab",
-            "prefabs/weapons/new/machete.prefab",
+           
+            "prefabs/entitys/aspects/variants/air.prefab",
+            "prefabs/entitys/aspects/variants/bleed.prefab",
+            "prefabs/entitys/aspects/variants/earth.prefab",
+            "prefabs/entitys/aspects/variants/fire.prefab",
+            "prefabs/entitys/aspects/variants/holy.prefab",
+            "prefabs/entitys/aspects/variants/ice.prefab",
+            "prefabs/entitys/aspects/variants/lightning.prefab",
+            "prefabs/entitys/aspects/variants/water.prefab",
+            "prefabs/entitys/aspects/variants/shadow.prefab",
+
             // Füge hier weitere Boss-Items hinzu
         };
-        private static readonly List<string> tiers = new List<string> { "C", "B", "A", "S", "SS", "SSS" };
+        private static readonly List<string> tiers = new List<string> { "C", "B", "A", "S", "SS", "SSS", "Ultimate" };
 
 
 
@@ -231,6 +240,24 @@ namespace GeneralGame
             "prefabs/potions/potion_big.prefab",
             // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
         };
+        private List<string> tierUltimatePrefabs = new List<string>
+        {
+            "prefabs/weapons/aksu/sss.prefab",
+            "prefabs/weapons/facepunch/usp/uspsss.prefab",
+            "prefabs/weapons/facepunch/shotgun/shotgunsss.prefab",
+            "prefabs/weapons/facepunch/mp5/mp5sss.prefab",
+            "prefabs/weapons/m4a1/m4a1-sss.prefab",
+            "prefabs/weapons/pm/glock-sss.prefab",
+            "prefabs/clothes/armor/armor-sss.prefab",
+            "prefabs/clothes/helmet/helmet-sss.prefab",
+            "prefabs/clothes/legarmor/legarmor-sss.prefab",
+             "prefabs/weapons/new/hands.prefab",
+            "prefabs/weapons/new/knife.prefab",
+            "prefabs/weapons/new/machete.prefab",
+          
+        };
+        
+      
         private bool itemsLoaded = false;
         public void LoadPrefabs()
         {
@@ -239,7 +266,10 @@ namespace GeneralGame
             if ( IsBossChest )
             {
                 Log.Info( "Boss chest detected." );
-                LoadBossItems();
+                int minLevel = 0;
+                int maxLevel = 100;
+                int playerLevel = GetPlayerLevel();
+                LoadBossTierPrefabs(playerLevel, minLevel, maxLevel);
             }
             else
             {
@@ -252,59 +282,71 @@ namespace GeneralGame
                     LoadRandomTierPrefabs( playerLevel, minLevel, maxLevel );
                 }
             }
+         
 
             itemsLoaded = true; // Setzen der Variable, um anzuzeigen, dass die Items geladen wurden
             Log.Info( $"Total Generated Items: {Items.Count}" );
         }
-        public void LoadBossItems()
-        {
-            if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
-
-            Log.Info( "Loading Boss Items..." );
-            foreach ( var prefabPath in bossItems )
-            {
-                Log.Info( $"Processing Prefab: {prefabPath}" );
-                var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
-                if ( prefab != null )
-                {
-                    var itemComponent = ConvertPrefabToItemComponent( prefab );
-                    if ( itemComponent != null )
-                    {
-                        Log.Info( $"Converted Prefab to ItemComponent: {itemComponent.GetType().Name}" );
-                        itemComponent.GameObject.Enabled = false;
-                        Items.Add( itemComponent );
-                        Log.Info( $"Added Boss Item: {prefabPath}" );
-                    }
-                    else
-                    {
-                        Log.Error( $"Failed to convert prefab {prefabPath} to ItemComponent." );
-                    }
-                }
-                else
-                {
-                    Log.Error( $"Prefab {prefabPath} not found." );
-                }
-            }
-
-            itemsLoaded = true; // Setzen der Variable, um anzuzeigen, dass die Items geladen wurden
-        }
-
-        public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
+        public void LoadBossTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
             if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
 
             var random = new Random();
             var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
-            {
-                (tierCPrefabs, "C", 0.80),
-                (tierBPrefabs, "B", 0.10),
-                (tierAPrefabs, "A", 0.05),
-                (tierSPrefabs, "S", 0.025),
-                (tierSSPrefabs, "SS", 0.015),
-                (tierSSSPrefabs, "SSS", 0.01)
-            };
+            {   
+            (bossItems, "C", 0.3),
+            (bossItems, "B", 0.2),
+            (bossItems, "A", 0.1),
+            (bossItems, "S", 0.08),
+            (bossItems, "SS", 0.05),
+            (bossItems, "SSS", 0.03),
+            (bossItems, "Ultimate", 0.01),
 
-            // Lösche alle vorhandenen Items, bevor neue hinzugefügt werden
+            (tierSPrefabs, "A", 0.50),  // 10%
+            (tierSPrefabs, "S", 0.20),  // 10%
+            (tierSSPrefabs, "SS", 0.10), // 5%
+            (tierSSSPrefabs, "SSS", 0.05),
+            (tierUltimatePrefabs, "Ultimate", 0.01) // 5%
+            };
+            int itemsToSpawn;
+
+            int chance = random.Next( 100 ); // Verwenden Sie 100, um Dezimalstellen zu ermöglichen
+            if ( chance < 70 ) // 70%
+            {
+                itemsToSpawn = 2;
+            }
+            else if ( chance < 80 ) // 10%
+            {
+                itemsToSpawn = 3;
+            }
+            else if ( chance < 85 ) // 5%
+            {
+                itemsToSpawn = 4;
+            }
+            else if ( chance < 87 ) // 2%
+            {
+                itemsToSpawn = 5;
+            }
+            else if ( chance < 89 ) // 2%
+            {
+                itemsToSpawn = 6;
+            }
+            else if ( chance < 91 ) // 2%
+            {
+                itemsToSpawn = 7;
+            }
+            else if ( chance < 93 ) // 2%
+            {
+                itemsToSpawn = 8;
+            }
+            else if ( chance < 95 ) // 2%
+            {
+                itemsToSpawn = 9;
+            }
+            else // Rest (5%)
+            {
+                itemsToSpawn = 1;
+            }
 
             Items.Clear();
 
@@ -312,14 +354,20 @@ namespace GeneralGame
             var addedPrefabPaths = new HashSet<string>();
             int totalGenerated = 0;
 
-            foreach ( var (prefabs, tier, probability) in tierPrefabs )
+            for ( int i = 0; i < itemsToSpawn; i++ )
             {
-                foreach ( var prefabPath in prefabs )
+                double roll = random.NextDouble();
+                double cumulative = 0.0;
+
+                foreach ( var (prefabs, tier, probability) in tierPrefabs )
                 {
-                    if ( random.NextDouble() <= probability )
+                    cumulative += probability;
+                    if ( roll < cumulative )
                     {
-                        selectedPrefabs.Add( (prefabPath, tier) );
+                        var selectedPrefab = prefabs[random.Next( prefabs.Count )];
+                        selectedPrefabs.Add( (selectedPrefab, tier) );
                         totalGenerated++;
+                        break;
                     }
                 }
             }
@@ -331,11 +379,135 @@ namespace GeneralGame
             // Begrenze die Anzahl der hinzugefügten Items auf die Anzahl der ausgewählten Prefabs
             foreach ( var (prefabPath, tier) in selectedPrefabs )
             {
+                if ( totalAdded >= itemsToSpawn ) break; // Begrenze die Anzahl der hinzugefügten Items
+
                 if ( !addedPrefabPaths.Contains( prefabPath ) )
                 {
                     LoadTierPrefab( prefabPath, tier, minLevel, maxLevel );
+                    addedPrefabPaths.Add( prefabPath );
+                    totalAdded++;
                     Log.Info( $"Added Item: {prefabPath}" );
-                    
+
+                    // Zu 80% ein zufälliges Item aus nonRandomStatItems hinzufügen
+                    if ( random.NextDouble() <= 0.20 )
+                    {
+                        var randomNonRandomStatItem = nonRandomStatItems[random.Next( nonRandomStatItems.Count )];
+                        LoadNonRandomStatItem( randomNonRandomStatItem, minLevel, maxLevel );
+                        addedPrefabPaths.Add( randomNonRandomStatItem );
+                        totalAdded++;
+                        Log.Info( $"Added Non-Random Stat Item: {randomNonRandomStatItem}" );
+                    }
+                }
+            }
+
+            Log.Info( $"Total Added Items to Boss Chest: {totalAdded}" );
+
+            itemsLoaded = true;
+        }
+
+        public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
+        {
+            if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
+
+            var random = new Random();
+            var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
+            {
+                (tierCPrefabs, "C", 0.40),  // 50%
+                (tierBPrefabs, "B", 0.20),  // 20%
+                (tierAPrefabs, "A", 0.10),  // 10%
+                (tierSPrefabs, "S", 0.05),  // 10%
+                (tierSSPrefabs, "SS", 0.03), // 5%
+                (tierSSSPrefabs, "SSS", 0.01) // 5%
+            }; 
+            int itemsToSpawn;
+
+            int chance = random.Next( 100 ); // Verwenden Sie 100, um Dezimalstellen zu ermöglichen
+            if ( chance < 70 ) // 70%
+            {
+                itemsToSpawn = 2;
+            }
+            else if ( chance < 80 ) // 10%
+            {
+                itemsToSpawn = 3;
+            }
+            else if ( chance < 85 ) // 5%
+            {
+                itemsToSpawn = 4;
+            }
+            else if ( chance < 87 ) // 2%
+            {
+                itemsToSpawn = 5;
+            }
+            else if ( chance < 89 ) // 2%
+            {
+                itemsToSpawn = 6;
+            }
+            else if ( chance < 91 ) // 2%
+            {
+                itemsToSpawn = 7;
+            }
+            else if ( chance < 93 ) // 2%
+            {
+                itemsToSpawn = 8;
+            }
+            else if ( chance < 95 ) // 2%
+            {
+                itemsToSpawn = 9;
+            }
+            else // Rest (5%)
+            {
+                itemsToSpawn = 1;
+            }
+
+            Items.Clear();
+
+            var selectedPrefabs = new List<(string prefab, string tier)>();
+            var addedPrefabPaths = new HashSet<string>();
+            int totalGenerated = 0;
+
+            for ( int i = 0; i < itemsToSpawn; i++ )
+            {
+                double roll = random.NextDouble();
+                double cumulative = 0.0;
+
+                foreach ( var (prefabs, tier, probability) in tierPrefabs )
+                {
+                    cumulative += probability;
+                    if ( roll < cumulative )
+                    {
+                        var selectedPrefab = prefabs[random.Next( prefabs.Count )];
+                        selectedPrefabs.Add( (selectedPrefab, tier) );
+                        totalGenerated++;
+                        break;
+                    }
+                }
+            }
+
+            Log.Info( $"Total Generated Items: {totalGenerated}" );
+            Items.Clear();
+            int totalAdded = 0;
+
+            // Begrenze die Anzahl der hinzugefügten Items auf die Anzahl der ausgewählten Prefabs
+            foreach ( var (prefabPath, tier) in selectedPrefabs )
+            {
+                if ( totalAdded >= itemsToSpawn ) break; // Begrenze die Anzahl der hinzugefügten Items
+
+                if ( !addedPrefabPaths.Contains( prefabPath ) )
+                {
+                    LoadTierPrefab( prefabPath, tier, minLevel, maxLevel );
+                    addedPrefabPaths.Add( prefabPath );
+                    totalAdded++;
+                    Log.Info( $"Added Item: {prefabPath}" );
+
+                    // Zu 80% ein zufälliges Item aus nonRandomStatItems hinzufügen
+                    if ( random.NextDouble() <= 0.30 )
+                    {
+                        var randomNonRandomStatItem = nonRandomStatItems[random.Next( nonRandomStatItems.Count )];
+                        LoadNonRandomStatItem( randomNonRandomStatItem, minLevel, maxLevel );
+                        addedPrefabPaths.Add( randomNonRandomStatItem );
+                        totalAdded++;
+                        Log.Info( $"Added Non-Random Stat Item: {randomNonRandomStatItem}" );
+                    }
                 }
             }
 
@@ -343,6 +515,26 @@ namespace GeneralGame
 
             itemsLoaded = true;
         }
+        private void LoadNonRandomStatItem( string prefabPath, int minLevel, int maxLevel )
+        {
+            Log.Info( $"Loading Non-Random Stat Item Prefab: {prefabPath}" );
+            int playerLevel = GetPlayerLevel();
+            var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
+            if ( prefab != null )
+            {
+                var itemComponent = ConvertPrefabToItemComponent( prefab );
+                if ( itemComponent != null )
+                {
+                    var requiredLevel = DetermineRequiredLevelForTier( "NonRandom" );
+                    if ( requiredLevel >= minLevel && requiredLevel <= maxLevel )
+                    {
+                        itemComponent.RequiredLevel = requiredLevel;
+                        Items.Add( itemComponent );
+                    }
+                }
+            }
+        }
+
         public void LoadTierPrefab( string prefabPath, string tier, int minLevel, int maxLevel )
         {
             Log.Info( $"Loading Tier {tier} Prefab: {prefabPath}" );
@@ -358,6 +550,8 @@ namespace GeneralGame
                     {
                         
                             itemComponent.RequiredLevel = requiredLevel;
+                            
+                            
 
                             if ( itemComponent.IsWeapon )
                             {
@@ -422,6 +616,28 @@ namespace GeneralGame
             }
             
         }
+        private int GetMaxItemsForTier( string tier )
+        {
+            switch ( tier )
+            {
+                case "C":
+                    return 1;
+                case "B":
+                    return 2;
+                case "A":
+                    return 3;
+                case "S":
+                    return 4;
+                case "SS":
+                    return 5;
+                case "SSS":
+                    return 6;
+                case "Ultimate":
+                    return 7;
+                default:
+                    return 1;
+            }
+        }
 
         public int GetPlayerLevel()
         {
@@ -453,6 +669,7 @@ namespace GeneralGame
                 "S" => 1,
                 "SS" => 1,
                 "SSS" => 1,
+                "Ultimate" => 1,
                 _ => 0
             };
 
@@ -516,6 +733,9 @@ namespace GeneralGame
             double tierMultiplier = 1.0;
             switch ( tier )
             {
+                case "Ultimate":
+                    tierMultiplier = 1 + (10.0 * level / 100);
+                    break;
                 case "SSS":
                     tierMultiplier = 1 + (8.0 * level / 100);
                     break;
@@ -607,6 +827,9 @@ namespace GeneralGame
             double tierMultiplier = 1.0;
             switch ( tier )
             {
+                case "Ultimate":
+                    tierMultiplier = 1 + (10.0 * level / 100);
+                    break;
                 case "SSS":
                     tierMultiplier = 1 + (8.0 * level / 100);
                     break;
@@ -721,6 +944,7 @@ namespace GeneralGame
                     }
                    
                 }
+                DestroyAfterOpen();
             }
             
 
