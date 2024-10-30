@@ -174,8 +174,8 @@ public class IconEditor : GraphicsView
 			var button = Layout.Add( new Button( this )
 			{
 				Clicked = () => icon.Guid = Guid.NewGuid(),
-				ToolTip = "Only use this when duplicating prefabs so the GUID doesn't overwrite icons.",
-				Text = "WARNING!!! RESET GUID"
+				ToolTip = " GUID doesn't overwrite icons.",
+				Text = "Reset Guid"
 			}, 0 );
 		}
 		
@@ -195,7 +195,7 @@ public class IconEditor : GraphicsView
 			// Save Button
 			var button = Layout.Add( new global::Editor.Button( this )
 			{
-				Text = "Save Icon Settings",
+				Text = "Save Icon",
 				Clicked = () =>
 				{
 					property.SetValue( new IconSettings()

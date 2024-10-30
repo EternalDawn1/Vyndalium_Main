@@ -31,7 +31,7 @@
 	protected override void OnAfterTreeRender( bool firstTime )
 	{
 		base.OnAfterTreeRender( firstTime );
-
+		
 		_sceneWorld ??= new SceneWorld();
 		_sceneLight ??= new SceneLight( _sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 4f );
 		_sceneDirectionalLight ??= new SceneDirectionalLight( _sceneWorld, global::Rotation.From( 45, -45, 45 ), Color.White * 10f );
@@ -81,13 +81,16 @@
 			if ( renderer == null )
 				continue;
 
-			Transform transform = global::Transform.Zero;
+			
 		
 			
 
-			var cloth = _clothes[i] = new SceneModel(_sceneWorld, renderer.Model, transform);
+			var cloth = _clothes[i] = new SceneModel(_sceneWorld, renderer.Model, global::Transform.Zero);
 			cloth.SetMaterialGroup(renderer.MaterialGroup);
 			bodygroups |= equipment.HideBodygroups;
+
+			var attachmentTransform = _character.GetAttachment(equipment.Attachment, true) ?? global::Transform.Zero;
+			cloth.Transform = attachmentTransform.ToWorld(equipment.AttachmentTransform);
 
 			_character.AddChild( $"clothing_{i}_{equipment.Name}", cloth );
 
@@ -108,7 +111,7 @@
 		Update();
 	}
 	
-
+	
 	private void Update()
 	{
 		var mousePos = MousePosition;

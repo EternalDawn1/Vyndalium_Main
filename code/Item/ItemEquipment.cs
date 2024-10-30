@@ -27,7 +27,7 @@ public enum HoldType : byte
 
 public class ItemEquipment : ItemComponent
 {
-	public static Model Parcel = Model.Load( "models/citizen/citizen.vmdl" );
+	public static Model Parcel = Model.Load( "models/props/parcel/clothing_parcel.vmdl" );
 	[Property, Category( "Equipment" )] public bool IsBackable { get; set; }
 	[Property, Category( "Equipment" )] public EquipSlot Slot { get; set; } = EquipSlot.Hand;
 	[Property, Category( "Equipment" )] public HiddenBodyGroup HideBodygroups { get; set; }
@@ -54,6 +54,7 @@ public class ItemEquipment : ItemComponent
 	public ModelRenderer Renderer { get; private set; }
 	public WeaponComponent Weapon { get; private set; }
 
+	
 
 
 
