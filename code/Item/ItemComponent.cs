@@ -85,7 +85,7 @@ public class ItemComponent : Component
 	{
 		return Aspect.ToString();
 	}
-
+	public ItemResource ItemResource { get; set; }
 
 
 	public ItemComponent()
@@ -93,6 +93,7 @@ public class ItemComponent : Component
 		InitializeStats();
 		IsAspect = false;
 		Aspect = AspectType.None;
+		
 	}
 	private void InitializeStats()
 	{

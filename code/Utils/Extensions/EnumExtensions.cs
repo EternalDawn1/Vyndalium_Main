@@ -14,7 +14,7 @@ public static class EnumExtensions
 			EquipSlot.Hand => "hand_slot.png",
 			EquipSlot.Bracer => "clothes_bracer.png",
 			EquipSlot.Belt => "clothes_belt.png", 
-			EquipSlot.Back => "clothes_back.png",
+			EquipSlot.Back => "armor-modified.png",
 			EquipSlot.BackpackBagBag => "clothes_back.png", 
 			_ => ""
 		};

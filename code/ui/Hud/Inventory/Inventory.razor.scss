@@ -7,7 +7,7 @@ Inventory {
     background-color: $fullscreen-bg;
     backdrop-filter: $fullscreen-blur;
     pointer-events: all;
-    transition: opacity 0.13s ease;
+    transition: opacity 1.13s ease;
     opacity: 1;
     
 
@@ -30,57 +30,289 @@ Inventory {
 
     .list {
         position: absolute;
-        left: 10%;
+        
         width: 100%;
         height: 100%;
-
-        .inventory {
-
-            flex-direction: row-reverse;
-
-            padding: 5%;
-
-            margin-top: 20px;
-            border-radius: 5px;
-            background-color: rgba(0, 0, 0, 0);
-
            
+        .inventory 
+        {
+            
+            position: relative;
+            width: 100%;
+            height: 100%;
+            flex-direction: row-reverse;
+            
+           
+
+            
+            
+            
+
+        .section2 {
+        
+                flex-direction: column;
+                overflow-x: hidden;
+                overflow-y: scroll;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                                
+                left: 13%;
+                z-index: -100;
+
+                .box {
+                
+                        gap: 10px;
+                        position: absolute;
+                        left: 0%;
+                        top: 7.5%;
+                        width: 90%;
+                
+                        height: 3%;
+                        z-index: 100;
+                
+                        align-items: center;
+                
+                        .sort {
+                            flex-direction: row;
+                            position: relative;
+                            font-size: 20%;
+                            font-style: italic;
+                            font-weight: bold;
+                
+                            color: rgb(255, 255, 255);
+                            width: 4.89%;
+                            height: 70%;
+                            background-color: rgb(62, 62, 62);
+                            border-width: 1px;
+                            justify-content: center;
+                            align-items: center;
+                            background-size: 100%;
+                
+                
+                            background-position: center;
+                            border-radius: 5px;
+                
+                            :hover:not(.disabled) {
+                
+                
+                                cursor: pointer;
+                                sound-in: 'hover';
+                
+                                border-radius: 5%;
+                                transform: scale(1.1);
+                            }
+                
+                            &:active:not(.disabled) {
+                                sound-in: 'sound4';
+                                background-color: rgb(250, 134, 39);
+                                padding: 0 1%;
+                                border-radius: 5%;
+                                align-items: center;
+                            }
+                
+                        }
+                
+                
+                    }
+        
+                .box2 {
+                    
+                    gap: 10px;
+                    position: absolute;
+                    left: 0%;
+                    top: 58.5%;
+                    width: 90%;
+                   
+                    height: 3%;
+                    z-index: 100;
+                    
+                    align-items: center;
+        
+                    .sort {
+                        
+                        flex-direction: row;
+                        position: relative;
+                        font-size: 20%;
+                        font-style: italic;
+                        font-weight: bold;
+                        
+                        color: rgb(255, 255, 255);
+                        width: 4.89%;
+                        height: 70%;
+                        background-color: rgb(62, 62, 62);
+                        border-width: 1px;
+                        justify-content: center;
+                        align-items: center;
+                        background-size: 100%;
+        
+        
+                        background-position: center;
+                        border-radius: 5px;
+        
+                        :hover:not(.disabled) {
+        
+        
+                            cursor: pointer;
+                            sound-in: 'hover';
+        
+                            border-radius: 5%;
+                            transform: scale(1.1);
+                        }
+        
+                        &:active:not(.disabled) {
+                            sound-in: 'sound4';
+                            background-color: rgb(250, 134, 39);
+                            padding: 0 1%;
+                            border-radius: 5%;
+                            align-items: center;
+                        }
+        
+                    }
+                    
+        
+                }
+        
+                                .Hello {
+                                    position: relative;
+                                    width: 29%;
+                                    height: 4%;
+                                    top: 1.5%;
+                
+                                    font-size: 32px;
+                                    font-family: 'Geneva', sans-serif;
+                                    color: white;
+                                    z-index: -100;
+                
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    background-color: rgba(255, 255, 255, 0.5);
+                                    mask-image: url("/ui/hud/hpbar2.png");
+                                    mask-size: 100%;
+                                    mask-mode: alpha;
+                                    background-position: center;
+                                    background-size: 100%;
+                                    border-radius: 15px;
+                                    border-width: 1px;
+                                 
+                                    border-color: rgb(255, 255, 255);
+                                    opacity: 1;
+                                    text-align: center;
+                                    text-shadow: 1px 1px 0px rgb(210, 21, 21);
+                                    font-style: italic;
+                                    background: linear-gradient(90deg, rgb(33, 30, 30) 0%, rgb(3, 110, 35) 50%, rgb(178, 229, 85) 100%);
+                                   
+                                    animation: glow 1.5s infinite alternate;
+                
+                                    @keyframes glow {
+                                        from {
+                                            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 0, 0, 0.4);
+                                        }
+                
+                                        to {
+                                            text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.6);
+                                        }
+                                    }
+                                }
+        
+                .items {
+                    position: relative;
+                    
+                    flex-wrap: wrap;
+                    width: 700px;
+                    top:70px;
+
+        
+        
+        
+        
+        
+        
+                }
+                .items2 {
+                    position: relative;
+                    
+                    flex-wrap: wrap;
+                    width: 700px;
+                    top:140px;
+
+        
+        
+        
+        
+        
+        
+                }
+        
+        
+        
+            }
 
 
 
             .section 
             {
-                
-                position: relative;
-                
+               
+                position: absolute;
+                    right: 25%;
+                    bottom: 20%;
+                    width: 30%;
+                    height: 60%;
+                    top: 10%;
+                   
+                background-color: rgba(10, 64, 146, 0);
 
                 .character
                 {
                     position: relative;
+                    justify-content: space-between;
+                    
+                    background-color: rgba(255, 255, 255, 0);
+
+                        .char
+                        {
+                            position: relative;
+                                top: 10%;
+                                width: 100%;
+                                height: 100%;
+                                background-color: rgba(255, 255, 255, 0);
+                            
+                            
+                        }
                     
                     
                     .box
-                    {
-
-                    flex-direction: column;
-
-                    .char 
-                    {
-                            position: relative;
-                            width: 100%;
-                            height: 100%;
-                            left: 10px;
-                            top:-50px;
-                            
                     
-                    
-                        }
+                    {
+                        
+                background-color: rgb(4, 255, 50);
+                   
             
-                    .equippeditems
+                    .Equippeditems
                     {
+                        
+                        right: -70%;
+                        top:20%;
+                    
                         position: absolute;
                         flex-direction: column;
                         gap: 30px;
+                        .helmet {
+                                position: relative;
+                                width: 150%;
+                            }
+                        
+                            .armor {
+                                position: relative;
+                                width: 150%;
+                                right: 20%;
+                            }
+                        
+                            .pants {
+                                position: relative;
+                                width: 150%;
+                            }
                     }
                     .Access
                     {
@@ -119,259 +351,13 @@ Inventory {
 
         }
 
-
     }
 
-    .section2 {
-        flex-direction: column;
-        overflow-x: hidden;
-            overflow-y: scroll;
+    
+    
+    
+    
         
-        .box{
-            gap: 10px;
-            position: relative;
-            top: 5%;
-            left: 1%;
-            height: 4%;
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            .sort 
-                {
-                    flex-direction: row;
-                    position: relative;
-                    font-size: 20px;
-                    font-style: italic;
-                    font-weight: bold;
-                    color: rgb(255, 255, 255);
-                    width: 10%;
-                    height: 100%;
-                    background-color: rgb(62, 62, 62);
-                    border-width: 1px;
-                    justify-content: center;
-                    align-items: center;
-                    background-size: 100%;
-                    
-                   
-                    background-position: center;
-                    border-radius: 5px;
-                    :hover:not(.disabled) 
-                    {
-                    
-                    
-                            cursor: pointer;
-                            sound-in: 'hover';
-                    
-                            border-radius: 5%;
-                            transform: scale(1.1);
-                        }
-                    
-                        &:active:not(.disabled) 
-                        {
-                            sound-in: 'sound4';
-                            background-color: rgb(250, 134, 39);
-                            padding: 0 1%;
-                            border-radius: 5%;
-                            align-items: center;
-                        }
-            
-                }
-                
-        }
-                
-         .Hello {
-             position: relative;
-            width: 100%;
-            height: 7%;
-            top: -5%;
-             font-size: 32px;
-             font-family: Geneva;
-             color: white;
-             z-index: -100;
-       
-             justify-content: center;
-                align-items: center;
-    
-         }
-
-        .items {
-            flex-wrap: wrap;
-            width: 1000px;
-            
-            
-            
-            
-
-        }
-        
-    }
-        .healthbar {
-            position: absolute;
-            left: 2%;
-            width: 29%;
-            height: 15%;
-            bottom: 15%;
-    
-            z-index: 0;
-    
-    
-            opacity: 1;
-            transition: opacity 0.5s ease-in-out;
-    
-    
-            >.healthbar {
-                width: 400px;
-                height: 35px;
-                bottom: 25px;
-                left: 7%;
-                //background-blend-mode: multiply;
-                background-size: 100%;
-                //background-position: center; 
-                //background-image: url("/ui/hud/hpbar2.png");
-                border-right: 1px solid rgb(199, 199, 199);
-    
-                border-right-width: -11px;
-                border: 4px rgba(0, 0, 0, 0.61);
-    
-                border-top-right-radius: -50px -50px;
-                border-top-width: 4px;
-                border-top-color: rgba(255, 255, 255, 0.219);
-    
-                border-bottom-right-radius: 50px;
-                border-bottom-width: 1px;
-                padding: 5px;
-    
-    
-    
-    
-    
-    
-                >.inner {
-    
-                    flex-grow: 10;
-                    background-color: rgba(0, 0, 0, 0.884);
-    
-                    border-right: 1px solid rgba(199, 199, 199, 0);
-                    border-bottom-right-radius: 50px;
-    
-    
-                    >.fill {
-    
-    
-                        height: 100%;
-                        border-right: 1px solid rgba(124, 124, 124, 0.089);
-                        border-right-width: -11px;
-                        border: 4px rgba(0, 0, 0, 0.589);
-    
-                        border-top-right-radius: -50px -50px;
-                        border-top-width: 3px;
-                        border-top-color: rgba(255, 255, 255, 0.219);
-    
-                        border-bottom-right-radius: 50px;
-                        border-bottom-width: 1px;
-    
-                        transition: width 0.5s ease-out;
-    
-    
-    
-    
-    
-    
-                    }
-                }
-    
-            }
-    
-            >p {
-                position: absolute;
-    
-                left: 5%;
-                top: 0%;
-                color: rgb(0, 0, 0);
-                font-size: 20px;
-                border-radius: 10%;
-                font-family: Geneva;
-                font-weight: bold;
-                transition: opacity 0.5s ease-in-out;
-                opacity: 1;
-                background-color: rgba(206, 206, 206, 0);
-                padding: 0px 5px;
-            }
-        }
-    
-    
-    
-        .manabar {
-            position: absolute;
-            left: 12.5%;
-            bottom: 7.5%;
-            border-radius: 8px;
-            opacity: 1;
-            transition: opacity 2.05s ease-in;
-            transform: translateX(-50%);
-            margin: auto;
-            display: flex; // Hinzugefügt
-            flex-direction: row-reverse; // Hinzugefügt
-            justify-content: flex-end; // Hinzugefügt
-            background-blend-mode: multiply;
-    
-    
-    
-            >.manabar {
-                width: 370px;
-                height: 36px;
-                bottom: 60px;
-                left: 22px;
-                background-color: rgba(0, 0, 0, 0);
-                padding: 5px;
-                border-radius: 8px;
-    
-    
-                >.manainner {
-                    background-color: rgba(0, 0, 0, 0.219);
-    
-                    flex-grow: 1;
-    
-                    >.manafill {
-                        height: 100%;
-                        background-image: url("/ui/hud/manabar.png");
-                        background-blend-mode: darken;
-                        background-position-x: center;
-                        border-radius: 0px;
-                        border-right: 15px solid rgba(255, 255, 255, 0.795);
-                        border-right-width: -11px;
-    
-                        border: 5px rgba(116, 116, 116, 0.356);
-    
-                        border-top-right-radius: -50px -50px;
-                        border-top-width: 3px;
-                        border-top-color: rgba(255, 255, 255, 0.26);
-    
-                        border-bottom-right-radius: 50px;
-                        border-bottom-width: 1px;
-    
-                        transition: width 0.5s ease-out;
-    
-    
-                    }
-                }
-    
-                >p {
-                    position: absolute;
-                    left: 6%;
-                    top: 7%;
-                    color: rgb(255, 255, 255);
-                    font-size: 22px;
-                    border-radius: 10%;
-                    font-family: Geneva;
-                    font-weight: 1500;
-                    transition: opacity 1.5s ease-in-out;
-                    opacity: 1;
-                    background-color: rgba(128, 128, 128, 0);
-                    padding: 0px 5px;
-                }
-            }
-        }
 
 
 

@@ -2,6 +2,21 @@
   "__guid": "4f1e547d-7e89-44df-be85-fe9992e06e8e",
   "GameObjects": [
     {
+      "__guid": "ec7744b4-8a0c-432f-a927-4598b166f1ca",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "672c8324-fcd7-4a21-acf2-eb1a316a83e0",
+          "Description": "",
+          "SceneTags": "",
+          "Title": "minimal"
+        }
+      ]
+    },
+    {
       "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
       "Flags": 0,
       "Name": "MapObjects",
@@ -232,11 +247,9 @@
           "Name": "Legendary Chest",
           "PER": 0,
           "PoisonResistence": 0,
-          "Ragdoll": {
-            "_type": "gameobject",
-            "prefab": "models/npcs/slime/chest.prefab"
-          },
+          "RagdollPrefabPath": "models/npcs/slime/chest.prefab",
           "RequiredLevel": 0,
+          "RequiredTier": "C",
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -344,11 +357,9 @@
           "Name": "Legendary Chest",
           "PER": 0,
           "PoisonResistence": 0,
-          "Ragdoll": {
-            "_type": "gameobject",
-            "prefab": "models/npcs/slime/chest.prefab"
-          },
+          "RagdollPrefabPath": "models/npcs/slime/chest.prefab",
           "RequiredLevel": 0,
+          "RequiredTier": "C",
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -456,11 +467,9 @@
           "Name": "Legendary Chest",
           "PER": 0,
           "PoisonResistence": 0,
-          "Ragdoll": {
-            "_type": "gameobject",
-            "prefab": "models/npcs/slime/chest.prefab"
-          },
+          "RagdollPrefabPath": "models/npcs/slime/chest.prefab",
           "RequiredLevel": 0,
+          "RequiredTier": "C",
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -568,11 +577,9 @@
           "Name": "Legendary Chest",
           "PER": 0,
           "PoisonResistence": 0,
-          "Ragdoll": {
-            "_type": "gameobject",
-            "prefab": "models/npcs/slime/chest.prefab"
-          },
+          "RagdollPrefabPath": "models/npcs/slime/chest.prefab",
           "RequiredLevel": 0,
+          "RequiredTier": "C",
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -680,11 +687,9 @@
           "Name": "Legendary Chest",
           "PER": 0,
           "PoisonResistence": 0,
-          "Ragdoll": {
-            "_type": "gameobject",
-            "prefab": "models/npcs/slime/chest.prefab"
-          },
+          "RagdollPrefabPath": "models/npcs/slime/chest.prefab",
           "RequiredLevel": 0,
+          "RequiredTier": "C",
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
@@ -797,7 +802,8 @@
           "__guid": "21781261-d610-41d5-acb0-8227e54e3c85",
           "IsTrigger": false,
           "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Sandbox.Rigidbody",
@@ -846,6 +852,7 @@
           "DEX": 0,
           "DMG": 900,
           "Durability": 0,
+          "EnableHolding": false,
           "Evasion": 0,
           "FireResistence": 0,
           "HE": 0,
@@ -1057,7 +1064,8 @@
           "__guid": "5ee4bdd3-68a9-4e85-b66d-10b48db61aee",
           "IsTrigger": false,
           "Model": "models/blade_moon/blade_moon.vmdl",
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Sandbox.Rigidbody",
@@ -1107,6 +1115,7 @@
           "DEX": 0,
           "DMG": 0,
           "Durability": 0,
+          "EnableHolding": false,
           "Evasion": 0,
           "FireResistence": 0,
           "HE": 0,
@@ -1479,7 +1488,8 @@
               "__guid": "458ee515-05f9-405a-94ef-4d7fbfd458bb",
               "IsTrigger": false,
               "Model": "models/dev/error.vmdl",
-              "Static": false
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -1572,6 +1582,7 @@
           "RenderType": "Off",
           "Static": true,
           "Storage": "terrain/test1.terrain",
+          "SurfaceVelocity": "0,0,0",
           "TerrainHeight": 10000,
           "TerrainSize": 19968
         }
@@ -1649,10 +1660,11 @@
           "EnableCollision": true,
           "IsTrigger": false,
           "RenderType": "Off",
-          "Static": false,
+          "Static": true,
           "Storage": "untitled.terrain",
+          "SurfaceVelocity": "0,0,0",
           "TerrainHeight": 10000,
-          "TerrainSize": 19968
+          "TerrainSize": 319488
         }
       ]
     },
@@ -1661,7 +1673,6 @@
       "Flags": 0,
       "Name": "Object",
       "Position": "44653.29,18421.6,28382.01",
-      "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.GradientFog",
@@ -1672,6 +1683,26 @@
           "Height": 100,
           "StartDistance": 0,
           "VerticalFalloffExponent": 1
+        }
+      ]
+    },
+    {
+      "__guid": "77786695-a18d-4f3d-8221-0853f7655036",
+      "Flags": 0,
+      "Name": "Sun",
+      "Position": "-1160.325,3112.384,8070.62",
+      "Rotation": "0,0.6087614,0,0.7933534",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "263d25e5-3577-4f14-b364-b8199368ad5b",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Shadows": true,
+          "SkyColor": "0,0,0,0"
         }
       ]
     }
@@ -1685,6 +1716,9 @@
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "minimal"
+    },
     "NavMesh": {
       "Enabled": true,
       "IncludeStaticBodies": true,
@@ -1698,9 +1732,9 @@
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "minimal",
-  "Description": "",
-  "ResourceVersion": 1,
+  "Description": null,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }

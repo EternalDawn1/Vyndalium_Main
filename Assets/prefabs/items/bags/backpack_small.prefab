@@ -37,7 +37,8 @@
         "Center": "0,0,0",
         "IsTrigger": true,
         "Radius": 10,
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.Rigidbody",
@@ -62,7 +63,8 @@
         "__guid": "f881106d-be8d-48ed-ab65-e4a83b754925",
         "IsTrigger": false,
         "Model": "models/props/backpack/v1/bag_1.vmdl",
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "GeneralGame.Backpack",
@@ -75,8 +77,10 @@
           "UniformScale": 1,
           "IsValid": true,
           "ForwardRay": {
+            "Position": "-12.44685,-3.339037,-26.84476",
             "Forward": "1,0,0"
           },
+          "Position": "-12.44685,-3.339037,-26.84476",
           "Scale": "1,1,1",
           "Rotation": "0,0,0,1"
         },
@@ -97,6 +101,7 @@
         "DEX": 0,
         "DMG": 0,
         "Durability": 0,
+        "EnableHolding": true,
         "Evasion": 0,
         "FireResistence": 0,
         "HE": 0,
@@ -120,11 +125,12 @@
         "IsBackable": false,
         "IsBackpack": true,
         "IsConsumable": false,
-        "IsEquipment": false,
-        "IsItem": false,
+        "IsEquipment": true,
+        "IsItem": true,
         "IsMaterial": false,
         "IsPotion": false,
         "IsWeapon": false,
+        "IsWorld": false,
         "ItemLevel": 0,
         "LightningResistence": 0,
         "MagicDefense": 0,
@@ -149,13 +155,36 @@
         "StunResistance": 0,
         "Tenacity": 0,
         "Tier": "C",
-        "UpdatePosition": false,
+        "UpdatePosition": true,
         "UseSkinTint": false,
         "WeightInGrams": 0
       }
     ],
     "Children": [],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -163,6 +192,5 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "IsValid": true,
   "__version": 1
 }

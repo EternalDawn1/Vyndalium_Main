@@ -9,7 +9,7 @@
 		ImagePath="ui/hud/exit.gif" style="position: absolute; top: 30px; right: 0px;" style="z-index: 100;" />
 	<SideButton title="Character Menu" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.CharacterMenu)) IsInverted=@(true)
-		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 270px; right: 0px; " style="z-index: 100;" />
+		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 30px; right: 400px; " style="z-index: 100;" />
 	<div class="sidehud">
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Inventory)) IsInverted=@(true)
 			ImagePath="ui/hud/inventory.png" />
@@ -20,53 +20,48 @@
 			ImagePath="ui/hud/materials.png" />
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Potions)) IsInverted=@(true) ImagePath="ui/hud/potions.png" />
 	</div>
-	<div class="list" >
+	<div class="list" CanDragScroll="false" >
 		<div class="inventory" style="opacity: @(currentPanel == PanelType.Inventory ? 1 : 0)">
 			
 			
 
 			<div class="section">
 				<div class="character">
-					
-					<div class="box">
-						<div class="char">
-							<CharacterRenderer @ref=_renderer />
-						</div>
+					<div class="char"><CharacterRenderer @ref=_renderer /></div>
+						<div class="box">
+
 						<div class="EquippedItems">
-							<InventorySlot EquipSlotIndex=@EquipSlot.Head
+							<div class="helmet">
+								<InventorySlot EquipSlotIndex=@EquipSlot.Head style="background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head] />
-							<InventorySlot EquipSlotIndex=@EquipSlot.Body
-								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Body] />
-							<InventorySlot EquipSlotIndex=@EquipSlot.Legs
-								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Legs] />
-							<InventorySlot EquipSlotIndex=@EquipSlot.Feet
-								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Feet] />
-						</div>
-						<div class="Access">
-							<InventorySlot EquipSlotIndex=@EquipSlot.Face
+								<InventorySlot EquipSlotIndex=@EquipSlot.Face style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
-							<InventorySlot EquipSlotIndex=@EquipSlot.Face
-								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
-
-							<InventorySlot EquipSlotIndex=@EquipSlot.Belt
-								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt] />
-							<InventorySlot EquipSlotIndex=@EquipSlot.Bracer
-								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Bracer] />
-						</div>
-
-						<div class="Hands">
-							<InventorySlot EquipSlotIndex=@EquipSlot.Hand
+							</div>
+							<div class="armor">
+								<InventorySlot EquipSlotIndex=@EquipSlot.Hand style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] />
-
-
-						</div>
-						<div class="back">
-							<InventorySlot EquipSlotIndex=@EquipSlot.Back
+								<InventorySlot EquipSlotIndex=@EquipSlot.Body style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Body] />
+								<InventorySlot EquipSlotIndex=@EquipSlot.Back style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
 								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back] />
+								<InventorySlot EquipSlotIndex=@EquipSlot.Bracer style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Bracer] />
+							</div>
+							<div class="pants">
+								<InventorySlot EquipSlotIndex=@EquipSlot.Legs style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Legs] />
+								<InventorySlot EquipSlotIndex=@EquipSlot.Belt style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt] />
+							</div>
+							
+							
+								
+							
+								<InventorySlot EquipSlotIndex=@EquipSlot.Feet style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
+								Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Feet] />
+							
 						</div>
-						
-						
-						
+				
 					</div>
 				</div>
 
@@ -101,7 +96,7 @@
 				}
 				@if (backpackBagItems.Count > 0)
 				{
-					<div class="box">
+					<div class="box2">
 						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.Tier))">
 							Tier</button>
 						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.ItemLevel))">Item
@@ -113,10 +108,13 @@
 						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.Favorite))">
 							Favorite</button>
 					</div>
-					<div class="Hello">Bag Pack</div>
+					<div class="Hello"
+						style="top:4.5%;background: linear-gradient(90deg, rgb(33, 30, 30) 0%, rgb(3, 26, 110) 50%, rgb(5, 227, 243) 100%);">
+						Bag Pack</div>
+					
 				}
-
-				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
+				
+				<div class="items2 @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
 					@for (var index = 0; index < backpackBagItems.Count; index++)
 					{
 						var item = backpackBagItems[index];

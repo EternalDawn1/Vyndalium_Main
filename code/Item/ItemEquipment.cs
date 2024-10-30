@@ -187,10 +187,7 @@ public class ItemEquipment : ItemComponent
 		obj.Transform = transform;
 		(obj as SceneModel)?.Update( RealTime.Delta );
 
-		if ( Input.Pressed( "Attack1" ) && IsWorld )
-		{
-			Swing();
-		}
+		
 	}
 	private void ToggleRenderer( bool value )
 	{
@@ -199,38 +196,7 @@ public class ItemEquipment : ItemComponent
 			Renderer.Enabled = value;
 	}
 
-	public void Swing()
-	{
-		if(IsWorld && IsItem )
-		{
-			var player = Player.Local;
-			if ( player == null )
-			{
-				Log.Error( "Player is null in Swing. GameObject: " + GameObject + ", Parent: " + GameObject?.Parent );
-				return;
-			}
-
-			if ( !player.IsValid() )
-			{
-				Log.Error( "Player is not valid in Swing" );
-				return;
-			}
-
-			var animator = player.AnimationHelper;
-			if ( animator == null )
-			{
-				Log.Error( "Animator is null in Swing" );
-				return;
-			}
-
-			Log.Info( "Setting HoldType to Swing" );
-			animator.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
-			Log.Info( "HoldType set to: " + animator.HoldType );
-			animator.Target?.Set( "b_attack", true );
-
-			Log.Info( "Swing ausgeführt!" );
-		}
-	}
+	
 
 
 

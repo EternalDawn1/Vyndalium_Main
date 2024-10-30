@@ -796,6 +796,10 @@ public sealed class Inventory : Component
 					{
 						_backpackBagItems.Add( null );
 					}
+					var modelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
+					{
+						modelRenderer.Enabled = false;
+					}
 					return true;
 				}
 			}
