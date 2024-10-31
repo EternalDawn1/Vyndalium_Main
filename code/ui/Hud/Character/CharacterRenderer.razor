@@ -1,4 +1,5 @@
 @namespace GeneralGame.HUD
+@using Sandbox.Citizen
 @attribute [StyleSheet]
 @using Sandbox.Utility
 @inherits Panel
@@ -36,6 +37,7 @@
 		_sceneLight ??= new SceneLight( _sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 4f );
 		_sceneDirectionalLight ??= new SceneDirectionalLight( _sceneWorld, global::Rotation.From( 45, -45, 45 ), Color.White * 10f );
 		_character ??= new SceneModel( _sceneWorld, "models/citizen/citizen.vmdl", new Transform( Vector3.Zero, Rotation.From( 0, _yaw, 0 ) ) );
+		_character.SetAnimParameter("holdtype_rifle", true);
 		
 		if ( firstTime ) Refresh();
 
@@ -90,7 +92,7 @@
 			bodygroups |= equipment.HideBodygroups;
 
 			var attachmentTransform = _character.GetAttachment(equipment.Attachment, true) ?? global::Transform.Zero;
-			cloth.Transform = attachmentTransform.ToWorld(equipment.AttachmentTransform);
+            cloth.Transform = attachmentTransform.ToWorld(equipment.AttachmentTransform);
 
 			_character.AddChild( $"clothing_{i}_{equipment.Name}", cloth );
 
@@ -121,8 +123,13 @@
 		_character.SetAnimParameter("lookat", new Vector3(1000f, localPos.x, -localPos.y) * _character.Rotation.Inverse);
 
 		_character.Update( RealTime.Delta );
+
+		// Überprüfen Sie, ob das ausgerüstete Item eine Waffe ist
+		
+		
 		_character.SetAnimParameter( "hold_type", (int)Player.Local.HoldType );
 		_character.Rotation = Rotation.From( 0, _yaw, 0 );
+		
 
 
 		if ( _clothes != null )
@@ -131,11 +138,16 @@
 				_clothes[(int)EquipSlot.Hand].Transform = (_character.GetAttachment( hand.Attachment, true ) ?? global::Transform.Zero)
 					.ToWorld( hand.AttachmentTransform )
 					.WithScale( 1 );
+				_character.SetAnimParameter( "b_swim", (int)Player.Local.HoldType );
+			
+				
 
 			foreach ( var clothing in _clothes )
 				if ( clothing.IsValid() )
 					clothing?.Update( RealTime.Delta );
 		}
+		
+		
 
 		// i'm not sure how to make a fraction 0-1 where 0 is not hovered and 1 is hovered
 		// well i mean I'm doing it this way but I feel there's a better way

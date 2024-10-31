@@ -148,6 +148,13 @@
           "BlackTransition": 2,
           "EndingTransition": 3,
           "StartingTransition": 0
+        },
+        {
+          "__type": "GeneralGame.Blackscreen",
+          "__guid": "c218e217-8ce7-492c-9f8e-4d0cbdcb654a",
+          "BlackTransition": 2,
+          "EndingTransition": 3,
+          "StartingTransition": 0
         }
       ]
     },
@@ -4478,13 +4485,13 @@
                     "DstName": "_target"
                   },
                   {
-                    "Id": 20,
+                    "Id": 16,
                     "Value": 1000,
                     "DstId": 14,
                     "DstName": "max"
                   },
                   {
-                    "Id": 21,
+                    "Id": 17,
                     "Value": 2000,
                     "DstId": 15,
                     "DstName": "max"
@@ -4717,13 +4724,13 @@
                     "DstName": "_target"
                   },
                   {
-                    "Id": 20,
+                    "Id": 16,
                     "Value": 1000,
                     "DstId": 14,
                     "DstName": "max"
                   },
                   {
-                    "Id": 21,
+                    "Id": 17,
                     "Value": 2000,
                     "DstId": 15,
                     "DstName": "max"
@@ -4758,7 +4765,7 @@
                 ],
                 "Links": [
                   {
-                    "Id": 4,
+                    "Id": 2,
                     "Value": "hi",
                     "DstId": 1,
                     "DstName": "_result"
@@ -4795,7 +4802,7 @@
                 ],
                 "Links": [
                   {
-                    "Id": 4,
+                    "Id": 2,
                     "Value": "1,0,1,1",
                     "DstId": 1,
                     "DstName": "_result"
@@ -4844,7 +4851,7 @@
                 ],
                 "Links": [
                   {
-                    "Id": 18,
+                    "Id": 12,
                     "Value": "sounds/error.sound",
                     "DstId": 1,
                     "DstName": "_result"
@@ -4862,13 +4869,13 @@
                     "DstName": "_signal"
                   },
                   {
-                    "Id": 19,
+                    "Id": 13,
                     "Value": "5,5,5",
                     "DstId": 11,
                     "DstName": "position"
                   },
                   {
-                    "Id": 20,
+                    "Id": 14,
                     "Value": "sounds/error.sound",
                     "DstId": 11,
                     "DstName": "soundEvent"
@@ -4925,161 +4932,8 @@
       "Position": "428.051,109.2898,489.39",
       "Scale": "1.5,1.5,1.5",
       "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SkinnedModelRenderer",
-          "__guid": "e2c2cec4-43fa-478d-bec3-8388816e481e",
-          "BodyGroups": 18446744073709551615,
-          "CreateBoneObjects": false,
-          "Model": "models/props/backpack/v1/bag_1.vmdl",
-          "Morphs": {},
-          "Parameters": {
-            "bools": {},
-            "ints": {},
-            "floats": {},
-            "vectors": {},
-            "rotations": {}
-          },
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderType": "On",
-          "Tint": "1,1,1,1",
-          "UseAnimGraph": true
-        },
-        {
-          "__type": "Sandbox.SphereCollider",
-          "__guid": "e493dc5c-3e65-4f4c-b717-70e8f36a6b11",
-          "__enabled": false,
-          "Center": "0,0,0",
-          "IsTrigger": true,
-          "Radius": 10,
-          "Static": false,
-          "SurfaceVelocity": "0,0,0"
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "6ff6f013-9a4a-4687-87aa-972a641395c6",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {
-            "Pitch": true,
-            "Yaw": true,
-            "Roll": true
-          },
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": "DisableCollisionSounds",
-          "StartAsleep": false
-        },
-        {
-          "__type": "Sandbox.ModelCollider",
-          "__guid": "607ff14d-a4d4-4d02-8e96-1e8be39d8bb1",
-          "IsTrigger": false,
-          "Model": "models/props/backpack/v1/bag_1.vmdl",
-          "Static": false,
-          "SurfaceVelocity": "0,0,0"
-        },
-        {
-          "__type": "GeneralGame.Backpack",
-          "__guid": "a8bc0bb0-8893-43d1-a1bb-626c348c1bd1",
-          "AbilityHaste": 0,
-          "Armor": 0,
-          "Aspect": "None",
-          "Attachment": "hand_R",
-          "AttachmentTransform": {
-            "UniformScale": 1,
-            "IsValid": true,
-            "ForwardRay": {
-              "Position": "-12.44685,-3.339037,-26.84476",
-              "Forward": "1,0,0"
-            },
-            "Position": "-12.44685,-3.339037,-26.84476",
-            "Scale": "1,1,1",
-            "Rotation": "0,0,0,1"
-          },
-          "AttackPower": 0,
-          "AttackSpeed": 0,
-          "BleedResistance": 0,
-          "BlindResistance": 0,
-          "BonusEXP": 0,
-          "BonusScore": 0,
-          "BonusVyndalium": 0,
-          "BuyPrice": 100000,
-          "Count": -1,
-          "Cover": 0,
-          "CritHitChance": 0,
-          "CritHitDamage": 0,
-          "DamageBalance": 0,
-          "Description": "0",
-          "DEX": 0,
-          "DMG": 0,
-          "Durability": 0,
-          "EnableHolding": true,
-          "Evasion": 0,
-          "FireResistence": 0,
-          "HE": 0,
-          "Health": 0,
-          "HideBodygroups": "None",
-          "HoldType": "Item",
-          "HolyResistence": 0,
-          "IceResistence": 0,
-          "Icon": {
-            "Model": "models/props/backpack/v1/bag_1.vmdl",
-            "MaterialGroup": "",
-            "Colour": "1,1,1,1",
-            "Position": "-11.4,14.1,11.1",
-            "Rotation": "0.00000003090862,-0.7071068,0.7071068,-0.00000003090862",
-            "Guid": "2d2aa459-3eef-4239-bb69-5ec147eb6a40"
-          },
-          "INT": 0,
-          "IsAccessory": false,
-          "IsArmor": false,
-          "IsAspect": false,
-          "IsBackable": false,
-          "IsBackpack": true,
-          "IsConsumable": false,
-          "IsEquipment": true,
-          "IsItem": true,
-          "IsMaterial": false,
-          "IsPotion": false,
-          "IsWeapon": false,
-          "IsWorld": false,
-          "ItemLevel": 0,
-          "LightningResistence": 0,
-          "MagicDefense": 0,
-          "MagicPower": 0,
-          "Mana": 0,
-          "MaxArmorValue": 0,
-          "MaxAttackValue": 0,
-          "MaxStack": 0,
-          "MinArmorValue": 0,
-          "MinAttackValue": 0,
-          "MoveSpeed": 0,
-          "Name": " Backpack[SMALL]",
-          "PER": 0,
-          "PoisonResistence": 0,
-          "RequiredLevel": 0,
-          "SellPrice": 50000,
-          "ShadowResistence": 0,
-          "Slot": "Back",
-          "SlotAmount": 15,
-          "SlowResistence": 0,
-          "STG": 0,
-          "StunResistance": 0,
-          "Tenacity": 0,
-          "Tier": "C",
-          "UpdatePosition": true,
-          "UseSkinTint": false,
-          "WeightInGrams": 0
-        }
-      ]
+      "__Prefab": "prefabs/items/bags/backpack_small2.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "518ad4f2-3cb9-4da8-afaa-25cb843e6b95",
@@ -5402,6 +5256,330 @@
           "UpdatePosition": true,
           "UseSkinTint": false,
           "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "43d403c3-73cd-452e-8829-cd511f5bd60e",
+      "Flags": 0,
+      "Name": "backpack_big",
+      "Position": "416,224,523.8899",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "__Prefab": "prefabs/items/bags/backpack_big.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "5ddb7680-fca7-4250-8386-3353b8405031",
+      "Flags": 0,
+      "Name": "backpack_big (1)",
+      "Position": "416,160,512",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "93ff0940-db38-4c5d-95c6-7a312bf3f186",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "Model": "models/props/backpack/v1/bag_1.vmdl",
+          "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "47b6ba83-31c3-4de5-9587-33021f35c205",
+          "__enabled": false,
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Radius": 10,
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "edf732f0-9461-412e-9018-c0da0438e329",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "804834d3-3105-41d7-acc7-82a300a5589e",
+          "IsTrigger": false,
+          "Model": "models/props/backpack/v1/bag_1.vmdl",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.Backpack",
+          "__guid": "1ebde6c7-f77a-4143-9e59-5db40a1dd93b",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "None",
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 0.5,
+            "IsValid": true,
+            "ForwardRay": {
+              "Position": "-20.901,-11.006,-0.279",
+              "Forward": "-0.3084731,-0.9493825,0.05930656"
+            },
+            "Position": "-20.901,-11.006,-0.279",
+            "Scale": "0.5,0.5,0.5",
+            "Rotation": "0.33988,-0.5077657,-0.6296114,0.4798386"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 1,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "EnableHolding": false,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Idle",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/props/backpack/v1/bag_1.vmdl",
+            "MaterialGroup": "",
+            "MaterialOverride": "",
+            "LightBrightness": 1,
+            "LightRadius": 1080.7,
+            "LightColour": "1,1,1,1",
+            "DirectionalLightBrightness": 1,
+            "DirectionalLightRotation": "45,-45,45",
+            "DirectionalLightColour": "10,10,10,10",
+            "Colour": "1,1,1,1",
+            "Position": "-1.5,12.45,11.55",
+            "Rotation": "0.7113685,-0.02206494,0.02235563,0.7021169",
+            "Guid": "76b3c492-072d-4c58-8bcd-d76b6b40a89f"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackable": false,
+          "IsBackpack": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": true,
+          "IsMaterial": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": true,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 1,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Backpack[Small]",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "SellPrice": 0,
+          "ShadowResistence": 0,
+          "Slot": "Back",
+          "SlotAmount": 25,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "UpdatePosition": true,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
+      "__guid": "4ca18c08-f231-4b70-ac05-746955aee264",
+      "Flags": 0,
+      "Name": "Player Controller",
+      "Position": "544,134.9345,610.5672",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PlayerController",
+          "__guid": "ee55468e-7d90-4e18-a6fa-0fa6cdd463e4",
+          "Body": {
+            "_type": "component",
+            "component_id": "94024304-6773-41af-8d68-eb8cd151816d",
+            "go": "4ca18c08-f231-4b70-ac05-746955aee264",
+            "component_type": "Rigidbody"
+          },
+          "BodyHeight": 72,
+          "BodyMass": 500,
+          "BodyRadius": 16,
+          "CameraOffset": "256,0,12",
+          "DuckedHeight": 36,
+          "DuckedSpeed": 70,
+          "EnableFootstepSounds": true,
+          "EyeDistanceFromTop": 8,
+          "FootstepMixer": {
+            "Name": "unknown",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          "FootstepVolume": 1,
+          "HideBodyInFirstPerson": true,
+          "JumpSpeed": 300,
+          "Renderer": {
+            "_type": "component",
+            "component_id": "7ddff6dc-b137-4c2e-9a33-99a102013736",
+            "go": "028c191a-cef2-459d-87aa-49194402cd9a",
+            "component_type": "SkinnedModelRenderer"
+          },
+          "RotateWithGround": true,
+          "RotationAngleLimit": 45,
+          "RotationSpeed": 1,
+          "RunSpeed": 320,
+          "ShowColliderComponents": false,
+          "ShowRigidbodyComponent": false,
+          "ThirdPerson": true,
+          "ToggleCameraModeButton": "view",
+          "UseAnimatorControls": true,
+          "UseCameraControls": true,
+          "UseInputControls": true,
+          "WalkSpeed": 110
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "94024304-6773-41af-8d68-eb8cd151816d",
+          "AngularDamping": 1,
+          "Gravity": true,
+          "LinearDamping": 0.1,
+          "Locking": {
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,3.319191",
+          "MassOverride": 500,
+          "MotionEnabled": true,
+          "OverrideMassCenter": true,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "Sandbox.Movement.MoveModeWalk",
+          "__guid": "b800411f-46d3-4703-b784-764a6e48fe8d",
+          "GroundAngle": 45,
+          "Priority": 0,
+          "StepDownHeight": 18,
+          "StepUpHeight": 18
+        },
+        {
+          "__type": "Sandbox.CapsuleCollider",
+          "__guid": "7a5223dc-d6ee-4ca7-919e-36e773f9dbd2",
+          "End": "0,0,45.05097",
+          "Friction": 0,
+          "IsTrigger": false,
+          "Radius": 11.313708,
+          "Start": "0,0,60.68629",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "65ea9726-76db-4988-b211-79efc55faa5d",
+          "Center": "0,0,18",
+          "Friction": 0,
+          "IsTrigger": false,
+          "Scale": "16,16,36",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Movement.MoveModeSwim",
+          "__guid": "7d06da40-4bed-494c-ada2-201a13cf9c63",
+          "Priority": 10,
+          "SwimLevel": 0.7
+        },
+        {
+          "__type": "Sandbox.Movement.MoveModeLadder",
+          "__guid": "32341088-3cd9-4728-8937-c95ef7a8949c",
+          "ClimbableTags": "ladder",
+          "Priority": 5
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "028c191a-cef2-459d-87aa-49194402cd9a",
+          "Flags": 0,
+          "Name": "Body",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "7ddff6dc-b137-4c2e-9a33-99a102013736",
+              "BodyGroups": 341,
+              "CreateBoneObjects": false,
+              "Model": "models/citizen/citizen.vmdl",
+              "Morphs": {},
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            }
+          ]
         }
       ]
     }

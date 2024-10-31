@@ -12,13 +12,16 @@
 		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 30px; right: 400px; " style="z-index: 100;" />
 	<div class="sidehud">
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Inventory)) IsInverted=@(true)
-			ImagePath="ui/hud/inventory.png" />
-		<SideButton OnClick=@(() => ShowPanel(PanelType.Food)) IsInverted=@(true) ImagePath="ui/hud/food.png" />
+			ImagePath="ui/hud/inventory.png" title="Inventory" TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:cyan; width:100%;" />
+
+		<SideButton OnClick=@(() => ShowPanel(PanelType.Food)) IsInverted=@(true) ImagePath="ui/hud/food.png" title="Player" TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:purple; width:100%;"  />
+
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Weapons)) IsInverted=@(true) ImagePath="ui/hud/weapons.png" />
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Armor)) IsInverted=@(true) ImagePath="ui/hud/armor.png" />
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Materials)) IsInverted=@(true)
 			ImagePath="ui/hud/materials.png" />
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Potions)) IsInverted=@(true) ImagePath="ui/hud/potions.png" />
+		
 	</div>
 	<div class="list" CanDragScroll="false" >
 		<div class="inventory" style="opacity: @(currentPanel == PanelType.Inventory ? 1 : 0)">
@@ -124,10 +127,9 @@
 
 				<div style="align-items: center; margin: 20px 5px;"></div>
 			</div>
-			
-			
-
+		</div>
 		<div class="Food" style="opacity: @(currentPanel == PanelType.Food ? 1 : 0)">
+			<CharacterMenu/>
 
 		</div>
 		<div class="Weapons" style="opacity: @(currentPanel == PanelType.Weapons ? 1 : 0)">
@@ -142,6 +144,9 @@
 		<div class="Potions" style="opacity: @(currentPanel == PanelType.Potions ? 1 : 0)">
 			<!-- Potions Content -->
 		</div>
+			
+
+		
 
 
 

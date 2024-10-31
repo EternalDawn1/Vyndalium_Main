@@ -27,242 +27,225 @@ public enum HoldType : byte
 
 public class ItemEquipment : ItemComponent
 {
-	public static Model Parcel = Model.Load( "models/props/parcel/clothing_parcel.vmdl" );
-	[Property, Category( "Equipment" )] public bool IsBackable { get; set; }
-	[Property, Category( "Equipment" )] public EquipSlot Slot { get; set; } = EquipSlot.Hand;
-	[Property, Category( "Equipment" )] public HiddenBodyGroup HideBodygroups { get; set; }
-	[Property, Category( "Equipment" )] public bool UseSkinTint { get; set; }
+    public static Model Parcel = Model.Load("models/props/parcel/clothing_parcel.vmdl");
 
-	[Property, Category( "Holding" )]
-	public bool EnableHolding { get; set; } = false;
+    [Property, Category("Equipment")] public bool IsBackable { get; set; }
+    [Property, Category("Equipment")] public EquipSlot Slot { get; set; } = EquipSlot.Hand;
+    [Property, Category("Equipment")] public HiddenBodyGroup HideBodygroups { get; set; }
+    [Property, Category("Equipment")] public bool UseSkinTint { get; set; }
 
-	[Property, Category( "Holding" ), ShowIf( "EnableHolding", true ), ShowIf( "Slot", EquipSlot.Hand ), ShowIf( "Slot", EquipSlot.Back )]
-	public HoldType HoldType { get; set; } = HoldType.Item;
+    [Property, Category("Holding")]
+    public bool EnableHolding { get; set; } = false;
 
-	[Property, Category( "Holding" ), ShowIf( "EnableHolding", true )]
-	public bool UpdatePosition { get; set; }
+    [Property, Category("Holding"), ShowIf("EnableHolding", true), ShowIf("Slot", EquipSlot.Hand), ShowIf("Slot", EquipSlot.Back)]
+    public HoldType HoldType { get; set; } = HoldType.Item;
 
-	[Property, Category( "Holding" ), ShowIf( "EnableHolding", true ), ShowIf( "UpdatePosition", true )]
-	public string Attachment { get; set; } = "hand_R";
+    [Property, Category("Holding"), ShowIf("EnableHolding", true)]
+    public bool UpdatePosition { get; set; }
 
-	[Property, Category( "Holding" ), ShowIf( "EnableHolding", true ), ShowIf( "UpdatePosition", true )]
-	public Transform AttachmentTransform { get; set; } = global::Transform.Zero;
-	private ModelRenderer parcelRenderer;
-	private BoxCollider parcelCollider;
-	private Rigidbody parcelBody;
-	private GameObject iconWorldObject;
-	public ModelRenderer Renderer { get; private set; }
-	public WeaponComponent Weapon { get; private set; }
+    [Property, Category("Holding"), ShowIf("EnableHolding", true), ShowIf("UpdatePosition", true)]
+    public string Attachment { get; set; } = "hand_R";
 
-	
+    [Property, Category("Holding"), ShowIf("EnableHolding", true), ShowIf("UpdatePosition", true)]
+    public Transform AttachmentTransform { get; set; } = global::Transform.Zero;
 
+    private ModelRenderer parcelRenderer;
+    private BoxCollider parcelCollider;
+    private Rigidbody parcelBody;
+    private GameObject iconWorldObject;
+    public ModelRenderer Renderer { get; private set; }
+    public WeaponComponent Weapon { get; private set; }
 
+    private readonly SoundEvent _equipSound = ResourceLibrary.Get<SoundEvent>("sounds/misc/pickup.sound");
 
-	public void UpdateEquipped()
-	{
-		if ( Equipped )
-			ToggleRenderer( Equipped );
+    public bool IsClothing => Slot != EquipSlot.Hand;
+    public bool Equipped => State == ItemState.Equipped;
 
-		// Use skin color as tint.
-		var player = GameObject.Parent?.Components?.Get<Player>( true );
-		if ( Renderer != null && UseSkinTint && player != null )
-			
+    public void UpdateEquipped()
+    {
+        if (Equipped)
+            ToggleRenderer(Equipped);
 
-		// Bonemerge
-		if ( Renderer is SkinnedModelRenderer skinned && !UpdatePosition )
-		{
-			skinned.BoneMergeTarget = Equipped
-				? GameObject.Parent?.Components.Get<SkinnedModelRenderer>( FindMode.EverythingInChildren )
-				: null;
-		}
+        // Use skin color as tint.
+        
+            
 
-		// Toggle colliders and rigidbodies, update parcel
-		if ( !IsClothing )
-		{
-			var body = GameObject?.Components.GetAll<Rigidbody>( FindMode.EverythingInSelfAndChildren ).FirstOrDefault( x => x != parcelBody );
-			if ( body != null ) body.Enabled = !Equipped;
+        // Bonemerge
+        if (Renderer is SkinnedModelRenderer skinned && !UpdatePosition)
+        {
+            skinned.BoneMergeTarget = Equipped
+                ? GameObject.Parent?.Components.Get<SkinnedModelRenderer>(FindMode.EverythingInChildren)
+                : null;
+        }
 
-			var collider = GameObject?.Components.GetAll<Collider>( FindMode.EverythingInSelfAndChildren ).FirstOrDefault( x => x != parcelCollider );
-			if ( collider != null ) collider.Enabled = !Equipped;
-		}
-		else if ( State != ItemState.Backpack )
-			UpdateParcel( State == ItemState.None );
-	}
+        // Toggle colliders and rigidbodies, update parcel
+        if (!IsClothing)
+        {
+            var body = GameObject?.Components.GetAll<Rigidbody>(FindMode.EverythingInSelfAndChildren).FirstOrDefault(x => x != parcelBody);
+            if (body != null) body.Enabled = !Equipped;
 
-	private void UpdateParcel( bool value )
-	{
-		ToggleRenderer( !value );
+            var collider = GameObject?.Components.GetAll<Collider>(FindMode.EverythingInSelfAndChildren).FirstOrDefault(x => x != parcelCollider);
+            if (collider != null) collider.Enabled = !Equipped;
+        }
+        else if (State != ItemState.Backpack)
+            UpdateParcel(State == ItemState.None);
+    }
 
-		// Create
-		if ( value )
-		{
-			parcelRenderer ??= Components.Create<ModelRenderer>();
-			parcelRenderer.Enabled = true;
-			parcelRenderer.Model = Parcel;
+    private void ToggleRenderer(bool value)
+    {
+        Renderer ??= Components.GetAll<ModelRenderer>(FindMode.InSelf).FirstOrDefault(x => x != parcelRenderer);
+        if (Renderer.IsValid())
+            Renderer.Enabled = value;
+    }
 
-			parcelCollider ??= Components.Create<BoxCollider>();
-			parcelCollider.Center = Vector3.Up * 4.8f;
-			parcelCollider.Scale = new Vector3( 27f, 27f, 7.5f );
-			parcelCollider.Enabled = true;
+    private void UpdateParcel(bool value)
+    {
+        ToggleRenderer(!value);
 
-			parcelBody ??= Components.Create<Rigidbody>();
-			parcelBody.Enabled = true;
+        // Create
+        if (value)
+        {
+            parcelRenderer ??= Components.Create<ModelRenderer>();
+            parcelRenderer.Enabled = true;
+            parcelRenderer.Model = Parcel;
 
-			CreateIconWorldPanel();
-			iconWorldObject.Enabled = true;
+            parcelCollider ??= Components.Create<BoxCollider>();
+            parcelCollider.Center = Vector3.Up * 4.8f;
+            parcelCollider.Scale = new Vector3(27f, 27f, 7.5f);
+            parcelCollider.Enabled = true;
 
-			return;
-		}
+            parcelBody ??= Components.Create<Rigidbody>();
+            parcelBody.Enabled = true;
 
-		// Remove
-		if ( parcelRenderer == null || iconWorldObject == null || parcelCollider == null || parcelBody == null )
-			return;
+            CreateIconWorldPanel();
+            iconWorldObject.Enabled = true;
 
-		parcelRenderer.Enabled = false;
-		iconWorldObject.Enabled = false;
-		parcelCollider.Enabled = false;
-		parcelBody.Enabled = false;
-	}
+            return;
+        }
 
+        // Remove
+        if (parcelRenderer == null || iconWorldObject == null || parcelCollider == null || parcelBody == null)
+            return;
 
-	private readonly SoundEvent _equipSound = ResourceLibrary.Get<SoundEvent>( "sounds/misc/pickup.sound" );
+        parcelRenderer.Enabled = false;
+        iconWorldObject.Enabled = false;
+        parcelCollider.Enabled = false;
+        parcelBody.Enabled = false;
+    }
 
-	public bool IsClothing => Slot != EquipSlot.Hand;
-	public bool Equipped => State == ItemState.Equipped;
+    private void CreateIconWorldPanel()
+    {
+        if (iconWorldObject is not null)
+            return;
 
-	private void CreateIconWorldPanel()
-	{
-		if ( iconWorldObject is not null )
-			return;
+        iconWorldObject = new GameObject { Parent = GameObject };
+        iconWorldObject.WorldPosition = new Vector3(0, 0, 5);
+        iconWorldObject.WorldRotation = Rotation.FromPitch(90);
+        iconWorldObject.Components.GetOrCreate<Sandbox.WorldPanel>();
+        iconWorldObject.Components.GetOrCreate<IconWorldPanel>().Icon = IconTexture;
+    }
 
-		iconWorldObject = new GameObject { Parent = GameObject };
-		iconWorldObject.LocalPosition = new Vector3( 0, 0, 5 );
-		iconWorldObject.LocalRotation = Rotation.FromPitch( 90 );
-		iconWorldObject.Components.GetOrCreate<Sandbox.WorldPanel>();
-		iconWorldObject.Components.GetOrCreate<IconWorldPanel>().Icon = IconTexture;
-	}
+    protected override void OnStart()
+    {
+        base.OnStart();
 
+        var interactions = Components.GetOrCreate<Interactions>();
+        interactions.AddInteraction(new Interaction()
+        {
+            Identifier = $"item.equipped.{Name}",
+            Action = (Player interactor, GameObject obj) => interactor.Inventory.EquipItemFromWorld(this),
+            Keybind = "use2",
+            Description = "Equip",
+            Disabled = () => Player.Local.Inventory.IsSlotOccupied(Slot),
+            ShowWhenDisabled = () => true,
+            Accessibility = AccessibleFrom.World,
+            Sound = () => _equipSound,
+        });
 
+        Renderer ??= Components.GetAll<ModelRenderer>(FindMode.InSelf).FirstOrDefault(x => x != parcelRenderer);
+        if (Renderer != null) Renderer.RenderType = ModelRenderer.ShadowRenderType.On;
+    }
 
+    protected override void OnPreRender()
+    {
+        if (!Equipped || !UpdatePosition || !Game.IsPlaying || GameObject == Scene)
+            return;
 
+        var player = GameObject.Parent.Components.Get<Player>(true);
+        if (player == null)
+            return;
 
+        var obj = Renderer?.SceneObject;
+        if (!obj.IsValid())
+            return;
 
+        var transform = player.GetAttachment(Attachment, true).ToWorld(AttachmentTransform);
+        obj.Transform = transform;
+        (obj as SceneModel)?.Update(RealTime.Delta);
+    }
 
-	protected override void OnStart()
-	{
-		base.OnStart();
+    #region GIZMO STUFF
+    private SceneModel _model;
+    private SceneObject GetModel()
+    {
+        var world = Game.ActiveScene?.SceneWorld;
+        if (world == null)
+            return null;
 
-		var interactions = Components.GetOrCreate<Interactions>();
-		interactions.AddInteraction( new Interaction()
-		{
-			Identifier = $"item.equipped.{Name}",
-			Action = ( Player interactor, GameObject obj ) => interactor.Inventory.EquipItemFromWorld( this ),
-			Keybind = "use2",
-			Description = "Equip",
-			Stats = "Stats",
-			Disabled = () => Player.Local.Inventory.IsSlotOccupied( Slot ),
-			ShowWhenDisabled = () => true,
-			Accessibility = AccessibleFrom.World,
-			Sound = () => _equipSound,
-		} );
+        _model ??= new SceneModel(world, "models/citizen/citizen.vmdl", global::Transform.Zero);
+        _model.RenderingEnabled = true;
+        return _model;
+    }
 
+    protected override void DrawGizmos()
+    {
+        var ignore = false;
+        if (!UpdatePosition || Attachment == string.Empty)
+            ignore = true;
 
-		Renderer ??= Components.GetAll<SkinnedModelRenderer>( FindMode.InSelf ).FirstOrDefault( x => x != parcelRenderer );
-		if ( Renderer != null ) Renderer.RenderType = ModelRenderer.ShadowRenderType.On;
-	}
+        if (ignore || GameObject != Game.ActiveScene)
+            ignore = true;
 
-	protected override void OnPreRender()
-	{
-		if ( !Equipped || !UpdatePosition || !Game.IsPlaying || GameObject == Scene )
-			return;
+        if (ignore || !Gizmo.HasSelected)
+        {
+            if (_model != null)
+                _model.RenderingEnabled = false;
 
-		var player = GameObject.Parent.Components.Get<Player>( true );
-		if ( player == null )
-			return;
+            return;
+        }
 
-		var obj = Renderer?.SceneObject;
-		if ( !obj.IsValid() )
-			return;
+        var model = GetModel();
+        if (model == null)
+            return;
 
-		var transform = player.GetAttachment( Attachment, true ).ToWorld( AttachmentTransform );
-		obj.Transform = transform;
-		(obj as SceneModel)?.Update( RealTime.Delta );
+        var renderer = Components.Get<ModelRenderer>(FindMode.EverythingInSelfAndDescendants);
+        if (renderer == null || renderer.Model == null)
+            return;
 
-		
-	}
-	private void ToggleRenderer( bool value )
-	{
-		Renderer ??= Components.GetAll<ModelRenderer>( FindMode.InSelf ).FirstOrDefault( x => x != parcelRenderer );
-		if ( Renderer.IsValid() )
-			Renderer.Enabled = value;
-	}
+        var attachment = _model.GetAttachment(Attachment) ?? global::Transform.Zero;
+        Gizmo.Draw.Model(renderer.Model, model.Transform);
 
-	
+        Gizmo.Draw.IgnoreDepth = true;
+        Gizmo.Draw.SolidSphere(attachment.Position, 0.1f);
+        Gizmo.Draw.IgnoreDepth = false;
 
+        model.Transform = attachment.ToWorld(AttachmentTransform);
 
+        using (Gizmo.Scope($"{Name}", new Transform(model.Position, model.Rotation)))
+        {
+            Gizmo.Hitbox.DepthBias = 0.01f;
 
-	#region GIZMO STUFF
-	private SceneModel _model;
-	private SceneObject GetModel()
-	{
-		var world = Game.ActiveScene?.SceneWorld;
-		if ( world == null )
-			return null;
+            if (Gizmo.IsShiftPressed)
+            {
+                if (Gizmo.Control.Rotate("rotate", out var rotate))
+                    AttachmentTransform = AttachmentTransform.WithRotation(AttachmentTransform.Rotation * rotate.ToRotation());
 
-		_model ??= new SceneModel( world, "models/citizen/citizen.vmdl", global::Transform.Zero );
-		_model.RenderingEnabled = true;
-		return _model;
-	}
+                return;
+            }
 
-	protected override void DrawGizmos()
-	{
-		var ignore = false;
-		if ( !UpdatePosition || Attachment == string.Empty )
-			ignore = true;
-
-		if ( ignore || GameObject != Game.ActiveScene )
-			ignore = true;
-
-		if ( ignore || !Gizmo.HasSelected )
-		{
-			if ( _model != null )
-				_model.RenderingEnabled = false;
-
-			return;
-		}
-
-		var model = GetModel();
-		if ( model == null )
-			return;
-
-		var renderer = Components.Get<ModelRenderer>( FindMode.EverythingInSelfAndDescendants );
-		if ( renderer == null || renderer.Model == null )
-			return;
-
-		var attachment = _model.GetAttachment( Attachment ) ?? global::Transform.Zero;
-		Gizmo.Draw.Model( renderer.Model, model.Transform );
-
-		Gizmo.Draw.IgnoreDepth = true;
-		Gizmo.Draw.SolidSphere( attachment.Position, 0.1f );
-		Gizmo.Draw.IgnoreDepth = false;
-
-		model.Transform = attachment.ToWorld( AttachmentTransform );
-
-		using ( Gizmo.Scope( $"{Name}", new Transform( model.Position, model.Rotation ) ) )
-		{
-			Gizmo.Hitbox.DepthBias = 0.01f;
-
-			if ( Gizmo.IsShiftPressed )
-			{
-				if ( Gizmo.Control.Rotate( "rotate", out var rotate ) )
-					AttachmentTransform = AttachmentTransform.WithRotation( AttachmentTransform.Rotation * rotate.ToRotation() );
-
-				return;
-			}
-
-			if ( Gizmo.Control.Position( "position", Vector3.Zero, out var pos ) )
-				AttachmentTransform = AttachmentTransform.WithPosition( AttachmentTransform.Position + pos * AttachmentTransform.Rotation );
-		}
-	}
-	#endregion
+            if (Gizmo.Control.Position("position", Vector3.Zero, out var pos))
+                AttachmentTransform = AttachmentTransform.WithPosition(AttachmentTransform.Position + pos * AttachmentTransform.Rotation);
+        }
+    }
+    #endregion
 }
