@@ -1,22 +1,21 @@
 {
   "RootObject": {
-    "__guid": "6962692b-0e46-4a82-9d3a-c70745852d86",
+    "__guid": "6241d104-da51-4a5c-9f78-8ffbccc18039",
     "Flags": 0,
-    "Name": "moon",
-    "Scale": "1.5,1.5,1.5",
+    "Name": "fullmoon",
     "Enabled": true,
     "Components": [
       {
         "__type": "Sandbox.ModelCollider",
-        "__guid": "2cedae9b-3b4e-4126-ad8b-a27833cfb628",
+        "__guid": "d716b726-6739-48cb-b7ec-9fc7ba686c9f",
         "IsTrigger": false,
-        "Model": "models/blade_moon/blade_moon.vmdl",
+        "Model": "models/new_moon_sword/fullmoon_sword_2.vmdl",
         "Static": false,
         "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "a01ba4ad-8656-4e28-9a73-414fa6a61ecf",
+        "__guid": "88024fe2-369a-4e3e-8cb8-67dff1ff099d",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
@@ -30,7 +29,7 @@
       },
       {
         "__type": "GeneralGame.ItemEquipment",
-        "__guid": "3bbc148d-dd63-4d3a-a78a-4b86d869521d",
+        "__guid": "e218c382-bf70-41f2-a04a-f9f8f0e73cdc",
         "AbilityHaste": 0,
         "Armor": 0,
         "Aspect": "None",
@@ -39,12 +38,12 @@
           "UniformScale": 1,
           "IsValid": true,
           "ForwardRay": {
-            "Position": "-1.761208,-22.12263,-3.050338",
-            "Forward": "0.00000008940697,0,-0.9999999"
+            "Position": "4.425631,-1.547405,-1.557003",
+            "Forward": "-0.04557699,-0.05509084,0.9974407"
           },
-          "Position": "-1.761208,-22.12263,-3.050338",
+          "Position": "4.425631,-1.547405,-1.557003",
           "Scale": "1,1,1",
-          "Rotation": "-0.406085,0.5788738,0.406085,0.5788738"
+          "Rotation": "0.5508571,0.4038469,0.5997467,-0.416855"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
@@ -72,19 +71,19 @@
         "HolyResistence": 0,
         "IceResistence": 0,
         "Icon": {
-          "Model": "models/blade_moon/blade_moon.vmdl",
+          "Model": "models/new_moon_sword/fullmoon_sword_2.vmdl",
           "MaterialGroup": "",
           "MaterialOverride": "",
-          "LightBrightness": 1,
-          "LightRadius": 1000,
+          "LightBrightness": 15.4,
+          "LightRadius": 1034.95,
           "LightColour": "1,1,1,1",
           "DirectionalLightBrightness": 1,
           "DirectionalLightRotation": "45,-45,45",
           "DirectionalLightColour": "10,10,10,10",
           "Colour": "1,1,1,1",
-          "Position": "20.1,26.7,72.3",
-          "Rotation": "0.00000004122323,0.9430776,-0.3325727,-0.00000001453722",
-          "Guid": "ee43c556-dc26-4412-95ff-46d522e918f5"
+          "Position": "31.34999,15.45,34.35",
+          "Rotation": "0.00000004051419,-0.9268566,0.3754157,-0.00000001640994",
+          "Guid": "f8fe361b-479f-4a9c-9454-e6179a27f136"
         },
         "INT": 0,
         "IsAccessory": false,
@@ -128,10 +127,16 @@
         "WeightInGrams": 0
       },
       {
+        "__type": "GeneralGame.Axe",
+        "__guid": "d5184022-8e08-47db-bd6c-0b5a6825756f",
+        "Damage": 5,
+        "Type": "Average"
+      },
+      {
         "__type": "Sandbox.ModelRenderer",
-        "__guid": "1ae5887b-84a3-4e92-b27f-d56bbd9b1f25",
+        "__guid": "335110a8-f4d8-4a11-9a3c-cd2246d6f8fd",
         "BodyGroups": 18446744073709551615,
-        "Model": "models/blade_moon/blade_moon.vmdl",
+        "Model": "models/new_moon_sword/fullmoon_sword_2.vmdl",
         "RenderOptions": {
           "GameLayer": true,
           "OverlayLayer": false,
@@ -140,12 +145,6 @@
         },
         "RenderType": "On",
         "Tint": "1,1,1,1"
-      },
-      {
-        "__type": "GeneralGame.Axe",
-        "__guid": "aec42bea-9d16-4f2f-aa11-b8318cf4bb8e",
-        "Damage": 5,
-        "Type": "Average"
       }
     ],
     "Children": [],

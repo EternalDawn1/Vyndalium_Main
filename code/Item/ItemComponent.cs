@@ -48,6 +48,8 @@ public enum AspectType
 
 public class ItemComponent : Component
 {
+	[Property, Group( "General" )]
+	public bool IsMelee { get; set; }
 
 	public bool IsFavorite { get; set; }
 	[Property, Group( "Type" )]

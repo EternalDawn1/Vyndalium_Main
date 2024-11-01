@@ -25,11 +25,11 @@ public partial class Player : Component, IHealthComponent
 	[Property]public int DefaultAmmo { get; set; }
 	private float crouchProgress = 0f;
 	private const float crouchSpeed = 5f;
-
+	public ItemEquipment EquippedItem => Inventory?.GetEquippedHandItem();
 	private Vector3 targetCameraPosition;
 	[Property] public AmmoContainer Ammo { get; set; } = new AmmoContainer();
 	public BaseGun CurrentWeapon { get; set; }
-	[Property] public CharacterController2 CharacterController { get; set; }
+	[Property] public CharacterController CharacterController { get; set; }
 	[Property] public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject Head { get; set; }
 	[Property] public GameObject Eye { get; set; }
@@ -458,7 +458,7 @@ public partial class Player : Component, IHealthComponent
 
 		if(CharacterController == null)
 		{
-			CharacterController = Components.Get<CharacterController2>();
+			CharacterController = Components.Get<CharacterController>();
 		}
 
 		CharacterController.IgnoreLayers.Add( "player" );
@@ -620,7 +620,33 @@ public partial class Player : Component, IHealthComponent
 		// Implementierung abhängig von der spezifischen Logik Ihrer Anwendung
 		return new List<SceneObject>(); // Beispielrückgabe
 	}
+	public void StartSwingAnimation()
+	{
+		if ( GameObject == null )
+		{
+			Log.Warning( "GameObject is null." );
+			return;
+		}
 
+		var animator = GameObject.Components.Get<CitizenAnimationHelper>();
+		if ( animator == null )
+		{
+			// Fügen Sie die CitizenAnimationHelper-Komponente hinzu, falls sie nicht vorhanden ist
+			animator = GameObject.Components.Create<CitizenAnimationHelper>();
+			Log.Info( "CitizenAnimationHelper-Komponente hinzugefügt." );
+		}
+
+		if ( animator != null  )
+		{
+			animator.Target.Set( "b_attack", true );
+			animator.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
+			Log.Info( "Swing animation started." );
+		}
+		else
+		{
+			Log.Warning( "No animator or animator target found." );
+		}
+	}
 
 	protected override void OnPreRender()
 	{
@@ -632,7 +658,11 @@ public partial class Player : Component, IHealthComponent
 	bool isLowHealthSoundPlaying = false;
 
 	bool isMidHealthSoundPlaying = false;
-
+	public bool IsSwinging { get; set; }
+	private float swingCooldown = 1.0f; // Cooldown-Zeit in Sekunden
+	private float lastSwingTime = -1.0f;
+	private float swingDuration = 0.5f; // Dauer der Swing-Animation in Sekunden
+	private float swingStartTime = -1.0f;
 	protected override void OnUpdate()
 	{
 		if ( IsProxy )
@@ -653,7 +683,29 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		}
-	
+		if ( Input.Down( "attack1" ) && Time.Now >= lastSwingTime + swingCooldown )
+		{
+			if ( EquippedItem == null )
+			{
+				
+			}
+			else if ( EquippedItem.Slot == EquipSlot.Hand && EquippedItem.IsMelee )
+			{
+				Log.Info( "Attack1 pressed" );
+				StartSwingAnimation();
+				IsSwinging = true;
+				lastSwingTime = Time.Now;
+				swingStartTime = Time.Now;
+			}
+		}
+
+		// Überprüfen, ob die Animationsdauer abgelaufen ist
+		if ( IsSwinging && Time.Now >= swingStartTime + swingDuration )
+		{
+			Log.Info( "Swing animation completed" );
+			IsSwinging = false;
+		}
+
 
 		for ( int i = activeStatusEffects.Count - 1; i >= 0; i-- ) 
 		{
@@ -787,7 +839,15 @@ public partial class Player : Component, IHealthComponent
 
 		foreach ( var animator in Animators )
 		{
-			animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.None;
+			if ( !IsSwinging )
+			{
+				animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.None;
+			}
+			else if ( IsSwinging )
+			{
+				animator.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
+				
+			}
 			animator.WithVelocity( CharacterController.Velocity );
 			animator.WithWishVelocity( WishVelocity );
 			animator.IsGrounded = CharacterController.IsOnGround;

@@ -1595,7 +1595,10 @@ public sealed class Inventory : Component
 		}
 
 	}
-
+	public ItemEquipment GetEquippedHandItem()
+	{
+		return _equippedItems[(int)EquipSlot.Hand] as ItemEquipment;
+	}
 	/// <summary>
 	/// The item is equipped.
 	/// </summary>

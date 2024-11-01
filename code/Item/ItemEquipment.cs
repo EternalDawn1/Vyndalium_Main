@@ -61,6 +61,8 @@ public class ItemEquipment : ItemComponent
     public bool IsClothing => Slot != EquipSlot.Hand;
     public bool Equipped => State == ItemState.Equipped;
 
+   
+
     public void UpdateEquipped()
     {
         if (Equipped)
@@ -87,10 +89,12 @@ public class ItemEquipment : ItemComponent
             var collider = GameObject?.Components.GetAll<Collider>(FindMode.EverythingInSelfAndChildren).FirstOrDefault(x => x != parcelCollider);
             if (collider != null) collider.Enabled = !Equipped;
         }
+
+        
+
         else if (State != ItemState.Backpack)
             UpdateParcel(State == ItemState.None);
     }
-
     private void ToggleRenderer(bool value)
     {
         Renderer ??= Components.GetAll<ModelRenderer>(FindMode.InSelf).FirstOrDefault(x => x != parcelRenderer);
@@ -144,6 +148,7 @@ public class ItemEquipment : ItemComponent
         iconWorldObject.Components.GetOrCreate<Sandbox.WorldPanel>();
         iconWorldObject.Components.GetOrCreate<IconWorldPanel>().Icon = IconTexture;
     }
+  
 
     protected override void OnStart()
     {
