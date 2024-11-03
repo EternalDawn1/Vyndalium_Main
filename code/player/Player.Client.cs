@@ -11,7 +11,7 @@ namespace GeneralGame
         public Dictionary<AmmoType, int> AmmoReserve { get; set; } = new Dictionary<AmmoType, int>();
 
         public static Player Local { get; set; }
-        System.UInt64 SteamId { get; set; }
+        public System.UInt64 SteamId { get; set; }
         public FullScreenManager FullScreenManager { get; set; }
 
         private Guid _guid;

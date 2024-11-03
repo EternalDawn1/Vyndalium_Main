@@ -95,7 +95,12 @@
             cloth.Transform = attachmentTransform.ToWorld(equipment.AttachmentTransform);
 
 			_character.AddChild( $"clothing_{i}_{equipment.Name}", cloth );
-
+			
+			
+				
+				_character.SetAnimParameter("holdtype", (int)CitizenAnimationHelper.HoldTypes.None);
+				Log.Info("HoldType set to Swing.");
+			
 			
 			
 		}

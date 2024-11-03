@@ -118,15 +118,14 @@
 		<div class="healthbar">
 			<div class="healthbar" style="background-color: @GetHealthBarColor();">
 				<div class="inner">
-					<div class="fill"
-						style="width: @(player.Health/player.MaxHealth *  100f)%; background-color: @GetHealthBarColor();">
+					<div class="fill @(GetHealthBarClass())"
+						style="width: @(player.Health / player.MaxHealth * 100f)%; background-color: @GetHealthBarColor(); color: @GetTextColor();">
+						
 					</div>
 				</div>
-				<p> @Math.Round(player.Health) / @Math.Round(player.MaxHealth)</p>
+				<p style="color: @GetTextColor();"> @Math.Round(player.Health) / @Math.Round(player.MaxHealth)</p>
 			</div>
-
 		</div>
-
 
 		<div class="manabar">
 			<div class="manabar">
@@ -146,6 +145,23 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="hud-container">
+			<div class="about">
+				@if (player.Connection.SteamId > 0)
+				{
+					<div class="avatar" style="background-image: url( avatar:@player.Connection.SteamId )"></div>
+					<div class="a">@player.Connection.DisplayName</div>
+				}
+			</div>
+			
+			
+			<div class="b">@player.Level</div>
+		
+			
+
+	
+		</div>
 	}
 
 
@@ -156,6 +172,7 @@
 @code
 {
 	public Hud hud;
+	
 
 	[Property] public Gradient HealthGradient { get; set; }
 
@@ -174,9 +191,26 @@
 		return HealthGradient.Evaluate(healthPercentage).ToString();
 	}
 
+	private string GetTextColor()
+	{
+		var healthPercentage = player.Health / player.MaxHealth;
+		// Berechne die Textfarbe basierend auf dem Gesundheitsprozentsatz
+		var colorValue = (int)(255 * (1 - healthPercentage));
+		return $"rgb({colorValue}, {colorValue}, {colorValue})"; // Von Weiß (255,255,255) zu Schwarz (0,0,0)
+	}
 
-
-
+	private string GetHealthBarClass()
+	{
+		if (player.Health == player.MaxHealth)
+		{
+			return "full-hp";
+		}
+		else if (player.Health < player.MaxHealth * 0.25)
+		{
+			return "low-hp";
+		}
+		return string.Empty;
+	}
 
 
 

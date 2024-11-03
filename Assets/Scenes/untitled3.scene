@@ -2035,7 +2035,7 @@
       "__guid": "163db455-1fbc-4b7b-9d74-d5b6e633c38f",
       "Flags": 0,
       "Name": "example 5 (15)",
-      "Position": "478.0639,684.2496,497.3282",
+      "Position": "448,704,497.3282",
       "Enabled": true,
       "Components": [
         {
@@ -2146,7 +2146,7 @@
       "__guid": "81ff4d22-0f11-4d6b-a515-c68d2a7979a5",
       "Flags": 0,
       "Name": "example 5 (5)",
-      "Position": "399.4124,684.2496,497.3282",
+      "Position": "399.4124,704,497.3282",
       "Enabled": true,
       "Components": [
         {
@@ -2257,7 +2257,7 @@
       "__guid": "3ad1aeb7-bf5d-4687-95e5-5a88ce539a81",
       "Flags": 0,
       "Name": "example 5 (6)",
-      "Position": "349.5801,672.5988,497.3282",
+      "Position": "349.5801,704,497.3282",
       "Enabled": true,
       "Components": [
         {
@@ -2368,7 +2368,7 @@
       "__guid": "786a5b66-06a2-42ac-9d7c-65d7333dcfcd",
       "Flags": 0,
       "Name": "example 5 (7)",
-      "Position": "291.5153,684.0339,497.3282",
+      "Position": "291.5153,704,497.3282",
       "Enabled": true,
       "Components": [
         {
@@ -2479,7 +2479,7 @@
       "__guid": "32db4333-4838-4d34-ae2c-a3ca0c2144f6",
       "Flags": 0,
       "Name": "example 5 (8)",
-      "Position": "247.8357,682.7117,497.3282",
+      "Position": "247.8357,704,497.3282",
       "Enabled": true,
       "Components": [
         {
@@ -2590,7 +2590,7 @@
       "__guid": "2397f4ae-675b-4706-86f0-e27f746f2d19",
       "Flags": 0,
       "Name": "example 5 (9)",
-      "Position": "194.4896,682.7117,497.3282",
+      "Position": "194.4896,704,497.3282",
       "Enabled": true,
       "Components": [
         {
@@ -2701,7 +2701,7 @@
       "__guid": "8e08f564-21b4-4250-ae27-7c12c3d06705",
       "Flags": 0,
       "Name": "example 5 (10)",
-      "Position": "143.2868,682.7117,497.3282",
+      "Position": "143.2868,704,497.3282",
       "Enabled": true,
       "Components": [
         {
@@ -4522,13 +4522,13 @@
                     "DstName": "_target"
                   },
                   {
-                    "Id": 16,
+                    "Id": 22,
                     "Value": 1000,
                     "DstId": 14,
                     "DstName": "max"
                   },
                   {
-                    "Id": 17,
+                    "Id": 23,
                     "Value": 2000,
                     "DstId": 15,
                     "DstName": "max"
@@ -4537,6 +4537,8 @@
               },
               "InteractDistance": 125,
               "Accessibility": "All",
+              "Disabled": null,
+              "ShowWhenDisabled": null,
               "CooldownTime": 0.5,
               "Animation": "Interact",
               "Name": "Harvest"
@@ -4761,13 +4763,13 @@
                     "DstName": "_target"
                   },
                   {
-                    "Id": 16,
+                    "Id": 22,
                     "Value": 1000,
                     "DstId": 14,
                     "DstName": "max"
                   },
                   {
-                    "Id": 17,
+                    "Id": 23,
                     "Value": 2000,
                     "DstId": 15,
                     "DstName": "max"
@@ -4776,8 +4778,6 @@
               },
               "InteractDistance": 125,
               "Accessibility": "All",
-              "Disabled": null,
-              "ShowWhenDisabled": null,
               "DynamicText": {
                 "__version": 8,
                 "__guid": "e592a188-5917-474c-8afa-faff6f769189",
@@ -4802,7 +4802,7 @@
                 ],
                 "Links": [
                   {
-                    "Id": 2,
+                    "Id": 5,
                     "Value": "hi",
                     "DstId": 1,
                     "DstName": "_result"
@@ -4839,7 +4839,7 @@
                 ],
                 "Links": [
                   {
-                    "Id": 2,
+                    "Id": 5,
                     "Value": "1,0,1,1",
                     "DstId": 1,
                     "DstName": "_result"
@@ -4888,7 +4888,7 @@
                 ],
                 "Links": [
                   {
-                    "Id": 12,
+                    "Id": 21,
                     "Value": "sounds/error.sound",
                     "DstId": 1,
                     "DstName": "_result"
@@ -4906,13 +4906,13 @@
                     "DstName": "_signal"
                   },
                   {
-                    "Id": 13,
+                    "Id": 22,
                     "Value": "5,5,5",
                     "DstId": 11,
                     "DstName": "position"
                   },
                   {
-                    "Id": 14,
+                    "Id": 23,
                     "Value": "sounds/error.sound",
                     "DstId": 11,
                     "DstName": "soundEvent"
@@ -5309,6 +5309,176 @@
       "__PrefabVariables": {}
     },
     {
+      "__guid": "6fa91661-da5a-4438-9043-a6eec3b37741",
+      "Flags": 0,
+      "Name": "backpack_big (2)",
+      "Position": "416,288,523.8899",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "daadb74f-be6f-4226-9f9d-214cc8d3a2d0",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "Model": "models/props/backpack/v3/backpack3low.vmdl",
+          "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "fd3f5f5c-e5d3-4fe7-8dd1-cfd5b75fe53e",
+          "__enabled": false,
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Radius": 10,
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "b0d4e140-0185-437c-800b-b12b9a99a796",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "Pitch": true,
+            "Yaw": true,
+            "Roll": true
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "99e1d390-4175-4ed1-abe3-cee91fae8f9c",
+          "IsTrigger": false,
+          "Model": "models/props/backpack/v3/backpack3low.vmdl",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.Backpack",
+          "__guid": "63534288-97ae-46af-b239-71cd8910d27b",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "None",
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 0.5,
+            "IsValid": true,
+            "ForwardRay": {
+              "Position": "-20.901,-11.006,-0.279",
+              "Forward": "-0.3084731,-0.9493825,0.05930656"
+            },
+            "Position": "-20.901,-11.006,-0.279",
+            "Scale": "0.5,0.5,0.5",
+            "Rotation": "0.33988,-0.5077657,-0.6296114,0.4798386"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 1,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "EnableHolding": false,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Idle",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/props/backpack/v3/backpack3low.vmdl",
+            "MaterialGroup": "",
+            "MaterialOverride": "",
+            "LightBrightness": 1,
+            "LightRadius": 1000,
+            "LightColour": "1,1,1,1",
+            "DirectionalLightBrightness": 1,
+            "DirectionalLightRotation": "45,-45,45",
+            "DirectionalLightColour": "10,10,10,10",
+            "Colour": "1,1,1,1",
+            "Position": "1.65,1.2,1.35",
+            "Rotation": "0.6715162,-0.2327528,0.2358197,0.6627829",
+            "Guid": "02846c3b-2aff-4c5f-ab11-e67bf116967f"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackable": false,
+          "IsBackpack": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": true,
+          "IsMaterial": false,
+          "IsMelee": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": true,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 1,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Backpack",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "SellPrice": 0,
+          "ShadowResistence": 0,
+          "Slot": "Back",
+          "SlotAmount": 25,
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "UpdatePosition": true,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        }
+      ]
+    },
+    {
       "__guid": "5ddb7680-fca7-4250-8386-3353b8405031",
       "Flags": 0,
       "Name": "backpack_big (1)",
@@ -5494,6 +5664,58 @@
       "Position": "352,352,512",
       "Enabled": true,
       "__Prefab": "prefabs/weapons/new/fullmoon.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "d4536d84-18c0-4dc2-929f-155306fb27d0",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "768,-256,448",
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "1d300f37-c79d-4fa0-9e7a-e2537550eab1",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": true,
+          "EnableRagdollEffect": false,
+          "IsSpawning": true,
+          "Level10To15": false,
+          "Level15To20": false,
+          "Level1To5": false,
+          "Level20To25": false,
+          "Level25To30": false,
+          "Level30To35": false,
+          "Level35To40": false,
+          "Level40To45": false,
+          "Level45To50": false,
+          "Level50To55": false,
+          "Level55To60": false,
+          "Level5To10": false,
+          "Level60To65": false,
+          "Level65To70": false,
+          "Level70To75": false,
+          "Level75To80": false,
+          "Level80To85": false,
+          "Level85To90": false,
+          "Level90To95": false,
+          "Level95To100": false,
+          "MaxSpawns": 10,
+          "PlayerProximityDistance": 1000,
+          "Randomized": false,
+          "RandomizePropertiesOnRain": false,
+          "RandomizeTierOnSpawn": false,
+          "RespawnTime": 50
+        }
+      ]
+    },
+    {
+      "__guid": "22da5535-a906-4b77-bfa9-a8a304b167d4",
+      "Flags": 0,
+      "Name": "glock-a",
+      "Position": "416,512,501.39",
+      "Scale": "1.5,1.5,1.5",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/pm/glock-a.prefab",
       "__PrefabVariables": {}
     }
   ],

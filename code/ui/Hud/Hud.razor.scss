@@ -198,11 +198,11 @@
 
 	.vyndalium {
 		position: absolute;
-		right: 5%;
-		bottom: 90%;
+		left: 2%;
+		top: 66.7%;
 		z-index: 1;
-		width: 12%;
-		height: 5%;
+		width: 21%;
+		height: 3%;
 		transition: opacity 1s ease-in-out;
 		border-width: 1px;
 		border-radius: 10px;
@@ -231,7 +231,7 @@
 			.p {
 				position: relative;
 				color: rgb(255, 209, 84);
-				font-size: 30px;
+				font-size: 20px;
 				font-family: Geneval;
 				gap: 15px;
 				transition: opacity 5.5s ease-in-out;
@@ -301,28 +301,34 @@
 		opacity: 1;
 		transition: opacity 0.5s ease-in-out;
 
-
+		.full-hp {
+				animation: blink-green 4s;
+			}
+		
+			.low-hp {
+				animation: blink-red 4s;
+			}
 		>.healthbar {
-			width: 400px;
-			height: 35px;
+			width: 50%;
+			height: 20%;
 			bottom: 25px;
-			left: 7%;
+			left: 17%;
 			//background-blend-mode: multiply;
 			background-size: 100%;
 			//background-position: center; 
-			//background-image: url("/ui/hud/hpbar2.png");
-			border-right: 1px solid rgb(199, 199, 199);
+			background-image: url("/ui/hud/hpbar2.png");
 			
-			border-right-width: -11px;
-			border: 4px rgba(0, 0, 0, 0.61);
+			
+			
+			border: 2px solid rgba(255, 255, 255, 0.2);
 
-			border-top-right-radius: -50px -50px;
-			border-top-width: 4px;
-			border-top-color: rgba(255, 255, 255, 0.219);
-
-			border-bottom-right-radius: 50px;
-			border-bottom-width: 1px;
-			padding: 5px;
+			
+			
+			
+			border-radius: 20px;
+		
+			
+			
 
 			
 
@@ -334,24 +340,22 @@
 				flex-grow: 10;
 				background-color:rgba(0, 0, 0, 0.884);
 				
-				border-right: 1px solid rgba(199, 199, 199, 0);
-				border-bottom-right-radius: 50px;
 				
+				border-radius: 20px;
 
 				>.fill {
 					
-					
+					border-radius: 20px;
 					height: 100%;
-					border-right: 1px solid rgba(124, 124, 124, 0.089);
-					border-right-width: -11px;
+					
+					
 					border: 4px rgba(0, 0, 0, 0.589);
 
-					border-top-right-radius: -50px -50px;
+					
 					border-top-width: 3px;
-					border-top-color: rgba(255, 255, 255, 0.219);
+					border-top-color: rgba(255, 255, 255, 0.233);
 
-					border-bottom-right-radius: 50px;
-					border-bottom-width: 1px;
+					
 
 					transition: width 0.5s ease-out;
 
@@ -367,8 +371,9 @@
 
 		>p {
 			position: absolute;
-			
-			left: 5%;
+			justify-content: center;
+			align-items: center;
+			left: 35%;
 			top: 0%;
 			color: rgb(0, 0, 0);
 			font-size: 20px;
@@ -379,6 +384,7 @@
 			opacity: 1;
 			background-color: rgba(206, 206, 206, 0);
 			padding: 0px 5px;
+			
 		}
 	}
 
@@ -386,72 +392,70 @@
 
 	.manabar {
 		position: absolute;
-		left: 12.5%;
+		left: 3.5%;
 		bottom: 7.5%;
 		border-radius: 8px;
 		opacity: 1;
 		transition: opacity 2.05s ease-in;
-		transform: translateX(-50%);
-		margin: auto;
-		display: flex; // Hinzugefügt
-		flex-direction: row-reverse; // Hinzugefügt
-		justify-content: flex-end; // Hinzugefügt
-		background-blend-mode: multiply;
+		border-radius: 20px;
+		
+		
+		
+		
 
 
 
 		>.manabar {
-			width: 370px;
+			
+			width: 290px;
 			height: 36px;
 			bottom: 60px;
-			left: 22px;
-			background-color: rgba(0, 0, 0, 0);
+			left: 60px;
+			background-color: rgba(248, 248, 248, 0);
 			padding: 5px;
-			border-radius: 8px;
-
+			
+			border-radius: 20px;
 
 			>.manainner {
-				background-color: rgba(0, 0, 0, 0.219);
+				background-color: rgb(0, 0, 0);
 
 				flex-grow: 1;
-
+				border-radius: 20px;
 				>.manafill {
+					
 					height: 100%;
-					background-image: url("/ui/hud/manabar.png");
-					background-blend-mode: darken;
-					background-position-x: center;
-					border-radius: 0px;
-					border-right: 15px solid rgba(255, 255, 255, 0.795);
-					border-right-width: -11px;
-
-					border: 5px rgba(116, 116, 116, 0.356);
-
-					border-top-right-radius: -50px -50px;
-					border-top-width: 3px;
-					border-top-color: rgba(255, 255, 255, 0.26);
-
-					border-bottom-right-radius: 50px;
-					border-bottom-width: 1px;
-
-					transition: width 0.5s ease-out;
+						background-image: url("/ui/hud/manabar.png");
+						background-blend-mode: darken;
+						background-position-x: center;
+						border-radius: 20px;
+						border: 5px rgba(255, 255, 255, 0.079);
+						border-top-width: 3px;
+						border-top-color: rgba(255, 255, 255, 0.031);
+						/* Übergangsfarbe */
+						border-bottom-right-radius: 50px;
+						border-bottom-width: 1px;
+						transition: width 0.5s ease-out, border-top-color 0.5s ease-out;
 
 
 				}
 			}
 
 			>p {
-				position: absolute;
-				left: 6%;
-				top: 7%;
-				color: rgb(255, 255, 255);
-				font-size: 22px;
-				border-radius: 10%;
-				font-family: Geneva;
-				font-weight: 1500;
-				transition: opacity 1.5s ease-in-out;
-				opacity: 1;
-				background-color: rgba(128, 128, 128, 0);
-				padding: 0px 5px;
+
+					position: absolute;
+					justify-content: center;
+					align-items: center;
+					left: 35%;
+					top: 6%;
+					color: rgb(255, 255, 255);
+					font-size: 20px;
+					border-radius: 10%;
+					font-family: Geneva;
+					font-weight: bold;
+					transition: opacity 0.5s ease-in-out;
+					opacity: 1;
+					background-color: rgba(206, 206, 206, 0);
+					padding: 0px 5px;
 			}
 		}
 	}
@@ -504,5 +508,103 @@
 				}
 			}
 		}
+	}
+	.hud-container{
+		position: absolute;
+		width: 22%;
+		height: 20%;
+		left: 2%;
+		bottom: 10%;
+		background-color: rgba(0, 0, 0, 0.477);
+		z-index: -100;
+		border-radius: 10px;
+		transition: opacity 1s ease-in-out;
+		opacity: 1;
+		border-width: 1px;
+		border-color: rgba(10, 0, 0, 0.5);
+	
+		flex-direction: column;
+
+		
+		
+		.about{
+			
+			width: 100%;
+			.avatar {
+					border-width: 1px;
+						border-color: rgba(10, 0, 0, 0.5);
+						width: 60px;
+						height: 60px;
+						margin-left: 10px;
+						margin-top: 10px;
+
+						background-position: center;
+
+						background-size: cover;
+						border-radius: 100px;
+				}
+			
+			.a {	
+					position: relative;
+					top: 5%;
+					width: 75%;
+					font-size: 32px;
+					color: rgb(255, 255, 255);
+					font-family: Geneva;
+					font-weight: bold;
+					transition: opacity 0.5s ease-in-out;
+					justify-content: center;
+					align-items: center;
+					background-color: rgba(0, 0, 0, 0);
+					border-width: 1px;
+					border-color: rgba(10, 0, 0, 0.5);
+					padding: 10px;
+					border-radius: 10px;
+				}
+		}
+		
+		.b{
+			position: absolute;
+			left: 11%;
+			bottom: 63%;
+			font-size: 16px;
+			color: rgb(255, 255, 255);
+			text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+			text-decoration: underline;
+			background-color: rgba(0, 0, 0, 0.908);
+			border-radius: 32px;
+			padding: 5px;
+
+			font-family: Geneva;
+			font-weight: bold;
+			transition: opacity 0.5s ease-in-out;
+		}
+	}
+}
+@keyframes blink-green {
+	0% {
+		background-color: green;
+	}
+
+	50% {
+		background-color: lightgreen;
+	}
+
+	100% {
+		background-color: green;
+	}
+}
+
+@keyframes blink-red {
+	0% {
+		background-color: red;
+	}
+
+	50% {
+		background-color: darkred;
+	}
+
+	100% {
+		background-color: red;
 	}
 }

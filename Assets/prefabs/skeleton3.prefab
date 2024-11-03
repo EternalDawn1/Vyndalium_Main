@@ -46,32 +46,6 @@
         "GroundFriction": 33.7,
         "IgnoreTags": "",
         "MaxUnstuckTries": 20,
-        "OnComponentUpdate": {
-          "__version": 7,
-          "__guid": "6cb2d893-42ac-41f5-b48b-55be52a90f72",
-          "UserData": {
-            "Title": "On Component Update"
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input"
-            },
-            {
-              "Id": 1,
-              "Type": "output"
-            }
-          ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 1,
-              "DstName": "_signal"
-            }
-          ]
-        },
         "StepHeight": 27,
         "StickToGround": true,
         "StopSpeed": 10,
@@ -110,6 +84,13 @@
         "__type": "Npc",
         "__guid": "343ea719-e2a6-4c36-8add-0d68f031e949",
         "CurrentHoldType": "None",
+        "isChibi": false,
+        "prefabPaths": [
+          "prefabs/pickupammo.prefab",
+          "prefabs/potions/potion.prefab",
+          "prefabs/items/wood_log.prefab",
+          "prefabs/entitys/chestsystem/5.prefab"
+        ],
         "AlertOthers": false,
         "AnimationHelper": {
           "_type": "component",
@@ -131,7 +112,13 @@
           "go": "048bdef6-1718-4d02-87ca-a43dd778d2b7"
         },
         "FaceTowardsVelocity": true,
+        "FireAbilityChance": 0.3,
+        "FireAbilityCooldown": 15,
+        "FireDamage": 10,
+        "FireDamageRadius": 5,
+        "HasFireAbility": false,
         "HasIceAbility": false,
+        "HasWindAbility": false,
         "Health": 100,
         "Healthone": {
           "_type": "component",
@@ -160,8 +147,9 @@
         },
         "Name": "Zombie",
         "OnAttack": {
-          "__version": 7,
+          "__version": 8,
           "__guid": "af137a52-0cf6-473a-b865-8ff82b470c4e",
+          "__changeId": 0,
           "UserData": {
             "Title": "On Attack",
             "ReferencedComponentTypes": [
@@ -202,12 +190,6 @@
             {
               "Id": 5,
               "Type": "scene.ref",
-              "Properties": {
-                "gameobject": {
-                  "_type": "gameobject",
-                  "go": "939b879f-4387-4260-b9b9-19fed476cde9"
-                }
-              },
               "UserData": {
                 "Position": "96,256"
               }
@@ -251,6 +233,7 @@
               "DstName": "_target"
             },
             {
+              "Id": 11,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -262,11 +245,13 @@
               "DstName": "attacker"
             },
             {
+              "Id": 12,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
+              "Id": 13,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -298,8 +283,9 @@
           }
         },
         "OnDetect": {
-          "__version": 7,
+          "__version": 8,
           "__guid": "8d3c2497-0678-4c8c-b986-1b268ff1b74e",
+          "__changeId": 2,
           "UserData": {
             "Title": "On Detect",
             "ReferencedComponentTypes": []
@@ -310,64 +296,16 @@
               "Id": 0,
               "Type": "input",
               "UserData": {
-                "Position": "-64,0"
-              }
-            },
-            {
-              "Id": 1,
-              "Type": "npc.startfollowing",
-              "UserData": {
-                "Position": "272,80"
-              }
-            },
-            {
-              "Id": 4,
-              "Type": "scene.ref",
-              "Properties": {
-                "component": {
-                  "_type": "component",
-                  "component_id": "343ea719-e2a6-4c36-8add-0d68f031e949",
-                  "go": "939b879f-4387-4260-b9b9-19fed476cde9",
-                  "component_type": "Npc"
-                }
-              },
-              "UserData": {
-                "Position": "-32,320"
+                "Position": "-60,0"
               }
             }
           ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 1,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 4,
-              "SrcName": "_result",
-              "DstId": 1,
-              "DstName": "npc"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "enemy",
-              "DstId": 1,
-              "DstName": "target"
-            }
-          ],
-          "Defaults": {
-            "$4.component": {
-              "_type": "component",
-              "component_id": "343ea719-e2a6-4c36-8add-0d68f031e949",
-              "go": "939b879f-4387-4260-b9b9-19fed476cde9",
-              "component_type": "Npc"
-            }
-          }
+          "Links": []
         },
         "OnEnemyEscaped": {
-          "__version": 7,
+          "__version": 8,
           "__guid": "e1eb3753-6b11-46f9-b912-757d64dce89b",
+          "__changeId": 2,
           "UserData": {
             "Title": "On Enemy Escaped",
             "ReferencedComponentTypes": []
@@ -377,52 +315,9 @@
             {
               "Id": 0,
               "Type": "input"
-            },
-            {
-              "Id": 1,
-              "Type": "npc.stopfollow",
-              "UserData": {
-                "Position": "400,64"
-              }
-            },
-            {
-              "Id": 5,
-              "Type": "scene.ref",
-              "Properties": {
-                "component": {
-                  "_type": "component",
-                  "component_id": "343ea719-e2a6-4c36-8add-0d68f031e949",
-                  "go": "939b879f-4387-4260-b9b9-19fed476cde9",
-                  "component_type": "Npc"
-                }
-              },
-              "UserData": {
-                "Position": "112,176"
-              }
             }
           ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 1,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 5,
-              "SrcName": "_result",
-              "DstId": 1,
-              "DstName": "npc"
-            }
-          ],
-          "Defaults": {
-            "$5.component": {
-              "_type": "component",
-              "component_id": "343ea719-e2a6-4c36-8add-0d68f031e949",
-              "go": "939b879f-4387-4260-b9b9-19fed476cde9",
-              "component_type": "Npc"
-            }
-          }
+          "Links": []
         },
         "PlayerProximityDistance": 80,
         "PogMode": false,
@@ -432,6 +327,8 @@
         "VisionRange": 544,
         "WalkingType": "Dumb",
         "WalkSpeed": 90,
+        "WindAbilityChance": 0.5,
+        "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
           "prefab": "models/npcs/skeleton2/skeleton2.prefab"
@@ -472,6 +369,13 @@
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
             "Model": "models/citizen/skin/skeleton/models/skeleton_clean_skin.vmdl",
             "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -502,7 +406,8 @@
             "__guid": "41cccff0-8873-4502-b4bf-560cde360e52",
             "IsTrigger": false,
             "Model": "models/citizen/citizen.vmdl",
-            "Static": false
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
           }
         ]
       },
@@ -539,11 +444,35 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

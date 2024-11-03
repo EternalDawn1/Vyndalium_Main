@@ -491,6 +491,7 @@ public partial class Player : Component, IHealthComponent
 			Animators.Clear(); // Entfernt alle vorherigen Einträge
 			Animators.Add( ShadowAnimator );
 			Animators.Add( AnimationHelper );
+			
 
 		}
 		if ( !Game.IsPlaying || Scene == GameObject )
@@ -505,6 +506,7 @@ public partial class Player : Component, IHealthComponent
 
 		base.OnStart();
 	}
+	
 
 
 	private void UpdateWeaponModelVisibility()

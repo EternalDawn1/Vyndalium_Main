@@ -3,7 +3,6 @@
     "__guid": "e2275ecb-34e9-41b2-8319-6a321f010cf2",
     "Flags": 0,
     "Name": "glock-a",
-    "Scale": "1.5,1.5,1.5",
     "Enabled": true,
     "Components": [
       {
@@ -14,6 +13,13 @@
         "CreateBoneObjects": false,
         "Model": "models/glock/w/w_glock20lod0.vmdl",
         "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
         "RenderOptions": {
           "GameLayer": true,
           "OverlayLayer": false,
@@ -29,8 +35,10 @@
         "__guid": "2551fda6-b376-457d-8a3e-5454934b348b",
         "AimPos": "-1.5,1.8,1",
         "AimRotation": "0,0,0,0",
+        "AimRotationOffset": "0,0,0,0",
         "AmmoType": "Pistol",
         "ClipSize": 15,
+        "CurRot": "0,0,0,0",
         "Damage": 30,
         "DamageForce": 5,
         "DamageType": "Serious",
@@ -51,6 +59,10 @@
         "IsAuto": false,
         "IsDeployed": false,
         "IsMagicWeapon": false,
+        "IsMelee": false,
+        "MeleeCooldown": 1,
+        "MeleeDamage": 10,
+        "MeleeRange": 1.5,
         "MuzzleFlash": "particles/pistol_muzzleflash.vpcf",
         "Recoil": "-5,1,0",
         "ReloadSoundSequence": "models/glock/glockreload.sndseq",
@@ -69,14 +81,16 @@
         "Center": "0,0,0",
         "IsTrigger": true,
         "Radius": 10,
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.ModelCollider",
         "__guid": "221b6fca-e1c0-4b4f-a6f7-1a68b3a1b6ac",
         "IsTrigger": false,
         "Model": "models/glock/w/w_glock20lod0.vmdl",
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.Rigidbody",
@@ -97,15 +111,18 @@
         "__guid": "979c76ed-8ed5-4be4-99f9-eb4eee17ae7d",
         "AbilityHaste": 0,
         "Armor": 0,
+        "Aspect": "None",
         "Attachment": "hand_R",
         "AttachmentTransform": {
           "UniformScale": 1,
           "IsValid": true,
           "ForwardRay": {
-            "Forward": "1,0,0"
+            "Position": "5.103037,0.02694514,-3.147262",
+            "Forward": "-0.4972145,-0.8646768,-0.07149744"
           },
+          "Position": "5.103037,0.02694514,-3.147262",
           "Scale": "1,1,1",
-          "Rotation": "0,0,0,1"
+          "Rotation": "0.2310546,-0.3340841,-0.7981197,0.4449793"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
@@ -124,6 +141,7 @@
         "DEX": 0,
         "DMG": 400,
         "Durability": 0,
+        "EnableHolding": true,
         "Evasion": 0,
         "FireResistence": 0,
         "HE": 0,
@@ -143,43 +161,41 @@
         "INT": 0,
         "IsAccessory": false,
         "IsArmor": false,
+        "IsAspect": false,
         "IsBackable": false,
+        "IsBackpack": false,
         "IsConsumable": false,
         "IsEquipment": false,
         "IsItem": true,
         "IsMaterial": false,
+        "IsMelee": false,
         "IsPotion": false,
         "IsWeapon": true,
+        "IsWorld": false,
         "ItemLevel": 0,
         "LightningResistence": 0,
         "MagicDefense": 0,
         "MagicPower": 0,
         "Mana": 0,
-        "MaxArmor": 0,
         "MaxArmorValue": 0,
         "MaxAttackValue": 0,
-        "MaxDMG": 0,
         "MaxStack": 0,
-        "MinArmor": 0,
         "MinArmorValue": 0,
         "MinAttackValue": 0,
-        "MinDMG": 0,
         "MoveSpeed": 0,
         "Name": "Glock 20",
         "PER": 0,
         "PoisonResistence": 0,
-        "Price": 0,
         "RequiredLevel": 0,
         "SellPrice": 50,
         "ShadowResistence": 0,
         "Slot": "Hand",
         "SlowResistence": 0,
-        "Stats": [],
         "STG": 0,
         "StunResistance": 0,
         "Tenacity": 0,
         "Tier": "A",
-        "UpdatePosition": false,
+        "UpdatePosition": true,
         "UseSkinTint": false,
         "WeightInGrams": 0
       },
@@ -191,7 +207,30 @@
       }
     ],
     "Children": [],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
