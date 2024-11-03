@@ -152,6 +152,7 @@
 				{
 					<div class="avatar" style="background-image: url( avatar:@player.Connection.SteamId )"></div>
 					<div class="a">@player.Connection.DisplayName</div>
+					<div class="rank" style="color: @player.GetRankColor();">@player.GetRankName()</div>
 				}
 			</div>
 			
@@ -211,8 +212,10 @@
 		}
 		return string.Empty;
 	}
+	
 
 
 
-	protected override int BuildHash() => HashCode.Combine(RealTime.Now, player?.Experience, player?.Level);
+	protected override int BuildHash() => HashCode.Combine(RealTime.Now, player?.Experience, player?.Level
+	, player.GetRankName);
 }

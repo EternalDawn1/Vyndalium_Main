@@ -4522,13 +4522,13 @@
                     "DstName": "_target"
                   },
                   {
-                    "Id": 22,
+                    "Id": 18,
                     "Value": 1000,
                     "DstId": 14,
                     "DstName": "max"
                   },
                   {
-                    "Id": 23,
+                    "Id": 19,
                     "Value": 2000,
                     "DstId": 15,
                     "DstName": "max"
@@ -4537,8 +4537,6 @@
               },
               "InteractDistance": 125,
               "Accessibility": "All",
-              "Disabled": null,
-              "ShowWhenDisabled": null,
               "CooldownTime": 0.5,
               "Animation": "Interact",
               "Name": "Harvest"
@@ -4763,13 +4761,13 @@
                     "DstName": "_target"
                   },
                   {
-                    "Id": 22,
+                    "Id": 18,
                     "Value": 1000,
                     "DstId": 14,
                     "DstName": "max"
                   },
                   {
-                    "Id": 23,
+                    "Id": 19,
                     "Value": 2000,
                     "DstId": 15,
                     "DstName": "max"
@@ -4778,6 +4776,8 @@
               },
               "InteractDistance": 125,
               "Accessibility": "All",
+              "Disabled": null,
+              "ShowWhenDisabled": null,
               "DynamicText": {
                 "__version": 8,
                 "__guid": "e592a188-5917-474c-8afa-faff6f769189",
@@ -4802,7 +4802,7 @@
                 ],
                 "Links": [
                   {
-                    "Id": 5,
+                    "Id": 3,
                     "Value": "hi",
                     "DstId": 1,
                     "DstName": "_result"
@@ -4839,7 +4839,7 @@
                 ],
                 "Links": [
                   {
-                    "Id": 5,
+                    "Id": 3,
                     "Value": "1,0,1,1",
                     "DstId": 1,
                     "DstName": "_result"
@@ -4888,7 +4888,7 @@
                 ],
                 "Links": [
                   {
-                    "Id": 21,
+                    "Id": 15,
                     "Value": "sounds/error.sound",
                     "DstId": 1,
                     "DstName": "_result"
@@ -4906,13 +4906,13 @@
                     "DstName": "_signal"
                   },
                   {
-                    "Id": 22,
+                    "Id": 16,
                     "Value": "5,5,5",
                     "DstId": 11,
                     "DstName": "position"
                   },
                   {
-                    "Id": 23,
+                    "Id": 17,
                     "Value": "sounds/error.sound",
                     "DstId": 11,
                     "DstName": "soundEvent"
@@ -5717,6 +5717,53 @@
       "Enabled": true,
       "__Prefab": "prefabs/weapons/pm/glock-a.prefab",
       "__PrefabVariables": {}
+    },
+    {
+      "__guid": "627f220b-2f84-4fab-8c1f-4f3170f16e23",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "816.578,-372.8135,623.3641",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ZombieSpawner",
+          "__guid": "cae43c83-befc-417f-b2ad-d54a9f3dd830",
+          "destroyChance": 0.01,
+          "DrawProximityRangeGizmo": false,
+          "EnableRagdollEffect": false,
+          "IsSpawning": false,
+          "Level10To15": false,
+          "Level15To20": false,
+          "Level1To5": false,
+          "Level20To25": false,
+          "Level25To30": false,
+          "Level30To35": false,
+          "Level35To40": false,
+          "Level40To45": false,
+          "Level45To50": false,
+          "Level50To55": false,
+          "Level55To60": false,
+          "Level5To10": false,
+          "Level60To65": false,
+          "Level65To70": false,
+          "Level70To75": false,
+          "Level75To80": false,
+          "Level80To85": false,
+          "Level85To90": false,
+          "Level90To95": false,
+          "Level95To100": false,
+          "MaxSpawns": 1,
+          "PlayerProximityDistance": 1000,
+          "Randomized": false,
+          "RandomizePropertiesOnRain": false,
+          "RandomizeTierOnSpawn": false,
+          "RespawnTime": 1,
+          "ZombiePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/wiggler.prefab"
+          }
+        }
+      ]
     }
   ],
   "SceneProperties": {
