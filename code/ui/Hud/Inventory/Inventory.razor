@@ -7,9 +7,7 @@
 	<SideButton title="Exit" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud)) IsInverted=@(true)
 		ImagePath="ui/hud/exit.gif" style="position: absolute; top: 30px; right: 0px;" style="z-index: 100;" />
-	<SideButton title="Character Menu" OnClick=@(() =>
-		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.CharacterMenu)) IsInverted=@(true)
-		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 30px; right: 400px; " style="z-index: 100;" />
+	
 	<div class="sidehud">
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Inventory)) IsInverted=@(true)
 			ImagePath="ui/hud/inventory.png" title="Inventory" TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:cyan; width:100%;" />

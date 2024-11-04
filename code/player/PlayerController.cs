@@ -49,6 +49,15 @@ public partial class Player : Component, IHealthComponent
 	[Sync] public bool IsCrouching { get; set; }
 	[Sync] public int Deaths { get; private set; }
 	[Sync] public int Kills { get; private set; }
+	public string DisplayName { get; set; }
+	
+	public TimeSpan Playtime { get; set; }
+	
+
+	public string GuildName { get; set; }
+	public string Location { get; set; }
+	public List<string> ActiveQuests { get; set; }
+	public List<string> Achievements { get; set; }
 	public Vector3 WishVelocity { get; private set; }
 	private Vector3 SieatOffset => new Vector3( 0f, 0f, -40f );
 	private RealTimeSince LastGroundedTime { get; set; }

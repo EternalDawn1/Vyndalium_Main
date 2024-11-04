@@ -240,43 +240,7 @@
 
 	</div>
 	
-	<div class="character">
-		<div class="char"><CharacterRenderer @ref=_renderer /></div>
-		<div class="box">
-
-			<div class="EquippedItems">
-				<div class="helmet">
-					<InventorySlot EquipSlotIndex=@EquipSlot.Head style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head] />
-					<InventorySlot EquipSlotIndex=@EquipSlot.Face style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
-				</div>
-				<div class="armor">
-					<InventorySlot EquipSlotIndex=@EquipSlot.Body style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Body] />
-					<InventorySlot EquipSlotIndex=@EquipSlot.Back style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back] />
-					<InventorySlot EquipSlotIndex=@EquipSlot.Bracer style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Bracer] />
-				</div>
-				<div class="pants">
-					<InventorySlot EquipSlotIndex=@EquipSlot.Legs style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Legs] />
-					<InventorySlot EquipSlotIndex=@EquipSlot.Belt style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt] />
-				</div>
-				
-				
-					<InventorySlot EquipSlotIndex=@EquipSlot.Hand style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] />
-				
-					<InventorySlot EquipSlotIndex=@EquipSlot.Feet style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-					Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Feet] />
-				
-			</div>
-		
-		</div>
-	</div>
+	
 	<div class="section2">
 		<div class="items">
 			<div class="playe">
@@ -295,22 +259,50 @@
 								}
 
 								@entry.DisplayName
+								
 							</div>
+							
 						}
-					<div class="playe1">
-						<li>Level</li> <span class="nu">@Player.Local.Level</span>
-					</div>
-					<div class="playe4">
-						<li>Experience</li> <span class="nu">@Player.Local.Experience / @Player.Local.ExpPerLevel</span>
-					</div>
-					<div class="playe3">
-						<li>Stats Points</li> <span class="nu">@Player.Local.StatsPoints</span>
-					</div>
-					<div class="playe2">
-						<li>Money</li>
-						<div class="playic"></div>
-						<span class="Vyndn">@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
-					</div>
+						<div class="playe4">
+							<li>Rank</li> <span class="nu">@Player.Local.GetRankName()</span>
+						</div>
+						<div class="playe1">
+							<li>Level</li> <span class="nu">@Player.Local.Level</span>
+						</div>
+						<div class="playe4">
+							<li>Experience</li> <span class="nu">@Player.Local.Experience/@Player.Local.ExpPerLevel</span>
+						</div>
+						<div class="playe3">
+							<li>Stats Points</li> <span class="nu">@Player.Local.StatsPoints</span>
+						</div>
+						<div class="playe2">
+							<li>Money</li>
+							<div class="playic"></div>
+							<span class="Vyndn">@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
+						</div>
+					
+						<div class="playe3">
+							<li>Playtime</li> <span class="nu">@Player.Local.Playtime</span>
+						</div>
+						<div class="playe2">
+							<li>Kills</li> <span class="nu">@Player.Local.Kills</span>
+						</div>
+						<div class="playe1">
+							<li>Deaths</li> <span class="nu">@Player.Local.Deaths</span>
+						</div>
+						
+						<div class="playe3">
+							<li>Guild</li> <span class="nu">@Player.Local.GuildName</span>
+						</div>
+						<div class="playe2">
+							<li>Location</li> <span class="nu">@Player.Local.Location</span>
+						</div>
+						<div class="playe1">
+							<li>Active Quests</li> <span class="nu">@Player.Local.ActiveQuests</span>
+						</div>
+						<div class="playe4">
+							<li>Achievements</li> <span class="nu">@Player.Local.Achievements</span>
+						</div>
 				</div>
 			</div>
 		</div>

@@ -11,7 +11,7 @@ CharacterMenu {
     
     .top{
         position: absolute;
-       
+        
         width: 100%;
         height: 100%;
         background-image: url('/ui/hud/background.png');
@@ -36,8 +36,8 @@ CharacterMenu {
         .top2{
             position: absolute;
             top: 5%;
-            left: 2.5%;
-            width: 41.5%;
+            left: 12.5%;
+            width: 20.5%;
             height: 85%;
             background-image: url('/ui/hud/background3.gif');
             opacity: 0.5;
@@ -53,7 +53,7 @@ CharacterMenu {
         .top3{
             position: absolute;
             top: 5%;
-            left: 45%;
+            left: 35%;
             width: 41.5%;
             height: 85%;
             background-image: url('/ui/hud/background2.gif');
@@ -77,7 +77,7 @@ CharacterMenu {
         background-color: rgba(0, 0, 0, 0.588);
         border-color: rgb(78, 78, 78);
         border-width: 0.2%;
-        z-index: 1;
+        z-index: 10;
         
     }
     
@@ -408,14 +408,17 @@ CharacterMenu {
 
         .section2 {
             position: relative;
-                height: 37%;
-                left: 40%;
-                top: 22%;
+                height: 85%;
+                left: 13%;
+                width: 19%;
+                top: 6%;
+                z-index: 10;
     
             .items {
                 
-                background-color: rgba(187, 130, 23, 0);
+                background-color: rgba(222, 218, 211, 0);
                 flex-direction: column;
+                z-index: -55;
               
     
                 
@@ -423,6 +426,8 @@ CharacterMenu {
                     
                     .playerst 
                     {
+                    width:100%;
+                    height: 94%;
                     z-index: -50;
                     
                     gap: 10px; // Abstand zwischen den Elementen
@@ -431,7 +436,7 @@ CharacterMenu {
                     font-size: 15px;
 
                     .playe1, .playe4, .playe3, .playe2 {
-                        z-index: -5;
+                        z-index: -55;
                         flex-direction: column;
                         width: 100%;
                         gap: 5px;
@@ -445,13 +450,14 @@ CharacterMenu {
                       
 
                         .nu {
+                            width: 100%;
                             font-size: 24px;
                             color: rgb(255, 187, 0);
                             font-weight: 1000;
                         }
 
                         .playic {
-                            width: 20px;
+                            width: 100%;
                             
                              // Pfad zum Icon-Bild
                             background-size: cover;
@@ -459,6 +465,7 @@ CharacterMenu {
                         }
 
                         .Vyndn {
+                            width: 100%;
                             font-size: 24px;
                             color: rgb(185, 192, 80);
                         }

@@ -49,8 +49,8 @@ public partial class Player : Component
             if ( Stamina > 0 )
             {
                 MoveSpeed = PlayerRunSpeed + Stamina / MaxStamina * 200f;
-                Stamina -= Time.Delta * 5f;
-                StaminaPerSecond = 0f; // Setze StaminaPerSecond auf 0 während des Laufens
+                
+               // Setze StaminaPerSecond auf 0 während des Laufens
             }
             else
             {

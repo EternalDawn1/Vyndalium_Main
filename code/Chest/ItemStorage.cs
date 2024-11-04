@@ -815,10 +815,8 @@ namespace GeneralGame
                 "Ultimate" => 1,
                 _ => 0
             };
-
             int minRequiredLevel = Math.Max( baseLevel, playerLevel );
-            int maxRequiredLevel = Math.Min( baseLevel + 15, 100 ); // Maximallevel auf 60 begrenzen
-
+            int maxRequiredLevel = Math.Min( baseLevel + 15, 100 ); // Maximallevel auf 100 begrenzen
             int requiredLevel;
 
             if ( playerLevel < 10 )
@@ -830,31 +828,30 @@ namespace GeneralGame
             {
                 // Spielerlevel 10 oder höher: Wahrscheinlichkeitsbasierte Berechnung
                 int chance = random.Next( 100 );
-
                 if ( chance < 50 ) // 50% Chance auf Level innerhalb von 5 Leveln tiefer oder 15 Leveln höher
                 {
                     int lowerBound = Math.Max( playerLevel - 5, 0 );
-                    int upperBound = Math.Min( playerLevel + 15, 60 );
-                    requiredLevel = random.Next( lowerBound, upperBound + 1 );
+                    int upperBound = Math.Min( playerLevel + 15, 100 );
+                    requiredLevel = random.Next( Math.Min( lowerBound, upperBound ), Math.Max( lowerBound, upperBound ) + 1 );
                 }
                 else if ( chance < 80 ) // 30% Chance auf Level innerhalb von 1-3 Leveln höher oder tiefer
                 {
                     int lowerBound = Math.Max( playerLevel - 3, 0 );
-                    int upperBound = Math.Min( playerLevel + 3, 60 );
-                    requiredLevel = random.Next( lowerBound, upperBound + 1 );
+                    int upperBound = Math.Min( playerLevel + 3, 100 );
+                    requiredLevel = random.Next( Math.Min( lowerBound, upperBound ), Math.Max( lowerBound, upperBound ) + 1 );
                 }
                 else // 20% Chance auf Level innerhalb von 80% des Spielerlevels
                 {
                     int lowerBound = Math.Max( (int)(playerLevel * 0.8), 0 );
-                    int upperBound = Math.Min( (int)(playerLevel * 1.2), 60 );
-                    requiredLevel = random.Next( lowerBound, upperBound + 1 );
+                    int upperBound = Math.Min( (int)(playerLevel * 1.2), 100 );
+                    requiredLevel = random.Next( Math.Min( lowerBound, upperBound ), Math.Max( lowerBound, upperBound ) + 1 );
                 }
             }
 
             return requiredLevel;
         }
 
-        public( int MinAttack, int MaxAttack ) CalculateAttackValues( string tier, ItemComponent itemComponent )
+        public ( int MinAttack, int MaxAttack ) CalculateAttackValues( string tier, ItemComponent itemComponent )
         {
             if( Player.Local == null )
             {
@@ -955,17 +952,14 @@ namespace GeneralGame
         {
             var baseValues = tierArmorValues[tier];
             var levelBonus = (level / 5) * (baseValues.MinArmor / 2);
-
             int minArmor = baseValues.MinArmor + levelBonus;
             int maxArmor = baseValues.MaxArmor + levelBonus;
-
             // Zusätzliche Werte basierend auf dem Rüstungstyp und dem erforderlichen Level
-            int requiredLevel = DetermineRequiredLevelForTier( tier);
+            int requiredLevel = DetermineRequiredLevelForTier( tier );
             if ( requiredLevel > 45 )
             {
                 requiredLevel = 90;
             }
-
             // Skalierung der Rüstungswerte basierend auf dem Level der Rüstung und dem erforderlichen Level
             double tierMultiplier = 1.0;
             switch ( tier )
@@ -992,22 +986,10 @@ namespace GeneralGame
                     tierMultiplier = 1; // Kein Multiplikator für C-Tier
                     break;
             }
-
             minArmor = (int)(minArmor * tierMultiplier);
             maxArmor = (int)(maxArmor * tierMultiplier);
-
             minArmor += (requiredLevel / 2) + (level / 2);
             maxArmor += (requiredLevel / 2) + (level / 2);
-
-            // Zufallsfaktor hinzufügen
-            var random = new Random();
-            int randomFactor = random.Next( -5, 6 ); // Zufallswert zwischen -5 und 5
-
-            minArmor += randomFactor;
-            maxArmor += randomFactor;
-
-            UpdateDescription( itemComponent );
-
             return (minArmor, maxArmor);
         }
 
