@@ -26,14 +26,15 @@
         "Center": "0,0,0",
         "IsTrigger": true,
         "Scale": "50,50,50",
-        "Static": true
+        "Static": true,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "GeneralGame.AmmoPickup",
         "__guid": "ffb0cf72-553d-4d34-9bfa-64edd48163b9",
         "AmmoTypen": "Pistol",
-        "MaxCount": 50,
-        "MinCount": 10,
+        "MaxCount": 500000000,
+        "MinCount": 10000,
         "TriggerSoundPath": "sounds/kenney/ui/ui.button.press.sound"
       }
     ],
@@ -74,7 +75,30 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -82,6 +106,5 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "IsValid": true,
   "__version": 1
 }

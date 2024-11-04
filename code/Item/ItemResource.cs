@@ -18,6 +18,9 @@ public partial class ItemResource : GameResource
     [Group( "References" ), Order( -100 )]
     public PrefabFile Prefab { get; set; }
 
+    [Group( "References" ), Order( -100 )]
+    public Component Component { get; set; }
+
    
 
     [FeatureEnabled( "Item", Icon = "🪙" )] public bool IsItem { get; set; } = false;

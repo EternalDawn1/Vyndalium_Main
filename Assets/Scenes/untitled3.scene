@@ -4537,8 +4537,6 @@
               },
               "InteractDistance": 125,
               "Accessibility": "All",
-              "Disabled": null,
-              "ShowWhenDisabled": null,
               "CooldownTime": 0.5,
               "Animation": "Interact",
               "Name": "Harvest"
@@ -4778,6 +4776,8 @@
               },
               "InteractDistance": 125,
               "Accessibility": "All",
+              "Disabled": null,
+              "ShowWhenDisabled": null,
               "DynamicText": {
                 "__version": 8,
                 "__guid": "e592a188-5917-474c-8afa-faff6f769189",
@@ -5722,8 +5722,7 @@
       "__guid": "627f220b-2f84-4fab-8c1f-4f3170f16e23",
       "Flags": 0,
       "Name": "Object",
-      "Position": "816.578,-372.8135,623.3641",
-      "Enabled": true,
+      "Position": "816.578,-448,448",
       "Components": [
         {
           "__type": "GeneralGame.ZombieSpawner",
@@ -5734,7 +5733,7 @@
           "IsSpawning": false,
           "Level10To15": false,
           "Level15To20": false,
-          "Level1To5": false,
+          "Level1To5": true,
           "Level20To25": false,
           "Level25To30": false,
           "Level30To35": false,
@@ -5752,18 +5751,77 @@
           "Level85To90": false,
           "Level90To95": false,
           "Level95To100": false,
-          "MaxSpawns": 1,
+          "MaxSpawns": 50,
           "PlayerProximityDistance": 1000,
           "Randomized": false,
           "RandomizePropertiesOnRain": false,
           "RandomizeTierOnSpawn": false,
-          "RespawnTime": 1,
+          "RespawnTime": 10,
           "ZombiePrefab": {
             "_type": "gameobject",
-            "prefab": "prefabs/wiggler.prefab"
+            "prefab": "prefabs/npc/slime_new.prefab"
           }
         }
       ]
+    },
+    {
+      "__guid": "6ceb7d52-36ca-4a2b-b38b-c912ea4e84f4",
+      "Flags": 0,
+      "Name": "m4a1-sss",
+      "Position": "704,224,448",
+      "Enabled": true,
+      "__Prefab": "prefabs/weapons/m4a1/m4a1-sss.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "cade7d12-1d86-4336-80b0-72f6f97a3979",
+      "Flags": 0,
+      "Name": "pistoleammo",
+      "Position": "576,544,512",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pistoleammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "d3635ed6-aa28-4696-937f-1870f46d29e3",
+      "Flags": 0,
+      "Name": "pickupammo",
+      "Position": "608,544,512",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "0d6d1906-93cd-4d6a-9f77-8326c70fed81",
+      "Flags": 0,
+      "Name": "pickupammo (1)",
+      "Position": "640,544,512",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "0453b61d-87e8-47f4-b40f-e182c47e7992",
+      "Flags": 0,
+      "Name": "pickupammo (2)",
+      "Position": "672,544,512",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "98bc6a2b-1e91-47e9-9657-f320f8d34138",
+      "Flags": 0,
+      "Name": "pickupammo (3)",
+      "Position": "704,544,512",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "__Prefab": "prefabs/pickupammo.prefab",
+      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {

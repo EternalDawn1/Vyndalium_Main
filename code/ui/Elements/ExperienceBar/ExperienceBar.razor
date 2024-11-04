@@ -7,14 +7,15 @@
 
 <root>
 	<div @ref=_container class="container @(!IsInventoryScreen ? "hud" : "") @(!IsInventoryScreen ? "inactive" : "")">
-		<div class="exp-bar">
-			<div class="progress" style="width: @( 100f * Player.Local.Experience / Player.Local.ExpPerLevel )%" />
+		<div class="exp-balls">
+			@for (int i = 0; i < 5; i++)
+			{
+				<div class="exp-ball">
+					<div class="progress" style="width: @(GetBallFillPercentage(i))%"></div>
+				</div>
+			}
 		</div>
-		<div class="level-details">
-			<text class="level">@($"Lvl. {@Player.Local.Level}")</text>
-			<text class="level-exp">@($"{Player.Local.Experience} / {Player.Local.ExpPerLevel} Exp")</text>
-		</div>
-
+		
 	</div>
 </root>
 
@@ -25,7 +26,12 @@
 	public bool IsInventoryScreen { get; set; }
 	private Panel _container;
 	private const float TIME_ON_SCREEN = 3;
-
+	private float GetBallFillPercentage(int ballIndex)
+	{
+		float expPerBall = Player.Local.ExpPerLevel / 5f;
+		float currentExp = Player.Local.Experience - (ballIndex * expPerBall);
+		return Math.Clamp((currentExp / expPerBall) * 100f, 0, 100);
+	}
 
 	public void Refresh()
 	{
