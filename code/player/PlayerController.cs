@@ -592,7 +592,7 @@ public partial class Player : Component, IHealthComponent
 
 		foreach ( var c in clothing )
 		{
-			c.ModelRenderer.Enabled = true;
+			c.ModelRenderer.Enabled = false;
 			if ( c.Category is Clothing.ClothingCategory.Hair or Clothing.ClothingCategory.Facial or Clothing.ClothingCategory.Hat )
 			{
 				c.ModelRenderer.RenderType = IsProxy ? Sandbox.ModelRenderer.ShadowRenderType.On : Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;

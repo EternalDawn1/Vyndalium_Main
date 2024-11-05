@@ -110,19 +110,19 @@ public class ItemEquipment : ItemComponent
         if (value)
         {
             parcelRenderer ??= Components.Create<ModelRenderer>();
-            parcelRenderer.Enabled = true;
+            parcelRenderer.Enabled = false;
             parcelRenderer.Model = Parcel;
 
             parcelCollider ??= Components.Create<BoxCollider>();
             parcelCollider.Center = Vector3.Up * 4.8f;
             parcelCollider.Scale = new Vector3(27f, 27f, 7.5f);
-            parcelCollider.Enabled = true;
+            parcelCollider.Enabled = false;
 
             parcelBody ??= Components.Create<Rigidbody>();
-            parcelBody.Enabled = true;
+            parcelBody.Enabled = false;
 
             CreateIconWorldPanel();
-            iconWorldObject.Enabled = true;
+            iconWorldObject.Enabled = false;
 
             return;
         }
@@ -198,7 +198,7 @@ public class ItemEquipment : ItemComponent
             return null;
 
         _model ??= new SceneModel(world, "models/citizen/citizen.vmdl", global::Transform.Zero);
-        _model.RenderingEnabled = true;
+        _model.RenderingEnabled = false;
         return _model;
     }
 
