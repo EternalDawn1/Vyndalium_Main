@@ -1,29 +1,45 @@
 {
   "RootObject": {
     "__guid": "5dac5eca-c4ed-4609-8026-a79b19f5aaa5",
+    "Flags": 0,
     "Name": "mp5",
     "Scale": "1.5,1.5,1.5",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "304d7893-f2aa-4c82-99a7-7482086324fe",
-        "AnimationGraph": "models/sbox_smg_mp5/v_mp5.vanmgrph",
         "BodyGroups": 3,
+        "CreateAttachments": false,
         "CreateBoneObjects": false,
         "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+        "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "On",
-        "Tint": "1,1,1,1"
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
       },
       {
         "__type": "GeneralGame.BaseGun",
         "__guid": "6b40f255-fec7-47ab-8dc1-5be11e98f176",
         "AimPos": "-1.5,1.8,1",
         "AimRotation": "0,0,0,0",
+        "AimRotationOffset": "0,0,0,0",
         "AmmoType": "Rifle",
         "ClipSize": 15,
+        "CurRot": "0,0,0,0",
         "Damage": 30,
         "DamageForce": 5,
         "DamageType": "Serious",
@@ -43,11 +59,16 @@
         "ImpactEffect": "particles/impact.generic.vpcf",
         "IsAuto": true,
         "IsDeployed": false,
+        "IsMagicWeapon": false,
+        "IsMelee": false,
+        "MeleeCooldown": 1,
+        "MeleeDamage": 10,
+        "MeleeRange": 1.5,
         "MuzzleFlash": "particles/pistol_muzzleflash.vpcf",
         "Recoil": "-5,1,0",
         "ReloadSoundSequence": "models/glock/glockreload.sndseq",
         "ReloadTime": 2.7,
-        "RunRotation": "0.02017635,0.06330636,0.02387928,0.9975044",
+        "RunRotation": "0.02180789,0.0005520156,0.02529853,0.9994419",
         "Spread": 0.01,
         "Type": "Ranged",
         "ViewModelPrefab": {
@@ -61,14 +82,16 @@
         "Center": "0,0,0",
         "IsTrigger": true,
         "Radius": 10,
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.ModelCollider",
         "__guid": "e9383c82-4be5-480f-ab37-c4756daa9dbd",
         "IsTrigger": false,
         "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.Rigidbody",
@@ -77,8 +100,10 @@
         "Gravity": true,
         "LinearDamping": 0,
         "Locking": {},
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
       },
@@ -86,15 +111,28 @@
         "__type": "GeneralGame.ItemEquipment",
         "__guid": "1c505123-70f4-4184-aba9-56eaea59dc25",
         "AbilityHaste": 0,
+        "Armor": 0,
+        "Aspect": "None",
         "Attachment": "hand_R",
         "AttachmentTransform": {
           "UniformScale": 1,
+          "IsValid": true,
+          "ForwardRay": {
+            "Forward": "1,0,0"
+          },
           "Scale": "1,1,1",
           "Rotation": "0,0,0,1"
         },
         "AttackPower": 0,
         "AttackSpeed": 0,
+        "BleedResistance": 0,
+        "BlindResistance": 0,
+        "BonusEXP": 0,
+        "BonusScore": 0,
+        "BonusVyndalium": 0,
+        "BuyPrice": 0,
         "Count": 0,
+        "Cover": 0,
         "CritHitChance": 0,
         "CritHitDamage": 6.7,
         "DamageBalance": 90,
@@ -102,9 +140,15 @@
         "DEX": 0,
         "DMG": 200,
         "Durability": 1000,
+        "EnableHolding": false,
+        "Evasion": 0,
+        "FireResistence": 0,
         "HE": 0,
+        "Health": 0,
         "HideBodygroups": "None",
         "HoldType": "Rifle",
+        "HolyResistence": 0,
+        "IceResistence": 0,
         "Icon": {
           "Model": "models/sbox_smg_mp5/w_mp5.vmdl_c",
           "MaterialGroup": "",
@@ -114,15 +158,41 @@
           "Guid": "c10c943a-37a0-4183-8538-70c47b2c97c2"
         },
         "INT": 0,
+        "IsAccessory": false,
+        "IsArmor": false,
+        "IsAspect": false,
+        "IsBackable": false,
+        "IsBackpack": false,
+        "IsConsumable": false,
+        "IsEquipment": false,
+        "IsItem": false,
+        "IsMaterial": false,
+        "IsMelee": false,
+        "IsPotion": false,
+        "IsWeapon": false,
+        "IsWorld": false,
         "ItemLevel": 0,
+        "LightningResistence": 0,
+        "MagicDefense": 0,
+        "MagicPower": 0,
         "Mana": 2.35,
+        "MaxArmorValue": 0,
+        "MaxAttackValue": 0,
         "MaxStack": 0,
+        "MinArmorValue": 0,
+        "MinAttackValue": 0,
         "MoveSpeed": 0,
         "Name": "mp5",
         "PER": 0,
+        "PoisonResistence": 0,
+        "RequiredLevel": 0,
         "SellPrice": -1,
+        "ShadowResistence": 0,
         "Slot": "Hand",
+        "SlowResistence": 0,
         "STG": 0,
+        "StunResistance": 0,
+        "Tenacity": 0,
         "Tier": "C",
         "UpdatePosition": false,
         "UseSkinTint": false,
@@ -135,14 +205,39 @@
         "ObjectInteractions": []
       }
     ],
-    "Children": []
+    "Children": [],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__version": 1,
   "__references": [
     "facepunch.w_mp5#33703"
-  ]
+  ],
+  "__version": 1
 }

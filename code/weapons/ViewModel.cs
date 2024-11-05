@@ -47,6 +47,7 @@ public sealed class ViewModel : Component
 			Volume = volume
 		} );
 	}
+	public PlayerController PlayerController2 { get; set; }
 	private Player PlayerController
 	{
 		get
@@ -89,6 +90,7 @@ public sealed class ViewModel : Component
 		if ( PlayerController.IsValid() )
 		{
 			PlayerController.OnJump += OnPlayerJumped;
+			
 
 		}
 	}
@@ -108,9 +110,25 @@ public sealed class ViewModel : Component
 		base.OnAwake();
 	}
 
-
+	private  bool IsMoving()
+	{
+		// Implementieren Sie die Logik, um zu überprüfen, ob sich der Spieler bewegt
+		return PlayerController.MoveSpeed > 0;
+	}
 	protected override void OnUpdate()
 	{
+
+		if ( IsMoving() )
+		{
+			float volume = PlayerController.MoveSpeed > 150f ? 1.0f : 0.5f; // Lautstärke basierend auf der Geschwindigkeit
+			TriggerFootstepEvent( 0, volume ); // Linker Fuß
+			TriggerFootstepEvent( 1, volume ); // Rechter Fuß
+			ModelRenderer.Set( "move_bob", PlayerController.MoveSpeed > 150f ? 1 : 0.5f ); // Setze die Eigenschaft "move_bob" basierend auf der Geschwindigkeit
+		}
+		else
+		{
+			ModelRenderer.Set( "move_bob", 0 ); // Setze die Eigenschaft "move_bob" auf false, wenn der Spieler nicht läuft
+		}
 
 		Vector3 plusPos = Vector3.Zero + Weapon.IdlePos;
 
@@ -137,11 +155,14 @@ public sealed class ViewModel : Component
 
 		if ( PlayerController.MoveSpeed > 150f )
 		{
-			CurRotation = Rotation.Lerp( CurRotation, Rotation.Identity * Weapon.RunRotation, Time.Delta * 10f );
+			ModelRenderer.Set( "b_sprint", true );
+			CurRotation = Rotation.Lerp( CurRotation, Rotation.Identity * Weapon.RunRotation, Time.Delta * 5f );
+
 		}
 		else
 		{
-			CurRotation = Rotation.Lerp( CurRotation, Rotation.Identity, Time.Delta * 10f );
+			CurRotation = Rotation.Lerp( CurRotation, Rotation.Identity, Time.Delta * 5f );
+			ModelRenderer.Set( "b_sprint", false );
 		}
 
 		CalcRotateSmooth();
@@ -149,7 +170,7 @@ public sealed class ViewModel : Component
 		LocalRotation = CurRotation;
 		LocalPosition = CurPos;
 		LocalScale = Vector3.One;
-		//base.OnUpdate();
+		base.OnUpdate();
 	}
 
 	private void CalcRotateSmooth()

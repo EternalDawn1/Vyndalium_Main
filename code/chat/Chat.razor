@@ -1,224 +1,110 @@
-﻿@using System.Collections.Generic
-@using Sandbox;
+﻿@using Sandbox;
 @using Sandbox.UI;
+@namespace GeneralGame
 @inherits PanelComponent
 @implements Component.INetworkListener
-@namespace GeneralGame
 
 <root>
+
 	<div class="output">
-		@foreach (var entry in Messages)
-        {
-            var color = new Color(1, 1, 1);
-            // Only show the messages from the last 10 seconds, or all if the input box is focused
-            @if (entry.timeSinceAdded < 10f || ChatOpen)
-            {
-                <div class="chat_entry">
-                    <div class="about">
-                        @if (entry.steamid > 0)
-                        {
-                            
-							<div class="avatar" style="background-image: url( avatar:@entry.steamid )"></div>
-                        }
-                    </div>
-                    @if (entry.steamid > 0)
-                    {
-                        <div class="message">
-                            <div class="author" style="color: rgb(@(255 * color.r), @(255 * color.g), @(255 * color.b));">@entry.author</div>
-                            @entry.message
-                        </div> 
-                    } else {
-                        <div class="message system">
-                            <div class="author">@entry.author</div>
-                            @entry.message
-                        </div>
-                    }
-                </div>
-            }
-        }
+		@foreach (var entry in Entries)
+		{
+            <div class="chat_entry">
+                @if (entry.steamid > 0)
+                {
+                    <div class="avatar" style="background-image: url( avatar:@entry.steamid )"></div>
+                }
+				<div class="author">@entry.author</div>
+				<div class="message">@entry.message</div>
+			</div>
+		}
 	</div>
 
-    <div class="input-container">
-        
-
-        <div class="input">
-            <TextEntry style="width:100%;" MaxLength=@(125) @ref="InputBox" onchange="@ChatChanged" onsubmit="@ChatFinished"></TextEntry>
-        </div>
-    </div>
+	<div class="input">
+		<TextEntry @ref="InputBox" onsubmit="@ChatFinished"></TextEntry>
+	</div>
+	
 </root>
 
 @code
 {
     TextEntry InputBox;
-    bool ChatOpen = false;
-    public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded)
-    {
-        public bool IsNew { get; set; } = true;
-        public string timestamp { get; } = DateTime.Now.ToString("HH:mm:ss");
-    }
-    public List<Entry> Messages = new();
 
-    
-
-
-
-   
+    public record Entry( ulong steamid, string author, string message, RealTimeSince timeSinceAdded );
+    List<Entry> Entries = new();
 
     protected override void OnUpdate()
     {
-        
-
         if (InputBox is null)
             return;
 
-        if (Input.Pressed("chat"))
+        Panel.AcceptsFocus = false;
+
+        if ( Input.Pressed( "Chat" ) )
         {
-            ToggleChat(true);
-        }
-
-        // Clear the "new" flag after 10 seconds. This is to make sure we don't update chat state every frame
-        foreach (var entry in Messages.Where(e => e.IsNew && e.timeSinceAdded > 10.0f))
-        {
-            entry.IsNew = false;
-            StateHasChanged();
-        }
-    }
-
-    /// <summary>
-    /// Opens and closes the Chat UI state.
-    /// </summary>
-   
-    void ToggleChat(bool open)
-    {
-        
-
-        // Überprüfen, ob der Chat bereits den gewünschten Zustand hat
-        if (ChatOpen == open)
-            return;
-
-        ChatOpen = open;
-        if (ChatOpen)
-        {
+            Log.Info( "Chat" );
             InputBox.Focus();
-            InputBox.Placeholder = "... type here ...";
         }
-        else
+
+        if ( Entries.RemoveAll( x => x.timeSinceAdded > 20.0f ) > 0 )
         {
-            InputBox.Placeholder = "";
-        }
-        SetClass("open", open);
-        StateHasChanged();
-    }
-
-    void ChatChanged()
-    {
-        
-           
             StateHasChanged();
-        
+        }
+
+        SetClass( "open", InputBox.HasFocus );
     }
 
-    /// <summary>
-    /// Called when the user has finished typing a message in the chat
-    /// </summary>
-    [Broadcast]
     void ChatFinished()
     {
-        ToggleChat(false);
-       
         var text = InputBox.Text;
         InputBox.Text = "";
 
         if (string.IsNullOrWhiteSpace(text))
             return;
 
-        NewUserMessage(text);
+        AddText( text );
     }
 
-    /// <summary>
-    /// Sends a new message to broadcast to all clients
-    /// </summary>
     [Broadcast]
-    public void SendMessage(string message, bool system = false)
+    public void AddText( string message )
     {
-        // Return if the message is empty
+        message = message.Truncate( 300 );
+
         if (string.IsNullOrWhiteSpace(message))
             return;
 
+        var author = Rpc.Caller.DisplayName;
+        var steamid = Rpc.Caller.SteamId;
 
-        var author = system ? "ℹ️" : Rpc.Caller.DisplayName;
-        var steamid = system ? 0 : Rpc.Caller.SteamId;
+		Log.Info($"{author}: {message}");
 
-        // If there are 30 messages, remove the oldest one
-        if (Messages.Count > 30)
-        {
-            Messages.RemoveAt(0);
-        }
+        Entries.Add(new Entry(steamid, author, message, 0.0f));
+		StateHasChanged();
+	}
 
-        // Add the message to the chat
-        Messages.Add(new Entry(steamid, author, message, 0.0f));
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// Sends a new message from a user to broadcast to all clients
-    /// </summary>
-    public void NewUserMessage(string message)
-    {
-        SendMessage(message, false);
-    }
-
-    /// <summary>
-    /// Sends a new system message to broadcast to all clients
-    /// </summary>
-    public void NewSystemMessage(string message)
-    {
-        SendMessage(message, true);
-    }
-    public void AddTextLocal(string author, string message)
+    [Broadcast] // todo: only from host/owner
+    public void AddSystemText(string message)
     {
         message = message.Truncate(300);
 
         if (string.IsNullOrWhiteSpace(message))
             return;
 
-        Log.Info($"{author}: {message}");
-
-        Messages.Add(new Entry(0, author, message, 0f));
+        Entries.Add(new Entry(0, "ℹ️", message, 0.0f));
         StateHasChanged();
     }
 
-    [Broadcast]
-    private void SendText(string author, string message)
-    {
-        AddTextLocal(author, message);
-    }
+	void Component.INetworkListener.OnConnected( Connection channel )
+	{
+		if ( IsProxy ) return;
 
-    void INetworkListener.OnConnected(Connection channel)
-    {
-        if (IsProxy) return;
+		AddSystemText( $"{channel.DisplayName} has joined the game" );
+	}
 
-        SendText("🛎️", $"{channel.DisplayName} has joined the game");
-    }
+	void Component.INetworkListener.OnDisconnected( Connection channel )
+	{
+		if ( IsProxy ) return;
 
-    void INetworkListener.OnDisconnected(Connection channel)
-    {
-        if (IsProxy) return;
-
-        SendText("💨", $"{channel.DisplayName} has left the game");
-    }
-
-    [Broadcast]
-    public void ClearChat()
-    {
-        Messages.Clear();
-        StateHasChanged();
-    }
-
-    // Super basic commands for now. Expand later for more.
-    // TODO Create a function to suggest commands as the user types. Giving arrow keys + tab controls to cycle through
-
-
-
-   
+		AddSystemText( $"{channel.DisplayName} has left the game" );
+	}
 }

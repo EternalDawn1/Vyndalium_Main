@@ -2,27 +2,33 @@ using Sandbox;
 
 namespace GeneralGame;
 
-
 public sealed partial class PlayerFootsteps : Component
 {
 	[Property] private SkinnedModelRenderer ModelRenderer { get; set; }
+	
 
 	private TimeSince TimeSinceLastStep;
 
 	protected override void OnEnabled()
 	{
-		if ( !ModelRenderer.IsValid() )
-			return;
+		if ( ModelRenderer.IsValid() )
+		{
+			ModelRenderer.OnFootstepEvent += OnEvent;
+		}
+		
+		
 
-		ModelRenderer.OnFootstepEvent += OnEvent;
+		
 	}
 
 	protected override void OnDisabled()
 	{
-		if ( !ModelRenderer.IsValid() )
-			return;
+		if ( ModelRenderer.IsValid() )
+		{
+			ModelRenderer.OnFootstepEvent -= OnEvent;
+		}
 
-		ModelRenderer.OnFootstepEvent -= OnEvent;
+		
 	}
 
 	private void OnEvent( SceneModel.FootstepEvent e )
@@ -51,5 +57,4 @@ public sealed partial class PlayerFootsteps : Component
 		var handle = Sound.Play( sound, trace.HitPosition + trace.Normal * 0.1f );
 		handle.Volume *= e.Volume;
 	}
-	
 }

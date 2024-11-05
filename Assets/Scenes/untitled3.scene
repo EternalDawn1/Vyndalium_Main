@@ -73,6 +73,20 @@
       ]
     },
     {
+      "__guid": "59775169-6dc0-46a9-8ada-c925124b536f",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "797.2222,-282.216,392.8482",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "GeneralGame.Chat",
+          "__guid": "68380b1d-5cb0-40d3-81dd-2238e2b42615"
+        }
+      ]
+    },
+    {
       "__guid": "252c9332-957d-4473-b4ab-860bad446d3b",
       "Flags": 0,
       "Name": "HUD",
@@ -166,6 +180,13 @@
         {
           "__type": "GeneralGame.Blackscreen",
           "__guid": "21cede2e-e594-47d8-976f-644b60984df6",
+          "BlackTransition": 2,
+          "EndingTransition": 3,
+          "StartingTransition": 0
+        },
+        {
+          "__type": "GeneralGame.Blackscreen",
+          "__guid": "11293dd1-2d97-4219-9ddc-2839c7d550e1",
           "BlackTransition": 2,
           "EndingTransition": 3,
           "StartingTransition": 0
@@ -5752,8 +5773,203 @@
       "Name": "m4a1-sss",
       "Position": "704,224,512",
       "Scale": "5.269294,5.269294,5.269294",
-      "__Prefab": "prefabs/weapons/m4a1/m4a1-sss.prefab",
-      "__PrefabVariables": {}
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.BaseGun",
+          "__guid": "916cbf75-31f6-4a6d-8d12-8d748f62309f",
+          "AimPos": "-1,5.72,1.5",
+          "AimRotation": "0,0,0,0",
+          "AimRotationOffset": "0,0,0,0",
+          "AmmoType": "Rifle",
+          "ClipSize": 31,
+          "CurRot": "0,0,0,0",
+          "Damage": 20,
+          "DamageForce": 50,
+          "DamageType": "Bullet",
+          "DefaultAmmo": 360,
+          "DeploySound": "sounds/weapons/weapon_deploy1.sound",
+          "DeployTime": 0.5,
+          "DisplayName": "M4A1",
+          "EmptyClipSound": "sounds/weapons/empty_assaultrifles.sound",
+          "EmptyReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
+          "EmptyReloadTime": 3,
+          "FireRate": 9,
+          "FireSound": "sounds/m4a1/m4_shot.sound",
+          "HitForce": 300,
+          "HoldType": "Rifle",
+          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+          "IdlePos": "-3,0,0",
+          "ImpactEffect": "particles/impact.generic.vpcf",
+          "IsAuto": true,
+          "IsDeployed": false,
+          "IsMagicWeapon": false,
+          "IsMelee": false,
+          "MeleeCooldown": 1,
+          "MeleeDamage": 10,
+          "MeleeRange": 1.5,
+          "Recoil": "-5,0,0",
+          "ReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
+          "ReloadTime": 3,
+          "RunRotation": "-0.01741984,-0.001065443,0.06103924,0.9979828",
+          "Spread": 0.01,
+          "Type": "Ranged",
+          "ViewModelPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/viewmodels/m700.prefab"
+          }
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "a8bbbeba-53a0-4586-9388-013b96c64e06",
+          "IsTrigger": false,
+          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "da91e5f7-19e2-4a99-a68a-c395c42d522d",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "3e82e146-12e6-45c8-95af-98f199c8fca6",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "None",
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 1,
+            "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
+            "Scale": "1,1,1",
+            "Rotation": "0,0,0,1"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "M700",
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "EnableHolding": false,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Rifle",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/weapons/sbox_sniper_m700/w_m700.vmdl",
+            "MaterialGroup": "",
+            "MaterialOverride": "",
+            "LightBrightness": 1.75,
+            "LightRadius": 1000,
+            "LightColour": "0,0,0,1",
+            "DirectionalLightBrightness": 22.15,
+            "DirectionalLightRotation": "62.8502,129.6,0.0001",
+            "DirectionalLightColour": "0.27442,0.01021,0.01021,1",
+            "Colour": "1,1,1,1",
+            "Position": "16.65,3.3,9.3",
+            "Rotation": "0.6417661,-0.6417661,0.2968774,0.2968774",
+            "Guid": "fc64b023-939a-4a23-a3db-7bc7836f621e"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackable": false,
+          "IsBackpack": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "IsMaterial": false,
+          "IsMelee": false,
+          "IsPotion": false,
+          "IsWeapon": true,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "M700",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "Slot": "Hand",
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SSS",
+          "UpdatePosition": false,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "GeneralGame.Interactable",
+          "__guid": "31caefe4-fc86-4978-a0c0-3ac9e964f3a6"
+        },
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "31e56f13-d51a-4247-8426-83f3b3c6da82",
+          "AnimationGraph": "models/weapons/sbox_assault_m4a1/v_m4a1.vanmgrph",
+          "BodyGroups": 171,
+          "CreateAttachments": false,
+          "CreateBoneObjects": false,
+          "Model": "models/weapons/sbox_sniper_m700/w_m700.vmdl",
+          "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        }
+      ]
     },
     {
       "__guid": "cade7d12-1d86-4336-80b0-72f6f97a3979",
@@ -5891,16 +6107,6 @@
           }
         }
       ]
-    },
-    {
-      "__guid": "5a1a357f-1a2c-4fa6-8e44-b2201f5c2fa3",
-      "Flags": 0,
-      "Name": "base23",
-      "Position": "448,320,512",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "__Prefab": "prefabs/clothes/clothes/base23.prefab",
-      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {
@@ -5932,6 +6138,8 @@
   "Title": "minimal",
   "Description": null,
   "__references": [
+    "facepunch.v_m4a1#68031",
+    "facepunch.w_m700#71263",
     "reizer.wood_box_01a#20072"
   ],
   "__version": 2
