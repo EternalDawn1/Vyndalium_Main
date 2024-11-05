@@ -431,26 +431,27 @@ namespace GeneralGame
         public void LoadBossTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
             if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
-
             var random = new Random();
             var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
-            {   
-            (bossItems, "C", 0.3),
-            (bossItems, "B", 0.2),
-            (bossItems, "A", 0.1),
-            (bossItems, "S", 0.08),
-            (bossItems, "SS", 0.05),
-            (bossItems, "SSS", 0.03),
-            (bossItems, "Ultimate", 0.01),
+    {
+        (tierSPrefabs, "A", 0.15),  // 15%
+        (tierSPrefabs, "S", 0.10),  // 10%
+        (tierSSPrefabs, "SS", 0.04), // 4%
+        (tierSSSPrefabs, "SSS", 0.009), // 0.9%
+        (tierUltimatePrefabs, "Ultimate", 0.001) // 0.1%
+    };
+            var bossPrefabs = new List<(List<string> prefabs, string tier, double probability)>
+    {
+        (bossItems, "C", 0.3),  // 30%
+        (bossItems, "B", 0.2),  // 20%
+        (bossItems, "A", 0.1),  // 10%
+        (bossItems, "S", 0.08),  // 8%
+        (bossItems, "SS", 0.05), // 5%
+        (bossItems, "SSS", 0.03), // 3%
+        (bossItems, "Ultimate", 0.01) // 1%
+    };
 
-            (tierSPrefabs, "A", 0.50),  // 10%
-            (tierSPrefabs, "S", 0.20),  // 10%
-            (tierSSPrefabs, "SS", 0.10), // 5%
-            (tierSSSPrefabs, "SSS", 0.005),
-            (tierUltimatePrefabs, "Ultimate", 0.001) // 5%
-            };
             int itemsToSpawn;
-
             int chance = random.Next( 100 ); // Verwenden Sie 100, um Dezimalstellen zu ermöglichen
             if ( chance < 70 ) // 70%
             {
@@ -495,12 +496,32 @@ namespace GeneralGame
             var addedPrefabPaths = new HashSet<string>();
             int totalGenerated = 0;
 
+            // Generiere Tier-Items
             for ( int i = 0; i < itemsToSpawn; i++ )
             {
                 double roll = random.NextDouble();
                 double cumulative = 0.0;
 
                 foreach ( var (prefabs, tier, probability) in tierPrefabs )
+                {
+                    cumulative += probability;
+                    if ( roll < cumulative )
+                    {
+                        var selectedPrefab = prefabs[random.Next( prefabs.Count )];
+                        selectedPrefabs.Add( (selectedPrefab, tier) );
+                        totalGenerated++;
+                        break;
+                    }
+                }
+            }
+
+            // Generiere Boss-Items
+            for ( int i = 0; i < itemsToSpawn; i++ )
+            {
+                double roll = random.NextDouble();
+                double cumulative = 0.0;
+
+                foreach ( var (prefabs, tier, probability) in bossPrefabs )
                 {
                     cumulative += probability;
                     if ( roll < cumulative )
@@ -521,14 +542,12 @@ namespace GeneralGame
             foreach ( var (prefabPath, tier) in selectedPrefabs )
             {
                 if ( totalAdded >= itemsToSpawn ) break; // Begrenze die Anzahl der hinzugefügten Items
-
                 if ( !addedPrefabPaths.Contains( prefabPath ) )
                 {
                     LoadTierPrefab( prefabPath, tier, minLevel, maxLevel );
                     addedPrefabPaths.Add( prefabPath );
                     totalAdded++;
                     Log.Info( $"Added Item: {prefabPath}" );
-
                     // Zu 80% ein zufälliges Item aus nonRandomStatItems hinzufügen
                     if ( random.NextDouble() <= 0.20 )
                     {
@@ -542,10 +561,8 @@ namespace GeneralGame
             }
 
             Log.Info( $"Total Added Items to Boss Chest: {totalAdded}" );
-
             itemsLoaded = true;
         }
-
         public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
             if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden

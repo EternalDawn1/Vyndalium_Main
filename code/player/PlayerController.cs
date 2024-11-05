@@ -1050,6 +1050,7 @@ public partial class Player : Component, IHealthComponent
 			return;
 		
 	}
+	
 
 	public void MoveToSpawnPoint()
 	{

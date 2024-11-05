@@ -947,7 +947,7 @@ public class BaseGun : WeaponComponent, IUse
 			var playerCritDamage = shooter.CritHitDamage;
 			
 
-			damage += (int)(damage * (playerAttackValue / 150.0f));
+			damage += (int)(damage * (playerAttackValue / 75.0f));
 			
 
 			int calculatedDamage = (int)(damage * (playerAttackPower / 50.0f));

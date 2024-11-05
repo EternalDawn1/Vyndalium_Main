@@ -70,7 +70,8 @@ CharacterMenu {
     }
     
 
-    .section {
+    .section 
+    {
         position: absolute;
         height: 100%;
         width: 100%;
@@ -79,40 +80,61 @@ CharacterMenu {
         border-width: 0.2%;
         z-index: 10;
         
+        
     }
+        .char {
+            position: absolute;
+            top: 7%;
+            left: 50%;
+            width: 25%;
+            height: 55%;
+            background-color: rgba(0, 0, 0, 0.744);
+          
+            border-width: 1px;
+            border-color: rgba(255, 255, 255, 0);
+            border-radius: 5px;
+            box-shadow: 0 0 10px 1px rgb(0, 157, 255);
+
+           
+    
+    
+        }
     
     .header2 {
-        top: 16%;
-
+        top: 3.2%;
+        left: 35.9%;
         gap: 15px;  
         position: absolute;
         flex-direction: column;
         height: 5%;
         width: 25%;
         z-index: 500;
-        color: rgb(218, 218, 218);
-        left: 50%;
+        color: rgb(255, 255, 255);
+        border-bottom-width: 0;
+        border-bottom-color: white;
         flex-direction: row;
         
         
         .head, .sidestats, .resist{
                 position: relative;
-                
+                height: 50%;
                 font-size: 16px;
-                top: -40%;
+                top: -20%;
                 gap: 5px;
-                padding: 10px;
-                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);
+                padding: 5px;
+                background: linear-gradient(to right, rgba(255, 255, 255, 0.358) 0%, rgba(65, 9, 9, 0) 50%, rgba(255, 255, 255, 0.272) 100%);
                 border-radius: 5px;
-                color: rgb(255, 254, 254);
+                color: rgb(255, 255, 255);
                 border-width: 1px;
                 border-color: rgba(255, 255, 255, 0.2);
                 font-family: geneva;
+                border-bottom-width: 0;
+                border-bottom-color: rgba(255, 255, 255, 0);
             :hover {
-                    background-color: rgb(0, 255, 136);
-                    padding: 0 1%;
-                    border-radius: 5%;
-                    color:black;
+                    
+                    
+                    
+                    color:rgb(255, 255, 255);
                     font-weight: bold;
             
             
@@ -130,41 +152,34 @@ CharacterMenu {
     .stats {
         position: absolute;
         flex-direction: column;
-        height: 100%;
-        width: 14%;
-        z-index: 5;
-        color: rgb(218, 218, 218);
-        left: 50%;
-        top: 24.7%;
-        gap: 4%;
-        margin-bottom: 5%;
         
-        .head, .sidestats, .resist{
-            position: relative;
-            align-content: center;     
-            justify-content: center;
-            justify-content: space-between;
-            font-family: geneva;
-            font-size: 16px;
-            color: rgb(9, 255, 0);
-            
-            
-        }
+        height: 70%;
+        width: 13%;
+        z-index: 1;
+        left: 35.5%;
+        top: 6%;
+        gap: 15px;
+        
+        
+        
+        
 
 
 
         .stats2 {
                 position: relative;
+                
+                align-items: center;
                 justify-content: space-between;
                 font-size: 16px;
-                top: -10%;
-                gap: 5px;
+              
+               
                 padding: 10px;
-                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);
+                background: linear-gradient(to right, rgba(80, 7, 7, 0) 0%, rgba(65, 9, 9, 0) 50%, rgba(8, 0, 0, 0.767) 100%);
                 border-radius: 5px;
                 color: rgb(255, 254, 254);
                 border-width: 1px;
-                border-color: rgba(255, 255, 255, 0.2);
+                border-color: rgba(143, 143, 143, 0.2);
                 font-family: geneva;
             
             
@@ -172,9 +187,11 @@ CharacterMenu {
             
 
             .n {
+                position: relative;
                 color: rgb(255, 255, 255);
                 font-size: 20px;
                 font-weight: 1000;
+                gap: 5px;
             }
 
         }
@@ -182,14 +199,18 @@ CharacterMenu {
         .tooltip-text {
             opacity: 0;
             position: absolute;
+            justify-content: center;
+            align-items: center;
             z-index: 100;
-            left: 100%;
-            width: 100%;
-            color: rgb(0, 0, 0);
+            left: 110%;
+            width: 160%;
+            gap: 10px;
+            color: rgb(255, 255, 255);
             font-size: 12px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 10px 15px 10px 15px;
+            background-color: #7d7d7d;
+            border-radius: 5px;
+            padding: 5px 15px 10px 15px;
+            
 
 
 
@@ -197,8 +218,11 @@ CharacterMenu {
 
         .header {
             font-size: 20px;
-            color: rgb(0, 0, 0);
+            color: rgb(0, 41, 129);
             font-weight: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
 
         .stats2:hover .tooltip-text {
@@ -211,28 +235,30 @@ CharacterMenu {
 
     .statsone {
 
-        position: absolute;
-            flex-direction: column;
-            height: 100%;
-            width: 14%;
-            z-index: 5;
-            color: rgb(218, 218, 218);
-            left: 50%;
-            top: 15%;
-            gap: 4%;
-            margin-bottom: 5%;
+            position: absolute;
+                flex-direction: column;
+                
+                height: 70%;
+                width: 13%;
+                z-index: 1;
+                left: 35.5%;
+                top: 6%;
+                gap: 15px;
 
         .tooltip-text {
             opacity: 0;
-            position: absolute;
-            z-index: 100;
-            left: 100%;
-            width: 100%;
-            color: white;
-            font-size: 12px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 10px 15px 10px 15px;
+                position: absolute;
+                justify-content: center;
+                align-items: center;
+                z-index: 100;
+                left: 110%;
+                width: 160%;
+                gap: 10px;
+                color: rgb(255, 255, 255);
+                font-size: 12px;
+                background-color: #7d7d7d;
+                border-radius: 5px;
+                padding: 5px 15px 10px 15px;
 
 
 
@@ -257,18 +283,20 @@ CharacterMenu {
 
         .stats4 {
 
-                position: relative;
-                justify-content: space-between;
-                font-size: 16px;
-                top: 24.7%;
-                gap: 5px;
-                padding: 10px;
-                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);
-                border-radius: 5px;
-                color: rgb(255, 254, 254);
-                border-width: 1px;
-                border-color: rgba(255, 255, 255, 0.2);
-                font-family: geneva;
+                    position: relative;
+                
+                    align-items: center;
+                    justify-content: space-between;
+                    font-size: 16px;
+                
+                
+                    padding: 10px;
+                    background: linear-gradient(to right, rgba(80, 7, 7, 0) 0%, rgba(65, 9, 9, 0) 50%, rgba(8, 0, 0, 0.767) 100%);
+                    border-radius: 5px;
+                    color: rgb(255, 254, 254);
+                    border-width: 1px;
+                    border-color: rgba(143, 143, 143, 0.2);
+                    font-family: geneva;
 
 
 
@@ -290,28 +318,29 @@ CharacterMenu {
     .statstwo {
         position: absolute;
             flex-direction: column;
-            height: 100%;
-            width: 14%;
-            z-index: 5;
-          
-            color: rgb(218, 218, 218);
-            left: 50%;
-            top: 24.7%;
-            gap: 4%;
-            margin-bottom: 5%;
+        
+            height: 70%;
+            width: 13%;
+            z-index: 1;
+            left: 35.5%;
+            top: 6%;
+            gap: 15px;
 
 
         .tooltip-text {
             opacity: 0;
-            position: absolute;
-            z-index: 100;
-            left: 100%;
-            width: 100%;
-            color: white;
-            font-size: 12px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 10px 15px 10px 15px;
+                position: absolute;
+                justify-content: center;
+                align-items: center;
+                z-index: 100;
+                left: 110%;
+                width: 160%;
+                gap: 10px;
+                color: rgb(255, 255, 255);
+                font-size: 12px;
+                background-color: #7d7d7d;
+                border-radius: 5px;
+                padding: 5px 15px 10px 15px;
 
             .header {
                 font-size: 20px;
@@ -330,16 +359,18 @@ CharacterMenu {
 
         .stats3 {
             position: relative;
+            
+                align-items: center;
                 justify-content: space-between;
                 font-size: 16px;
-                top: -10%;
-                gap: 5px;
+            
+            
                 padding: 10px;
-                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);
+                background: linear-gradient(to right, rgba(80, 7, 7, 0) 0%, rgba(65, 9, 9, 0) 50%, rgba(8, 0, 0, 0.767) 100%);
                 border-radius: 5px;
                 color: rgb(255, 254, 254);
                 border-width: 1px;
-                border-color: rgba(255, 255, 255, 0.2);
+                border-color: rgba(143, 143, 143, 0.2);
                 font-family: geneva;
 
 
@@ -413,11 +444,13 @@ CharacterMenu {
                 width: 19%;
                 top: 6%;
                 z-index: 10;
+               
     
             .items {
                 
                 background-color: rgba(222, 218, 211, 0);
                 flex-direction: column;
+                
                 z-index: -55;
               
     
@@ -427,33 +460,49 @@ CharacterMenu {
                     .playerst 
                     {
                     width:100%;
-                    height: 94%;
+                    height: 98%;
                     z-index: -50;
                     
                     gap: 10px; // Abstand zwischen den Elementen
                     font-family: Geneva;
                     flex-direction: column;
                     font-size: 15px;
+                     justify-content: center;
 
                     .playe1, .playe4, .playe3, .playe2 {
                         z-index: -55;
                         flex-direction: column;
+                        
                         width: 100%;
                         gap: 5px;
                         padding: 10px;
-                        background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);
+                        background: linear-gradient(to right, rgba(80, 7, 7, 0) 0%, rgba(42, 4, 4, 0.058) 25%, rgba(44, 0, 0, 0.652) 100%);
                         border-radius: 5px;
                         color: rgb(255, 254, 254);
                         border-width: 1px;
                         border-color: rgba(255, 255, 255, 0.2);
+                        justify-content: center;
 
-                      
+                        .li{
+                            width: 100%;
+                            font-size: 20px;
+                            color: rgb(255, 255, 255);
+                            font-weight: bold;
+                            justify-content: center;
+                            font-style: italic;
+                            text-align: center;
+                            text-decoration: underline;
+                            text-transform: uppercase;
+                            text-shadow: 2px 2px 4px #594900;
+                            text-underline-offset: 4px;
+                        }
 
                         .nu {
                             width: 100%;
-                            font-size: 24px;
+                            font-size: 16px;
                             color: rgb(255, 187, 0);
                             font-weight: 1000;
+                            justify-content: center;
                         }
 
                         .playic {
@@ -462,12 +511,14 @@ CharacterMenu {
                              // Pfad zum Icon-Bild
                             background-size: cover;
                             margin-right: 5px;
+                            justify-content: center;
                         }
 
                         .Vyndn {
                             width: 100%;
                             font-size: 24px;
-                            color: rgb(185, 192, 80);
+                            color: rgb(0, 167, 205);
+                            justify-content: center;
                         }
                     }
                 
