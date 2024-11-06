@@ -21,7 +21,7 @@ if ( Anisotropy.HasValue )
 {
 fogParams.Anisotropy = Anisotropy.Value;
 }
-fogParams.ContinuousMode = ContinuousMode;
+
 if ( DrawDistance.HasValue )
 {
 fogParams.DrawDistance = DrawDistance.Value;
@@ -34,7 +34,7 @@ if ( FadeInEnd.HasValue )
 {
 fogParams.FadeInEnd = FadeInEnd.Value;
 }
-fogParams.ForceNoClipmaps = ForceNoClipmaps;
+
 if ( IndirectStrength.HasValue )
 {
 fogParams.IndirectStrength = IndirectStrength.Value;

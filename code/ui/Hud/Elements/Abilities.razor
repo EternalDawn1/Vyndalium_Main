@@ -22,14 +22,7 @@
         ImagePath="ui/hud/player.png"
         style="position: absolute; top: 150px; right: 0px;" 
     />
-    <SideButton 
-        Title="Character Menu" 
-      
-        OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.CharacterMenu))
-        IsInverted=@(true)
-        ImagePath="ui/hud/muscles.png"
-        style="position: absolute; top: 270px; right: 0px; " 
-    />
+    
     <div class="sidehud">
         <SideButton OnClick=@(() => ShowPanel(PanelType.Abilities)) IsInverted=@(true)
 			ImagePath="ui/hud/Tree.png" title="Abilities" TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:blue; width:100%;"  />

@@ -123,11 +123,19 @@ public sealed class ViewModel : Component
 			float volume = PlayerController.MoveSpeed > 150f ? 1.0f : 0.5f; // Lautstärke basierend auf der Geschwindigkeit
 			TriggerFootstepEvent( 0, volume ); // Linker Fuß
 			TriggerFootstepEvent( 1, volume ); // Rechter Fuß
-			ModelRenderer.Set( "move_bob", PlayerController.MoveSpeed > 150f ? 1 : 0.5f ); // Setze die Eigenschaft "move_bob" basierend auf der Geschwindigkeit
+
+			if ( PlayerController.IsCrouching )
+			{
+				ModelRenderer.Set( "move_bob", 0.25f ); // Setze die Eigenschaft "move_bob" auf 0.25, wenn der Spieler duckt
+			}
+			else
+			{
+				ModelRenderer.Set( "move_bob", PlayerController.MoveSpeed > 150f ? 1 : 0.5f ); // Setze die Eigenschaft "move_bob" basierend auf der Geschwindigkeit
+			}
 		}
 		else
 		{
-			ModelRenderer.Set( "move_bob", 0 ); // Setze die Eigenschaft "move_bob" auf false, wenn der Spieler nicht läuft
+			ModelRenderer.Set( "move_bob", 0 ); // Setze die Eigenschaft "move_bob" auf 0, wenn der Spieler nicht läuft
 		}
 
 		Vector3 plusPos = Vector3.Zero + Weapon.IdlePos;

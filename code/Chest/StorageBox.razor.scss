@@ -13,7 +13,7 @@ StorageBox
         height: 100%;
         background-color: #000000be;
         border-radius: 10px;
-        padding: 10px;
+        padding: 5px;
 
         .Panel{
             position: relative;
@@ -21,26 +21,30 @@ StorageBox
             
             
             background-color: #da2f2f00;
-           
+            
            
             width: 100%;
             height: 100%;
 
             .section2{
-                top:20%;
+                top:5%;
                 left: 5%;
                 justify-content: center;
                 align-items: center;
                flex-direction: column;
                position: absolute;
                 width: 70%;
-                height: 60%;
-                background-color: rgba(61, 60, 60, 0.966);
+                height: 90%;
+                background-image: url('/ui/hud/background2.gif');
+                
+                
                 border-radius: 10px;
                 border-width: 1px;
                 border-color: #000000;
+               
                 .title{
-                   
+                    position: relative;
+                   top: 1%;
                     justify-content: center;
                     align-items: center;
                     background-color: #1996628c;
@@ -50,8 +54,9 @@ StorageBox
                     font-size: 30px;
                     font-weight: bold;
                     font-style: italic;
-                    
-
+                    width: 90%;
+                    height: 5%;
+                    text-shadow: 2px 2px 4px #1eff00;
                     padding: 10px;
                     border-radius: 10px;
                     margin-bottom: 10px;
@@ -63,10 +68,33 @@ StorageBox
                         padding: 4%;
                         flex-wrap: wrap;
                         width: 600px;
-                       
-                        border-color: #000000;
+                    
+                        border-color: #ffffff00;
                         background-color: #00000091;
                         border-width: 1px;
+                        overflow-y: scroll;
+
+                        .b{
+                            position: relative;
+                                top: 1%;
+                                justify-content: center;
+                                align-items: center;
+                                background-color: #1996628c;
+                                border-width: 1px;
+                                border-color: #000000;
+                                color: #ffffff;
+                                font-size: 30px;
+                                font-weight: bold;
+                                font-style: italic;
+                                width: 100%;
+                                height: 5%;
+                                text-shadow: 2px 2px 4px #1eff00;
+                                padding: 10px;
+                                border-radius: 10px;
+                                margin-bottom: 10px;
+                            
+                            
+                        }
                        
                     }
             }
@@ -92,7 +120,9 @@ StorageBox
                         position: relative;
                         width: 70%;
                         height: 60%;
-                        background-color: rgba(61, 60, 60, 0.993);
+                        background-image: url(/ui/textures/wood.jpg);
+                        background-size: cover;
+                        background-position: center;
                         border-radius: 10px;
                         border-width: 1px;
                         border-color: #0000003b;

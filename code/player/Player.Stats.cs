@@ -183,5 +183,6 @@ public abstract class StatusEffect
 {
     public float Duration { get; set; }
     public abstract void Apply( Player player );
- 
+  
+
 }

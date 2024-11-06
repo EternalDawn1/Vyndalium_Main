@@ -731,9 +731,7 @@ public class BaseGun : WeaponComponent, IUse
 
 	private void FireBulletWithWaterAspect( Player shooter )
 	{
-		// Implementiere die Logik für das Abfeuern eines Wasser-Aspekt-Geschosses
-	
-		// Beispiel: Erzeuge ein Wasserprojektil
+		Log.Info( "Water aspect bullet fired!" );
 	}
 
 	private void FireBulletWithIceAspect( Player shooter )

@@ -6,13 +6,25 @@
 <root>
     <div class="main-panel">
             <div class="Panel">
-                <div class="section2">
+                <div class="section2" >
                     <div class="title">Inventory</div>
-                        <div class="items2 @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
+                        <div class="items2 " CanDragScroll="false">
+                            @{
+					        var backpackBagItems = Player.Local.Inventory.BackpackBagItems;
+				            }
                             @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
                             {
                                 var item = Player.Local.Inventory.BackpackItems[index];
                                 <InventorySlot Item=@item BackpackSlotIndex=@index />
+                            }
+                            @if (backpackBagItems.Count > 0)
+                            {
+                                <div class="b">Bag</div>
+                                @for (var index = 0; index < backpackBagItems.Count; index++)
+                                {
+                                    var item = backpackBagItems[index];
+                                    <InventorySlot Item=@item BackpackPackSlotIndex=@index />
+                                }
                             }
                         </div>
                     <div style="align-items: center; margin: 20px 5px;"></div>
@@ -30,6 +42,7 @@
                             var item = (index < itemStorage.Items.Count) ? itemStorage.Items[index] : null;
                             <InventorySlot Item=@item IndependentSlotIndex=@index />
                         }
+                        
                     
                 </div>
                 <div style="align-items: center; margin: 20px 5px;"></div>
