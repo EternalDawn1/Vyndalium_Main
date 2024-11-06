@@ -510,12 +510,11 @@ public class BaseGun : WeaponComponent, IUse
 	public override void ReloadAction()
 	{
 		if ( IsReloading ) return;
-
 		var ammoToTake = ClipSize - AmmoInClip;
 		if ( ammoToTake <= 0 )
 		{
 			// Magazin ist bereits voll, Nachladeanimation stoppen
-			EffectRenderer.Set( "b_reload", false );
+			EffectRenderer?.Set( "b_reload", false );
 			return;
 		}
 
@@ -525,10 +524,9 @@ public class BaseGun : WeaponComponent, IUse
 		if ( !Owner.Ammo.CanTake( AmmoType, ammoToTake, out var taken ) )
 			return;
 
-		EffectRenderer.Set( "b_reload", true );
+		EffectRenderer?.Set( "b_reload", true );
 		ReloadFinishTime = AmmoInClip == 0 ? EmptyReloadTime : ReloadTime;
 		IsReloading = true;
-
 		SendReloadMessage();
 	}
 	[Property]public LineRenderer lineRenderer { get; set; }
@@ -1018,14 +1016,13 @@ public class BaseGun : WeaponComponent, IUse
 	protected virtual void OnReloadEnd()
 	{
 		var ammoToTake = ClipSize - AmmoInClip;
-
 		Owner.Ammo.TryTake( AmmoType, ammoToTake, out var taken );
 		AmmoInClip += taken;
-		EffectRenderer.Set( "b_empty", false );
+		EffectRenderer?.Set( "b_empty", false );
+		EffectRenderer?.Set( "b_reload", false ); // Beendet die Nachladeanimation
 		IsReloading = false;
-
 		// Animation stoppen
-		EffectRenderer.Set( "b_reload", false );
+		EffectRenderer?.Set( "b_reload", false );
 	}
 	private bool hasPlayedChargedSound = false;
 	protected override void OnUpdate()
