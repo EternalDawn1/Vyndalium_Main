@@ -23,6 +23,7 @@ public enum DamageType
 
 	ice = 6,
 	fire = 7,
+	water = 8,
 	 blunt = 8,	
 
 }

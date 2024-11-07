@@ -729,9 +729,31 @@ public class BaseGun : WeaponComponent, IUse
 
 	private void FireBulletWithWaterAspect( Player shooter )
 	{
-		Log.Info( "Water aspect bullet fired!" );
-	}
+		
 
+		// Berechne den Wasserschaden
+		int waterDamage = CalculateWaterDamage( shooter );
+
+		// Führe einen Trace aus, um zu überprüfen, ob das Geschoss etwas trifft
+		var trace = Scene.Trace.Ray( shooter.PlyCamera.WorldPosition, shooter.PlyCamera.WorldPosition + shooter.PlyCamera.WorldRotation.Forward * 5000f )
+			.IgnoreGameObjectHierarchy( shooter.GameObject.Root )
+			.WithoutTags( "player" )
+			.UseHitboxes()
+			.Run();
+
+		if ( trace.Hit )
+		{
+			var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+			if ( damageable != null )
+			{
+				// Wende den Wasserschaden an
+				damageable.TakeDamage( DamageType.water, waterDamage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
+
+				// Aktiviere die passive Fähigkeit des Wasseraspekts
+				ApplyWaterAspectPassive( damageable );
+			}
+		}
+	}
 	private void FireBulletWithIceAspect( Player shooter )
 	{
 		// Implementiere die Logik für das Abfeuern eines Eis-Aspekt-Geschosses
@@ -794,6 +816,24 @@ public class BaseGun : WeaponComponent, IUse
 		// Beispiel: Erzeuge ein Standardprojektil
 	}
 
+
+
+	private int CalculateWaterDamage( Player shooter )
+	{
+		// Beispielhafte Berechnung des Wasserschadens
+		return (int)(shooter.AttackPower * 0.2f);
+	}
+
+	private void ApplyWaterAspectPassive( IHealthComponent damageable )
+	{
+		// Beispielhafte Implementierung einer passiven Fähigkeit des Wasseraspekts
+		if ( damageable is Npc npc )
+		{
+			var slowEffect = new SlowEffect { Duration = 5 };
+			npc.ApplyStatusEffect( slowEffect );
+			
+		}
+	}
 	public virtual void FireBullet( Player shooter )
 	{
 		if ( shooter == null || Owner == null || EffectRenderer == null || Scene == null )
@@ -1230,6 +1270,8 @@ public class BaseGun : WeaponComponent, IUse
 		p.SetControlPoint( 0, startPos );
 		p.SetControlPoint( 1, hitPosition ); // Endposition des Strahls
 		p.SetControlPoint( 2, distanceToHit );
+
+		
 
 
 		p.PlayUntilFinished( Task );

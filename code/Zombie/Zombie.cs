@@ -321,6 +321,7 @@ public partial class Npc : Component, IHealthComponent
 
 	public GameObject Hitprefab { get; set; }
 
+	public Vector3 Position => NavMeshAgent != null ? NavMeshAgent.AgentPosition : Vector3.Zero;
 
 	[Property]
 	public NavigationType WalkingType { get; set; } = NavigationType.Dumb;
@@ -332,6 +333,31 @@ public partial class Npc : Component, IHealthComponent
 	[Property] public bool isChibi = false;
 	public bool isSlime = false;
 
+	public NavMeshAgent NavMeshAgent { get; private set; }
+
+
+	[Property]
+	public float MoveSpeed
+	{
+		get => agent != null ? agent.MaxSpeed : 0f;
+		set
+		{
+			if ( agent != null )
+			{
+				agent.MaxSpeed = value;
+			}
+		}
+	}
+	[Property]private List<StatusEffect> activeStatusEffects = new List<StatusEffect>();
+
+	public void ApplyStatusEffect( StatusEffect effect )
+	{
+		effect.Apply( this );
+		activeStatusEffects.Add( effect );
+
+		// Setze einen Timer, um den Effekt nach der Dauer zu entfernen
+		
+	}
 
 
 
@@ -1401,5 +1427,31 @@ public partial class Npc : Component, IHealthComponent
 	}
 
 
+}
+public abstract class StatusEffect
+{
+	public float Duration { get; set; }
+	public abstract void Apply( Npc npc );
+}
+
+public class SlowEffect : StatusEffect
+{
+	private string particleEffect = "particles/trail_bullet_water.vpcf";
+
+	public override void Apply( Npc npc )
+	{
+		// Implementiere die Logik für den Verlangsamungseffekt
+		npc.MoveSpeed *= 0.5f; // Beispiel: Reduziere die Bewegungsgeschwindigkeit um 50%
+		
+
+		// Setze einen Timer, um den Effekt nach der Dauer zu entfernen
+		Task.Delay( (int)(Duration * 1000) ).ContinueWith(  _ =>
+		{
+			npc.MoveSpeed /= 0.5f; // Setze die Bewegungsgeschwindigkeit zurück
+			
+		} );
+
+		
+	}
 }
 

@@ -21,7 +21,6 @@ public static class Extensions
 		{
 			// Do nothing.
 		}
-
 		particles.Delete();
 	}
 
