@@ -553,8 +553,21 @@ public sealed class Inventory : Component
 		// Wenn kein freier Slot gefunden wurde, geben wir -1 zurück
 		return -1;
 	}
+	private List<ItemComponent> _savedBackpackBagItems = new List<ItemComponent>();
 
-	
+	public void SaveBackpackBagItems()
+	{
+		_savedBackpackBagItems.Clear();
+		_savedBackpackBagItems.AddRange( _backpackBagItems );
+	}
+
+	public void RestoreBackpackBagItems()
+	{
+		_backpackBagItems.Clear();
+		_backpackBagItems.AddRange( _savedBackpackBagItems );
+	}
+
+
 	public void MoveItemToUpgrade( ItemComponent item )
 	{
 		if ( item == null ) return;
@@ -789,19 +802,27 @@ public sealed class Inventory : Component
 			if ( item is Backpack backpack )
 			{
 				MAX_BACKPACKBAG_SLOTS = (int)backpack.SlotAmount;
-				
+
 				if ( _backpackBagItems.Count < MAX_BACKPACKBAG_SLOTS )
 				{
 					for ( int i = _backpackBagItems.Count; i < MAX_BACKPACKBAG_SLOTS; i++ )
 					{
 						_backpackBagItems.Add( null );
 					}
-					var modelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
-					{
-						modelRenderer.Enabled = false;
-					}
-					return true;
 				}
+				else if ( _backpackBagItems.Count > MAX_BACKPACKBAG_SLOTS )
+				{
+					_backpackBagItems.RemoveRange( MAX_BACKPACKBAG_SLOTS, _backpackBagItems.Count - MAX_BACKPACKBAG_SLOTS );
+				}
+
+				RestoreBackpackBagItems();
+
+				var modelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
+				if ( modelRenderer != null )
+				{
+					modelRenderer.Enabled = false;
+				}
+				return true;
 			}
 
 
@@ -949,10 +970,12 @@ public sealed class Inventory : Component
 		}
 		if ( item is Backpack )
 		{
+			SaveBackpackBagItems(); // Speichern der Items im Backpack
+
 			MAX_BACKPACKBAG_SLOTS = 0; // Zurücksetzen auf den Standardwert
 
 			// Entfernen der zusätzlichen Slots
-			_backpackBagItems.RemoveRange( 0, _backpackBagItems.Count );
+			_backpackBagItems.Clear();
 		}
 
 		item.GameObject.Enabled = false;
@@ -1326,10 +1349,28 @@ public sealed class Inventory : Component
 		item.State = ItemState.Backpack;
 		item.GameObject.Enabled = false;
 	}
+	public void SetItemBagpack( ItemComponent item, int index )
+	{
 
-	
+		if ( item == null )
+		{
 
-	
+		}
+
+		if ( Player == null )
+		{
+
+		}
+
+		SetOwner( item ); // Zeile 913
+		GiveBackpackBagItem( item, index );
+		item.State = ItemState.BackpackBag;
+		item.GameObject.Enabled = false;
+	}
+
+
+
+
 	/// <summary>
 	/// Removes a specific amount from an item if the item is stackable and has more than the amount.
 	/// </summary>
@@ -1531,34 +1572,40 @@ public sealed class Inventory : Component
 	/// <summary>
 	/// The item is given to the backpack.
 	/// </summary>
+	/// 
 	public void GiveBackpackItem(ItemComponent item, int index)
 	{
-		if(IsProxy)
-			return;
-		// Überprüfen Sie, ob das Item bereits in der Liste ist
 		if (_backpackItems.Contains(item))
 		{
-			
 			return;
 		}
 
-		// Überprüfen Sie, ob der Index gültig ist
 		if (index >= 0 && index < _backpackItems.Count)
 		{
 			// Überprüfen Sie, ob der Slot im Rucksack leer ist
-			if (_backpackItems[index] == null)
-			{
-				_backpackItems[index] = item;
-				item.State = ItemState.Backpack;
-				item.GameObject.Enabled = false; // Aktualisieren Sie den Zustand des Items
-				
-			}
-			else
-			{
 			
-			}
+			_backpackItems[index] = item;
+			item.State = ItemState.Backpack;
+			item.GameObject.Enabled = false; // Aktualisieren Sie den Zustand des Items
 		}
 	
+	}
+	public void GiveBackpackBagItem( ItemComponent item, int index )
+	{
+		if ( _backpackBagItems.Contains( item ) )
+		{
+			return;
+		}
+
+		if ( index >= 0 && index < _backpackBagItems.Count )
+		{
+			// Überprüfen Sie, ob der Slot im Rucksack leer ist
+
+			_backpackBagItems[index] = item;
+			item.State = ItemState.BackpackBag;
+			item.GameObject.Enabled = false; // Aktualisieren Sie den Zustand des Items
+		}
+
 	}
 	public void GiveStorageItem( ItemComponent item, int index )
 	{

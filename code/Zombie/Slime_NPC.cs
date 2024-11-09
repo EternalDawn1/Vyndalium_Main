@@ -9,5 +9,5 @@ public partial class Slime : Npc , IHealthComponent
 		base.OnUpdate();
 	}
 	
-    
+
 }

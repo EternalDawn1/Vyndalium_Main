@@ -72,7 +72,7 @@ namespace GeneralGame
                             gameObject.WorldPosition = position + new Vector3( 0, 0, 50 );
                             gameObject.NetworkSpawn();
 
-                            // Erzeugen eines Partikelemitters in der Mitte
+                            
                            
 
                             // Zerstören des Partikelemitters nach einer kurzen Zeit
@@ -81,6 +81,8 @@ namespace GeneralGame
                     }
                     break;
                 }
+                
+            
             }
         }
 

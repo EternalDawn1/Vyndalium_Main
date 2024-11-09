@@ -16,7 +16,7 @@ public struct ItemSave
 	[JsonInclude] public ItemState State;
 	[JsonInclude] public int Index;
 	[JsonInclude] public int IndexStorage;
-	[JsonInclude] public int IndexBackpack;
+	[JsonInclude] public int IndexBackpackBag;
 	[JsonInclude] public float SellPrice { get; set; }
 	[JsonInclude] public float BuyPrice { get; set; }
 	[JsonInclude] public int DMG { get; set; }
@@ -154,7 +154,8 @@ public struct PlayerSave
 	[JsonInclude] public ItemSave[] Clothes;
 	[JsonInclude] public ItemSave[] Inventory;
 	[JsonInclude] public ItemSave[] StorageItems;
-	[JsonInclude] public ItemSave[] BackpackItems;
+	
+	[JsonInclude] public ItemSave[] BackpackBagItems;
 
 }
 
@@ -293,7 +294,7 @@ partial class Player
 				Data = data.Count > 0 ? data : null,
 				IndexStorage = player.Inventory._storageBoxItems.IndexOf( item ),
 				Index = player.Inventory.IndexOf( item ),
-				IndexBackpack = player.Inventory._backpackBagItems.IndexOf( item ),	
+				IndexBackpackBag = player.Inventory._backpackBagItems.IndexOf( item ),	
 				SellPrice = item.SellPrice,
 				BuyPrice = item.BuyPrice,
 				MaxStack = item.MaxStack,
@@ -435,7 +436,7 @@ partial class Player
 				.Where( x => x != null )
 				.Select( Serialize )
 				.ToArray(),
-			BackpackItems = player.Inventory.BackpackBagItems
+			BackpackBagItems = player.Inventory.BackpackBagItems
 				.Where( x => x != null )
 				.Select( Serialize )
 				.ToArray(),
@@ -844,11 +845,11 @@ partial class Player
 
 			}
 		}
-		if(save.BackpackItems != null)
+		
+		if ( save.BackpackBagItems != null )
 		{
-			foreach ( var data in save.BackpackItems )
+			foreach ( var data in save.BackpackBagItems )
 			{
-
 				if ( !ResourceLibrary.TryGet<PrefabFile>( data.Path, out var prefab ) )
 					continue;
 				var o = SceneUtility.GetPrefabScene( prefab ).Clone();
@@ -857,7 +858,7 @@ partial class Player
 				var item = o.Components.Get<ItemComponent>();
 				if ( item == null )
 					continue;
-				player.Inventory.GiveBackpackItem( item, data.Index );
+				player.Inventory?.GiveBackpackBagItem( item, data.Index );
 				ReadData( data, o );
 				item.IsBackpack = data.IsBackpack;
 				item.Aspect = data.Aspect;

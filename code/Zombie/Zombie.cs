@@ -318,10 +318,11 @@ public partial class Npc : Component, IHealthComponent
 	[Property] public float FireDamage { get; set; } = 10f;
 	[Property]public NpcState CurrentState { get; set; } = NpcState.Idle;
 	public static Random random = new Random();
-
+	public Rotation Rotation { get; set; }
 	public GameObject Hitprefab { get; set; }
 
-	public Vector3 Position => NavMeshAgent != null ? NavMeshAgent.AgentPosition : Vector3.Zero;
+	public Vector3 Position { get; set; }
+
 
 	[Property]
 	public NavigationType WalkingType { get; set; } = NavigationType.Dumb;
@@ -1236,6 +1237,7 @@ public partial class Npc : Component, IHealthComponent
 			return new Random().Next( 170, 201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
 		}
 	}
+	
 	[Broadcast]
 	public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
@@ -1425,6 +1427,46 @@ public partial class Npc : Component, IHealthComponent
 		ExperienceChanged?.Invoke( Experience );
 		return true;
 	}
+	public void CreateParticleEffect( Vector3 position, Rotation rotation )
+	{
+		// Erhöhe die z-Koordinate der Position, um den Partikeleffekt nach oben zu verschieben
+		Vector3 adjustedPosition = new Vector3( position.x, position.y, position.z + 100.0f ); // Erhöhe die z-Koordinate um 20.0f
+
+	
+		var p = new SceneParticles( Scene.SceneWorld, "particles/trail_bullet_water.vpcf" );
+		p.SetControlPoint( 0, adjustedPosition );
+		p.SetControlPoint( 1, rotation.Forward * -1f );
+		p.SetControlPoint( 2, new Vector3( 0f, 0f, 0f ) );
+		p.PlayUntilFinished( Task );
+
+		CreateDamageZone( adjustedPosition, 5.0f, 10.0f );
+	}
+	private void CreateDamageZone( Vector3 position, float radius, float damage )
+	{
+		// Implementiere die Logik zur Erstellung einer Schadenszone
+		// Überprüfe alle NPCs innerhalb des Radius und füge ihnen Schaden zu
+		foreach ( var npc in FindNpcsInRadius( position, radius ) )
+		{
+			npc.TakeDamage( damage );
+		}
+	}
+	private IEnumerable<Npc> FindNpcsInRadius( Vector3 position, float radius )
+	{
+		// Implementiere die Logik zur Suche nach NPCs innerhalb eines bestimmten Radius
+		// Dies ist ein Platzhalter für die tatsächliche Logik
+		// Beispiel:
+		return new List<Npc>(); // Ersetze dies durch die tatsächliche Logik
+	}
+
+	public void TakeDamage( float damage )
+	{
+		// Implementiere die Logik, um Schaden zu nehmen
+		Health -= damage;
+		if ( Health <= 0 )
+		{
+			// Implementiere die Logik, wenn der NPC stirbt
+		}
+	}
 
 
 }
@@ -1436,14 +1478,15 @@ public abstract class StatusEffect
 
 public class SlowEffect : StatusEffect
 {
-	private string particleEffect = "particles/trail_bullet_water.vpcf";
+	
 
 	public override void Apply( Npc npc )
 	{
+		
 		// Implementiere die Logik für den Verlangsamungseffekt
 		npc.MoveSpeed *= 0.5f; // Beispiel: Reduziere die Bewegungsgeschwindigkeit um 50%
-		
 
+		npc.CreateParticleEffect( npc.WorldPosition, npc.WorldRotation );
 		// Setze einen Timer, um den Effekt nach der Dauer zu entfernen
 		Task.Delay( (int)(Duration * 1000) ).ContinueWith(  _ =>
 		{
@@ -1453,5 +1496,7 @@ public class SlowEffect : StatusEffect
 
 		
 	}
+	
+
 }
 

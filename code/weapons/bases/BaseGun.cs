@@ -829,9 +829,16 @@ public class BaseGun : WeaponComponent, IUse
 		// Beispielhafte Implementierung einer passiven Fähigkeit des Wasseraspekts
 		if ( damageable is Npc npc )
 		{
-			var slowEffect = new SlowEffect { Duration = 5 };
-			npc.ApplyStatusEffect( slowEffect );
-			
+			// Generiere eine Zufallszahl zwischen 0 und 100
+			Random random = new Random();
+			int chance = random.Next( 0, 100 );
+
+			// Überprüfe, ob die Zufallszahl innerhalb der 15%-Wahrscheinlichkeit liegt
+			if ( chance < 15 )
+			{
+				var slowEffect = new SlowEffect { Duration = 5 };
+				npc.ApplyStatusEffect( slowEffect );
+			}
 		}
 	}
 	public virtual void FireBullet( Player shooter )
