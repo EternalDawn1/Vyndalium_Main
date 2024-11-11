@@ -64,7 +64,7 @@ public class BaseGun : WeaponComponent, IUse
 		if ( ammoContainer != null )
 		{
 			AmmoCount = ammoContainer.GetAmmoCount( AmmoType );
-			DefaultAmmo = ammoContainer.GetDefaultAmmo( AmmoType ); // Stelle sicher, dass DefaultAmmo hier korrekt gesetzt wird
+	
 		}
 	}
 
@@ -82,11 +82,8 @@ public class BaseGun : WeaponComponent, IUse
 		Log.Info( $"AmmoCount vor dem Ausrüsten: {player.AmmoContainer.GetAmmoCount( AmmoType.Rifle )}" );
 
 		// Standardmunition abrufen und setzen
-		var defaultAmmo = player.AmmoContainer.GetDefaultAmmo( AmmoType.Rifle );
-		if ( defaultAmmo > 0 )
-		{
-			AmmoCount = defaultAmmo;
-		}
+		
+		
 
 		var ammoToTake = Math.Min( ClipSize, player.AmmoContainer.GetAmmoCount( AmmoType.Rifle ) );
 		AmmoInClip = ammoToTake;
@@ -722,9 +719,27 @@ public class BaseGun : WeaponComponent, IUse
 		EffectRenderer.Set( "b_attack", true );
 		NextMeleeAttackTime = MeleeCooldown;
 	}
+
 	private void FireBulletWithFireAspect( Player shooter )
 	{
+		int firedamage = CalculateFireDamage( shooter );
+
+		var trace = Scene.Trace.Ray( shooter.PlyCamera.WorldPosition, shooter.PlyCamera.WorldPosition + shooter.PlyCamera.WorldRotation.Forward * 5000f )
+			.IgnoreGameObjectHierarchy( shooter.GameObject.Root )
+			.WithoutTags( "player" )
+			.UseHitboxes()
+			.Run();
 		
+		if ( trace.Hit )
+		{
+			var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+			if ( damageable != null )
+			{
+				damageable.TakeDamage( DamageType.fire, firedamage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
+
+				ApplyFireAspectPassive( damageable );
+			}
+		}
 	}
 
 	private void FireBulletWithWaterAspect( Player shooter )
@@ -763,9 +778,23 @@ public class BaseGun : WeaponComponent, IUse
 
 	private void FireBulletWithAirAspect( Player shooter )
 	{
-		// Implementiere die Logik für das Abfeuern eines Luft-Aspekt-Geschosses
-		Log.Info( "Air aspect bullet fired!" );
-		// Beispiel: Erzeuge ein Luftprojektil
+		int airDamage = 5; // Beispielhafter Luftschaden
+
+		var trace = Scene.Trace.Ray( shooter.PlyCamera.WorldPosition, shooter.PlyCamera.WorldPosition + shooter.PlyCamera.WorldRotation.Forward * 5000f )
+			.IgnoreGameObjectHierarchy( shooter.GameObject.Root )
+			.WithoutTags( "player" )
+			.UseHitboxes()
+			.Run();
+		
+		if ( trace.Hit )
+		{
+			var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+			if ( damageable != null )
+			{
+				damageable.TakeDamage( DamageType.air, airDamage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
+				ApplyAirAspectPassive( damageable );
+			}
+		}
 	}
 
 	private void FireBulletWithEarthAspect( Player shooter )
@@ -797,9 +826,24 @@ public class BaseGun : WeaponComponent, IUse
 
 	private void FireBulletWithBleedAspect( Player shooter )
 	{
-		// Implementiere die Logik für das Abfeuern eines Blutungs-Aspekt-Geschosses
-		Log.Info( "Bleed aspect bullet fired!" );
-		// Beispiel: Erzeuge ein Blutungsprojektil
+		int bleedDamage = 5; // Beispielhafter Blutungsschaden
+
+		var trace = Scene.Trace.Ray( shooter.PlyCamera.WorldPosition, shooter.PlyCamera.WorldPosition + shooter.PlyCamera.WorldRotation.Forward * 5000f )
+			.IgnoreGameObjectHierarchy( shooter.GameObject.Root )
+			.WithoutTags( "player" )
+			.UseHitboxes()
+			.Run();
+		
+		if ( trace.Hit )
+		{
+			var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+			if ( damageable != null )
+			{
+				damageable.TakeDamage( DamageType.bleed, bleedDamage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
+			}
+			ApplyBleedAspectPassive( damageable , shooter );
+
+		}
 	}
 
 	private void FireBulletWithPoisonAspect( Player shooter )
@@ -817,13 +861,48 @@ public class BaseGun : WeaponComponent, IUse
 	}
 
 
-
+	private int CalculateFireDamage( Player shooter )
+	{
+		// Beispielhafte Berechnung des Feuerschadens
+		return (int)(shooter.AttackPower * 0.3f);
+	}
 	private int CalculateWaterDamage( Player shooter )
 	{
 		// Beispielhafte Berechnung des Wasserschadens
 		return (int)(shooter.AttackPower * 0.2f);
 	}
+	private void ApplyAirAspectPassive( IHealthComponent damageable )
+	{
+		// Beispielhafte Implementierung einer passiven Fähigkeit des Luftaspekts
+		if ( damageable is Npc npc )
+		{
+			// Generiere eine Zufallszahl zwischen 0 und 100
+			Random random = new Random();
+			int chance = random.Next( 0, 100 );
 
+			// Überprüfe, ob die Zufallszahl innerhalb der 10%-Wahrscheinlichkeit liegt
+			if ( chance < 10 )
+			{
+				var knockbackDirection = new Vector3( 0, 0, 50 ); // Beispielhafte Richtung
+				var knockbackEffect = new KnockbackEffect( 5, knockbackDirection, 500 ); // Dauer in Sekunden, Richtung und Kraft
+				npc.ApplyStatusEffect( knockbackEffect );
+			}
+		}
+	}
+
+	private void ApplyFireAspectPassive( IHealthComponent damageable )
+	{
+		if ( damageable is Npc npc )
+		{
+			Random random = new Random();
+			int chance = random.Next( 0, 100 );
+			if ( chance < 10 )
+			{
+				var burnEffect = new BurnEffectNpc( 5 ); // Dauer in Sekunden
+				npc.ApplyStatusEffect( burnEffect );
+			}
+		}
+	}
 	private void ApplyWaterAspectPassive( IHealthComponent damageable )
 	{
 		// Beispielhafte Implementierung einer passiven Fähigkeit des Wasseraspekts
@@ -838,6 +917,25 @@ public class BaseGun : WeaponComponent, IUse
 			{
 				var slowEffect = new SlowEffect { Duration = 5 };
 				npc.ApplyStatusEffect( slowEffect );
+			}
+		}
+	}
+	private void ApplyBleedAspectPassive( IHealthComponent damageable, Player shooter )
+	{
+		// Beispielhafte Implementierung einer passiven Fähigkeit des Blutungsaspekts
+		if ( damageable is Npc npc )
+		{
+			// Generiere eine Zufallszahl zwischen 0 und 100
+			Random random = new Random();
+			int chance = random.Next( 0, 100 );
+
+			// Überprüfe, ob die Zufallszahl innerhalb der 20%-Wahrscheinlichkeit liegt
+			if ( chance < 20 )
+			{
+				var bleedEffect = new BleedEffect( 5); // Dauer in Sekunden
+				npc.ApplyStatusEffect( bleedEffect );
+				// Heile den Angreifer um 1% seines maximalen Lebens
+				shooter.Health = Math.Min( shooter.MaxHealth, shooter.Health + shooter.MaxHealth * 0.01f );
 			}
 		}
 	}
@@ -1028,9 +1126,7 @@ public class BaseGun : WeaponComponent, IUse
 			textRenderer.Text = $"{damage}";
 			ScaleTextWithDistance scaleTextWithDistance = hitinfo.Components.Get<ScaleTextWithDistance>();
 			scaleTextWithDistance.Thing = shooter.GameObject;
-			/// <summary>
-			/// Made from TrollFaceReallife47 thanks <3
-			/// </summary>
+			
 		}
 		else if ( trace.Hit )
 		{

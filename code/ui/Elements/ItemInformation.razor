@@ -43,6 +43,20 @@
 					<div class="aspect-description" style="color: @GetAspectColor(Item.Aspect)">
 						<text>Aspect: @Item.GetAspectAsString()</text>
 					</div>
+					@if (Item.Aspect == AspectType.Bleed)
+					{
+						<div class="aspect-info" style="color: @GetAspectColor(Item.Aspect)">
+							<text>&#x25CF; healing drainage 1%</text>
+							<br />
+							<text>&#x25CF; bleed damage per second 5</text>
+						</div>
+					}
+					@if (Item.Aspect == AspectType.Fire)
+					{
+						<div class="aspect-info" style="color: @GetAspectColor(Item.Aspect)">
+							<text>&#x25CF; burn damage per second 5</text>
+						</div>
+					}
 				}
 				<div class="description"
 					style="justify-content: center;@(!string.IsNullOrEmpty(Item.Description) ? "align-items: center;" : "")">

@@ -27,7 +27,7 @@ public partial class Player : Component, IHealthComponent
 	private const float crouchSpeed = 5f;
 	public ItemEquipment EquippedItem => Inventory?.GetEquippedHandItem();
 	private Vector3 targetCameraPosition;
-	[Property] public AmmoContainer Ammo { get; set; } = new AmmoContainer();
+	[Property] public AmmoContainer Ammo { get; set; } 
 	public BaseGun CurrentWeapon { get; set; }
 	[Property] public CharacterController CharacterController { get; set; }
 	[Property] public MoveHelper MoveHelper { get; set; }
@@ -73,14 +73,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float GroundControl { get; private set; } = 4.0f;
 	[Property] public float Aircontrol { get; private set; } = 0.1f;
 	public static bool DebugCamera { get; set; } = false;
-	public void InitializeAmmo()
-	{
-		if ( Ammo == null )
-		{
-			Ammo = new AmmoContainer(); // Ersetzen Sie AmmoContainer durch den tatsächlichen Typ
-			Log.Info( "AmmoContainer wurde initialisiert." );
-		}
-	}
+	
 
 	[Property] public bool ThirdPersonEnabled { get; set; }
 	protected BoxCollider Collider;
@@ -327,7 +320,7 @@ public partial class Player : Component, IHealthComponent
 		EquipWeaponsOnSpawn();
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
-		InitializeAmmo();
+		
 		
 
 		LifeState = LifeState.Alive;
@@ -450,7 +443,7 @@ public partial class Player : Component, IHealthComponent
 
 		if (AmmoContainer == null)
 		{
-			AmmoContainer = new AmmoContainer();
+			AmmoContainer = Components.GetOrCreate<AmmoContainer>();
 		}	
 		if(Inventory == null)
 		{
@@ -782,7 +775,7 @@ public partial class Player : Component, IHealthComponent
 				PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
 
 
-			PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch( -20f );
+			PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
 
 
 
@@ -799,7 +792,7 @@ public partial class Player : Component, IHealthComponent
 			var angles = EyeAngles.Normal;
 			angles += Input.AnalogLook * 2.0f;
 			angles += Recoil * Time.Delta;
-			angles.pitch = angles.pitch.Clamp( -80f, 89.9f );
+			angles.pitch = angles.pitch.Clamp( -89f, 89.9f );
 
 
 			EyeAngles = angles.WithRoll( 0f );

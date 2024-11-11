@@ -8,8 +8,8 @@ namespace GeneralGame;
 [Title( "Ammo Container" )]
 public class AmmoContainer : Component
 {
-	[Property]public Dictionary<AmmoType, int> AmmoCount = new Dictionary<AmmoType, int>();
-	[Property]private Dictionary<AmmoType, int> defaultAmmo = new Dictionary<AmmoType, int>();
+	[Property] public Dictionary<AmmoType, int> AmmoCount { get; set; } = new Dictionary<AmmoType, int>();
+
 
 	public int GetAmmoCount( AmmoType ammoType )
 	{
@@ -19,7 +19,6 @@ public class AmmoContainer : Component
 		}
 		return 0;
 	}
-
 	public void RemoveAmmo( AmmoType ammoType, int count )
 	{
 		if ( AmmoCount.ContainsKey( ammoType ) )
@@ -37,27 +36,24 @@ public class AmmoContainer : Component
 	{
 		if ( AmmoCount.TryAdd( type, ammo ) )
 			return;
-
 		AmmoCount[type] += ammo;
 	}
-	
+
 
 	public bool TryTake( AmmoType type, int amount, out int taken )
 	{
-		var ammo = Get( type );
+		var ammo = GetAmmoCount( type );
 		if ( ammo == 0 )
 		{
 			taken = 0;
 			return false;
 		}
-
 		if ( ammo >= amount )
 		{
 			taken = amount;
 			AmmoCount[type] -= taken;
 			return true;
 		}
-
 		taken = ammo;
 		AmmoCount[type] = 0;
 		return true;
@@ -88,15 +84,9 @@ public class AmmoContainer : Component
 	}
 
 	// Neue Methoden für DefaultAmmo
-	public void SetDefaultAmmo( AmmoType ammoType, int count )
-	{
-		defaultAmmo[ammoType] = count;
-	}
 
-	public int GetDefaultAmmo( AmmoType ammoType )
-	{
-		return CollectionExtensions.GetValueOrDefault( defaultAmmo, ammoType, 0 );
-	}
+
+	
 
 	// Serialisierungsmethoden
 	public string Serialize()

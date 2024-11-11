@@ -26,6 +26,10 @@ public enum DamageType
 	water = 8,
 	 blunt = 8,	
 
+	 bleed = 9,
+
+	 air = 10,
+
 }
 
 

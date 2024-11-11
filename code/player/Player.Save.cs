@@ -78,7 +78,8 @@ public struct PlayerSave
 	[JsonInclude] public string Lastname;
 	[JsonInclude] public string AuthToken {get ; set;}
 	[JsonInclude] public int MAX_BACKPACK_SLOTS;
-	[JsonInclude] public Dictionary<AmmoType, int> AmmoCount;
+	[JsonInclude] public Dictionary<AmmoType, int> AmmoCount { get; set; }
+	[JsonInclude] public int DefaultAmmo;
 	[JsonInclude] public int Vyndalium;
 	[JsonInclude] public int Experience;
 	[JsonInclude] public int Level;
@@ -358,14 +359,15 @@ partial class Player
 			AbilityHaste = player.AbilityHaste,
 			PlayerWalkSpeed = player.PlayerWalkSpeed,
 			PlayerRunSpeed = player.PlayerRunSpeed,
-			
+			DefaultAmmo = player.DefaultAmmo,
 
 			MinArmorValue = player.MinArmorValue,
 			MaxArmorValue = player.MaxArmorValue,
 			MinAttackValue = player.MinAttackValue,
 			MaxAttackValue = player.MaxAttackValue,
 			MAX_BACKPACK_SLOTS = player.MAX_BACKPACK_SLOTS,
-			AmmoCount = player.AmmoContainer?.AmmoCount,
+
+			AmmoCount = player.AmmoContainer.AmmoCount,
 			Vyndalium = (int)player.Vyndalium,
 			Experience = (int)player.Experience,
 			Level = (int)player.Level,
@@ -477,13 +479,10 @@ partial class Player
 			return false;
 
 		var save = tuple.Save;
-		
+
 
 		// Stellen Sie sicher, dass save.AmmoContainerData initialisiert wurde
-		if ( player.AmmoContainer == null )
-		{
-			player.AmmoContainer = new AmmoContainer();
-		}
+		
 
 		player.AmmoContainer.AmmoCount = save.AmmoCount ?? new Dictionary<AmmoType, int>();
 		foreach ( var ammo in save.AmmoCount )
@@ -503,7 +502,7 @@ partial class Player
 		player.MaxArmorValue = save.MaxArmorValue;
 		player.MinAttackValue = save.MinAttackValue;
 		player.MaxAttackValue = save.MaxAttackValue;
-		
+		player.DefaultAmmo = save.DefaultAmmo;
 		player.MaxHealth = save.MaxHealth;
 		player.MaxMana = save.MaxMana;
 		player.MaxStamina = save.MaxStamina;

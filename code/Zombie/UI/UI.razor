@@ -14,6 +14,8 @@
                 <div class="npc-ability @(npc.HasIceAbility ? "show" : "")">ICE</div>
                 <div class="npc-ability @(npc.HasWindAbility ? "show" : "")" style="background-color: aqua;">WIND</div>
                 <div class="npc-ability @(npc.HasFireAbility ? "show" : "")" style="background-color: orangered;">FIRE</div>
+                <div class="npc-ability @(npc.IsSlowed ? "show" : "")" style="background-color: blue;">SLOWED</div>
+                <div class="npc-ability @(npc.IsBleeding ? "show" : "")" style="background-color: yellow;">Bleeding</div>
             </div>
 
             <div class="zombie-healthbar-container @(isTakingDamage ? "show" : "")">

@@ -51,7 +51,7 @@ public partial class WeaponContainer : Component
 		if ( weapon != null && player != null )
 		{
 			// Initialisieren Sie die Ammo-Eigenschaft des Players
-			player.InitializeAmmo();
+		
 
 			var ammoToGive = player.Ammo.Get( weapon.AmmoType );
 			if ( ammoToGive > 0 )
@@ -64,10 +64,7 @@ public partial class WeaponContainer : Component
 				}
 			}
 
-			if ( weapon.AmmoInClip < weapon.ClipSize )
-			{
-				weapon.AmmoInClip = weapon.ClipSize;
-			}
+			
 		}
 		
 	}
