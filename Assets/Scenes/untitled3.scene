@@ -386,7 +386,7 @@
           "__guid": "0ed72abd-38cc-47d1-acd1-0ee369d01a6c",
           "Flags": 0,
           "Name": "Point Light (17)",
-          "Position": "-24639.52,1756.386,-7677.6",
+          "Position": "-24651.4,1731.077,-7829.492",
           "Tags": "light,light_point",
           "Enabled": true,
           "Components": [
@@ -5596,15 +5596,512 @@
       ]
     },
     {
-      "__guid": "06f9e94d-01cf-40ec-88d5-2ba399808194",
+      "__guid": "47563a3b-5e86-4bad-8bc9-fd879cf20d22",
       "Flags": 0,
-      "Name": "Object",
-      "Position": "-196.1686,1119.285,-10.44713",
+      "Name": "pickupammo (1)",
+      "Position": "332.0843,652.9033,516.4948",
+      "Scale": "0.3,0.3,0.3",
       "Enabled": true,
       "Components": [
         {
-          "__type": "GeneralGame.B\u00E4ckchens",
-          "__guid": "8bf53ea4-5f8c-4254-bfce-d2a8a535908a"
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "f54f0185-363d-41db-9764-dbf46d07a698",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "Model": "models/props/ammo_box/ammobox.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.59984,1,0.17209,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "66fc8d70-0e28-4884-a824-737650fb5e89",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "0c003b94-3732-4a32-b026-228d430923c6",
+          "AmmoTypen": "Rifle",
+          "MaxCount": 25,
+          "MinCount": 1
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "a09301f5-8c02-4751-bf79-19de3d5f19a4",
+          "AmmoTypen": "Pistol",
+          "MaxCount": 50,
+          "MinCount": 1
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "de0af2cf-416d-4f7c-bce4-056ef3a4e0a4",
+          "Flags": 0,
+          "Name": "Object",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Flame",
+              "__guid": "52fd5b41-68d6-4a12-8738-a45d55fc5678",
+              "BaseLightColor": "0.51628,1,0.44186,1",
+              "FlickerFrequency": 63.72,
+              "FlickerIntensity": 1,
+              "IsLit": true,
+              "JitterAmount": "0,0,18.9",
+              "JitterFrequency": 0,
+              "TargetLight": {
+                "_type": "component",
+                "component_id": "5cb58233-acdc-4e7f-acaa-8e72fc8b4935",
+                "go": "de0af2cf-416d-4f7c-bce4-056ef3a4e0a4",
+                "component_type": "PointLight"
+              }
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "5cb58233-acdc-4e7f-acaa-8e72fc8b4935",
+              "Attenuation": 0.59,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0,1,0.33333,1",
+              "Radius": 64,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "3d0fddaf-a520-4c7f-87bf-53af2b4e15fb",
+      "Flags": 0,
+      "Name": "pickupammo (2)",
+      "Position": "332.0843,680.3625,516.4948",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "3cf3b680-b529-4bfc-ae0e-5fef2fb63eb1",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "Model": "models/props/ammo_box/ammobox.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.59984,1,0.17209,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "10f49b4b-445b-47ce-9ae5-be35599d1fbf",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "a71aebc1-c0e1-43ae-8f71-daa4a8f97924",
+          "AmmoTypen": "Rifle",
+          "MaxCount": 25,
+          "MinCount": 1
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "947d528a-320a-4212-9ba2-972e82f7fb09",
+          "AmmoTypen": "Pistol",
+          "MaxCount": 50,
+          "MinCount": 1
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "3a19b9b4-f1bf-471a-b94c-764b813d7bd9",
+          "Flags": 0,
+          "Name": "Object",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Flame",
+              "__guid": "1deccc7d-c903-4947-b4e4-1ba36295bb4e",
+              "BaseLightColor": "0.51628,1,0.44186,1",
+              "FlickerFrequency": 63.72,
+              "FlickerIntensity": 1,
+              "IsLit": true,
+              "JitterAmount": "0,0,18.9",
+              "JitterFrequency": 0,
+              "TargetLight": {
+                "_type": "component",
+                "component_id": "a238e92e-2327-4ab0-b785-6d23ac21d429",
+                "go": "3a19b9b4-f1bf-471a-b94c-764b813d7bd9",
+                "component_type": "PointLight"
+              }
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "a238e92e-2327-4ab0-b785-6d23ac21d429",
+              "Attenuation": 0.59,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0,1,0.33333,1",
+              "Radius": 64,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "8d4accaa-3079-4da2-afa5-845aca372f51",
+      "Flags": 0,
+      "Name": "pickupammo (3)",
+      "Position": "332.0843,709.3196,516.4948",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a91fe6ee-02a3-43a8-ae00-0d3236379db4",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "Model": "models/props/ammo_box/ammobox.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.59984,1,0.17209,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "0f8fbfec-7a53-4493-bd2d-cf12cf47ae4d",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "01b8f4ef-e571-4bc3-aed7-ad0d2fe2735d",
+          "AmmoTypen": "Rifle",
+          "MaxCount": 25,
+          "MinCount": 1
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "7b4bd8b7-23f0-4b15-adeb-7f27a947d768",
+          "AmmoTypen": "Pistol",
+          "MaxCount": 50,
+          "MinCount": 1
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "823e022c-7c89-4aa4-a0b0-2b8e3b25a531",
+          "Flags": 0,
+          "Name": "Object",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Flame",
+              "__guid": "26a50357-a593-49c8-9fbf-c96549364473",
+              "BaseLightColor": "0.51628,1,0.44186,1",
+              "FlickerFrequency": 63.72,
+              "FlickerIntensity": 1,
+              "IsLit": true,
+              "JitterAmount": "0,0,18.9",
+              "JitterFrequency": 0,
+              "TargetLight": {
+                "_type": "component",
+                "component_id": "69ab7fea-db2c-41bf-9538-92ed5b3b07ad",
+                "go": "823e022c-7c89-4aa4-a0b0-2b8e3b25a531",
+                "component_type": "PointLight"
+              }
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "69ab7fea-db2c-41bf-9538-92ed5b3b07ad",
+              "Attenuation": 0.59,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0,1,0.33333,1",
+              "Radius": 64,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "19e5941c-3bb4-4270-97c9-a0d382d38fb8",
+      "Flags": 0,
+      "Name": "pickupammo (4)",
+      "Position": "332.0843,736.2476,516.4948",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "de3b2c21-68ea-4137-ae04-798880c93074",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "Model": "models/props/ammo_box/ammobox.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.59984,1,0.17209,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "3aea7c70-46c4-406c-8aa4-c1a41fea0eb1",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "86ed6c04-fac3-42cb-bdc9-063afd0a4e21",
+          "AmmoTypen": "Rifle",
+          "MaxCount": 25,
+          "MinCount": 1
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "5c44e679-3795-4a6e-a481-772b1b8e657b",
+          "AmmoTypen": "Pistol",
+          "MaxCount": 50,
+          "MinCount": 1
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "66fdc695-bcb2-4776-bd4a-64a8207cf1b9",
+          "Flags": 0,
+          "Name": "Object",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Flame",
+              "__guid": "4c3bd86e-844c-42de-892a-2a90da0b7a7f",
+              "BaseLightColor": "0.51628,1,0.44186,1",
+              "FlickerFrequency": 63.72,
+              "FlickerIntensity": 1,
+              "IsLit": true,
+              "JitterAmount": "0,0,18.9",
+              "JitterFrequency": 0,
+              "TargetLight": {
+                "_type": "component",
+                "component_id": "559f8fab-2ed1-42b9-909b-479e8bf2be79",
+                "go": "66fdc695-bcb2-4776-bd4a-64a8207cf1b9",
+                "component_type": "PointLight"
+              }
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "559f8fab-2ed1-42b9-909b-479e8bf2be79",
+              "Attenuation": 0.59,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0,1,0.33333,1",
+              "Radius": 64,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "7e6d04e8-dcec-4d62-be61-bf6998e406a9",
+      "Flags": 0,
+      "Name": "pickupammo (5)",
+      "Position": "332.0843,763.8844,516.4948",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "eee02ace-b50b-41a2-afc4-cfa574fd094f",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "Model": "models/props/ammo_box/ammobox.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.59984,1,0.17209,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "b6139df8-bead-40b3-97f1-757fbae0e5df",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "48e978c8-40fe-4097-86df-0564e9e53a51",
+          "AmmoTypen": "Rifle",
+          "MaxCount": 25,
+          "MinCount": 1
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "bbc3813e-c9e1-4dfa-a1e9-b11323eaeaec",
+          "AmmoTypen": "Pistol",
+          "MaxCount": 50,
+          "MinCount": 1
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "a643b6a0-cb79-43ea-83e5-aea784c0ce2a",
+          "Flags": 0,
+          "Name": "Object",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Flame",
+              "__guid": "62f6dd21-6a22-46e9-848e-a484a1c91e9a",
+              "BaseLightColor": "0.51628,1,0.44186,1",
+              "FlickerFrequency": 63.72,
+              "FlickerIntensity": 1,
+              "IsLit": true,
+              "JitterAmount": "0,0,18.9",
+              "JitterFrequency": 0,
+              "TargetLight": {
+                "_type": "component",
+                "component_id": "c8d4ec41-0769-4780-91fc-7ebbe34e067d",
+                "go": "a643b6a0-cb79-43ea-83e5-aea784c0ce2a",
+                "component_type": "PointLight"
+              }
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "c8d4ec41-0769-4780-91fc-7ebbe34e067d",
+              "Attenuation": 0.59,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0,1,0.33333,1",
+              "Radius": 64,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "b41ba6ca-b131-45f5-9c0e-a62a9ddc7e4d",
+      "Flags": 0,
+      "Name": "pickupammo (6)",
+      "Position": "332.0843,789.5128,516.4948",
+      "Scale": "0.3,0.3,0.3",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "7188c782-da0f-47a2-9033-fb7845a793ef",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "Model": "models/props/ammo_box/ammobox.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.59984,1,0.17209,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "e9fad322-793d-4dac-9405-8f40954a46de",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "5f9d666b-7d1f-48e8-9e80-cf7107007483",
+          "AmmoTypen": "Rifle",
+          "MaxCount": 250000,
+          "MinCount": 1000
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "7af5fde5-d40b-4525-a775-f8924fbc7e16",
+          "AmmoTypen": "Pistol",
+          "MaxCount": 50000,
+          "MinCount": 1000
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "87936f4c-1241-40dc-a9b1-04adf37ec8f8",
+          "Flags": 0,
+          "Name": "Object",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Flame",
+              "__guid": "fcb691d5-2ea0-4b63-ba82-0e541d169756",
+              "BaseLightColor": "0.51628,1,0.44186,1",
+              "FlickerFrequency": 63.72,
+              "FlickerIntensity": 1,
+              "IsLit": true,
+              "JitterAmount": "0,0,18.9",
+              "JitterFrequency": 0,
+              "TargetLight": {
+                "_type": "component",
+                "component_id": "62fcc6db-b0b8-444f-b3b1-96604e43b416",
+                "go": "87936f4c-1241-40dc-a9b1-04adf37ec8f8",
+                "component_type": "PointLight"
+              }
+            },
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "62fcc6db-b0b8-444f-b3b1-96604e43b416",
+              "Attenuation": 0.59,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0,1,0.33333,1",
+              "Radius": 64,
+              "Shadows": true
+            }
+          ]
         }
       ]
     },
@@ -6391,31 +6888,6 @@
               }
             }
           ]
-        }
-      ]
-    },
-    {
-      "__guid": "5ad91a1b-9c2c-466f-b5b5-a310ccb3076f",
-      "Flags": 0,
-      "Name": "Cube",
-      "Position": "0,0,-89.51886",
-      "Scale": "21.40001,21.00001,1",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "0bdd8d12-11f4-4fef-8da4-1810994e55be",
-          "BodyGroups": 18446744073709551615,
-          "CreateAttachments": false,
-          "Model": "models/dev/box.vmdl",
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
         }
       ]
     },

@@ -667,6 +667,9 @@ public partial class Player : Component, IHealthComponent
 	private float lastSwingTime = -1.0f;
 	private float swingDuration = 0.5f; // Dauer der Swing-Animation in Sekunden
 	private float swingStartTime = -1.0f;
+	private Vector3 targetCrouchPosition;
+	private float crouchDuration = 0.225f; // Dauer des Crouchens in Sekunden
+	private float crouchTimer = 0.0f;
 	protected override void OnUpdate()
 	{
 		if ( IsProxy )
@@ -781,8 +784,15 @@ public partial class Player : Component, IHealthComponent
 
 			if ( IsCrouching && hasViewModel )
 			{
-				PlyCamera.WorldPosition = PlyCamera.WorldPosition + SieatOffset;
+				targetCrouchPosition = PlyCamera.WorldPosition + SieatOffset;
+				crouchTimer += Time.Delta;
+				PlyCamera.WorldPosition = Vector3.Lerp( PlyCamera.WorldPosition, targetCrouchPosition, crouchTimer / crouchDuration );
 			}
+			else
+			{
+				crouchTimer = 0.0f; // Reset Timer wenn nicht crouching
+			}
+			
 		}
 
 
@@ -866,7 +876,7 @@ public partial class Player : Component, IHealthComponent
 	{
 		if ( IsProxy )
 			return;
-		
+
 		WantsToCrouch = CharacterController.IsOnGround && Input.Down( "Duck" );
 
 		if ( WantsToCrouch == IsCrouching )
@@ -874,14 +884,14 @@ public partial class Player : Component, IHealthComponent
 
 		if ( WantsToCrouch )
 		{
-			crouchProgress = Math.Min( crouchProgress + Time.Delta * crouchSpeed, 1f );
+			crouchProgress = Lerp( crouchProgress, 1f, Time.Delta * crouchSpeed );
 		}
 		else
 		{
 			if ( !CanUncrouch() )
 				return;
 
-			crouchProgress = Math.Max( crouchProgress - Time.Delta * crouchSpeed, 0f );
+			crouchProgress = Lerp( crouchProgress, 0f, Time.Delta * crouchSpeed );
 		}
 
 		CharacterController.Height = Lerp( StandHeight, DuckHeight, crouchProgress );

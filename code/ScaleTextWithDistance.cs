@@ -9,6 +9,8 @@ public sealed class ScaleTextWithDistance : Component
 	{
 
 		textRenderer = GameObject.Components.Get<TextRenderer>();
+		textRenderer.BlendMode = BlendMode.Lighten;
+		textRenderer.FontFamily = "Geneva";
 	}
 	protected override void OnUpdate()
 	{

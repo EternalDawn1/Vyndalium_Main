@@ -54,7 +54,7 @@ public sealed partial class PlayerFootsteps : Component
 		var sound = e.FootId == 0 ? trace.Surface.Sounds.FootLeft : trace.Surface.Sounds.FootRight;
 		if ( sound is null ) return;
 
-		var handle = Sound.Play( sound, trace.HitPosition + trace.Normal * 0.1f );
+		var handle = Sound.Play( sound, trace.HitPosition + trace.Normal * 1f );
 		handle.Volume *= e.Volume;
 	}
 }

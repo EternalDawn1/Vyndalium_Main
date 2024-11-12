@@ -194,63 +194,66 @@ public class ItemEquipment : ItemComponent
     private SceneObject GetModel()
     {
         var world = Game.ActiveScene?.SceneWorld;
-        if (world == null)
+        if ( world == null )
             return null;
 
-        _model ??= new SceneModel(world, "models/citizen/citizen.vmdl", global::Transform.Zero);
-        _model.RenderingEnabled = false;
+        if ( _model == null )
+        {
+            _model = new SceneModel( world, "models/citizen/citizen.vmdl", global::Transform.Zero );
+            _model.RenderingEnabled = true;
+        }
         return _model;
     }
 
     protected override void DrawGizmos()
     {
         var ignore = false;
-        if (!UpdatePosition || Attachment == string.Empty)
+        if ( !UpdatePosition || Attachment == string.Empty )
             ignore = true;
 
-        if (ignore || GameObject != Game.ActiveScene)
+        if ( ignore || GameObject != Game.ActiveScene )
             ignore = true;
 
-        if (ignore || !Gizmo.HasSelected)
+        if ( ignore || !Gizmo.HasSelected )
         {
-            if (_model != null)
-                _model.RenderingEnabled = false;
+            if ( _model != null )
+                _model.RenderingEnabled = true;
 
             return;
         }
 
         var model = GetModel();
-        if (model == null)
+        if ( model == null )
             return;
 
-        var renderer = Components.Get<ModelRenderer>(FindMode.EverythingInSelfAndDescendants);
-        if (renderer == null || renderer.Model == null)
+        var renderer = Components.Get<ModelRenderer>( FindMode.EverythingInSelfAndDescendants );
+        if ( renderer == null || renderer.Model == null )
             return;
 
-        var attachment = _model.GetAttachment(Attachment) ?? global::Transform.Zero;
-        Gizmo.Draw.Model(renderer.Model, model.Transform);
+        var attachment = _model.GetAttachment( Attachment ) ?? global::Transform.Zero;
+        Gizmo.Draw.Model( renderer.Model, model.Transform );
 
         Gizmo.Draw.IgnoreDepth = true;
-        Gizmo.Draw.SolidSphere(attachment.Position, 0.1f);
+        Gizmo.Draw.SolidSphere( attachment.Position, 0.1f );
         Gizmo.Draw.IgnoreDepth = false;
 
-        model.Transform = attachment.ToWorld(AttachmentTransform);
+        model.Transform = attachment.ToWorld( AttachmentTransform );
 
-        using (Gizmo.Scope($"{Name}", new Transform(model.Position, model.Rotation)))
+        using ( Gizmo.Scope( $"{Name}", new Transform( model.Position, model.Rotation ) ) )
         {
             Gizmo.Hitbox.DepthBias = 0.01f;
 
-            if (Gizmo.IsShiftPressed)
+            if ( Gizmo.IsShiftPressed )
             {
-                if (Gizmo.Control.Rotate("rotate", out var rotate))
-                    AttachmentTransform = AttachmentTransform.WithRotation(AttachmentTransform.Rotation * rotate.ToRotation());
+                if ( Gizmo.Control.Rotate( "rotate", out var rotate ) )
+                    AttachmentTransform = AttachmentTransform.WithRotation( AttachmentTransform.Rotation * rotate.ToRotation() );
 
                 return;
             }
 
-            if (Gizmo.Control.Position("position", Vector3.Zero, out var pos))
-                AttachmentTransform = AttachmentTransform.WithPosition(AttachmentTransform.Position + pos * AttachmentTransform.Rotation);
+            if ( Gizmo.Control.Position( "position", Vector3.Zero, out var pos ) )
+                AttachmentTransform = AttachmentTransform.WithPosition( AttachmentTransform.Position + pos * AttachmentTransform.Rotation );
         }
     }
-    #endregion
 }
+#endregion

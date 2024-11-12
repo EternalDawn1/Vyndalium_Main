@@ -294,6 +294,7 @@ public class WeaponComponent : Component
 			//playerDresser.RemoveClothing();
 			//playerDresser.Destroy();
 		}
+		
 
 		var viewModelGameObject = ViewModelPrefab.Clone();
 		if ( viewModelGameObject == null )

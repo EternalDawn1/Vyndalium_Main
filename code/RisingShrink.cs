@@ -2,8 +2,8 @@ using Sandbox;
 
 public sealed class RisingShrink : Component
 {
-	[Property] public float ShrinkSpeed { get; set; } = 0.5f;
-	[Property] public float RiseSpeed { get; set; } = 0.5f;
+	[Property] public float ShrinkSpeed { get; set; } = 0.01f;
+	[Property] public float RiseSpeed { get; set; } = 0.0001f;
 
 	protected override void OnUpdate()
 	{
