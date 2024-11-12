@@ -12,6 +12,7 @@ public partial class WeaponContainer : Component
 	[Property] public AmmoContainer Ammo { get; set; }
 	[Property] public Player PlayrControl { get; set; }
 	[Property] public Inventory Inventory { get; set; }
+	
 	public BaseGun Equipped { get; set; }
 	public BaseMelee EquippedMelee { get; set; }
 
@@ -24,6 +25,9 @@ public partial class WeaponContainer : Component
 	protected override void OnUpdate()
 	{
 		UpdateDeployedStatus();
+		
+
+		
 	}
 
 	private void UpdateDeployedStatus()
@@ -197,12 +201,20 @@ public partial class WeaponContainer : Component
 						player.Ammo.TryTake( nextWeaponGo.AmmoType, ammoToAdd, out var taken );
 					}
 				}
+
+				// Speichere den aktuellen Wert der AmmoInClip
+				var currentAmmoInClip = nextWeaponGo.AmmoInClip;
+
+				// Setze die AmmoInClip nur, wenn sie kleiner als die aktuelle ClipSize ist
 				if ( nextWeaponGo.AmmoInClip < nextWeaponGo.ClipSize )
 				{
-					nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;
+					nextWeaponGo.AmmoInClip = Math.Min( nextWeaponGo.AmmoInClip + ammoToGive, nextWeaponGo.ClipSize );
 				}
+
+				// Stelle den gespeicherten Wert der AmmoInClip wieder her
+				nextWeaponGo.AmmoInClip = currentAmmoInClip;
 			}
-			nextWeaponGo.AmmoInClip = nextWeaponGo.ClipSize;
+
 			nextWeaponGo.IsDeployed = !Deployed.IsValid();
 		}
 		var melee = weaponGo.Components.GetInDescendantsOrSelf<BaseMelee>( true );

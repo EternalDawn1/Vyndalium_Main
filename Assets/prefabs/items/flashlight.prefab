@@ -1,65 +1,22 @@
 {
   "RootObject": {
-    "__guid": "2828a818-e974-4c97-a1d2-6f4ed4e2c7e2",
+    "__guid": "d9deb932-f5bc-4caa-9b44-837a63161007",
     "Flags": 0,
-    "Name": "mp5b",
+    "Name": "flashlight",
+    "Position": "0,0,13.48082",
     "Enabled": true,
     "Components": [
       {
-        "__type": "GeneralGame.BaseGun",
-        "__guid": "415fcf08-2db0-4a6f-b5ab-43b718fa4b60",
-        "AimPos": "-2.3,3.52,0.8",
-        "AimRotation": "0,0,0,0",
-        "AimRotationOffset": "0,0,0,0",
-        "AmmoType": "Pistol",
-        "ClipSize": 25,
-        "CurRot": "0,0,0,0",
-        "Damage": 20,
-        "DamageForce": 50,
-        "DamageType": "Bullet",
-        "DefaultAmmo": 145,
-        "DeploySound": "sounds/weapons/weapon_deploy1.sound",
-        "DeployTime": 0.5,
-        "DisplayName": "M4A1",
-        "EmptyClipSound": "sounds/weapons/empty_submachineguns.sound",
-        "EmptyReloadSoundSequence": "sounds/weapons/usp/usp.sndseq",
-        "EmptyReloadTime": 2,
-        "FireRate": 9,
-        "FireSound": "sounds/guns/mp5/smg1_shoot.sound",
-        "HitForce": 300,
-        "HoldType": "Rifle",
-        "HolsterSound": "sounds/weapons/weapon_holster3.sound",
-        "IdlePos": "-3,0,0",
-        "ImpactEffect": "particles/impact.generic.vpcf",
-        "IsAuto": true,
-        "IsDeployed": false,
-        "IsMagicWeapon": false,
-        "IsMelee": false,
-        "MeleeCooldown": 1,
-        "MeleeDamage": 10,
-        "MeleeRange": 1.5,
-        "Recoil": "-5,0,0",
-        "ReloadSoundSequence": "sounds/weapons/usp/usp.sndseq",
-        "ReloadTime": 2,
-        "RunRotation": "-0.01738057,-0.001581756,0.09061877,0.9957328",
-        "Spread": 0.01,
-        "Type": "Ranged",
-        "ViewModelPrefab": {
-          "_type": "gameobject",
-          "prefab": "models/facepunch/mp5/vm_mp5.prefab"
-        }
-      },
-      {
         "__type": "Sandbox.ModelCollider",
-        "__guid": "359f2e45-d22a-4030-9076-3704173fe47f",
+        "__guid": "9d07c9fe-595f-4015-8fbe-5ca99ae3778f",
         "IsTrigger": false,
-        "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+        "Model": "models/3dmodelscc0/gadgetselectronics/flashlight/flashlight.vmdl",
         "Static": false,
         "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "a48afd8a-55dd-4e0b-8c25-74b032b91404",
+        "__guid": "a7221ea4-6a1c-45cc-be09-3da8df7e9c67",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
@@ -73,7 +30,7 @@
       },
       {
         "__type": "GeneralGame.ItemEquipment",
-        "__guid": "76e99d01-d017-4032-a113-46f1ddf7eb3d",
+        "__guid": "73a5a3d3-7999-4072-a87c-3afaf2c71b17",
         "isOn": false,
         "AbilityHaste": 0,
         "Armor": 0,
@@ -111,16 +68,23 @@
         "HE": 0,
         "Health": 0,
         "HideBodygroups": "None",
-        "HoldType": "Rifle",
+        "HoldType": "Idle",
         "HolyResistence": 0,
         "IceResistence": 0,
         "Icon": {
-          "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+          "Model": "models/3dmodelscc0/gadgetselectronics/flashlight/flashlight.vmdl",
           "MaterialGroup": "",
+          "MaterialOverride": "",
+          "LightBrightness": 31.3,
+          "LightRadius": 1000,
+          "LightColour": "1,1,1,1",
+          "DirectionalLightBrightness": 1,
+          "DirectionalLightRotation": "45,-45,45",
+          "DirectionalLightColour": "10,10,10,10",
           "Colour": "1,1,1,1",
-          "Position": "4.5,5.25,3.45",
-          "Rotation": "0.5,-0.5,0.5,0.5",
-          "Guid": "7472af88-048b-4034-bedf-dcb4560786a2"
+          "Position": "-0.45,-0.3,-0.9",
+          "Rotation": "-0.2875147,-0.1848776,0.603954,0.7199967",
+          "Guid": "7af52bea-a29e-4f5a-b725-ba3bde3b4bcf"
         },
         "INT": 0,
         "IsAccessory": false,
@@ -147,7 +111,7 @@
         "MinArmorValue": 0,
         "MinAttackValue": 0,
         "MoveSpeed": 0,
-        "Name": "MP5",
+        "Name": "Flashlight",
         "PER": 0,
         "PoisonResistence": 0,
         "RequiredLevel": 0,
@@ -165,16 +129,16 @@
       },
       {
         "__type": "GeneralGame.Interactable",
-        "__guid": "e09e9d4c-d63f-4e3e-bc97-1df065f56534"
+        "__guid": "275a79f9-7988-4ef7-89c9-fb0dbe172129"
       },
       {
         "__type": "Sandbox.SkinnedModelRenderer",
-        "__guid": "6a752a22-fca8-4b4f-83a9-2a6b98cc7aa2",
+        "__guid": "5cea1aa7-1dfa-4ab6-b1ae-fc5f9e1177c7",
         "AnimationGraph": "models/weapons/sbox_pistol_usp/v_usp.vanmgrph",
-        "BodyGroups": 3,
+        "BodyGroups": 18446744073709551615,
         "CreateAttachments": false,
         "CreateBoneObjects": false,
-        "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+        "Model": "models/3dmodelscc0/gadgetselectronics/flashlight/flashlight.vmdl",
         "Morphs": {},
         "Parameters": {
           "bools": {},
@@ -194,7 +158,14 @@
         "UseAnimGraph": true
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "c6b6f648-d70b-448e-a2d8-0496dd872c5f",
+        "Flags": 0,
+        "Name": "Object",
+        "Enabled": true
+      }
+    ],
     "__variables": [],
     "__properties": {
       "FixedUpdateFrequency": 50,
@@ -227,7 +198,7 @@
   "ResourceVersion": 1,
   "__references": [
     "facepunch.v_usp#64712",
-    "facepunch.w_mp5#33703"
+    "titanovsky.flashlight#54429"
   ],
   "__version": 1
 }
