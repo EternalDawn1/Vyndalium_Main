@@ -503,6 +503,7 @@ public class BaseGun : WeaponComponent, IUse
 		
 		
 	}
+	PlayerController playerController;
 
 	public override void ReloadAction()
 	{
@@ -736,6 +737,7 @@ public class BaseGun : WeaponComponent, IUse
 			if ( damageable != null )
 			{
 				damageable.TakeDamage( DamageType.fire, firedamage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
+				
 
 				ApplyFireAspectPassive( damageable );
 			}
@@ -1109,8 +1111,16 @@ public class BaseGun : WeaponComponent, IUse
 			}
 		
 			damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
-			
-			GameObject hitinfo = Hitprefab.Clone( trace.EndPosition );
+
+
+			Vector3 randomOffset = new Vector3(
+			random.Next( -15, -10 ) * (random.Next( 0, 2 ) * 2 - 1), // Zufällige Verschiebung auf der X-Achse, links oder rechts
+			random.Next( -15, -10 ) * (random.Next( 0, 2 ) * 2 - 1), // Zufällige Verschiebung auf der Y-Achse, oben oder unten
+			random.Next( -15, 10 )  // Zufällige Verschiebung auf der Z-Achse
+			);
+
+
+			GameObject hitinfo = Hitprefab.Clone( trace.EndPosition + randomOffset );
 			FaceThing facething = hitinfo.Components.Get<FaceThing>();
 			facething.Thing = shooter.GameObject;
 			TextRenderer textRenderer = hitinfo.Components.Get<TextRenderer>();
