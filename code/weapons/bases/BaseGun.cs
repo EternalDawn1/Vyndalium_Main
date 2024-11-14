@@ -503,7 +503,7 @@ public class BaseGun : WeaponComponent, IUse
 		
 		
 	}
-	PlayerController playerController;
+
 
 	public override void ReloadAction()
 	{
@@ -1345,7 +1345,7 @@ public class BaseGun : WeaponComponent, IUse
 				particleEffect = "particles/trail_bullet_water.vpcf";
 				break;
 			case "shadow":
-				particleEffect = "particles/trail_bullet_shadow.vpcf";
+				particleEffect = "particles/tracer/trail_smoke_shadow.vpcf";
 				break;
 			case "lightning":
 				particleEffect = "particles/trail_bullet_lightning.vpcf";

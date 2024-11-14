@@ -122,6 +122,19 @@ public sealed class ZombieSpawner : Component
 			// Log error or handle the null case
 			return;
 		}
+		// Führe einen Raycast nach unten durch, um die Bodenhöhe zu ermitteln
+		var spawnPosition = zombie.WorldPosition;
+		var groundTrace = Scene.Trace.Ray(spawnPosition + Vector3.Up * 100f, spawnPosition + Vector3.Down * 200f)
+			.Size(5f)
+			.IgnoreGameObjectHierarchy(zombie)
+			.WithoutTags("player", "npc", "trigger")
+			.Run();
+
+		if (groundTrace.Hit)
+		{
+			// Setze die Position des Zombies auf die Bodenhöhe
+			zombie.WorldPosition = groundTrace.HitPosition;
+		}
 
 		if ( RandomizeTierOnSpawn )
 		{

@@ -13,15 +13,22 @@ namespace GeneralGame
         
         protected override async Task OnLoad()
         {
-            
 
-            if ( !Networking.IsActive && !IsProxy && StartServer )
+
+            if (!Networking.IsActive && !IsProxy && StartServer)
             {
+                await Task.DelayRealtimeSeconds(0.1f);
 
-                await Task.DelayRealtimeSeconds( 0.1f );
-               
-                Networking.CreateLobby();
-                
+                // Erstelle eine neue Lobby-Konfiguration
+                var lobbyConfig = new LobbyConfig
+                {
+                    MaxPlayers = MAX_PLAYERS,
+                    // Füge hier weitere Konfigurationen hinzu, falls erforderlich
+                };
+
+                // Verwende die neue Methode mit der Lobby-Konfiguration
+                Networking.CreateLobby(lobbyConfig);
+
                 return;
             }
             if ( Player.All == null )
@@ -110,27 +117,35 @@ namespace GeneralGame
 
         public static void ToggleLobby()
         {
-            if ( !Connection.Local.IsHost )
+            if (!Connection.Local.IsHost)
                 return;
 
             // Start lobby.
-            if ( !Networking.IsActive )
+            if (!Networking.IsActive)
             {
-                Networking.CreateLobby();
+                // Erstelle eine neue Lobby-Konfiguration
+                var lobbyConfig = new LobbyConfig
+                {
+                    // Füge hier die gewünschten Konfigurationseinstellungen hinzu
+                    MaxPlayers = 10,
+                   
+                };
+
+                Networking.CreateLobby(lobbyConfig);
                 return;
             }
 
             // Close lobby.
-            ServerClose( true );
+            ServerClose(true);
             Networking.Disconnect();
 
-            for ( int i = 0; i < Player.All.Count; i++ )
+            for (int i = 0; i < Player.All.Count; i++)
             {
-                var p = Player.All.ElementAtOrDefault( i );
-                if ( p is null || p == Player.Local )
+                var p = Player.All.ElementAtOrDefault(i);
+                if (p is null || p == Player.Local)
                     continue;
 
-                Player._InternalPlayers.Remove( p );
+                Player._InternalPlayers.Remove(p);
                 p.Destroy();
             }
         }

@@ -3,11 +3,6 @@
 	_class = "CParticleSystemDefinition"
 	m_nBehaviorVersion = 10
 	m_nMaxParticles = 10
-	m_ConstantColor = [ 255, 208, 0, 255 ]
-	m_BoundingBoxMin = [ -10.0, -10.0, -100.0 ]
-	m_ConstantNormal = [ 0.0, 0.0, 0.0 ]
-	m_flConstantRotationSpeed = 90.0
-	m_flStartFadeDistance = 1.0
 	m_controlPointConfigurations = 
 	[
 		{
@@ -69,7 +64,7 @@
 	[
 		{
 			_class = "C_INIT_CreateSequentialPathV2"
-			m_flNumToAssign = 1.0
+			m_flNumToAssign = 10.0
 			m_PathParams = 
 			{
 				m_nEndControlPointNumber = 1
@@ -130,7 +125,6 @@
 			{
 				m_nType = "PF_TYPE_CONTROL_POINT_COMPONENT"
 				m_nMapType = "PF_MAP_TYPE_MULT"
-				m_NamedValue = ""
 				m_flLiteralValue = 10.0
 				m_nControlPoint = 2
 				m_nScalarAttribute = 3
@@ -157,7 +151,7 @@
 				m_flNoiseImgPreviewScale = 1.0
 				m_bNoiseImgPreviewLive = true
 				m_nInputMode = "PF_INPUT_MODE_CLAMPED"
-				m_flMultFactor = 0.7
+				m_flMultFactor = 10.0
 				m_flInput0 = 0.0
 				m_flInput1 = 1.0
 				m_flOutput0 = 0.0
@@ -176,7 +170,6 @@
 			{
 				m_nType = "PF_TYPE_CONTROL_POINT_COMPONENT"
 				m_nMapType = "PF_MAP_TYPE_MULT"
-				m_NamedValue = ""
 				m_flLiteralValue = 100.0
 				m_nControlPoint = 2
 				m_nScalarAttribute = 3
@@ -203,7 +196,7 @@
 				m_flNoiseImgPreviewScale = 1.0
 				m_bNoiseImgPreviewLive = true
 				m_nInputMode = "PF_INPUT_MODE_CLAMPED"
-				m_flMultFactor = 0.7
+				m_flMultFactor = 10.0
 				m_flInput0 = 0.0
 				m_flInput1 = 1.0
 				m_flOutput0 = 0.0
@@ -218,7 +211,6 @@
 					m_vDomainMaxs = [ 0.0, 0.0 ]
 				}
 			}
-			m_flStartOffset = 50.0
 		},
 		{
 			_class = "C_INIT_InitFloatCollection"
@@ -227,7 +219,7 @@
 				m_nType = "PF_TYPE_LITERAL"
 				m_nMapType = "PF_MAP_TYPE_DIRECT"
 				m_NamedValue = ""
-				m_flLiteralValue = 1.0
+				m_flLiteralValue = 10.0
 				m_nControlPoint = 0
 				m_nScalarAttribute = 3
 				m_nVectorAttribute = 6
@@ -276,8 +268,7 @@
 			{
 				m_nType = "PF_TYPE_LITERAL"
 				m_nMapType = "PF_MAP_TYPE_DIRECT"
-				m_NamedValue = ""
-				m_flLiteralValue = 5.0
+				m_flLiteralValue = 1.0
 				m_nControlPoint = 0
 				m_nScalarAttribute = 3
 				m_nVectorAttribute = 6
@@ -324,27 +315,13 @@
 	[
 		{
 			_class = "C_OP_FadeAndKill"
-			m_bDisableOperator = true
 		},
 		{
 			_class = "C_OP_BasicMovement"
-			m_Gravity = [ 0.0, 0.0, -5.0 ]
+			m_Gravity = [ 0.0, 0.0, 5.0 ]
 		},
 		{
 			_class = "C_OP_Decay"
-			m_flOpTimeOffsetMax = 1.0
-		},
-		{
-			_class = "C_OP_SpinYaw"
-			m_nSpinRateDegrees = 1
-			m_bDisableOperator = true
-		},
-		{
-			_class = "C_OP_Spin"
-			m_nSpinRateDegrees = 1
-			m_nSpinRateMinDegrees = 30
-			m_flOpEndFadeInTime = 5.0
-			m_bDisableOperator = true
 		},
 	]
 	m_ForceGenerators = 
@@ -359,13 +336,13 @@
 	[
 		{
 			_class = "C_OP_RenderTrails"
-			m_flMaxLength = 70.0
+			m_flMaxLength = 50.0
 			m_vecHeadColorScale = 
 			{
 				m_nType = "PVEC_TYPE_LITERAL_COLOR"
 				m_vLiteralValue = [ 0.0, 0.0, 0.0 ]
 				m_NamedValue = ""
-				m_LiteralColor = [ 255, 178, 0, 255 ]
+				m_LiteralColor = [ 85, 28, 255, 255 ]
 				m_nVectorAttribute = 6
 				m_vVectorAttributeScale = [ 1.0, 1.0, 1.0 ]
 				m_nControlPoint = 0
@@ -570,7 +547,7 @@
 				m_nType = "PVEC_TYPE_LITERAL_COLOR"
 				m_vLiteralValue = [ 0.0, 0.0, 0.0 ]
 				m_NamedValue = ""
-				m_LiteralColor = [ 255, 148, 0, 255 ]
+				m_LiteralColor = [ 148, 0, 255, 255 ]
 				m_nVectorAttribute = 6
 				m_vVectorAttributeScale = [ 1.0, 1.0, 1.0 ]
 				m_nControlPoint = 0
@@ -773,13 +750,105 @@
 			m_bGammaCorrectVertexColors = false
 			m_bSaturateColorPreAlphaBlend = false
 			m_bAdditive = true
-			m_hTexture = resource:"materials/effects/laser1_color_tga_16ebd481.generated.vtex"
+			m_hTexture = resource:"materials/particle/particle_glow_02.vtex"
+			m_flHeadAlphaScale = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_nMapType = "PF_MAP_TYPE_DIRECT"
+				m_NamedValue = ""
+				m_flLiteralValue = 1000.0
+				m_nControlPoint = 0
+				m_nScalarAttribute = 3
+				m_nVectorAttribute = 6
+				m_nVectorComponent = 0
+				m_flRandomMin = 0.0
+				m_flRandomMax = 1.0
+				m_nRandomMode = "PF_RANDOM_MODE_CONSTANT"
+				m_flLOD0 = 0.0
+				m_flLOD1 = 0.0
+				m_flLOD2 = 0.0
+				m_flLOD3 = 0.0
+				m_flNoiseOutputMin = 0.0
+				m_flNoiseOutputMax = 1.0
+				m_flNoiseScale = 0.1
+				m_vecNoiseOffsetRate = [ 0.0, 0.0, 0.0 ]
+				m_flNoiseOffset = 0.0
+				m_nNoiseOctaves = 1
+				m_nNoiseTurbulence = "PF_NOISE_TURB_NONE"
+				m_nNoiseType = "PF_NOISE_TYPE_PERLIN"
+				m_nNoiseModifier = "PF_NOISE_MODIFIER_NONE"
+				m_flNoiseTurbulenceScale = 1.25
+				m_flNoiseTurbulenceMix = 0.5
+				m_flNoiseImgPreviewScale = 1.0
+				m_bNoiseImgPreviewLive = true
+				m_nInputMode = "PF_INPUT_MODE_CLAMPED"
+				m_flMultFactor = 1.0
+				m_flInput0 = 0.0
+				m_flInput1 = 1.0
+				m_flOutput0 = 0.0
+				m_flOutput1 = 1.0
+				m_nBiasType = "PF_BIAS_TYPE_STANDARD"
+				m_flBiasParameter = 0.0
+				m_Curve = 
+				{
+					m_spline = [  ]
+					m_tangents = [  ]
+					m_vDomainMins = [ 0.0, 0.0 ]
+					m_vDomainMaxs = [ 0.0, 0.0 ]
+				}
+			}
+			m_flTailAlphaScale = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_nMapType = "PF_MAP_TYPE_DIRECT"
+				m_NamedValue = ""
+				m_flLiteralValue = 1000.0
+				m_nControlPoint = 0
+				m_nScalarAttribute = 3
+				m_nVectorAttribute = 6
+				m_nVectorComponent = 0
+				m_flRandomMin = 0.0
+				m_flRandomMax = 1.0
+				m_nRandomMode = "PF_RANDOM_MODE_CONSTANT"
+				m_flLOD0 = 0.0
+				m_flLOD1 = 0.0
+				m_flLOD2 = 0.0
+				m_flLOD3 = 0.0
+				m_flNoiseOutputMin = 0.0
+				m_flNoiseOutputMax = 1.0
+				m_flNoiseScale = 0.1
+				m_vecNoiseOffsetRate = [ 0.0, 0.0, 0.0 ]
+				m_flNoiseOffset = 0.0
+				m_nNoiseOctaves = 1
+				m_nNoiseTurbulence = "PF_NOISE_TURB_NONE"
+				m_nNoiseType = "PF_NOISE_TYPE_PERLIN"
+				m_nNoiseModifier = "PF_NOISE_MODIFIER_NONE"
+				m_flNoiseTurbulenceScale = 1.25
+				m_flNoiseTurbulenceMix = 0.5
+				m_flNoiseImgPreviewScale = 1.0
+				m_bNoiseImgPreviewLive = true
+				m_nInputMode = "PF_INPUT_MODE_CLAMPED"
+				m_flMultFactor = 1.0
+				m_flInput0 = 0.0
+				m_flInput1 = 1.0
+				m_flOutput0 = 0.0
+				m_flOutput1 = 1.0
+				m_nBiasType = "PF_BIAS_TYPE_STANDARD"
+				m_flBiasParameter = 0.0
+				m_Curve = 
+				{
+					m_spline = [  ]
+					m_tangents = [  ]
+					m_vDomainMins = [ 0.0, 0.0 ]
+					m_vDomainMaxs = [ 0.0, 0.0 ]
+				}
+			}
 			m_vecColorScale = 
 			{
 				m_nType = "PVEC_TYPE_LITERAL_COLOR"
 				m_vLiteralValue = [ 0.0, 0.0, 0.0 ]
 				m_NamedValue = ""
-				m_LiteralColor = [ 255, 255, 255, 255 ]
+				m_LiteralColor = [ 85, 28, 255, 255 ]
 				m_nVectorAttribute = 6
 				m_vVectorAttributeScale = [ 1.0, 1.0, 1.0 ]
 				m_nControlPoint = 0
@@ -979,124 +1048,15 @@
 					m_Stops = [  ]
 				}
 			}
-			m_flAnimationRate = 5.0
-			m_flMinLength = 20.0
-			m_bDisableOperator = true
-			m_flMinSize = 200.0
-			m_flMaxSize = 5000.0
 		},
 		{
-			_class = "C_OP_RenderProjected"
-			m_hProjectedMaterial = resource:"models/weapon1/blade_roughness.vmat"
-			m_bDisableOperator = true
-		},
-		{
-			_class = "C_OP_RenderSprites"
-			m_flRadiusScale = 
+			_class = "C_OP_RenderTrails"
+			m_flMaxLength = 50.0
+			m_vecHeadColorScale = 
 			{
-				m_nType = "PF_TYPE_LITERAL"
-				m_nMapType = "PF_MAP_TYPE_DIRECT"
-				m_NamedValue = ""
-				m_flLiteralValue = 2.0
-				m_nControlPoint = 0
-				m_nScalarAttribute = 3
-				m_nVectorAttribute = 6
-				m_nVectorComponent = 0
-				m_flRandomMin = 0.0
-				m_flRandomMax = 1.0
-				m_nRandomMode = "PF_RANDOM_MODE_CONSTANT"
-				m_flLOD0 = 0.0
-				m_flLOD1 = 0.0
-				m_flLOD2 = 0.0
-				m_flLOD3 = 0.0
-				m_flNoiseOutputMin = 0.0
-				m_flNoiseOutputMax = 1.0
-				m_flNoiseScale = 0.1
-				m_vecNoiseOffsetRate = [ 0.0, 0.0, 0.0 ]
-				m_flNoiseOffset = 0.0
-				m_nNoiseOctaves = 1
-				m_nNoiseTurbulence = "PF_NOISE_TURB_NONE"
-				m_nNoiseType = "PF_NOISE_TYPE_PERLIN"
-				m_nNoiseModifier = "PF_NOISE_MODIFIER_NONE"
-				m_flNoiseTurbulenceScale = 1.25
-				m_flNoiseTurbulenceMix = 0.5
-				m_flNoiseImgPreviewScale = 1.0
-				m_bNoiseImgPreviewLive = true
-				m_nInputMode = "PF_INPUT_MODE_CLAMPED"
-				m_flMultFactor = 1.0
-				m_flInput0 = 0.0
-				m_flInput1 = 1.0
-				m_flOutput0 = 0.0
-				m_flOutput1 = 1.0
-				m_nBiasType = "PF_BIAS_TYPE_STANDARD"
-				m_flBiasParameter = 0.0
-				m_Curve = 
-				{
-					m_spline = [  ]
-					m_tangents = [  ]
-					m_vDomainMins = [ 0.0, 0.0 ]
-					m_vDomainMaxs = [ 0.0, 0.0 ]
-				}
-			}
-			m_hTexture = resource:"materials/particle/particle_ring_wave_2.vtex"
-			m_bDisableOperator = true
-		},
-		{
-			_class = "C_OP_RenderSprites"
-			m_bOutline = true
-			m_OutlineColor = [ 250, 216, 0, 255 ]
-			m_flRadiusScale = 
-			{
-				m_nType = "PF_TYPE_RANDOM_BIASED"
-				m_nMapType = "PF_MAP_TYPE_DIRECT"
-				m_NamedValue = ""
-				m_flLiteralValue = 3.0
-				m_nControlPoint = 0
-				m_nScalarAttribute = 3
-				m_nVectorAttribute = 6
-				m_nVectorComponent = 0
-				m_flRandomMin = 0.0
-				m_flRandomMax = 1.0
-				m_nRandomMode = "PF_RANDOM_MODE_CONSTANT"
-				m_flLOD0 = 0.0
-				m_flLOD1 = 0.0
-				m_flLOD2 = 0.0
-				m_flLOD3 = 0.0
-				m_flNoiseOutputMin = 0.0
-				m_flNoiseOutputMax = 1.0
-				m_flNoiseScale = 0.1
-				m_vecNoiseOffsetRate = [ 0.0, 0.0, 0.0 ]
-				m_flNoiseOffset = 0.0
-				m_nNoiseOctaves = 1
-				m_nNoiseTurbulence = "PF_NOISE_TURB_NONE"
-				m_nNoiseType = "PF_NOISE_TYPE_PERLIN"
-				m_nNoiseModifier = "PF_NOISE_MODIFIER_NONE"
-				m_flNoiseTurbulenceScale = 1.25
-				m_flNoiseTurbulenceMix = 0.5
-				m_flNoiseImgPreviewScale = 1.0
-				m_bNoiseImgPreviewLive = true
-				m_nInputMode = "PF_INPUT_MODE_CLAMPED"
-				m_flMultFactor = 1.0
-				m_flInput0 = 0.0
-				m_flInput1 = 1.0
-				m_flOutput0 = 0.0
-				m_flOutput1 = 1.0
-				m_nBiasType = "PF_BIAS_TYPE_STANDARD"
-				m_flBiasParameter = 0.5
-				m_Curve = 
-				{
-					m_spline = [  ]
-					m_tangents = [  ]
-					m_vDomainMins = [ 0.0, 0.0 ]
-					m_vDomainMaxs = [ 0.0, 0.0 ]
-				}
-			}
-			m_vecColorScale = 
-			{
-				m_nType = "PVEC_TYPE_FLOAT_INTERP_GRADIENT"
+				m_nType = "PVEC_TYPE_LITERAL_COLOR"
 				m_vLiteralValue = [ 0.0, 0.0, 0.0 ]
-				m_NamedValue = ""
-				m_LiteralColor = [ 255, 0, 0, 255 ]
+				m_LiteralColor = [ 255, 69, 0, 255 ]
 				m_nVectorAttribute = 6
 				m_vVectorAttributeScale = [ 1.0, 1.0, 1.0 ]
 				m_nControlPoint = 0
@@ -1107,7 +1067,6 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
-					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -1153,7 +1112,6 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
-					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -1199,7 +1157,6 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
-					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -1243,9 +1200,8 @@
 				}
 				m_FloatInterp = 
 				{
-					m_nType = "PF_TYPE_RANDOM_BIASED"
+					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
-					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -1278,7 +1234,7 @@
 					m_flOutput0 = 0.0
 					m_flOutput1 = 1.0
 					m_nBiasType = "PF_BIAS_TYPE_STANDARD"
-					m_flBiasParameter = 0.5
+					m_flBiasParameter = 0.0
 					m_Curve = 
 					{
 						m_spline = [  ]
@@ -1293,32 +1249,14 @@
 				m_vInterpOutput1 = [ 1.0, 1.0, 1.0 ]
 				m_Gradient = 
 				{
-					m_Stops = 
-					[
-						{
-							m_flPosition = 0.007752
-							m_Color = [ 255, 0, 0, 255 ]
-						},
-						{
-							m_flPosition = 0.540052
-							m_Color = [ 255, 242, 0, 255 ]
-						},
-						{
-							m_flPosition = 0.992248
-							m_Color = [ 255, 255, 255, 255 ]
-						},
-					]
+					m_Stops = [  ]
 				}
 			}
-		},
-		{
-			_class = "C_OP_RenderSprites"
-			m_vecColorScale = 
+			m_vecTailColorScale = 
 			{
-				m_nType = "PVEC_TYPE_FLOAT_INTERP_GRADIENT"
+				m_nType = "PVEC_TYPE_LITERAL_COLOR"
 				m_vLiteralValue = [ 0.0, 0.0, 0.0 ]
-				m_NamedValue = ""
-				m_LiteralColor = [ 255, 0, 0, 255 ]
+				m_LiteralColor = [ 255, 255, 0, 255 ]
 				m_nVectorAttribute = 6
 				m_vVectorAttributeScale = [ 1.0, 1.0, 1.0 ]
 				m_nControlPoint = 0
@@ -1329,7 +1267,6 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
-					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -1375,7 +1312,6 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
-					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -1421,7 +1357,6 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
-					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -1465,10 +1400,9 @@
 				}
 				m_FloatInterp = 
 				{
-					m_nType = "PF_TYPE_RANDOM_BIASED"
+					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
-					m_NamedValue = ""
-					m_flLiteralValue = 100.0
+					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
 					m_nVectorAttribute = 6
@@ -1500,7 +1434,7 @@
 					m_flOutput0 = 0.0
 					m_flOutput1 = 1.0
 					m_nBiasType = "PF_BIAS_TYPE_STANDARD"
-					m_flBiasParameter = 0.1
+					m_flBiasParameter = 0.0
 					m_Curve = 
 					{
 						m_spline = [  ]
@@ -1509,95 +1443,25 @@
 						m_vDomainMaxs = [ 0.0, 0.0 ]
 					}
 				}
-				m_flInterpInput0 = 1.0
-				m_flInterpInput1 = 10.0
+				m_flInterpInput0 = 0.0
+				m_flInterpInput1 = 1.0
 				m_vInterpOutput0 = [ 0.0, 0.0, 0.0 ]
 				m_vInterpOutput1 = [ 1.0, 1.0, 1.0 ]
 				m_Gradient = 
 				{
-					m_Stops = 
-					[
-						{
-							m_flPosition = 0.0
-							m_Color = [ 255, 0, 0, 255 ]
-						},
-						{
-							m_flPosition = 0.48062
-							m_Color = [ 237, 255, 0, 255 ]
-						},
-						{
-							m_flPosition = 0.607235
-							m_Color = [ 246, 212, 0, 255 ]
-						},
-						{
-							m_flPosition = 0.74677
-							m_Color = [ 255, 170, 0, 255 ]
-						},
-					]
+					m_Stops = [  ]
 				}
 			}
-			m_flAnimationRate = 1.0
-			m_hTexture = resource:"particles/fire/flame001_side.vtex"
-			m_bDistanceAlpha = true
-			m_bParticleShadows = true
-			m_bOutline = true
-			m_OutlineColor = [ 255, 0, 0, 255 ]
-			m_flAlphaScale = 
-			{
-				m_nType = "PF_TYPE_LITERAL"
-				m_nMapType = "PF_MAP_TYPE_DIRECT"
-				m_NamedValue = ""
-				m_flLiteralValue = 100.0
-				m_nControlPoint = 0
-				m_nScalarAttribute = 3
-				m_nVectorAttribute = 6
-				m_nVectorComponent = 0
-				m_flRandomMin = 0.0
-				m_flRandomMax = 1.0
-				m_nRandomMode = "PF_RANDOM_MODE_CONSTANT"
-				m_flLOD0 = 0.0
-				m_flLOD1 = 0.0
-				m_flLOD2 = 0.0
-				m_flLOD3 = 0.0
-				m_flNoiseOutputMin = 0.0
-				m_flNoiseOutputMax = 1.0
-				m_flNoiseScale = 0.1
-				m_vecNoiseOffsetRate = [ 0.0, 0.0, 0.0 ]
-				m_flNoiseOffset = 0.0
-				m_nNoiseOctaves = 1
-				m_nNoiseTurbulence = "PF_NOISE_TURB_NONE"
-				m_nNoiseType = "PF_NOISE_TYPE_PERLIN"
-				m_nNoiseModifier = "PF_NOISE_MODIFIER_NONE"
-				m_flNoiseTurbulenceScale = 1.25
-				m_flNoiseTurbulenceMix = 0.5
-				m_flNoiseImgPreviewScale = 1.0
-				m_bNoiseImgPreviewLive = true
-				m_nInputMode = "PF_INPUT_MODE_CLAMPED"
-				m_flMultFactor = 1.0
-				m_flInput0 = 0.0
-				m_flInput1 = 1.0
-				m_flOutput0 = 0.0
-				m_flOutput1 = 1.0
-				m_nBiasType = "PF_BIAS_TYPE_STANDARD"
-				m_flBiasParameter = 0.0
-				m_Curve = 
-				{
-					m_spline = [  ]
-					m_tangents = [  ]
-					m_vDomainMins = [ 0.0, 0.0 ]
-					m_vDomainMaxs = [ 0.0, 0.0 ]
-				}
-			}
-			m_nAnimationType = "ANIMATION_TYPE_FIT_LIFETIME"
-			m_flMaxSize = 500.0
-			m_bSoftEdges = true
-			m_bNormalMap = true
-			m_nColorBlendType = "PARTICLE_COLOR_BLEND_ADD"
-			m_bPerVertexLighting = true
-			m_flOpTimeOffsetMin = 5.0
-			m_bFlipNormal = true
-			m_flCenterYOffset = 0.7
-			m_bUseYawWithNormalAligned = true
+			m_bGammaCorrectVertexColors = false
+			m_bSaturateColorPreAlphaBlend = false
+			m_bAdditive = true
+			m_bOnlyRenderInEffectsBloomPass = true
+			m_hTexture = resource:"materials/particle/particle_glow_02.vtex"
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_OP_RenderSprites"
+			m_bDisableOperator = true
 		},
 	]
 }

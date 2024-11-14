@@ -5,6 +5,7 @@ using Sandbox.UI;
 using System.Linq;
 using Sandbox;
 
+
 using System;
 using System.ComponentModel.Design.Serialization;
 
@@ -53,9 +54,8 @@ public partial class Npc : Component, IHealthComponent
 	[Property]
 	public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject ZombieRagedol { get; set; }
-	
-	
 
+	
 	[Property]
 	private readonly List<string> prefabPaths = new List<string>
 	{
@@ -324,6 +324,7 @@ public partial class Npc : Component, IHealthComponent
 	public GameObject Hitprefab { get; set; }
 
 	public Vector3 Position { get; set; }
+	
 
 
 	[Property]
@@ -340,17 +341,8 @@ public partial class Npc : Component, IHealthComponent
 
 
 	[Property]
-	public float MoveSpeed
-	{
-		get => agent != null ? agent.MaxSpeed : 0f;
-		set
-		{
-			if ( agent != null )
-			{
-				agent.MaxSpeed = value;
-			}
-		}
-	}
+	public float MoveSpeed { get; set; }
+	
 	[Property]private List<StatusEffect> activeStatusEffects = new List<StatusEffect>();
 
 	public void ApplyStatusEffect( StatusEffect effect )
@@ -1334,6 +1326,7 @@ public partial class Npc : Component, IHealthComponent
 			killerPlayer.GiveVyndalium( vyndaliumPointsToAdd );
 			killerPlayer.AddVyndalium( vyndaliumPointsToAdd );
 			killerPlayer.GiveXp( xpPointsToAdd );
+			CreateXpOrbEffect( this.GameObject.WorldPosition, killerPlayer.GameObject.WorldPosition );
 
 			if ( Hitprefab != null && this.GameObject != null )
 			{
@@ -1409,6 +1402,18 @@ public partial class Npc : Component, IHealthComponent
 	public void SpawnItemAtPosition( Vector3 position )
 	{
 		SpawnRandomPrefab( position );
+	}
+	public void CreateXpOrbEffect( Vector3 npcPosition, Vector3 playerPosition )
+	{
+		// Erhöhe die z-Koordinate der Positionen, um den Partikeleffekt nach oben zu verschieben
+		Vector3 adjustedNpcPosition = new Vector3( npcPosition.x, npcPosition.y, npcPosition.z + 100.0f );
+		Vector3 adjustedPlayerPosition = new Vector3( playerPosition.x, playerPosition.y, playerPosition.z + 100.0f );
+
+		var p = new SceneParticles( Scene.SceneWorld, "particles/bleed.vpcf" );
+		p.SetControlPoint( 0, adjustedNpcPosition );
+		p.SetControlPoint( 1, adjustedPlayerPosition ); // Endposition des Strahls
+		p.SetControlPoint( 2, (adjustedPlayerPosition - adjustedNpcPosition).Length ); // Distanz zwischen NPC und Spieler
+		p.PlayUntilFinished( Task );
 	}
 
 
@@ -1523,7 +1528,7 @@ public class BleedEffect : StatusEffect
 
 				// Fügen Sie dem NPC Schaden zu
 				npc.Health -= damagePerSecond;
-
+				
 				// Erstelle Partikeleffekt
 				
 
@@ -1545,7 +1550,7 @@ public class SlowEffect : StatusEffect
 		npc.IsSlowed = true;
 
 		// Implementiere die Logik für den Verlangsamungseffekt
-		npc.MoveSpeed *= 0.5f; // Beispiel: Reduziere die Bewegungsgeschwindigkeit um 50%
+		//npc.MoveSpeed *= 0.5f; // Beispiel: Reduziere die Bewegungsgeschwindigkeit um 50%
 		
 
 		// Setze einen Timer, um den Effekt nach der Dauer zu entfernen
@@ -1564,27 +1569,52 @@ public class KnockbackEffect : StatusEffect
 {
 	public Vector3 KnockbackDirection { get; set; }
 	public float KnockbackForce { get; set; }
+	private bool isKnockedBack = false;
 
-	public KnockbackEffect( float duration, Vector3 knockbackDirection, float knockbackForce )
+	public KnockbackEffect(float duration, Vector3 knockbackDirection, float knockbackForce)
 	{
 		Duration = duration;
 		KnockbackDirection = knockbackDirection;
 		KnockbackForce = knockbackForce;
 	}
 
-	public override async void Apply( Npc npc, Player attacker )
+	public override async void Apply(Npc npc, Player attacker)
 	{
+		if (isKnockedBack)
+		{
+			Log.Info("Knockback effect already active, ignoring new effect");
+			return;
+		}
+
+		if (npc == null)
+		{
+			Log.Error("NPC is null, cannot apply knockback effect");
+			return;
+		}
+
+		if (npc.Position == null)
+		{
+			Log.Error("NPC position is null, cannot apply knockback effect");
+			return;
+		}
+
+		isKnockedBack = true;
+		Log.Info("Knockback effect applied");
 		// Speichere die ursprüngliche Position des NPCs
 		Vector3 originalPosition = npc.Position;
 
-		// Berechne die neue Position des NPCs basierend auf der Knockback-Richtung und -Kraft
-		Vector3 knockbackPosition = originalPosition + KnockbackDirection * KnockbackForce;
+		// Katapultiere den NPC um 40 Einheiten nach oben
+		Vector3 knockbackPosition = originalPosition;
+		//knockbackPosition.z += 40;
 		npc.Position = knockbackPosition;
 
 		// Warte für die Dauer des Effekts
-		await Task.Delay( (int)(Duration * 1000) );
+		await Task.Delay((int)(Duration * 1000));
 
-		// Setze die Position des NPCs zurück
-		npc.Position = originalPosition;
+		// Setze die Position des NPCs auf den Boden zurück
+		//npc.Position = new Vector3(npc.Position.x, npc.Position.y, originalPosition.z);
+
+		// Markiere den NPC als "grounded"
+		isKnockedBack = false;
 	}
 }
