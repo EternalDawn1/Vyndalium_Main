@@ -12,7 +12,7 @@ using System.Linq; // Für LINQ-Abfragen
 
 namespace GeneralGame;
 
-public class BaseGun : WeaponComponent, IUse
+public class  BaseGun : WeaponComponent, IUse
 {
 	[Property]public bool IsMelee { get; set; }
 	[Property, Category( "Parameters" )] public DamageType DamageType { get; set; } = DamageType.Serious;
@@ -149,6 +149,10 @@ public class BaseGun : WeaponComponent, IUse
 
 	protected override void OnStart()
 	{
+		if (Player.Local.LifeState == LifeState.Dead)
+		{
+			StopAllActions();
+		}
 		// Standardmunition setzen, wenn sie nicht bereits gesetzt ist
 		if ( AmmoCount == 0 )
 		{
@@ -1165,7 +1169,7 @@ public class BaseGun : WeaponComponent, IUse
 
 
 
-
+	private bool hasStoppedActions = false;
 	protected virtual void OnReloadEnd()
 	{
 		var ammoToTake = ClipSize - AmmoInClip;
@@ -1177,10 +1181,32 @@ public class BaseGun : WeaponComponent, IUse
 		// Animation stoppen
 		EffectRenderer?.Set( "b_reload", false );
 	}
+	private void StopAllActions()
+	{
+	
+		IsFiering = false;
+		IsReloading = false;
+		ReloadSound?.Stop();
+		EffectRenderer?.Set("b_reload", false);
+		EffectRenderer?.Set("b_attack", false);
+	}
 	private bool hasPlayedChargedSound = false;
 	protected override void OnUpdate()
 	{
-		if ( NextAttackTime && IsFiering && IsAuto ) FireBullet( Player.Local );
+		if (Player.Local.LifeState == LifeState.Dead && !hasStoppedActions)
+		{
+			StopAllActions();
+			hasStoppedActions = true;
+		}
+
+		if (Player.Local.LifeState != LifeState.Dead)
+		{
+			hasStoppedActions = false;
+		}
+		if (NextAttackTime && IsFiering && IsAuto)
+		{
+			FireBullet(Player.Local);
+		}
 
 		if ( !IsProxy && ReloadFinishTime && IsReloading )
 		{
