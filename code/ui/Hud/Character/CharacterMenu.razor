@@ -39,6 +39,14 @@
 		<div class="char"><CharacterRenderer @ref=_renderer />
 		
 		</div>
+		<div class="char2">
+			<div class="playe2">
+				<li class="li">Vyndalium</li>
+				<div class="playic"></div>
+				<span class="Vyndn">£&nbsp;@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
+			</div>
+
+		</div>
 
 		<div class="stats" style="opacity: @(currentpanel == PanelType.MainStats ? 1 : 0)">
 			
@@ -280,11 +288,7 @@
 						<div class="playe3">
 							<li class="li">Stats Points</li> <span class="nu">@Player.Local.StatsPoints</span>
 						</div>
-						<div class="playe2">
-							<li class="li">Money</li>
-							<div class="playic"></div>
-							<span class="Vyndn">@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
-						</div>
+						
 					
 						<div class="playe3">
 							<li class="li">Playtime</li> <span class="nu">@Player.Local.Playtime</span>

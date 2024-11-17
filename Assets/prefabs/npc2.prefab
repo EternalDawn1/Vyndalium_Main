@@ -33,12 +33,7 @@
         "AirAcceleration": 400,
         "AirFriction": 6.5,
         "Bounce": 0.5,
-        "Collider": {
-          "_type": "component",
-          "component_id": "41cccff0-8873-4502-b4bf-560cde360e52",
-          "go": "1d8bc424-f317-41f6-b0b6-6d9dd5a61eb5",
-          "component_type": "ModelCollider"
-        },
+        "Collider": null,
         "EnableUnstuck": false,
         "Gravity": "0,0,850",
         "GroundAcceleration": 2065,
@@ -110,6 +105,7 @@
       {
         "__type": "Npc",
         "__guid": "343ea719-e2a6-4c36-8add-0d68f031e949",
+        "activeStatusEffects": [],
         "CurrentHoldType": "Punch",
         "isChibi": false,
         "prefabPaths": [
@@ -155,6 +151,7 @@
         },
         "HitSounds": "sounds/grunt/gruntingn.sound",
         "Idle": true,
+        "IsBleeding": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -172,6 +169,7 @@
           "go": "939b879f-4387-4260-b9b9-19fed476cde9",
           "component_type": "MoveHelper"
         },
+        "MoveSpeed": 0,
         "Name": "Zombie",
         "OnAttack": {
           "__version": 8,
@@ -364,6 +362,7 @@
         },
         "PlayerProximityDistance": 80,
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Smart",
         "RunSpeed": 110,
         "ScaleStats": true,
@@ -408,6 +407,7 @@
             "__guid": "86b14ece-10dc-4299-8a9e-82a86089d1d9",
             "AnimationGraph": "models/citizen/citizen.vanmgrph",
             "BodyGroups": 1365,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialGroup": "default",
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
@@ -427,6 +427,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
@@ -446,10 +449,12 @@
             }
           },
           {
-            "__type": "Sandbox.ModelCollider",
+            "__type": "Sandbox.CapsuleCollider",
             "__guid": "41cccff0-8873-4502-b4bf-560cde360e52",
+            "End": "0,0,59.09998",
             "IsTrigger": false,
-            "Model": "models/playermodels/skeleman.vmdl",
+            "Radius": 16,
+            "Start": "0,0,-0.9000001",
             "Static": false,
             "SurfaceVelocity": "0,0,0"
           }
@@ -531,5 +536,6 @@
   "__references": [
     "luke.skeleman#19898"
   ],
+  "HasUnsavedChanges": false,
   "__version": 1
 }

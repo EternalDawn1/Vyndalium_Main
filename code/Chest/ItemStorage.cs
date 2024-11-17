@@ -406,7 +406,7 @@ namespace GeneralGame
 
             if ( IsBossChest )
             {
-                Log.Info( "Boss chest detected." );
+                
                 int minLevel = 0;
                 int maxLevel = 100;
                 int playerLevel = GetPlayerLevel();
@@ -414,7 +414,7 @@ namespace GeneralGame
             }
             else
             {
-                Log.Info( "Normal chest detected." );
+              
                 if ( Player.Local != null )
                 {
                     int minLevel = 0;
@@ -426,7 +426,7 @@ namespace GeneralGame
          
 
             itemsLoaded = true; // Setzen der Variable, um anzuzeigen, dass die Items geladen wurden
-            Log.Info( $"Total Generated Items: {Items.Count}" );
+         
         }
         public void LoadBossTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
@@ -534,7 +534,6 @@ namespace GeneralGame
                 }
             }
 
-            Log.Info( $"Total Generated Items: {totalGenerated}" );
             Items.Clear();
             int totalAdded = 0;
 
@@ -547,7 +546,7 @@ namespace GeneralGame
                     LoadTierPrefab( prefabPath, tier, minLevel, maxLevel );
                     addedPrefabPaths.Add( prefabPath );
                     totalAdded++;
-                    Log.Info( $"Added Item: {prefabPath}" );
+                 
                     // Zu 80% ein zufälliges Item aus nonRandomStatItems hinzufügen
                     if ( random.NextDouble() <= 0.20 )
                     {
@@ -555,12 +554,12 @@ namespace GeneralGame
                         LoadNonRandomStatItem( randomNonRandomStatItem, minLevel, maxLevel );
                         addedPrefabPaths.Add( randomNonRandomStatItem );
                         totalAdded++;
-                        Log.Info( $"Added Non-Random Stat Item: {randomNonRandomStatItem}" );
+                      
                     }
                 }
             }
 
-            Log.Info( $"Total Added Items to Boss Chest: {totalAdded}" );
+     
             itemsLoaded = true;
         }
         public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
@@ -643,7 +642,7 @@ namespace GeneralGame
                 }
             }
 
-            Log.Info( $"Total Generated Items: {totalGenerated}" );
+       
             Items.Clear();
             int totalAdded = 0;
 
@@ -657,7 +656,7 @@ namespace GeneralGame
                     LoadTierPrefab( prefabPath, tier, minLevel, maxLevel );
                     addedPrefabPaths.Add( prefabPath );
                     totalAdded++;
-                    Log.Info( $"Added Item: {prefabPath}" );
+                  
 
                     // Zu 80% ein zufälliges Item aus nonRandomStatItems hinzufügen
                     if ( random.NextDouble() <= 0.30 )
@@ -666,18 +665,18 @@ namespace GeneralGame
                         LoadNonRandomStatItem( randomNonRandomStatItem, minLevel, maxLevel );
                         addedPrefabPaths.Add( randomNonRandomStatItem );
                         totalAdded++;
-                        Log.Info( $"Added Non-Random Stat Item: {randomNonRandomStatItem}" );
+                     
                     }
                 }
             }
 
-            Log.Info( $"Total Added Items to Chest: {totalAdded}" );
+          
 
             itemsLoaded = true;
         }
         private void LoadNonRandomStatItem( string prefabPath, int minLevel, int maxLevel )
         {
-            Log.Info( $"Loading Non-Random Stat Item Prefab: {prefabPath}" );
+           
             int playerLevel = GetPlayerLevel();
             var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
             if ( prefab != null )
@@ -697,7 +696,7 @@ namespace GeneralGame
 
         public void LoadTierPrefab( string prefabPath, string tier, int minLevel, int maxLevel )
         {
-            Log.Info( $"Loading Tier {tier} Prefab: {prefabPath}" );
+         
             int playerLevel = GetPlayerLevel();
             var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
             if ( prefab != null )
@@ -761,11 +760,11 @@ namespace GeneralGame
                             }
                             else
                             {
-                                Log.Error( $"Unknown item type: {prefabPath}" );
+                               
                             }
 
 
-                        Log.Info( $"Added Item: {prefabPath}" );
+                     
 
 
                     }
@@ -1040,7 +1039,7 @@ namespace GeneralGame
 
         public void OpenInventory()
         {
-            Log.Info( "Opening inventory..." );
+          
             if ( !IsOpened )
             {
                 IsOpened = true;
@@ -1050,7 +1049,7 @@ namespace GeneralGame
                     // Hier können wir sicherstellen, dass die Items zur StorageBox hinzugefügt werden
 
                     FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.StorageBox );
-                    Player.Local.BlockInputs = true;
+                    //Player.Local.BlockInputs = true;
                     itemsGenerated = true; // Setzen der Variable, um anzuzeigen, dass die Objekte erstellt wurden
                 }
 
@@ -1062,7 +1061,7 @@ namespace GeneralGame
             }
             else
             {
-                Log.Info( "Inventory is already opened." );
+               
                 CloseInventory();
             }
         }
@@ -1075,7 +1074,6 @@ namespace GeneralGame
                 if ( FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox )
                 {
                     FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
-                    
                 }
                 else
                 {
@@ -1084,11 +1082,9 @@ namespace GeneralGame
                     {
                         skinnedModelRenderer.Set( "chest_close", true );
                     }
-                   
                 }
                 DestroyAfterOpen();
             }
-            
 
             if ( Player.Local != null )
             {
@@ -1099,8 +1095,12 @@ namespace GeneralGame
             {
                 skinnedModelRenderer.Set( "chest_open", false );
             }
+            else
+            {
+                
+            }
 
-             // Setzen der Variable, um anzuzeigen, dass die Kiste geschlossen ist
+            // Setzen der Variable, um anzuzeigen, dass die Kiste geschlossen ist
         }
         public void DestroyAfterOpen()
         {

@@ -61,7 +61,7 @@ public partial class Npc : Component, IHealthComponent
 	{
 		"prefabs/pickupammo.prefab", // 50% Wahrscheinlichkeit
         "prefabs/potions/potion.prefab", // 25% Wahrscheinlichkeit
-        "prefabs/items/wood_log.prefab",
+       
 		"prefabs/entitys/chestsystem/5.prefab" // 25% Wahrscheinlichkeit
     };
 
@@ -323,8 +323,8 @@ public partial class Npc : Component, IHealthComponent
 	public Rotation Rotation { get; set; }
 	public GameObject Hitprefab { get; set; }
 
-	public Vector3 Position { get; set; }
-	
+	[Property] public Vector3 Position { get; set; }
+
 
 
 	[Property]
@@ -373,7 +373,7 @@ public partial class Npc : Component, IHealthComponent
 	protected override void OnAwake()
 	{
 		
-		var spawnTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 30f, WorldPosition - Vector3.Up * 200f )
+		var spawnTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 1f, WorldPosition - Vector3.Up * 200f )
 			.Size( 5f )
 			.IgnoreGameObjectHierarchy( GameObject )
 			.WithoutTags( "player", "npc", "trigger" )
@@ -389,6 +389,8 @@ public partial class Npc : Component, IHealthComponent
 
 
 	}
+
+
 	public void InitializeNPC()
 	{
 		// Set a random target position around the spawn point
@@ -1148,43 +1150,43 @@ public partial class Npc : Component, IHealthComponent
 	{
 		if ( npcLevel <= 10 )
 		{
-			return new Random().Next( 5, 50 ); // 5-15 Vyndalium für Level 1-10
+			return new Random().Next( 5, 8 ); // 5-15 Vyndalium für Level 1-10
 		}
 		else if ( npcLevel <= 20 )
 		{
-			return new Random().Next( 100, 150 ); // 15-30 Vyndalium für Level 11-20
+			return new Random().Next( 10, 15 ); // 15-30 Vyndalium für Level 11-20
 		}
 		else if ( npcLevel <= 30 )
 		{
-			return new Random().Next( 150, 300 ); // 30-50 Vyndalium für Level 21-30
+			return new Random().Next( 15, 30 ); // 30-50 Vyndalium für Level 21-30
 		}
 		else if ( npcLevel <= 40 )
 		{
-			return new Random().Next( 250, 510 ); // 50-70 Vyndalium für Level 31-40
+			return new Random().Next( 25, 51 ); // 50-70 Vyndalium für Level 31-40
 		}
 		else if ( npcLevel <= 50 )
 		{
-			return new Random().Next( 700, 910 ); // 70-90 Vyndalium für Level 41-50
+			return new Random().Next( 70, 91 ); // 70-90 Vyndalium für Level 41-50
 		}
 		else if ( npcLevel <= 60 )
 		{
-			return new Random().Next( 900, 1110 ); // 90-110 Vyndalium für Level 51-60
+			return new Random().Next( 90, 111 ); // 90-110 Vyndalium für Level 51-60
 		}
 		else if ( npcLevel <= 70 )
 		{
-			return new Random().Next( 1100, 1310 ); // 110-130 Vyndalium für Level 61-70
+			return new Random().Next( 110, 131 ); // 110-130 Vyndalium für Level 61-70
 		}
 		else if ( npcLevel <= 80 )
 		{
-			return new Random().Next( 1300, 1510 ); // 130-150 Vyndalium für Level 71-80
+			return new Random().Next( 130, 151 ); // 130-150 Vyndalium für Level 71-80
 		}
 		else if ( npcLevel <= 90 )
 		{
-			return new Random().Next( 1500, 1710 ); // 150-170 Vyndalium für Level 81-90
+			return new Random().Next( 150, 171 ); // 150-170 Vyndalium für Level 81-90
 		}
 		else
 		{
-			return new Random().Next( 1700, 2010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 171, 201 ); // 170-200 Vyndalium für Level 91-100
 		}
 	}
 	private int CalculateXpReward( int npcLevel )
@@ -1193,43 +1195,43 @@ public partial class Npc : Component, IHealthComponent
 
 		if ( npcLevel <= 10 )
 		{
-			return new Random().Next( 2, 8) * halfNpcLevel; // 5-15 XP pro halbes Level für Level 1-10
+			return new Random().Next( 2, 1600) * halfNpcLevel; // 5-15 XP pro halbes Level für Level 1-10
 		}
 		else if ( npcLevel <= 20 )
 		{
-			return new Random().Next( 16, 32 ) * halfNpcLevel; // 15-30 XP pro halbes Level für Level 11-20
+			return new Random().Next( 16, 3200 ) * halfNpcLevel; // 15-30 XP pro halbes Level für Level 11-20
 		}
 		else if ( npcLevel <= 30 )
 		{
-			return new Random().Next( 32, 45 ) * halfNpcLevel; // 30-50 XP pro halbes Level für Level 21-30
+			return new Random().Next( 32, 4500 ) * halfNpcLevel; // 30-50 XP pro halbes Level für Level 21-30
 		}
 		else if ( npcLevel <= 40 )
 		{
-			return new Random().Next( 45, 70 ) * halfNpcLevel; // 50-70 XP pro halbes Level für Level 31-40
+			return new Random().Next( 45, 7000 ) * halfNpcLevel; // 50-70 XP pro halbes Level für Level 31-40
 		}
 		else if ( npcLevel <= 50 )
 		{
-			return new Random().Next( 48, 65 ) * halfNpcLevel; // 70-90 XP pro halbes Level für Level 41-50
+			return new Random().Next( 48, 16500 ) * halfNpcLevel; // 70-90 XP pro halbes Level für Level 41-50
 		}
 		else if ( npcLevel <= 60 )
 		{
-			return new Random().Next( 65, 80 ) * halfNpcLevel; // 90-110 XP pro halbes Level für Level 51-60
+			return new Random().Next( 65, 35000 ) * halfNpcLevel; // 90-110 XP pro halbes Level für Level 51-60
 		}
 		else if ( npcLevel <= 70 )
 		{
-			return new Random().Next( 81, 100) * halfNpcLevel; // 110-130 XP pro halbes Level für Level 61-70
+			return new Random().Next( 81, 45000) * halfNpcLevel; // 110-130 XP pro halbes Level für Level 61-70
 		}
 		else if ( npcLevel <= 80 )
 		{
-			return new Random().Next( 100, 151 ) * halfNpcLevel; // 130-150 XP pro halbes Level für Level 71-80
+			return new Random().Next( 100, 56151 ) * halfNpcLevel; // 130-150 XP pro halbes Level für Level 71-80
 		}
 		else if ( npcLevel <= 90 )
 		{
-			return new Random().Next( 150, 171 ) * halfNpcLevel; // 150-170 XP pro halbes Level für Level 81-90
+			return new Random().Next( 150, 86171 ) * halfNpcLevel; // 150-170 XP pro halbes Level für Level 81-90
 		}
 		else
 		{
-			return new Random().Next( 170, 201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+			return new Random().Next( 170, 101201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
 		}
 	}
 	
@@ -1380,18 +1382,25 @@ public partial class Npc : Component, IHealthComponent
 					{
 						xpScaleText.Thing = killerPlayer.GameObject;
 					}
-
-					// Start coroutine to move and destroy the hit info
 					
+					// Start coroutine to move and destroy the hit info
+
 				}
-			}
+
 			
+			}
 
 
 
 
 
-
+			var worldPanel = this.GameObject.Components.Get<Sandbox.UI.WorldPanel>();
+			if (worldPanel != null)
+			{
+				worldPanel.Delete();
+			}
+			GameObject.Destroy();
+		  
 			killerPlayer.OnZombieKilled();
 
 
@@ -1580,6 +1589,7 @@ public class KnockbackEffect : StatusEffect
 
 	public override async void Apply(Npc npc, Player attacker)
 	{
+		Log.Info("Applying knockback effect");
 		if (isKnockedBack)
 		{
 			Log.Info("Knockback effect already active, ignoring new effect");

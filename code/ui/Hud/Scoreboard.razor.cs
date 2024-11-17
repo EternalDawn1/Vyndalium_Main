@@ -60,6 +60,7 @@ namespace GeneralGame.HUD
             {
                 return;
             }
+            Player.Save();
             ShowAbandonDialog = true;
             StateHasChanged();
         }

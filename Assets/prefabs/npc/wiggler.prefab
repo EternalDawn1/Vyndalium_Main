@@ -33,12 +33,7 @@
         "AirAcceleration": 400,
         "AirFriction": 6.5,
         "Bounce": 0.5,
-        "Collider": {
-          "_type": "component",
-          "component_id": "9536ad73-9938-48e5-9411-bca968bb28d6",
-          "go": "0c5464da-f839-4163-9ddf-a369de4ada8d",
-          "component_type": "ModelCollider"
-        },
+        "Collider": null,
         "EnableUnstuck": false,
         "Gravity": "0,0,850",
         "GroundAcceleration": 2065,
@@ -110,6 +105,7 @@
       {
         "__type": "Npc",
         "__guid": "59063e71-a092-4580-84dc-c9849333eb38",
+        "activeStatusEffects": [],
         "CurrentHoldType": "None",
         "isChibi": false,
         "prefabPaths": [
@@ -154,6 +150,7 @@
         },
         "HitSounds": "sounds/grunt/gruntingn.sound",
         "Idle": true,
+        "IsBleeding": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -171,6 +168,7 @@
           "go": "b798520b-180e-4295-831d-8d70421e3855",
           "component_type": "MoveHelper"
         },
+        "MoveSpeed": 0,
         "Name": "Zombie",
         "OnAttack": {
           "__version": 8,
@@ -216,7 +214,6 @@
             {
               "Id": 5,
               "Type": "scene.ref",
-              "Properties": {},
               "UserData": {
                 "Position": "96,256"
               }
@@ -260,7 +257,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 11,
+              "Id": 8,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -272,13 +269,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 12,
+              "Id": 9,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 13,
+              "Id": 10,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -380,7 +377,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 15,
+              "Id": 14,
               "Value": 10,
               "DstId": 4,
               "DstName": "amount"
@@ -439,11 +436,19 @@
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "c2841939-ad53-4508-891b-9afd07604916",
             "BodyGroups": 341,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialGroup": "Skin03",
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
             "Model": "models/citizen/citizen.vmdl",
             "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -451,6 +456,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
@@ -474,11 +482,14 @@
             }
           },
           {
-            "__type": "Sandbox.ModelCollider",
+            "__type": "Sandbox.CapsuleCollider",
             "__guid": "9536ad73-9938-48e5-9411-bca968bb28d6",
+            "End": "0,0,6.000001",
             "IsTrigger": false,
-            "Model": "models/citizen/citizen.vmdl",
-            "Static": false
+            "Radius": 14.399994,
+            "Start": "0,0,61.00008",
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
           }
         ],
         "Children": [
@@ -1334,7 +1345,30 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -1342,6 +1376,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "IsValid": true,
+  "HasUnsavedChanges": false,
   "__version": 1
 }

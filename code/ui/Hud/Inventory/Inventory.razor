@@ -10,11 +10,11 @@
 	
 	<div class="sidehud">
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Inventory)) IsInverted=@(true)
-			ImagePath="ui/hud/inventory.png" title="Inventory" TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:cyan; width:100%;" />
+			ImagePath="ui/hud/inventory.png" title="Inventory" TitleStyle="font-size: 16px;transform: rotate(-45deg); left:5%; position:absolute;"  />
 
-		<SideButton OnClick=@(() => ShowPanel(PanelType.Food)) IsInverted=@(true) ImagePath="ui/hud/food.png" title="Player" TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:purple; width:100%;"  />
+		<SideButton OnClick=@(() => ShowPanel(PanelType.Food)) IsInverted=@(true) ImagePath="ui/hud/food.png" title="Player" TitleStyle="font-size: 16px;transform: rotate(-45deg); left:5%; position:absolute;"   />
 
-		<SideButton OnClick=@(() => ShowPanel(PanelType.Weapons)) IsInverted=@(true) ImagePath="ui/hud/weapons.png" />
+		<SideButton OnClick=@(() => ShowPanel(PanelType.Weapons)) IsInverted=@(true) ImagePath="ui/hud/weapons.png" title="Crafting" TitleStyle="font-size: 16px;transform: rotate(-45deg); left:5%;top:5%; position:absolute;"  />
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Armor)) IsInverted=@(true) ImagePath="ui/hud/armor.png" />
 		<SideButton OnClick=@(() => ShowPanel(PanelType.Materials)) IsInverted=@(true)
 			ImagePath="ui/hud/materials.png" />
@@ -71,15 +71,20 @@
 			<div class="section2" CanDragScroll="false">
 				<div class="box">
 					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.Tier))">
-						Tier</button>
-					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.ItemLevel))">Item
-						Lvl</button>
+						<div class="tooltip">Tier</div>
+						⚙️</button>
+					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.ItemLevel))">
+						<div class="tooltip">ItemLevel</div>
+						💿</button>
 					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.RequiredLevel))">
-						Req. LVL</button>
+						<div class="tooltip">Req. Level</div>
+						📀</button>
 					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.Material))">
-						Material</button>
+						<div class="tooltip">Material</div>
+						📦</button>
 					<button class="sort" @onclick="@(() => @SortBackpackItems(SortOption.Favorite))">
-						Favorite</button>
+						<div class="tooltip">Favorite</div>
+						⭐️</button>
 
 				</div>
 
@@ -99,18 +104,23 @@
 				{
 					<div class="box2">
 						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.Tier))">
-							Tier</button>
-						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.ItemLevel))">Item
-							Lvl</button>
+							<div class="tooltip">Tier</div>
+							⚙️</button>
+						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.ItemLevel))">
+							<div class="tooltip">ItemLevel</div>
+							💿</button>
 						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.RequiredLevel))">
-							Req. LVL</button>
+							<div class="tooltip">Req. Level</div>
+							📀</button>
 						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.Material))">
-							Material</button>
+							<div class="tooltip">Material</div>
+							📦</button>
 						<button class="sort" @onclick="@(() => @SortBackpackBagItems(SortOption.Favorite))">
-							Favorite</button>
+							<div class="tooltip">Favorite</div>
+							⭐️</button>
 					</div>
 					<div class="Hello"
-						style="top:4.5%;background: linear-gradient(90deg, rgb(33, 30, 30) 0%, rgb(3, 26, 110) 50%, rgb(5, 227, 243) 100%);">
+						style="top:4.5%;background: linear-gradient(90deg, rgb(82, 74, 74) 0%, rgb(3, 110, 35) 50%, rgb(10, 211, 53) 100%);">
 						Bag Pack</div>
 					
 				}

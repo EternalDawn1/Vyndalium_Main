@@ -464,7 +464,7 @@ public sealed class Inventory : Component
 		_storageBoxItems = new List<ItemComponent>();
 		_upgradeItems = new List<ItemComponent>( new ItemComponent[MAX_UPGRADE_SLOTS] );
 		_aspectItems = new List<ItemComponent>(new ItemComponent[MAX_ASPECT_SLOTS] );
-		_backpackBagItems = new List<ItemComponent>(new ItemComponent[MAX_BACKPACKBAG_SLOTS] );
+		_backpackBagItems = new List<ItemComponent>(new ItemComponent[MAX_BACKPACKBAG_SLOTS]);
 	}
 	public void InitializeBackpackSlots()
 	{
@@ -854,7 +854,9 @@ public sealed class Inventory : Component
 	public bool EquipItemFromWorld( ItemComponent item, bool forceReplace = false )
 	{
 		if ( item == null )
-			return false;
+		{
+			throw new ArgumentNullException( nameof( item ), "Das übergebene Item ist null." );
+		}
 		if (IsProxy)
 			return true;
 			
@@ -883,11 +885,15 @@ public sealed class Inventory : Component
 			equipment.State = ItemState.Equipped;
 			TaskMaster.SubmitTriggerSignal( $"item.equipped.{item.Name}", Player );
 
-			var weaponContainer = Player.Components.Get<WeaponContainer>();
+			var weaponContainer = Player?.Components?.Get<WeaponContainer>();
 			if ( weaponContainer != null )
 			{
 				weaponContainer.Give( item.GameObject, true );
 				Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.0125f );
+			}
+			else
+			{
+				Log.Error( "WeaponContainer is null or Player.Components is null." );
 			}
 			if ( item is Backpack backpack )
 			{
@@ -910,7 +916,7 @@ public sealed class Inventory : Component
 		else
 		{
 			
-			Hudmaster.Instance.ShowNotification( "player level too low", "/ui/hud/exit.gif" );
+			Hudmaster.Instance?.ShowNotification( "player level too low", "/ui/hud/exit.gif" );
 			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 
 			return false;
@@ -1590,22 +1596,31 @@ public sealed class Inventory : Component
 		}
 	
 	}
-	public void GiveBackpackBagItem( ItemComponent item, int index )
+	public void GiveBackpackBagItem(ItemComponent item, int index)
 	{
-		if ( _backpackBagItems.Contains( item ) )
+		Log.Info("GiveBackpackBagItem aufgerufen");
+		if (item == null)
 		{
+			Log.Info("Item ist null");
 			return;
 		}
 
-		if ( index >= 0 && index < _backpackBagItems.Count )
+		if (_backpackBagItems.Contains(item))
 		{
-			// Überprüfen Sie, ob der Slot im Rucksack leer ist
-
-			_backpackBagItems[index] = item;
-			item.State = ItemState.BackpackBag;
-			item.GameObject.Enabled = false; // Aktualisieren Sie den Zustand des Items
+			Log.Info("Item bereits im BackpackBag");
+			return;
 		}
 
+		if (index < 0 || index >= _backpackBagItems.Count)
+		{
+			Log.Info($"Index {index} ist außerhalb der Grenzen von _backpackBagItems");
+			return;
+		}
+
+		Log.Info($"Slot {index} ist im BackpackBag");
+		_backpackBagItems[index] = item;
+		item.State = ItemState.BackpackBag;
+		item.GameObject.Enabled = false; // Aktualisieren Sie den Zustand des Items
 	}
 	public void GiveStorageItem( ItemComponent item, int index )
 	{

@@ -417,21 +417,20 @@ public partial class Player : Component, IHealthComponent
 		return !tr.Hit;
 	}
 
-	protected virtual void OnKilled( GameObject attacker )
+	protected virtual void OnKilled(GameObject attacker)
 	{
-		
-
-		if ( IsProxy )
+		if (IsProxy)
 			return;
 
-		if ( Weapons.Deployed != null && Weapons.Deployed.IsValid() )
+		// Stop all sounds and reset states
+		
+
+		if (Weapons.Deployed != null && Weapons.Deployed.IsValid())
 		{
 			Weapons.Deployed.Holster();
 		}
 
-		
-		RespawnAsync( 3f );
-
+		RespawnAsync(3f);
 		Deaths++;
 	}
 	
@@ -508,7 +507,18 @@ public partial class Player : Component, IHealthComponent
 
 		base.OnStart();
 	}
-	
+
+
+	[ConCmd("kill_player")]
+	public  void KillPlayer()
+	{
+		int Amount = 100;
+		var playerInside = Player.Local;
+		playerInside.TakeDamage(DamageType.Bullet, Amount, new Vector3(), new Vector3(), new Guid(), GameObject.Id);
+		Log.Info("Player has been killed.");
+		
+	}
+
 
 
 	private void UpdateWeaponModelVisibility()
@@ -652,15 +662,79 @@ public partial class Player : Component, IHealthComponent
 		}
 	}
 
+
+
+
+
 	protected override void OnPreRender()
 	{
-		
+		base.OnPreRender();
 
-		
+		if (!Scene.IsValid() || !PlyCamera.IsValid())
+			return;
 
+		UpdateModelVisibility();
+
+		if (IsProxy)
+			return;
+
+		if (!Eye.IsValid())
+			return;
+
+		if (Ragdoll.IsRagdolled)
+		{
+			PlyCamera.WorldPosition = PlyCamera.WorldPosition.LerpTo(Eye.WorldPosition, Time.Delta * 32f);
+			PlyCamera.WorldRotation = Rotation.Lerp(PlyCamera.WorldRotation, Eye.WorldRotation, Time.Delta * 16f);
+			return;
+
+		}
+
+
+
+
+		if (!IsProxy)
+
+		{
+			PlyCamera.LocalPosition = Vector3.Zero;
+			var idealEyePos = Eye.WorldPosition;
+			var headPosition = WorldPosition + Vector3.Up * CharacterController.Height;
+			var headTrace = Scene.Trace.Ray(WorldPosition, headPosition)
+				.UsePhysicsWorld()
+				.IgnoreGameObjectHierarchy(GameObject)
+				.WithAnyTags("solid")
+				.Run();
+
+			headPosition = headTrace.EndPosition - headTrace.Direction * 2f;
+
+			var trace = Scene.Trace.Ray(headPosition, idealEyePos)
+				.UsePhysicsWorld()
+				.IgnoreGameObjectHierarchy(GameObject)
+				.WithAnyTags("solid")
+				.Radius(2f)
+				.Run();
+
+			var deployedWeapon = Weapons.Deployed;
+			var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
+
+			if (hasViewModel)
+				PlyCamera.WorldPosition = Head.WorldPosition;
+			else
+				PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
+
+			if (SicknessMode)
+				PlyCamera.WorldRotation = Rotation.LookAt(Eye.WorldRotation.Left) * Rotation.FromPitch(-10f);
+			else
+				PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
+
+
+			if (IsCrouching && hasViewModel)
+			{
+				PlyCamera.WorldPosition = PlyCamera.WorldPosition + SieatOffset;
+			}
+		}
 	}
-	bool isLowHealthSoundPlaying = false;
-
+		bool isLowHealthSoundPlaying = false;
+	public bool SicknessMode { get; set; }
 	bool isMidHealthSoundPlaying = false;
 	public bool IsSwinging { get; set; }
 	private float swingCooldown = 1.0f; // Cooldown-Zeit in Sekunden
@@ -677,8 +751,7 @@ public partial class Player : Component, IHealthComponent
 
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
-		if ( IsProxy )
-			return;
+		
 
 		if ( !Eye.IsValid() )
 			return;
@@ -712,7 +785,11 @@ public partial class Player : Component, IHealthComponent
 			Log.Info( "Swing animation completed" );
 			IsSwinging = false;
 		}
-
+		if (Player.Local == this)
+		{
+			PlyCamera.WorldPosition = Eye.WorldPosition;
+			PlyCamera.WorldRotation = Eye.WorldRotation;
+		}
 
 		for ( int i = activeStatusEffects.Count - 1; i >= 0; i-- ) 
 		{
@@ -905,61 +982,58 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual void DoMovementInput()
 	{
-		if ( IsProxy )
+		if (IsProxy)
 			return;
-		if ( BlockInputs )
+		if (BlockInputs)
 		{
 			return;
 		}
-
-		if ( isFrozen )
+		if (isFrozen)
 		{
-			
 			return;
 		}
 
 		BuildWishVelocity();
 
-		if ( CharacterController.IsOnGround && Input.Pressed( "Jump" ) && TryJump() )
+
+		if (CharacterController.IsOnGround && Input.Pressed("Jump") && TryJump())
 		{
-			CharacterController.Punch( Vector3.Up * 300f );
+			CharacterController.Punch(Vector3.Up * 300f);
 			SendJumpMessage();
 		}
 
-		MoveSpeed = CharacterController.Velocity.WithZ( 0 ).Length;
+		MoveSpeed = CharacterController.Velocity.WithZ(0).Length;
 
-
-
-		if ( CharacterController.IsOnGround )
+		if (CharacterController.IsOnGround)
 		{
-			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0f );
-			CharacterController.Accelerate( WishVelocity );
-			CharacterController.ApplyFriction( GroundControl );
-
+			CharacterController.Velocity = CharacterController.Velocity.WithZ(0f);
+			CharacterController.Accelerate(WishVelocity);
+			CharacterController.ApplyFriction(GroundControl);
 		}
 		else
 		{
 			CharacterController.Velocity -= Gravity * Time.Delta * 0.5f;
-			CharacterController.Accelerate( WishVelocity.ClampLength( 50f ) );
-			CharacterController.ApplyFriction( Aircontrol );
+			CharacterController.Accelerate(WishVelocity.ClampLength(50f));
+			CharacterController.ApplyFriction(Aircontrol);
 		}
 
 		CharacterController.Move();
 
-		if ( !CharacterController.IsOnGround )
+		
+
+		if (!CharacterController.IsOnGround)
 		{
 			CharacterController.Velocity -= Gravity * Time.Delta * 0.5f;
 			LastUngroundedTime = 0f;
 		}
 		else
 		{
-			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0 );
+			CharacterController.Velocity = CharacterController.Velocity.WithZ(0);
 			LastGroundedTime = 0f;
 		}
 
-		WorldRotation = Rotation.FromYaw( EyeAngles.ToRotation().Yaw() );
+		WorldRotation = Rotation.FromYaw(EyeAngles.ToRotation().Yaw());
 	}
-
 	protected override void OnFixedUpdate()
 	{
 		if ( IsProxy )
@@ -1079,31 +1153,42 @@ public partial class Player : Component, IHealthComponent
 
 	private void BuildWishVelocity()
 	{
-		if ( IsProxy )
+		if (IsProxy)
 			return;
-
-
-		if ( isFrozen )
+		if (isFrozen)
 		{
-			Log.Info( "Player cannot build wish velocity while frozen" );
+			Log.Info("Player cannot build wish velocity while frozen");
 			return;
 		}
-		var rotation = EyeAngles.ToRotation();
 
-		WishVelocity = rotation * Input.AnalogMove;
-		WishVelocity = WishVelocity.WithZ( 0f );
+		var moveInput = Input.AnalogMove;
 
-		if ( !WishVelocity.IsNearZeroLength )
-			WishVelocity = WishVelocity.Normal;
-
-
-		if ( IsCrouching )
-			WishVelocity *= 64f;
-		else if ( IsRunning )
-
-			WishVelocity *= PlayerRunSpeed;
+		// Log the input values for debugging
+		
+		// Set WishVelocity to zero if there is no movement input
+		if (moveInput.IsNearlyZero())
+		{
+			WishVelocity = Vector3.Zero;
+		}
 		else
-			WishVelocity *= PlayerWalkSpeed;
+		{
+			var rotation = EyeAngles.WithRoll(0f).ToRotation();
+			WishVelocity = rotation * moveInput;
+			WishVelocity = WishVelocity.WithZ(0f);
+
+			if (!WishVelocity.IsNearZeroLength)
+				WishVelocity = WishVelocity.Normal;
+
+			if (IsCrouching)
+				WishVelocity *= 64f;
+			else if (IsRunning)
+				WishVelocity *= PlayerRunSpeed;
+			else
+				WishVelocity *= PlayerWalkSpeed;
+		}
+
+		// Log the calculated WishVelocity for debugging
+	
 	}
 
 	[Broadcast]

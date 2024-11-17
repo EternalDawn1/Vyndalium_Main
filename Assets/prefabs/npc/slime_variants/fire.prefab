@@ -164,6 +164,7 @@
         },
         "HitSounds": "sounds/slimeattack/slimeattackone.sound",
         "Idle": true,
+        "IsBleeding": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -181,8 +182,10 @@
           "go": "5c3a5f04-aaed-46fc-87eb-a1763d13f4ce",
           "component_type": "MoveHelper"
         },
+        "MoveSpeed": 0,
         "Name": "Slime",
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Smart",
         "RunSpeed": 0,
         "ScaleStats": true,
@@ -415,6 +418,7 @@
             "Lighting": false,
             "MotionBlur": false,
             "Opaque": false,
+            "Pivot": "0.5,0.5",
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -453,10 +457,18 @@
             "__guid": "eb9e2201-6f8c-4807-b733-643af1d9584e",
             "AnimationGraph": "models/npcs/slime/slime.vanmgrph",
             "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialOverride": "models/prism/blinn2rings_roughness.vmat",
             "Model": "models/npcs/slime/slime.vmdl",
             "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -464,6 +476,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
@@ -487,7 +502,8 @@
             "__guid": "7188dcb8-90c4-45e3-9cab-f2e8f3c56bb0",
             "IsTrigger": false,
             "Model": "models/npcs/slime/slime.vmdl",
-            "Static": false
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
           }
         ]
       },
@@ -534,7 +550,30 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -544,6 +583,6 @@
   "__references": [
     "facepunch.fire_particle_fast#60123"
   ],
-  "IsValid": true,
+  "HasUnsavedChanges": false,
   "__version": 1
 }

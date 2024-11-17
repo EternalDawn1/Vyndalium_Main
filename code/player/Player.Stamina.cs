@@ -49,8 +49,8 @@ public partial class Player : Component
             if ( Stamina > 0 )
             {
                 MoveSpeed = PlayerRunSpeed + Stamina / MaxStamina * 200f;
-                
-               // Setze StaminaPerSecond auf 0 während des Laufens
+                Stamina -= (StaminaPerSecond * Time.Delta) / 3;
+                // Setze StaminaPerSecond auf 0 während des Laufens
             }
             else
             {
@@ -100,14 +100,20 @@ public partial class Player : Component
         wasRunning = IsRunning;
         wasJumping = isJumping;
     }
+    private float currentStaminaCostForJump = 5f;
+    private const float maxStaminaCostForJump = 15f;
+
     public bool TryJump()
     {
-        const float staminaCostForJump = 5f;
-        if ( Stamina >= staminaCostForJump )
+        if (Stamina >= currentStaminaCostForJump)
         {
-            Stamina -= staminaCostForJump;
+            Stamina -= currentStaminaCostForJump;
             isJumping = true;
             wasJumping = true;
+
+            // Erhöhe die Ausdauerkosten für den nächsten Sprung, bis zum Maximum
+            currentStaminaCostForJump = Math.Min(currentStaminaCostForJump + 5f, maxStaminaCostForJump);
+
             // Optional: Fügen Sie hier Logik für den Sprung hinzu, z.B. Animation, Bewegung, etc.
             return true;
         }

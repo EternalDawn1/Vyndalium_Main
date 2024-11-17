@@ -2,14 +2,16 @@
 
 InventorySlot {
     position: relative;
-    width: 100px;
-    height: 100px;
-    margin-left: 2px;
-    margin-bottom: 10px;
+    width: 95px;
+    height: 95px;
+    padding: 5px;
+ 
+    
     justify-content: center;
     align-items: center;
     text-shadow: 2px 2px 0px rgb(0, 0, 0);
     opacity: 1;
+    
     
 
 
@@ -22,17 +24,19 @@ InventorySlot {
         mask-mode:alpha;
         mask-image: url('/ui/hud/slot_mask_thin.png');
         mask-size: 100%;
+        
     }
 
 
 
     .background-tier-c {
 
-        background: radial-gradient(#ffffffa0, #000000);
+        background: radial-gradient(#363636, #000000);
         height: 100%;
         width: 100%;
         z-index: -10;
         position: absolute;
+        
     }
 
     .background-tier-a {
@@ -45,7 +49,7 @@ InventorySlot {
     }
 
     .background-tier-b {
-        background: radial-gradient(#44ff00, #36d68e83);
+        background: radial-gradient(#4f9734, #36d68e83);
         height: 100%;
         width: 100%;
         z-index: -10;
@@ -85,7 +89,7 @@ InventorySlot {
         width: 100%;
         z-index: -10;
         position: absolute;
-        background-image: url(/ui/hud/gold3.gif);
+        
         background-size: 100%;
         background-position: center;
        
@@ -110,6 +114,7 @@ InventorySlot {
         width: 90%;
         transition: background-color 1.5s ease-in-out;
         z-index: 99;
+        
         .favorite-icon {
                 position: absolute;
                 top: 0;
@@ -172,13 +177,14 @@ InventorySlot {
     // Drop target transitions
     .border {
         transition: transform 1.06s ease;
+        
     }
 
     transition: background-color 0.23s ease-in-out;
 
     // Behaviour for when the draggable could be dropped here
     &.can-drop {
-        background-color: rgba(255, 255, 255, 0.02);
+        background-color: rgba(15, 15, 15, 0.308);
     }
 
     // Behaviour for when we are the drop target,

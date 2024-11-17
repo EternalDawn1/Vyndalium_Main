@@ -92,6 +92,13 @@
                         ImagePath=@GetImagePath(playerLevel, GeneralScene2.One2.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
                         style=""
                     />
+                    <div class="title"> Level.50-55</div>
+                    <SideButton 
+                        Title="Dungeon 2-1 Extra" 
+                        Subtitle="required. lvl. 25 [TESTED + Finished]" 
+                        OnClick=@(() => ChangeScene2(GeneralScene2.Forest4)) 
+                        ImagePath=@GetImagePath(playerLevel, GeneralScene2.Forest4.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
+                        style=""
                 </div>
             </div>
         </div>
@@ -394,6 +401,10 @@
                 break;
             case GeneralScene2.Forest3:
            
+               
+                SceneHandler2.ChangeScene2(scene);
+                break;
+            case GeneralScene2.Forest4:
                
                 SceneHandler2.ChangeScene2(scene);
                 break;

@@ -837,136 +837,66 @@
 	}
 
 
-
 	private void UpdateChildDraggableState()
-
 	{
-
 		if (ChildDraggable == null)
-
 			return;
-
-
-
 		ChildDraggable.RemoveClass("is-hovering-slot");
-
 		ChildDraggable.RemoveClass("is-hovering-character");
-
 		ChildDraggable.RemoveClass("should-trash");
-
 		ChildDraggable.RemoveClass("can-drop");
 
-
+		// Ensure Inventory.Instance is not null
+		if (Inventory.Instance == null)
+			return;
 
 		// Check for what's under the ChildDraggable
-
-		var rendererTarget = Inventory.Instance.Descendants.OfType<CharacterRenderer>().FirstOrDefault(v =>
-		v.IsHoveredByMouse());
-
-		var targetSlot = Inventory.Instance.Descendants.OfType<InventorySlot>().FirstOrDefault(v => v.IsHoveredByMouse());
-		
-		
-
-		
+		var rendererTarget = Inventory.Instance.Descendants?.OfType<CharacterRenderer>()?.FirstOrDefault(v => v?.IsHoveredByMouse() == true);
+		var targetSlot = Inventory.Instance.Descendants?.OfType<InventorySlot>()?.FirstOrDefault(v => v?.IsHoveredByMouse() == true);
 
 		if (targetSlot != null)
-
 		{
-
 			ChildDraggable.SetClass("is-hovering-slot", true);
-
 			ChildDraggable.LastHoveredSlot = targetSlot;
-
-
-
 			_childDraggableTrashAnimationTimer = TimeUntilChildDraggableCanBeTrashedAnimation;
-
 			_childDraggableTrashTimer = TimeUntilChildDraggableCanBeTrashed;
-
-
-
 			ChildDraggable.SetClass("can-drop", true);
-
-
-
-			if (targetSlot.EquipSlotIndex != null && (CurrentDraggable.ItemComponent is not ItemEquipment ie || ie.Slot !=
-			targetSlot.EquipSlotIndex))
-			
-
-			{
-
-				ChildDraggable.RemoveClass("can-drop");
-
-			}
-
 		}
-
-
-
 		else
-
 		{
-
 			if (_childDraggableTrashAnimationTimer)
-
 				ChildDraggable.SetClass("should-trash", true);
-
-
-
 			ChildDraggable.SetClass("can-drop", true);
-
 		}
-
-
-
 		ChildDraggable.StateHasChanged();
-
 	}
 
 
-
 	protected override void OnMouseMove(MousePanelEvent e)
-
 	{
-
 		base.OnMouseMove(e);
 
-
-
 		if (ChildDraggable == null)
-
 			return;
 
-
-
 		// Mouse.Delta returns 0,0 for small values?
-
 		// Make our own delta!
-
 		var delta = Mouse.Position - (_lastMousePos == -0 ? Mouse.Position : _lastMousePos);
-
 		_lastMousePos = Mouse.Position;
 
-
-
-		ChildDraggable.AddPositionDeltaInScreenPixels(delta);
-
-		ChildDraggable.SetPositionInScreenPixels(Mouse.Position);
-
-
+		// Ensure ChildDraggable is not null before using it
+		if (ChildDraggable != null)
+		{
+			ChildDraggable.AddPositionDeltaInScreenPixels(delta);
+			ChildDraggable.SetPositionInScreenPixels(Mouse.Position);
+		}
 
 		UpdateChildDraggableState();
 
-
-
 		if (isMouseDown)
-
 		{
-
 			e.StopPropagation();
-
 		}
-
 	}
 
 	private void OnDragStart()

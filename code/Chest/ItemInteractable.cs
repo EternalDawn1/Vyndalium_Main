@@ -25,7 +25,7 @@ public class ItemInteractable : BaseInteraction
 
         if ( IsBossChest )
         {
-            Log.Info( "BossChest" );
+       
             int minLevel = 0;
             int maxLevel = 100;
             int playerLevel = Storage.GetPlayerLevel();
@@ -51,7 +51,7 @@ public class ItemInteractable : BaseInteraction
                 Identifier = "item.openloot",
                 Action = ( Player interactor, GameObject obj ) =>
                 {
-                    Log.Info( "XXXXXXXXXXXXXX" );
+                 
                     var itemInteractable = obj.Components.Get<ItemInteractable>();
                     if ( itemInteractable != null )
                     {
@@ -76,12 +76,12 @@ public class ItemInteractable : BaseInteraction
                                 }
                                 else
                                 {
-                                    Log.Error( "Failed to spawn ragdoll from prefab." );
+                                 
                                 }
                             }
                             else
                             {
-                                Log.Error( $"Failed to load prefab: {RagdollPrefabPath}" );
+                                
                             }
 
                            

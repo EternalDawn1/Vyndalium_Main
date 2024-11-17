@@ -2256,110 +2256,8 @@
       "Position": "-81.10524,637.7753,497.3282",
       "Scale": "0.4405769,0.4405769,0.4405769",
       "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "16130228-4c70-4e26-b6eb-40272faa7406",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": true,
-          "Model": "models/props/quixel/wood chest/wooden_chest.vmdl",
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "GeneralGame.ItemInteractable",
-          "__guid": "08bb9ab4-c935-492d-8676-77796b6faf0b",
-          "isLocked": false,
-          "isOpen": false,
-          "AbilityHaste": 0,
-          "Armor": 0,
-          "Aspect": "None",
-          "AttackPower": 0,
-          "AttackSpeed": 0,
-          "BleedResistance": 0,
-          "BlindResistance": 0,
-          "BonusEXP": 0,
-          "BonusScore": 0,
-          "BonusVyndalium": 0,
-          "BuyPrice": 0,
-          "Count": 0,
-          "Cover": 0,
-          "CritHitChance": 0,
-          "CritHitDamage": 0,
-          "DamageBalance": 0,
-          "DEX": 0,
-          "DMG": 0,
-          "Durability": 0,
-          "Evasion": 0,
-          "FireResistence": 0,
-          "HE": 0,
-          "Health": 0,
-          "HolyResistence": 0,
-          "IceResistence": 0,
-          "Icon": {},
-          "INT": 0,
-          "IsAccessory": false,
-          "IsArmor": false,
-          "IsAspect": false,
-          "IsBackpack": false,
-          "IsBossChest": false,
-          "IsConsumable": false,
-          "IsDoor": false,
-          "IsEquipment": false,
-          "IsItem": false,
-          "IsMaterial": false,
-          "IsMelee": false,
-          "IsPotion": false,
-          "IsWeapon": false,
-          "IsWorld": false,
-          "ItemLevel": 0,
-          "LightningResistence": 0,
-          "MagicDefense": 0,
-          "MagicPower": 0,
-          "Mana": 0,
-          "MaxArmorValue": 0,
-          "MaxAttackValue": 0,
-          "MaxStack": 0,
-          "MinArmorValue": 0,
-          "MinAttackValue": 0,
-          "MoveSpeed": 0,
-          "Name": "Boss Chest",
-          "PER": 0,
-          "PoisonResistence": 0,
-          "RagdollPrefabPath": "models/npcs/slime/chest.prefab",
-          "RequiredLevel": 0,
-          "RequiredTier": "C",
-          "SellPrice": -1,
-          "ShadowResistence": 0,
-          "SlowResistence": 0,
-          "STG": 0,
-          "StunResistance": 0,
-          "Tenacity": 0,
-          "Tier": "SSS",
-          "WeightInGrams": 0
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "fb827a39-62e2-483c-8c29-e9121225f64d",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {
-            "X": true,
-            "Y": true,
-            "Pitch": true,
-            "Yaw": true,
-            "Roll": true
-          },
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 0,
-          "MotionEnabled": true,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": "DisableCollisionSounds",
-          "StartAsleep": false
-        }
-      ]
+      "__Prefab": "prefabs/bosschest.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "627f220b-2f84-4fab-8c1f-4f3170f16e23",
@@ -2672,7 +2570,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -2684,13 +2582,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -2776,6 +2674,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -2840,6 +2739,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -3177,7 +3079,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -3189,13 +3091,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -3281,6 +3183,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -3345,6 +3248,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -3682,7 +3588,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -3694,13 +3600,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -3786,6 +3692,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -3850,6 +3757,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -4187,7 +4097,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -4199,13 +4109,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -4291,6 +4201,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -4355,6 +4266,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -4692,7 +4606,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -4704,13 +4618,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -4796,6 +4710,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -4860,6 +4775,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -5197,7 +5115,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -5209,13 +5127,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -5301,6 +5219,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -5365,6 +5284,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -5702,7 +5624,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -5714,13 +5636,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -5806,6 +5728,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -5870,6 +5793,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -6207,7 +6133,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -6219,13 +6145,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -6311,6 +6237,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -6375,6 +6302,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -6712,7 +6642,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -6724,13 +6654,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -6816,6 +6746,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -6880,6 +6811,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -7217,7 +7151,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -7229,13 +7163,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -7321,6 +7255,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -7385,6 +7320,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -7715,7 +7653,7 @@
                 "DstName": "_target"
               },
               {
-                "Id": 8,
+                "Id": 14,
                 "Value": 40,
                 "DstId": 3,
                 "DstName": "amount"
@@ -7727,13 +7665,13 @@
                 "DstName": "attacker"
               },
               {
-                "Id": 9,
+                "Id": 15,
                 "Value": 400,
                 "DstId": 3,
                 "DstName": "force"
               },
               {
-                "Id": 10,
+                "Id": 16,
                 "Value": "Serious",
                 "DstId": 3,
                 "DstName": "type"
@@ -7819,6 +7757,7 @@
           },
           "PlayerProximityDistance": 80,
           "PogMode": false,
+          "Position": "0,0,0",
           "RunningType": "Smart",
           "RunSpeed": 110,
           "ScaleStats": true,
@@ -7883,6 +7822,9 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
             },
@@ -9596,5 +9538,6 @@
     "luke.skeleman#19898",
     "reizer.wood_box_01a#20072"
   ],
+  "HasUnsavedChanges": false,
   "__version": 2
 }

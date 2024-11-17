@@ -29,28 +29,33 @@
 
 	public bool IsHoveredByMouse() => SceneInputOverlayPanel.Box.Rect.IsInside( Mouse.Position );
 
-	protected override void OnAfterTreeRender( bool firstTime )
+	protected override void OnAfterTreeRender(bool firstTime)
 	{
-		base.OnAfterTreeRender( firstTime );
-		
+		base.OnAfterTreeRender(firstTime);
+
 		_sceneWorld ??= new SceneWorld();
-		_sceneLight ??= new SceneLight( _sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 4f );
-		_sceneDirectionalLight ??= new SceneDirectionalLight( _sceneWorld, global::Rotation.From( 45, -45, 45 ), Color.White * 10f );
-		_character ??= new SceneModel( _sceneWorld, "models/citizen/citizen.vmdl", new Transform( Vector3.Zero, Rotation.From( 0, _yaw, 0 ) ) );
+		_sceneLight ??= new SceneLight(_sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 4f);
+		_sceneDirectionalLight ??= new SceneDirectionalLight(_sceneWorld, global::Rotation.From(45, -45, 45), Color.White *
+		10f);
+		_character ??= new SceneModel(_sceneWorld, "models/citizen/citizen.vmdl", new Transform(Vector3.Zero, Rotation.From(0,
+		_yaw, 0)));
 		_character.SetAnimParameter("holdtype_rifle", true);
-		
-		if ( firstTime ) Refresh();
 
-		_scenePanel.World = _sceneWorld;
-		_scenePanel.Camera.FieldOfView = 5f;
-		_scenePanel.Camera.ZNear = 3;
-		_scenePanel.Camera.FitModel( _character );
-		_scenePanel.Camera.OnRenderPostProcess = () =>
+		if (firstTime) Refresh();
+
+		if (_scenePanel != null)
 		{
-		
-		};
+			_scenePanel.World = _sceneWorld;
+			_scenePanel.Camera.FieldOfView = 5f;
+			_scenePanel.Camera.ZNear = 3;
+			_scenePanel.Camera.FitModel(_character);
+			_scenePanel.Camera.OnRenderPostProcess = () =>
+			{
+				// Post-process logic here
+			};
 
-		_sceneLight.Position = _scenePanel.Camera.Position + _scenePanel.Camera.Rotation.Forward * 500f;
+			_sceneLight.Position = _scenePanel.Camera.Position + _scenePanel.Camera.Rotation.Forward * 500f;
+		}
 	}
 
 	public void Refresh()

@@ -15,7 +15,7 @@ namespace GeneralGame.HUD
 
 		public StorageBox()
 		{
-			Log.Info( "StorageBox created" );
+			
 			Instance = this;
 			itemStorage = ItemStorage.Instance ?? new ItemStorage();
 

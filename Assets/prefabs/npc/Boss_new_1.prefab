@@ -103,6 +103,7 @@
       {
         "__type": "Npc",
         "__guid": "7ddc556a-265f-48eb-abe7-5c7aee867fc3",
+        "activeStatusEffects": [],
         "CurrentHoldType": "Punch",
         "isChibi": false,
         "prefabPaths": [
@@ -148,6 +149,7 @@
         },
         "HitSounds": "sounds/grunt/gruntingn.sound",
         "Idle": true,
+        "IsBleeding": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -165,6 +167,7 @@
           "go": "ad9e3962-6279-4f25-969b-6399d2793673",
           "component_type": "MoveHelper"
         },
+        "MoveSpeed": 0,
         "Name": "Zombie",
         "OnAttack": {
           "__version": 8,
@@ -210,7 +213,6 @@
             {
               "Id": 5,
               "Type": "scene.ref",
-              "Properties": {},
               "UserData": {
                 "Position": "96,256"
               }
@@ -254,7 +256,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 8,
+              "Id": 11,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -266,13 +268,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 9,
+              "Id": 12,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 10,
+              "Id": 13,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -374,7 +376,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 14,
+              "Id": 15,
               "Value": 10,
               "DstId": 4,
               "DstName": "amount"
@@ -389,6 +391,7 @@
         },
         "PlayerProximityDistance": 80,
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Smart",
         "RunSpeed": 200,
         "ScaleStats": true,
@@ -434,11 +437,19 @@
             "__guid": "bc5b7bec-a46d-471c-8cc1-2a56caee604b",
             "AnimationGraph": "models/citizen/citizen.vanmgrph",
             "BodyGroups": 341,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialGroup": "default",
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
             "Model": "models/citizen/citizen.vmdl",
             "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -446,6 +457,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
@@ -467,9 +481,21 @@
           {
             "__type": "Sandbox.ModelCollider",
             "__guid": "7f6519af-ce83-4a48-8321-cc972a7f4373",
+            "__enabled": false,
             "IsTrigger": false,
             "Model": "models/citizen/citizen.vmdl",
-            "Static": false
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
+          },
+          {
+            "__type": "Sandbox.CapsuleCollider",
+            "__guid": "6b48312a-f4a2-4e49-9b2d-150c59ebc945",
+            "End": "0,0,6.499994",
+            "IsTrigger": false,
+            "Radius": 11.999987,
+            "Start": "0,0,62.09998",
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
           }
         ]
       },
@@ -516,7 +542,30 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -524,6 +573,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "IsValid": true,
+  "HasUnsavedChanges": false,
   "__version": 1
 }

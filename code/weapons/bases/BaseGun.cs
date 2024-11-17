@@ -774,7 +774,7 @@ public class BaseGun : WeaponComponent, IUse
 	private void FireBulletWithIceAspect( Player shooter )
 	{
 		// Implementiere die Logik für das Abfeuern eines Eis-Aspekt-Geschosses
-		Log.Info( "Ice aspect bullet fired!" );
+		
 		// Beispiel: Erzeuge ein Eisprojektil
 	}
 
@@ -802,27 +802,27 @@ public class BaseGun : WeaponComponent, IUse
 	private void FireBulletWithEarthAspect( Player shooter )
 	{
 		// Implementiere die Logik für das Abfeuern eines Erd-Aspekt-Geschosses
-		Log.Info( "Earth aspect bullet fired!" );
+		
 		// Beispiel: Erzeuge ein Erdprojektil
 	}
 
 	private void FireBulletWithShadowAspect( Player shooter )
 	{
 		// Implementiere die Logik für das Abfeuern eines Schatten-Aspekt-Geschosses
-		Log.Info( "Shadow aspect bullet fired!" );
+	
 		// Beispiel: Erzeuge ein Schattenprojektil
 	}
 	private void FireBulletWithLightningAspect( Player shooter )
 	{
 		// Implementiere die Logik für das Abfeuern eines Blitz-Aspekt-Geschosses
-		Log.Info( "Lightning aspect bullet fired!" );
+	
 		// Beispiel: Erzeuge ein Blitzprojektil
 	}
 
 	private void FireBulletWithHolyAspect( Player shooter )
 	{
 		// Implementiere die Logik für das Abfeuern eines Heilig-Aspekt-Geschosses
-		Log.Info( "Holy aspect bullet fired!" );
+
 		// Beispiel: Erzeuge ein Heiligprojektil
 	}
 
@@ -851,14 +851,14 @@ public class BaseGun : WeaponComponent, IUse
 	private void FireBulletWithPoisonAspect( Player shooter )
 	{
 		// Implementiere die Logik für das Abfeuern eines Gift-Aspekt-Geschosses
-		Log.Info( "Poison aspect bullet fired!" );
+		
 		// Beispiel: Erzeuge ein Giftprojektil
 	}
 
 	private void FireDefaultBullet( Player shooter )
 	{
 		// Implementiere die Standard-Logik für das Abfeuern eines Geschosses
-		Log.Info( "Default bullet fired!" );
+		
 		// Beispiel: Erzeuge ein Standardprojektil
 	}
 

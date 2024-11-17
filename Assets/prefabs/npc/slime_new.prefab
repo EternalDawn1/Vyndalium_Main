@@ -33,12 +33,7 @@
         "AirAcceleration": 400,
         "AirFriction": 6.5,
         "Bounce": 0.5,
-        "Collider": {
-          "_type": "component",
-          "component_id": "53c308fe-eb85-409f-8451-f409ee23146c",
-          "go": "19ac60d8-0e63-45a8-a0c2-8f486421171c",
-          "component_type": "ModelCollider"
-        },
+        "Collider": null,
         "EnableUnstuck": false,
         "Gravity": "0,0,850",
         "GroundAcceleration": 2065,
@@ -164,6 +159,7 @@
         },
         "HitSounds": "sounds/slimeattack/slimeattackone.sound",
         "Idle": true,
+        "IsBleeding": false,
         "Level": 15,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -181,8 +177,10 @@
           "go": "53dcb476-3c97-441e-b482-1d2b8faeb291",
           "component_type": "MoveHelper"
         },
+        "MoveSpeed": 0,
         "Name": "Slime",
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Smart",
         "RunSpeed": 0,
         "ScaleStats": true,
@@ -209,6 +207,7 @@
             "__guid": "f53866ac-309f-4aba-9683-e45b9b2f8c78",
             "AnimationGraph": "models/npcs/slime/slime.vanmgrph",
             "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/npcs/slime/slime.vmdl",
             "Morphs": {},
@@ -226,6 +225,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
@@ -245,10 +247,12 @@
             }
           },
           {
-            "__type": "Sandbox.ModelCollider",
+            "__type": "Sandbox.CapsuleCollider",
             "__guid": "53c308fe-eb85-409f-8451-f409ee23146c",
+            "End": "0,0,6.999994",
             "IsTrigger": false,
-            "Model": "models/dev/error.vmdl",
+            "Radius": 21.100014,
+            "Start": "0,0,12.5",
             "Static": false,
             "SurfaceVelocity": "0,0,0"
           }
@@ -328,5 +332,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
+  "HasUnsavedChanges": false,
   "__version": 1
 }

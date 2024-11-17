@@ -163,6 +163,7 @@
         },
         "HitSounds": "sounds/slimeattack/slimeattackone.sound",
         "Idle": true,
+        "IsBleeding": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -180,8 +181,10 @@
           "go": "53dcb476-3c97-441e-b482-1d2b8faeb291",
           "component_type": "MoveHelper"
         },
+        "MoveSpeed": 0,
         "Name": "Slime",
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Smart",
         "RunSpeed": 0,
         "ScaleStats": true,
@@ -208,9 +211,17 @@
             "__guid": "f53866ac-309f-4aba-9683-e45b9b2f8c78",
             "AnimationGraph": "models/npcs/slime/slime.vanmgrph",
             "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/npcs/slime/slime.vmdl",
             "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -218,6 +229,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "0,0.29628,0.42326,1",
             "UseAnimGraph": true
           },
@@ -240,8 +254,9 @@
             "__type": "Sandbox.ModelCollider",
             "__guid": "53c308fe-eb85-409f-8451-f409ee23146c",
             "IsTrigger": false,
-            "Model": "models/dev/error.vmdl",
-            "Static": false
+            "Model": "models/npcs/slime/slime.vmdl",
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
           }
         ]
       },
@@ -288,7 +303,30 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -296,6 +334,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "IsValid": true,
+  "HasUnsavedChanges": false,
   "__version": 1
 }

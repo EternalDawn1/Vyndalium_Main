@@ -27,7 +27,8 @@
         <div class="button1" OnClick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud))>
             Resume
         </div>
-        <div class="button" onclick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud))> 
+        <div class="button" onclick=@(() => { Player.Save();
+            FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud); })>
             Return to Lobby
         </div>
         <div class="button" onclick=@(() => FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud))>

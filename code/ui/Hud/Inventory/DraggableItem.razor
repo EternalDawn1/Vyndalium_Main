@@ -78,7 +78,7 @@
 	private void UpdateVelocity(Vector2 delta)
 	{
 		_velocity += delta * 0.02f;
-		_velocity = _velocity.Clamp(-10, 10);
+		_velocity = _velocity.Clamp(-50, 50);
 	}
 
 	public virtual void AddPositionDeltaInScreenPixels(Vector2 d)

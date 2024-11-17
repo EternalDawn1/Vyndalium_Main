@@ -33,12 +33,7 @@
         "AirAcceleration": 400,
         "AirFriction": 6.5,
         "Bounce": 0.5,
-        "Collider": {
-          "_type": "component",
-          "component_id": "5a647e16-7c84-4f82-be50-cbe8960cc5b0",
-          "go": "eda9331e-66f9-422c-8159-309719348a0b",
-          "component_type": "ModelCollider"
-        },
+        "Collider": null,
         "EnableUnstuck": false,
         "Gravity": "0,0,850",
         "GroundAcceleration": 2065,
@@ -162,6 +157,7 @@
         },
         "HitSounds": "sounds/slimeattack/slimeattackone.sound",
         "Idle": true,
+        "IsBleeding": false,
         "Level": 0,
         "MaxHealth": 50,
         "MaximumIdleCooldown": 6,
@@ -179,8 +175,10 @@
           "go": "895e2a14-8e1a-4219-a0c4-76bf1c2fda61",
           "component_type": "MoveHelper"
         },
+        "MoveSpeed": 0,
         "Name": "Slime",
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Smart",
         "RunSpeed": 180,
         "ScaleStats": true,
@@ -207,10 +205,18 @@
             "__guid": "4934d72f-1567-42b7-a248-73fbe482f105",
             "AnimationGraph": "models/npcs/slime/slime.vanmgrph",
             "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialOverride": "materials/corrugated_steel/corrugated_steel.vmat",
             "Model": "models/npcs/slime/slime.vmdl",
             "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -218,6 +224,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "0.73488,0.28028,0.28028,1",
             "UseAnimGraph": true
           },
@@ -237,11 +246,14 @@
             }
           },
           {
-            "__type": "Sandbox.ModelCollider",
+            "__type": "Sandbox.CapsuleCollider",
             "__guid": "5a647e16-7c84-4f82-be50-cbe8960cc5b0",
+            "End": "0,0,10",
             "IsTrigger": false,
-            "Model": "models/dev/error.vmdl",
-            "Static": false
+            "Radius": 21.80002,
+            "Start": "0,0,10.59999",
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
           }
         ]
       },
@@ -303,7 +315,30 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -313,6 +348,6 @@
   "__references": [
     "steeldevgroup.corrugated_steel#13558"
   ],
-  "IsValid": true,
+  "HasUnsavedChanges": false,
   "__version": 1
 }

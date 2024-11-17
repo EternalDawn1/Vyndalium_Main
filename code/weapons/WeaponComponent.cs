@@ -51,16 +51,19 @@ public class WeaponComponent : Component
 	public bool IsInitialized { get; private set; }
 
 	// Methode zum Initialisieren der Waffe, die auch IsInitialized setzt
-	public void Initialize()
-	{
-		// Initialisierungslogik hier...
+	
 
-		// Nach erfolgreicher Initialisierung
-		IsInitialized = true;
-	}
 
 	protected override void OnStart()
 	{
+		if(Player.Local == null)
+		{
+			return;
+		}
+		if(Player.Local.LifeState == LifeState.Dead)
+		{
+			return;
+		}
 		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>( true );
 
 		if ( !Owner.IsValid() ) return;

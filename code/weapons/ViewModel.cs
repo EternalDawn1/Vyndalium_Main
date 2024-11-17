@@ -110,67 +110,67 @@ public sealed class ViewModel : Component
 		base.OnAwake();
 	}
 
-	private  bool IsMoving()
+	private bool IsMoving()
 	{
+		if ( PlayerController == null )
+		{
+			Log.Error( "PlayerController is null in IsMoving" );
+			return false;
+		}
 		// Implementieren Sie die Logik, um zu überprüfen, ob sich der Spieler bewegt
 		return PlayerController.MoveSpeed > 0;
 	}
 	protected override void OnUpdate()
 	{
+		if (PlayerController == null || ModelRenderer == null || Weapon == null)
+		{
+			// Loggen Sie eine Fehlermeldung oder werfen Sie eine Ausnahme
+			throw new InvalidOperationException("Ein erforderliches Objekt ist null.");
+		}
 
-		if ( IsMoving() )
+		if (IsMoving())
 		{
 			float volume = PlayerController.MoveSpeed > 150f ? 1.0f : 0.5f; // Lautstärke basierend auf der Geschwindigkeit
-			TriggerFootstepEvent( 0, volume ); // Linker Fuß
-			TriggerFootstepEvent( 1, volume ); // Rechter Fuß
+			TriggerFootstepEvent(0, volume); // Linker Fuß
+			TriggerFootstepEvent(1, volume); // Rechter Fuß
 
-			if ( PlayerController.IsCrouching )
+			if (PlayerController.IsCrouching)
 			{
-				ModelRenderer.Set( "move_bob", 0.25f ); // Setze die Eigenschaft "move_bob" auf 0.25, wenn der Spieler duckt
+				ModelRenderer.Set("move_bob", 0.25f); // Setze die Eigenschaft "move_bob" auf 0.25, wenn der Spieler duckt
 			}
 			else
 			{
-				ModelRenderer.Set( "move_bob", PlayerController.MoveSpeed > 150f ? 1 : 0.5f ); // Setze die Eigenschaft "move_bob" basierend auf der Geschwindigkeit
+				ModelRenderer.Set("move_bob", PlayerController.MoveSpeed > 150f ? 1 : 0.5f); // Setze die Eigenschaft "move_bob" basierend auf der Geschwindigkeit
 			}
 		}
 		else
 		{
-			ModelRenderer.Set( "move_bob", 0 ); // Setze die Eigenschaft "move_bob" auf 0, wenn der Spieler nicht läuft
+			ModelRenderer.Set("move_bob", 0); // Setze die Eigenschaft "move_bob" auf 0, wenn der Spieler nicht läuft
 		}
 
 		Vector3 plusPos = Vector3.Zero + Weapon.IdlePos;
 
-
-		if ( PlayerController.IsAiming )
+		if (PlayerController.IsAiming)
 		{
-			CurPos = CurPos.LerpTo( plusPos + Weapon.AimPos, Time.Delta * 10f );
-			//Camera.FieldOfView = Screen.CreateVerticalFieldOfView( 20f );
-
+			CurPos = CurPos.LerpTo(plusPos + Weapon.AimPos, Time.Delta * 10f);
+			//Camera.FieldOfView = Screen.CreateVerticalFieldOfView(20f);
 		}
 		else
 		{
-			CurPos = CurPos.LerpTo( plusPos, Time.Delta * 10f );
-			//Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Game.Preferences.FieldOfView );
+			CurPos = CurPos.LerpTo(plusPos, Time.Delta * 10f);
+			//Camera.FieldOfView = Screen.CreateVerticalFieldOfView(Game.Preferences.FieldOfView);
 		}
-		ModelRenderer.Set( "b_aiming", PlayerController.IsAiming );
+		ModelRenderer.Set("b_aiming", PlayerController.IsAiming);
 
-
-
-		//CalcShakeMoves();
-
-
-
-
-		if ( PlayerController.MoveSpeed > 150f )
+		if (PlayerController.MoveSpeed > 150f)
 		{
-			ModelRenderer.Set( "b_sprint", true );
-			CurRotation = Rotation.Lerp( CurRotation, Rotation.Identity * Weapon.RunRotation, Time.Delta * 5f );
-
+			ModelRenderer.Set("b_sprint", true);
+			CurRotation = Rotation.Lerp(CurRotation, Rotation.Identity * Weapon.RunRotation, Time.Delta * 5f);
 		}
 		else
 		{
-			CurRotation = Rotation.Lerp( CurRotation, Rotation.Identity, Time.Delta * 5f );
-			ModelRenderer.Set( "b_sprint", false );
+			CurRotation = Rotation.Lerp(CurRotation, Rotation.Identity, Time.Delta * 5f);
+			ModelRenderer.Set("b_sprint", false);
 		}
 
 		CalcRotateSmooth();

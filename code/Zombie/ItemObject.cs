@@ -192,6 +192,7 @@ namespace GeneralGame
                     ragdoll.WorldPosition = WorldPosition;
                     ragdoll.NetworkSpawn();
                 }
+               
                 GameObject.Destroy();
             }
         }

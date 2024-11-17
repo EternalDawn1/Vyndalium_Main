@@ -29,12 +29,7 @@
         "AirAcceleration": 400,
         "AirFriction": 6.5,
         "Bounce": 0.5,
-        "Collider": {
-          "_type": "component",
-          "component_id": "7f6519af-ce83-4a48-8321-cc972a7f4373",
-          "go": "6f67b670-1030-4c8f-bdaf-01e1aadd8a58",
-          "component_type": "ModelCollider"
-        },
+        "Collider": null,
         "EnableUnstuck": false,
         "Gravity": "0,0,850",
         "GroundAcceleration": 2065,
@@ -103,6 +98,7 @@
       {
         "__type": "Npc",
         "__guid": "7ddc556a-265f-48eb-abe7-5c7aee867fc3",
+        "activeStatusEffects": [],
         "CurrentHoldType": "Punch",
         "isChibi": false,
         "prefabPaths": [
@@ -148,6 +144,7 @@
         },
         "HitSounds": "sounds/grunt/gruntingn.sound",
         "Idle": true,
+        "IsBleeding": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -165,6 +162,7 @@
           "go": "ad9e3962-6279-4f25-969b-6399d2793673",
           "component_type": "MoveHelper"
         },
+        "MoveSpeed": 0,
         "Name": "Zombie",
         "OnAttack": {
           "__version": 8,
@@ -210,7 +208,6 @@
             {
               "Id": 5,
               "Type": "scene.ref",
-              "Properties": {},
               "UserData": {
                 "Position": "96,256"
               }
@@ -389,6 +386,7 @@
         },
         "PlayerProximityDistance": 80,
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Smart",
         "RunSpeed": 200,
         "ScaleStats": true,
@@ -433,11 +431,19 @@
             "__guid": "bc5b7bec-a46d-471c-8cc1-2a56caee604b",
             "AnimationGraph": "models/citizen/citizen.vanmgrph",
             "BodyGroups": 341,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialGroup": "default",
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
             "Model": "models/citizen/citizen.vmdl",
             "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -445,6 +451,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
@@ -464,11 +473,14 @@
             }
           },
           {
-            "__type": "Sandbox.ModelCollider",
+            "__type": "Sandbox.CapsuleCollider",
             "__guid": "7f6519af-ce83-4a48-8321-cc972a7f4373",
+            "End": "0,0,58.10008",
             "IsTrigger": false,
-            "Model": "models/citizen/citizen.vmdl",
-            "Static": false
+            "Radius": 16,
+            "Start": "0,0,12.5",
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
           }
         ]
       },
@@ -515,7 +527,30 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -523,6 +558,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "IsValid": true,
+  "HasUnsavedChanges": false,
   "__version": 1
 }

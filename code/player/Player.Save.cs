@@ -296,6 +296,7 @@ partial class Player
 				IndexStorage = player.Inventory._storageBoxItems.IndexOf( item ),
 				Index = player.Inventory.IndexOf( item ),
 				IndexBackpackBag = player.Inventory._backpackBagItems.IndexOf( item ),	
+				
 				SellPrice = item.SellPrice,
 				BuyPrice = item.BuyPrice,
 				MaxStack = item.MaxStack,
@@ -348,6 +349,18 @@ partial class Player
 
 			};
 		}
+		if (player == null)
+		{
+			Log.Error("Player is null.");
+			return;
+		}
+
+		if (player.Inventory == null)
+		{
+			Log.Error("Player inventory is null.");
+			return;
+		}
+
 
 		_saveData = save with
 		{
@@ -425,23 +438,22 @@ partial class Player
 			BonusVyndaliumGainCost = (int)player.BonusVyndaliumGainCost,
 
 
-
-			Clothes = player.Inventory.EquippedItems
-				.Where( x => x != null )
-				.Select( Serialize )
-				.ToArray(),
-			Inventory = player.Inventory.BackpackItems
-				.Where( x => x != null )
-				.Select( Serialize )
-				.ToArray(),
-			StorageItems = player.Inventory.StorageItems
-				.Where( x => x != null )
-				.Select( Serialize )
-				.ToArray(),
-			BackpackBagItems = player.Inventory.BackpackBagItems
-				.Where( x => x != null )
-				.Select( Serialize )
-				.ToArray(),
+			Clothes = player.Inventory?.EquippedItems?
+			.Where( x => x != null )
+			.Select( Serialize )
+			.ToArray() ?? Array.Empty<ItemSave>(),
+					Inventory = player.Inventory?.BackpackItems?
+			.Where( x => x != null )
+			.Select( Serialize )
+			.ToArray() ?? Array.Empty<ItemSave>(),
+					StorageItems = player.Inventory?.StorageItems?
+			.Where( x => x != null )
+			.Select( Serialize )
+			.ToArray() ?? Array.Empty<ItemSave>(),
+					BackpackBagItems = player.Inventory?.BackpackBagItems?
+			.Where( x => x != null )
+			.Select( Serialize )
+			.ToArray() ?? Array.Empty<ItemSave>(),
 
 
 		};
@@ -630,7 +642,7 @@ partial class Player
 			}
 		}
 		
-
+		
 		// Go through all clothes.
 		if ( save.Clothes != null )
 			foreach ( var data in save.Clothes )
@@ -638,11 +650,11 @@ partial class Player
 				if ( !ResourceLibrary.TryGet<PrefabFile>( data.Path, out var prefab ) )
 					continue;
 
-				var o = SceneUtility.GetPrefabScene( prefab ).Clone();
+				var o = SceneUtility.GetPrefabScene(prefab).Clone();
 				o.NetworkMode = NetworkMode.Object;
-				if ( !o.Network.Active ) o.NetworkSpawn();
+				if (!o.Network.Active) o.NetworkSpawn();
 				var equipment = o.Components.Get<ItemEquipment>();
-				if ( equipment == null )
+				if (equipment == null)
 					continue;
 
 				player.Inventory.EquipItemFromWorld( equipment );

@@ -15,6 +15,7 @@ public enum GeneralScene
 	One2,
 	One3,
 	Forest3,
+	Forest4,
 
 }
 
@@ -48,6 +49,7 @@ public static class SceneHandler
 			GeneralScene.One3 => "scenes/One/map1.3.scene",
 			GeneralScene.Forest2 => "scenes/forest2.scene",
 			GeneralScene.Forest3 => "scenes/forest3.scene",
+			GeneralScene.Forest4 => "scenes/forest4.scene",
 
 			_ => null
 		};
@@ -61,7 +63,7 @@ public static class SceneHandler
 		if ( stopSound )
 		{
 			Sound.StopAll( 5f );
-			Log.Info( "Szene wird gewechselt." );
+			
 		}
 
 		// If is game.
@@ -78,7 +80,7 @@ public static class SceneHandler
 		}
 
 		Player.Setup();
-		Log.Info( "loading +" + resource );
+	
 
 		
 		// Definieren und Initialisieren der neuen Szene
@@ -125,13 +127,14 @@ public static class GeneralSceneExtensions
 			GeneralScene.One2 => 0,
 			GeneralScene.One3 => 0,
 			GeneralScene.Forest3 => 25,
+			GeneralScene.Forest4 => 25,
 			_ => 0
 		};
 	}
 	public static void Reset( this GeneralScene scene )
 	{
 
-		Log.Info( "Resetting scene: " + scene );
+		
 	}
 
 }
