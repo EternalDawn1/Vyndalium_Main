@@ -11,6 +11,7 @@ public struct ItemSave
 	[JsonInclude] public bool IsPotion{ get; set; }
 	[JsonInclude] public bool IsAccessory{ get; set; }
 
+
 	[JsonInclude] public Dictionary<string, string> Data;
 	[JsonInclude] public string Description;
 	[JsonInclude] public ItemState State;
@@ -77,6 +78,7 @@ public struct PlayerSave
 	[JsonInclude] public string Firstname;
 	[JsonInclude] public string Lastname;
 	[JsonInclude] public string AuthToken {get ; set;}
+	[JsonInclude] public float MouseSensitivity;
 	[JsonInclude] public int MAX_BACKPACK_SLOTS;
 	[JsonInclude] public Dictionary<AmmoType, int> AmmoCount { get; set; }
 	[JsonInclude] public int DefaultAmmo;
@@ -373,7 +375,7 @@ partial class Player
 			PlayerWalkSpeed = player.PlayerWalkSpeed,
 			PlayerRunSpeed = player.PlayerRunSpeed,
 			DefaultAmmo = player.DefaultAmmo,
-
+			MouseSensitivity = player.MouseSensitivity,
 			MinArmorValue = player.MinArmorValue,
 			MaxArmorValue = player.MaxArmorValue,
 			MinAttackValue = player.MinAttackValue,
@@ -502,6 +504,7 @@ partial class Player
 			player.AmmoContainer.SetAmmoCount( ammo.Key, ammo.Value );
 		}
 		// Setup basic player information.
+		player.MouseSensitivity = save.MouseSensitivity;
 		player.Stamina = save.Stamina;
 		player.ArmorPenetration = save.ArmorPenetration;
 		player.AttackRange = save.AttackRange;

@@ -10,7 +10,77 @@ namespace GeneralGame.HUD
         private bool ShowConfirmationDialog { get; set; }
         private bool ShowAbandonDialog { get; set; }
         private bool ShowDiscordPanel { get; set; }
+        private bool ShowConfirmationDialogKill { get; set; }
+
         private Player player { get; set; }
+
+        private bool ShowSettingsDialog { get; set; }
+        private double mouseSensitivityInput { get; set; } = 1.0;
+
+
+
+
+        public enum PanelType
+        {
+            General,
+            Player,
+            Audio,
+            Misc
+        }
+
+        private PanelType selectedTab = PanelType.General;
+        private void IncreaseSensitivity(double amount)
+        {
+            mouseSensitivityInput = Math.Min(mouseSensitivityInput + amount, 10.0);
+        }
+
+        private void DecreaseSensitivity(double amount)
+        {
+            mouseSensitivityInput = Math.Max(mouseSensitivityInput - amount, 0.1);
+        }
+
+
+        private void SaveSettings()
+        {
+            if (player == null)
+            {
+                player = GetPlayer(); // Methode zum Abrufen des Spielers
+            }
+            if (player != null && player.IsValid())
+            {
+                player.MouseSensitivity = (float)mouseSensitivityInput;
+                Hudmaster.Instance.ShowNotification("Sensitivity changed to. ${mouseSensitivityInput}", "/ui/hud/inventory.png");
+                Player.Local?.PlaySuccessSoundFromPath("sounds/upgrade/failing.sound", 0.0125f);
+                // Logik zum Speichern der Einstellungen
+            }
+        }
+        /// <summary>
+        /// Einstellungen öffnen
+        /// </summary>
+
+        private void SelectTab(PanelType tab)
+        {
+            selectedTab = tab;
+        }
+        private void OpenSettingsDialog()
+        {
+            ShowSettingsDialog = true;
+            PausePanelEnabled = false;
+            StateHasChanged();
+        }
+
+       
+        private void CloseSettingsDialog()
+        {
+            ShowSettingsDialog = false;
+            PausePanelEnabled = true;
+            StateHasChanged();
+        }
+
+        /// <summary>
+        /// Kill Player
+        /// </summary>
+        /// <returns></returns>
         private Player GetPlayer()
         {
             // Logik zum Abrufen des Spielers
@@ -43,6 +113,26 @@ namespace GeneralGame.HUD
                 Log.Warning("Player is null or not valid.");
             }
         }
+        private void ConfirmKillPlayer()
+        {
+            ShowConfirmationDialogKill = true;
+            StateHasChanged();
+        }
+
+        private void KillPlayerConfirmed()
+        {
+            ShowConfirmationDialogKill = false;
+            KillPlayer();
+        }
+
+        private void CancelKillPlayer()
+        {
+            ShowConfirmationDialogKill = false;
+            StateHasChanged();
+        }
+
+
+
         protected override void OnUpdate()
         {
             if ( player == null && player.IsValid() && LifeState.Alive != LifeState.Dead )
@@ -60,24 +150,10 @@ namespace GeneralGame.HUD
                 StateHasChanged();
             }
         }
-        private void ConfirmKillPlayer()
-        {
-            ShowConfirmationDialog = true;
-            StateHasChanged();
-        }
-
-        private void KillPlayerConfirmed()
-        {
-            ShowConfirmationDialog = false;
-            KillPlayer();
-        }
-
-        private void CancelKillPlayer()
-        {
-            ShowConfirmationDialog = false;
-            StateHasChanged();
-        }
-
+       
+        /// <summary>
+        /// Discord Panel öffnen
+        /// </summary>
         private void CloseDiscordPanel()
         {
             ShowDiscordPanel = false;
@@ -95,6 +171,9 @@ namespace GeneralGame.HUD
             ShowDiscordPanel = true;
             StateHasChanged();
         }
+        /// <summary>
+        /// Spiel verlassen
+        /// </summary>
         private void Quit()
         {
             if ( ShowAbandonDialog || ShowConfirmationDialog )
@@ -105,13 +184,16 @@ namespace GeneralGame.HUD
           
             StateHasChanged();
         }
+        /// <summary>
+        /// Spiel verlassen
+        /// </summary>
         private void AbandonGame()
         {
             if ( ShowAbandonDialog || ShowConfirmationDialog )
             {
                 return;
             }
-            Player.Save();
+           
             ShowAbandonDialog = true;
             StateHasChanged();
         }
@@ -123,6 +205,7 @@ namespace GeneralGame.HUD
             }
             
             ShowConfirmationDialog = false;
+            ShowSettingsDialog = false;
             ShowAbandonDialog = false;
             PausePanelEnabled = false;
             CloseDiscordPanel();
@@ -164,9 +247,15 @@ namespace GeneralGame.HUD
         private void ExitGame()
         {
             PausePanelEnabled = false;
+            ShowConfirmationDialog = false;
+            ShowAbandonDialog = false;
+            ShowSettingsDialog = false;
+            ShowDiscordPanel = false;
+
+
             // Logik zum Beenden des Spiels
             StateHasChanged();
         }
-        protected override int BuildHash() => HashCode.Combine( RealTime.Now.CeilToInt(), ShowConfirmationDialog );
+        protected override int BuildHash() => HashCode.Combine( RealTime.Now.CeilToInt(), ShowConfirmationDialog, ShowSettingsDialog, selectedTab);
     }
 }

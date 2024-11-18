@@ -1,4 +1,10 @@
 ﻿@inherits PanelComponent
+@using Sandbox
+@using Sandbox.UI
+@using Sandbox.UI.Construct
+@using GeneralGame.HUD
+@using Editor
+
 @namespace GeneralGame.HUD
 
 <root>
@@ -12,6 +18,7 @@
 					<button class="pause-menu-button" @onclick="@ExitGame">Resume</button>
 					<div class="pause-menu-button" @onclick="@(() => @Game.Overlay.ShowBinds())">Controls</div>
 					<button class="pause-menu-button" @onclick="@(() => @Game.Overlay.ShowSettingsModal())">Settings</button>
+					<button class="pause-menu-button" @onclick="@OpenSettingsDialog">Ingame Settings</button>
 					<button class="pause-menu-button" @onclick="@ConfirmKillPlayer">Suicide</button>
 					<button class="pause-menu-button" @onclick="@AbandonGame">Back to Lobby</button>
 					<button class="pause-menu-button" @onclick="@Quit">Exit</button>
@@ -72,7 +79,7 @@
         </div>
 		
     }
-	@if (ShowConfirmationDialog)
+	@if (ShowConfirmationDialogKill)
 	{
 		<div class="confirmation-dialog">
 			<div class="confirmation-content">
@@ -84,9 +91,52 @@
 			</div>
 		</div>
 	}
-	
-		
-
+	@if (ShowSettingsDialog)
+	{
+		<div class="settings-background">
+			<div class="settings-dialog visible">
+				<div class="settings-content">
+					<h2 class="title">Settings</h2>
+					<ul class="settings-tabs">
+						<li class="settings-tab" @onclick="@(() => @SelectTab(PanelType.General))">General</li>
+						<li class="settings-tab" @onclick="@(() => @SelectTab(PanelType.Player))">Player</li>
+						<li class="settings-tab" @onclick="@(() => @SelectTab(PanelType.Audio))">Audio</li>
+						<li class="settings-tab" @onclick="@(() => @SelectTab(PanelType.Misc))">Misc</li>
+					</ul>
+					<div class="settings-tab-content">
+						@if (selectedTab == PanelType.General)
+						{
+							<div class="settings-tab-box">
+								
+								
+								<button @onclick="@(() => @DecreaseSensitivity(0.1))">-0.1</button>
+								<button @onclick="@(() => @DecreaseSensitivity(1.0))">-1</button>
+								<label for="mouseSensitivity">Sensitivity:</label>
+								<p class="e">@mouseSensitivityInput.ToString("F1")</p>
+								<button @onclick="@(() => @IncreaseSensitivity(1.0))">+1</button>
+								<button @onclick="@(() => @IncreaseSensitivity(0.1))">+0.1</button>
+								
+							</div>
+						}
+						else if (selectedTab == PanelType.Player)
+						{
+							<div class="tab-panel">Player Settings Content</div>
+						}
+						else if (selectedTab == PanelType.Audio)
+						{
+							<div class="tab-panel">Audio Settings Content</div>
+						}
+						else if (selectedTab == PanelType.Misc)
+						{
+							<div class="tab-panel">Misc Settings Content</div>
+						}
+					</div>
+					<button class="settings-button" @onclick="@CloseSettingsDialog">Close</button>
+					<button class="settings-button" @onclick="@SaveSettings">Save</button>
+				</div>
+			</div>
+		</div>
+	}
 
 
 		

@@ -73,7 +73,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float GroundControl { get; private set; } = 4.0f;
 	[Property] public float Aircontrol { get; private set; } = 0.1f;
 	public static bool DebugCamera { get; set; } = false;
-	
+	[Property] public float MouseSensitivity { get; set; } = 1.0f;
 
 	[Property] public bool ThirdPersonEnabled { get; set; }
 	protected BoxCollider Collider;
@@ -877,7 +877,7 @@ public partial class Player : Component, IHealthComponent
 		if ( !IsProxy )
 		{
 			var angles = EyeAngles.Normal;
-			angles += Input.AnalogLook * 2.0f;
+			angles += Input.AnalogLook * MouseSensitivity;
 			angles += Recoil * Time.Delta;
 			angles.pitch = angles.pitch.Clamp( -89f, 89.9f );
 
