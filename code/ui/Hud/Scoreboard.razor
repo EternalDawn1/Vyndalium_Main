@@ -100,7 +100,6 @@
 					<ul class="settings-tabs">
 						<li class="settings-tab" @onclick="@(() => @SelectTab(PanelType.General))">General</li>
 						<li class="settings-tab" @onclick="@(() => @SelectTab(PanelType.Player))">Player</li>
-						<li class="settings-tab" @onclick="@(() => @SelectTab(PanelType.Audio))">Audio</li>
 						<li class="settings-tab" @onclick="@(() => @SelectTab(PanelType.Misc))">Misc</li>
 					</ul>
 					<div class="settings-tab-content">
@@ -117,15 +116,23 @@
 								<button @onclick="@(() => @IncreaseSensitivity(0.1))">+0.1</button>
 								
 							</div>
+							<div class="settings-tab-box">
+
+
+								<button @onclick="@(() => @DecreaseSensitivity(0.1))">-0.1</button>
+								<button @onclick="@(() => @DecreaseSensitivity(1.0))">-1</button>
+								<label for="mouseSensitivity">Sensitivity:</label>
+								<p class="e">@mouseSensitivityInput.ToString("F1")</p>
+								<button @onclick="@(() => @IncreaseSensitivity(1.0))">+1</button>
+								<button @onclick="@(() => @IncreaseSensitivity(0.1))">+0.1</button>
+
+							</div>
 						}
 						else if (selectedTab == PanelType.Player)
 						{
 							<div class="tab-panel">Player Settings Content</div>
 						}
-						else if (selectedTab == PanelType.Audio)
-						{
-							<div class="tab-panel">Audio Settings Content</div>
-						}
+						
 						else if (selectedTab == PanelType.Misc)
 						{
 							<div class="tab-panel">Misc Settings Content</div>

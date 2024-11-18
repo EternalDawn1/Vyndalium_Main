@@ -24,7 +24,7 @@ namespace GeneralGame.HUD
         {
             General,
             Player,
-            Audio,
+         
             Misc
         }
 
@@ -49,7 +49,7 @@ namespace GeneralGame.HUD
             if (player != null && player.IsValid())
             {
                 player.MouseSensitivity = (float)mouseSensitivityInput;
-                Hudmaster.Instance.ShowNotification("Sensitivity changed to. ${mouseSensitivityInput}", "/ui/hud/inventory.png");
+                Hudmaster.Instance.ShowNotification("Sensitivity changed to" , "/ui/hud/inventory.png");
                 Player.Local?.PlaySuccessSoundFromPath("sounds/upgrade/failing.sound", 0.0125f);
                 // Logik zum Speichern der Einstellungen
             }
