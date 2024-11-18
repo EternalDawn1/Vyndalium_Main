@@ -27,6 +27,51 @@ namespace GeneralGame.HUD
          
             Misc
         }
+        public void IncreaseFOV(float amount)
+        {
+            if (player == null)
+            {
+                player = GetPlayer(); // Methode zum Abrufen des Spielers
+                if (player == null)
+                {
+                    // Handle the case where player is still null
+                    return;
+                }
+            }
+
+            player.DefaultFov += amount;
+            if (player.DefaultFov > 120f) player.DefaultFov = 120f; // Maximal-FOV
+            UpdateCameraFOV();
+        }
+        public void DecreaseFOV(float amount)
+        {
+            if (player == null)
+            {
+                player = GetPlayer(); // Methode zum Abrufen des Spielers
+                if (player == null)
+                {
+                    // Handle the case where player is still null
+                    return;
+                }
+            }
+
+            player.DefaultFov -= amount;
+            if (player.DefaultFov > 120f) player.DefaultFov = 120f; // Maximal-FOV
+            UpdateCameraFOV();
+        }
+
+        private void UpdateCameraFOV()
+        {
+            if (player.PlyCamera != null)
+            {
+                player.PlyCamera.FieldOfView = player.DefaultFov;
+            }
+        }
+
+
+        /// <summary>
+        /// Einstellungen increase sensitivity
+        /// </summary>
 
         private PanelType selectedTab = PanelType.General;
         private void IncreaseSensitivity(double amount)

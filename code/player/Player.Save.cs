@@ -81,6 +81,7 @@ public struct PlayerSave
 	[JsonInclude] public float MouseSensitivity;
 	[JsonInclude] public int MAX_BACKPACK_SLOTS;
 	[JsonInclude] public Dictionary<AmmoType, int> AmmoCount { get; set; }
+	[JsonInclude] public float DefaultFOV;
 	[JsonInclude] public int DefaultAmmo;
 	[JsonInclude] public int Vyndalium;
 	[JsonInclude] public int Experience;
@@ -381,6 +382,8 @@ partial class Player
 			MinAttackValue = player.MinAttackValue,
 			MaxAttackValue = player.MaxAttackValue,
 			MAX_BACKPACK_SLOTS = player.MAX_BACKPACK_SLOTS,
+			DefaultFOV = player.DefaultFov,
+
 
 			AmmoCount = player.AmmoContainer.AmmoCount,
 			Vyndalium = (int)player.Vyndalium,
@@ -505,6 +508,7 @@ partial class Player
 		}
 		// Setup basic player information.
 		player.MouseSensitivity = save.MouseSensitivity;
+		player.DefaultFov = save.DefaultFOV;
 		player.Stamina = save.Stamina;
 		player.ArmorPenetration = save.ArmorPenetration;
 		player.AttackRange = save.AttackRange;

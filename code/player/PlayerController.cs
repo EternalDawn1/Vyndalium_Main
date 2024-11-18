@@ -12,6 +12,7 @@ namespace GeneralGame;
 
 public partial class Player : Component, IHealthComponent
 {
+
 	[Property] public Vector3 Gravity { get; set; } = new( 0f, 0f, 800f );
 
 	[Property] public SkinnedModelRenderer ModelRenderer { get; private set; }
@@ -74,11 +75,13 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float Aircontrol { get; private set; } = 0.1f;
 	public static bool DebugCamera { get; set; } = false;
 	[Property] public float MouseSensitivity { get; set; } = 1.0f;
+	[Property] public float DefaultFov { get; set; } = 90f;
 
 	[Property] public bool ThirdPersonEnabled { get; set; }
 	protected BoxCollider Collider;
 
 	HiddenBodyGroup _hideBodygroups;
+
 
 	public Vector3 Velocity => CharacterController.Velocity;
 	[Sync]
@@ -254,6 +257,7 @@ public partial class Player : Component, IHealthComponent
 			return false;
 
 		Vyndalium -= amount;
+		
 		return true;
 	}
 
@@ -607,7 +611,7 @@ public partial class Player : Component, IHealthComponent
 
 		var cameraPosition = PlyCamera.WorldPosition;
 		var cameraDirection = PlyCamera.WorldRotation.Forward;
-		var fieldOfView = PlyCamera.FieldOfView;
+		var fieldOfView = DefaultFov;
 		IEnumerable<SceneObject> sceneObjects = GetSceneObjects(); // Annahme: PlyCamera hat eine Eigenschaft FieldOfView
 
 		foreach ( var obj in sceneObjects ) // Pseudocode: Iteriere über alle Objekte in der Szene
