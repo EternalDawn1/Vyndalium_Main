@@ -12,8 +12,10 @@
 					<button class="pause-menu-button" @onclick="@ExitGame">Resume</button>
 					<div class="pause-menu-button" @onclick="@(() => @Game.Overlay.ShowBinds())">Controls</div>
 					<button class="pause-menu-button" @onclick="@(() => @Game.Overlay.ShowSettingsModal())">Settings</button>
+					<button class="pause-menu-button" @onclick="@ConfirmKillPlayer">Suicide</button>
 					<button class="pause-menu-button" @onclick="@AbandonGame">Back to Lobby</button>
 					<button class="pause-menu-button" @onclick="@Quit">Exit</button>
+					
 					
 
 				</div>
@@ -70,6 +72,18 @@
         </div>
 		
     }
+	@if (ShowConfirmationDialog)
+	{
+		<div class="confirmation-dialog">
+			<div class="confirmation-content">
+				<div class="confirmation-message">Are you sure you want to kill the player?</div>
+				<div class="confirmation-buttons">
+					<button class="confirmation-button" @onclick="@KillPlayerConfirmed">Yes</button>
+					<button class="confirmation-button" @onclick="@CancelKillPlayer">No</button>
+				</div>
+			</div>
+		</div>
+	}
 	
 		
 

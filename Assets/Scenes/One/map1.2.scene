@@ -2,6 +2,21 @@
   "__guid": "a0574250-d316-4bcb-9ac8-f5ca24808b78",
   "GameObjects": [
     {
+      "__guid": "a6b26b64-7aca-4ec3-ad00-de0a833c3d51",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "036bdfe6-97a3-434b-8ce5-e1f876429973",
+          "Description": "",
+          "SceneTags": "",
+          "Title": "minimal"
+        }
+      ]
+    },
+    {
       "__guid": "83517451-74ec-4496-9c28-79bce37a95b6",
       "Flags": 0,
       "Name": "Lights",
@@ -900,6 +915,7 @@
           "__type": "Sandbox.ModelRenderer",
           "__guid": "3ab4a3ec-edad-4cbb-aef9-b23534a2fc6d",
           "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
           "Model": "models/prism/prism.vmdl",
           "RenderOptions": {
             "GameLayer": true,
@@ -916,7 +932,8 @@
           "Center": "0,0,0",
           "IsTrigger": true,
           "Scale": "50,50,50",
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "GeneralGame.SceneChangeTrigger",
@@ -936,10 +953,8 @@
             {
               "__type": "Sandbox.TextRenderer",
               "__guid": "4b5f8f83-5d8c-45be-a6dd-d192b1d09baa",
-              "Color": "0.92558,0.13346,0.13346,1",
-              "FontFamily": "Poppins",
-              "FontSize": 90.47,
-              "FontWeight": 800,
+              "__version": 1,
+              "BlendMode": "Normal",
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -947,8 +962,33 @@
                 "AfterUILayer": false
               },
               "Scale": 0.08,
-              "Text": "Continue",
-              "TextAlignment": "Center"
+              "TextAlignment": "Center",
+              "TextScope": {
+                "Text": "Continue",
+                "TextColor": "0.92558,0.13346,0.13346,1",
+                "FontName": "Poppins",
+                "FontSize": 90.47,
+                "FontWeight": 800,
+                "LineHeight": 1,
+                "Outline": {
+                  "Size": 4,
+                  "Color": "0,0,1,1"
+                },
+                "Shadow": {
+                  "Size": 4,
+                  "Color": "0,0,0,1",
+                  "Offset": "4,4"
+                },
+                "OutlineUnder": {
+                  "Size": 4,
+                  "Color": "0,1,0,1"
+                },
+                "ShadowUnder": {
+                  "Size": 4,
+                  "Color": "0,0,0,1",
+                  "Offset": "4,4"
+                }
+              }
             }
           ]
         }
@@ -974,6 +1014,7 @@
               "__guid": "6181aa01-ae80-457e-b509-14b01ab6018b",
               "destroyChance": 0.01,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1031,6 +1072,7 @@
               "__guid": "2fc910f0-80c5-44d2-b6bb-a9e6ebda3a15",
               "destroyChance": 0.01,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1088,6 +1130,7 @@
               "__guid": "d875920b-f33f-439a-a51a-cf4b761ff5c3",
               "destroyChance": 0.01,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1145,6 +1188,7 @@
               "__guid": "a8967400-a0aa-4ab3-aa6c-62077fe233e5",
               "destroyChance": 0.01,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1212,6 +1256,7 @@
               "__guid": "c861433a-50ad-4b4e-9877-79f64ea39072",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1248,6 +1293,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "72aab1d5-665d-45de-807b-469b9bc636b3",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/prism/prism.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -1284,6 +1330,7 @@
               "__guid": "05e1e7af-b6f0-4e8c-a9bc-db42e144b567",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1320,6 +1367,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "6d8ca39d-29e5-4e80-9ca4-a7b087c25537",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/prism/prism.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -1356,6 +1404,7 @@
               "__guid": "02f64805-ab7c-44ef-8fc5-b520127f2c96",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1392,6 +1441,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "de2cc8f4-0460-408d-9d80-a32ff4e87702",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/prism/prism.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -1428,6 +1478,7 @@
               "__guid": "ca23534d-277c-457a-9388-9cb73c7355a8",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1464,6 +1515,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "3f8b1b82-68dd-402f-9bf9-0b72f25bf31a",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/prism/prism.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -1500,6 +1552,7 @@
               "__guid": "8e03c333-5d04-4117-b94e-32c9e48a41af",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1536,6 +1589,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "f66def9d-0c67-4c3d-b761-5aabc37d7ec9",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/prism/prism.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -1572,6 +1626,7 @@
               "__guid": "ce5c51bd-976d-42e5-96d7-85ed1ddc69b8",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1608,6 +1663,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "d2dbbd87-ba5c-4139-a170-76945126c6d4",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/prism/prism.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -1644,6 +1700,7 @@
               "__guid": "9e19a425-f2ef-45d1-9b44-6c1d55526c45",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1680,6 +1737,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "d95eb5f3-1378-41a4-b949-af67a0cce5cd",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/prism/prism.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -1716,6 +1774,7 @@
               "__guid": "1903f9d9-598c-4d15-9bb0-afcf7af86849",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1752,6 +1811,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "c1c19bda-02c5-44c2-bdb1-af3961fd0fa4",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/prism/prism.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -1795,6 +1855,7 @@
               "__guid": "7090a870-b775-41e8-9423-e7b4f218e53d",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1841,6 +1902,7 @@
               "__guid": "7ccb3284-11bf-4931-94c3-f3b0eda95e1c",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1887,6 +1949,7 @@
               "__guid": "9714647e-29db-4c3c-8ef4-15562969a320",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1933,6 +1996,7 @@
               "__guid": "f39e6f29-7abb-4f65-b914-527a56af85a9",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -1979,6 +2043,7 @@
               "__guid": "8214bb55-14e4-4458-baf1-acaa87def62f",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2025,6 +2090,7 @@
               "__guid": "64585dbb-8557-4c8d-b42a-66948028fa52",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2071,6 +2137,7 @@
               "__guid": "1f75803f-9322-4b41-a40e-1cae30025a21",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2117,6 +2184,7 @@
               "__guid": "c4197c5c-3249-4113-af44-e1b9954fd1e4",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2163,6 +2231,7 @@
               "__guid": "f0fc9d70-642a-4aff-86cd-822674ed16de",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2209,6 +2278,7 @@
               "__guid": "1d8fba1a-0c6c-469d-a055-c5278cb269c1",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2255,6 +2325,7 @@
               "__guid": "568359bc-4f43-473d-a60d-71c377e1dc81",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2301,6 +2372,7 @@
               "__guid": "f628a903-4760-4000-9434-6d391fcd365b",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2347,6 +2419,7 @@
               "__guid": "10114453-36a3-40da-8f0c-f10deef7243c",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2393,6 +2466,7 @@
               "__guid": "5b1eaef7-2f50-4569-a880-04d27a54fd89",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2439,6 +2513,7 @@
               "__guid": "f645bfbf-b3e1-4a9b-88ed-2fa51385b7e3",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2485,6 +2560,7 @@
               "__guid": "db9b32c7-af00-4081-b135-d4798f235e8a",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2531,6 +2607,7 @@
               "__guid": "bf7ac663-9bb3-459d-b05e-4f2dc02fac52",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2577,6 +2654,7 @@
               "__guid": "3f0dc6e9-7cf6-4a12-b9ad-bc763dad5bb7",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2623,6 +2701,7 @@
               "__guid": "85b5d914-492b-4718-9ca0-f99272fb23e8",
               "destroyChance": 0.2,
               "DrawProximityRangeGizmo": false,
+              "EnableRagdollEffect": false,
               "IsSpawning": false,
               "Level10To15": false,
               "Level15To20": false,
@@ -2947,9 +3026,13 @@
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 128,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "minimal"
+    },
     "NavMesh": {
       "Enabled": true,
       "IncludeStaticBodies": true,
@@ -2959,14 +3042,14 @@
       "AgentRadius": 0.49989566,
       "AgentStepSize": 23.700022,
       "AgentMaxSlope": 1388.1989,
-      "ExcludedBodies": "npc,solid",
+      "ExcludedBodies": "npc",
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "minimal",
-  "Description": "",
-  "ResourceVersion": 1,
+  "Description": null,
   "__references": [],
-  "IsValid": true,
-  "__version": 1
+  "HasUnsavedChanges": false,
+  "__version": 2
 }

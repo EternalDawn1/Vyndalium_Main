@@ -11,12 +11,45 @@ namespace GeneralGame.HUD
         private bool ShowAbandonDialog { get; set; }
         private bool ShowDiscordPanel { get; set; }
         private Player player { get; set; }
+        private Player GetPlayer()
+        {
+            // Logik zum Abrufen des Spielers
+            return Player.Local as Player;
+        }
+        
+        private void KillPlayer()
+        {
+            if (player == null)
+            {
+                player = GetPlayer(); // Methode zum Abrufen des Spielers
+            }
+
+            if (player != null && player.IsValid())
+            {
+                Log.Info("Kill Player");
+                // Beispielwerte für die Parameter
+                DamageType damageType = DamageType.Bullet;
+                float amount = 99999;
+                Vector3 position = player.Position;
+                Vector3 force = Vector3.Zero;
+                Guid attacker = Guid.Empty;
+                Guid weapon = Guid.Empty;
+
+                player.TakeDamage(damageType, amount, position, force, attacker, weapon);
+                StateHasChanged();
+            }
+            else
+            {
+                Log.Warning("Player is null or not valid.");
+            }
+        }
         protected override void OnUpdate()
         {
             if ( player == null && player.IsValid() && LifeState.Alive != LifeState.Dead )
             {
                 return;
             }
+            
             if ( Input.EscapePressed )
             {
                 Input.EscapePressed = false;
@@ -27,6 +60,24 @@ namespace GeneralGame.HUD
                 StateHasChanged();
             }
         }
+        private void ConfirmKillPlayer()
+        {
+            ShowConfirmationDialog = true;
+            StateHasChanged();
+        }
+
+        private void KillPlayerConfirmed()
+        {
+            ShowConfirmationDialog = false;
+            KillPlayer();
+        }
+
+        private void CancelKillPlayer()
+        {
+            ShowConfirmationDialog = false;
+            StateHasChanged();
+        }
+
         private void CloseDiscordPanel()
         {
             ShowDiscordPanel = false;

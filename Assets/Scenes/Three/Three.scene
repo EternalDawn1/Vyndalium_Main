@@ -2,6 +2,21 @@
   "__guid": "4f1e547d-7e89-44df-be85-fe9992e06e8e",
   "GameObjects": [
     {
+      "__guid": "7f54fa47-f410-40a9-88b8-f901ee1eaa7a",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "88f16f75-4f69-425f-8991-46728bcad236",
+          "Description": "",
+          "SceneTags": "",
+          "Title": "minimal"
+        }
+      ]
+    },
+    {
       "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
       "Flags": 0,
       "Name": "MapObjects",
@@ -99,9 +114,17 @@
           "__guid": "f18b56f9-e58b-4e25-8b6d-e27ddb7a8daf",
           "AnimationGraph": "models/weapons/sbox_melee_trenchknife/v_trenchknife.vanmgrph",
           "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
           "CreateBoneObjects": false,
           "Model": "models/weapons/sbox_melee_trenchknife/w_trenchknife.vmdl",
           "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
           "RenderOptions": {
             "GameLayer": true,
             "OverlayLayer": false,
@@ -109,6 +132,9 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
+          "Sequence": {
+            "Name": null
+          },
           "Tint": "1,1,1,1",
           "UseAnimGraph": true
         },
@@ -165,14 +191,16 @@
           "Center": "0,0,0",
           "IsTrigger": true,
           "Radius": 10,
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Sandbox.ModelCollider",
           "__guid": "c23a89d4-8e58-42c2-905f-9c9c98222fd1",
           "IsTrigger": false,
           "Model": "models/glock/w/w_glock20lod0.vmdl",
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Sandbox.Rigidbody",
@@ -193,6 +221,7 @@
           "__guid": "453308c8-361d-4b72-82f2-882e5060e5d0",
           "AbilityHaste": 0,
           "Armor": 0,
+          "Aspect": "None",
           "Attachment": "hand_R",
           "AttachmentTransform": {
             "UniformScale": 1,
@@ -220,6 +249,7 @@
           "DEX": 0,
           "DMG": 0,
           "Durability": 1000,
+          "EnableHolding": false,
           "Evasion": 0,
           "FireResistence": 0,
           "HE": 0,
@@ -239,13 +269,17 @@
           "INT": 0,
           "IsAccessory": false,
           "IsArmor": false,
+          "IsAspect": false,
           "IsBackable": false,
+          "IsBackpack": false,
           "IsConsumable": false,
           "IsEquipment": false,
           "IsItem": false,
           "IsMaterial": false,
+          "IsMelee": false,
           "IsPotion": false,
           "IsWeapon": true,
+          "IsWorld": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -260,13 +294,11 @@
           "Name": "Knife",
           "PER": 0,
           "PoisonResistence": 0,
-          "Price": 0,
           "RequiredLevel": 0,
           "SellPrice": 0,
           "ShadowResistence": 0,
           "Slot": "Hand",
           "SlowResistence": 0,
-          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -365,9 +397,17 @@
           "__guid": "9804b292-84d1-40f4-8389-b7bae3f83f62",
           "AnimationGraph": "models/weapons/sbox_melee_trenchknife/v_trenchknife.vanmgrph",
           "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
           "CreateBoneObjects": false,
           "Model": "models/new_moon_sword/fullmoon_sword_2.vmdl",
           "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
           "RenderOptions": {
             "GameLayer": true,
             "OverlayLayer": false,
@@ -375,6 +415,9 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
+          "Sequence": {
+            "Name": null
+          },
           "Tint": "1,1,1,1",
           "UseAnimGraph": true
         },
@@ -431,14 +474,16 @@
           "Center": "0,0,0",
           "IsTrigger": true,
           "Radius": 10,
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Sandbox.ModelCollider",
           "__guid": "aaf5a2a4-4fc2-4b23-930e-03048841b171",
           "IsTrigger": false,
           "Model": "models/glock/w/w_glock20lod0.vmdl",
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Sandbox.Rigidbody",
@@ -459,6 +504,7 @@
           "__guid": "c5e25139-0985-4663-b217-16d0f4da808b",
           "AbilityHaste": 0,
           "Armor": 0,
+          "Aspect": "None",
           "Attachment": "hand_R",
           "AttachmentTransform": {
             "UniformScale": 1,
@@ -486,6 +532,7 @@
           "DEX": 0,
           "DMG": 0,
           "Durability": 1000,
+          "EnableHolding": false,
           "Evasion": 0,
           "FireResistence": 0,
           "HE": 0,
@@ -505,13 +552,17 @@
           "INT": 0,
           "IsAccessory": false,
           "IsArmor": false,
+          "IsAspect": false,
           "IsBackable": false,
+          "IsBackpack": false,
           "IsConsumable": false,
           "IsEquipment": false,
           "IsItem": false,
           "IsMaterial": false,
+          "IsMelee": false,
           "IsPotion": false,
           "IsWeapon": false,
+          "IsWorld": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -526,13 +577,11 @@
           "Name": "Knife",
           "PER": 0,
           "PoisonResistence": 0,
-          "Price": 0,
           "RequiredLevel": 0,
           "SellPrice": 0,
           "ShadowResistence": 0,
           "Slot": "Hand",
           "SlowResistence": 0,
-          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -627,9 +676,17 @@
           "__guid": "6d3eb808-7079-49be-b438-91ec8c6e96d0",
           "AnimationGraph": "models/machette/machette.vanmgrph",
           "BodyGroups": 1,
+          "CreateAttachments": false,
           "CreateBoneObjects": false,
           "Model": "models/glock/w/w_glock20lod0.vmdl",
           "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
           "RenderOptions": {
             "GameLayer": true,
             "OverlayLayer": false,
@@ -637,6 +694,9 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
+          "Sequence": {
+            "Name": null
+          },
           "Tint": "1,1,1,1",
           "UseAnimGraph": true
         },
@@ -691,14 +751,16 @@
           "Center": "0,0,0",
           "IsTrigger": true,
           "Radius": 10,
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Sandbox.ModelCollider",
           "__guid": "d6e4d60a-69cb-41e8-9336-d46f004e9e14",
           "IsTrigger": false,
           "Model": "models/glock/w/w_glock20lod0.vmdl",
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Sandbox.Rigidbody",
@@ -719,6 +781,7 @@
           "__guid": "7fafbf9c-072c-464b-8018-43268c579905",
           "AbilityHaste": 0,
           "Armor": 0,
+          "Aspect": "None",
           "Attachment": "hand_R",
           "AttachmentTransform": {
             "UniformScale": 1,
@@ -746,6 +809,7 @@
           "DEX": 0,
           "DMG": 200,
           "Durability": 1000,
+          "EnableHolding": false,
           "Evasion": 0,
           "FireResistence": 0,
           "HE": 0,
@@ -765,13 +829,17 @@
           "INT": 0,
           "IsAccessory": false,
           "IsArmor": false,
+          "IsAspect": false,
           "IsBackable": false,
+          "IsBackpack": false,
           "IsConsumable": false,
           "IsEquipment": false,
           "IsItem": false,
           "IsMaterial": false,
+          "IsMelee": false,
           "IsPotion": false,
           "IsWeapon": false,
+          "IsWorld": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -786,13 +854,11 @@
           "Name": "Glock 20",
           "PER": 0,
           "PoisonResistence": 0,
-          "Price": 0,
           "RequiredLevel": 0,
           "SellPrice": -1,
           "ShadowResistence": 0,
           "Slot": "Hand",
           "SlowResistence": 0,
-          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -1035,6 +1101,7 @@
           "__type": "Sandbox.ModelRenderer",
           "__guid": "b058c0ad-0946-47ee-8e8e-48d710158f1b",
           "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
           "Model": "models/props/rings/ring_1.vmdl",
           "RenderOptions": {
             "GameLayer": true,
@@ -1059,9 +1126,17 @@
           "__guid": "b5d47e87-78cf-4e5a-92db-7b0f96b634a7",
           "AnimationGraph": "animgraphs/box_expert.vanmgrph",
           "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
           "CreateBoneObjects": false,
           "Model": "models/props/chest_expert/chest_expert_opening.vmdl",
           "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
           "RenderOptions": {
             "GameLayer": true,
             "OverlayLayer": false,
@@ -1069,6 +1144,9 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
+          "Sequence": {
+            "Name": null
+          },
           "Tint": "0.56337,0.14635,0.95349,1",
           "UseAnimGraph": true
         },
@@ -1079,6 +1157,7 @@
           "isOpen": false,
           "AbilityHaste": 0,
           "Armor": 0,
+          "Aspect": "None",
           "AttackPower": 0,
           "AttackSpeed": 0,
           "BleedResistance": 0,
@@ -1105,14 +1184,18 @@
           "INT": 0,
           "IsAccessory": false,
           "IsArmor": false,
+          "IsAspect": false,
+          "IsBackpack": false,
           "IsBossChest": true,
           "IsConsumable": false,
           "IsDoor": false,
           "IsEquipment": false,
           "IsItem": false,
           "IsMaterial": false,
+          "IsMelee": false,
           "IsPotion": false,
           "IsWeapon": false,
+          "IsWorld": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
@@ -1127,12 +1210,12 @@
           "Name": "chest",
           "PER": 0,
           "PoisonResistence": 0,
-          "Price": 0,
+          "RagdollPrefabPath": "models/npcs/slime/chest.prefab",
           "RequiredLevel": 0,
+          "RequiredTier": "C",
           "SellPrice": 0,
           "ShadowResistence": 0,
           "SlowResistence": 0,
-          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -1144,7 +1227,8 @@
           "__guid": "5022492a-fddd-4f37-ba8e-111f0c770756",
           "IsTrigger": false,
           "Model": "models/props/chest_expert/chest_expert_opening.vmdl",
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Sandbox.Rigidbody",
@@ -1205,9 +1289,13 @@
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 128,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "minimal"
+    },
     "NavMesh": {
       "Enabled": true,
       "IncludeStaticBodies": true,
@@ -1217,17 +1305,17 @@
       "AgentRadius": 0.49989566,
       "AgentStepSize": 23.700022,
       "AgentMaxSlope": 1388.1989,
-      "ExcludedBodies": "npc,solid",
+      "ExcludedBodies": "npc",
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "minimal",
-  "Description": "",
-  "ResourceVersion": 1,
+  "Description": null,
   "__references": [
     "facepunch.v_trenchknife#59817",
     "facepunch.w_trenchknife#38336"
   ],
-  "IsValid": true,
-  "__version": 1
+  "HasUnsavedChanges": false,
+  "__version": 2
 }
