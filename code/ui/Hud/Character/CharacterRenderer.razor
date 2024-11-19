@@ -96,8 +96,7 @@
 			cloth.SetMaterialGroup(renderer.MaterialGroup);
 			bodygroups |= equipment.HideBodygroups;
 
-			var attachmentTransform = _character.GetAttachment(equipment.Attachment, true) ?? global::Transform.Zero;
-            cloth.Transform = attachmentTransform.ToWorld(equipment.AttachmentTransform);
+			
 
 			_character.AddChild( $"clothing_{i}_{equipment.Name}", cloth );
 			

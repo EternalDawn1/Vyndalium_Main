@@ -104,13 +104,13 @@ namespace GeneralGame
             "prefabs/clothes/clothes/base5.prefab",
             "prefabs/clothes/clothes/base6.prefab",
             "prefabs/clothes/clothes/base7.prefab",
-            "prefabs/clothes/clothes/base8.prefab",
+          
             "prefabs/clothes/clothes/base9.prefab",
             "prefabs/clothes/clothes/base10.prefab",
             "prefabs/clothes/clothes/base11.prefab",
             "prefabs/clothes/clothes/base12.prefab",
             "prefabs/clothes/clothes/base13.prefab",
-            "prefabs/clothes/clothes/base14.prefab",
+          
             "prefabs/clothes/clothes/base15.prefab",
             "prefabs/clothes/clothes/base16.prefab",
             "prefabs/clothes/clothes/base17.prefab",
@@ -121,18 +121,18 @@ namespace GeneralGame
             "prefabs/clothes/clothes/base22.prefab",
             "prefabs/clothes/clothes/base23.prefab",
             "prefabs/clothes/clothes/base24.prefab",
-            "prefabs/clothes/clothes/base25.prefab",
+           
             "prefabs/clothes/clothes/base26.prefab",
             "prefabs/clothes/clothes/base27.prefab",
             "prefabs/clothes/clothes/base28.prefab",
             "prefabs/clothes/clothes/base29.prefab",
             "prefabs/clothes/clothes/base30.prefab",
             "prefabs/clothes/clothes/base31.prefab",
-            "prefabs/clothes/clothes/base32.prefab",
+         
             "prefabs/clothes/clothes/base33.prefab",
             "prefabs/clothes/clothes/base34.prefab",
             "prefabs/clothes/clothes/base35.prefab",
-            "prefabs/clothes/clothes/base36.prefab",
+         
             "prefabs/clothes/clothes/base37.prefab",
             "prefabs/clothes/clothes/base38.prefab",
             "prefabs/clothes/clothes/base39.prefab",
@@ -140,9 +140,8 @@ namespace GeneralGame
             "prefabs/clothes/clothes/base41.prefab",
             "prefabs/clothes/clothes/base42.prefab",
             "prefabs/clothes/clothes/base43.prefab",
-            "prefabs/clothes/clothes/base44.prefab",
-            "prefabs/clothes/clothes/base45.prefab",
-            "prefabs/clothes/clothes/base46.prefab",
+        
+            
             "prefabs/clothes/clothes/base47.prefab",
             "prefabs/clothes/clothes/base48.prefab",
             "prefabs/clothes/clothes/base49.prefab",
@@ -166,26 +165,26 @@ namespace GeneralGame
             "prefabs/clothes/clothes/base67.prefab",
             "prefabs/clothes/clothes/base68.prefab",
             "prefabs/clothes/clothes/base69.prefab",
-            "prefabs/clothes/clothes/base70.prefab",
-            "prefabs/clothes/clothes/base71.prefab",
+         
+         
             "prefabs/clothes/clothes/base72.prefab",
             "prefabs/clothes/clothes/base73.prefab",
-            "prefabs/clothes/clothes/base74.prefab",
-            "prefabs/clothes/clothes/base75.prefab",
+         
+          
             "prefabs/clothes/clothes/base76.prefab",
             "prefabs/clothes/clothes/base77.prefab",
             "prefabs/clothes/clothes/base78.prefab",
             "prefabs/clothes/clothes/base79.prefab",
-            "prefabs/clothes/clothes/base80.prefab",
+        
             "prefabs/clothes/clothes/base81.prefab",
-            "prefabs/clothes/clothes/base82.prefab",
-            "prefabs/clothes/clothes/base83.prefab",
+         
+           
             "prefabs/clothes/clothes/base84.prefab",
             "prefabs/clothes/clothes/base85.prefab",
             "prefabs/clothes/clothes/base86.prefab",
             "prefabs/clothes/clothes/base87.prefab",
             "prefabs/clothes/clothes/base88.prefab",
-            "prefabs/clothes/clothes/base89.prefab",
+           
             "prefabs/clothes/clothes/base90.prefab",
 
             
@@ -209,9 +208,9 @@ namespace GeneralGame
             "prefabs/entitys/aspects/variants/lightning.prefab",
             "prefabs/entitys/aspects/variants/water.prefab",
             "prefabs/entitys/aspects/variants/shadow.prefab",
-            "prefabs/clothes/clothes/sbase.prefab",
+       
             "prefabs/clothes/clothes/sbase1.prefab",
-            "prefabs/clothes/clothes/sbase2.prefab",
+        
             "prefabs/clothes/clothes/sbase3.prefab",
             "prefabs/clothes/clothes/sbase4.prefab",
             "prefabs/clothes/clothes/sbase5.prefab",
