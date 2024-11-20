@@ -5,25 +5,29 @@ namespace GeneralGame;
 
 public partial class Player
 {
-	[Property, Sync, Category( "Parameters" )]
-	public int Experience
+	[Property, Sync, Category("Parameters")]
+	public long Experience
 	{
 		get => _experience;
-		set => _experience = value.Clamp( 0, int.MaxValue );
+		set => _experience = value.Clamp(0, long.MaxValue);
 	}
 
 	[Property, Sync, Category( "Parameters" )]
 	public int Level
 	{
 		get => _level;
-		set => _level = value.Clamp( 0, 105 );
+		set => _level = value.Clamp(0, GetMaxLevel());
+	}
+	[Sync]public int PrestigeLevel { get; set; } = 0;
+	private int _level;
+	private long _experience;
+	[Property] public SoundEvent LevelUp { get; set; }
+	private int GetMaxLevel()
+	{
+		return 105 + (PrestigeLevel * 100);
 	}
 
-	private int _level;
-	private int _experience;
-	[Property] public SoundEvent LevelUp { get; set; }
-
-	public int ExpPerLevel => (int)Math.Floor( Math.Pow( 1.2, Level ) * 100 ) + 150;
+	public long ExpPerLevel => (long)Math.Floor(Math.Pow(1.1, Level) * 100) + 150;
 
 	public static List<(int MinLevel, string Name, string Color)> Ranks = new()
 	{
@@ -88,5 +92,98 @@ public partial class Player
 
 		}
 	}
-	
+	public void PrestigeRankUp()
+	{
+		if (Level == 105)
+		{
+			Level = 1;
+			Experience = 0;
+			PrestigeLevel++;
+			MaxHealth = 50;
+			Health = 50;
+			MaxMana = 50;
+			Mana = 50;
+			StatsPoints = 0;
+			MaxStamina = 50;
+			Stamina = 50;
+			AttackPower = 0;
+			Tenacity = 0;
+			Block = 0;
+			MagicDefense = 0;
+			Armor = 0;
+			STG = 0;
+			ArmorPenetration = 0;
+			MagicPenetration = 0;
+			AttackRange = 0;
+			AttackSpeed = 0;
+			CritHitChance = 0;
+			CritHitDamage = 0;
+			DEX = 0;
+			Evasion = 0;
+			AbilityHaste = 0;
+			PlayerWalkSpeed = 125;
+			PlayerRunSpeed = 150;
+			INT = 0;
+			MagicPower = 0;
+			MagicPenetration = 0;
+			BonusVyndalium = 50 + (PrestigeLevel * 10); // Erhöht um 10 pro Prestige-Level
+			BonusEXPGain = 100 + (PrestigeLevel * 20);
+
+
+
+
+
+			Log.Info($"Player has prestiged to Prestige Level {PrestigeLevel}");
+		}
+	}
+	public void ResetRankUp()
+	{
+		
+		{
+		
+		
+		
+			MaxHealth = 50;
+			MinArmorValue = 0;
+			MaxArmorValue = 0;
+			MinAttackValue = 0;
+			MaxAttackValue = 0;
+			Health = 50;
+			MaxMana = 50;
+			Mana = 50;
+			StatsPoints = 0;
+			MaxStamina = 50;
+			Stamina = 50;
+			AttackPower = 0;
+			Tenacity = 0;
+			Block = 0;
+			MagicDefense = 0;
+			Armor = 0;
+			STG = 0;
+			ArmorPenetration = 0;
+			MagicPenetration = 0;
+			AttackRange = 0;
+			AttackSpeed = 0;
+			CritHitChance = 0;
+			CritHitDamage = 0;
+			DEX = 0;
+			Evasion = 0;
+			AbilityHaste = 0;
+			PlayerWalkSpeed = 125;
+			PlayerRunSpeed = 150;
+			INT = 0;
+			MagicPower = 0;
+			MagicPenetration = 0;
+			BonusVyndalium = 50 + (PrestigeLevel * 10); // Erhöht um 10 pro Prestige-Level
+			BonusEXPGain = 100 + (PrestigeLevel * 20);
+
+
+
+
+
+			Log.Info($"Player has prestiged to Prestige Level {PrestigeLevel}");
+		}
+	}
+
+
 }

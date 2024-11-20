@@ -110,6 +110,7 @@
       {
         "__type": "Npc",
         "__guid": "cf3db180-d389-4d54-8afb-65becca564cb",
+        "activeStatusEffects": [],
         "CurrentHoldType": "None",
         "isChibi": false,
         "prefabPaths": [
@@ -154,6 +155,7 @@
         },
         "HitSounds": "sounds/grunt/gruntingn.sound",
         "Idle": true,
+        "IsBleeding": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -171,6 +173,7 @@
           "go": "c1908ba7-71b3-448a-a148-a192817ff117",
           "component_type": "MoveHelper"
         },
+        "MoveSpeed": 0,
         "Name": "Zombie",
         "OnAttack": {
           "__version": 8,
@@ -347,6 +350,7 @@
         },
         "PlayerProximityDistance": 80,
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Dumb",
         "RunSpeed": 110,
         "ScaleStats": true,
@@ -385,11 +389,13 @@
         "Flags": 0,
         "Name": "body",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "97fd9a02-fc14-48d8-bbca-26c32f4d8981",
             "BodyGroups": 1365,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
             "Model": "models/playermodels/skeleman.vmdl",
@@ -408,6 +414,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
@@ -441,7 +450,8 @@
         "Flags": 0,
         "Name": "eye",
         "Position": "0,0,64",
-        "Enabled": true
+        "Enabled": true,
+        "NetworkMode": 1
       },
       {
         "__guid": "fc3e3201-abc2-495f-a1e5-b990999ce817",
@@ -449,6 +459,7 @@
         "Name": "World",
         "Position": "-1.323636,-0.5550555,84.45752",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.WorldPanel",
@@ -502,5 +513,6 @@
   "__references": [
     "luke.skeleman#19898"
   ],
+  "HasUnsavedChanges": false,
   "__version": 1
 }

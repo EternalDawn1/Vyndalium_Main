@@ -362,7 +362,7 @@
         "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
-          "prefab": "models/npcs/chibi/chibi_ragdoll.prefab"
+          "prefab": "prefabs/bosschest.prefab"
         }
       },
       {
@@ -391,6 +391,7 @@
         "Name": "body",
         "Scale": "2,2,2",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -467,7 +468,8 @@
         "Flags": 0,
         "Name": "eye",
         "Position": "0,0,64",
-        "Enabled": true
+        "Enabled": true,
+        "NetworkMode": 1
       },
       {
         "__guid": "4d785a24-7cf3-42df-af6e-19e66b31d356",
@@ -475,6 +477,7 @@
         "Name": "World",
         "Position": "-1.623636,0,178.6707",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.WorldPanel",

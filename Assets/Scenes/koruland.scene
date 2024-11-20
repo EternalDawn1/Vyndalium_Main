@@ -2,6 +2,21 @@
   "__guid": "07652eda-70cd-4c3c-a988-29a0d7a47efb",
   "GameObjects": [
     {
+      "__guid": "519c8924-cd0a-4f96-ae46-b40ff3623eaf",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "fd0fea09-549e-4bce-96eb-c02657539cea",
+          "Description": "",
+          "SceneTags": "",
+          "Title": "minimal"
+        }
+      ]
+    },
+    {
       "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
       "Flags": 0,
       "Name": "MapObjects",
@@ -22,6 +37,8 @@
               "EnableCollision": true,
               "MapName": "maps/koruland.vmap",
               "NoOrigin": true,
+              "OnMapLoaded": null,
+              "OnMapUnloaded": null,
               "UseMapFromLaunch": false
             }
           ],
@@ -66,6 +83,13 @@
           "__type": "Sandbox.ModelRenderer",
           "__guid": "6c36f8e1-f0df-4a9b-a576-268e0bef9c20",
           "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "RenderType": "On",
           "Tint": "1,1,1,1"
         },
@@ -80,7 +104,8 @@
           "Center": "0,0,0",
           "IsTrigger": true,
           "Scale": "50,50,50",
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "GeneralGame.Interactable",
@@ -122,16 +147,33 @@
           "__enabled": false,
           "destroyChance": 0.01,
           "DrawProximityRangeGizmo": false,
+          "EnableRagdollEffect": false,
           "IsSpawning": false,
-          "Level15To30": false,
-          "Level1To15": false,
-          "Level30To55": false,
-          "Level55To70": false,
-          "Level70To90": false,
-          "Level90To100": false,
+          "Level10To15": false,
+          "Level15To20": false,
+          "Level1To5": false,
+          "Level20To25": false,
+          "Level25To30": false,
+          "Level30To35": false,
+          "Level35To40": false,
+          "Level40To45": false,
+          "Level45To50": false,
+          "Level50To55": false,
+          "Level55To60": false,
+          "Level5To10": false,
+          "Level60To65": false,
+          "Level65To70": false,
+          "Level70To75": false,
+          "Level75To80": false,
+          "Level80To85": false,
+          "Level85To90": false,
+          "Level90To95": false,
+          "Level95To100": false,
           "MaxSpawns": 10,
           "PlayerProximityDistance": 1000,
           "Randomized": false,
+          "RandomizePropertiesOnRain": false,
+          "RandomizeTierOnSpawn": false,
           "RespawnTime": 5,
           "ZombiePrefab": {
             "_type": "gameobject",
@@ -186,6 +228,12 @@
           "InteractionRange": 1000,
           "LookAtCamera": false,
           "PanelSize": "512,512",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "RenderScale": 1,
           "VerticalAlign": "Center"
         }
@@ -195,7 +243,7 @@
       "__guid": "8d1d476b-b824-4d2b-b40e-47aaef06ac08",
       "Flags": 0,
       "Name": "Object",
-      "Position": "-343.645,-1287.86,1253.814",
+      "Position": "-343.645,-1929.148,1253.814",
       "Enabled": true,
       "Components": [
         {
@@ -219,6 +267,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/props/box_legendary/legendary chest.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         },
         {
@@ -228,6 +277,7 @@
           "isOpen": false,
           "AbilityHaste": 0,
           "Armor": 0,
+          "Aspect": "None",
           "AttackPower": 0,
           "AttackSpeed": 0,
           "BleedResistance": 0,
@@ -235,6 +285,7 @@
           "BonusEXP": 0,
           "BonusScore": 0,
           "BonusVyndalium": 0,
+          "BuyPrice": 0,
           "Count": 0,
           "Cover": 0,
           "CritHitChance": 0,
@@ -251,24 +302,40 @@
           "IceResistence": 0,
           "Icon": {},
           "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackpack": false,
+          "IsBossChest": false,
+          "IsConsumable": false,
           "IsDoor": false,
           "IsEquipment": false,
           "IsItem": false,
+          "IsMaterial": false,
+          "IsMelee": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": false,
           "ItemLevel": 0,
           "LightningResistence": 0,
           "MagicDefense": 0,
           "MagicPower": 0,
           "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
           "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
           "MoveSpeed": 0,
           "Name": "Legendary Chest",
           "PER": 0,
           "PoisonResistence": 0,
-          "PrefabList": [],
+          "RagdollPrefabPath": "models/npcs/slime/chest.prefab",
+          "RequiredLevel": 0,
+          "RequiredTier": "C",
           "SellPrice": -1,
           "ShadowResistence": 0,
           "SlowResistence": 0,
-          "Stats": [],
           "STG": 0,
           "StunResistance": 0,
           "Tenacity": 0,
@@ -299,6 +366,105 @@
           "ZIndex": 100
         }
       ]
+    },
+    {
+      "__guid": "21d1fbb3-3a34-4c14-a78e-7a2760561ad5",
+      "Flags": 0,
+      "Name": "randomzombies",
+      "Position": "-517.5653,-2846.732,1263.607",
+      "__Prefab": "prefabs/events/randomzombies.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "6678bafb-0e0a-4cdd-9d52-03f9b733ee60",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-315.5814,-2610.845,1324.644",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "528447d2-b68c-4702-a6bb-5f1cb0c264c4",
+          "hasSpawnedNPCs": false,
+          "DrawProximityRangeGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 999.40015,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+              },
+              "SpawnChance": 0.5,
+              "SpawnCount": 5
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_new.prefab"
+              },
+              "SpawnChance": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/boss_new_1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/spawners/boss_new.prefab"
+              },
+              "SpawnChance": 1,
+              "SpawnCount": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+              },
+              "SpawnChance": 1,
+              "SpawnCount": 100
+            }
+          ],
+          "PlayerProximityDistance": 1185.6005,
+          "Radius": 5004.606,
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 300
+        }
+      ]
+    },
+    {
+      "__guid": "f7819f6f-12e1-4643-b538-e49d8e4051ad",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "45.78436,-2276.138,1235.252",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "ItemSpawnArea",
+          "__guid": "b7b1581b-68c4-4be4-b8a0-4eeb9ddb044a",
+          "__enabled": false,
+          "Height": 183.30011,
+          "ItemPool": [
+            {
+              "Item": {
+                "_type": "gameobject",
+                "prefab": "prefabs/spawners/boss_new.prefab"
+              },
+              "AmountToSpawn": 17,
+              "StartFrozen": true,
+              "SpawnChance": 1
+            }
+          ],
+          "Radius": 356.90076
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -306,9 +472,13 @@
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 60,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "minimal"
+    },
     "NavMesh": {
       "Enabled": true,
       "IncludeStaticBodies": true,
@@ -322,9 +492,10 @@
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "minimal",
-  "Description": "",
-  "ResourceVersion": 1,
+  "Description": null,
   "__references": [],
-  "__version": 1
+  "HasUnsavedChanges": false,
+  "__version": 2
 }

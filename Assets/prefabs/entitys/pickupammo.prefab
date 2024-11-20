@@ -4,6 +4,7 @@
     "Flags": 0,
     "Name": "pickupammo",
     "Enabled": true,
+    "NetworkMode": 1,
     "Components": [
       {
         "__type": "GeneralGame.ZombieSpawner",
@@ -47,6 +48,7 @@
         "__type": "Sandbox.ModelRenderer",
         "__guid": "fb50eafd-4247-4371-ae9b-612b640e576d",
         "BodyGroups": 18446744073709551615,
+        "CreateAttachments": false,
         "Model": "models/prism/prism.vmdl",
         "RenderOptions": {
           "GameLayer": true,
@@ -59,7 +61,30 @@
       }
     ],
     "Children": [],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -67,6 +92,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "IsValid": true,
+  "HasUnsavedChanges": false,
   "__version": 1
 }

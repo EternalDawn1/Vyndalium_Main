@@ -1195,15 +1195,15 @@ public partial class Npc : Component, IHealthComponent
 
 		if ( npcLevel <= 10 )
 		{
-			return new Random().Next( 2, 1600) * halfNpcLevel; // 5-15 XP pro halbes Level für Level 1-10
+			return new Random().Next( 2, 16) * halfNpcLevel; // 5-15 XP pro halbes Level für Level 1-10
 		}
 		else if ( npcLevel <= 20 )
 		{
-			return new Random().Next( 16, 3200 ) * halfNpcLevel; // 15-30 XP pro halbes Level für Level 11-20
+			return new Random().Next( 16, 32) * halfNpcLevel; // 15-30 XP pro halbes Level für Level 11-20
 		}
 		else if ( npcLevel <= 30 )
 		{
-			return new Random().Next( 32, 4500 ) * halfNpcLevel; // 30-50 XP pro halbes Level für Level 21-30
+			return new Random().Next( 32, 450 ) * halfNpcLevel; // 30-50 XP pro halbes Level für Level 21-30
 		}
 		else if ( npcLevel <= 40 )
 		{

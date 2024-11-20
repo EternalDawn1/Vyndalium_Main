@@ -149,24 +149,34 @@ public class  BaseGun : WeaponComponent, IUse
 
 	protected override void OnStart()
 	{
+		
 		if (Player.Local.LifeState == LifeState.Dead)
 		{
 			StopAllActions();
 		}
 		// Standardmunition setzen, wenn sie nicht bereits gesetzt ist
-		if ( AmmoCount == 0 )
+		if (AmmoCount == 0)
 		{
-			if ( !IsMelee )
+			if (!IsMelee)
 			{
 				AmmoCount = DefaultAmmo;
 			}
 		}
-		Hitprefab = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ) );
-		if(IsMelee )
+
+		var hitPrefabFile = ResourceLibrary.Get<PrefabFile>("prefabs/hitinfo.prefab");
+		if (hitPrefabFile != null)
+		{
+			Hitprefab = SceneUtility.GetPrefabScene(hitPrefabFile);
+		}
+		else
+		{
+			// Log or handle the error appropriately
+			Log.Info("Error: Prefab 'prefabs/hitinfo.prefab' not found.");
+		}
+
+		if (IsMelee)
 		{
 			chargeComponent = Components.GetOrCreate<ChargeComponent>();
-			
-
 		}
 		Components.GetOrCreate<Interactions>();
 

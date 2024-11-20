@@ -158,7 +158,7 @@ namespace GeneralGame
             if ( !IsOpened )
             {
                 FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.Leaderboard );
-                Player.Local.BlockInputs = true;
+                //Player.Local.BlockInputs = true;
             }
             else
             {
@@ -175,7 +175,7 @@ namespace GeneralGame
             if ( !IsOpened )
             {
                 FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.MissonPanel );
-                Player.Local.BlockInputs = true;
+                //Player.Local.BlockInputs = true;
             }
             else
             {
@@ -195,7 +195,7 @@ namespace GeneralGame
             {
                 
                 FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.ShopPanel );
-                Player.Local.BlockInputs = true;
+                //Player.Local.BlockInputs = true;
                 IsOpened = true;
             }
             else

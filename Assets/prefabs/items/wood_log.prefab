@@ -5,12 +5,14 @@
     "Name": "wood_log",
     "Scale": "0.8,0.2,0.2",
     "Enabled": true,
+    "NetworkMode": 1,
     "Components": [
       {
         "__type": "GeneralGame.ItemComponent",
         "__guid": "9f434cae-9895-4499-b85c-ec8dd2ca3280",
         "AbilityHaste": 0,
         "Armor": 0,
+        "Aspect": "None",
         "AttackPower": 0,
         "AttackSpeed": 0,
         "BleedResistance": 0,
@@ -42,25 +44,36 @@
           "Guid": "f09bd77c-655e-4678-8b16-985ef343fe30"
         },
         "INT": 0,
+        "IsAccessory": false,
+        "IsArmor": false,
+        "IsAspect": false,
+        "IsBackpack": false,
+        "IsConsumable": false,
         "IsEquipment": false,
         "IsItem": false,
         "IsMaterial": true,
+        "IsMelee": false,
         "IsPotion": false,
+        "IsWeapon": false,
+        "IsWorld": false,
         "ItemLevel": 0,
         "LightningResistence": 0,
         "MagicDefense": 0,
         "MagicPower": 0,
         "Mana": 0,
+        "MaxArmorValue": 0,
+        "MaxAttackValue": 0,
         "MaxStack": 10,
+        "MinArmorValue": 0,
+        "MinAttackValue": 0,
         "MoveSpeed": 0,
         "Name": "Wood",
         "PER": 0,
         "PoisonResistence": 0,
-        "Price": 0,
+        "RequiredLevel": 0,
         "SellPrice": 25,
         "ShadowResistence": 0,
         "SlowResistence": 0,
-        "Stats": [],
         "STG": 0,
         "StunResistance": 0,
         "Tenacity": 0,
@@ -71,9 +84,17 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "aa41e848-0812-45c8-9c89-9fa83ce393f1",
         "BodyGroups": 18446744073709551615,
+        "CreateAttachments": false,
         "CreateBoneObjects": false,
         "Model": "models/props/wood/woody.vmdl",
         "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
         "RenderOptions": {
           "GameLayer": true,
           "OverlayLayer": false,
@@ -81,6 +102,9 @@
           "AfterUILayer": false
         },
         "RenderType": "On",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
       },
@@ -89,7 +113,8 @@
         "__guid": "392cdb89-40bc-420f-8c16-e4ecb36414a9",
         "IsTrigger": false,
         "Model": "models/props/wood/woody.vmdl",
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.Rigidbody",
@@ -107,7 +132,30 @@
       }
     ],
     "Children": [],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -115,5 +163,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
+  "HasUnsavedChanges": false,
   "__version": 1
 }

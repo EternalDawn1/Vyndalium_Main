@@ -1,0 +1,71 @@
+namespace GeneralGame;
+
+using GeneralGame.Event;
+
+[Icon("highlight_alt")]
+[Category("Events")]
+public sealed class EventAreaTrigger : EventTrigger
+{
+    [Property]
+    public Vector3 Offset { get; set; }
+
+    [Property]
+    public Vector3 Extents { get; set; }
+
+    /// <summary>
+    /// A list of prefabs that will trigger this area
+    /// Leave empty if you just want to check tags
+    /// Still need to match tags
+    /// DOESN'T WORK IF PREFAB WAS UNLINKED/COLLAPSED
+    /// </summary>
+    [Property]
+    public List<PrefabFile> TriggerPrefab { get; set; } = new List<PrefabFile>();
+
+    /// <summary>
+    /// Tags that trigger this area trigger (Any)
+    /// </summary>
+    [Property]
+    public TagSet TagSet { get; set; }
+
+    /// <summary>
+    /// Get all objects inside of this area
+    /// </summary>
+    public List<GameObject> ObjectsInside { get; set; } = new();
+
+    public BBox BBox => new BBox(Offset - Extents / 2f, Offset + Extents / 2f);
+    public BBox WorldBBox => BBox.Transform(GameObject.Transform.World);
+
+    public override bool IsPolled { get; set; } = true;
+
+    public override void PolledMethod()
+    {
+        var find = Scene.GetAllComponents<Collider>()
+            ?.Where(x => BBox.Translate(-Offset).Contains(Transform.World.PointToLocal(x.WorldPosition)))
+            ?.Select(x => x.GameObject)
+            ?.Where(x => x.IsValid() && x.Tags != null && TagSet != null && x.Tags.HasAny(TagSet))
+            ?.Where(x => TriggerPrefab.Count == 0 || TriggerPrefab.Any(prefab => prefab != null && x.IsValid() && x.PrefabInstanceSource != null && prefab.ResourcePath == x.PrefabInstanceSource));
+
+        // Need ToList() to copy otherwise we iterate through a list that is being modified.
+        foreach (var found in find.ToList())
+        {
+            if (!found.IsValid() || ObjectsInside == null) continue;
+            if (!ObjectsInside.Contains(found)) // Has entered just now
+                CallTrigger(found);
+        }
+
+        ObjectsInside = find.ToList();
+    }
+
+    public override void Clear()
+    {
+        ObjectsInside.Clear();
+    }
+
+    protected override void DrawGizmos()
+    {
+        Gizmo.Draw.Color = Color.Cyan.WithAlpha(0.2f).Darken(0.5f);
+        Gizmo.Draw.SolidBox(BBox);
+        Gizmo.Draw.Color = Color.White.WithAlpha(0.3f);
+        Gizmo.Draw.LineBBox(BBox);
+    }
+}

@@ -29,7 +29,6 @@
         "AirAcceleration": 400,
         "AirFriction": 6.5,
         "Bounce": 0.5,
-        "Collider": null,
         "EnableUnstuck": false,
         "Gravity": "0,0,850",
         "GroundAcceleration": 2065,
@@ -251,7 +250,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 8,
+              "Id": 11,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -263,13 +262,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 9,
+              "Id": 12,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 10,
+              "Id": 13,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -386,7 +385,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 14,
+              "Id": 15,
               "Value": 10,
               "DstId": 4,
               "DstName": "amount"
@@ -440,6 +439,7 @@
         "Flags": 0,
         "Name": "body",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -503,7 +503,8 @@
         "Flags": 0,
         "Name": "eye",
         "Position": "0,0,64",
-        "Enabled": true
+        "Enabled": true,
+        "NetworkMode": 1
       },
       {
         "__guid": "1f096b62-5299-4e07-829c-c458c024b4ff",
@@ -511,6 +512,7 @@
         "Name": "World",
         "Position": "-1.323636,-0.5550555,84.45752",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.WorldPanel",

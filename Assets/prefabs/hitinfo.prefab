@@ -4,19 +4,47 @@
     "Flags": 0,
     "Name": "hitinfo",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
+    "NetworkMode": 1,
     "Components": [
       {
         "__type": "Sandbox.TextRenderer",
         "__guid": "5876b2d6-a4a5-48eb-a39f-87067f15cb47",
-        "Color": "1,1,1,1",
-        "FontFamily": "Font Awesome 6 Brands",
-        "FontSize": 32,
-        "FontWeight": 800,
-        "Scale": 0.2,
-        "Text": "1",
-        "TextAlignment": "Center"
+        "__version": 1,
+        "BlendMode": "Normal",
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
+        "Scale": 0.35,
+        "TextAlignment": "Center",
+        "TextScope": {
+          "Text": "1",
+          "TextColor": "1,1,1,1",
+          "FontName": "Font Awesome 6 Brands",
+          "FontSize": 48.1,
+          "FontWeight": 800,
+          "LineHeight": 1,
+          "Outline": {
+            "Size": 4,
+            "Color": "0,0,1,1"
+          },
+          "Shadow": {
+            "Size": 4,
+            "Color": "0,0,0,1",
+            "Offset": "4,4"
+          },
+          "OutlineUnder": {
+            "Size": 4,
+            "Color": "0,1,0,1"
+          },
+          "ShadowUnder": {
+            "Size": 4,
+            "Color": "0,0,0,1",
+            "Offset": "4,4"
+          }
+        }
       },
       {
         "__type": "RisingShrink",
@@ -35,12 +63,37 @@
       }
     ],
     "Children": [],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
+  "HasUnsavedChanges": false,
   "__version": 1
 }

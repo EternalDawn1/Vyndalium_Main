@@ -116,18 +116,21 @@
 								<button @onclick="@(() => @IncreaseSensitivity(0.1))">+0.1</button>
 								
 							</div>
-							<div class="settings-tab-box">
-								<button @onclick="@(() => DecreaseFOV(1.0f))">-1</button>
-								<button @onclick="@(() => DecreaseFOV(5.0f))">-5</button>
-								<label for="cameraFOV">Field of View (FOV):</label>
-								<p class="e">@(player?.DefaultFov.ToString("F1"))</p>
-								<button @onclick="@(() => IncreaseFOV(1.0f))">+1</button>
-								<button @onclick="@(() => IncreaseFOV(5.0f))">+5</button>
-							</div>
+							
 						}
 						else if (selectedTab == PanelType.Player)
 						{
-							<div class="tab-panel">Player Settings Content</div>
+							<div class="tab-panel">
+								Player Settings Content
+
+								@if (Player.Local.Level == 105 )
+								{
+									<button class="prestige-button" @onclick="@PrestigePlayer">Prestige</button>
+									
+								}
+								<button class="prestige-button" @onclick="@ResetPlayer">Reset Player</button>
+								
+							</div>
 						}
 						
 						else if (selectedTab == PanelType.Misc)

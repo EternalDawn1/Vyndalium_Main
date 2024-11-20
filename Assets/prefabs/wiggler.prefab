@@ -110,6 +110,7 @@
       {
         "__type": "Npc",
         "__guid": "59063e71-a092-4580-84dc-c9849333eb38",
+        "activeStatusEffects": [],
         "CurrentHoldType": "None",
         "isChibi": false,
         "prefabPaths": [
@@ -155,6 +156,7 @@
         },
         "HitSounds": "sounds/grunt/gruntingn.sound",
         "Idle": true,
+        "IsBleeding": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -172,6 +174,7 @@
           "go": "b798520b-180e-4295-831d-8d70421e3855",
           "component_type": "MoveHelper"
         },
+        "MoveSpeed": 0,
         "Name": "Zombie",
         "OnAttack": {
           "__version": 8,
@@ -395,6 +398,7 @@
         },
         "PlayerProximityDistance": 80,
         "PogMode": false,
+        "Position": "0,0,0",
         "RunningType": "Dumb",
         "RunSpeed": 110,
         "ScaleStats": true,
@@ -433,11 +437,13 @@
         "Flags": 0,
         "Name": "body",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "c2841939-ad53-4508-891b-9afd07604916",
             "BodyGroups": 341,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialGroup": "Skin03",
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
@@ -457,6 +463,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
@@ -1313,7 +1322,8 @@
         "Flags": 0,
         "Name": "eye",
         "Position": "0,0,64",
-        "Enabled": true
+        "Enabled": true,
+        "NetworkMode": 1
       },
       {
         "__guid": "d3e85462-5aa3-4d66-b99d-dc9ffe2e6b6d",
@@ -1321,6 +1331,7 @@
         "Name": "World",
         "Position": "-1.323636,-0.5550555,84.45752",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.WorldPanel",
@@ -1372,5 +1383,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
+  "HasUnsavedChanges": false,
   "__version": 1
 }

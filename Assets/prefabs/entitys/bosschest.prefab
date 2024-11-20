@@ -5,15 +5,24 @@
     "Name": "bosschest",
     "Scale": "5,5,5",
     "Enabled": true,
+    "NetworkMode": 1,
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "72d44fea-9d54-4f77-96d8-7794e46b7c51",
         "AnimationGraph": "animgraphs/box_expert.vanmgrph",
         "BodyGroups": 18446744073709551615,
+        "CreateAttachments": false,
         "CreateBoneObjects": false,
         "Model": "models/props/chest_expert/chest_expert_opening.vmdl",
         "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
         "RenderOptions": {
           "GameLayer": true,
           "OverlayLayer": false,
@@ -21,6 +30,9 @@
           "AfterUILayer": false
         },
         "RenderType": "On",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "0.56337,0.14635,0.95349,1",
         "UseAnimGraph": true
       },
@@ -31,6 +43,7 @@
         "isOpen": false,
         "AbilityHaste": 0,
         "Armor": 0,
+        "Aspect": "None",
         "AttackPower": 0,
         "AttackSpeed": 0,
         "BleedResistance": 0,
@@ -57,14 +70,18 @@
         "INT": 0,
         "IsAccessory": false,
         "IsArmor": false,
+        "IsAspect": false,
+        "IsBackpack": false,
         "IsBossChest": true,
         "IsConsumable": false,
         "IsDoor": false,
         "IsEquipment": false,
         "IsItem": false,
         "IsMaterial": false,
+        "IsMelee": false,
         "IsPotion": false,
         "IsWeapon": false,
+        "IsWorld": false,
         "ItemLevel": 0,
         "LightningResistence": 0,
         "MagicDefense": 0,
@@ -79,12 +96,12 @@
         "Name": "chest",
         "PER": 0,
         "PoisonResistence": 0,
-        "Price": 0,
+        "RagdollPrefabPath": "models/npcs/slime/chest.prefab",
         "RequiredLevel": 0,
+        "RequiredTier": "C",
         "SellPrice": 0,
         "ShadowResistence": 0,
         "SlowResistence": 0,
-        "Stats": [],
         "STG": 0,
         "StunResistance": 0,
         "Tenacity": 0,
@@ -96,7 +113,8 @@
         "__guid": "ed46003c-9344-4bc4-a30b-c2c090a523a8",
         "IsTrigger": false,
         "Model": "models/props/chest_expert/chest_expert_opening.vmdl",
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.Rigidbody",
@@ -117,7 +135,30 @@
       }
     ],
     "Children": [],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -125,6 +166,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "IsValid": true,
+  "HasUnsavedChanges": false,
   "__version": 1
 }

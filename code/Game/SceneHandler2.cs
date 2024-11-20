@@ -17,6 +17,7 @@ public enum GeneralScene2
     One3,
     Forest3,
     Forest4,
+    untitled3
     
 }
 
@@ -50,6 +51,7 @@ public static class SceneHandler2
             GeneralScene2.Forest2 => "scenes/forest2.scene",
             GeneralScene2.Forest3 => "scenes/forest3.scene",
             GeneralScene2.Forest4 => "scenes/forest4.scene",
+            GeneralScene2.untitled3 => "scenes/untitled3.scene",
 
             _ => null
         };
@@ -138,6 +140,7 @@ public static class GeneralSceneExtensions2
             GeneralScene2.One3 => 0,
             GeneralScene2.Forest3 => 25,
             GeneralScene2.Forest4 => 25,
+            GeneralScene2.untitled3 => 0,
             _ => 0
         };
     }

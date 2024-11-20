@@ -5,8 +5,6 @@
     "Name": "zombie1",
     "Tags": "bad",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.NavMeshAgent",
@@ -69,20 +67,38 @@
         "Flags": 0,
         "Name": "body",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "f2320afa-7e49-40eb-a398-04ba4a7ccac7",
             "AnimationGraph": "models/citizen/citizen.vanmgrph",
             "BodyGroups": 341,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialGroup": "default",
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie_02.vmat",
             "Model": "models/citizen/citizen.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Sequence": {
+              "Name": null
+            },
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
           },
           {
             "__type": "Sandbox.Citizen.CitizenAnimationHelper",
@@ -104,7 +120,8 @@
             "__guid": "4041f491-1568-4979-bbfa-afcf23059e8b",
             "IsTrigger": false,
             "Model": "models/citizen/citizen.vmdl",
-            "Static": false
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
           }
         ]
       },
@@ -114,15 +131,40 @@
         "Name": "eye",
         "Position": "0,0,64",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true
+        "NetworkMode": 1
       }
-    ]
+    ],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
+  "HasUnsavedChanges": false,
   "__version": 1
 }

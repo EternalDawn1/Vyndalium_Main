@@ -147,7 +147,7 @@ public struct PlayerSave
 	[JsonInclude] public int MagicPenetrationCost;
 	[JsonInclude] public int BonusEXPGainCost;
 	[JsonInclude] public int BonusVyndaliumGainCost;
-
+	[JsonInclude] public int PrestigeLevel;
 	[JsonInclude] public int StatsPoints;
 
 	[JsonInclude] public float Height;
@@ -236,33 +236,27 @@ partial class Player
 		ItemSave Serialize( ItemComponent item )
 		{
 			if ( item == null )
-				return default;
-
+       		 return default;
 			if ( !ResourceLibrary.TryGet<PrefabFile>( item.Prefab, out var resource ) )
 				return default;
-
 			var data = new Dictionary<string, string>();
-			foreach ( var component in item.Components.GetAll() )
+			var components = item.Components.GetAll();
+			if (components == null) return default;
+			foreach ( var component in components )
 			{
-				var properties = GlobalGameNamespace.TypeLibrary
-					?.GetType( component.GetType() )
-					?.Properties
-					?.Where( property =>
-					{
-						var attribute = property.GetCustomAttribute<TargetSaveAttribute>();
-						if ( attribute == null ) return false;
-
-						var ignore = attribute?.IgnoreIf?.Equals( property.GetValue( component ) ) ?? false;
-						return !ignore;
-					} );
-
-				foreach ( var property in properties )
+				var type = GlobalGameNamespace.TypeLibrary?.GetType(component.GetType());
+				if (type == null) continue;
+				var properties = type.Properties?.Where(property =>
 				{
-					var serialized = JsonSerializer.Serialize( property.GetValue( component ), property.PropertyType, options );
-					if ( data.ContainsKey( property.Name ) )
-						data[property.Name] = serialized;
-					else
-						data.Add( property.Name, serialized );
+					var attribute = property.GetCustomAttribute<TargetSaveAttribute>();
+					if (attribute == null) return false;
+					var ignore = attribute?.IgnoreIf?.Equals(property.GetValue(component)) ?? false;
+					return !ignore;
+				});
+				if (properties == null) continue;
+				foreach (var property in properties)
+				{
+					data[property.Name] = property.GetValue(component)?.ToString();
 				}
 			}
 			item.SellPrice = item.SellPrice;
@@ -383,7 +377,7 @@ partial class Player
 			MaxAttackValue = player.MaxAttackValue,
 			MAX_BACKPACK_SLOTS = player.MAX_BACKPACK_SLOTS,
 			DefaultFOV = player.DefaultFov,
-
+			PrestigeLevel = player.PrestigeLevel,
 
 			AmmoCount = player.AmmoContainer.AmmoCount,
 			Vyndalium = (int)player.Vyndalium,
@@ -558,6 +552,7 @@ partial class Player
 		player.INT = save.INT;
 		player.DEX = save.DEX;
 		player.PER = save.PER;
+		player.PrestigeLevel = save.PrestigeLevel;
 
 		
 		player.StrengthCost = save.StrengthCost;

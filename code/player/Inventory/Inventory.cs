@@ -380,6 +380,10 @@ public sealed class Inventory : Component
 
 	public static void UnequipItemStats( ItemComponent item )
 	{
+		if (item == null )
+		{
+			return;
+		}	
 		Player.Local.MinAttackValue -= item.MinAttackValue;
 		Player.Local.MaxAttackValue -= item.MaxAttackValue;
 
@@ -388,14 +392,14 @@ public sealed class Inventory : Component
 
 		//Player.Local.AttackValue -= item.DMG;
 		Player.Local.Armor -= item.Armor;
-		
+		Player.Local.Health = Math.Max(50, Player.Local.Health - item.Health);
 		Player.Local.STG -= item.STG;
 		Player.Local.HE -= item.HE;
 		Player.Local.DEX -= item.DEX;
 		Player.Local.PER -= item.PER;
 		Player.Local.INT -= item.INT;
 		Player.Local.MaxMana -= item.Mana;
-		Player.Local.MaxHealth -= item.Health;
+		Player.Local.MaxHealth = Math.Max(50, Player.Local.MaxHealth - item.Health);
 		Player.Local.CritHitDamage -= item.CritHitDamage;
 		Player.Local.CritHitChance -= item.CritHitChance;
 		Player.Local.AbilityHaste -= item.AbilityHaste;
@@ -423,35 +427,7 @@ public sealed class Inventory : Component
 		Player.Local.ShadowResist -= item.ShadowResistence;
 	}
 	
-	[ConCmd( "reset_attackvalue" )]
-	public static void SetPlayerAttackValuesToZero()
-	{
-		if ( Player.Local != null )
-		{
-			Player.Local.MinAttackValue = 0;
-			Player.Local.MaxAttackValue = 0;
-			Log.Info( "MinAttackValue und MaxAttackValue des Spielers wurden auf 0 gesetzt." );
-		}
-		else
-		{
-			Log.Info( "Spieler nicht gefunden." );
-			
-		}
-	}
-	[ConCmd( "reset_armor" )]
-	public static void SetPlayerArmorValuesToZero()
-	{
-		if ( Player.Local != null )
-		{
-			Player.Local.MinArmorValue = 0;
-			Player.Local.MaxArmorValue = 0;
-			Log.Info( "MinArmorValue und MaxArmorValue des Spielers wurden auf 0 gesetzt." );
-		}
-		else
-		{
-			Log.Info( "Spieler nicht gefunden." );
-		}
-	}
+	
 
 
 
@@ -626,6 +602,16 @@ public sealed class Inventory : Component
 				_storageItems[freeSlot] = item;
 				item.State = ItemState.Storage;
 				item.GameObject.Enabled = false;
+				var skinnedmodelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
+				if ( skinnedmodelRenderer != null )
+				{
+					skinnedmodelRenderer.Enabled = false;
+				}
+				var modelrenderer = item.GameObject.Components.Get<ModelRenderer>();
+				if ( modelrenderer != null )
+				{
+					modelrenderer.Enabled = false;
+				}
 			}
 			else
 			{
@@ -1720,10 +1706,11 @@ public sealed class Inventory : Component
 				if ( weaponContainer != null )
 				{
 					weaponContainer.RemoveWeapon( equipment.GameObject, false );
-					UnequipItemStats( equipment );
+					
 
 				}
 			}
+			UnequipItemStats( equipment );
 		}
 		else
 		{

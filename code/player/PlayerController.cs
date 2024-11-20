@@ -557,34 +557,45 @@ public partial class Player : Component, IHealthComponent
 
 	private void UpdateModelVisibility()
 	{
-		if ( !ModelRenderer.IsValid() )
+		if (!ModelRenderer.IsValid())
 			return;
 
-		if ( IsProxy ) PlyCamera.Enabled = false;
+		if (IsProxy) PlyCamera.Enabled = false;
 
 		UpdateWeaponModelVisibility(); // Neue Methode aufrufen
 
-		var shadowRenderer = ShadowAnimator.Components.Get<SkinnedModelRenderer>( true );
-		var hasViewModel = Weapons.Deployed.IsValid() && Weapons.Deployed.HasViewModel;
-		var clothing = ModelRenderer.Components.GetAll<ClothingComponent>( FindMode.EverythingInSelfAndDescendants );
+		var shadowRenderer = ShadowAnimator.Components.Get<SkinnedModelRenderer>(true);
+		var skinnedModelRenderer = ModelRenderer.Components.Get<SkinnedModelRenderer>(true);
 
-		if ( hasViewModel )
+		var hasViewModel = Weapons.Deployed.IsValid() && Weapons.Deployed.HasViewModel;
+		var clothing = ModelRenderer.Components.GetAll<ClothingComponent>(FindMode.EverythingInSelfAndDescendants);
+
+		if (hasViewModel)
 		{
 			shadowRenderer.Enabled = false;
+			ModelRenderer.Enabled = true;
+
 			ModelRenderer.Enabled = Ragdoll.IsRagdolled;
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
-			foreach ( var c in clothing )
+			foreach (var c in clothing)
 			{
 				c.ModelRenderer.Enabled = Ragdoll.IsRagdolled;
 				c.ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
 			}
+
+			// SkinnedModelRenderer aktivieren
+			if (skinnedModelRenderer != null)
+			{
+				skinnedModelRenderer.Enabled = false;
+			}
+
 			return;
 		}
 
-		ModelRenderer.SetBodyGroup( "head", IsProxy ? 0 : 1 );
+		ModelRenderer.SetBodyGroup("head", IsProxy ? 0 : 1);
 		ModelRenderer.Enabled = true;
 
-		if ( Ragdoll.IsRagdolled )
+		if (Ragdoll.IsRagdolled)
 		{
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
 			shadowRenderer.Enabled = false;
@@ -597,16 +608,16 @@ public partial class Player : Component, IHealthComponent
 			shadowRenderer.Enabled = true;
 		}
 
-		foreach ( var c in clothing )
+		foreach (var c in clothing)
 		{
 			c.ModelRenderer.Enabled = false;
-			if ( c.Category is Clothing.ClothingCategory.Hair or Clothing.ClothingCategory.Facial or Clothing.ClothingCategory.Hat )
+			if (c.Category is Clothing.ClothingCategory.Hair or Clothing.ClothingCategory.Facial or Clothing.ClothingCategory.Hat)
 			{
 				c.ModelRenderer.RenderType = IsProxy ? Sandbox.ModelRenderer.ShadowRenderType.On : Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 			}
 		}
 
-		if ( !PlyCamera.IsValid() || !Eye.IsValid() )
+		if (!PlyCamera.IsValid() || !Eye.IsValid())
 			return;
 
 		var cameraPosition = PlyCamera.WorldPosition;
@@ -614,24 +625,22 @@ public partial class Player : Component, IHealthComponent
 		var fieldOfView = DefaultFov;
 		IEnumerable<SceneObject> sceneObjects = GetSceneObjects(); // Annahme: PlyCamera hat eine Eigenschaft FieldOfView
 
-		foreach ( var obj in sceneObjects ) // Pseudocode: Iteriere über alle Objekte in der Szene
+		foreach (var obj in sceneObjects) // Pseudocode: Iteriere über alle Objekte in der Szene
 		{
 			var directionToObject = (obj.Transform.Position - cameraPosition).Normal;
-			var angleToObject = Vector3Extensions.AngleBetween( cameraDirection, directionToObject );
+			var angleToObject = Vector3Extensions.AngleBetween(cameraDirection, directionToObject);
 
-			if ( angleToObject <= fieldOfView / 2 )
+			if (angleToObject <= fieldOfView / 2)
 			{
 				// Das Objekt ist im Sichtfeld der Kamera
-				obj.SetVisibility( true ); // Pseudocode: Setze die Sichtbarkeit des Objekts
+				obj.SetVisibility(true); // Pseudocode: Setze die Sichtbarkeit des Objekts
 			}
 			else
 			{
 				// Das Objekt ist außerhalb des Sichtfelds der Kamera
-				obj.SetVisibility( false ); // Pseudocode: Setze die Sichtbarkeit des Objekts
+				obj.SetVisibility(false); // Pseudocode: Setze die Sichtbarkeit des Objekts
 			}
 		}
-
-
 	}
 	public IEnumerable<SceneObject> GetSceneObjects()
 	{
@@ -750,8 +759,11 @@ public partial class Player : Component, IHealthComponent
 	private float crouchTimer = 0.0f;
 	protected override void OnUpdate()
 	{
-		if ( IsProxy )
+		UpdateModelVisibility();
+		if (IsProxy)
+		{
 			return;
+		}
 
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
@@ -826,7 +838,7 @@ public partial class Player : Component, IHealthComponent
 		if ( !Scene.IsValid() || !PlyCamera.IsValid() )
 			return;
 
-		UpdateModelVisibility();
+		
 
 
 		if ( !IsProxy )
@@ -881,7 +893,7 @@ public partial class Player : Component, IHealthComponent
 		if ( !IsProxy )
 		{
 			var angles = EyeAngles.Normal;
-			angles += Input.AnalogLook * MouseSensitivity;
+			angles += Input.AnalogLook * 2;
 			angles += Recoil * Time.Delta;
 			angles.pitch = angles.pitch.Clamp( -89f, 89.9f );
 
