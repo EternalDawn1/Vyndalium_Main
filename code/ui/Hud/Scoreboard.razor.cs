@@ -20,9 +20,8 @@ namespace GeneralGame.HUD
         private void PrestigePlayer()
         {
             var player = Player.Local;
-            if ( player != null && player.Level == 105 )
+            if (player != null && player.Level == player.GetMaxLevel())
             {
-                
                 UnequipAllItems();
                 player.PrestigeRankUp();
                 Player.Save();

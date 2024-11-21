@@ -368,101 +368,563 @@
       ]
     },
     {
-      "__guid": "21d1fbb3-3a34-4c14-a78e-7a2760561ad5",
+      "__guid": "597d162c-3504-43b5-a11a-76e9b219251d",
       "Flags": 0,
-      "Name": "randomzombies",
-      "Position": "-517.5653,-2846.732,1263.607",
-      "__Prefab": "prefabs/events/randomzombies.prefab",
+      "Name": "shop",
+      "Position": "-105.28,-1921.644,1201.704",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "__Prefab": "prefabs/interactables/shop.prefab",
       "__PrefabVariables": {}
     },
     {
-      "__guid": "6678bafb-0e0a-4cdd-9d52-03f9b733ee60",
+      "__guid": "4cbbc956-338f-49ad-8aa3-0804741c0c63",
       "Flags": 0,
-      "Name": "Object",
-      "Position": "-315.5814,-2610.845,1324.644",
+      "Name": "base1",
+      "Position": "-247.2619,-1995.658,1197.12",
       "Enabled": true,
+      "NetworkMode": 1,
+      "__Prefab": "prefabs/clothes/clothes/base1.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "213fabb8-349c-43e2-a45e-e39e4fd437ed",
+      "Flags": 0,
+      "Name": "base13",
+      "Position": "-285.9333,-2057.313,1229.12",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "__Prefab": "prefabs/clothes/clothes/base13.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "0cbe4aa2-3bb8-4529-9281-621bb8c13126",
+      "Flags": 0,
+      "Name": "base24",
+      "Position": "-203.8943,-2037.623,1201.12",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "__Prefab": "prefabs/clothes/clothes/base24.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "33537d1e-cd8c-4d1a-935f-41bcbd6d27aa",
+      "Flags": 0,
+      "Name": "base56",
+      "Position": "-325.913,-1985.572,1250.12",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "__Prefab": "prefabs/clothes/clothes/base56.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "ceb32500-237a-4b10-aa56-8e737573df22",
+      "Flags": 0,
+      "Name": "z1",
+      "Position": "-38.49951,-2111.874,1201.12",
+      "Tags": "bad,npc",
+      "Enabled": true,
+      "NetworkMode": 1,
       "Components": [
         {
-          "__type": "NpcSpawnArea",
-          "__guid": "528447d2-b68c-4702-a6bb-5f1cb0c264c4",
-          "hasSpawnedNPCs": false,
-          "DrawProximityRangeGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 999.40015,
-          "NpcPool": [
+          "__type": "Sandbox.NavMeshAgent",
+          "__guid": "283e63d8-d448-41e4-a617-d97b69a9e78b",
+          "Acceleration": 241.19989,
+          "Height": 70.3999,
+          "MaxSpeed": 0,
+          "Radius": 9.499976,
+          "Separation": 1,
+          "UpdatePosition": true,
+          "UpdateRotation": true
+        },
+        {
+          "__type": "GeneralGame.MoveHelper",
+          "__guid": "cc33a20d-7f81-4b15-80c3-847626429ef0",
+          "AccelerationCurve": [
             {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/zombie_new_1_test.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 5
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_new.prefab"
-              },
-              "SpawnChance": 1
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/boss_new_1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/spawners/boss_new.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 100
+              "y": 0.47340426
             }
           ],
-          "PlayerProximityDistance": 1185.6005,
-          "Radius": 5004.606,
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 300
+          "AirAcceleration": 400,
+          "AirFriction": 6.5,
+          "Bounce": 0.5,
+          "EnableUnstuck": false,
+          "Gravity": "0,0,850",
+          "GroundAcceleration": 2065,
+          "GroundAngle": 45,
+          "GroundFriction": 33.7,
+          "IgnoreTags": "",
+          "MaxUnstuckTries": 20,
+          "OnComponentUpdate": {
+            "__version": 8,
+            "__guid": "f7ad5737-3ec3-4a36-ac0d-01ba8863adda",
+            "__changeId": 0,
+            "UserData": {
+              "Title": "On Component Update"
+            },
+            "Variables": [],
+            "Nodes": [
+              {
+                "Id": 0,
+                "Type": "input"
+              },
+              {
+                "Id": 1,
+                "Type": "output"
+              }
+            ],
+            "Links": [
+              {
+                "SrcId": 0,
+                "SrcName": "_signal",
+                "DstId": 1,
+                "DstName": "_signal"
+              }
+            ]
+          },
+          "StepHeight": 27,
+          "StickToGround": true,
+          "StopSpeed": 10,
+          "TraceHeight": 64,
+          "TraceRadius": 12,
+          "TraceType": "Capsule",
+          "UseCollider": true,
+          "UseSceneGravity": true
+        },
+        {
+          "__type": "HealthComponent",
+          "__guid": "7ec3bfab-1da4-470d-ae26-28ff7c560621",
+          "AnimationHelper": {
+            "_type": "component",
+            "component_id": "62897987-0566-4a2c-85f6-d5dc8101e46a",
+            "go": "ceb32500-237a-4b10-aa56-8e737573df22",
+            "component_type": "CitizenAnimationHelper"
+          },
+          "CanRegenerate": false,
+          "DamagedBy": "Bullet",
+          "DropOnDeath": [
+            null
+          ],
+          "Health": 100,
+          "Immortal": false,
+          "MaxHealth": 9,
+          "RegenerationCooldown": 2,
+          "RegenerationTimer": 5,
+          "StunnedBy": "Bullet",
+          "StunWhenDamaged": false
+        },
+        {
+          "__type": "Npc",
+          "__guid": "5768a3a8-273b-4416-8663-61737030f187",
+          "activeStatusEffects": [],
+          "CurrentHoldType": "Punch",
+          "isChibi": false,
+          "prefabPaths": [
+            "prefabs/pickupammo.prefab",
+            "prefabs/potions/potion.prefab",
+            "prefabs/items/wood_log.prefab"
+          ],
+          "AlertOthers": false,
+          "AnimationHelper": {
+            "_type": "component",
+            "component_id": "62897987-0566-4a2c-85f6-d5dc8101e46a",
+            "go": "ceb32500-237a-4b10-aa56-8e737573df22",
+            "component_type": "CitizenAnimationHelper"
+          },
+          "AttackCooldown": 2.9,
+          "AttackRange": 90,
+          "Body": {
+            "_type": "gameobject",
+            "go": "c7a39bac-b482-414a-be67-8e733b619a2f"
+          },
+          "CurrentState": "Idle",
+          "DeathSounds": "sounds/deathsounds/deathsounds.sound",
+          "DetectRange": 368,
+          "EnemyTags": "player",
+          "Eye": {
+            "_type": "gameobject",
+            "go": "7ec6a30a-40e3-4665-a6b8-3ca399b58f0c"
+          },
+          "FaceTowardsVelocity": true,
+          "FireAbilityChance": 0.3,
+          "FireAbilityCooldown": 15,
+          "FireDamage": 10,
+          "FireDamageRadius": 5,
+          "HasFireAbility": false,
+          "HasIceAbility": false,
+          "HasWindAbility": false,
+          "Health": 1000000,
+          "Healthone": {
+            "_type": "component",
+            "component_id": "7ec3bfab-1da4-470d-ae26-28ff7c560621",
+            "go": "ceb32500-237a-4b10-aa56-8e737573df22",
+            "component_type": "HealthComponent"
+          },
+          "HitSounds": "sounds/grunt/gruntingn.sound",
+          "Idle": true,
+          "IsBleeding": false,
+          "Level": 0,
+          "MaxHealth": 1000000,
+          "MaximumIdleCooldown": 6,
+          "MaxRunAnimationSpeed": 150,
+          "MinimumIdleCooldown": 4,
+          "Model": {
+            "_type": "component",
+            "component_id": "bcada9e3-79e1-4722-8224-3b091d1632f7",
+            "go": "c7a39bac-b482-414a-be67-8e733b619a2f",
+            "component_type": "SkinnedModelRenderer"
+          },
+          "MoveHelper": {
+            "_type": "component",
+            "component_id": "cc33a20d-7f81-4b15-80c3-847626429ef0",
+            "go": "ceb32500-237a-4b10-aa56-8e737573df22",
+            "component_type": "MoveHelper"
+          },
+          "MoveSpeed": 0,
+          "Name": "Zombie",
+          "PlayerProximityDistance": 80,
+          "PogMode": false,
+          "Position": "0,0,0",
+          "RunningType": "Smart",
+          "RunSpeed": 0,
+          "ScaleStats": true,
+          "VisionRange": 1056,
+          "WalkingType": "Dumb",
+          "WalkSpeed": 100,
+          "WindAbilityChance": 0.5,
+          "WindAbilityCooldown": 10,
+          "ZombieRagedol": {
+            "_type": "gameobject",
+            "prefab": "prefabs/ragdoll.prefab"
+          }
+        },
+        {
+          "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+          "__guid": "62897987-0566-4a2c-85f6-d5dc8101e46a",
+          "BodyWeight": 1,
+          "EyeSource": {
+            "_type": "gameobject",
+            "go": "7ec6a30a-40e3-4665-a6b8-3ca399b58f0c"
+          },
+          "EyesWeight": 1,
+          "HeadWeight": 1,
+          "LookAtEnabled": false,
+          "Target": {
+            "_type": "component",
+            "component_id": "bcada9e3-79e1-4722-8224-3b091d1632f7",
+            "go": "c7a39bac-b482-414a-be67-8e733b619a2f",
+            "component_type": "SkinnedModelRenderer"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "c7a39bac-b482-414a-be67-8e733b619a2f",
+          "Flags": 0,
+          "Name": "body",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "bcada9e3-79e1-4722-8224-3b091d1632f7",
+              "AnimationGraph": "models/citizen/citizen.vanmgrph",
+              "BodyGroups": 341,
+              "CreateAttachments": false,
+              "CreateBoneObjects": false,
+              "MaterialGroup": "default",
+              "MaterialOverride": "models/citizen/skin/citizen_skin_zombie_02.vmat",
+              "Model": "models/citizen/citizen.vmdl",
+              "Morphs": {},
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Sequence": {
+                "Name": null
+              },
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            },
+            {
+              "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+              "__guid": "721d5fc0-1992-4558-b65e-d43c15b5891f",
+              "BodyWeight": 1,
+              "EyesWeight": 1,
+              "HeadWeight": 1,
+              "Height": 1.04,
+              "LookAtEnabled": false,
+              "Target": {
+                "_type": "component",
+                "component_id": "bcada9e3-79e1-4722-8224-3b091d1632f7",
+                "go": "c7a39bac-b482-414a-be67-8e733b619a2f",
+                "component_type": "SkinnedModelRenderer"
+              }
+            },
+            {
+              "__type": "Sandbox.CapsuleCollider",
+              "__guid": "fed0d69e-b3c4-49d3-8fbb-54111a71a369",
+              "End": "0,0,61.49999",
+              "IsTrigger": false,
+              "Radius": 12.999999,
+              "Start": "0,0,-2.8",
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
+            }
+          ]
+        },
+        {
+          "__guid": "7ec6a30a-40e3-4665-a6b8-3ca399b58f0c",
+          "Flags": 0,
+          "Name": "eye",
+          "Position": "0,0,64",
+          "Enabled": true,
+          "NetworkMode": 1
+        },
+        {
+          "__guid": "a4fd3540-9b07-4d19-87c0-18ddb05a81fc",
+          "Flags": 0,
+          "Name": "Screen",
+          "Position": "-1.109375,0.3213882,96.99765",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "GeneralGame.HUD.UI",
+              "__guid": "9b3644c5-7ba2-43f3-bea2-3da75e4d9017",
+              "npc": {
+                "_type": "component",
+                "component_id": "5768a3a8-273b-4416-8663-61737030f187",
+                "go": "ceb32500-237a-4b10-aa56-8e737573df22",
+                "component_type": "Npc"
+              }
+            },
+            {
+              "__type": "Sandbox.WorldPanel",
+              "__guid": "0009945b-1afe-41ad-8a20-193cf31d4da6",
+              "HorizontalAlign": "Center",
+              "InteractionRange": 1000,
+              "LookAtCamera": false,
+              "PanelSize": "2000,1000",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderScale": 2.3,
+              "VerticalAlign": "Center"
+            }
+          ]
         }
       ]
     },
     {
-      "__guid": "f7819f6f-12e1-4643-b538-e49d8e4051ad",
+      "__guid": "f09f51a2-a6c7-4d04-ba97-66e731ad755b",
       "Flags": 0,
-      "Name": "Object",
-      "Position": "45.78436,-2276.138,1235.252",
+      "Name": "m4a1-sss",
+      "Position": "-421.8031,-2094.006,1280",
       "Enabled": true,
       "Components": [
         {
-          "__type": "ItemSpawnArea",
-          "__guid": "b7b1581b-68c4-4be4-b8a0-4eeb9ddb044a",
-          "__enabled": false,
-          "Height": 183.30011,
-          "ItemPool": [
-            {
-              "Item": {
-                "_type": "gameobject",
-                "prefab": "prefabs/spawners/boss_new.prefab"
-              },
-              "AmountToSpawn": 17,
-              "StartFrozen": true,
-              "SpawnChance": 1
-            }
-          ],
-          "Radius": 356.90076
+          "__type": "GeneralGame.BaseGun",
+          "__guid": "400b84ea-e1d2-4ff2-81df-d2caf4edbfb6",
+          "AimPos": "-1,5.72,1.5",
+          "AimRotation": "0,0,0,0",
+          "AimRotationOffset": "0,0,0,0",
+          "AmmoType": "Rifle",
+          "ClipSize": 31,
+          "CurRot": "0,0,0,0",
+          "Damage": 20,
+          "DamageForce": 50,
+          "DamageType": "Bullet",
+          "DefaultAmmo": 360,
+          "DeploySound": "sounds/weapons/weapon_deploy1.sound",
+          "DeployTime": 0.5,
+          "DisplayName": "M4A1",
+          "EmptyClipSound": "sounds/weapons/empty_assaultrifles.sound",
+          "EmptyReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
+          "EmptyReloadTime": 3,
+          "FireRate": 9,
+          "FireSound": "sounds/m4a1/m4_shot.sound",
+          "HitForce": 300,
+          "HoldType": "Rifle",
+          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+          "IdlePos": "-3,0,0",
+          "ImpactEffect": "particles/impact.generic.vpcf",
+          "IsAuto": true,
+          "IsDeployed": false,
+          "IsMagicWeapon": false,
+          "IsMelee": false,
+          "MeleeCooldown": 1,
+          "MeleeDamage": 10,
+          "MeleeRange": 1.5,
+          "Recoil": "-5,0,0",
+          "ReloadSoundSequence": "models/aksu/aksu_reload.sndseq",
+          "ReloadTime": 3,
+          "RunRotation": "-0.01741984,-0.001065443,0.06103924,0.9979828",
+          "Spread": 0.01,
+          "Type": "Ranged",
+          "ViewModelPrefab": {
+            "_type": "gameobject",
+            "prefab": "models/m4a1/viewmodel_variants/sss.prefab"
+          }
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "ae7bb55d-c26b-4b7d-9f70-b0eff0de2aaa",
+          "IsTrigger": false,
+          "Model": "models/aksu/w/ak74u_modern_ak74u_mag_ref.vmdl",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "7d6aec96-5c23-4b07-ae27-37d8c016266e",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "8d5a2707-6a7a-4173-ad0a-73b8a584f8bf",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "Aspect": "None",
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 1,
+            "IsValid": true,
+            "ForwardRay": {
+              "Forward": "1,0,0"
+            },
+            "Scale": "1,1,1",
+            "Rotation": "0,0,0,1"
+          },
+          "AttackPower": 0,
+          "AttackSpeed": 0,
+          "BleedResistance": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "M4A1",
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "EnableHolding": false,
+          "Evasion": 0,
+          "FireResistence": 0,
+          "HE": 0,
+          "Health": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Rifle",
+          "HolyResistence": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
+            "MaterialGroup": "",
+            "Colour": "1,1,1,1",
+            "Position": "7.65,4.95,1.35",
+            "Rotation": "0.5,-0.5,0.5,0.5",
+            "Guid": "ba31732d-1531-487d-bad5-0153806f4077"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackable": false,
+          "IsBackpack": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "IsMaterial": false,
+          "IsMelee": false,
+          "IsPotion": false,
+          "IsWeapon": true,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightningResistence": 0,
+          "MagicDefense": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "M4A1",
+          "PER": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "SellPrice": -1,
+          "ShadowResistence": 0,
+          "Slot": "Hand",
+          "SlowResistence": 0,
+          "STG": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "SSS",
+          "UpdatePosition": false,
+          "UseSkinTint": false,
+          "WeightInGrams": 0
+        },
+        {
+          "__type": "GeneralGame.Interactable",
+          "__guid": "6404d529-1a7e-471d-9b03-c0296c9a536f"
+        },
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "273d9f1f-1f6b-430f-bd4e-ed96abac7d18",
+          "AnimationGraph": "models/weapons/sbox_assault_m4a1/v_m4a1.vanmgrph",
+          "BodyGroups": 171,
+          "CreateAttachments": false,
+          "CreateBoneObjects": false,
+          "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
+          "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Sequence": {
+            "Name": null
+          },
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
         }
       ]
     }
@@ -495,7 +957,10 @@
   "ResourceVersion": 2,
   "Title": "minimal",
   "Description": null,
-  "__references": [],
+  "__references": [
+    "facepunch.v_m4a1#68031",
+    "facepunch.w_m4a1#60166"
+  ],
   "HasUnsavedChanges": false,
   "__version": 2
 }

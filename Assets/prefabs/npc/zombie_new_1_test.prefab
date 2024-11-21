@@ -11,9 +11,9 @@
         "__type": "Sandbox.NavMeshAgent",
         "__guid": "4514d00b-47ba-4c53-8600-0767c1747be3",
         "Acceleration": 241.19989,
-        "Height": 70.3999,
-        "MaxSpeed": 100,
-        "Radius": 9.499976,
+        "Height": 38.299957,
+        "MaxSpeed": 220,
+        "Radius": 6.2999725,
         "Separation": 1,
         "UpdatePosition": true,
         "UpdateRotation": true
@@ -250,7 +250,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 8,
+              "Id": 14,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -262,13 +262,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 9,
+              "Id": 15,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 11,
+              "Id": 16,
               "Value": "Bullet",
               "DstId": 3,
               "DstName": "type"
@@ -302,7 +302,7 @@
         "OnDetect": {
           "__version": 8,
           "__guid": "b7305196-0191-493f-b31e-dc7f6d54e41f",
-          "__changeId": 20,
+          "__changeId": 22,
           "UserData": {
             "Title": "On Detect",
             "ReferencedComponentTypes": []
@@ -315,50 +315,9 @@
               "UserData": {
                 "Position": "-60,0"
               }
-            },
-            {
-              "Id": 1,
-              "Type": "Npc.startfollowing",
-              "UserData": {
-                "Position": "216,0"
-              }
-            },
-            {
-              "Id": 5,
-              "Type": "scene.ref",
-              "UserData": {
-                "Position": "-48,72"
-              }
             }
           ],
-          "Links": [
-            {
-              "SrcId": 5,
-              "SrcName": "_result",
-              "DstId": 1,
-              "DstName": "Npc"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 1,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "enemy",
-              "DstId": 1,
-              "DstName": "target"
-            }
-          ],
-          "Defaults": {
-            "$5.component": {
-              "_type": "component",
-              "component_id": "7ddc556a-265f-48eb-abe7-5c7aee867fc3",
-              "go": "ad9e3962-6279-4f25-969b-6399d2793673",
-              "component_type": "Npc"
-            }
-          }
+          "Links": []
         },
         "OnKilled": {
           "__version": 8,
@@ -411,7 +370,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 14,
+              "Id": 16,
               "Value": 10,
               "DstId": 4,
               "DstName": "amount"
@@ -464,6 +423,7 @@
         "__guid": "6f67b670-1030-4c8f-bdaf-01e1aadd8a58",
         "Flags": 0,
         "Name": "body",
+        "Scale": "0.5,0.5,0.5",
         "Enabled": true,
         "NetworkMode": 1,
         "Components": [
@@ -537,7 +497,7 @@
         "__guid": "68b7ce90-4cb2-40cd-a362-9255a74c80d2",
         "Flags": 0,
         "Name": "Screen",
-        "Position": "-1.109375,0.3213882,96.99765",
+        "Position": "-1.109375,0.3213882,66.14152",
         "Enabled": true,
         "NetworkMode": 1,
         "Components": [

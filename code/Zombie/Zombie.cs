@@ -60,11 +60,10 @@ public partial class Npc : Component, IHealthComponent
 	private readonly List<string> prefabPaths = new List<string>
 	{
 		"prefabs/pickupammo.prefab", // 50% Wahrscheinlichkeit
-        "prefabs/potions/potion.prefab", // 25% Wahrscheinlichkeit
-       
-		"prefabs/entitys/chestsystem/5.prefab" // 25% Wahrscheinlichkeit
-    };
-
+		"prefabs/potions/potion.prefab", // 25% Wahrscheinlichkeit
+		"prefabs/potions/potion.prefab", // 25% Wahrscheinlichkeit
+		"prefabs/entitys/chestsystem/5.prefab" // 5% Wahrscheinlichkeit
+	};
 	private readonly List<float> probabilities = new List<float>
 	{
 		0.5f, // 50% Wahrscheinlichkeit für Munition
@@ -322,6 +321,8 @@ public partial class Npc : Component, IHealthComponent
 	public static Random random = new Random();
 	public Rotation Rotation { get; set; }
 	public GameObject Hitprefab { get; set; }
+
+	public int Armor { get; set; } = 25;
 
 	[Property] public Vector3 Position { get; set; }
 
@@ -1240,7 +1241,16 @@ public partial class Npc : Component, IHealthComponent
 	{
 		if ( LifeState == LifeState.Dead )
 			return;
-
+			
+		if (Armor > 0)
+		{
+			amount *= 0.75f; // Reduzieren Sie den Schaden um 25%
+			Armor -= (int)amount; // Verringern Sie die Armor um den reduzierten Schaden
+			if (Armor < 0)
+			{
+				Armor = 0; // Stellen Sie sicher, dass Armor nicht negativ wird
+			}
+		}
 
 		if ( type == DamageType.Bullet || type == DamageType.Serious )
 		{

@@ -1098,16 +1098,18 @@ public class  BaseGun : WeaponComponent, IUse
 		{
 		
 			Random random = new Random();
-			float playerAttackValue = random.Next( (int)shooter.MinAttackValue, (int)shooter.MaxAttackValue + 60 );
+
+			float playerAttackValue = random.Next( (int)shooter.MinAttackValue, (int)shooter.MaxAttackValue + 10 );
 			var playerAttackPower = shooter.AttackPower;
+
 			var playerCritChance = shooter.CritHitChance;
 			var playerCritDamage = shooter.CritHitDamage;
+			var armorPenetration = shooter.ArmorPenetration;
+
+			damage += (int)(damage * (playerAttackValue / 15.0f));
 			
 
-			damage += (int)(damage * (playerAttackValue / 75.0f));
-			
-
-			int calculatedDamage = (int)(damage * (playerAttackPower / 50.0f));
+			int calculatedDamage = (int)(damage * (playerAttackPower / 10.0f));
 			damage += random.Next( 0, calculatedDamage + 1 );
 
 			int critRoll = random.Next( 0, 101 );
@@ -1123,7 +1125,13 @@ public class  BaseGun : WeaponComponent, IUse
 					isCriticalHit = false;
 				}
 			}
-		
+			if (damageable is Npc npc)
+			{
+				var zombieArmor = npc.Armor; // Angenommen, das Ziel hat eine Rüstungseigenschaft
+				var effectiveArmor = Math.Max(0, zombieArmor - armorPenetration);
+				damage = (int)(damage * (100f / (100f + effectiveArmor)));
+			}
+
 			damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
 
 

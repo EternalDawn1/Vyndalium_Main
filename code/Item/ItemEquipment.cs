@@ -61,40 +61,45 @@ public class ItemEquipment : ItemComponent
     public bool IsClothing => Slot != EquipSlot.Hand;
     public bool Equipped => State == ItemState.Equipped;
 
-   
+
 
     public void UpdateEquipped()
     {
         if (Equipped)
+        {
             ToggleRenderer(Equipped);
 
-        // Use skin color as tint.
-        
+            // Use skin color as tint.
             
 
-        // Bonemerge
-        if (Renderer is SkinnedModelRenderer skinned && !UpdatePosition)
-        {
-            skinned.BoneMergeTarget = Equipped
-                ? GameObject.Parent?.Components.Get<SkinnedModelRenderer>(FindMode.EverythingInChildren)
-                : null;
+            // Bonemerge
+            if (Renderer is SkinnedModelRenderer skinned && !UpdatePosition)
+            {
+                skinned.BoneMergeTarget = Equipped
+                    ? GameObject.Parent?.Components.Get<SkinnedModelRenderer>(FindMode.EverythingInChildren)
+                    : null;
+            }
+
+            // Toggle colliders and rigidbodies, update parcel
+            if (!IsClothing)
+            {
+                var body = GameObject?.Components.GetAll<Rigidbody>(FindMode.EverythingInSelfAndChildren).FirstOrDefault(x => x != parcelBody);
+                if (body != null) body.Enabled = !Equipped;
+
+                var collider = GameObject?.Components.GetAll<Collider>(FindMode.EverythingInSelfAndChildren).FirstOrDefault(x => x != parcelCollider);
+                if (collider != null) collider.Enabled = !Equipped;
+            }
+            else if (State != ItemState.Backpack)
+            {
+                UpdateParcel(State == ItemState.None);
+            }
         }
-
-        // Toggle colliders and rigidbodies, update parcel
-        if (!IsClothing)
+        else
         {
-            var body = GameObject?.Components.GetAll<Rigidbody>(FindMode.EverythingInSelfAndChildren).FirstOrDefault(x => x != parcelBody);
-            if (body != null) body.Enabled = !Equipped;
-
-            var collider = GameObject?.Components.GetAll<Collider>(FindMode.EverythingInSelfAndChildren).FirstOrDefault(x => x != parcelCollider);
-            if (collider != null) collider.Enabled = !Equipped;
+            GameObject.Enabled = false;
         }
-
-        
-
-        else if (State != ItemState.Backpack)
-            UpdateParcel(State == ItemState.None);
     }
+
     private void ToggleRenderer(bool value)
     {
         Renderer ??= Components.GetAll<ModelRenderer>(FindMode.InSelf).FirstOrDefault(x => x != parcelRenderer);

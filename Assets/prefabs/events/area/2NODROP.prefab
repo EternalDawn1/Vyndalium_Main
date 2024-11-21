@@ -1,0 +1,104 @@
+{
+  "RootObject": {
+    "__guid": "3de199a9-4647-4ab4-b63c-c9dc95da5615",
+    "Flags": 0,
+    "Name": "2nodrop",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "NpcSpawnArea",
+        "__guid": "35051e5b-fa8e-4798-9f94-eee66b6d12b9",
+        "allSubNpcsKilled": false,
+        "hasSpawnedBoss": false,
+        "hasSpawnedNPCs": false,
+        "BossNpcPool": [],
+        "BossSpawnDelay": 10,
+        "DestroyAfterSpawning": true,
+        "DrawProximityRangeGizmo": true,
+        "DrawSpawnAreaGizmo": true,
+        "FillGizmo": false,
+        "GizmoColor": "1,0.83333,0,1",
+        "GizmoShape": "Box",
+        "Height": 434.39984,
+        "LoopSpawning": false,
+        "NpcPool": [
+          {
+            "Npc": {
+              "_type": "gameobject",
+              "prefab": "prefabs/npc/npc2.prefab"
+            },
+            "SpawnChance": 1,
+            "SpawnCount": 2,
+            "EnableSubNpcPool": true,
+            "SubNpcPool": [
+              {
+                "Npc": {
+                  "_type": "gameobject",
+                  "prefab": "prefabs/npc/npc2small.prefab"
+                },
+                "SpawnChance": 0.4,
+                "SpawnCount": 4,
+                "SubNpcSpawnDelayPerNpc": 1,
+                "MinLevel": 5,
+                "MaxLevel": 10
+              }
+            ],
+            "SubNpcSpawnDelay": 2,
+            "MinLevel": 5,
+            "MaxLevel": 10
+          },
+          {
+            "Npc": {
+              "_type": "gameobject",
+              "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+            },
+            "SpawnChance": 0.5,
+            "SpawnCount": 2,
+            "SubNpcPool": [],
+            "SubNpcSpawnDelay": 5,
+            "MinLevel": 1,
+            "MaxLevel": 1
+          }
+        ],
+        "PlayerProximityDistance": 575.00104,
+        "Radius": 321.6062,
+        "SpawnAreaGizmoColor": "0,0,1,1",
+        "StopDrawingDistance": 8000,
+        "StopLogicDistance": 200
+      }
+    ],
+    "Children": [],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "ResourceVersion": 1,
+  "__references": [],
+  "HasUnsavedChanges": false,
+  "__version": 1
+}

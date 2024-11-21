@@ -1,0 +1,94 @@
+{
+  "RootObject": {
+    "__guid": "6678bafb-0e0a-4cdd-9d52-03f9b733ee60",
+    "Flags": 0,
+    "Name": "Object",
+    "Position": "-315.5814,-2610.845,1324.644",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "NpcSpawnArea",
+        "__guid": "528447d2-b68c-4702-a6bb-5f1cb0c264c4",
+        "allSubNpcsKilled": false,
+        "hasSpawnedBoss": false,
+        "hasSpawnedNPCs": false,
+        "BossNpcPool": [],
+        "BossSpawnDelay": 10,
+        "DestroyAfterSpawning": true,
+        "DrawProximityRangeGizmo": true,
+        "DrawSpawnAreaGizmo": true,
+        "FillGizmo": false,
+        "GizmoColor": "1,0.83333,0,1",
+        "GizmoShape": "Box",
+        "Height": 677.1001,
+        "LoopSpawning": false,
+        "NpcPool": [
+          {
+            "Npc": {
+              "_type": "gameobject",
+              "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+            },
+            "SpawnChance": 1,
+            "SpawnCount": 1,
+            "EnableSubNpcPool": true,
+            "SubNpcPool": [
+              {
+                "Npc": {
+                  "_type": "gameobject",
+                  "prefab": "prefabs/npc/boss_new_1.prefab"
+                },
+                "SpawnChance": 1,
+                "SpawnCount": 1,
+                "FireAbilityChance": 1,
+                "MinLevel": 1,
+                "MaxLevel": 15
+              },
+              {
+                "Npc": {
+                  "_type": "gameobject",
+                  "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                },
+                "SpawnChance": 1,
+                "SpawnCount": 5,
+                "SubNpcSpawnDelayPerNpc": 1,
+                "FireAbilityChance": 1,
+                "MinLevel": 1,
+                "MaxLevel": 15
+              },
+              {
+                "Npc": {
+                  "_type": "gameobject",
+                  "prefab": "prefabs/npc/slime_variants/va4.prefab"
+                },
+                "SpawnChance": 1,
+                "SpawnCount": 5,
+                "SubNpcSpawnDelayPerNpc": 1,
+                "MinLevel": 1,
+                "MaxLevel": 15
+              }
+            ],
+            "SubNpcSpawnDelay": 3,
+            "MinLevel": 1,
+            "MaxLevel": 15,
+            "IceAbilityChance": 0.1,
+            "WindAbilityChance": 0.1,
+            "FireAbilityChance": 1
+          }
+        ],
+        "PlayerProximityDistance": 318.801,
+        "Radius": 288.00577,
+        "SpawnAreaGizmoColor": "0,0,1,1",
+        "StopDrawingDistance": 8000,
+        "StopLogicDistance": 300
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "ResourceVersion": 1,
+  "__references": [],
+  "HasUnsavedChanges": false,
+  "__version": 1
+}

@@ -26,7 +26,7 @@ public class WeaponComponent : Component
 	[Property, Category( "Weapon Properties" )] public float DeployTime { get; set; } = 0.5f;
 	[Property, Category( "Weapon Properties" )] public float DamageForce { get; set; } = 5f;
 	[Property, Category( "Weapon Properties" )] public int Damage { get; set; } = 5;
-	[Property, Category( "Weapon Properties" )] public float FireRate { get; set; } = 3f;
+	[Property, Category( "Weapon Properties" )] public float FireRate { get; set; } = 18f;
 	[Property] public GameObject ViewModelPrefab { get; set; }
 	[Property] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.Pistol;
 	[Property] public SoundEvent DeploySound { get; set; }

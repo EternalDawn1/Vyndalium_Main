@@ -18,11 +18,11 @@ public partial class Player
 		get => _level;
 		set => _level = value.Clamp(0, GetMaxLevel());
 	}
-	[Sync]public int PrestigeLevel { get; set; } = 0;
+	[Sync, Property , Category("Parameters")]public int PrestigeLevel { get; set; } = 0;
 	private int _level;
 	private long _experience;
 	[Property] public SoundEvent LevelUp { get; set; }
-	private int GetMaxLevel()
+	public int GetMaxLevel()
 	{
 		return 105 + (PrestigeLevel * 100);
 	}

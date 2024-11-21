@@ -12,7 +12,7 @@
         "__guid": "5bfadb99-61d2-4408-86af-18558738b7b8",
         "Acceleration": 241.19989,
         "Height": 70.3999,
-        "MaxSpeed": 71.49985,
+        "MaxSpeed": 200,
         "Radius": 9.499976,
         "Separation": 1,
         "UpdatePosition": true,
@@ -105,7 +105,7 @@
         "__type": "Npc",
         "__guid": "343ea719-e2a6-4c36-8add-0d68f031e949",
         "activeStatusEffects": [],
-        "CurrentHoldType": "None",
+        "CurrentHoldType": "Punch",
         "isChibi": false,
         "prefabPaths": [
           "prefabs/pickupammo.prefab",
@@ -153,7 +153,7 @@
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
-        "MaxRunAnimationSpeed": 150,
+        "MaxRunAnimationSpeed": 235.70001,
         "MinimumIdleCooldown": 4,
         "Model": {
           "_type": "component",
@@ -172,7 +172,7 @@
         "OnAttack": {
           "__version": 8,
           "__guid": "af137a52-0cf6-473a-b865-8ff82b470c4e",
-          "__changeId": 0,
+          "__changeId": 1,
           "UserData": {
             "Title": "On Attack",
             "ReferencedComponentTypes": [
@@ -185,7 +185,7 @@
               "Id": 0,
               "Type": "input",
               "UserData": {
-                "Position": "-64,32"
+                "Position": "-60,36"
               }
             },
             {
@@ -195,7 +195,7 @@
                 "T": "package.viwi.new_game_two/HealthComponent"
               },
               "UserData": {
-                "Position": "96,64"
+                "Position": "96,60"
               }
             },
             {
@@ -207,14 +207,14 @@
                 "_isStatic": false
               },
               "UserData": {
-                "Position": "512,64"
+                "Position": "516,60"
               }
             },
             {
               "Id": 5,
               "Type": "scene.ref",
               "UserData": {
-                "Position": "96,256"
+                "Position": "96,252"
               }
             },
             {
@@ -256,7 +256,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 11,
+              "Id": 14,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -268,13 +268,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 12,
+              "Id": 15,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 13,
+              "Id": 16,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -308,7 +308,7 @@
         "OnDetect": {
           "__version": 8,
           "__guid": "8d3c2497-0678-4c8c-b986-1b268ff1b74e",
-          "__changeId": 1,
+          "__changeId": 2,
           "UserData": {
             "Title": "On Detect",
             "ReferencedComponentTypes": []
@@ -328,7 +328,7 @@
         "OnEnemyEscaped": {
           "__version": 8,
           "__guid": "e1eb3753-6b11-46f9-b912-757d64dce89b",
-          "__changeId": 2,
+          "__changeId": 3,
           "UserData": {
             "Title": "On Enemy Escaped",
             "ReferencedComponentTypes": []

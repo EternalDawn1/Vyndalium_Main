@@ -123,7 +123,7 @@
 							<div class="tab-panel">
 								Player Settings Content
 
-								@if (Player.Local.Level == 105 )
+								@if (Player.Local.Level == Player.Local.GetMaxLevel() )
 								{
 									<button class="prestige-button" @onclick="@PrestigePlayer">Prestige</button>
 									

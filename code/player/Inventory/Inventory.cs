@@ -812,6 +812,7 @@ public sealed class Inventory : Component
 			}
 
 
+			item.GameObject.Enabled = false;
 			index = _backpackItems?.IndexOf( item ) ?? -1;
 			return true;
 		}
@@ -870,6 +871,7 @@ public sealed class Inventory : Component
 			GiveEquipmentItem( equipment );
 			equipment.State = ItemState.Equipped;
 			TaskMaster.SubmitTriggerSignal( $"item.equipped.{item.Name}", Player );
+			
 
 			var weaponContainer = Player?.Components?.Get<WeaponContainer>();
 			if ( weaponContainer != null )
@@ -895,10 +897,11 @@ public sealed class Inventory : Component
 				}
 			}
 
-		
 
+			
 			return true;
 		}
+		
 		else
 		{
 			
