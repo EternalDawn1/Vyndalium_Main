@@ -49,6 +49,13 @@
         "Icon": {
           "Model": "models/props/box_new/small.vmdl",
           "MaterialGroup": "",
+          "MaterialOverride": null,
+          "LightBrightness": 0,
+          "LightRadius": 0,
+          "LightColour": "0,0,0,0",
+          "DirectionalLightBrightness": 0,
+          "DirectionalLightRotation": "0,0,0",
+          "DirectionalLightColour": "0,0,0,0",
           "Colour": "1,1,1,1",
           "Position": "-34.05,37.65,37.95",
           "Rotation": "0.7071068,0,0,0.7071068",
@@ -94,29 +101,30 @@
         "Tenacity": 0,
         "Tier": "C",
         "WeightInGrams": 0
-      },
-      {
-        "__type": "Sandbox.Rigidbody",
-        "__guid": "628eab4d-7061-4613-b974-da985be29b6a",
-        "AngularDamping": 0,
-        "Gravity": true,
-        "LinearDamping": 0,
-        "Locking": {
-          "X": true,
-          "Y": true,
-          "Pitch": true,
-          "Yaw": true,
-          "Roll": true
-        },
-        "MassCenterOverride": "0,0,0",
-        "MassOverride": 0,
-        "MotionEnabled": true,
-        "OverrideMassCenter": false,
-        "RigidbodyFlags": "DisableCollisionSounds",
-        "StartAsleep": false
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "e5075820-9493-4193-a48e-b8dfa2d00a2b",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "-19.72218,8.11483,76.93484",
+        "Tags": "light_point,light",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.PointLight",
+            "__guid": "a69eeb11-4ad0-4603-875e-05b6efdf0f7d",
+            "Attenuation": 0.91,
+            "FogMode": "Enabled",
+            "FogStrength": 1,
+            "LightColor": "0.4,1,0,1",
+            "Radius": 400,
+            "Shadows": true
+          }
+        ]
+      }
+    ],
     "__variables": [],
     "__properties": {
       "FixedUpdateFrequency": 50,
@@ -148,6 +156,5 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "HasUnsavedChanges": false,
   "__version": 1
 }
