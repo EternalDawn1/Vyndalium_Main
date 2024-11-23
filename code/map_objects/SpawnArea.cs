@@ -248,7 +248,6 @@ public sealed class NpcSpawnArea : Component
 			return;
 		}
 		
-		
 		if (!hasSpawnedNPCs)
 		{
 			SpawnNPCs();
@@ -264,6 +263,7 @@ public sealed class NpcSpawnArea : Component
 				hasSpawnedBoss = SpawnedNpcs.Count > 0; // Setze auf true, wenn Boss-NPCs erfolgreich gespawnt wurden
 			}
 		}
+		
 	}
 
 	private bool IsPlayerNearby()
@@ -278,7 +278,6 @@ public sealed class NpcSpawnArea : Component
 		}
 		foreach ( var player in players )
 		{
-			Log.Info( $"Player: {player}" );
 			if ( (player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance.Length )
 				return true;
 		}
