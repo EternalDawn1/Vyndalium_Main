@@ -106,8 +106,11 @@ public sealed class NpcSpawnArea : Component
 	}
 
 
-	[Property, Group("Gizmo")]
-	public float PlayerProximityDistance { get; set; } = 1000f;
+	[Property, Group( "Gizmo" )]
+	public Vector3 PlayerProximityDistance { get; set; } = new Vector3( 1000f, 1000f, 1000f );
+
+	[Property, Group( "Gizmo" )]
+	public Vector3 PositionOffset { get; set; } = Vector3.Zero;
 
 	[Property, Group("Gizmo")]
 	public bool DrawProximityRangeGizmo { get; set; }
@@ -142,10 +145,12 @@ public sealed class NpcSpawnArea : Component
 	[Property, Group("SpawnRange")]
 	public bool DrawSpawnAreaGizmo { get; set; }
 
+	
+
 	[Property, Group("SpawnRange")]
 	public Color SpawnAreaGizmoColor { get; set; } = Color.Blue.WithAlpha(0.3f);
 	[Property, Group("SpawnRange")]
-	public float Radius { get; set; }
+	public Vector3 Radius { get; set; } = new Vector3(1000f, 1000f, 1000f);
 
 	[Property, Group("SpawnRange")]
 	public float Height { get; set; }
@@ -177,59 +182,60 @@ public sealed class NpcSpawnArea : Component
 	[Sync]
 	public NetList<GameObject> SpawnedNpcs { get; set; } = new();
 
-	
+
 
 	protected override void DrawGizmos()
 	{
 		base.DrawGizmos();
 		var draw = Gizmo.Draw;
-		if (DrawSpawnAreaGizmo)
+		if ( DrawSpawnAreaGizmo )
 		{
 			Gizmo.Draw.Color = SpawnAreaGizmoColor;
-			switch (GizmoShape)
+			switch ( GizmoShape )
 			{
 				case GizmoType.Sphere:
-					if (FillGizmo)
-						Gizmo.Draw.SolidSphere(Vector3.Zero, Radius);
+					if ( FillGizmo )
+						Gizmo.Draw.SolidSphere( PositionOffset, Radius.x ); // Verwenden Sie die X-Komponente des Radius
 					else
-						Gizmo.Draw.LineSphere(Vector3.Zero, Radius);
+						Gizmo.Draw.LineSphere( PositionOffset, Radius.x ); // Verwenden Sie die X-Komponente des Radius
 					break;
 				case GizmoType.Box:
-					if (FillGizmo)
-						Gizmo.Draw.SolidBox(new BBox(new Vector3(-Radius, -Height / 2, -Radius), new Vector3(Radius, Height / 2, Radius)));
+					if ( FillGizmo )
+						Gizmo.Draw.SolidBox( new BBox( new Vector3( -Radius.x, -Height / 2, -Radius.z ) + PositionOffset, new Vector3( Radius.x, Height / 2, Radius.z ) + PositionOffset ) );
 					else
-						Gizmo.Draw.LineBBox(new BBox(new Vector3(-Radius, -Height / 2, -Radius), new Vector3(Radius, Height / 2, Radius)));
+						Gizmo.Draw.LineBBox( new BBox( new Vector3( -Radius.x, -Height / 2, -Radius.z ) + PositionOffset, new Vector3( Radius.x, Height / 2, Radius.z ) + PositionOffset ) );
 					break;
 				case GizmoType.Cylinder:
-					if (FillGizmo)
-						Gizmo.Draw.SolidCylinder(Vector3.Zero, Vector3.Up * Height, Radius, 15);
+					if ( FillGizmo )
+						Gizmo.Draw.SolidCylinder( PositionOffset, Vector3.Up * Height, Radius.x, 15 ); // Verwenden Sie die X-Komponente des Radius
 					else
-						Gizmo.Draw.LineCylinder(Vector3.Zero, Vector3.Up * Height, Radius, Radius, 15);
+						Gizmo.Draw.LineCylinder( PositionOffset, Vector3.Up * Height, Radius.x, Radius.x, 15 ); // Verwenden Sie die X-Komponente des Radius
 					break;
 			}
 		}
-		if (DrawProximityRangeGizmo)
+
+		if ( DrawProximityRangeGizmo )
 		{
 			Gizmo.Draw.Color = GizmoColor;
-			switch (GizmoShape)
+			switch ( GizmoShape )
 			{
 				case GizmoType.Sphere:
-					if (FillGizmo)
-						Gizmo.Draw.SolidSphere(Vector3.Zero, PlayerProximityDistance);
+					if ( FillGizmo )
+						Gizmo.Draw.SolidSphere( PositionOffset, PlayerProximityDistance.Length ); // Verwenden Sie die Länge des Vektors
 					else
-						Gizmo.Draw.LineSphere(Vector3.Zero, PlayerProximityDistance);
+						Gizmo.Draw.LineSphere( PositionOffset, PlayerProximityDistance.Length ); // Verwenden Sie die Länge des Vektors
 					break;
 				case GizmoType.Box:
-					if (FillGizmo)
-						Gizmo.Draw.SolidBox(new BBox(Vector3.One * -PlayerProximityDistance, Vector3.One * PlayerProximityDistance));
+					if ( FillGizmo )
+						Gizmo.Draw.SolidBox( new BBox( -PlayerProximityDistance + PositionOffset, PlayerProximityDistance + PositionOffset ) );
 					else
-						Gizmo.Draw.LineBBox(new BBox(Vector3.One * -PlayerProximityDistance, Vector3.One * PlayerProximityDistance));
+						Gizmo.Draw.LineBBox( new BBox( -PlayerProximityDistance + PositionOffset, PlayerProximityDistance + PositionOffset ) );
 					break;
 				case GizmoType.Cylinder:
-					if (FillGizmo)
-						Gizmo.Draw.SolidCylinder(Vector3.Zero, Vector3.Up * PlayerProximityDistance, PlayerProximityDistance, 15);
+					if ( FillGizmo )
+						Gizmo.Draw.SolidCylinder( PositionOffset, Vector3.Up * PlayerProximityDistance.z, PlayerProximityDistance.x, 15 ); // Verwenden Sie die X- und Z-Distanzen
 					else
-						Gizmo.Draw.LineCylinder(Vector3.Zero, Vector3.Up * PlayerProximityDistance, PlayerProximityDistance, PlayerProximityDistance, 15);
+						Gizmo.Draw.LineCylinder( PositionOffset, Vector3.Up * PlayerProximityDistance.z, PlayerProximityDistance.x, PlayerProximityDistance.x, 15 ); // Verwenden Sie die X- und Z-Distanzen
 					break;
 			}
 		}
@@ -241,6 +247,7 @@ public sealed class NpcSpawnArea : Component
 		{
 			return;
 		}
+		
 		
 		if (!hasSpawnedNPCs)
 		{
@@ -261,17 +268,18 @@ public sealed class NpcSpawnArea : Component
 
 	private bool IsPlayerNearby()
 	{
-		if (Network.IsProxy || NpcPool == null || NpcPool.Count == 0)
+		if ( Network.IsProxy || NpcPool == null || NpcPool.Count == 0 )
 			return false;
 
 		var players = Scene.GetAllComponents<Player>();
-		if (players == null)
+		if ( players == null )
 		{
 			return false;
 		}
-		foreach (var player in players)
+		foreach ( var player in players )
 		{
-			if ((player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance)
+			Log.Info( $"Player: {player}" );
+			if ( (player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance.Length )
 				return true;
 		}
 		return false;
@@ -355,6 +363,7 @@ public sealed class NpcSpawnArea : Component
 			}
 		}
 	}
+
 
 	private void SpawnBossNPCs()
 	{
@@ -443,24 +452,24 @@ public sealed class NpcSpawnArea : Component
 
 
 
-	private GameObject SpawnNpc(GameObject npcPrefab)
+	private GameObject SpawnNpc( GameObject npcPrefab )
 	{
 		var tries = 0;
-		while (tries <= 20)
+		while ( tries <= 20 )
 		{
-			var randomDirection = Rotation.FromYaw(Game.Random.Float(360f)).Forward;
-			var randomPosition = WorldPosition + randomDirection * Game.Random.Float(Radius);
-			var startPos = randomPosition.WithZ(WorldPosition.z + Height / 2f);
-			var endPos = randomPosition.WithZ(WorldPosition.z - Height / 2f);
-			var groundTrace = Game.ActiveScene.Trace.Ray(startPos, endPos)
-				.Size(5f)
-				.WithoutTags("player", "npc", "trigger")
+			var randomDirection = Rotation.FromYaw( Game.Random.Float( 360f ) ).Forward;
+			var randomPosition = WorldPosition + PositionOffset + randomDirection * Game.Random.Float( Radius.x ); // Verwenden Sie die X-Komponente des Radius
+			var startPos = randomPosition.WithZ( WorldPosition.z + Height / 2f );
+			var endPos = randomPosition.WithZ( WorldPosition.z - Height / 2f );
+			var groundTrace = Game.ActiveScene.Trace.Ray( startPos, endPos )
+				.Size( 5f )
+				.WithoutTags( "player", "npc", "trigger" )
 				.Run();
-			if (groundTrace.Hit && !groundTrace.StartedSolid)
+			if ( groundTrace.Hit && !groundTrace.StartedSolid )
 			{
-				if (Vector3.GetAngle(Vector3.Up, groundTrace.Normal) <= 60f)
+				if ( Vector3.GetAngle( Vector3.Up, groundTrace.Normal ) <= 60f )
 				{
-					var clone = npcPrefab.Clone(groundTrace.HitPosition, Rotation.FromYaw(Game.Random.Float(360f)));
+					var clone = npcPrefab.Clone( groundTrace.HitPosition, Rotation.FromYaw( Game.Random.Float( 360f ) ) );
 					clone.NetworkMode = NetworkMode.Object;
 					clone.NetworkSpawn();
 					return clone;

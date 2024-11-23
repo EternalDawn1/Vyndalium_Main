@@ -44,7 +44,7 @@ ShopPanel {
             color: white;
             border-width: 5px;
             border-color: black;
-            right: 20;
+            right: 100;
             top: 20;
             padding: 5px;
             cursor: pointer;
@@ -70,9 +70,12 @@ ShopPanel {
             font-family: Geneva;
             flex-direction: row;
             padding: 10px;
+            
             .panel-content-text{
                 position: relative;
                     width: 100%;
+                    background-color: rgba(0, 0, 0, 0.795);
+                    border-radius: 10px;
                 
                     .panel-content-layout
                     {
@@ -82,33 +85,75 @@ ShopPanel {
                             border-radius: 10px;
                             border-color: rgba(255, 255, 255, 0.404);
                             border-width: 4px;
-                            padding: 15px;
+                          
                             color: white;
                             font-size: 23px;
-                            margin-left: 5px;
-                            margin-bottom: 5px;
+                            
+                         
                             .title {
                             
-                                    justify-content: center;
-                                    align-items: center;
-                                    background-color: #1996628c;
+                                    
+                                    
+                                    background-color: #19369649;
+                                    box-shadow: 4px 4px 0px #000000;
                                     border-width: 1px;
                                     border-color: #000000;
                                     color: #ffffff;
                                     font-size: 30px;
                                     font-weight: bold;
                                     font-style: italic;
-                            
+                                    text-shadow: 4px 4px 0px #000000;
+
+                             
                             
                                     padding: 10px;
                                     border-radius: 10px;
                                     margin-bottom: 10px;
                             
                                 }
+                            .help
+                            {
+                                position: absolute;
+                                left: 3%;
+                                top: 3%;
+                                width: 3%;
+                                height: 4%;
+                                color: black;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 50%;
+                                background-color: rgb(217, 255, 0);
+                                    box-shadow: 4px 4px 0px #000000;
+                                
+                                :hover 
+                                {
+                                        position: absolute;
+                                        width: 100%;
+                                        height: 100%;
+                                        border-radius: 50%;
+                                        display: flex;
+                                        /* Flexbox verwenden */
+                                        justify-content: center;
+                                        /* Horizontal zentrieren */
+                                        align-items: center;
+                                        /* Vertikal zentrieren */
+                                        background-color: rgb(217, 255, 0);
+                                        box-shadow: 4px 4px 0px #000000;
+                                        transform: scale(1.1);
+                                        color: black;
+                                        text-align: center;
+                                        /* Text zentrieren */
+                                        sound-in: 'hover';
+                                }
+                                &:active:not(.disabled) {
+                                sound-in: 'light_click';
+                                background-color: rgb(250, 134, 39);
+                                }
+                            }
                            
                         .upgrade-section
                         {
-                            top: 0%;
+                                top: 0%;
                                 left: 26%;
                                 padding: 20px;
                                 gap: 10px;
@@ -593,18 +638,19 @@ ShopPanel {
                                         position: relative;
                                         width: 70%;
                                         height: 82.5%;
-                                        background-color: rgba(39, 39, 39, 0.815);
+                                        background-color: rgb(39, 39, 39);
                                         border-radius: 10px;
                                         border-width: 1px;
                                         border-color: #000000;
                                         .title-container{
                                             .title0 {
+
                                             position: relative;
                                             width: 100%;
                                             height: 100%;
                                             justify-content: center;
                                             align-items: center;
-                                            background-color: #1996628c;
+                                            background-color: #0c7a4c8c;
                                             border-width: 1px;
                                             border-color: #000000;
                                             border-width: 1px;
@@ -652,7 +698,7 @@ ShopPanel {
                                             
                                             justify-content: center;
                                             align-items: center;
-                                            background-color: #1996628c;
+                                            background-color: #007c1185;
                                             border-width: 1px;
                                             border-color: #000000;
                                             color: #ffffff;
@@ -668,17 +714,21 @@ ShopPanel {
                                         }
                                         
                                         .title2 {
-                                            position: relative;
-                                            left: 24%;
+                                            position: absolute;
+                                            left: 20%;
+                                            top: 12%;
                                             width: 12%;
                                             height: 5%;
                                             justify-content: center;
                                             align-items: center;
-                                            background-color: #ffffff8c;
+                                            background-color: #fafafa;
+                                            box-shadow: 4px 4px 0px #000000;
                                             border-width: 1px;
                                             border-color: #000000;
-                                            color: #ffffff;
-                                            font-size: 30px;
+                                            color: #15a84d;
+                                            text-shadow: 4px 4px 0px #000000;
+
+                                            font-size: 35px;
                                             font-weight: bold;
                                             font-style: italic;
                         
@@ -700,7 +750,7 @@ ShopPanel {
                                                     height: 100%;
                                                     overflow-x: scroll;
                                                     border-color: #000000;
-                                                    background-color: #00000091;
+                                                    background-color: #0000005e;
                                                     border-width: 1px;
                                             
                                                 }

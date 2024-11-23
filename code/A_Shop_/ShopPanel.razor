@@ -27,19 +27,31 @@
                         <div class="section2">
                             
                             <div class="title">Inventory</div>
+                            <div class="help">?</div>
                             <div class="title2">Sell</div>
-                            <div class="items0">
-                                
-                                
-                                @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
-                                {
-                                    var item = Player.Local.Inventory.BackpackItems[index];
-                                    <InventorySlot Item=@item BackpackSlotIndex=@index />
-                                }
+                                <div class="items0">
+                                    
+                                    
+                                    @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+                                    {
+                                        var item = Player.Local.Inventory.BackpackItems[index];
+                                        <InventorySlot Item=@item BackpackSlotIndex=@index />
+                                    }
+                                </div>
+                            <div class="items2 @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
+
+                            @{
+                                var backpackBagItems = Player.Local.Inventory.BackpackBagItems;
+                             }
+                            @for (var index = 0; index < backpackBagItems.Count; index++)
+                            {
+                                var item = backpackBagItems[index];
+                                <InventorySlot Item=@item BackpackPackSlotIndex=@index />
+                            }
                             </div>
                             <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
                             <div style="align-items: center; margin: 20px 5px;"></div>
-
+                            
                             
                         </div>
                     </div>

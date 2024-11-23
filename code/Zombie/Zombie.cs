@@ -685,73 +685,79 @@ public partial class Npc : Component, IHealthComponent
 		{
 			IHealthComponent damageable = tr.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
 
-			if ( tr.GameObject.Tags.Has( "player" ) || tr.GameObject.Tags.Has( "npc" ) )
+			if (damageable != null && tr.GameObject.Tags.Has( "player" ) || tr.GameObject.Tags.Has( "npc" ) )
 			{
 				// Annahme: tr.GameObject kann in Player umgewandelt werden
 				var player = tr.GameObject.Components.Get<Player>();
 				if ( player != null )
 				{
-					//TryFreezePlayer( durationInSeconds, player );
-					
+					int baseDamage = random2.Next(1, 16);
+
+					// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
+					int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
+					int exponentialDamage = (int)(baseDamage * Math.Pow(1.1, npcLevel));
+
+					// Berücksichtige die Rüstung des Spielers als Prozentsatz
+					int playerDefensePercentage = random.Next((int)player.MinArmorValue / 10, (int)player.MaxArmorValue / 10 + 1);
+					double damageReductionFactor = (100 - playerDefensePercentage) / 100.0;
+
+					// Berechne den endgültigen Schaden unter Berücksichtigung der Rüstung
+					int finalDamage = (int)(exponentialDamage * damageReductionFactor);
+
+					if (player.Block > 0)
+					{
+						double coverReduction = Math.Min(player.Block / 50.0, 0.5); // Maximal 50% Reduktion
+						finalDamage = (int)(finalDamage * (1 - coverReduction));
+					}
+
+
+
+					// Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
+					damageable.TakeDamage(DamageType.Bullet, finalDamage, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id);
+
+					if (HasFireAbility)
+					{
+						// Generiere eine zufällige Brenndauer zwischen 1 und 5 Sekunden
+						int burnDuration = random2.Next(1, 6);
+						ApplyBurn(player, burnDuration);
+					}
+					AnimationHelper.Target.Set("b_attack", true);
+
+					if (Model != null && isChibi)
+					{
+						Model.Set("chibi_attack", true);
+					}
+					if (Model != null && isSlime)
+					{
+						// Erzeuge eine Zufallszahl zwischen 0 und 1
+						Random random2 = new Random();
+						int randomNumber = random2.Next(0, 2); // 0 oder 1
+
+						// Wähle zufällig zwischen den beiden Animationen
+						if (randomNumber == 0)
+						{
+							Model.Set("slime_attack", true);
+						}
+						else
+						{
+							Model.Set("slime_attack_v2", true);
+
+						}
+					}
+
+
+					timeSinceHit = 0;
+
+					Sound.Play(HitSounds, WorldPosition);
+
 				}
 				else
 				{
-					// Fehlerbehandlung, wenn player null ist
+					
 					
 				}
-				// Generiere einen zufälligen Basis-Schaden zwischen 1 und 15
-
-				// Generiere einen zufälligen Basis-Schaden zwischen 1 und 15
-				int baseDamage = random2.Next( 1, 16 );
-
-				// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
-				int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
-				int exponentialDamage = (int)(baseDamage * Math.Pow( 1.1, npcLevel ));
-
-				// Berücksichtige die Rüstung des Spielers als Prozentsatz
-				int playerArmorPercentage = 60; // Angenommen, die Rüstung reduziert den Schaden um 60%
-				double damageReductionFactor = (100 - playerArmorPercentage) / 100.0;
-
-				// Berechne den endgültigen Schaden unter Berücksichtigung der Rüstung
-				int finalDamage = (int)(exponentialDamage * damageReductionFactor);
-
-				// Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
-				damageable.TakeDamage( DamageType.Bullet, finalDamage, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
-
-				if ( HasFireAbility )
-				{
-					// Generiere eine zufällige Brenndauer zwischen 1 und 5 Sekunden
-					int burnDuration = random2.Next( 1, 6 );
-					ApplyBurn( player, burnDuration );
-				}
-				AnimationHelper.Target.Set( "b_attack", true );
-				
-				if ( Model != null && isChibi )
-				{
-					Model.Set( "chibi_attack", true );
-				}
-				if ( Model != null && isSlime )
-				{
-					// Erzeuge eine Zufallszahl zwischen 0 und 1
-					Random random2 = new Random();
-					int randomNumber = random2.Next( 0, 2 ); // 0 oder 1
-
-					// Wähle zufällig zwischen den beiden Animationen
-					if ( randomNumber == 0 )
-					{
-						Model.Set( "slime_attack", true );
-					}
-					else
-					{
-						Model.Set( "slime_attack_v2", true );
-						
-					}
-				}
 				
 				
-				timeSinceHit = 0;
-
-				Sound.Play( HitSounds, WorldPosition );
 			}
 		}
 	}
@@ -1241,7 +1247,7 @@ public partial class Npc : Component, IHealthComponent
 	{
 		if ( LifeState == LifeState.Dead )
 			return;
-			
+
 		if (Armor > 0)
 		{
 			amount *= 0.75f; // Reduzieren Sie den Schaden um 25%
@@ -1440,18 +1446,23 @@ public partial class Npc : Component, IHealthComponent
 
 	public event Action<int> VyndaliumAdded; // Declare the event "VyndaliumAdded"
 
-	public bool GiveVyndalium( int amount )
+	public bool GiveVyndalium(int baseAmount)
 	{
-
-		VyndaliumPoints += amount;
-		VyndaliumPointsChanged?.Invoke( VyndaliumPoints );
-		VyndaliumAdded?.Invoke( amount ); // Benachrichtige alle Abonnenten über die Änderung der Vyndalium-Punkte
+		var player = Player.Local;
+		int bonusVyndalium = (int)(baseAmount * player.BonusVyndalium);
+		int totalVyndalium = baseAmount + bonusVyndalium;
+		VyndaliumPoints += totalVyndalium;
+		VyndaliumPointsChanged?.Invoke(VyndaliumPoints);
+		VyndaliumAdded?.Invoke(totalVyndalium); // Benachrichtige alle Abonnenten über die Änderung der Vyndalium-Punkte
 		return true;
 	}
-	public bool GiveXp( int amount )
+	public bool GiveXp(int baseAmount)
 	{
-		Experience += amount;
-		ExperienceChanged?.Invoke( Experience );
+		var player = Player.Local;
+		int bonusXp = (int)(baseAmount * player.BonusEXPGain);
+		int totalXp = baseAmount + bonusXp;
+		Experience += totalXp;
+		ExperienceChanged?.Invoke(Experience);
 		return true;
 	}
 	public SceneWorld SceneWorld { get; set; }

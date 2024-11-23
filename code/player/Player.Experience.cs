@@ -170,7 +170,7 @@ public partial class Player
 			Evasion = 0;
 			AbilityHaste = 0;
 			PlayerWalkSpeed = 125;
-			PlayerRunSpeed = 150;
+			PlayerRunSpeed = 170;
 			INT = 0;
 			MagicPower = 0;
 			MagicPenetration = 0;

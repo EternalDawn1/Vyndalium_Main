@@ -794,6 +794,7 @@ public sealed class Inventory : Component
 					for ( int i = _backpackBagItems.Count; i < MAX_BACKPACKBAG_SLOTS; i++ )
 					{
 						_backpackBagItems.Add( null );
+						Log.Info( "Added a new slot to the backpack bag." );
 					}
 				}
 				else if ( _backpackBagItems.Count > MAX_BACKPACKBAG_SLOTS )
@@ -803,15 +804,15 @@ public sealed class Inventory : Component
 
 				RestoreBackpackBagItems();
 
-				var modelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
-				if ( modelRenderer != null )
-				{
-					modelRenderer.Enabled = false;
-				}
+				
 				return true;
 			}
 
-
+			var modelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
+			if ( modelRenderer != null )
+			{
+				modelRenderer.Enabled = false;
+			}
 			item.GameObject.Enabled = false;
 			index = _backpackItems?.IndexOf( item ) ?? -1;
 			return true;
@@ -892,6 +893,7 @@ public sealed class Inventory : Component
 					for ( int i = _backpackBagItems.Count; i < MAX_BACKPACKBAG_SLOTS; i++ )
 					{
 						_backpackBagItems.Add( null );
+						Log.Info( "Added a new slot to the backpack bag." );
 					}
 					return true;
 				}
@@ -918,7 +920,7 @@ public sealed class Inventory : Component
 	{
 		if ( item == null )
 		{
-			Log.Error( "Item is null." );
+			
 			return false;
 		}
 
