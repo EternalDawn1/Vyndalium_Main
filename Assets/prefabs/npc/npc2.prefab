@@ -12,7 +12,7 @@
         "__guid": "5bfadb99-61d2-4408-86af-18558738b7b8",
         "Acceleration": 241.19989,
         "Height": 70.3999,
-        "MaxSpeed": 200,
+        "MaxSpeed": 150,
         "Radius": 9.499976,
         "Separation": 1,
         "UpdatePosition": true,
@@ -23,11 +23,18 @@
         "__guid": "e6dffaad-a14e-4ba2-943f-1fd63177671c",
         "AccelerationCurve": [
           {
-            "y": 0.38297874
+            "x": 0,
+            "y": 0.38297874,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
           },
           {
             "x": 0.89285713,
-            "y": 1
+            "y": 1,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
           }
         ],
         "AirAcceleration": 400,
@@ -87,12 +94,7 @@
         },
         "CanRegenerate": false,
         "DamagedBy": "Bullet",
-        "DropOnDeath": [
-          {
-            "_type": "gameobject",
-            "prefab": "prefabs/weapons/pm/glock.prefab"
-          }
-        ],
+        "DropOnDeath": [],
         "Health": 100,
         "Immortal": false,
         "MaxHealth": 9,
@@ -192,7 +194,7 @@
               "Id": 2,
               "Type": "scene.get",
               "Properties": {
-                "T": "package.viwi.new_game_two/HealthComponent"
+                "T": "HealthComponent"
               },
               "UserData": {
                 "Position": "96,60"
@@ -202,9 +204,9 @@
               "Id": 3,
               "Type": "call",
               "Properties": {
-                "_type": "package.viwi.new_game_two/HealthComponent",
+                "_isStatic": false,
                 "_name": "Damage",
-                "_isStatic": false
+                "_type": "HealthComponent"
               },
               "UserData": {
                 "Position": "516,60"
@@ -222,8 +224,8 @@
               "Type": "property",
               "ParentId": 5,
               "Properties": {
-                "_type": "Sandbox.Game/Sandbox.GameObject",
-                "_name": "Transform"
+                "_name": "Transform",
+                "_type": "Sandbox.GameObject"
               }
             },
             {
@@ -231,8 +233,8 @@
               "Type": "property",
               "ParentId": 6,
               "Properties": {
-                "_type": "Sandbox.Game/Sandbox.GameTransform",
-                "_name": "Position"
+                "_name": "Position",
+                "_type": "Sandbox.GameTransform"
               }
             }
           ],
@@ -256,7 +258,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 14,
+              "Id": 11,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -268,13 +270,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 15,
+              "Id": 12,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 16,
+              "Id": 13,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -509,6 +511,5 @@
   "__references": [
     "luke.skeleman#19898"
   ],
-  "HasUnsavedChanges": false,
   "__version": 1
 }

@@ -67,8 +67,8 @@ public partial class Npc : Component, IHealthComponent
 	private readonly List<float> probabilities = new List<float>
 	{
 		0.5f, // 50% Wahrscheinlichkeit für Munition
-        0.25f, // 25% Wahrscheinlichkeit für Tränke
-        0.35f,
+        0.2f, // 25% Wahrscheinlichkeit für Tränke
+        0.2f,
 		0.1f,  // 25% Wahrscheinlichkeit für Holz
     };
 
@@ -1299,6 +1299,7 @@ public partial class Npc : Component, IHealthComponent
 			
 			var zombie = ZombieRagedol.Clone( this.GameObject.WorldPosition, this.GameObject.WorldRotation );
 			zombie.NetworkSpawn();
+			
 			SpawnItemAtPosition( this.GameObject.WorldPosition );
 			
 
@@ -1410,11 +1411,7 @@ public partial class Npc : Component, IHealthComponent
 
 
 
-			var worldPanel = this.GameObject.Components.Get<Sandbox.UI.WorldPanel>();
-			if (worldPanel != null)
-			{
-				worldPanel.Delete();
-			}
+		
 			GameObject.Destroy();
 		  
 			killerPlayer.OnZombieKilled();

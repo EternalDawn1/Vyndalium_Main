@@ -45,6 +45,11 @@
         if (npc != null)
         {
             npc.OnTakeDamage += HandleTakeDamage;
+            if (npc.Health <= 0)
+            {
+                // Entferne das UI
+                this.Destroy();
+            }
         }
     }
     private bool isTakingDamage = false;

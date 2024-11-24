@@ -493,12 +493,24 @@ partial class Player
 
 
 		// Stellen Sie sicher, dass save.AmmoContainerData initialisiert wurde
-		
 
-		player.AmmoContainer.AmmoCount = save.AmmoCount ?? new Dictionary<AmmoType, int>();
-		foreach ( var ammo in save.AmmoCount )
+
+		if ( player.AmmoContainer == null )
 		{
-			player.AmmoContainer.SetAmmoCount( ammo.Key, ammo.Value );
+			player.AmmoContainer = new AmmoContainer();
+		}
+
+		if ( save.AmmoCount != null )
+		{
+			player.AmmoContainer.AmmoCount = save.AmmoCount;
+			foreach ( var ammo in save.AmmoCount )
+			{
+				player.AmmoContainer.SetAmmoCount( ammo.Key, ammo.Value );
+			}
+		}
+		else
+		{
+			player.AmmoContainer.AmmoCount = new Dictionary<AmmoType, int>();
 		}
 		// Setup basic player information.
 		player.MouseSensitivity = save.MouseSensitivity;

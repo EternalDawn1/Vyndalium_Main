@@ -12,7 +12,7 @@
         "__guid": "5bfadb99-61d2-4408-86af-18558738b7b8",
         "Acceleration": 241.19989,
         "Height": 70.3999,
-        "MaxSpeed": 180,
+        "MaxSpeed": 150,
         "Radius": 9.499976,
         "Separation": 1,
         "UpdatePosition": true,
@@ -23,11 +23,18 @@
         "__guid": "e6dffaad-a14e-4ba2-943f-1fd63177671c",
         "AccelerationCurve": [
           {
-            "y": 0.38297874
+            "x": 0,
+            "y": 0.38297874,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
           },
           {
             "x": 0.89285713,
-            "y": 1
+            "y": 1,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
           }
         ],
         "AirAcceleration": 400,
@@ -87,12 +94,7 @@
         },
         "CanRegenerate": false,
         "DamagedBy": "Bullet",
-        "DropOnDeath": [
-          {
-            "_type": "gameobject",
-            "prefab": "prefabs/weapons/pm/glock.prefab"
-          }
-        ],
+        "DropOnDeath": [],
         "Health": 100,
         "Immortal": false,
         "MaxHealth": 9,
@@ -257,7 +259,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 8,
+              "Id": 11,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -269,13 +271,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 9,
+              "Id": 12,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 10,
+              "Id": 13,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -538,6 +540,5 @@
   "__references": [
     "luke.skeleman#19898"
   ],
-  "HasUnsavedChanges": false,
   "__version": 1
 }
