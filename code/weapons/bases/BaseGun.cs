@@ -1452,13 +1452,30 @@ public class  BaseGun : WeaponComponent, IUse
 			}
 		}
 
-		if ( FireSound != null )
+		if (FireSound != null)
 		{
-			Sound.Play( FireSound, startPos );
+			if (EffectRenderer.SceneModel != null)
+			{
+				var transform = EffectRenderer.SceneModel.GetAttachment("muzzle");
+
+				if (transform.HasValue)
+				{
+					// Spiele den FireSound an der Position der Mündung ab
+					Sound.Play(FireSound, transform.Value.Position);
+				}
+				else
+				{
+					Log.Warning("Muzzle attachment not found.");
+				}
+			}
+			else
+			{
+				Log.Warning("EffectRenderer.SceneModel is null.");
+			}
 		}
 		else
 		{
-			Log.Warning( "FireSound is null." );
+			Log.Warning("FireSound is null.");
 		}
 	}
 	public class DamageText : Panel

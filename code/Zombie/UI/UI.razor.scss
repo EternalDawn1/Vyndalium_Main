@@ -2,46 +2,68 @@ UI {
     position: absolute;
     width: 100%;
     height: 100%;
+    border-width: 5px;
+    background-color: rgb(52, 26, 199);
+   
 
     .npc 
     {
         transition: opacity 0.5s ease-in-out;
+        border-width: 5px;
+        width: 100%;
+        height: 100%;
+        position: relative;
         
+        flex-direction: column;
+
         .npc-name {
-        position: absolute;
-        
-        top:80px;
-        left: 180px;
+        position: relative;
+        height: 25%;
+        width: 50%;
+        top: 0px;
+        left: 0px;
+        transform: translate(50%, 0%);
         color: white;
         font-size: 24px;
         font-weight: 600;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-width: 1px;
-        padding: 5px;
+        background-color: rgba(211, 0, 0, 0.5);
+      
         color: rgb(255, 255, 255);
         border-radius: 5px;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        border-width: 5px;
+        
+        
         }
         .ability
         {
         position: absolute;
-        width: 100%;
-        height: 100%;
+        height:25%;
+        width: 50%;
+        top: 0px;
+       
+        background-color: rgba(41, 175, 29, 0.795);
+
+        
         
         .npc-ability 
         {
                
-                position: relative;
+                position:relative;
                 height: 15%;
-                top: 0px;
-                left: 145px;
+                
                 color: rgb(255, 255, 255);
                 font-size: 20px;
                 font-weight: 600;
                 background-color: rgb(0, 4, 255);
                 border-width: 1px;
-                padding: 5px;
+              
                 opacity: 0;
                 border-radius: 5px;
+                
+                
         
                 &.show {
                     opacity: 1;
@@ -55,31 +77,38 @@ UI {
     
 
     .npc-level {
-        position:absolute;
-        height: 17%;
-        width: 15%;
-        left: 40%;
-        top: 18%;
-        color: rgb(255, 255, 255);
-        font-size: 20px;
-        font-weight: 600;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-width: 1px;
-        padding: 5px;
-        border-radius: 5px;
+        position: relative;
+            height: 25%;
+            width: 50%;
+            top: 0px;
+            left: 0px;
+            transform: translate(50%, 0%);
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            background-color: rgba(211, 0, 0, 0.5);
+        
+            color: rgb(255, 255, 255);
+            border-radius: 5px;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            border-width: 5px;
+        
+        
     }
     
 
     .zombie-healthbar-container {
         position: relative;
         width: 100%;
-        height: 15%;
-        top:70%;
-        left: 30%;
-        border: 1px solid rgba(238, 238, 238, 0);
+        height: 25%;
+        top: 0px;
+        transform: translate(25%, 0%);
         z-index: 0;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
+        
         &.show {
             opacity: 1;
         }
@@ -94,7 +123,8 @@ UI {
             background-blend-mode: multiply;
             background-size: 100%;
             padding: 5px;
-            border-radius: 100px;
+            
+            
 
             .inner {
                 flex-grow: 10;
@@ -111,6 +141,7 @@ UI {
                     border-bottom-right-radius: 50px;
                     border-bottom-width: 1px;
                     transition: width 1s ease-out;
+                    
                 }
             }
         }
@@ -128,6 +159,7 @@ UI {
             background-size: 100%;
             padding: 5px;
             border-radius: 100px;
+            border: 1px solid rgba(238, 238, 238, 0);
 
             .inner {
                 flex-grow: 10;
@@ -149,8 +181,7 @@ UI {
 
         >p {
             position: absolute;
-            left: 25px;
-            top: -100%;
+            
             color: rgb(255, 255, 255);
             border-width: 1px;
             font-size: 22px;

@@ -98,7 +98,7 @@ public partial class Npc : Component, IHealthComponent
 						// Spawnen des Items in der Luft
 						gameObject.WorldPosition = position + new Vector3( 0, 0, 25 );
 						gameObject.NetworkSpawn();
-
+		
 						
 					}
 				}

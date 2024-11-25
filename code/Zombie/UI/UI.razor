@@ -39,17 +39,19 @@
 
 @code
 {
-   
+    private bool isEventHandlerAdded = false;
     protected override void OnUpdate()
     {
-        if (npc != null)
+        if (npc != null && !isEventHandlerAdded)
         {
             npc.OnTakeDamage += HandleTakeDamage;
-            if (npc.Health <= 0)
-            {
-                // Entferne das UI
-                this.Destroy();
-            }
+            isEventHandlerAdded = true;
+        }
+
+        if (npc != null && npc.Health <= 0)
+        {
+            // Entferne das UI
+            this.Destroy();
         }
     }
     private bool isTakingDamage = false;
