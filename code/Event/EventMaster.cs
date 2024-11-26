@@ -251,7 +251,6 @@ public class EventMaster : Component
 	{
 		if ( EventMaster.Instance == null )
 		{
-			
 			return;
 		}
 
@@ -272,23 +271,21 @@ public class EventMaster : Component
 			return;
 		}
 
-		// Führen Sie die Interaktion durch
 		var interactionComponent = targetObject.Components.Get<Interaction>();
-		if ( interactionComponent != null )
+		if ( interactionComponent == null )
 		{
-			var playerComp = playerObject.Components.Get<Player>();
-			if ( playerComp != null )
-			{
-				interactionComponent.Action?.Invoke( playerComp, targetObject );
-			}
-			else
-			{
-				Log.Error( $"Player component not found on player object with ID {player}" );
-			}
+			Log.Error( $"InteractionComponent not found on target object with ID {target}" );
+			return;
+		}
+
+		var playerComp = playerObject.Components.Get<Player>();
+		if ( playerComp != null )
+		{
+			interactionComponent.Action?.Invoke( playerComp, targetObject );
 		}
 		else
 		{
-			Log.Error( $"InteractionComponent not found on target object with ID {target}" );
+			Log.Error( $"Player component not found on player object with ID {player}" );
 		}
 
 		var allTriggers = Game.ActiveScene.GetAllComponents<EventInteractionTrigger>();
@@ -314,8 +311,16 @@ public class EventMaster : Component
 		}
 
 		var playerComponent = foundPlayer.Components.Get<Player>();
+		if ( playerComponent != null )
+		{
+			TaskMaster.SubmitTriggerSignal( interaction, playerComponent );
+		}
+		else
+		{
+			Log.Error( $"Player component not found on found player object with ID {player}" );
+		}
 
-		TaskMaster.SubmitTriggerSignal( interaction, playerComponent );
+		
 	}
 
 	[ConCmd( "general_event_enable" )]

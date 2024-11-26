@@ -2,8 +2,7 @@
   "RootObject": {
     "__guid": "ae8c5490-2da2-4ffb-ae5e-9c37c122880d",
     "Flags": 0,
-    "Name": "example 5 (4)",
-    "Position": "-81.10524,637.7753,497.3282",
+    "Name": "bosschest",
     "Scale": "0.4405769,0.4405769,0.4405769",
     "Enabled": true,
     "Components": [
@@ -47,7 +46,21 @@
         "Health": 0,
         "HolyResistence": 0,
         "IceResistence": 0,
-        "Icon": {},
+        "Icon": {
+          "Model": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "LightBrightness": 0,
+          "LightRadius": 0,
+          "LightColour": "0,0,0,0",
+          "DirectionalLightBrightness": 0,
+          "DirectionalLightRotation": "0,0,0",
+          "DirectionalLightColour": "0,0,0,0",
+          "Colour": "0,0,0,0",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,0",
+          "Guid": "00000000-0000-0000-0000-000000000000"
+        },
         "INT": 0,
         "IsAccessory": false,
         "IsArmor": false,
@@ -98,6 +111,7 @@
         "Locking": {
           "X": true,
           "Y": true,
+          "Z": false,
           "Pitch": true,
           "Yaw": true,
           "Roll": true
@@ -109,7 +123,53 @@
         "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
       }
-    ]
+    ],
+    "Children": [
+      {
+        "__guid": "81fbb507-73be-4438-9e3e-7b5e4a17571b",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "0,0,32.64165",
+        "Tags": "light_point,light",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.PointLight",
+            "__guid": "894c8386-60cc-40cf-a9ce-f28c064141b6",
+            "Attenuation": 0.15,
+            "FogMode": "Enabled",
+            "FogStrength": 1,
+            "LightColor": "1,0.9,0,1",
+            "Radius": 400,
+            "Shadows": false
+          }
+        ]
+      }
+    ],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -117,6 +177,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "HasUnsavedChanges": false,
+  "IsValid": true,
   "__version": 1
 }

@@ -7,15 +7,28 @@
     @if (npc != null)
     {
         <div class="npc">
-            <div class="npc-level">Lvl.@npc.Level</div>
+            <div class="npc-level @GetLevelClass(npc.Level)">@npc.Level</div>
             <div class="npc-name">@npc.Name</div>
            
+            <div class="ability" >
+                <div class="npc-ability @(npc.HasFireAbility ? "show" : "")"></div>
+                <div class="npc-ability3 @(npc.HasIceAbility ? "show" : "")"></div>
+                <div class="npc-ability4 @(npc.HasWindAbility ? "show" : "")">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                
+            </div>
+
             <div class="ability">
-                <div class="npc-ability @(npc.HasIceAbility ? "show" : "")">ICE</div>
-                <div class="npc-ability @(npc.HasWindAbility ? "show" : "")" style="background-color: aqua;">WIND</div>
-                <div class="npc-ability @(npc.HasFireAbility ? "show" : "")" style="background-color: orangered;">FIRE</div>
-                <div class="npc-ability @(npc.IsSlowed ? "show" : "")" style="background-color: blue;">SLOWED</div>
-                <div class="npc-ability @(npc.IsBleeding ? "show" : "")" style="background-color: yellow;">Bleeding</div>
+                <div class="npc-ability2 @(npc.IsSlowed ? "show" : "")">
+                    <div class="debuff"></div>
+                </div>
+                <div class="npc-ability2_bleed @(npc.IsBleeding ? "show" : "")">
+                    <div class="debuff"></div>
+                </div>
+               
             </div>
 
             <div class="zombie-healthbar-container @(isTakingDamage ? "show" : "")">
@@ -31,7 +44,7 @@
                     </div>
                 </div>
 
-                <p>@Math.Round(npc.Health) / @Math.Round(npc.MaxHealth)</p>
+                
             </div>
         </div>
     }
@@ -39,6 +52,30 @@
 
 @code
 {
+    private string GetLevelClass(int level)
+    {
+        if (level >= 100) return "level-100";
+        if (level >= 95) return "level-95";
+        if (level >= 90) return "level-90";
+        if (level >= 85) return "level-85";
+        if (level >= 80) return "level-80";
+        if (level >= 75) return "level-75";
+        if (level >= 70) return "level-70";
+        if (level >= 65) return "level-65";
+        if (level >= 60) return "level-60";
+        if (level >= 55) return "level-55";
+        if (level >= 50) return "level-50";
+        if (level >= 45) return "level-45";
+        if (level >= 40) return "level-40";
+        if (level >= 35) return "level-35";
+        if (level >= 30) return "level-30";
+        if (level >= 25) return "level-25";
+        if (level >= 20) return "level-20";
+        if (level >= 15) return "level-15";
+        if (level >= 10) return "level-10";
+        if (level >= 5) return "level-5";
+        return "level-1";
+    }
     private bool isEventHandlerAdded = false;
     protected override void OnUpdate()
     {

@@ -303,7 +303,7 @@ public partial class Npc : Component, IHealthComponent
 
 	[Property] private float PlayerProximityDistance { get; set; } = 80f;
 	public Guid KillerId { get; set; } // Fügen Sie diese Eigenschaft hinzu
-	public bool IsSlowed { get;set; }
+	[Property]public bool IsSlowed { get;set; }
 	[Property] public bool IsBleeding { get; set; } = false;
 	[Property] public bool HasIceAbility { get; set; }
 	[Property] public bool HasWindAbility { get; set; }

@@ -62,6 +62,15 @@ public sealed class NpcSpawnArea : Component
 		[Range(0f, 1f)]
 		public float FireAbilityChance { get; set; } = 0f;
 
+		[Property]
+		[JsonInclude]
+		public bool SequentialSpawn { get; set; } = false;
+
+		[Property]
+		[JsonInclude]
+		[ShowIf("SequentialSpawn", true)]
+		public float SpawnInterval { get; set; } = 1f;
+
 		public NpcChance() { }
 	}
 	public struct SubNpcChance
@@ -101,6 +110,15 @@ public sealed class NpcSpawnArea : Component
 		[Property]
 		[JsonInclude]
 		public int MaxLevel { get; set; } = 100;
+
+		[Property]
+		[JsonInclude]
+		public bool SequentialSpawn { get; set; } = false;
+
+		[Property]
+		[JsonInclude]
+		[ShowIf("SequentialSpawn", true)]
+		public float SpawnInterval { get; set; } = 1f;
 
 		public SubNpcChance() { }
 	}
@@ -284,7 +302,7 @@ public sealed class NpcSpawnArea : Component
 		return false;
 	}
 
-	public void SpawnNPCs()
+	public async void SpawnNPCs()
 	{
 		RemoveNPCs();
 
@@ -355,6 +373,10 @@ public sealed class NpcSpawnArea : Component
 						CreateSpawnParticle(npc.WorldPosition);
 
 						SpawnedNpcs.Add(npc);
+						if (npcChance.SequentialSpawn)
+						{
+							await Task.Delay((int)(npcChance.SpawnInterval * 1000));
+						}
 
 						_ = SpawnSubNpcsWithDelay(npcChance.SubNpcPool, npcChance.SubNpcSpawnDelay);
 					}
@@ -436,7 +458,10 @@ public sealed class NpcSpawnArea : Component
 								npcComponent.HasFireAbility = npcChance.FireAbilityChance >= 1.0 || new Random().NextDouble() <= npcChance.FireAbilityChance;
 							}
 							SpawnedNpcs.Add(npc);
-							await Task.Delay((int)TimeSpan.FromSeconds(npcChance.SubNpcSpawnDelayPerNpc).TotalMilliseconds);
+						}
+						if (npcChance.SequentialSpawn)
+						{
+							await Task.Delay((int)(npcChance.SpawnInterval * 1000));
 						}
 					}
 				}
@@ -448,7 +473,6 @@ public sealed class NpcSpawnArea : Component
 			GameObject.Destroy();
 		}
 	}
-
 
 
 	private GameObject SpawnNpc( GameObject npcPrefab )

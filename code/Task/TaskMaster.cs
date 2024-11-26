@@ -20,22 +20,81 @@ public partial class TaskMaster : Component, Component.INetworkListener
 
 	public bool HasStarted { get; set; } = false;
 
+	/// <summary>
+	/// Get how many tasks the player has triggered so far (From 0 to 1) - Fetching this runs a check so don't overuse it
+	/// </summary>
+	public float TasksTriggered
+	{
+		get
+		{
+			var allTasks = TasksProgression.Tasks;
+			float totalTasks = allTasks.Count();
+			float triggeredTasks = allTasks.Where( x => x.TimesTriggered > 0 ).Count();
 
+			return triggeredTasks / totalTasks;
+		}
+	}
 
+	public static int IndexOf( GeneralTask task )
+		=> _instance.CurrentTasks.IndexOf( task );
 
 	/// <summary>
 	/// Get how many tasks the player has completed so far (From 0 to 1) - Fetching this runs a check so don't overuse it
 	/// </summary>
+	public float TasksCompleted
+	{
+		get
+		{
+			var allTasks = TasksProgression.Tasks;
+			float totalTasks = allTasks.Count();
+			float triggeredTasks = allTasks.Where( x => x.TimesCompleted > 0 ).Count();
 
+			return triggeredTasks / totalTasks;
+		}
+	}
 
+	public class TaskCompletion
+	{
+		[JsonInclude]
+		public string Task { get; set; }
+		[JsonInclude]
+		public int TimesTriggered { get; set; } = 0;
+		[JsonInclude]
+		public int TimesCompleted { get; set; } = 0;
+		[JsonInclude]
+		public bool CurrentlyActive { get; set; } = false;
+		[JsonInclude]
+		public int CurrentSubtaskOrder { get; set; } = 0;
 
+		[JsonInclude]
+		public Dictionary<string, int> Subtasks { get; set; } = new();
+
+		public TaskCompletion( string task, int timesTriggered = 0, int timesCompleted = 0, bool currentlyActive = false, int currentSubtaskOrder = 0 )
+		{
+			Task = task;
+			TimesTriggered = timesTriggered;
+			TimesCompleted = timesCompleted;
+			CurrentlyActive = currentlyActive;
+			CurrentSubtaskOrder = currentSubtaskOrder;
+		}
+	}
+
+	public struct GeneralTasksProgress
+	{
+		[JsonInclude]
+		public List<TaskCompletion> Tasks = new();
+
+		public GeneralTasksProgress() { }
+	}
+
+	public GeneralTasksProgress TasksProgression { get; private set; } = new();
 
 	protected override void OnStart()
 	{
 		_instance = this;
 
 		if ( Connection.Local.IsHost )
-			
+			LoadTasksProgression();
 
 		DelayStart();
 	}
@@ -56,8 +115,207 @@ public partial class TaskMaster : Component, Component.INetworkListener
 		}
 	}
 
-	
+	public void AddTaskProgression( string taskPath, int timesTriggered = 0, int timesCompleted = 0 )
+	{
+		var newTaskCompletion = new TaskCompletion( taskPath, timesTriggered, timesCompleted );
 
+		TasksProgression.Tasks.Add( newTaskCompletion );
+	}
+
+	/// <summary>
+	/// Get the current stats on that task
+	/// </summary>
+	/// <param name="task"></param>
+	/// <returns></returns>
+	public TaskCompletion GetTaskProgression( GeneralTask task )
+	{
+		var taskPath = task.ResourcePath;
+		var taskCompletionExists = TasksProgression.Tasks.Any( x => x.Task == taskPath );
+
+		if ( taskCompletionExists )
+		{
+			var foundTaskCompletion = TasksProgression.Tasks.Where( x => x.Task == taskPath ).First();
+			foundTaskCompletion.TimesTriggered++;
+
+			return foundTaskCompletion;
+		}
+		else
+		{
+			var newTaskCompletion = new TaskCompletion( taskPath, 0, 0 );
+			TasksProgression.Tasks.Add( newTaskCompletion );
+
+			return newTaskCompletion;
+		}
+	}
+
+	/// <summary>
+	/// Update the tasks progression
+	/// </summary>
+	public void UpdateTaskProgression( GeneralTask task )
+	{
+		var taskPath = task.ResourcePath;
+		var taskCompletionExists = TasksProgression.Tasks.Any( x => x.Task == taskPath );
+
+		if ( taskCompletionExists )
+		{
+			var foundTaskCompletion = TasksProgression.Tasks.Where( x => x.Task == taskPath ).First();
+
+			foreach ( var activeTask in CurrentTasks )
+			{
+				if ( activeTask.ResourcePath == taskPath && !task.Completed )
+				{
+					foundTaskCompletion.CurrentlyActive = true;
+					foundTaskCompletion.CurrentSubtaskOrder = task.CurrentSubtaskOrder;
+					foreach ( var subtask in task.Subtasks )
+					{
+						if ( foundTaskCompletion.Subtasks.ContainsKey( subtask.Description ) )
+							foundTaskCompletion.Subtasks[subtask.Description] = subtask.CurrentAmount;
+						else
+							foundTaskCompletion.Subtasks.Add( subtask.Description, subtask.CurrentAmount );
+					}
+				}
+			}
+
+		}
+		else
+		{
+			AddTaskProgression( taskPath );
+		}
+	}
+
+	/// <summary>
+	/// Increase that task's total triggered amount
+	/// </summary>
+	/// <param name="task"></param>
+	public void TaskTriggered( GeneralTask task )
+	{
+		var taskPath = task.ResourcePath;
+		var taskCompletionExists = TasksProgression.Tasks.Any( x => x.Task == taskPath );
+
+		if ( taskCompletionExists )
+		{
+			var foundTaskCompletion = TasksProgression.Tasks.Where( x => x.Task == taskPath ).First();
+			foundTaskCompletion.TimesTriggered++;
+		}
+		else
+		{
+			AddTaskProgression( taskPath, 1, 0 );
+		}
+	}
+
+	/// <summary>
+	/// Increase that task's total completed amount
+	/// </summary>
+	/// <param name="task"></param>
+	public void TaskCompleted( GeneralTask task )
+	{
+		var taskPath = task.ResourcePath;
+		var taskCompletionExists = TasksProgression.Tasks.Any( x => x.Task == taskPath );
+
+		if ( taskCompletionExists )
+		{
+			var foundTaskCompletion = TasksProgression.Tasks.Where( x => x.Task == taskPath ).First();
+			foundTaskCompletion.TimesCompleted++;
+		}
+		else
+		{
+			AddTaskProgression( taskPath, 0, 1 );
+		}
+	}
+
+	public async void LoadTasksProgression()
+	{
+		await Task.Delay( 500 );
+
+		if ( FileSystem.OrganizationData.FileExists( "tasks.json" ) )
+		{
+			TasksProgression = FileSystem.OrganizationData.ReadJsonOrDefault<GeneralTasksProgress>( "tasks.json" );
+
+			var activeTasks = TasksProgression.Tasks.Where( x => x.CurrentlyActive );
+
+			foreach ( var activeTask in activeTasks )
+			{
+				var assignedTask = AssignNewTask( activeTask.Task );
+				assignedTask.Started = !assignedTask.RunOnStartEverySession;
+				assignedTask.CurrentSubtaskOrder = activeTask.CurrentSubtaskOrder;
+
+				foreach ( var subtask in assignedTask.Subtasks )
+				{
+					var relativeSubtask = activeTask.Subtasks[subtask.Description];
+					subtask.CurrentAmount = relativeSubtask;
+
+					if ( subtask.CurrentAmount >= subtask.AmountToComplete )
+						subtask.Completed = true;
+				}
+			}
+		}
+		else
+		{
+			TasksProgression.Tasks?.Clear();
+
+			var allTasks = ResourceLibrary.GetAll<GeneralTask>();
+
+			foreach ( var task in allTasks )
+				AddTaskProgression( task.ResourcePath );
+
+			SaveTasksProgression();
+		}
+	}
+
+	/// <summary>
+	/// Save the tasks current triggered and completion progress/amount
+	/// </summary>
+	public void SaveTasksProgression( bool print = true )
+	{
+		if ( !Connection.Local.IsHost )
+			return;
+
+		var allTasks = ResourceLibrary.GetAll<GeneralTask>();
+
+		// If future updates contain new tasks or we're live adding newer ones, save those to the file too
+		foreach ( var task in allTasks )
+			if ( !TasksProgression.Tasks.Any( x => x.Task == task.ResourcePath ) )
+				AddTaskProgression( task.ResourcePath );
+
+		foreach ( var task in CurrentTasks )
+		{
+			if ( task.PersistThroughSessions )
+				UpdateTaskProgression( task );
+		}
+
+		if ( print )
+			Log.Info( "Tasks saved..." );
+
+		FileSystem.OrganizationData.WriteJson( "tasks.json", TasksProgression );
+	}
+
+	/// <summary>
+	/// Reset the tasks progress
+	/// </summary>
+	public void ResetTasksProgression( bool save = true )
+	{
+		TasksProgression.Tasks?.Clear();
+		CurrentTasks.Clear();
+
+		var allTasks = ResourceLibrary.GetAll<GeneralTask>();
+
+		foreach ( var task in allTasks )
+		{
+			task.Reset();
+			AddTaskProgression( task.ResourcePath );
+		}
+
+		if ( save )
+		{
+			SaveTasksProgression( false );
+			Log.Info( "Tasks reset!" );
+		}
+		else
+		{
+			if ( FileSystem.OrganizationData.FileExists( "tasks.json" ) )
+				FileSystem.OrganizationData.DeleteFile( "tasks.json" );
+		}
+	}
 
 
 	protected override void OnFixedUpdate()
@@ -138,7 +396,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 	/// <param name="network"></param>
 	public static void SubmitTriggerSignal( string signalIdentifier, Player triggerer, bool network = true )
 	{
-		
+		Log.Info( signalIdentifier );
 		if ( signalIdentifier == null || signalIdentifier == "" || signalIdentifier == String.Empty || signalIdentifier == "null" ) return;
 
 
@@ -170,22 +428,311 @@ public partial class TaskMaster : Component, Component.INetworkListener
 				}
 			}
 
-			
+			var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault(); // Find the story master
 
+			if ( storyMaster != null )
+			{
+				
+			}
 		}
 	}
 
-	
-	
+	/// <summary>
+	/// Assign a new task to the local player, doesn't work if the task already exists
+	/// </summary>
+	/// <param name="taskToAssign"></param>
+	public static GeneralTask AssignNewTask( GeneralTask taskToAssign )
+	{
+		if ( _instance is null ) return null;
+		if ( taskToAssign is null ) return null;
 
-	
-	
+		var sameTaskFound = _instance.CurrentTasks.Where( x => x.ResourceName == taskToAssign.ResourceName )?.Any() ?? false;
 
-	
+		if ( sameTaskFound ) return _instance.CurrentTasks.Where( x => x.ResourceName == taskToAssign.ResourceName ).First(); // Bail if we have the same task already
+
+		_instance.CurrentTasks.Add( taskToAssign ); // Add the task
+
+		
+
+		
+
+		return taskToAssign;
+	}
+
+	/// <summary>
+	/// Assign a new task to the local player, doesn't work if the task already exists
+	/// </summary>
+	/// <param name="filePath"></param>
+	public static GeneralTask AssignNewTask( string filePath )
+	{
+		if ( ResourceLibrary.TryGet<GeneralTask>( filePath, out var foundTask ) )
+			return AssignNewTask( foundTask );
+
+		return null;
+	}
+
+	[Broadcast( NetPermission.Anyone )]
+	internal static void InternalAssignNewTask( int taskId, Guid playerId )
+	{
+		var player = Player.GetByID( playerId );
+		var task = ResourceLibrary.Get<GeneralTask>( taskId );
+
+		if ( player is not null && task is not null )
+			if ( Player.Local == player )
+				AssignNewTask( task );
+	}
+
+	/// <summary>
+	/// Assign a new task to the specified player, doesn't work if the task already exists
+	/// </summary>
+	/// <param name="taskToAssign"></param>
+	/// <param name="player"></param>
+	public static void AssignNewTask( GeneralTask taskToAssign, Player player ) => InternalAssignNewTask( taskToAssign.ResourceId, player.ConnectionID );
+
+	/// <summary>
+	/// Assign everyone in the server a new task
+	/// </summary>
+	/// <param name="taskId"></param>
+	[Broadcast( NetPermission.Anyone )]
+	public static void AssignEveryoneNewTask( int taskId ) => AssignNewTask( ResourceLibrary.Get<GeneralTask>( taskId ) );
+
+	/// <summary>
+	/// Removes the found task from the local player, doesn't work if the task doesn't exists
+	/// </summary>
+	/// <param name="taskToRemove"></param>
+	public static void RemoveTask( GeneralTask taskToRemove )
+	{
+		if ( taskToRemove is null ) return;
+		if ( _instance is null ) return;
+
+		var sameTaskFound = _instance.CurrentTasks.Where( x => x.ResourceName == taskToRemove.ResourceName )?.FirstOrDefault() ?? null;
+
+		if ( sameTaskFound == null ) return; // Bail if no task found
+
+		_instance.CurrentTasks.Remove( sameTaskFound ); // Remove the task
+	}
+
+	/// <summary>
+	/// Removes the found task from the local player, doesn't work if the task doesn't exists
+	/// </summary>
+	/// <param name="filePath"></param>
+	public static void RemoveTask( string filePath )
+	{
+		if ( ResourceLibrary.TryGet<GeneralTask>( filePath, out var foundTask ) )
+			RemoveTask( foundTask );
+	}
+
+	[Broadcast( NetPermission.Anyone )]
+	internal static void InternalRemoveTask( int taskId, Guid playerId )
+	{
+		var player = Player.GetByID( playerId );
+		var task = ResourceLibrary.Get<GeneralTask>( taskId );
+
+		if ( player is not null && task is not null )
+			if ( Player.Local == player )
+				RemoveTask( task );
+	}
+
+	/// <summary>
+	/// Remove the task from the targetted player, doesn't work if the task doesn't exists
+	/// </summary>
+	/// <param name="taskToRemove"></param>
+	/// <param name="player"></param>
+	public static void RemoveTask( GeneralTask taskToRemove, Player player ) => InternalRemoveTask( taskToRemove.ResourceId, player.ConnectionID );
+
+	/// <summary>
+	/// Remove the task from everyone in the server
+	/// </summary>
+	/// <param name="taskId"></param>
+	[Broadcast( NetPermission.Anyone )]
+	public static void RemoveEveryoneTask( int taskId ) => RemoveTask( ResourceLibrary.Get<GeneralTask>( taskId ) );
+
+	/// <summary>
+	/// Resets the found task for the local player, doesn't work if the task doesn't exists
+	/// </summary>
+	/// <param name="taskToReset"></param>
+	public static void ResetTask( GeneralTask taskToReset )
+	{
+		if ( taskToReset is null ) return;
+		if ( _instance is null ) return;
+
+		var sameTaskFound = _instance.CurrentTasks.Where( x => x.ResourceName == taskToReset.ResourceName )?.FirstOrDefault() ?? null;
+
+		if ( sameTaskFound == null ) return; // Bail if no task found
+
+		sameTaskFound.Reset(); // Restart the task
+	}
+
+	/// <summary>
+	/// Resets the found task for the local player, doesn't work if the task doesn't exists
+	/// </summary>
+	/// <param name="filePath"></param>
+	public static void ResetTask( string filePath )
+	{
+		if ( ResourceLibrary.TryGet<GeneralTask>( filePath, out var foundTask ) )
+			ResetTask( foundTask );
+	}
+
+	[Broadcast( NetPermission.Anyone )]
+	internal static void InternalResetTask( int taskId, Guid playerId )
+	{
+		var player = Player.GetByID( playerId );
+		var task = ResourceLibrary.Get<GeneralTask>( taskId );
+
+		if ( player is not null && task is not null )
+			if ( Player.Local == player )
+				ResetTask( task );
+	}
+
+	/// <summary>
+	/// Resets the found task for the targetted player, doesn't work if the task doesn't exists
+	/// </summary>
+	/// <param name="taskToReset"></param>
+	/// <param name="player"></param>
+	public static void ResetTask( GeneralTask taskToReset, Player player ) => InternalResetTask( taskToReset.ResourceId, player.ConnectionID );
+
+	/// <summary>
+	/// Resets the task for everyone in the server
+	/// </summary>
+	/// <param name="taskId"></param>
+	[Broadcast( NetPermission.Anyone )]
+	public static void ResetEveryoneTask( int taskId ) => ResetTask( ResourceLibrary.Get<GeneralTask>( taskId ) );
+
+
+	[ConCmd( "General_task_enable" )]
+	public static void DebugEnableTask( string name )
+	{
+		var allTasks = ResourceLibrary.GetAll<GeneralTask>();
+
+		var foundTask = allTasks.Where( task =>
+		{
+			var toFind = name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+			var taskName = task.Name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+			var taskResourceName = task.ResourceName.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+
+			if ( taskName == toFind || taskResourceName == toFind )
+				return true;
+
+			if ( taskName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) || taskResourceName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) )
+				return true;
+
+			return false;
+		} ).FirstOrDefault();
+
+
+		if ( foundTask != null )
+		{
+			if ( TaskMaster._instance.CurrentTasks.Contains( foundTask ) )
+			{
+				foundTask.Reset();
+
+				Log.Info( $"Task {foundTask.Name} was already enabled and has been reset." );
+			}
+			else
+			{
+				TaskMaster.AssignEveryoneNewTask( foundTask.ResourceId );
+				Log.Info( $"Task {foundTask.Name} has been enabled." );
+			}
+		}
+		else
+		{
+			Log.Info( $"The task was not found, here is a list of available tasks:" );
+
+			var availableTasks = "";
+
+			foreach ( var availableTask in allTasks )
+				availableTasks += $"[{availableTask.Name}], ";
+
+			Log.Info( availableTasks );
+			Log.Info( "You may also use partial task names or any combination of words and letters, I'll try my best to find the task." );
+		}
+	}
+
+	[ConCmd( "General_task_disable" )]
+	public static void DebugDisableTask( string name )
+	{
+		var allTasks = ResourceLibrary.GetAll<GeneralTask>();
+
+		var foundTask = allTasks.Where( task =>
+		{
+			var toFind = name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+			var taskName = task.Name.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+			var taskResourceName = task.ResourceName.ToLower().Replace( " ", "" ).Replace( "_", "" ).Replace( ".", "" );
+
+			if ( taskName == toFind || taskResourceName == toFind )
+				return true;
+
+			if ( taskName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) || taskResourceName.Contains( toFind, StringComparison.OrdinalIgnoreCase ) )
+				return true;
+
+			return false;
+		} ).FirstOrDefault();
+
+
+		if ( foundTask != null )
+		{
+			if ( TaskMaster._instance.CurrentTasks.Contains( foundTask ) )
+			{
+				foundTask.Reset();
+				foundTask.End();
+				TaskMaster._instance.CurrentTasks.Remove( foundTask );
+
+				Log.Info( $"Task {foundTask.Name} was enabled and now is disabled. Some asynchronous logic may still be running." );
+			}
+			else
+			{
+				Log.Info( $"Task {foundTask.Name} wasn't enabled in the first place. Here is a list of all active tasks:" );
+
+				var activeTasks = "";
+
+				foreach ( var activeTask in TaskMaster._instance.CurrentTasks )
+					activeTasks += $"[{activeTask.Name}], ";
+
+				Log.Info( activeTasks );
+			}
+		}
+		else
+		{
+			Log.Info( $"The task was not found, here is a list of available tasks:" );
+
+			var availableTasks = "";
+
+			foreach ( var availableTask in allTasks )
+				availableTasks += $"[{availableTask.Name}], ";
+
+			Log.Info( availableTasks );
+			Log.Info( "You may also use partial task names or any combination of words and letters, I'll try my best to find the task." );
+		}
 	}
 
 
+	[ConCmd( "General_task_disableall" )]
+	public static void DebugDisableAllTasks()
+	{
+		var amount = TaskMaster._instance.CurrentTasks.Count();
+
+		foreach ( var toDisable in TaskMaster._instance.CurrentTasks.ToList() )
+		{
+			toDisable.Reset();
+			toDisable.End();
+		}
+
+		TaskMaster._instance.CurrentTasks.Clear();
+
+		Log.Info( $"Disable a total of {amount} tasks. Some asynchronous logic may still be running." );
+	}
 
 
+	[ConCmd( "General_signal" )]
+	public static void DebugSubmitSignal( string signal )
+	{
+		TaskMaster.SubmitTriggerSignal( signal, Player.Local );
+	}
 
 
+	[ConCmd( "General_message" )]
+	public static void DebugMessage( string sender, string message )
+	{
+		
+	}
+}

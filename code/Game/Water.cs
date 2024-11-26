@@ -5,9 +5,9 @@ public sealed class Water : Component, Component.ITriggerListener
 {
 	[Property] public BoxCollider Collider { get; set; }
 
-	private bool isPlayerInside = false;
-	
-	private Player playerInside;
+	[Property] private bool isPlayerInside = false;
+
+	[Property] private Player playerInside;
 
 	protected override void OnUpdate()
 	{
@@ -67,6 +67,7 @@ public sealed class Water : Component, Component.ITriggerListener
 		{
 			isPlayerInside = false;
 			playerInside = null;
+			playerInside?.SetSwimming( false );
 		}
 	}
 }

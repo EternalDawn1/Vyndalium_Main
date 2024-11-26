@@ -42,6 +42,9 @@
             case FullScreenPanel.MissonPanel:
                 <Lobby/>
                 break;
+            case FullScreenPanel.Quests:
+                <Quests/>
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -64,6 +67,8 @@
         ShopPanel,
         Leaderboard,
         MissonPanel,
+
+        Quests
         
     }
 

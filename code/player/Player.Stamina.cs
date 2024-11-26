@@ -38,6 +38,7 @@ public partial class Player : Component
         {
             // Logik zum Wechseln in den normalen Geh-Modus
             citizen.IsGrounded = true;
+            citizen.IsSwimming = false;
             // Weitere Logik zum Gehen
         }
     }

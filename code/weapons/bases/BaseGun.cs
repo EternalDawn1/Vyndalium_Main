@@ -973,6 +973,10 @@ public class  BaseGun : WeaponComponent, IUse
 		
 			return;
 		}
+		if(shooter.IsRunning)
+		{
+			return;
+		}
 		if ( IsReloading )
 		{
 		

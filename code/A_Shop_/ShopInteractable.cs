@@ -82,14 +82,15 @@ public class ShopInteractable : BaseInteraction
 
             interactions.AddInteraction( new Interaction()
             {
-                Identifier = "shop.buy",
+                Identifier = "shop.quests",
                 Action = ( Player interactor, GameObject obj ) =>
                 {
                     var shopInteractable = obj.Components.Get<ShopInteractable>();
-                    
+                    Storage = Components.GetOrCreate<ShopStorage>();
+
                     if ( shopInteractable != null && shopInteractable.Storage != null )
                     {
-                        // Kauf-Interaktion
+                        shopInteractable.Storage.OpenQuest();
                     }
                 },
                 Keybind = "use2",

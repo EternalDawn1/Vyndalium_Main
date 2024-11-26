@@ -2220,6 +2220,27 @@
           ]
         },
         {
+          "__guid": "31e4cb82-8cbd-463d-8090-f5d54eb2570e",
+          "Flags": 0,
+          "Name": "light (4)",
+          "Position": "1022.438,-41.21777,-1693.689",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "27bf5279-25db-4dba-993a-6030393332c6",
+              "Attenuation": 0.1,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.73302,0.42791,1",
+              "Radius": 485.0019,
+              "Shadows": true
+            }
+          ]
+        },
+        {
           "__guid": "35d86164-0812-4ff6-b19f-0143c87737f9",
           "Flags": 0,
           "Name": "light (3)",
@@ -7025,6 +7046,7 @@
         {
           "__type": "GeneralGame.Water",
           "__guid": "d6b6b777-1cb9-4e46-94dc-fc3450c59fba",
+          "isPlayerInside": false,
           "Collider": {
             "_type": "component",
             "component_id": "a4a04ca7-6a11-4ed7-8f11-43bc0656b2c0",
@@ -7048,7 +7070,7 @@
       "__guid": "2210ade6-f082-49b8-ac76-25e7a9c64954",
       "Flags": 0,
       "Name": "Spawner",
-      "Position": "-1924.085,-3985.883,66",
+      "Position": "-1581.145,-4043.172,66",
       "Enabled": true,
       "Components": [
         {
@@ -7065,7 +7087,7 @@
           "FillGizmo": false,
           "GizmoColor": "1,0.83333,0,1",
           "GizmoShape": "Box",
-          "Height": 807.29974,
+          "Height": 774.49976,
           "LoopSpawning": false,
           "NpcPool": [
             {
@@ -7073,7 +7095,7 @@
                 "_type": "gameobject",
                 "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
-              "SpawnChance": 0.41,
+              "SpawnChance": 1,
               "SpawnCount": 2,
               "EnableSubNpcPool": true,
               "SubNpcPool": [
@@ -7082,14 +7104,16 @@
                     "_type": "gameobject",
                     "prefab": "prefabs/npc/slime_variants/va2.prefab"
                   },
-                  "SpawnChance": 0.2,
+                  "SpawnChance": 1,
                   "SpawnCount": 3,
                   "SubNpcSpawnDelayPerNpc": 1,
                   "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
+                  "WindAbilityChance": 0,
                   "FireAbilityChance": 0.19,
                   "MinLevel": 1,
-                  "MaxLevel": 5
+                  "MaxLevel": 5,
+                  "SequentialSpawn": true,
+                  "SpawnInterval": 3.5
                 }
               ],
               "SubNpcSpawnDelay": 2,
@@ -7097,55 +7121,44 @@
               "MaxLevel": 15,
               "IceAbilityChance": 0.28,
               "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": true,
+              "SpawnInterval": 2
             },
             {
               "Npc": {
                 "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
               "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 1,
+                  "SpawnCount": 1,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": true,
+                  "SpawnInterval": 5
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": true,
+              "SpawnInterval": 4
             },
             {
               "Npc": {
@@ -7161,12 +7174,68 @@
               "MaxLevel": 1,
               "IceAbilityChance": 0,
               "WindAbilityChance": 0,
-              "FireAbilityChance": 0
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             }
           ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
+          "PlayerProximityDistance": "921.0991,255.6002,150.8003",
           "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
+          "Radius": "430.7001,278.6997,99.30022",
           "SpawnAreaGizmoColor": "0,0,1,1",
           "StopDrawingDistance": 8000,
           "StopLogicDistance": 200
@@ -7174,15 +7243,15 @@
       ]
     },
     {
-      "__guid": "908fa763-0942-4586-a6de-e57fe0b3ca91",
+      "__guid": "49d25d00-5407-41fd-b223-fedf2b1a11ed",
       "Flags": 0,
       "Name": "Spawner (1)",
-      "Position": "-1242.953,-4200.443,66",
+      "Position": "-425.8555,-4043.172,66",
       "Enabled": true,
       "Components": [
         {
           "__type": "NpcSpawnArea",
-          "__guid": "ae6367ac-0ee5-42a4-850a-0ea2a650c595",
+          "__guid": "2d9b787c-0461-4a1c-9d64-3ebbdb6028f8",
           "allSubNpcsKilled": false,
           "hasSpawnedBoss": false,
           "hasSpawnedNPCs": false,
@@ -7194,7 +7263,7 @@
           "FillGizmo": false,
           "GizmoColor": "1,0.83333,0,1",
           "GizmoShape": "Box",
-          "Height": 807.29974,
+          "Height": 774.49976,
           "LoopSpawning": false,
           "NpcPool": [
             {
@@ -7202,7 +7271,7 @@
                 "_type": "gameobject",
                 "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
-              "SpawnChance": 0.41,
+              "SpawnChance": 0.99,
               "SpawnCount": 2,
               "EnableSubNpcPool": true,
               "SubNpcPool": [
@@ -7215,10 +7284,12 @@
                   "SpawnCount": 3,
                   "SubNpcSpawnDelayPerNpc": 1,
                   "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
+                  "WindAbilityChance": 0,
                   "FireAbilityChance": 0.19,
                   "MinLevel": 1,
-                  "MaxLevel": 5
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
                 }
               ],
               "SubNpcSpawnDelay": 2,
@@ -7226,55 +7297,44 @@
               "MaxLevel": 15,
               "IceAbilityChance": 0.28,
               "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             },
             {
               "Npc": {
                 "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             },
             {
               "Npc": {
@@ -7290,72 +7350,9 @@
               "MaxLevel": 1,
               "IceAbilityChance": 0,
               "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "e8234ed8-9675-438f-8086-0cd2cbb87c23",
-      "Flags": 0,
-      "Name": "Spawner (2)",
-      "Position": "-632.2308,-3864.371,66",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "cc5f65d6-f7e1-4e1c-8221-fe5464b32ef6",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             },
             {
               "Npc": {
@@ -7371,14 +7368,16 @@
               "MaxLevel": 1,
               "IceAbilityChance": 0,
               "WindAbilityChance": 0,
-              "FireAbilityChance": 0
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             },
             {
               "Npc": {
                 "_type": "gameobject",
                 "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
               },
-              "SpawnChance": 0.5,
+              "SpawnChance": 0.22,
               "SpawnCount": 1,
               "EnableSubNpcPool": false,
               "SubNpcPool": [],
@@ -7387,109 +7386,14 @@
               "MaxLevel": 1,
               "IceAbilityChance": 0,
               "WindAbilityChance": 0,
-              "FireAbilityChance": 0
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             },
             {
               "Npc": {
                 "_type": "gameobject",
                 "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "6966d3cc-2829-4be2-b3c1-ecb2a8866c18",
-      "Flags": 0,
-      "Name": "Spawner (9)",
-      "Position": "1173.65,-4157.389,66.00129",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "2bc4b192-7c55-4af1-ba6e-6e227d9c065e",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
               },
               "SpawnChance": 0.2,
               "SpawnCount": 1,
@@ -7500,60 +7404,14 @@
               "MaxLevel": 1,
               "IceAbilityChance": 0,
               "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             }
           ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
           "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
+          "Radius": "429.6001,278.6997,99.30022",
           "SpawnAreaGizmoColor": "0,0,1,1",
           "StopDrawingDistance": 8000,
           "StopLogicDistance": 200
@@ -7561,1950 +7419,15 @@
       ]
     },
     {
-      "__guid": "cf8161cd-aad6-4a51-8205-8f8908d6937f",
-      "Flags": 0,
-      "Name": "Spawner (10)",
-      "Position": "1736.876,-4402.022,66.00129",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "c662b5b3-524a-4d31-83e6-4ccc5d3b9e64",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "a099b010-d760-48a6-9577-654ed2702484",
-      "Flags": 0,
-      "Name": "Spawner (11)",
-      "Position": "1205.259,-5198.745,66.00129",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "ff8ca090-b152-424b-b27e-95680151f53f",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "5a95162a-d80e-45ec-a84f-c127fc1f86f7",
-      "Flags": 0,
-      "Name": "Spawner (12)",
-      "Position": "1896.735,-5962.721,66.00129",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "9e06d626-c7e6-474e-a0ff-55ef5daa3616",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "81247faa-57f8-411a-b038-e21035eec229",
-      "Flags": 0,
-      "Name": "Spawner (13)",
-      "Position": "1239.955,-6358.077,66.00129",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "5a6aa56d-31ef-4e0f-b4ba-a6653a77b4a2",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "49a912f7-f596-46bb-a8a6-fe0466275e04",
-      "Flags": 0,
-      "Name": "Spawner (14)",
-      "Position": "2605.893,-6382.607,66.00224",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "06c640fd-16fc-4eea-af7f-de564eb8b9e7",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "b15845a2-885b-4d43-9e0a-cd1b512cc2cb",
-      "Flags": 0,
-      "Name": "Spawner (15)",
-      "Position": "2594.606,-5990.267,66.00224",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "2429fb11-3470-48fa-aa9e-136a3714bd0d",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "f5466b8d-a703-4b94-a595-3f8b7d6c72d6",
-      "Flags": 0,
-      "Name": "Spawner (16)",
-      "Position": "675.0765,-6059.449,66.00224",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "6a11c670-3d96-4254-ad0f-f4ae7038c4c8",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "544e60bb-cdbb-4b4d-b016-fcf619dc19a1",
-      "Flags": 0,
-      "Name": "Spawner (17)",
-      "Position": "337.3927,-6489.131,66.00224",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "12b61d56-7d4b-4d98-b640-b8d6fc71b3eb",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "7ea9db80-7ae7-4b7e-a23b-be844fcbe4fa",
-      "Flags": 0,
-      "Name": "Spawner (18)",
-      "Position": "1162.389,-6858.186,66.00224",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "08810198-a3c3-43ef-ad74-fe921394c667",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "561b7a0d-ee4f-43f3-933c-748f50eb5792",
-      "Flags": 0,
-      "Name": "Spawner (19)",
-      "Position": "1534.765,-7234.678,66.00224",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "4c497b24-066e-4bab-9a24-dd6d4f14891c",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "426665af-a0a1-4d68-bb9c-d89ae28d5276",
-      "Flags": 0,
-      "Name": "Spawner (20)",
-      "Position": "-243.5718,-5213.781,66.00288",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "c71fecdd-3074-4c2d-84d7-25e3581fb205",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "25845b3a-8dd8-4b34-adbf-3678b52f6592",
-      "Flags": 0,
-      "Name": "Spawner (3)",
-      "Position": "-556.1368,-2974.504,66",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "8b389e6c-fccb-4f81-8f18-0854e1fefc17",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "71882a35-f753-4924-a615-688bf74d3ce6",
-      "Flags": 0,
-      "Name": "Spawner (4)",
-      "Position": "-1089.05,-3306.456,66",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "7a49d677-adda-4607-9243-1a47a67cb700",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "16cef258-1a4d-4a45-9c03-eb0cd8e6b376",
-      "Flags": 0,
-      "Name": "Spawner (5)",
-      "Position": "-1076.766,-2261.086,66",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "b46f0ce0-2483-4467-ad9a-dc3d5ca3e6b6",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "c92133bb-9c8b-4bd0-8649-e8640e68d7fb",
-      "Flags": 0,
-      "Name": "Spawner (6)",
-      "Position": "71.16687,-2904.104,65.99998",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "NpcSpawnArea",
-          "__guid": "d9512418-2c53-468b-a204-0445df7b6b6f",
-          "allSubNpcsKilled": false,
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Box",
-          "Height": 807.29974,
-          "LoopSpawning": false,
-          "NpcPool": [
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
-              },
-              "SpawnChance": 0.41,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
-                {
-                  "Npc": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
-                  },
-                  "SpawnChance": 0.2,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
-                  "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
-                  "FireAbilityChance": 0.19,
-                  "MinLevel": 1,
-                  "MaxLevel": 5
-                }
-              ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 10,
-              "MaxLevel": 15,
-              "IceAbilityChance": 0.28,
-              "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
-              },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/box_legendary.prefab"
-              },
-              "SpawnChance": 0.1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            }
-          ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
-          "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
-        }
-      ]
-    },
-    {
-      "__guid": "42ecd704-00a5-4310-80b4-085e36b3cc30",
+      "__guid": "551864c0-c923-4021-96d8-7949ad018a3e",
       "Flags": 0,
       "Name": "Spawner (7)",
-      "Position": "90.98593,-2028.5,65.99998",
+      "Position": "692.2655,-4043.172,283.1037",
       "Enabled": true,
       "Components": [
         {
           "__type": "NpcSpawnArea",
-          "__guid": "a471607b-ba3a-4ba4-8ad3-b33f4377700e",
+          "__guid": "77204f33-b010-43c5-9568-8f61a1b31865",
           "allSubNpcsKilled": false,
           "hasSpawnedBoss": false,
           "hasSpawnedNPCs": false,
@@ -9516,7 +7439,7 @@
           "FillGizmo": false,
           "GizmoColor": "1,0.83333,0,1",
           "GizmoShape": "Box",
-          "Height": 807.29974,
+          "Height": 774.49976,
           "LoopSpawning": false,
           "NpcPool": [
             {
@@ -9524,7 +7447,7 @@
                 "_type": "gameobject",
                 "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
-              "SpawnChance": 0.41,
+              "SpawnChance": 0.99,
               "SpawnCount": 2,
               "EnableSubNpcPool": true,
               "SubNpcPool": [
@@ -9537,10 +7460,12 @@
                   "SpawnCount": 3,
                   "SubNpcSpawnDelayPerNpc": 1,
                   "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
+                  "WindAbilityChance": 0,
                   "FireAbilityChance": 0.19,
                   "MinLevel": 1,
-                  "MaxLevel": 5
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
                 }
               ],
               "SubNpcSpawnDelay": 2,
@@ -9548,55 +7473,44 @@
               "MaxLevel": 15,
               "IceAbilityChance": 0.28,
               "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             },
             {
               "Npc": {
                 "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             },
             {
               "Npc": {
@@ -9612,12 +7526,68 @@
               "MaxLevel": 1,
               "IceAbilityChance": 0,
               "WindAbilityChance": 0,
-              "FireAbilityChance": 0
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             }
           ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
           "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
+          "Radius": "429.6001,278.6997,99.30022",
           "SpawnAreaGizmoColor": "0,0,1,1",
           "StopDrawingDistance": 8000,
           "StopLogicDistance": 200
@@ -9625,15 +7595,15 @@
       ]
     },
     {
-      "__guid": "c94489ac-5861-450b-b674-4bbcd79e663e",
+      "__guid": "b037a6d5-9c85-4c89-84e8-8997a06b3548",
       "Flags": 0,
       "Name": "Spawner (8)",
-      "Position": "-104.0524,-1724.141,381.0568",
+      "Position": "1414.316,-4521.219,283.1048",
       "Enabled": true,
       "Components": [
         {
           "__type": "NpcSpawnArea",
-          "__guid": "19ebb9c9-8111-4c59-abfe-757373be4639",
+          "__guid": "1d7cfddb-7d32-4222-81fb-25785a6375d5",
           "allSubNpcsKilled": false,
           "hasSpawnedBoss": false,
           "hasSpawnedNPCs": false,
@@ -9645,7 +7615,7 @@
           "FillGizmo": false,
           "GizmoColor": "1,0.83333,0,1",
           "GizmoShape": "Box",
-          "Height": 807.29974,
+          "Height": 774.49976,
           "LoopSpawning": false,
           "NpcPool": [
             {
@@ -9653,7 +7623,7 @@
                 "_type": "gameobject",
                 "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
-              "SpawnChance": 0.41,
+              "SpawnChance": 0.99,
               "SpawnCount": 2,
               "EnableSubNpcPool": true,
               "SubNpcPool": [
@@ -9666,10 +7636,12 @@
                   "SpawnCount": 3,
                   "SubNpcSpawnDelayPerNpc": 1,
                   "IceAbilityChance": 0.12,
-                  "WindAbilityChance": 0.17,
+                  "WindAbilityChance": 0,
                   "FireAbilityChance": 0.19,
                   "MinLevel": 1,
-                  "MaxLevel": 5
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
                 }
               ],
               "SubNpcSpawnDelay": 2,
@@ -9677,55 +7649,44 @@
               "MaxLevel": 15,
               "IceAbilityChance": 0.28,
               "WindAbilityChance": 0.08,
-              "FireAbilityChance": 0.52
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             },
             {
               "Npc": {
                 "_type": "gameobject",
-                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
-              "SpawnChance": 0.2,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
-              },
-              "SpawnChance": 0.5,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
-            },
-            {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
-              },
-              "SpawnChance": 1,
-              "SpawnCount": 1,
-              "EnableSubNpcPool": false,
-              "SubNpcPool": [],
-              "SubNpcSpawnDelay": 5,
-              "MinLevel": 1,
-              "MaxLevel": 1,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             },
             {
               "Npc": {
@@ -9741,12 +7702,68 @@
               "MaxLevel": 1,
               "IceAbilityChance": 0,
               "WindAbilityChance": 0,
-              "FireAbilityChance": 0
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
             }
           ],
-          "PlayerProximityDistance": "431.7004,211.4001,390.7003",
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
           "PositionOffset": "0,0,0",
-          "Radius": "387.1002,461.9998,425.4001",
+          "Radius": "429.6001,278.6997,99.30022",
           "SpawnAreaGizmoColor": "0,0,1,1",
           "StopDrawingDistance": 8000,
           "StopLogicDistance": 200
@@ -9754,24 +7771,1769 @@
       ]
     },
     {
-      "__guid": "89aec1b5-e17d-42c6-94b0-a92ee1b9552b",
+      "__guid": "a9bb3b6e-d73c-42d1-b6b0-38195b0f96c9",
       "Flags": 0,
-      "Name": "2objectarea",
-      "Position": "1761.209,-5201.459,227.3337",
-      "Rotation": "-0.00001469254,0.000002801418,0.6382128,0.76986",
+      "Name": "Spawner (9)",
+      "Position": "1414.316,-5283.636,283.1048",
       "Enabled": true,
-      "__Prefab": "prefabs/events/area/2objectarea.prefab",
-      "__PrefabVariables": {}
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "681d3cf0-05e9-4ac8-b970-e3194f18a2df",
+          "allSubNpcsKilled": false,
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 774.49976,
+          "LoopSpawning": false,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.99,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnChance": 0.1,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            }
+          ],
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
+          "PositionOffset": "0,0,0",
+          "Radius": "429.6001,278.6997,99.30022",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
     },
     {
-      "__guid": "445cfe86-f22e-48c3-bef0-d34016b08076",
+      "__guid": "09cbb028-f884-4a0e-86f1-febb126a368a",
       "Flags": 0,
-      "Name": "2objectarea (1)",
-      "Position": "614.4629,-4044.09,227.2868",
-      "Rotation": "-0.00001469254,0.000002801418,0.6382128,0.76986",
+      "Name": "Spawner (10)",
+      "Position": "1414.316,-6196.28,283.1048",
       "Enabled": true,
-      "__Prefab": "prefabs/events/area/2objectarea.prefab",
-      "__PrefabVariables": {}
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "cfbb1a0a-cbb9-440f-93a3-b027c8b1b40e",
+          "allSubNpcsKilled": false,
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 774.49976,
+          "LoopSpawning": false,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.99,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnChance": 0.1,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            }
+          ],
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
+          "PositionOffset": "0,0,0",
+          "Radius": "429.6001,278.6997,99.30022",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "19f36eac-cd46-4fbf-8fbc-e6c49cb57601",
+      "Flags": 0,
+      "Name": "Spawner (11)",
+      "Position": "2394.077,-6196.28,283.1048",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "b950ee34-bd68-4e53-958b-1e2bb80161b2",
+          "allSubNpcsKilled": false,
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 774.49976,
+          "LoopSpawning": false,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.99,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnChance": 0.1,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            }
+          ],
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
+          "PositionOffset": "0,0,0",
+          "Radius": "429.6001,278.6997,99.30022",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "eb917e92-4f63-48e8-b47e-b0e9c86b9fef",
+      "Flags": 0,
+      "Name": "Spawner (12)",
+      "Position": "1489.931,-7019.943,283.1039",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "3f542bd6-2ff9-4fd3-8f17-0ab85cc6404a",
+          "allSubNpcsKilled": false,
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 774.49976,
+          "LoopSpawning": false,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.99,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnChance": 0.1,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            }
+          ],
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
+          "PositionOffset": "0,0,0",
+          "Radius": "429.6001,278.6997,99.30022",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "13d7a7e5-d5ae-4c4e-874e-1f59095028de",
+      "Flags": 0,
+      "Name": "Spawner (13)",
+      "Position": "858.277,-6207.736,283.102",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "181a1907-deac-4a3f-9b9a-166b331bccee",
+          "allSubNpcsKilled": false,
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 774.49976,
+          "LoopSpawning": false,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.99,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnChance": 0.1,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            }
+          ],
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
+          "PositionOffset": "0,0,0",
+          "Radius": "429.6001,278.6997,99.30022",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "68395817-cbe3-4ff0-8d0c-b229714786e3",
+      "Flags": 0,
+      "Name": "Spawner (2)",
+      "Position": "-485.5612,-3180.2,66",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "5a568f73-0281-4b2d-9029-e9c05461b47c",
+          "allSubNpcsKilled": false,
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 774.49976,
+          "LoopSpawning": false,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.99,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnChance": 0.1,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            }
+          ],
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
+          "PositionOffset": "0,0,0",
+          "Radius": "429.6001,278.6997,99.30022",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "c6f00bc3-6e49-4ef7-aa1a-eb569868f0f2",
+      "Flags": 0,
+      "Name": "Spawner (6)",
+      "Position": "-238.1787,-5205.876,66",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "2057c837-b0d2-4ef3-93dd-85b4963e15ab",
+          "allSubNpcsKilled": false,
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 893.3995,
+          "LoopSpawning": false,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.99,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnChance": 0.1,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            }
+          ],
+          "PlayerProximityDistance": "668.3001,255.6002,150.8003",
+          "PositionOffset": "0,0,0",
+          "Radius": "429.6001,278.6997,99.30022",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "daaffe0e-b967-4a33-8e7e-53f05f20a276",
+      "Flags": 0,
+      "Name": "Spawner (5)",
+      "Position": "-943.1606,-2785.765,156.7466",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "0059b477-2752-40ce-8cee-d95f16ccef12",
+          "allSubNpcsKilled": false,
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 774.49976,
+          "LoopSpawning": false,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.99,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnChance": 0.1,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            }
+          ],
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
+          "PositionOffset": "0,0,0",
+          "Radius": "429.6001,278.6997,99.30022",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "f879cb76-2e76-49b8-bb39-a113d2cc7c46",
+      "Flags": 0,
+      "Name": "Spawner (3)",
+      "Position": "44.26221,-2420.096,226.6095",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "40deb420-0a25-4584-86ac-6ae56e9ab263",
+          "allSubNpcsKilled": false,
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 774.49976,
+          "LoopSpawning": false,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.99,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnChance": 0.1,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            }
+          ],
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
+          "PositionOffset": "0,0,0",
+          "Radius": "429.6001,278.6997,99.30022",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "ce253a45-6696-4214-8be2-3724dd779e60",
+      "Flags": 0,
+      "Name": "Spawner (4)",
+      "Position": "-433.3755,-1880.968,588.7682",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "accc43f7-b596-4090-8dfd-7205a0b46098",
+          "allSubNpcsKilled": false,
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Box",
+          "Height": 774.49976,
+          "LoopSpawning": false,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.99,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              },
+              "SpawnChance": 0.4,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                  },
+                  "SpawnChance": 0.2,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0.12,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.19,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 10,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.28,
+              "WindAbilityChance": 0.08,
+              "FireAbilityChance": 0.52,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnChance": 0.1,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnChance": 0.22,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnChance": 0.2,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 0
+            }
+          ],
+          "PlayerProximityDistance": "537.3003,255.6002,150.8003",
+          "PositionOffset": "0,0,0",
+          "Radius": "429.6001,278.6997,99.30022",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -9846,5 +9608,6 @@
     "rust.wooden_crate_d#25356",
     "sugmagaming.fireparticle#19112"
   ],
+  "IsValid": true,
   "__version": 2
 }

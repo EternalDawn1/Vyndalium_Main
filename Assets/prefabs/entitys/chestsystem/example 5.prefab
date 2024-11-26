@@ -46,7 +46,21 @@
         "Health": 0,
         "HolyResistence": 0,
         "IceResistence": 0,
-        "Icon": {},
+        "Icon": {
+          "Model": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "LightBrightness": 0,
+          "LightRadius": 0,
+          "LightColour": "0,0,0,0",
+          "DirectionalLightBrightness": 0,
+          "DirectionalLightRotation": "0,0,0",
+          "DirectionalLightColour": "0,0,0,0",
+          "Colour": "0,0,0,0",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,0",
+          "Guid": "00000000-0000-0000-0000-000000000000"
+        },
         "INT": 0,
         "IsAccessory": false,
         "IsArmor": false,
@@ -87,23 +101,30 @@
         "Tenacity": 0,
         "Tier": "C",
         "WeightInGrams": 0
-      },
-      {
-        "__type": "Sandbox.Rigidbody",
-        "__guid": "3dc067a1-c09c-4e1e-b235-30bdd8ca8b87",
-        "AngularDamping": 0,
-        "Gravity": true,
-        "LinearDamping": 0,
-        "Locking": {},
-        "MassCenterOverride": "0,0,0",
-        "MassOverride": 0,
-        "MotionEnabled": true,
-        "OverrideMassCenter": false,
-        "RigidbodyFlags": "DisableCollisionSounds",
-        "StartAsleep": false
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "6c4802c9-02c1-4b2d-9d78-b6d4c41f4867",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "0,0,41.71446",
+        "Tags": "light_point,light",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.PointLight",
+            "__guid": "b0b778b6-561c-4ed6-9997-c22f736443b3",
+            "Attenuation": 0.12,
+            "FogMode": "Enabled",
+            "FogStrength": 1,
+            "LightColor": "1,0.71667,0,1",
+            "Radius": 400,
+            "Shadows": true
+          }
+        ]
+      }
+    ],
     "__variables": [],
     "__properties": {
       "FixedUpdateFrequency": 50,
@@ -135,6 +156,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "HasUnsavedChanges": false,
+  "IsValid": true,
   "__version": 1
 }
