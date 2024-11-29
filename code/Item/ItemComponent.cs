@@ -147,6 +147,7 @@ public class ItemComponent : Component
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public float INT { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public float Mana { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public float Health { get; set; }
+	
 	[Property, Range( 0, 27 )] public int ItemLevel { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 175 )] public float CritHitDamage { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 150 )] public float CritHitChance { get; set; }
@@ -157,12 +158,32 @@ public class ItemComponent : Component
 	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float MaxAttackValue { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float MinArmorValue { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float MaxArmorValue { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float ArmorPenetration { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float MaxHealthDMG { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float AttackRange { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float AttackSpeed { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float MagicPenetration { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float FireElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float IceElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float LightningElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float HolyElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float LightElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float ShadowElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float PoisonElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float BleedElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float FreezeElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float WaterElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float EarthElementalDamage { get; set; }
+	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float WindElementalDamage { get; set; }
+
 	[Property] public Tier Tier { get; set; }
 	[Property, Range( 100, 0 )] public int DamageBalance { get; set; }
 	[Property, Range( 1000, 0 )] public int Durability { get; set; }
 	
 	
-	[Property, Group( "Weapon" ), Range( 0, 60 )] public float AttackSpeed { get; set; }
+
+	[Property,Group ("Armor"),Range(0,1000)]public float HealthRegen { get; set; }
+	[Property, Group( "Armor" ), Range( 0, 1000 )] public float ManaRegen { get; set; }
 	[Property, Group( "Armor" ), Range( 0, 1000 )] public float MoveSpeed { get; set; }
 	[Property, Group( "Armor" ), Range( 0, 1000 )] public float Armor { get; set; }
 	[Property, Group( "Armor" ), Range( 0, 500 )] public float MagicDefense { get; set; }
@@ -182,6 +203,22 @@ public class ItemComponent : Component
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float LightningResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float HolyResistence { get; set; }
 	[Property, Group( "Accessory" ), Range( 0, 100 )] public float ShadowResistence { get; set; }
+	[Property, Group( "Accessory" ), Range( 0, 100 )] public float StaminaSecond { get; set; }
+	[Property, Group( "Accessory" ), Range( 0, 100 )] public float WalkSpeed { get; set; }
+	[Property, Group( "Accessory" ), Range( 0, 100 )] public float RunSpeed { get; set; }
+	[Property, Group( "Accessory" ), Range( 0, 100 )] public float Stamina { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float StunResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float BlindResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float SlowResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float FireResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float FreezeResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float BleedResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float PoisonResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float IceResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float LightningResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float HolyResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float ShadowResist { get; set; }
+	[Property,Group("Accessory"),Range(0,100)]public float LightResist { get; set; }
 
 	
 
@@ -346,6 +383,164 @@ public class ItemComponent : Component
 			return random.Next( (int)(maxTierValue * 0.8), maxTierValue + 1 ); // 80% bis maxTierValue
 		}
 	}
+	public int Level { get; set; } = 1;
+	public int GetPlayerLevel()
+	{
+		var player = Player.Local;
+		if ( Player.Local != null )
+		{
+			return player.Level;
+		}
+		else if ( Player.Local == null )
+		{
+			return Level;
+		}
+		else
+		{
+			// Fallback-Wert, wenn Player.Local null ist
+			return Player.Local.Level; // Beispielwert, kann angepasst werden
+		}
+
+	}
+	public virtual int DetermineRequiredLevelForTier( string tier )
+	{
+		int playerLevel = GetPlayerLevel();
+		int maxLevel = Player.Local?.GetMaxLevel() ?? 100; // Verwenden Sie das maximale Level des Spielers oder 100 als Fallback
+		var random = new Random();
+		int requiredLevel;
+
+		// Bestimme die Basislevel in 5er-Schritten
+		int baseLevel = (playerLevel / 5) * 5;
+
+		// Wahrscheinlichkeitsbasierte Berechnung
+		int chance = random.Next( 100 );
+		if ( chance < 60 ) // 70% Chance auf Level innerhalb von 5 Leveln höher oder gleich dem Basislevel
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 5, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 70 ) // 20% Chance auf Level innerhalb von 10 Leveln höher oder gleich dem Basislevel
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 10, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 75 ) // 10% Chance auf Level innerhalb von 15 Leveln höher oder gleich dem Basislevel
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 15, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 80 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 20, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 85 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 25, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 90 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 30, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 95 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 35, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 100 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 40, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 105 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 45, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 110 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 50, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 115 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 55, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 120 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 60, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 125 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 65, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 130 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 70, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 135 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 75, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 140 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 80, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+		else if ( chance < 145 )
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 85, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+
+		else
+		{
+			int lowerBound = Math.Max( baseLevel, 0 );
+			int upperBound = Math.Min( baseLevel + 45, maxLevel );
+			requiredLevel = random.Next( lowerBound, upperBound + 1 );
+		}
+
+
+
+
+		// Füge die Möglichkeit hinzu, dass Items auch 5 oder 10 Level unter dem Spielerlevel droppen können
+		if ( random.Next( 100 ) < 20 ) // 20% Chance auf Level innerhalb von 5 Leveln unter dem Spielerlevel
+		{
+			int lowerBound = Math.Max( playerLevel - 5, 0 );
+			requiredLevel = random.Next( lowerBound, playerLevel + 1 );
+		}
+		else if ( random.Next( 100 ) < 10 ) // 10% Chance auf Level innerhalb von 10 Leveln unter dem Spielerlevel
+		{
+			int lowerBound = Math.Max( playerLevel - 10, 0 );
+			requiredLevel = random.Next( lowerBound, playerLevel + 1 );
+		}
+
+		return requiredLevel;
+	}
 	public int CalculateSellPrice()
 	{
 		int basePrice = 0;
@@ -381,7 +576,13 @@ public class ItemComponent : Component
 		int upgradeCost = CalculateUpgradeCost( ItemLevel, Tier );
 		int additionalUpgradeCost = (int)(upgradeCost * 0.5);
 
-		SellPrice = basePrice + (numberOfStats * additionalPricePerStat) + levelPrice + additionalUpgradeCost;
+		// Berücksichtige den requiredLevel des Items
+		int requiredLevel = DetermineRequiredLevelForTier( Tier.ToString() );
+
+		// Berechne den Verkaufspreis für jedes requiredLevel
+		int sellPrice = basePrice + (numberOfStats * additionalPricePerStat) + levelPrice + additionalUpgradeCost;
+		SellPrice = sellPrice * requiredLevel;
+
 		return SellPrice;
 	}
 	private int CalculateUpgradeCost( int itemLevel, Tier tier )
@@ -399,7 +600,12 @@ public class ItemComponent : Component
 		};
 
 		double tierMultiplier = Math.Pow( 1.6, (double)tier - 1 );
-		return (int)(baseCost * tierMultiplier);
+
+		// Berücksichtige den requiredLevel des Items
+		int requiredLevel = DetermineRequiredLevelForTier( tier.ToString() );
+		double requiredLevelMultiplier = Math.Pow( 1.1, requiredLevel / 5 ); // Beispiel: Multipliziere die Kosten basierend auf dem requiredLevel in 5er-Schritten
+
+		return (int)(baseCost * tierMultiplier * requiredLevelMultiplier);
 	}
 	private int CalculateLevelPrice( int level )
 	{
@@ -428,7 +634,6 @@ public class ItemComponent : Component
 		if ( CritHitChance > 0 ) count++;
 		if ( AbilityHaste > 0 ) count++;
 		if ( AttackPower > 0 ) count++;
-
 		if ( MagicPower > 0 ) count++;
 		if ( AttackSpeed > 0 ) count++;
 		if ( MoveSpeed > 0 ) count++;
@@ -448,24 +653,86 @@ public class ItemComponent : Component
 		if ( IceResistence > 0 ) count++;
 		if ( LightningResistence > 0 ) count++;
 		if ( HolyResistence > 0 ) count++;
+		if ( ShadowResistence > 0 ) count++;
+		if ( StaminaSecond > 0 ) count++;
+		if ( WalkSpeed > 0 ) count++;
+		if ( RunSpeed > 0 ) count++;
+		if ( Stamina > 0 ) count++;
+		if ( StunResist > 0 ) count++;
+		if ( BlindResist > 0 ) count++;
+		if ( SlowResist > 0 ) count++;
+		if ( FireResist > 0 ) count++;
+		if ( FreezeResist > 0 ) count++;
+		if ( BleedResist > 0 ) count++;
+		if ( PoisonResist > 0 ) count++;
+		if ( IceResist > 0 ) count++;
+		if ( LightningResist > 0 ) count++;
+		if ( HolyResist > 0 ) count++;
+		if ( ShadowResist > 0 ) count++;
+		if ( LightResist > 0 ) count++;
+
 		return count;
+	}
+	private void SetDefaultStats()
+	{
+		Random random = new Random();
+
+		switch ( Tier )
+		{
+			case Tier.C:
+				DamageBalance = random.Next( 90, 101 ); // Bereich 90-100
+				Durability = random.Next( 900, 1001 ); // Bereich 900-1000
+				break;
+			case Tier.B:
+				DamageBalance = random.Next( 80, 91 ); // Bereich 80-90
+				Durability = random.Next( 1800, 2001 ); // Bereich 1800-2000
+				break;
+			case Tier.A:
+				DamageBalance = random.Next( 70, 81 ); // Bereich 70-80
+				Durability = random.Next( 3600, 4001 ); // Bereich 3600-4000
+				break;
+			case Tier.S:
+				DamageBalance = random.Next( 60, 71 ); // Bereich 60-70
+				Durability = random.Next( 5400, 6001 ); // Bereich 5400-6000
+				break;
+			case Tier.SS:
+				DamageBalance = random.Next( 50, 61 ); // Bereich 50-60
+				Durability = random.Next( 7200, 8001 ); // Bereich 7200-8000
+				break;
+			case Tier.SSS:
+				DamageBalance = random.Next( 30, 41 ); // Bereich 30-40
+				Durability = random.Next( 8100, 9001 ); // Bereich 8100-9000
+				break;
+			case Tier.Ultimate:
+				DamageBalance = random.Next( 0, 51 ); // Bereich 0-50
+				Durability = random.Next( 9000, 10001 ); // Bereich 9000-10000
+				break;
+			default:
+				DamageBalance = random.Next( 50, 101 ); // Bereich 50-100
+				Durability = random.Next( 5000, 10001 ); // Bereich 5000-10000
+				break;
+		}
 	}
 	public void GenerateRandomStats()
 	{
 		if ( IsWeapon )
 		{
 			GenerateWeaponStats();
+			SetDefaultStats();
 		}
 		else if ( IsArmor )
 		{
 			GenerateArmorStats();
+			SetDefaultStats();
 		}
 		else if ( IsAccessory )
 		{
 			GenerateAccessoryStats();
+			SetDefaultStats();
 		}
 		else if ( IsConsumable )
 		{
+		
 
 		}
 		else if ( IsAspect )
@@ -491,44 +758,64 @@ public class ItemComponent : Component
 		switch ( Tier )
 		{
 			case Tier.C:
-				return (0, baseMax / 5);
+				return (Math.Max( 0, baseMin ), Math.Min( 2, baseMax / 5 ));
 			case Tier.B:
-				return (baseMax / 5, baseMax * 2 / 5);
+				return (Math.Max( 2, baseMin ), Math.Min( 4, baseMax * 2 / 5 ));
 			case Tier.A:
-				return (baseMax * 2 / 5, baseMax * 3 / 5);
+				return (Math.Max( 4, baseMin ), Math.Min( 6, baseMax * 3 / 5 ));
 			case Tier.S:
-				return (baseMax * 3 / 5, baseMax * 4 / 5);
+				return (Math.Max( 6, baseMin ), Math.Min( 8, baseMax * 4 / 5 ));
 			case Tier.SS:
-				return (baseMax * 4 / 5, baseMax);
+				return (Math.Max( 8, baseMin ), Math.Min( 10, baseMax ));
 			case Tier.SSS:
-				return (baseMax, baseMax * 2);
+				return (Math.Max( 10, baseMin ), Math.Min( 12, baseMax * 2 ));
 			case Tier.Ultimate:
-				return (baseMax * 2, baseMax * 3);
+				return (Math.Max( 12, baseMin ), Math.Min( 15, baseMax * 3 ));
 			default:
 				return (baseMin, baseMax);
 		}
 	}
-	
 
-	
+
+
 
 	private void GenerateWeaponStats()
 	{
 		Random random = new Random();
 
 		// Definieren Sie die Basiswerte für Waffenstatistiken
-		int baseMinSTG = 5, baseMaxSTG = 15;
-		int baseMinInt = 5, baseMaxInt = 15;
-		int baseMinMana = 10, baseMaxMana = 100;
+		int baseMinSTG = 1, baseMaxSTG = 15;
+		int baseMinInt = 1, baseMaxInt = 15;
+		int baseMinMana = 1, baseMaxMana = 100;
 		int baseMinCritHitDamage = 1, baseMaxCritHitDamage = 15;
 		int baseMinCritHitChance = 1, baseMaxCritHitChance = 15;
-		int baseMinAttackPower = 10, baseMaxAttackPower = 100;
-		int baseMinMagicPower = 10, baseMaxMagicPower = 100;
+		int baseMinAttackPower = 1, baseMaxAttackPower = 100;
+		int baseMinMagicPower = 1, baseMaxMagicPower = 100;
 		int baseMinAttackSpeed = 1, baseMaxAttackSpeed = 14;
 		int baseMinMoveSpeed = 1, baseMaxMoveSpeed = 100;
-		int baseMinBonusScore = 10, baseMaxBonusScore = 100;
-		int baseMinBonusEXP = 10, baseMaxBonusEXP = 100;
-		int baseMinBonusVyndalium = 10, baseMaxBonusVyndalium = 100;
+		int baseMinBonusScore = 1, baseMaxBonusScore = 100;
+		int baseMinBonusEXP = 1, baseMaxBonusEXP = 100;
+		int baseMinBonusVyndalium = 1, baseMaxBonusVyndalium = 100;
+		int baseMinArmorPenetration = 1, baseMaxArmorPenetration = 100;
+		int baseMinMaxHealthDMG = 1, baseMaxMaxHealthDMG = 100;
+		int baseMinAttackRange = 1, baseMaxAttackRange = 1000;
+		int baseMinMagicPenetration = 1, baseMaxMagicPenetration = 100;
+		int baseMinFireElementalDamage = 1, baseMaxFireElementalDamage = 100;
+		int baseMinIceElementalDamage = 1, baseMaxIceElementalDamage = 100;
+		int baseMinLightningElementalDamage = 1, baseMaxLightningElementalDamage = 100;
+		int baseMinHolyElementalDamage = 1, baseMaxHolyElementalDamage = 100;
+		int baseMinLightElementalDamage = 1, baseMaxLightElementalDamage = 100;
+		int baseMinShadowElementalDamage = 1, baseMaxShadowElementalDamage = 100;
+		int baseMinPoisonElementalDamage = 1, baseMaxPoisonElementalDamage = 100;
+		int baseMinBleedElementalDamage = 1, baseMaxBleedElementalDamage = 100;
+		int baseMinFreezeElementalDamage = 1, baseMaxFreezeElementalDamage = 100;
+		int baseMinWaterElementalDamage = 1, baseMaxWaterElementalDamage = 100;
+		int baseMinEarthElementalDamage = 1, baseMaxEarthElementalDamage = 100;
+		int baseMinWindElementalDamage = 1, baseMaxWindElementalDamage = 100;
+
+
+
+		
 
 		// Bestimmen Sie die maximalen Werte basierend auf dem Tier
 		var (minSTG, maxSTG) = GetStatRange( baseMinSTG, baseMaxSTG );
@@ -543,9 +830,28 @@ public class ItemComponent : Component
 		var (minBonusScore, maxBonusScore) = GetStatRange( baseMinBonusScore, baseMaxBonusScore );
 		var (minBonusEXP, maxBonusEXP) = GetStatRange( baseMinBonusEXP, baseMaxBonusEXP );
 		var (minBonusVyndalium, maxBonusVyndalium) = GetStatRange( baseMinBonusVyndalium, baseMaxBonusVyndalium );
+		var (minArmorPenetration, maxArmorPenetration) = GetStatRange( baseMinArmorPenetration, baseMaxArmorPenetration );
+		var (minMaxHealthDMG, maxMaxHealthDMG) = GetStatRange( baseMinMaxHealthDMG, baseMaxMaxHealthDMG );
+		var (minAttackRange, maxAttackRange) = GetStatRange( baseMinAttackRange, baseMaxAttackRange );
+		var (minMagicPenetration, maxMagicPenetration) = GetStatRange( baseMinMagicPenetration, baseMaxMagicPenetration );
+		var (minFireElementalDamage, maxFireElementalDamage) = GetStatRange( baseMinFireElementalDamage, baseMaxFireElementalDamage );
+		var (minIceElementalDamage, maxIceElementalDamage) = GetStatRange( baseMinIceElementalDamage, baseMaxIceElementalDamage );
+		var (minLightningElementalDamage, maxLightningElementalDamage) = GetStatRange( baseMinLightningElementalDamage, baseMaxLightningElementalDamage );
+		var (minHolyElementalDamage, maxHolyElementalDamage) = GetStatRange( baseMinHolyElementalDamage, baseMaxHolyElementalDamage );
+		var (minLightElementalDamage, maxLightElementalDamage) = GetStatRange( baseMinLightElementalDamage, baseMaxLightElementalDamage );
+		var (minShadowElementalDamage, maxShadowElementalDamage) = GetStatRange( baseMinShadowElementalDamage, baseMaxShadowElementalDamage );
+		var (minPoisonElementalDamage, maxPoisonElementalDamage) = GetStatRange( baseMinPoisonElementalDamage, baseMaxPoisonElementalDamage );
+		var (minBleedElementalDamage, maxBleedElementalDamage) = GetStatRange( baseMinBleedElementalDamage, baseMaxBleedElementalDamage );
+		var (minFreezeElementalDamage, maxFreezeElementalDamage) = GetStatRange( baseMinFreezeElementalDamage, baseMaxFreezeElementalDamage );
+		var (minWaterElementalDamage, maxWaterElementalDamage) = GetStatRange( baseMinWaterElementalDamage, baseMaxWaterElementalDamage );
+		var (minEarthElementalDamage, maxEarthElementalDamage) = GetStatRange( baseMinEarthElementalDamage, baseMaxEarthElementalDamage );
+		var (minWindElementalDamage, maxWindElementalDamage) = GetStatRange( baseMinWindElementalDamage, baseMaxWindElementalDamage );
+
+
+
 
 		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
-		double[] probabilities = { 0.7, 0.1, 0.05, 0.025, 0.0125, 0.01, 0.0075, 0.005 };
+		double[] probabilities = { 0.6, 0.2, 0.05, 0.025, 0.0125, 0.01, 0.075, 0.05 };
 
 		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
 		int maxStats = 0;
@@ -580,18 +886,44 @@ public class ItemComponent : Component
 		() => STG = random.Next(minSTG, maxSTG + 1),
 		() => INT = random.Next(minInt, maxInt + 1),
 		() => Mana = random.Next(minMana, maxMana + 1),
+
 		() => CritHitDamage = random.Next(minCritHitDamage, maxCritHitDamage + 1),
 		() => CritHitChance = random.Next(minCritHitChance, maxCritHitChance + 1),
+
 		() => AttackPower = random.Next(minAttackPower, maxAttackPower + 1),
+		() => ArmorPenetration = random.Next(minArmorPenetration, maxArmorPenetration + 1),
+		() => MaxHealthDMG = random.Next(minMaxHealthDMG, maxMaxHealthDMG + 1),
+		() => AttackRange = random.Next(minAttackRange, maxAttackRange + 1),
+		
 		() => MagicPower = random.Next(minMagicPower, maxMagicPower + 1),
+		() => MagicPenetration = random.Next(minMagicPenetration, maxMagicPenetration + 1),
+		() => FireElementalDamage = random.Next(minFireElementalDamage, maxFireElementalDamage + 1),
+		() => IceElementalDamage = random.Next(minIceElementalDamage, maxIceElementalDamage + 1),
+		() => LightningElementalDamage = random.Next(minLightningElementalDamage, maxLightningElementalDamage + 1),
+		() => HolyElementalDamage = random.Next(minHolyElementalDamage, maxHolyElementalDamage + 1),
+		() => LightElementalDamage = random.Next(minLightElementalDamage, maxLightElementalDamage + 1),
+
+
+		
+		() => ShadowElementalDamage = random.Next(minShadowElementalDamage, maxShadowElementalDamage + 1),
+		() => PoisonElementalDamage = random.Next(minPoisonElementalDamage, maxPoisonElementalDamage + 1),
+		() => BleedElementalDamage = random.Next(minBleedElementalDamage, maxBleedElementalDamage + 1),
+		() => FreezeElementalDamage = random.Next(minFreezeElementalDamage, maxFreezeElementalDamage + 1),
+		() => WaterElementalDamage = random.Next(minWaterElementalDamage, maxWaterElementalDamage + 1),
+		() => EarthElementalDamage = random.Next(minEarthElementalDamage, maxEarthElementalDamage + 1),
+		() => WindElementalDamage = random.Next(minWindElementalDamage, maxWindElementalDamage + 1),
 		() => AttackSpeed = random.Next(minAttackSpeed, maxAttackSpeed + 1),
+
+	
+
+
 		() => MoveSpeed = random.Next(minMoveSpeed, maxMoveSpeed + 1),
 		() => BonusScore = random.Next(minBonusScore, maxBonusScore + 1),
 		() => BonusEXP = random.Next(minBonusEXP, maxBonusEXP + 1),
 		() => BonusVyndalium = random.Next(minBonusVyndalium, maxBonusVyndalium + 1),
 		() => ItemLevel = GenerateRandomItemLevel(random),
 	};
-
+		
 		// Wählen Sie zufällig eine bestimmte Anzahl von Statistiken aus
 		statsGenerators.OrderBy( x => random.Next() ).Take( maxStats ).ToList().ForEach( action => action() );
 	}
@@ -616,20 +948,39 @@ public class ItemComponent : Component
 		Random random = new Random();
 
 		// Definieren Sie die Basiswerte für Rüstungsstatistiken
-		int baseMinPER = 5, baseMaxPER = 15;
-		int baseMinDex = 5, baseMaxDex = 15;
-		int baseMinTenacity = 1, baseMaxTenacity = 10;
-		int baseMinMoveSpeed = 1, baseMaxMoveSpeed = 100;
-		int baseMinArmor = 5, baseMaxArmor = 50;
-		int baseMinMagicDefense = 5, baseMaxMagicDefense = 50;
-		int baseMinEvasion = 1, baseMaxEvasion = 10;
-		int baseMinCover = 1, baseMaxCover = 10;
-		int baseMinAbilityHaste = 1, baseMaxAbilityHaste = 10;
-		int baseMinMana = 10, baseMaxMana = 250;
-		int baseMinHealth = 10, baseMaxHealth = 250;
+		int baseMinPER = 1, baseMaxPER = 15;
+		int baseMinDex = 1, baseMaxDex = 15;
+		int baseMinTenacity = 1, baseMaxTenacity = 100;
+		int baseMinMoveSpeed = 1, baseMaxMoveSpeed = 1000;
+		int baseMinArmor = 1, baseMaxArmor = 500;
+		int baseMinMagicDefense = 1, baseMaxMagicDefense = 500;
+		int baseMinEvasion = 1, baseMaxEvasion = 100;
+		int baseMinCover = 1, baseMaxCover = 100;
+		int baseMinAbilityHaste = 1, baseMaxAbilityHaste = 100;
+		int baseMinMana = 1, baseMaxMana = 250;
+		int baseMinHealth = 1, baseMaxHealth = 250;
+		int baseMinHealthRegen = 1, baseMaxHealthRegen = 100;
+		int baseMinManaRegen = 1, baseMaxManaRegen = 100;
+
+		int baseMinStunResistance = 1, baseMaxStunResistance = 10;
+		int baseMinBlindResistance = 1, baseMaxBlindResistance = 10;
+		int baseMinBleedResistance = 1, baseMaxBleedResistance = 10;
+		int baseMinFreezeResistance = 1, baseMaxFreezeResistance = 10;
+		int baseMinSlowResistence = 1, baseMaxSlowResistence = 10;
+		int baseMinFireResistence = 1, baseMaxFireResistence = 10;
+		int baseMinPoisonResistence = 1, baseMaxPoisonResistence = 10;
+		int baseMinIceResistence = 1, baseMaxIceResistence = 10;
+		int baseMinLightningResistence = 1, baseMaxLightningResistence = 10;
+		int baseMinLightResistence = 1, baseMaxLightResistence = 10;
+		int baseMinShadowResistence = 1, baseMaxShadowResistence = 10;
+		int baseMinHolyResistence = 1, baseMaxHolyResistence = 10;
+	
+
+
 
 		// Bestimmen Sie die maximalen Werte basierend auf dem Tier
 		var (minPER, maxPER) = GetStatRange( baseMinPER, baseMaxPER );
+		var (minHealthRegen, maxHealthRegen) = GetStatRange( baseMinHealthRegen, baseMaxHealthRegen );
 		var (minDex, maxDex) = GetStatRange( baseMinDex, baseMaxDex );
 		var (minTenacity, maxTenacity) = GetStatRange( baseMinTenacity, baseMaxTenacity );
 		var (minMoveSpeed, maxMoveSpeed) = GetStatRange( baseMinMoveSpeed, baseMaxMoveSpeed );
@@ -640,6 +991,21 @@ public class ItemComponent : Component
 		var (minAbilityHaste, maxAbilityHaste) = GetStatRange( baseMinAbilityHaste, baseMaxAbilityHaste );
 		var (minMana, maxMana) = GetStatRange( baseMinMana, baseMaxMana );
 		var (minHealth, maxHealth) = GetStatRange( baseMinHealth, baseMaxHealth );
+
+		var (minStunResistance, maxStunResistance) = GetStatRange( baseMinStunResistance, baseMaxStunResistance );
+		var (minBlindResistance, maxBlindResistance) = GetStatRange( baseMinBlindResistance, baseMaxBlindResistance );
+		var (minBleedResistance, maxBleedResistance) = GetStatRange( baseMinBleedResistance, baseMaxBleedResistance );
+		var (minSlowResistence, maxSlowResistence) = GetStatRange( baseMinSlowResistence, baseMaxSlowResistence );
+		var (minShadowResist, maxShadowResist) = GetStatRange( baseMinShadowResistence, baseMaxShadowResistence );
+		var (minFireResistence, maxFireResistence) = GetStatRange( baseMinFireResistence, baseMaxFireResistence );
+		var (minPoisonResistence, maxPoisonResistence) = GetStatRange( baseMinPoisonResistence, baseMaxPoisonResistence );
+		var (minIceResistence, maxIceResistence) = GetStatRange( baseMinIceResistence, baseMaxIceResistence );
+		var (minLightningResistence, maxLightningResistence) = GetStatRange( baseMinLightningResistence, baseMaxLightningResistence );
+		var (minHolyResistence, maxHolyResistence) = GetStatRange( baseMinHolyResistence, baseMaxHolyResistence );
+		var (minLightResist, maxLightResist) = GetStatRange( baseMinLightResistence, baseMaxLightResistence );
+
+		var (minManaRegen, maxManaRegen) = GetStatRange( baseMinManaRegen, baseMaxManaRegen );
+
 
 		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
 		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
@@ -686,6 +1052,22 @@ public class ItemComponent : Component
 		() => AbilityHaste = random.Next(minAbilityHaste, maxAbilityHaste + 1),
 		() => Mana = random.Next(minMana, maxMana + 1),
 		() => Health = random.Next(minHealth, maxHealth + 1),
+		() => HealthRegen = random.Next(minHealthRegen, maxHealthRegen + 1),
+		() => ManaRegen = random.Next(minManaRegen, maxManaRegen + 1),
+
+		() => FreezeResist = random.Next(baseMinFreezeResistance, baseMaxFreezeResistance + 1),
+
+		() => SlowResistence = random.Next(minSlowResistence, maxSlowResistence + 1),
+		() => FireResistence = random.Next(minFireResistence, maxFireResistence + 1),
+		() => BleedResistance = random.Next(minBleedResistance, maxBleedResistance + 1),
+
+		() => PoisonResistence = random.Next(minPoisonResistence, maxPoisonResistence + 1),
+		() => IceResistence = random.Next(minIceResistence, maxIceResistence + 1),
+		() => LightningResistence = random.Next(minLightningResistence, maxLightningResistence + 1),
+		() => HolyResistence = random.Next(minHolyResistence, maxHolyResistence + 1),
+		() => ShadowResist = random.Next(minShadowResist, maxShadowResist + 1),
+		() => LightResist = random.Next(minLightResist, maxLightResist + 1),
+
 		() => ItemLevel = GenerateRandomItemLevel(random),
 	};
 
@@ -702,13 +1084,63 @@ public class ItemComponent : Component
 		int baseMinBonusVyndalium = 10, baseMaxBonusVyndalium = 100;
 		int baseMinTenacity = 1, baseMaxTenacity = 10;
 		int baseMinStunResistance = 1, baseMaxStunResistance = 10;
+		int baseMinBlindResistance = 1, baseMaxBlindResistance = 10;
+		int baseMinBleedResistance = 1, baseMaxBleedResistance = 10;
+		int baseMinFreezeResistance = 1, baseMaxFreezeResistance = 10;
+		int baseMinSlowResistence = 1, baseMaxSlowResistence = 10;
+		int baseMinFireResistence = 1, baseMaxFireResistence = 10;
+		int baseMinPoisonResistence = 1, baseMaxPoisonResistence = 10;
+		int baseMinIceResistence = 1, baseMaxIceResistence = 10;
+		int baseMinLightningResistence = 1, baseMaxLightningResistence = 10;
+		int baseMinLightResistence = 1, baseMaxLightResistence = 10;
+		int baseMinShadowResistence = 1, baseMaxShadowResistence = 10;
+		int baseMinHolyResistence = 1, baseMaxHolyResistence = 10;
+		int basestaminapersecond = 1, basemaxStaminaSecond = 100;
+		int baseminWalkSpeed = 1, basemaxWalkSpeed = 100;
+		int baseminRunSpeed = 1, basemaxRunSpeed = 100;
+		int baseMinStamina = 1, baseMaxStamina = 100;
+		int baseMinAbilityHaste = 1, baseMaxAbilityHaste = 10;
+		int baseMinCritHitChance = 1, baseMaxCritHitChance = 10;
+		int baseMinCritHitDamage = 1, baseMaxCritHitDamage = 10;
+		
+	
+
+
+		
+
+		
 
 		// Bestimmen Sie die maximalen Werte basierend auf dem Tier
 		var (minBonusEXP, maxBonusEXP) = GetStatRange( baseMinBonusEXP, baseMaxBonusEXP );
+		
 		var (minBonusScore, maxBonusScore) = GetStatRange( baseMinBonusScore, baseMaxBonusScore );
 		var (minBonusVyndalium, maxBonusVyndalium) = GetStatRange( baseMinBonusVyndalium, baseMaxBonusVyndalium );
 		var (minTenacity, maxTenacity) = GetStatRange( baseMinTenacity, baseMaxTenacity );
 		var (minStunResistance, maxStunResistance) = GetStatRange( baseMinStunResistance, baseMaxStunResistance );
+		var (minBlindResistance, maxBlindResistance) = GetStatRange( baseMinBlindResistance, baseMaxBlindResistance );
+		var (minBleedResistance, maxBleedResistance) = GetStatRange( baseMinBleedResistance, baseMaxBleedResistance );
+		var (minSlowResistence, maxSlowResistence) = GetStatRange( baseMinSlowResistence, baseMaxSlowResistence );
+		var (minShadowResist, maxShadowResist) = GetStatRange( baseMinShadowResistence, baseMaxShadowResistence );
+		var (minFireResistence, maxFireResistence) = GetStatRange( baseMinFireResistence, baseMaxFireResistence );
+		var (minPoisonResistence, maxPoisonResistence) = GetStatRange( baseMinPoisonResistence, baseMaxPoisonResistence );
+		var (minIceResistence, maxIceResistence) = GetStatRange( baseMinIceResistence, baseMaxIceResistence );
+		var (minLightningResistence, maxLightningResistence) = GetStatRange( baseMinLightningResistence, baseMaxLightningResistence );
+		var (minHolyResistence, maxHolyResistence) = GetStatRange( baseMinHolyResistence, baseMaxHolyResistence );
+		var (minLightResist, maxLightResist) = GetStatRange( baseMinLightResistence, baseMaxLightResistence );
+		
+
+		var (minStamina, maxStamina) = GetStatRange( baseMinStamina, baseMaxStamina );
+		
+		var (minStaminaSecond, maxStaminaSecond) = GetStatRange( basestaminapersecond, basemaxStaminaSecond );
+		var (minWalkSpeed, maxWalkSpeed) = GetStatRange( baseminWalkSpeed, basemaxWalkSpeed );
+		var (minRunSpeed, maxRunSpeed) = GetStatRange( baseminRunSpeed, basemaxRunSpeed );
+		var (minAbilityHaste, maxAbilityHaste) = GetStatRange( baseMinAbilityHaste, baseMaxAbilityHaste );
+		var (minCritHitChance, maxCritHitChance) = GetStatRange( baseMinCritHitChance, baseMaxCritHitChance );
+		var (minCritHitDamage, maxCritHitDamage) = GetStatRange( baseMinCritHitDamage, baseMaxCritHitDamage );
+
+		
+
+
 
 		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
 		double[] probabilities = { 0.7, 0.1, 0.05, 0.025, 0.0125, 0.01, 0.0075, 0.005 };
@@ -742,6 +1174,33 @@ public class ItemComponent : Component
 		List<Action> statsGenerators = new List<Action>
 	{
 		() => BonusEXP = random.Next(minBonusEXP, maxBonusEXP + 1),
+		() => StaminaSecond = random.Next(minStaminaSecond, maxStaminaSecond + 1),
+		() => WalkSpeed = random.Next(minWalkSpeed, maxWalkSpeed + 1),
+		() => RunSpeed = random.Next(minRunSpeed, maxRunSpeed + 1),
+		() => Stamina = random.Next(minStamina, maxStamina + 1),
+		() => AbilityHaste = random.Next(minAbilityHaste, maxAbilityHaste +1),
+		() => CritHitChance = random.Next(minCritHitChance, maxCritHitChance + 1),
+		() => CritHitDamage = random.Next(minCritHitDamage, maxCritHitDamage + 1),
+	
+	
+
+		() => BlindResistance = random.Next(minBlindResistance, maxBlindResistance + 1),
+		() => FreezeResist = random.Next(baseMinFreezeResistance, baseMaxFreezeResistance + 1),
+	
+		() => SlowResistence = random.Next(minSlowResistence, maxSlowResistence + 1),
+		() => FireResistence = random.Next(minFireResistence, maxFireResistence + 1),
+		() => BleedResistance = random.Next(minBleedResistance, maxBleedResistance + 1),
+
+		() => PoisonResistence = random.Next(minPoisonResistence, maxPoisonResistence + 1),
+		() => IceResistence = random.Next(minIceResistence, maxIceResistence + 1),
+		() => LightningResistence = random.Next(minLightningResistence, maxLightningResistence + 1),
+		() => HolyResistence = random.Next(minHolyResistence, maxHolyResistence + 1),
+		() => ShadowResist = random.Next(minShadowResist, maxShadowResist + 1),
+		() => LightResist = random.Next(minLightResist, maxLightResist + 1),
+	
+	
+	
+		
 		() => BonusScore = random.Next(minBonusScore, maxBonusScore + 1),
 		() => BonusVyndalium = random.Next(minBonusVyndalium, maxBonusVyndalium + 1),
 		() => Tenacity = random.Next(minTenacity, maxTenacity + 1),

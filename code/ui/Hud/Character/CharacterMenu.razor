@@ -21,7 +21,13 @@
 	<SideButton Title="Abilities" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Abilities)) IsInverted=@(true)
 		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 270px; right: 0px; " style="z-index: 100;" />
-	
+	<SideButton Title="Quests" OnClick=@(() =>
+		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Quests)) IsInverted=@(true)
+		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 390px; right: 0px;" style="z-index: 100;" />
+	<SideButton Title="Leaderboard" OnClick=@(() =>
+		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Leaderboard)) IsInverted=@(true)
+		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 510px; right: 0px;" style="z-index: 100;" />
+
 
 
 	<div class="top">
@@ -82,7 +88,7 @@
 					<div class="header">⚔️Overall Attack Power</div>
 
 					<p> Armor Penetration : @Math.Round(Player.Local.ArmorPenetration, 2)</p>
-					<p> Max Health DMG : @Math.Round(Player.Local.ArmorPenetration, 2)</p>
+					<p> Max Health DMG : @Math.Round(Player.Local.MaxHealthDMG, 2)</p>
 					<p> Additional Attack Range : @Math.Round(Player.Local.AttackRange, 2)</p>
 				</div>
 			</h2>

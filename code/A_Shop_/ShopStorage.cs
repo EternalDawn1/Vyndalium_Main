@@ -16,6 +16,14 @@ namespace GeneralGame
         [Property] public List<ItemComponent> MaterialItems { get; private set; } = new List<ItemComponent>(); // Hinzugefügt
 
         [Property] public List<ItemComponent> UpgradeItems { get; private set; } = new List<ItemComponent>();
+
+        public TutorialManager TutorialManager { get; set; } = new TutorialManager();
+
+        public void OpenTutorial()
+        {
+           
+        }
+        
         public static ShopStorage Instance
         {
             get

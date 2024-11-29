@@ -34,7 +34,7 @@ public partial class Player
     [Sync, Property, Group( "CharacterStats" )] public float CritHitChance { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public float CritHitDamage { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public double BonusEXPGain { get; set; } = 0.1f;
-
+    [Sync, Property, Group( "CharacterStats" )] public float MaxHealthDMG { get; set; } = 0f;
 
     [Sync, Property, Group( "CharacterStats" )] public float SlowResist { get; set; } = 0f;
     [Sync, Property, Group( "CharacterStats" )] public double Tenacity { get; set; } = 0f;

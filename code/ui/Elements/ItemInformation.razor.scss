@@ -3,15 +3,16 @@
 ItemInformation {
     position: relative;
     
-    width: 360px;
+    width: 380px;
     height: 100%;
-    max-height: 600px;
+    max-height: 700px;
     align-items: center;
     transition: all 0.08s ease-out;
     font-family: Geneva;    
     flex-direction: column;
-    margin-left: 30px;
-    box-shadow: 5px 4px 5px black;
+    margin-left: 50px;
+  
+   
     border-radius: 15px;
     border-left: 1px solid #FFD700;
     border-width: 1px;
@@ -30,7 +31,7 @@ ItemInformation {
         }
     &.tier-c {
             background-color: rgba(190, 190, 190, 0.1);
-            text-shadow: 1px 1px 4px rgb(190, 190, 190);
+            
         }
     
         &.tier-a {
@@ -48,7 +49,7 @@ ItemInformation {
             background-image: url(/ui/hud/green.gif);
             background-size: cover;
             background-position: center;
-            text-shadow: 1px 1px 4px rgb(52, 197, 52);
+         
             
             border-width: 1px;
             border-color: rgb(52, 197, 52);
@@ -60,7 +61,7 @@ ItemInformation {
             background-image: url(/ui/hud/red2.gif);
             background-size: cover;
             background-position: center;
-            text-shadow: 1px 1px 4px rgb(255, 0, 0);
+           
             border-width: 1px;
             border-color: rgb(255, 0, 0);
 
@@ -73,17 +74,17 @@ ItemInformation {
             background-image: url(/ui/hud/purple2.gif);
             background-size: cover;
             background-position: center;
-            text-shadow: 1px 1px 4px rgb(255, 0, 255);
+            
             border-width: 1px;
             border-color: rgb(255, 0, 255);
         }
     
         &.tier-sss {
             
-            background-image: url(/ui/hud/gold2.gif);
+            background-image: url(/ui/hud/gold1.gif);
             background-size: cover;
             background-position: center;
-            text-shadow: 1px 1px 4px #ffd900;
+          
             border-width: 1px;
             border-color: #ffd900;
             
@@ -93,7 +94,7 @@ ItemInformation {
             background-image: url(/ui/hud/ultimate.gif);
             background-size: cover;
             background-position: center;
-            text-shadow: 1px 1px 4px #ff8800;
+          
             border-width: 1px;
             border-color: #ff8800;
             
@@ -155,7 +156,7 @@ ItemInformation {
                     position: relative;
                     font-size: 15px;
                     justify-content: center;
-                    color: white;
+                    color: rgba(255, 255, 255, 0.445);
                    
                 }
             }
@@ -181,7 +182,7 @@ ItemInformation {
                     position: relative;
                     font-size: 15px;
                     justify-content: center;
-                    color: white;
+                    color: rgba(255, 255, 255, 0.39);
                    
                 }
             }
@@ -195,9 +196,10 @@ ItemInformation {
                     font-size: 27px;
                     font-style: italic;
                     text-decoration:underline overline;
+                    text-shadow: 1px 1px 4px rgb(5, 5, 5);
                   
                     font-weight: 800;
-                    color: white;
+                    color: rgba(161, 161, 161, 0.719);
                     flex-direction: column;
                 
                     height: 100%;
@@ -483,8 +485,9 @@ ItemInformation {
             .x{
                 
                 font-weight: bold;
-                color: rgb(255, 255, 255);
+                color: rgb(187, 187, 187);
                 font-size: 17px;
+                
             }
             .y1{
                     
@@ -498,6 +501,20 @@ ItemInformation {
                 color: rgb(255, 0, 0);
                 font-size: 17px;
             }
+            .y2{
+                
+                font-weight: bold;
+                color: rgb(122, 0, 106);
+                font-size: 17px;
+            }
+            .y3{
+                
+                font-weight: bold;
+               
+                color: rgb(0, 42, 158);
+                font-size: 17px;
+            }
+
        
         }
         .item-description1.insufficient-level 

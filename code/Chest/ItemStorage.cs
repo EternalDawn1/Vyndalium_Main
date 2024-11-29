@@ -69,10 +69,10 @@ namespace GeneralGame
                     }
 
 
-                    //itemComponent.GenerateRandomStats();
+                    itemComponent.GenerateRandomStats();
                    
                     itemComponent.CalculateSellPrice();
-                    //itemComponent.GenerateRandomDMG(tier);
+                   
                 }
             }
         }
@@ -208,7 +208,12 @@ namespace GeneralGame
             "prefabs/entitys/aspects/variants/lightning.prefab",
             "prefabs/entitys/aspects/variants/water.prefab",
             "prefabs/entitys/aspects/variants/shadow.prefab",
-       
+            "prefabs/items/bags/backpack.prefab",
+            "prefabs/items/bags/backpack_big.prefab",
+            "prefabs/items/bags/backpack_small2.prefab",
+            "prefabs/entitys/rings/ringsv1.prefab",
+            "prefabs/entitys/rings/ringsv2.prefab",
+
             "prefabs/clothes/clothes/sbase1.prefab",
         
             "prefabs/clothes/clothes/sbase3.prefab",
@@ -247,6 +252,19 @@ namespace GeneralGame
             "prefabs/potions/potion_small.prefab",
             "prefabs/potions/potion_mid.prefab",
             "prefabs/potions/potion_big.prefab",
+            "prefabs/weapons/aksu/c.prefab",
+            "prefabs/weapons/facepunch/usp/uspc.prefab",
+            "prefabs/weapons/facepunch/shotgun/shotgunc.prefab",
+            "prefabs/weapons/facepunch/mp5/mp5c.prefab",
+            "prefabs/weapons/m4a1/m4a1-c.prefab",
+            "prefabs/weapons/pm/glock-c.prefab",
+            "prefabs/clothes/armor/armor-c.prefab",
+            "prefabs/clothes/helmet/helmet-c.prefab",
+            "prefabs/clothes/legarmor/legarmor-c.prefab",
+            "prefabs/items/wood_log.prefab",
+            "prefabs/weapons/new/hands.prefab",
+            "prefabs/weapons/new/knife.prefab",
+            "prefabs/weapons/new/machete.prefab",
             // Fügen Sie hier weitere Items hinzu, die keine zufälligen Statistiken erhalten sollen
         };
 
@@ -267,10 +285,8 @@ namespace GeneralGame
             "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/potions/potion_small.prefab",
-            "prefabs/potions/potion_mid.prefab",
-            "prefabs/potions/potion_big.prefab",
+    
+ 
             // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
         };
 
@@ -289,10 +305,7 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/potions/potion_small.prefab",
-            "prefabs/potions/potion_mid.prefab",
-            "prefabs/potions/potion_big.prefab",
+     
 
             // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
         };
@@ -311,10 +324,7 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/potions/potion_small.prefab",
-            "prefabs/potions/potion_mid.prefab",
-            "prefabs/potions/potion_big.prefab",
+          
             // Fügen Sie hier weitere A-Tier-Prefab-Dateien hinzu
         };
 
@@ -332,10 +342,7 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/potions/potion_small.prefab",
-            "prefabs/potions/potion_mid.prefab",
-            "prefabs/potions/potion_big.prefab",
+        
             // Fügen Sie hier weitere S-Tier-Prefab-Dateien hinzu
         };
 
@@ -353,10 +360,8 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/potions/potion_small.prefab",
-            "prefabs/potions/potion_mid.prefab",
-            "prefabs/potions/potion_big.prefab",
+     
+          
             // Fügen Sie hier weitere SS-Tier-Prefab-Dateien hinzu
         };
 
@@ -374,10 +379,7 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/new/machete.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/potions/potion_small.prefab",
-            "prefabs/potions/potion_mid.prefab",
-            "prefabs/potions/potion_big.prefab",
+   
             // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
         };
         private List<string> tierUltimatePrefabs = new List<string>
@@ -407,9 +409,10 @@ namespace GeneralGame
             {
                 
                 int minLevel = 0;
-                int maxLevel = 100;
+                int maxLevel = Player.Local?.GetMaxLevel() ?? 100;
                 int playerLevel = GetPlayerLevel();
                 LoadBossTierPrefabs(playerLevel, minLevel, maxLevel);
+                GenerateRandomStatsForItems();
             }
             else
             {
@@ -417,9 +420,10 @@ namespace GeneralGame
                 if ( Player.Local != null )
                 {
                     int minLevel = 0;
-                    int maxLevel = 100;
+                    int maxLevel = Player.Local?.GetMaxLevel() ?? 100;
                     int playerLevel = GetPlayerLevel();
                     LoadRandomTierPrefabs( playerLevel, minLevel, maxLevel );
+                    GenerateRandomStatsForItems();
                 }
             }
          
@@ -564,59 +568,45 @@ namespace GeneralGame
         public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
             if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
-
+            Log.Info( "Loading random tier prefabs" );
             var random = new Random();
             var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
             {
-                (basePrefabs, "C", 0.3),
-                (basePrefabs, "B", 0.2),
-                (basePrefabs, "A", 0.1),
-                (basePrefabs, "S", 0.08),
-                (basePrefabs, "SS", 0.05),
+                
+                (basePrefabs, "SS", 0.01),
                 (basePrefabs, "SSS", 0.01),
                 (basePrefabs, "Ultimate", 0.001),
-                
-            }; 
-            int itemsToSpawn;
+                (tierCPrefabs, "C", 0.4),  // 30%
+                (tierBPrefabs, "B", 0.2),  // 20%
+                (tierAPrefabs, "A", 0.2),  // 15%
+                (tierSPrefabs, "S", 0.1),  // 10%
+                (tierSSPrefabs, "SS", 0.04), // 4%
+                (tierSSSPrefabs, "SSS", 0.01), // 0.9%
+                (tierUltimatePrefabs, "Ultimate", 0.001) // 0.1%
 
+
+            };
+            // Verwenden Sie 100, um Dezimalstellen zu ermöglichen
+
+            int itemsToSpawn;
             int chance = random.Next( 100 ); // Verwenden Sie 100, um Dezimalstellen zu ermöglichen
-            if ( chance < 70 ) // 70%
+
+            if ( chance < 10 ) // 10%
             {
                 itemsToSpawn = 2;
             }
-            else if ( chance < 80 ) // 10%
+            else if ( chance < 30 ) // 20%
             {
                 itemsToSpawn = 3;
             }
-            else if ( chance < 85 ) // 5%
+            else if ( chance < 60 ) // 30%
             {
                 itemsToSpawn = 4;
             }
-            else if ( chance < 87 ) // 2%
+            else // Rest (40%)
             {
                 itemsToSpawn = 5;
             }
-            else if ( chance < 89 ) // 2%
-            {
-                itemsToSpawn = 6;
-            }
-            else if ( chance < 91 ) // 2%
-            {
-                itemsToSpawn = 7;
-            }
-            else if ( chance < 93 ) // 2%
-            {
-                itemsToSpawn = 8;
-            }
-            else if ( chance < 95 ) // 2%
-            {
-                itemsToSpawn = 9;
-            }
-            else // Rest (5%)
-            {
-                itemsToSpawn = 1;
-            }
-
             Items.Clear();
 
             var selectedPrefabs = new List<(string prefab, string tier)>();
@@ -818,93 +808,177 @@ namespace GeneralGame
         public virtual int DetermineRequiredLevelForTier( string tier )
         {
             int playerLevel = GetPlayerLevel();
+            int maxLevel = Player.Local?.GetMaxLevel() ?? 100; // Verwenden Sie das maximale Level des Spielers oder 100 als Fallback
             var random = new Random();
-            int baseLevel = tier switch
-            {
-                "C" => 1,
-                "B" => 1,
-                "A" => 1,
-                "S" => 1,
-                "SS" => 1,
-                "SSS" => 1,
-                "Ultimate" => 1,
-                _ => 0
-            };
-            int minRequiredLevel = Math.Max( baseLevel, playerLevel );
-            int maxRequiredLevel = Math.Min( baseLevel + 15, 100 ); // Maximallevel auf 100 begrenzen
             int requiredLevel;
 
-            if ( playerLevel < 10 )
+            // Bestimme die Basislevel in 5er-Schritten
+            int baseLevel = (playerLevel / 5) * 5;
+
+            // Wahrscheinlichkeitsbasierte Berechnung
+            int chance = random.Next( 100 );
+            if ( chance < 60 ) // 70% Chance auf Level innerhalb von 5 Leveln höher oder gleich dem Basislevel
             {
-                // Spielerlevel unter 10: zufälliges Level zwischen 0 und maxRequiredLevel
-                requiredLevel = random.Next( 0, maxRequiredLevel + 1 );
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 5, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
             }
+            else if ( chance < 70 ) // 20% Chance auf Level innerhalb von 10 Leveln höher oder gleich dem Basislevel
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 10, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 75 ) // 10% Chance auf Level innerhalb von 15 Leveln höher oder gleich dem Basislevel
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 15, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 80)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 20, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 85)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 25, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 90)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 30, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 95)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 35, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 100)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 40, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 105)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 45, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 110)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 50, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 115)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 55, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 120)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 60, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 125)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 65, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 130)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 70, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 135)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 75, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 140)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 80, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            else if( chance < 145)
+            {
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 85, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+            
             else
             {
-                // Spielerlevel 10 oder höher: Wahrscheinlichkeitsbasierte Berechnung
-                int chance = random.Next( 100 );
-                if ( chance < 50 ) // 50% Chance auf Level innerhalb von 5 Leveln tiefer oder 15 Leveln höher
-                {
-                    int lowerBound = Math.Max( playerLevel - 5, 0 );
-                    int upperBound = Math.Min( playerLevel + 15, 100 );
-                    requiredLevel = random.Next( Math.Min( lowerBound, upperBound ), Math.Max( lowerBound, upperBound ) + 1 );
-                }
-                else if ( chance < 80 ) // 30% Chance auf Level innerhalb von 1-3 Leveln höher oder tiefer
-                {
-                    int lowerBound = Math.Max( playerLevel - 3, 0 );
-                    int upperBound = Math.Min( playerLevel + 3, 100 );
-                    requiredLevel = random.Next( Math.Min( lowerBound, upperBound ), Math.Max( lowerBound, upperBound ) + 1 );
-                }
-                else // 20% Chance auf Level innerhalb von 80% des Spielerlevels
-                {
-                    int lowerBound = Math.Max( (int)(playerLevel * 0.8), 0 );
-                    int upperBound = Math.Min( (int)(playerLevel * 1.2), 100 );
-                    requiredLevel = random.Next( Math.Min( lowerBound, upperBound ), Math.Max( lowerBound, upperBound ) + 1 );
-                }
+                int lowerBound = Math.Max( baseLevel, 0 );
+                int upperBound = Math.Min( baseLevel + 45, maxLevel );
+                requiredLevel = random.Next( lowerBound, upperBound + 1 );
+            }
+
+           
+          
+
+            // Füge die Möglichkeit hinzu, dass Items auch 5 oder 10 Level unter dem Spielerlevel droppen können
+            if ( random.Next( 100 ) < 20 ) // 20% Chance auf Level innerhalb von 5 Leveln unter dem Spielerlevel
+            {
+                int lowerBound = Math.Max( playerLevel - 5, 0 );
+                requiredLevel = random.Next( lowerBound, playerLevel + 1 );
+            }
+            else if ( random.Next( 100 ) < 10 ) // 10% Chance auf Level innerhalb von 10 Leveln unter dem Spielerlevel
+            {
+                int lowerBound = Math.Max( playerLevel - 10, 0 );
+                requiredLevel = random.Next( lowerBound, playerLevel + 1 );
             }
 
             return requiredLevel;
         }
-
-        public ( int MinAttack, int MaxAttack ) CalculateAttackValues( string tier, ItemComponent itemComponent )
+        public (int MinAttack, int MaxAttack) CalculateAttackValues( string tier, ItemComponent itemComponent )
         {
-            if( Player.Local == null )
+            if ( Player.Local == null )
             {
                 return (0, 0);
             }
 
-            int level = Player.Local.Level;
-           
+            int requiredLevel = DetermineRequiredLevelForTier( tier );
             var baseValues = tierAttackValues[tier];
             double attackIncreasePerLevel = 16 * 0.3;
 
-            int minAttack = baseValues.MinAttack + (int)(attackIncreasePerLevel * level);
-            int maxAttack = baseValues.MaxAttack + (int)(attackIncreasePerLevel * level);
-
-            // Zusätzliche Werte basierend auf dem Waffentyp und dem erforderlichen Level
-            int requiredLevel = DetermineRequiredLevelForTier( tier);
+            int minAttack = baseValues.MinAttack + (int)(attackIncreasePerLevel * requiredLevel);
+            int maxAttack = baseValues.MaxAttack + (int)(attackIncreasePerLevel * requiredLevel);
 
             // Skalierung der Angriffswerte basierend auf dem Level der Waffe und dem erforderlichen Level
             double tierMultiplier = 1.0;
             switch ( tier )
             {
                 case "Ultimate":
-                    tierMultiplier = 1 + (10.0 * level / 100);
+                    tierMultiplier = 1 + (16.0 * requiredLevel / 100);
                     break;
                 case "SSS":
-                    tierMultiplier = 1 + (8.0 * level / 100);
+                    tierMultiplier = 1 + (8.0 * requiredLevel / 100);
                     break;
                 case "SS":
-                    tierMultiplier = 1 + (4.0 * level / 100);
+                    tierMultiplier = 1 + (4.0 * requiredLevel / 100);
                     break;
                 case "S":
-                    tierMultiplier = 1 + (3.0 * level / 100);
+                    tierMultiplier = 1 + (3.0 * requiredLevel / 100);
                     break;
                 case "A":
-                    tierMultiplier = 1 + (2.0 * level / 100);
+                    tierMultiplier = 1 + (2.0 * requiredLevel / 100);
                     break;
                 case "B":
-                    tierMultiplier = 1 + (1.0 * level / 100);
+                    tierMultiplier = 1 + (1.0 * requiredLevel / 100);
                     break;
                 case "C":
                     tierMultiplier = 1; // Kein Multiplikator für C-Tier
@@ -914,8 +988,8 @@ namespace GeneralGame
             minAttack = (int)(minAttack * tierMultiplier);
             maxAttack = (int)(maxAttack * tierMultiplier);
 
-            minAttack += (requiredLevel ) + (level );
-            maxAttack += (requiredLevel ) + (level );
+            minAttack += requiredLevel;
+            maxAttack += requiredLevel;
 
             // Zufallsfaktor hinzufügen
             var random = new Random();
@@ -969,42 +1043,43 @@ namespace GeneralGame
             var levelBonus = (level / 5) * (baseValues.MinArmor / 2);
             int minArmor = baseValues.MinArmor + levelBonus;
             int maxArmor = baseValues.MaxArmor + levelBonus;
+
             // Zusätzliche Werte basierend auf dem Rüstungstyp und dem erforderlichen Level
             int requiredLevel = DetermineRequiredLevelForTier( tier );
-            if ( requiredLevel > 45 )
-            {
-                requiredLevel = 90;
-            }
+
             // Skalierung der Rüstungswerte basierend auf dem Level der Rüstung und dem erforderlichen Level
             double tierMultiplier = 1.0;
             switch ( tier )
             {
                 case "Ultimate":
-                    tierMultiplier = 1 + (10.0 * level / 100);
+                    tierMultiplier = 1 + (12.0 * requiredLevel / 100);
                     break;
                 case "SSS":
-                    tierMultiplier = 1 + (8.0 * level / 100);
+                    tierMultiplier = 1 + (8.0 * requiredLevel / 100);
                     break;
                 case "SS":
-                    tierMultiplier = 1 + (4.0 * level / 100);
+                    tierMultiplier = 1 + (4.0 * requiredLevel / 100);
                     break;
                 case "S":
-                    tierMultiplier = 1 + (3.0 * level / 100);
+                    tierMultiplier = 1 + (3.0 * requiredLevel / 100);
                     break;
                 case "A":
-                    tierMultiplier = 1 + (2.0 * level / 100);
+                    tierMultiplier = 1 + (2.0 * requiredLevel / 100);
                     break;
                 case "B":
-                    tierMultiplier = 1 + (1.0 * level / 100);
+                    tierMultiplier = 1 + (1.0 * requiredLevel / 100);
                     break;
                 case "C":
                     tierMultiplier = 1; // Kein Multiplikator für C-Tier
                     break;
             }
+
             minArmor = (int)(minArmor * tierMultiplier);
             maxArmor = (int)(maxArmor * tierMultiplier);
-            minArmor += (requiredLevel / 2) + (level / 2);
-            maxArmor += (requiredLevel / 2) + (level / 2);
+
+            minArmor += (requiredLevel / 2);
+            maxArmor += (requiredLevel / 2);
+
             return (minArmor, maxArmor);
         }
 

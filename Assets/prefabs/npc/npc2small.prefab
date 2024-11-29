@@ -12,7 +12,7 @@
         "__guid": "5bfadb99-61d2-4408-86af-18558738b7b8",
         "Acceleration": 241.19989,
         "Height": 70.3999,
-        "MaxSpeed": 71.49985,
+        "MaxSpeed": 150,
         "Radius": 9.499976,
         "Separation": 1,
         "UpdatePosition": true,
@@ -116,8 +116,7 @@
         "isChibi": false,
         "prefabPaths": [
           "prefabs/pickupammo.prefab",
-          "prefabs/potions/potion.prefab",
-          "prefabs/items/wood_log.prefab"
+          "prefabs/potions/potion.prefab"
         ],
         "AlertOthers": false,
         "AnimationHelper": {
@@ -157,6 +156,7 @@
         "HitSounds": "sounds/grunt/gruntingn.sound",
         "Idle": true,
         "IsBleeding": false,
+        "IsSlowed": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -263,7 +263,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 11,
+              "Id": 17,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -275,13 +275,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 12,
+              "Id": 18,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 13,
+              "Id": 19,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -362,7 +362,7 @@
         "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
-          "prefab": "prefabs/npc2.prefab"
+          "prefab": "models/npcs/slime/burst.prefab"
         }
       },
       {
@@ -471,15 +471,25 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
-            "PanelSize": "2000,512",
+            "PanelSize": "2000,1000",
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
               "BloomLayer": false,
               "AfterUILayer": false
             },
-            "RenderScale": 1,
+            "RenderScale": 2.3,
             "VerticalAlign": "Center"
+          },
+          {
+            "__type": "GeneralGame.HUD.UI",
+            "__guid": "a3dcc689-7bdc-4018-87ff-67c665f6a6a0",
+            "npc": {
+              "_type": "component",
+              "component_id": "343ea719-e2a6-4c36-8add-0d68f031e949",
+              "go": "939b879f-4387-4260-b9b9-19fed476cde9",
+              "component_type": "Npc"
+            }
           }
         ]
       }
@@ -517,5 +527,6 @@
   "__references": [
     "luke.skeleman#19898"
   ],
+  "IsValid": true,
   "__version": 1
 }

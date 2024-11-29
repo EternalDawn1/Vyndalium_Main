@@ -55,33 +55,29 @@ public partial class Npc : Component, IHealthComponent
 	public MoveHelper MoveHelper { get; set; }
 	[Property] public GameObject ZombieRagedol { get; set; }
 
-	
 	[Property]
 	private readonly List<string> prefabPaths = new List<string>
 	{
-		"prefabs/pickupammo.prefab", // 50% Wahrscheinlichkeit
-		"prefabs/potions/potion.prefab", // 25% Wahrscheinlichkeit
-		"prefabs/potions/potion.prefab", // 25% Wahrscheinlichkeit
-		"prefabs/entitys/chestsystem/5.prefab" // 5% Wahrscheinlichkeit
+		null, // 90% Wahrscheinlichkeit für nichts
+		"prefabs/pickupammo.prefab", // 5% Wahrscheinlichkeit
+		"prefabs/potions/potion.prefab", // 2.5% Wahrscheinlichkeit
+		"prefabs/entitys/chestsystem/5.prefab" // 2.5% Wahrscheinlichkeit
 	};
-	private readonly List<float> probabilities = new List<float>
+
+		private readonly List<float> probabilities = new List<float>
 	{
-		0.5f, // 50% Wahrscheinlichkeit für Munition
-        0.2f, // 25% Wahrscheinlichkeit für Tränke
-        0.2f,
-		0.1f,  // 25% Wahrscheinlichkeit für Holz
-    };
+		0.90f, // 90% Wahrscheinlichkeit für nichts
+		0.05f, // 5% Wahrscheinlichkeit für Munition
+		0.025f, // 2.5% Wahrscheinlichkeit für Tränke
+		0.025f // 2.5% Wahrscheinlichkeit für eine Truhe
+	};
+
 
 	// Methode zum Spawnen eines zufälligen Prefabs
 	private void SpawnRandomPrefab( Vector3 position )
 	{
-		float totalProbability = 0f;
-		foreach ( var probability in probabilities )
-		{
-			totalProbability += probability;
-		}
-
-		float randomValue = (float)random.NextDouble() * totalProbability;
+		float totalProbability = probabilities.Sum();
+		float randomValue = (float)new Random().NextDouble() * totalProbability;
 		float cumulativeProbability = 0f;
 
 		for ( int i = 0; i < prefabPaths.Count; i++ )
@@ -89,17 +85,17 @@ public partial class Npc : Component, IHealthComponent
 			cumulativeProbability += probabilities[i];
 			if ( randomValue <= cumulativeProbability )
 			{
-				var prefab = ResourceLibrary.Get<PrefabFile>( prefabPaths[i] );
-				if ( prefab != null )
+				if ( prefabPaths[i] != null )
 				{
-					var gameObject = GameObject.Clone( prefab );
-					if ( gameObject != null )
+					var prefab = ResourceLibrary.Get<PrefabFile>( prefabPaths[i] );
+					if ( prefab != null )
 					{
-						// Spawnen des Items in der Luft
-						gameObject.WorldPosition = position + new Vector3( 0, 0, 25 );
-						gameObject.NetworkSpawn();
-		
-						
+						var gameObject = GameObject.Clone( prefab );
+						if ( gameObject != null )
+						{
+							gameObject.WorldPosition = position + new Vector3( 0, 0, 25 );
+							gameObject.NetworkSpawn();
+						}
 					}
 				}
 				break;
@@ -691,11 +687,11 @@ public partial class Npc : Component, IHealthComponent
 				var player = tr.GameObject.Components.Get<Player>();
 				if ( player != null )
 				{
-					int baseDamage = random2.Next(1, 16);
+					int baseDamage = random2.Next(1, 8);
 
 					// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
 					int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
-					int exponentialDamage = (int)(baseDamage * Math.Pow(1.1, npcLevel));
+					int exponentialDamage = (int)(baseDamage * Math.Pow(1.05, npcLevel));
 
 					// Berücksichtige die Rüstung des Spielers als Prozentsatz
 					int playerDefensePercentage = random.Next((int)player.MinArmorValue / 10, (int)player.MaxArmorValue / 10 + 1);
@@ -1161,39 +1157,83 @@ public partial class Npc : Component, IHealthComponent
 		}
 		else if ( npcLevel <= 20 )
 		{
-			return new Random().Next( 10, 15 ); // 15-30 Vyndalium für Level 11-20
+			return new Random().Next( 10, 150 ); // 15-30 Vyndalium für Level 11-20
 		}
 		else if ( npcLevel <= 30 )
 		{
-			return new Random().Next( 15, 30 ); // 30-50 Vyndalium für Level 21-30
+			return new Random().Next( 150, 300 ); // 30-50 Vyndalium für Level 21-30
 		}
 		else if ( npcLevel <= 40 )
 		{
-			return new Random().Next( 25, 51 ); // 50-70 Vyndalium für Level 31-40
+			return new Random().Next( 250, 510 ); // 50-70 Vyndalium für Level 31-40
 		}
 		else if ( npcLevel <= 50 )
 		{
-			return new Random().Next( 70, 91 ); // 70-90 Vyndalium für Level 41-50
+			return new Random().Next( 700, 910 ); // 70-90 Vyndalium für Level 41-50
 		}
 		else if ( npcLevel <= 60 )
 		{
-			return new Random().Next( 90, 111 ); // 90-110 Vyndalium für Level 51-60
+			return new Random().Next( 900, 1110 ); // 90-110 Vyndalium für Level 51-60
 		}
 		else if ( npcLevel <= 70 )
 		{
-			return new Random().Next( 110, 131 ); // 110-130 Vyndalium für Level 61-70
+			return new Random().Next( 1100, 1310 ); // 110-130 Vyndalium für Level 61-70
 		}
 		else if ( npcLevel <= 80 )
 		{
-			return new Random().Next( 130, 151 ); // 130-150 Vyndalium für Level 71-80
+			return new Random().Next( 1300, 1510 ); // 130-150 Vyndalium für Level 71-80
 		}
 		else if ( npcLevel <= 90 )
 		{
-			return new Random().Next( 150, 171 ); // 150-170 Vyndalium für Level 81-90
+			return new Random().Next( 1500, 1710 ); // 150-170 Vyndalium für Level 81-90
+		}
+		else if ( npcLevel <= 100 )
+		{
+			return new Random().Next( 1700, 2010 ); // 170-200 Vyndalium für Level 91-100
+		}
+		else if (npcLevel <= 110)
+		{
+			return new Random().Next( 2000, 2510 ); // 170-200 Vyndalium für Level 91-100
+		}
+		else if (npcLevel <= 120)
+		{
+			return new Random().Next( 2700, 3010 ); // 170-200 Vyndalium für Level 91-100
+		}
+		else if (npcLevel <= 130)
+		{
+			return new Random().Next( 3700, 4010 ); // 170-200 Vyndalium für Level 91-100
+		}
+		else if (npcLevel <= 140)
+		{
+			return new Random().Next( 5700, 7010 ); // 170-200 Vyndalium für Level 91-100
+		}
+		else if (npcLevel <= 150)
+		{
+			return new Random().Next( 7700, 10010 ); // 170-200 Vyndalium für Level 91-100
+		}
+		else if (npcLevel <= 160)
+		{
+			return new Random().Next( 11700, 15010 ); // 170-200 Vyndalium für Level 91-100
+		}
+		else if (npcLevel <= 170)
+		{
+			return new Random().Next( 16700, 22010 ); // 170-200 Vyndalium für Level 91-100
+		}
+		else if (npcLevel <= 180)
+		{
+			return new Random().Next( 21700, 25010 ); // 170-200 Vyndalium für Level 91-100
+		}
+		else if (npcLevel <= 190)
+		{
+			return new Random().Next( 21700, 32010 ); // 170-200 Vyndalium für Level 91-100
+		}
+		else if (npcLevel <= 200)
+		{
+			return new Random().Next( 31700, 42010 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else
 		{
-			return new Random().Next( 171, 201 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 41710, 52010 ); // 170-200 Vyndalium für Level 91-100
 		}
 	}
 	private int CalculateXpReward( int npcLevel )
@@ -1235,6 +1275,52 @@ public partial class Npc : Component, IHealthComponent
 		else if ( npcLevel <= 90 )
 		{
 			return new Random().Next( 150, 86171 ) * halfNpcLevel; // 150-170 XP pro halbes Level für Level 81-90
+		}
+		else if ( npcLevel <= 100 )
+		{
+			return new Random().Next( 170, 101201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+		else if (npcLevel <= 110)
+		{
+			return new Random().Next( 170, 201201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+		else if (npcLevel <= 120)
+		{
+			return new Random().Next( 170, 301201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+		else if (npcLevel <= 130)
+		{
+			return new Random().Next( 170, 401201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+		else if (npcLevel <= 140)
+		{
+			return new Random().Next( 170, 501201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+		else if (npcLevel <= 150)
+		{
+			return new Random().Next( 170, 601201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+		else if (npcLevel <= 160)
+		{
+			return new Random().Next( 170, 701201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+		else if (npcLevel <= 170)
+		{
+			return new Random().Next( 170, 801201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+		else if (npcLevel <= 180)
+		{
+			return new Random().Next( 170, 901201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+		else if (npcLevel <= 190)
+		{
+			return new Random().Next(170, 1001201) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+		}
+		else if (npcLevel <= 200)
+		{
+			return new Random().Next(170, 111201) * halfNpcLevel; // 170-
+
+		
 		}
 		else
 		{

@@ -92,7 +92,14 @@
                         ImagePath=@GetImagePath(playerLevel, GeneralScene2.One2.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
                         style=""
                     />
-                    <div class="title"> Level.50-55</div>
+                    <SideButton 
+                            Title="Labyrinth"
+                            Subtitle="required. lvl. 45" 
+                            ImagePath=@GetImagePath(playerLevel, GeneralScene2.Starting.GetRequiredLevel2(), "ui/hud/tree.png", "ui/hud/exit.gif")
+                            OnClick=@(() => ChangeScene2(GeneralScene2.Starting)) 
+                            style=""
+                        />
+                    <div class="title"> Level.75-155</div>
                     <SideButton 
                         Title="Dungeon 2-1 Extra" 
                         Subtitle="required. lvl. 25 [TESTED + Finished]" 
@@ -244,13 +251,7 @@
                 <div class="main-panel">
                     <div class="box">
                                 <div class="title">[WIP] Alpha Maps</div>
-                        <SideButton 
-                            Title="StartBase " 
-                            Subtitle="required. lvl. 5" 
-                            ImagePath=@GetImagePath(playerLevel, GeneralScene2.Starting.GetRequiredLevel2(), "ui/hud/tree.png", "ui/hud/exit.gif")
-                            OnClick=@(() => ChangeScene2(GeneralScene2.Starting)) 
-                            style=""
-                        />
+                        
                         <SideButton 
                             Title="Dungeon" 
                             Subtitle="required. lvl. 0" 

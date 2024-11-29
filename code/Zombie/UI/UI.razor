@@ -9,6 +9,7 @@
         <div class="npc">
             <div class="npc-level @GetLevelClass(npc.Level)">@npc.Level</div>
             <div class="npc-name">@npc.Name</div>
+
            
             <div class="ability" >
                 <div class="npc-ability @(npc.HasFireAbility ? "show" : "")"></div>
@@ -45,6 +46,7 @@
                 </div>
 
                 
+                <p>@(Math.Round(@npc.Health / @npc.MaxHealth * 100))</p>
             </div>
         </div>
     }

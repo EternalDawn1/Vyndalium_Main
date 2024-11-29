@@ -334,16 +334,13 @@ public sealed class Inventory : Component
 	}
 	public static void EquipItemStats( ItemComponent item )
 	{
-		//Player.Local.AttackValue += item.DMG;
-
 		Player.Local.MinAttackValue += item.MinAttackValue;
 		Player.Local.MaxAttackValue += item.MaxAttackValue;
 
 		Player.Local.MinArmorValue += item.MinArmorValue;
 		Player.Local.MaxArmorValue += item.MaxArmorValue;
 
-		Player.Local.Health += item.HE;
-		Player.Local.Armor += item.Armor;
+		Player.Local.Health += item.Health;
 		Player.Local.STG += item.STG;
 		Player.Local.HE += item.HE;
 		Player.Local.DEX += item.DEX;
@@ -351,6 +348,7 @@ public sealed class Inventory : Component
 		Player.Local.INT += item.INT;
 		Player.Local.MaxMana += item.Mana;
 		Player.Local.MaxHealth += item.Health;
+		Player.Local.HealthRegenPerSecond += item.HealthRegen;
 		Player.Local.IncreaseCritHitDamage( item.CritHitDamage );
 		Player.Local.IncreaseCritHitChance( item.CritHitChance );
 		Player.Local.AbilityHaste += item.AbilityHaste;
@@ -376,30 +374,50 @@ public sealed class Inventory : Component
 		Player.Local.LightningResist += item.LightningResistence;
 		Player.Local.LightResist += item.HolyResistence;
 		Player.Local.ShadowResist += item.ShadowResistence;
+		Player.Local.ArmorPenetration += item.ArmorPenetration;
+		Player.Local.MagicPenetration += item.MagicPenetration;
+		Player.Local.MaxHealthDMG += item.MaxHealthDMG;
+		Player.Local.AttackRange += item.AttackRange;
+		Player.Local.FireElementalDamage += item.FireElementalDamage;
+		Player.Local.WaterElementalDamage += item.WaterElementalDamage;
+		Player.Local.IceElementalDamage += item.IceElementalDamage;
+		Player.Local.FreezeElementalDamage += item.FreezeElementalDamage;
+		Player.Local.EarthElementalDamage += item.EarthElementalDamage;
+		Player.Local.WindElementalDamage += item.WindElementalDamage;
+		Player.Local.LightElementalDamage += item.LightElementalDamage;
+		Player.Local.LightningElementalDamage += item.LightningElementalDamage;
+		Player.Local.ShadowElementalDamage += item.ShadowElementalDamage;
+		Player.Local.HolyElementalDamage += item.HolyElementalDamage;
+		Player.Local.PoisonElementalDamage += item.PoisonElementalDamage;
+		Player.Local.BleedElementalDamage += item.BleedElementalDamage;
+		Player.Local.StaminaPerSecond += item.StaminaSecond;
+		Player.Local.MaxStamina += item.Stamina;
+		Player.Local.PlayerWalkSpeed += item.WalkSpeed;
+		Player.Local.PlayerRunSpeed += item.RunSpeed;
 	}
 
 	public static void UnequipItemStats( ItemComponent item )
 	{
-		if (item == null )
+		if ( item == null )
 		{
 			return;
-		}	
+		}
+
 		Player.Local.MinAttackValue -= item.MinAttackValue;
 		Player.Local.MaxAttackValue -= item.MaxAttackValue;
 
 		Player.Local.MinArmorValue -= item.MinArmorValue;
 		Player.Local.MaxArmorValue -= item.MaxArmorValue;
 
-		//Player.Local.AttackValue -= item.DMG;
-		Player.Local.Armor -= item.Armor;
-		Player.Local.Health = Math.Max(50, Player.Local.Health - item.Health);
+		Player.Local.Health = Math.Max( 50, Player.Local.Health - item.Health );
 		Player.Local.STG -= item.STG;
 		Player.Local.HE -= item.HE;
 		Player.Local.DEX -= item.DEX;
 		Player.Local.PER -= item.PER;
 		Player.Local.INT -= item.INT;
 		Player.Local.MaxMana -= item.Mana;
-		Player.Local.MaxHealth = Math.Max(50, Player.Local.MaxHealth - item.Health);
+		Player.Local.MaxHealth = Math.Max( 50, Player.Local.MaxHealth - item.Health );
+		Player.Local.HealthRegenPerSecond -= item.HealthRegen;
 		Player.Local.CritHitDamage -= item.CritHitDamage;
 		Player.Local.CritHitChance -= item.CritHitChance;
 		Player.Local.AbilityHaste -= item.AbilityHaste;
@@ -407,7 +425,6 @@ public sealed class Inventory : Component
 		Player.Local.MagicPower -= item.MagicPower;
 		Player.Local.AttackSpeed -= item.AttackSpeed;
 		Player.Local.MoveSpeed -= item.MoveSpeed;
-		Player.Local.BleedResist -= item.BleedResistance;
 		Player.Local.Armor -= item.Armor;
 		Player.Local.MagicDefense -= item.MagicDefense;
 		Player.Local.Evasion -= item.Evasion;
@@ -417,17 +434,38 @@ public sealed class Inventory : Component
 		Player.Local.BonusVyndalium -= item.BonusVyndalium;
 		Player.Local.Tenacity -= item.Tenacity;
 		Player.Local.StunResist -= item.StunResistance;
-		Player.Local.IceResist -= item.IceResistence;
 		Player.Local.BlindResist -= item.BlindResistance;
+		Player.Local.BleedResist -= item.BleedResistance;
 		Player.Local.SlowResist -= item.SlowResistence;
 		Player.Local.FireResist -= item.FireResistence;
 		Player.Local.PoisonResist -= item.PoisonResistence;
+		Player.Local.IceResist -= item.IceResistence;
 		Player.Local.LightningResist -= item.LightningResistence;
 		Player.Local.LightResist -= item.HolyResistence;
 		Player.Local.ShadowResist -= item.ShadowResistence;
+		Player.Local.ArmorPenetration -= item.ArmorPenetration;
+		Player.Local.MagicPenetration -= item.MagicPenetration;
+		Player.Local.MaxHealthDMG -= item.MaxHealthDMG;
+		Player.Local.AttackRange -= item.AttackRange;
+		Player.Local.FireElementalDamage -= item.FireElementalDamage;
+		Player.Local.WaterElementalDamage -= item.WaterElementalDamage;
+		Player.Local.IceElementalDamage -= item.IceElementalDamage;
+		Player.Local.FreezeElementalDamage -= item.FreezeElementalDamage;
+		Player.Local.EarthElementalDamage -= item.EarthElementalDamage;
+		Player.Local.WindElementalDamage -= item.WindElementalDamage;
+		Player.Local.LightElementalDamage -= item.LightElementalDamage;
+		Player.Local.LightningElementalDamage -= item.LightningElementalDamage;
+		Player.Local.ShadowElementalDamage -= item.ShadowElementalDamage;
+		Player.Local.HolyElementalDamage -= item.HolyElementalDamage;
+		Player.Local.PoisonElementalDamage -= item.PoisonElementalDamage;
+		Player.Local.BleedElementalDamage -= item.BleedElementalDamage;
+		Player.Local.StaminaPerSecond -= item.StaminaSecond;
+		Player.Local.MaxStamina -= item.Stamina;
+		Player.Local.PlayerWalkSpeed -= item.WalkSpeed;
+		Player.Local.PlayerRunSpeed -= item.RunSpeed;
 	}
-	
-	
+
+
 
 
 

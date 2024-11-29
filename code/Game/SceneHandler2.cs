@@ -131,7 +131,7 @@ public static class GeneralSceneExtensions2
             GeneralScene2.Creation => 1,
             GeneralScene2.Game => 0,
             GeneralScene2.MainMenu => 0,
-            GeneralScene2.Starting => 5,
+            GeneralScene2.Starting => 45,
             GeneralScene2.Forest => 10,
             GeneralScene2.Forest2 => 10,
             GeneralScene2.One => 0,

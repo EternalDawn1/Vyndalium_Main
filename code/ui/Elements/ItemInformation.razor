@@ -99,6 +99,19 @@
 					<p class="x">@Item.MinArmorValue - @Item.MaxArmorValue</p>
 				</div>
 			}
+			@if (Item.DamageBalance != default(int))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")"><p class="y2">Damage Balance: </p>
+					<p class="x">+@Item.DamageBalance</p>
+				</div>
+			}
+			@if (Item.Durability != default(int))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">
+					<p class="y3">Durability: </p>
+					<p class="x">@Item.Durability </p>
+				</div>
+			}
 			@if (Item.STG != default(float))
 			{
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">STG: +@Item.STG
@@ -134,6 +147,11 @@
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Health:
 					+@Item.Health</div>
 			}
+			@if (Item.HealthRegen != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Health Regen:
+					+@Item.HealthRegen</div>
+			}
 			@if (Item.CritHitDamage != default(float))
 			{
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Crit Hit Damage:
@@ -154,16 +172,7 @@
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Attack Power:
 					+@Item.AttackPower</div>
 			}
-			@if (Item.DamageBalance != default(int))
-			{
-				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Damage Balance:
-					+@Item.DamageBalance</div>
-			}
-			@if (Item.Durability != default(int))
-			{
-				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Durability:
-					+@Item.Durability</div>
-			}
+			
 			@if (Item.AttackSpeed != default(float))
 			{
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Attack Speed:
@@ -269,6 +278,109 @@
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Shadow Resistance:
 					+@Item.ShadowResistence</div>
 			}
+			@if (Item.ArmorPenetration != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Armor Penetration:
+					+@Item.ArmorPenetration</div>
+			}
+			@if (Item.MaxHealthDMG != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Max Health DMG:
+					+@Item.MaxHealthDMG</div>
+			}
+			@if (Item.AttackRange != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Attack Range:
+					+@Item.AttackRange</div>
+			}
+			@if (Item.MagicPenetration != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Magic Penetration:
+					+@Item.MagicPenetration</div>
+			}
+			@if (Item.FireElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Fire Elemental Damage:
+					+@Item.FireElementalDamage</div>
+			}
+			@if (Item.WaterElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Water Elemental Damage:
+					+@Item.WaterElementalDamage</div>
+			}
+			@if (Item.FreezeElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Freeze Elemental Damage:
+					+@Item.FreezeElementalDamage</div>
+			}
+			@if (Item.EarthElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Earth Elemental Damage:
+					+@Item.EarthElementalDamage</div>
+			}
+			@if (Item.WindElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Air Elemental Damage:
+					+@Item.WindElementalDamage</div>
+			}
+			@if (Item.IceElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Ice Elemental Damage:
+					+@Item.IceElementalDamage</div>
+			}
+			@if (Item.ShadowElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Shadow Elemental Damage:
+					+@Item.ShadowElementalDamage</div>
+			}
+			@if (Item.HolyElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Holy Elemental Damage:
+					+@Item.HolyElementalDamage</div>
+			}
+			@if (Item.BleedElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Bleed Elemental Damage:
+					+@Item.BleedElementalDamage</div>
+			}
+			@if (Item.PoisonElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Poison Elemental Damage:
+					+@Item.PoisonElementalDamage</div>
+			}
+			@if (Item.LightElementalDamage != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Light Elemental Damage:
+					+@Item.LightElementalDamage</div>
+			}
+			@if (Item.StaminaSecond != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Stamina Per Second:
+					+@Item.StaminaSecond</div>
+			}
+			@if (Item.WalkSpeed != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Walk Speed:
+					+@Item.WalkSpeed</div>
+			}
+			@if (Item.RunSpeed != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Run Speed:
+					+@Item.RunSpeed</div>
+			}
+			@if (Item.Stamina != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Stamina:
+					+@Item.Stamina</div>
+			}
+			@if (Item.StunResist != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">Stun Resistance:
+					+@Item.StunResistance</div>
+			}
+			
+
+
 		</div>
 	</root>
 }

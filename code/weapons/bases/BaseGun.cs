@@ -1215,7 +1215,7 @@ public class  BaseGun : WeaponComponent, IUse
 	private bool hasPlayedChargedSound = false;
 	protected override void OnUpdate()
 	{
-		if (Player.Local.LifeState == LifeState.Dead && !hasStoppedActions)
+		if ( Player.Local != null && Player.Local.LifeState == LifeState.Dead && !hasStoppedActions )
 		{
 			StopAllActions();
 			hasStoppedActions = true;

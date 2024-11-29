@@ -10,7 +10,7 @@ public partial class Player : Component
 	[Sync,Property, Group( "Movement" )]public float PlayerWalkSpeed { get;  set; } = 100f; // Maximale Laufgeschwindigkeit
     [Sync,Property, Group( "Movement" )]public float MaxStamina { get;  set; } = 100f; // Maximale Ausdauer
     [Sync,Property, Group( "Movement" )]public float Stamina { get; private set; } = 100f; // Aktuelle Ausdauer
-    [Sync,Property, Group( "Movement" )] public float StaminaPerSecond { get; private set; } = 10f;
+    [Sync,Property, Group( "Movement" )] public float StaminaPerSecond { get; set; } = 10f;
 	private RealTimeSince TimeSinceStoppedRunning { get; set; }
 	private bool wasRunning = false;
     private bool wasJumping = false;

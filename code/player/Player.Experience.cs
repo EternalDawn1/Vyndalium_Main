@@ -66,30 +66,31 @@ public partial class Player
 
 	public string GetRankName() => Ranks.First( rank => rank.MinLevel <= Level ).Name;
 
-	public void AddExperience( int exp )
+	public void AddExperience(int exp)
 	{
 		Experience += exp;
 
 		var oldLevel = Level;
-		while ( Experience >= ExpPerLevel )
+		int maxLevel = GetMaxLevel(); // Verwende die GetMaxLevel Methode
+
+		while (Experience >= ExpPerLevel)
 		{
-			if ( Level == 105 )
+			if (Level >= maxLevel)
 				break;
 			Experience -= ExpPerLevel;
 			Level++;
 			StatsPoints += 3;
 
-			if ( LevelUp is null )
+			if (LevelUp is null)
 				return;
 
-			Sound.Play( LevelUp, WorldPosition );
+			Sound.Play(LevelUp, WorldPosition);
 		}
 
-		OnExperienceEarned?.Invoke( exp );
-		if ( oldLevel != Level )
+		OnExperienceEarned?.Invoke(exp);
+		if (oldLevel != Level)
 		{
-			OnLevelUp?.Invoke( Level );
-
+			OnLevelUp?.Invoke(Level);
 		}
 	}
 	public void PrestigeRankUp()
@@ -99,6 +100,7 @@ public partial class Player
 			Level = 1;
 			Experience = 0;
 			PrestigeLevel++;
+			StatsPoints = 0;
 			MaxHealth = 50;
 			Health = 50;
 			MaxMana = 50;
@@ -122,10 +124,38 @@ public partial class Player
 			Evasion = 0;
 			AbilityHaste = 0;
 			PlayerWalkSpeed = 125;
-			PlayerRunSpeed = 150;
+			PlayerRunSpeed = 190;
 			INT = 0;
 			MagicPower = 0;
 			MagicPenetration = 0;
+			IntelligenceCost = 1;
+			ArmorCost = 1;
+			StrengthCost = 1;
+			AttackPowerCost = 1;
+			ArmorPenetrationCost = 1;
+			AttackRangeCost = 1;
+			AttackSpeedCost = 1;
+			CriticalChanceCost = 1;
+			CriticalDamageCost = 1;
+			DexterityCost = 1;
+			EvasionCost = 1;
+			AbilityHasteCost = 1;
+			StaminaCost = 1;
+			PlayerWalkSpeedCost = 1;
+			PlayerRunSpeedCost = 1;
+			ManaCost = 1;
+			IntelligenceCost = 1;
+			MagicPowerCost = 1;
+			MagicPenetrationCost = 1;
+			BonusEXPGainCost = 1;
+			BonusVyndaliumGainCost = 1;
+			PlayerRunSpeedCost = 1;
+			PlayerWalkSpeedCost = 1;
+			CoverCost = 1;
+			ManaCost = 1;
+			
+
+	
 			BonusVyndalium = 50 + (PrestigeLevel * 10); // Erhöht um 10 pro Prestige-Level
 			BonusEXPGain = 100 + (PrestigeLevel * 20);
 
@@ -170,10 +200,50 @@ public partial class Player
 			Evasion = 0;
 			AbilityHaste = 0;
 			PlayerWalkSpeed = 125;
-			PlayerRunSpeed = 170;
+			PlayerRunSpeed = 190;
 			INT = 0;
 			MagicPower = 0;
 			MagicPenetration = 0;
+
+
+
+			IntelligenceCost = 1;
+			ArmorCost = 1;
+			StrengthCost = 1;
+			AttackPowerCost = 1;
+			ArmorPenetrationCost = 1;
+			AttackRangeCost = 1;
+			AttackSpeedCost = 1;
+			CriticalChanceCost = 1;
+			CriticalDamageCost = 1;
+			DexterityCost = 1;
+			EvasionCost = 1;
+			AbilityHasteCost = 1;
+			StaminaCost = 1;
+			PlayerWalkSpeedCost = 1;
+			PlayerRunSpeedCost = 1;
+			ManaCost = 1;
+			IntelligenceCost = 1;
+			MagicPowerCost = 1;
+			MagicPenetrationCost = 1;
+			BonusEXPGainCost = 1;
+			BonusVyndaliumGainCost = 1;
+			PlayerRunSpeedCost = 1;
+			PlayerWalkSpeedCost = 1;
+			CoverCost = 1;
+			ManaCost = 1;
+			HealthCost = 1;
+			EvasionCost = 1;
+			StaminaCost = 1;
+			EnduranceCost = 1;
+			MagicPowerCost = 1;
+			AttackPowerCost = 1;
+			AttackRangeCost = 1;
+			AttackSpeedCost = 1;
+			CriticalChanceCost = 1;
+			CriticalDamageCost = 1;
+			
+
 			BonusVyndalium = 50 + (PrestigeLevel * 10); // Erhöht um 10 pro Prestige-Level
 			BonusEXPGain = 100 + (PrestigeLevel * 20);
 
@@ -181,7 +251,7 @@ public partial class Player
 
 
 
-			Log.Info($"Player has prestiged to Prestige Level {PrestigeLevel}");
+		
 		}
 	}
 

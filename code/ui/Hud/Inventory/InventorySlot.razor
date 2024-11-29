@@ -94,11 +94,17 @@
 	}
 	public float GetOpacityBasedOnLevel()
 	{
-		if (Item == null)
+		if (Item == null  )
 		{
 			// Standard-Opazität zurückgeben, wenn 'Item' null ist
 			return 1.0f; // oder einen anderen Standardwert
 		}
+		if (Item.Tier == GeneralGame.Tier.Ultimate)
+		{
+			// Rückgabe einer festen Deckkraft für Ultimate-Tier
+			return 1.0f;
+		}
+		
 		// Stellen Sie sicher, dass Item.Level zwischen 0 und 27 liegt
 		float clampedLevel = Math.Clamp(Item.ItemLevel, 0, 27);
 		// Berechnen Sie die Deckkraft basierend auf den Level-Schritten

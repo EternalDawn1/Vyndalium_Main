@@ -3,47 +3,58 @@
 @using Sandbox;
 @using Sandbox.UI;
 
-
-
 <root>
     <FullScreenManager />
-	<NotificationPanel @ref="notificationPanel" />
+    <NotificationPanel @ref="notificationPanel" />
+    @if (showConfirmationDialog)
+    {
+	
+        <div class="confirmation-dialog">
+            <div class="confirmation-content">
+                <p>@confirmationMessage</p>
+                <button class="confirmation-button" @onclick="@ConfirmAction">Yes</button>
+                <button class="confirmation-button" @onclick="@CancelAction">No</button>
+            </div>
+        </div>
+    }
 </root>
 
 @code
 {
-	public GameObject hudPrefab; 
-	private NotificationPanel notificationPanel;
-    public static Hudmaster Instance { get; private set; } // Ändern Sie "Hud" zu "Hudmaster"
-    public Hudmaster() // Ändern Sie "Hud" zu "Hudmaster"
+    public static Hudmaster Instance { get; private set; }
+    private NotificationPanel notificationPanel;
+    private bool showConfirmationDialog { get; set; }
+    private string confirmationMessage { get; set; }
+    private Action confirmActionCallback { get; set; }
+
+    public Hudmaster()
     {
         Instance = this;
     }
 
-	
-    [ConCmd("new_hud_toggle")]
-    public static void ToggleHud()
+    public void ShowConfirmationDialog(string message, Action confirmAction)
     {
-        Instance.Enabled = !Instance.Enabled;
+        confirmationMessage = message;
+        confirmActionCallback = confirmAction;
+        showConfirmationDialog = true;
+        StateHasChanged();
     }
-	private void InstantiateHUD()
-	{
-		if (hudPrefab != null)
-		{
-			// Erstellen Sie eine Instanz des HUD-Prefabs und fügen Sie es der Szene hinzu
-			GameObject hudInstance = new();
-			// Hier können Sie zusätzliche Initialisierungen durchführen, falls erforderlich
-			
-		}
-		
-	}
-	
-	public void ShowNotification(string message ,string icon)
-	{
-		notificationPanel?.AddNotification(message , icon);
-	}
-	protected override void OnAwake()
-	{
-		InstantiateHUD();
-	}
+
+    private void ConfirmAction()
+    {
+        showConfirmationDialog = false;
+        confirmActionCallback?.Invoke();
+        StateHasChanged();
+    }
+
+    private void CancelAction()
+    {
+        showConfirmationDialog = false;
+        StateHasChanged();
+    }
+
+    public void ShowNotification(string message, string icon)
+    {
+        notificationPanel?.AddNotification(message, icon);
+    }
 }

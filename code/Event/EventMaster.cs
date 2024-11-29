@@ -261,20 +261,20 @@ public class EventMaster : Component
 
 		if ( targetObject == null )
 		{
-			Log.Error( $"Target object with ID {target} not found" );
+		
 			return;
 		}
 
 		if ( playerObject == null )
 		{
-			Log.Error( $"Player object with ID {player} not found" );
+			
 			return;
 		}
 
 		var interactionComponent = targetObject.Components.Get<Interaction>();
 		if ( interactionComponent == null )
 		{
-			Log.Error( $"InteractionComponent not found on target object with ID {target}" );
+			
 			return;
 		}
 
@@ -285,7 +285,7 @@ public class EventMaster : Component
 		}
 		else
 		{
-			Log.Error( $"Player component not found on player object with ID {player}" );
+			
 		}
 
 		var allTriggers = Game.ActiveScene.GetAllComponents<EventInteractionTrigger>();
@@ -317,7 +317,7 @@ public class EventMaster : Component
 		}
 		else
 		{
-			Log.Error( $"Player component not found on found player object with ID {player}" );
+			
 		}
 
 		

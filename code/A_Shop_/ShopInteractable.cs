@@ -6,15 +6,39 @@ public class ShopInteractable : BaseInteraction
 {
     public ShopStorage Storage { get; set; }
     [Property]public bool Missions { get; set; }
+    [Property]public bool Tutorial { get; set; }
     
 
     protected override void OnStart()
     {
         var interactions = Components.GetOrCreate<Interactions>();
 
-      
+        if ( Tutorial )
+        {
+            interactions.AddInteraction( new Interaction()
+            {
+                Identifier = "shop.tutorial",
+                Action = ( Player interactor, GameObject obj ) =>
+                {
+                    Storage = Components.GetOrCreate<ShopStorage>();
+                    var shopInteractable = obj.Components.Get<ShopInteractable>();
+                    if ( shopInteractable != null && shopInteractable.Storage != null )
+                    {
+                        Hudmaster.Instance.ShowConfirmationDialog("Do you want to Start the Tutorial?", () =>
+                            {
+                                shopInteractable.Storage.OpenTutorial();
+                            });
 
-        if ( Missions )
+                    }
+                },
+                Keybind = "use",
+                Description = "Tutorial",
+                Stats = "Tutorial",
+                ShowWhenDisabled = () => true,
+                Accessibility = AccessibleFrom.All,
+            } );
+        }
+        else if ( Missions )
         {
             interactions.AddInteraction( new Interaction()
             {
@@ -54,9 +78,6 @@ public class ShopInteractable : BaseInteraction
                 Accessibility = AccessibleFrom.All,
             } );
             // Interaktionen, wenn Missions true ist
-            
-
-            
         }
         else
         {
@@ -101,4 +122,5 @@ public class ShopInteractable : BaseInteraction
             } );
         }
     }
+    
 }
