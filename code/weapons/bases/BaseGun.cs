@@ -183,7 +183,7 @@ public class  BaseGun : WeaponComponent, IUse
 		base.OnStart();
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void OnUse( Guid pickerId )
 	{
 		
@@ -543,7 +543,7 @@ public class  BaseGun : WeaponComponent, IUse
 	}
 	[Property]public LineRenderer lineRenderer { get; set; }
 
-	[Broadcast]
+	[Rpc.Broadcast]
 
 	public void ShowMeleeAttack( Vector3 origin, Vector3 endPosition )
 	{
@@ -1269,7 +1269,7 @@ public class  BaseGun : WeaponComponent, IUse
 		}
 		base.OnUpdate();
 	}
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void SendReloadMessage()
 	{
 		if ( Player.Local == null )
@@ -1296,7 +1296,7 @@ public class  BaseGun : WeaponComponent, IUse
 		ReloadSound.Start( WorldPosition );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void SendEmptyClipMessage()
 	{
 		if ( Player.Local == null || Player.Local.LifeState == LifeState.Dead )
@@ -1317,7 +1317,7 @@ public class  BaseGun : WeaponComponent, IUse
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void SendImpactMessage( Vector3 position, Vector3 normal )
 	{
 		if ( Player.Local == null || Player.Local.LifeState == LifeState.Dead )
@@ -1339,7 +1339,7 @@ public class  BaseGun : WeaponComponent, IUse
 		p.PlayUntilFinished( Task );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void SendMeleeAttackMessage(Vector3 startPos , Vector3 endPos, float distance)
 	{
 		if ( IsMelee ) // Überprüfe, ob der Boolean-Wert wahr ist
@@ -1366,7 +1366,7 @@ public class  BaseGun : WeaponComponent, IUse
 			
 		}
 	}
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void SendAttackMessage( Vector3 startPos, Vector3 endPos, float distance, string attackType )
 	{
 		if ( Player.Local == null || Player.Local.LifeState == LifeState.Dead && !IsMelee )

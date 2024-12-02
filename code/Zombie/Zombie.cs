@@ -66,7 +66,7 @@ public partial class Npc : Component, IHealthComponent
 
 		private readonly List<float> probabilities = new List<float>
 	{
-		0.90f, // 90% Wahrscheinlichkeit für nichts
+		0.50f, // 90% Wahrscheinlichkeit für nichts
 		0.05f, // 5% Wahrscheinlichkeit für Munition
 		0.025f, // 2.5% Wahrscheinlichkeit für Tränke
 		0.025f // 2.5% Wahrscheinlichkeit für eine Truhe
@@ -806,7 +806,7 @@ public partial class Npc : Component, IHealthComponent
 
 
 	}
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void BroadcastOnIdle()
 	{
 		OnIdle?.Invoke();
@@ -858,7 +858,7 @@ public partial class Npc : Component, IHealthComponent
 	}
 
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void BroadcastOnAttack()
 	{
 		if ( TargetObject != null )
@@ -893,7 +893,7 @@ public partial class Npc : Component, IHealthComponent
 	}
 
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void BroadcastOnDetect()
 	{
 		if ( TargetObject is not null )
@@ -915,7 +915,7 @@ public partial class Npc : Component, IHealthComponent
 		
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void BroadcastOnEscape()
 	{
 		if ( TargetObject is not null )
@@ -1328,7 +1328,7 @@ public partial class Npc : Component, IHealthComponent
 		}
 	}
 	
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
 		if ( LifeState == LifeState.Dead )

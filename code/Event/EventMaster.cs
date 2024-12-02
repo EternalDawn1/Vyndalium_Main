@@ -246,7 +246,7 @@ public class EventMaster : Component
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public static void InteractionInvoked( string interaction, Guid target, Guid player )
 	{
 		if ( EventMaster.Instance == null )

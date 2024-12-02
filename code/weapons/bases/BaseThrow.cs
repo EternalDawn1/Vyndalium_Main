@@ -18,7 +18,7 @@ public class BaseThrow : WeaponComponent, IUse
 	public bool IsPreparing { get; set; } = false;
 	public bool WaitingThrow { get; set; } = false;
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void OnUse( Guid pickerId )
 	{
 		var picker = Scene.Directory.FindByGuid( pickerId );

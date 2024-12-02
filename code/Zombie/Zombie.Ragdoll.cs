@@ -16,7 +16,7 @@ public partial class Npc
 	/// <param name="ragdoll">Ragdoll or Unragdoll</param>
 	/// <param name="duration">How long ragdoll state lasts</param>
 	/// <param name="spin">How fast it spins towards the given velocity</param>
-	[Broadcast( NetPermission.Anyone )]
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	public void SetRagdoll( bool ragdoll, float duration = 2f, float spin = 0f )
 	{
 		InternalSetRagdoll( ragdoll, duration, spin );

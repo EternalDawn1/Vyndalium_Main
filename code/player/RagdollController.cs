@@ -12,7 +12,7 @@ public sealed partial class RagdollController : Component
 
 	public bool IsRagdolled => Physics.Enabled;
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void Ragdoll( Vector3 position, Vector3 force )
 	{
 		Physics.Enabled = true;
@@ -23,7 +23,7 @@ public sealed partial class RagdollController : Component
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void Unragdoll()
 	{
 		Physics.Renderer.LocalPosition = Vector3.Zero;

@@ -28,7 +28,7 @@ public partial class TaskMaster
 			SendCurrentTaskProgress( PackageTaskProgress( ActiveTasks ).Serialize() );
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly)]
 	private void SendCurrentTaskProgress( byte[] data )
 	{
 		if ( Connection.Local.IsHost )

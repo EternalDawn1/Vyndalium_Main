@@ -204,7 +204,7 @@ public sealed class HealthComponent : Component
         }
     }
 
-    [Broadcast]
+    [Rpc.Broadcast]
     public void Kill(Guid attackerId)
     {
         var attackerObj = Game.ActiveScene.GetAllObjects(true)

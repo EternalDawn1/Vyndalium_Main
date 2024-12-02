@@ -71,7 +71,7 @@ public sealed class Zombie : Component, IHealthComponent
 
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void TakeDamage( DamageType type, float damage, Vector3 position, Vector3 force, Guid attackerId )
 	{
 		if ( LifeState == LifeState.Dead )

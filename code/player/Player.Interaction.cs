@@ -12,7 +12,7 @@ public partial class Player
 	public SceneTraceResult InteractionTrace { get; private set; }
 	public BBox? InteractionBounds { get; private set; }
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void UpdateInteractions()
 	{
 		var thinTrace = Scene.Trace.Ray( ViewRay, INTERACTION_DISTANCE )
@@ -74,7 +74,7 @@ public partial class Player
 
 	// A lot of parameters! We should fix this up at a later point.
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void BroadcastInteraction(
 	Vector3 position,
 	Rotation rotation,

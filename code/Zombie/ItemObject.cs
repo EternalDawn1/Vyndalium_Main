@@ -95,7 +95,7 @@ namespace GeneralGame
 
         }
 
-        [Broadcast]
+        [Rpc.Broadcast]
         public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
         {
             

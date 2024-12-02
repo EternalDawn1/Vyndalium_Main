@@ -98,7 +98,7 @@
 
     protected override int BuildHash() => HashCode.Combine(RealTime.Now);
 
-    [Broadcast]
+    [Rpc.Broadcast]
     public  void HandleTakeDamage()
     {
         isTakingDamage = true;

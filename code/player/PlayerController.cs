@@ -370,7 +370,7 @@ public partial class Player : Component, IHealthComponent
 	}
 	public BaseGun ActiveWeapon { get; set; }
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void TakeDamage( DamageType type, Single amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
 		if ( IsProxy )
@@ -1207,7 +1207,7 @@ public partial class Player : Component, IHealthComponent
 	
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void SendKilledMessage( Guid attackerId )
 	{
 		if ( IsProxy )
@@ -1218,7 +1218,7 @@ public partial class Player : Component, IHealthComponent
 
 
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void SendJumpMessage()
 	{
 		if ( IsProxy )

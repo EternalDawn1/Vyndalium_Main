@@ -109,7 +109,7 @@ public class WeaponComponent : Component
 
 
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void Deploy()
 	{
 		if ( !IsDeployed )
@@ -123,7 +123,7 @@ public class WeaponComponent : Component
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void Holster()
 	{
 		
@@ -140,7 +140,7 @@ public class WeaponComponent : Component
 
 	}
 	public readonly WeaponContainer weaponcontainer;
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void RemoveWeaponComponents(ItemComponent item)
 	{
 		weaponcontainer.RemoveWeapon( item.GameObject, true );

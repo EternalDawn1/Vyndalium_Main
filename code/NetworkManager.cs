@@ -1,4 +1,6 @@
 using GeneralGame.HUD;
+using Sandbox;
+using Sandbox.Network;
 
 namespace GeneralGame
 {
@@ -99,12 +101,12 @@ namespace GeneralGame
 
             BroadcastDisconnect( connection.Id );
         }
-        [Broadcast]
+        [Rpc.Broadcast]
         public void BroadcastDisconnect( Guid id )
         {
             Player._InternalPlayers.RemoveAll( ( p ) => p is null || p.Connection.Id == id );
         }
-        [Broadcast( NetPermission.HostOnly )]
+        [Rpc.Broadcast( NetFlags.HostOnly)]
         public static void ServerClose( bool ignoreHost )
         {
             if ( ignoreHost && Connection.Local.Id == HostId )

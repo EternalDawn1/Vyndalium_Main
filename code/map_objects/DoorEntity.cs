@@ -27,7 +27,7 @@ public partial class DoorEntity : Component, IUse
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void OnUse( Guid pickerId )
 	{
 		var picker = Scene.Directory.FindByGuid( pickerId );

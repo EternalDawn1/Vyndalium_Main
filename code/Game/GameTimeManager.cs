@@ -268,7 +268,7 @@ public class GameTimeManager : Component, Component.ExecuteInEditor
 	/// Set the time. Does not impact the day count.
 	/// </summary>
 	/// <param name="seconds">Time as in-game seconds</param>
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly)]
 	public void SetTimeFromSeconds( int seconds )
 	{
 		InGameTime = ((float)seconds).Remap( 0, 24 * 60 * 60, 0, DayLength );
@@ -295,7 +295,7 @@ public class GameTimeManager : Component, Component.ExecuteInEditor
 	/// Skip some time. Impacts the day count.
 	/// </summary>
 	/// <param name="seconds">Time as in-game seconds</param>
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly)]
 	public void SkipTimeFromSeconds( int seconds )
 	{
 		var newInGameTime = InGameTime + ((float)seconds).Remap( 0, 24 * 60 * 60, 0, DayLength );
@@ -325,7 +325,7 @@ public class GameTimeManager : Component, Component.ExecuteInEditor
 	/// <summary>
 	/// Stop the clock.
 	/// </summary>
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly)]
 	public void FreezeTime()
 	{
 		if ( FrozenTime != null )
@@ -335,7 +335,7 @@ public class GameTimeManager : Component, Component.ExecuteInEditor
 		// TODO: should we also make the TimeScale equal 0?
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly)]
 	private void NewDay()
 	{
 		if ( Scene.IsEditor && !Game.IsPlaying ) return;

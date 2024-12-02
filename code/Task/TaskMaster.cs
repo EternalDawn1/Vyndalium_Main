@@ -371,7 +371,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 		}
 	}
 
-	[Broadcast( NetPermission.Anyone )]
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	static void SubmitTriggerNetworked( string signalIdentifier, Guid playerid )
 	{
 		var player = Player.GetByID( playerid );
@@ -471,7 +471,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 		return null;
 	}
 
-	[Broadcast( NetPermission.Anyone )]
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	internal static void InternalAssignNewTask( int taskId, Guid playerId )
 	{
 		var player = Player.GetByID( playerId );
@@ -493,7 +493,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 	/// Assign everyone in the server a new task
 	/// </summary>
 	/// <param name="taskId"></param>
-	[Broadcast( NetPermission.Anyone )]
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	public static void AssignEveryoneNewTask( int taskId ) => AssignNewTask( ResourceLibrary.Get<GeneralTask>( taskId ) );
 
 	/// <summary>
@@ -522,7 +522,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 			RemoveTask( foundTask );
 	}
 
-	[Broadcast( NetPermission.Anyone )]
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	internal static void InternalRemoveTask( int taskId, Guid playerId )
 	{
 		var player = Player.GetByID( playerId );
@@ -544,7 +544,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 	/// Remove the task from everyone in the server
 	/// </summary>
 	/// <param name="taskId"></param>
-	[Broadcast( NetPermission.Anyone )]
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	public static void RemoveEveryoneTask( int taskId ) => RemoveTask( ResourceLibrary.Get<GeneralTask>( taskId ) );
 
 	/// <summary>
@@ -573,7 +573,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 			ResetTask( foundTask );
 	}
 
-	[Broadcast( NetPermission.Anyone )]
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	internal static void InternalResetTask( int taskId, Guid playerId )
 	{
 		var player = Player.GetByID( playerId );
@@ -595,7 +595,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 	/// Resets the task for everyone in the server
 	/// </summary>
 	/// <param name="taskId"></param>
-	[Broadcast( NetPermission.Anyone )]
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	public static void ResetEveryoneTask( int taskId ) => ResetTask( ResourceLibrary.Get<GeneralTask>( taskId ) );
 
 

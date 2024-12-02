@@ -386,7 +386,7 @@ public class StoryMaster : Component
 		}
 	}
 
-	[Broadcast(NetPermission.HostOnly)]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public static void StartSession()
 	{
 		_ = PlayIntro();
@@ -432,7 +432,7 @@ public class StoryMaster : Component
 			Player.Local.Respawn();
 	}
 
-	[Broadcast(NetPermission.HostOnly)]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public static void EndSession()
 	{
 		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().First();

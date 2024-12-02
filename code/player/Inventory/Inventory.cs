@@ -1761,7 +1761,7 @@ public sealed class Inventory : Component
 			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 		}
 	}
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void UpdateBodygroups()
 	{
 		var bodygroups = HiddenBodyGroup.None;

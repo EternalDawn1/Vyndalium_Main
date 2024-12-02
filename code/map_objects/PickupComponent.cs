@@ -40,7 +40,7 @@ public abstract class PickupComponent : Component
 	}
 
 	
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void PlayPickupSound()
 	{
 		if ( PickupSound is null )
