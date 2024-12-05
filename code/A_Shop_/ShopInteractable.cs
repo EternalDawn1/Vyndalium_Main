@@ -8,11 +8,13 @@ public class ShopInteractable : BaseInteraction
     [Property]public bool Missions { get; set; }
     [Property]public bool Tutorial { get; set; }
     [Property]public bool isMerchantTutorial { get; set; }
+    public Quests Quests{ get; private set; }
     
 
     protected override void OnStart()
     {
         var interactions = Components.GetOrCreate<Interactions>();
+       
 
         
         if ( Missions )
@@ -85,10 +87,12 @@ public class ShopInteractable : BaseInteraction
                 {
                     var shopInteractable = obj.Components.Get<ShopInteractable>();
                     Storage = Components.GetOrCreate<ShopStorage>();
+                    
+            
 
                     if ( shopInteractable != null && shopInteractable.Storage != null )
                     {
-                        shopInteractable.Storage.OpenQuest();
+                        Quests.Instance.OpenQuest();
                     }
                 },
                 Keybind = "use2",

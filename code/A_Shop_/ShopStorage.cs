@@ -209,27 +209,7 @@ namespace GeneralGame
             }
         }
 
-        public void OpenQuest()
-        {
-            Log.Info( "Quests Panel Opened" );
-            if ( !IsOpened )
-            {
-                FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.Quests );
-                IsOpened = true;
-                //Player.Local.BlockInputs = true;
-            }
-            else
-            {
-                CloseQuest();
-            }
-        }
-        public void CloseQuest()
-        {
-            Player.Local.BlockInputs = false;
-            FullScreenManager.Instance.Display( FullScreenManager.FullScreenPanel.InGameHud );
-            IsOpened = false;
-        }
-
+        
         public void CloseShop()
         {
             Player.Save();

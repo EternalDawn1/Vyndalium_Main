@@ -53,6 +53,8 @@ namespace GeneralGame.HUD
     {
         [Property] public QuestManager QuestManager { get; private set; }
 
+        [Property] Quest quest { get; set; }
+
         public void CloseQuest()
         {
             // Implementieren Sie die Logik zum Schließen der Quest
@@ -71,7 +73,7 @@ namespace GeneralGame.HUD
                     Hudmaster.Instance.ShowCustomDialog( "Do you want to start the Merchant Tutorial?", ( input ) =>
                     {
                         // Logik für das Merchant Tutorial
-                        OpenMerchantTutorial();
+                        AddQuest();
                     } );
                 },
                 Keybind = "use",
@@ -82,28 +84,15 @@ namespace GeneralGame.HUD
             } );
         }
 
-        public void OpenMerchantTutorial()
+        public void AddQuest()
         {
-            Log.Info( "Merchant Tutorial started" );
-
+           
             if ( QuestManager == null )
             {
                 Log.Error( "QuestManager is not initialized" );
                 return;
             }
-
-            // Laden der Quest-GameResource
-            var quest = ResourceLibrary.Get<Quest>( "/task/test.quest" );
-            if ( quest == null )
-            {
-                Log.Error( "Quest 'merchant_tutorial' could not be loaded" );
-                return;
-            }
-            Log.Info( $"Quest '{quest.Title}' loaded" );
             QuestManager.AddQuest( quest );
-
-            Log.Info( $"Quest '{quest.Title}' added to QuestManager. Total active quests: {QuestManager.ActiveQuests.Count}" );
-
             Hudmaster.Instance.ShowQuestPanel();
         }
     }

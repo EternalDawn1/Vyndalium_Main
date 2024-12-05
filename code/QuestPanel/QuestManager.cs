@@ -15,6 +15,7 @@ namespace GeneralGame
         {
             quest.CompleteTask( task );
         }
+        
 
         public Quest CreateCustomQuest( string title, string description, List<string> tasks, List<string> rewards )
         {
