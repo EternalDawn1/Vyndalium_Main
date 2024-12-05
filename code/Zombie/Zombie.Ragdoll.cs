@@ -3,7 +3,7 @@ using GeneralGame;
 
 public partial class Npc
 {
-	public ModelPhysics Ragdoll => Model.Components.Get<ModelPhysics>();
+	public ModelPhysics Ragdoll => Model?.Components?.Get<ModelPhysics>();
 	SkinnedModelRenderer _puppet;
 	bool _isTransitioning = false;
 	[Sync] TimeUntil _unragdoll { get; set; }

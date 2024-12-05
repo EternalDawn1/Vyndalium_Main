@@ -6,14 +6,15 @@
 <root>
     <FullScreenManager />
     <NotificationPanel @ref="notificationPanel" />
-    @if (showConfirmationDialog)
+    <QuestPanel @ref="questPanel" />
+    @if (showCustomDialog)
     {
-	
-        <div class="confirmation-dialog">
-            <div class="confirmation-content">
-                <p>@confirmationMessage</p>
-                <button class="confirmation-button" @onclick="@ConfirmAction">Yes</button>
-                <button class="confirmation-button" @onclick="@CancelAction">No</button>
+        <div class="custom-dialog">
+            <div class="custom-content">
+                <p>@customDialogMessage</p>
+                <textarea @bind="customDialogInput" rows="4" cols="50"></textarea>
+                <button class="custom-button" @onclick="@ConfirmCustomAction">Submit</button>
+                <button class="custom-button" @onclick="@CancelCustomAction">Cancel</button>
             </div>
         </div>
     }
@@ -23,33 +24,43 @@
 {
     public static Hudmaster Instance { get; private set; }
     private NotificationPanel notificationPanel;
-    private bool showConfirmationDialog { get; set; }
-    private string confirmationMessage { get; set; }
-    private Action confirmActionCallback { get; set; }
+    private QuestPanel questPanel;
+    private bool showCustomDialog { get; set; }
+    private string customDialogMessage { get; set; }
+    private string customDialogInput { get; set; }
+    private Action<string> confirmCustomActionCallback { get; set; }
 
     public Hudmaster()
     {
         Instance = this;
     }
-
-    public void ShowConfirmationDialog(string message, Action confirmAction)
+    public void ShowQuestPanel()
     {
-        confirmationMessage = message;
-        confirmActionCallback = confirmAction;
-        showConfirmationDialog = true;
+        questPanel.Show();
+    }
+    public void QuestPanelStateHasChanged()
+    {
+        questPanel?.StateHasChanged();
+    }
+
+    public void ShowCustomDialog(string message, Action<string> confirmAction)
+    {
+        customDialogMessage = message;
+        confirmCustomActionCallback = confirmAction;
+        showCustomDialog = true;
         StateHasChanged();
     }
 
-    private void ConfirmAction()
+    private void ConfirmCustomAction()
     {
-        showConfirmationDialog = false;
-        confirmActionCallback?.Invoke();
+        confirmCustomActionCallback?.Invoke(customDialogInput);
+        showCustomDialog = false;
         StateHasChanged();
     }
 
-    private void CancelAction()
+    private void CancelCustomAction()
     {
-        showConfirmationDialog = false;
+        showCustomDialog = false;
         StateHasChanged();
     }
 

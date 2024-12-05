@@ -879,6 +879,12 @@ public sealed class Inventory : Component
 
 	public bool EquipItemFromWorld( ItemComponent item, bool forceReplace = false )
 	{
+		var player = Player.Local;
+		if ( player == null )
+		{
+			//Log.Error( "Player.Local is null." );
+			return false;
+		}
 		if ( item == null )
 		{
 			throw new ArgumentNullException( nameof( item ), "Das übergebene Item ist null." );

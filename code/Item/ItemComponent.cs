@@ -1138,7 +1138,9 @@ public class ItemComponent : Component
 		var (minCritHitChance, maxCritHitChance) = GetStatRange( baseMinCritHitChance, baseMaxCritHitChance );
 		var (minCritHitDamage, maxCritHitDamage) = GetStatRange( baseMinCritHitDamage, baseMaxCritHitDamage );
 
-		
+		if ( minAbilityHaste > maxAbilityHaste ) (minAbilityHaste, maxAbilityHaste) = (maxAbilityHaste, minAbilityHaste);
+		if ( minCritHitChance > maxCritHitChance ) (minCritHitChance, maxCritHitChance) = (maxCritHitChance, minCritHitChance);
+		if ( minCritHitDamage > maxCritHitDamage ) (minCritHitDamage, maxCritHitDamage) = (maxCritHitDamage, minCritHitDamage);
 
 
 
@@ -1178,11 +1180,11 @@ public class ItemComponent : Component
 		() => WalkSpeed = random.Next(minWalkSpeed, maxWalkSpeed + 1),
 		() => RunSpeed = random.Next(minRunSpeed, maxRunSpeed + 1),
 		() => Stamina = random.Next(minStamina, maxStamina + 1),
-		() => AbilityHaste = random.Next(minAbilityHaste, maxAbilityHaste +1),
+		() => AbilityHaste = random.Next(minAbilityHaste, maxAbilityHaste + 1),
 		() => CritHitChance = random.Next(minCritHitChance, maxCritHitChance + 1),
 		() => CritHitDamage = random.Next(minCritHitDamage, maxCritHitDamage + 1),
-	
-	
+
+
 
 		() => BlindResistance = random.Next(minBlindResistance, maxBlindResistance + 1),
 		() => FreezeResist = random.Next(baseMinFreezeResistance, baseMaxFreezeResistance + 1),
@@ -1207,7 +1209,7 @@ public class ItemComponent : Component
 		() => StunResistance = random.Next(minStunResistance, maxStunResistance + 1),
 		() => ItemLevel = GenerateRandomItemLevel(random),
 	};
-
+		
 		// Wählen Sie zufällig eine bestimmte Anzahl von Statistiken aus
 		statsGenerators.OrderBy( x => random.Next() ).Take( maxStats ).ToList().ForEach( action => action() );
 	}

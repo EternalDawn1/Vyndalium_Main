@@ -240,7 +240,7 @@ partial class Player
 			if ( !ResourceLibrary.TryGet<PrefabFile>( item.Prefab, out var resource ) )
 				return default;
 			var data = new Dictionary<string, string>();
-			var components = item.Components.GetAll();
+			var components = item.Components?.GetAll();
 			if (components == null) return default;
 			foreach ( var component in components )
 			{

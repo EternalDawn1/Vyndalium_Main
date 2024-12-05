@@ -1,0 +1,579 @@
+{
+  "RootObject": {
+    "__guid": "b4fbbf6d-b01e-4b5b-ac8c-aec0cbfa460a",
+    "Flags": 0,
+    "Name": "prometheus",
+    "Tags": "bad,npc",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "Components": [
+      {
+        "__type": "Sandbox.NavMeshAgent",
+        "__guid": "2c17b966-fead-46d1-a39f-838d02ce657e",
+        "Acceleration": 237.39967,
+        "Height": 31.700174,
+        "MaxSpeed": 71.49985,
+        "Radius": 19.400007,
+        "Separation": 1,
+        "UpdatePosition": true,
+        "UpdateRotation": true
+      },
+      {
+        "__type": "GeneralGame.MoveHelper",
+        "__guid": "b2166687-2898-421a-b0ec-f2dce7e34840",
+        "AccelerationCurve": [
+          {
+            "x": 0,
+            "y": 0.38297874,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
+          },
+          {
+            "x": 0.89285713,
+            "y": 1,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
+          }
+        ],
+        "AirAcceleration": 400,
+        "AirFriction": 6.5,
+        "Bounce": 0.5,
+        "EnableUnstuck": false,
+        "Gravity": "0,0,850",
+        "GroundAcceleration": 2065,
+        "GroundAngle": 45,
+        "GroundFriction": 33.7,
+        "IgnoreTags": "",
+        "MaxUnstuckTries": 20,
+        "OnComponentUpdate": {
+          "__version": 8,
+          "__guid": "5a77d48a-dd5b-4b0e-ad8b-1e4de8b35dea",
+          "__changeId": 0,
+          "UserData": {
+            "Title": "On Component Update"
+          },
+          "Variables": [],
+          "Nodes": [
+            {
+              "Id": 0,
+              "Type": "input"
+            },
+            {
+              "Id": 1,
+              "Type": "output"
+            }
+          ],
+          "Links": [
+            {
+              "SrcId": 0,
+              "SrcName": "_signal",
+              "DstId": 1,
+              "DstName": "_signal"
+            }
+          ]
+        },
+        "StepHeight": 31,
+        "StickToGround": true,
+        "StopSpeed": 10,
+        "TraceHeight": 64,
+        "TraceRadius": 12,
+        "TraceType": "Capsule",
+        "UseCollider": true,
+        "UseSceneGravity": true
+      },
+      {
+        "__type": "HealthComponent",
+        "__guid": "69788ea7-7e06-4f9f-afe1-d5d9e2c72b9a",
+        "AnimationHelper": {
+          "_type": "component",
+          "component_id": "0daf00b7-f5cb-4df5-b0fd-518e97d24fc8",
+          "go": "b4fbbf6d-b01e-4b5b-ac8c-aec0cbfa460a",
+          "component_type": "CitizenAnimationHelper"
+        },
+        "CanRegenerate": false,
+        "DamagedBy": "Bullet",
+        "DropOnDeath": [
+          null
+        ],
+        "Health": 100,
+        "Immortal": false,
+        "MaxHealth": 9,
+        "RegenerationCooldown": 2,
+        "RegenerationTimer": 5,
+        "StunnedBy": "Bullet",
+        "StunWhenDamaged": false
+      },
+      {
+        "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+        "__guid": "0daf00b7-f5cb-4df5-b0fd-518e97d24fc8",
+        "BodyWeight": 1,
+        "EyeSource": {
+          "_type": "gameobject",
+          "go": "460b1a33-86f6-4c61-92ae-cbe15cc4400c"
+        },
+        "EyesWeight": 1,
+        "HeadWeight": 1,
+        "LookAtEnabled": false,
+        "Target": {
+          "_type": "component",
+          "component_id": "77cbeaa4-fae9-47a5-8765-a5da077adec3",
+          "go": "59fc3ebe-ef6d-4710-a445-7f2433a701e1",
+          "component_type": "SkinnedModelRenderer"
+        }
+      },
+      {
+        "__type": "Prometheus",
+        "__guid": "69c5ecfe-ab03-4288-93c6-7b0205f5e373",
+        "isChibi": false,
+        "isPrometheus": true,
+        "isSlime": false,
+        "AlertOthers": true,
+        "AnimationHelper": {
+          "_type": "component",
+          "component_id": "0daf00b7-f5cb-4df5-b0fd-518e97d24fc8",
+          "go": "b4fbbf6d-b01e-4b5b-ac8c-aec0cbfa460a",
+          "component_type": "CitizenAnimationHelper"
+        },
+        "AttackCooldown": 5,
+        "AttackRange": 80,
+        "Body": {
+          "_type": "gameobject",
+          "go": "59fc3ebe-ef6d-4710-a445-7f2433a701e1"
+        },
+        "CurrentState": "Idle",
+        "DetectRange": 256,
+        "Eye": {
+          "_type": "gameobject",
+          "go": "460b1a33-86f6-4c61-92ae-cbe15cc4400c"
+        },
+        "FaceTowardsVelocity": true,
+        "FireAbilityChance": 0.3,
+        "FireAbilityCooldown": 15,
+        "FireDamage": 10,
+        "FireDamageRadius": 5,
+        "HasFireAbility": false,
+        "HasIceAbility": false,
+        "HasWindAbility": false,
+        "Health": 50,
+        "HitSounds": "sounds/slimeattack/slimeattackone.sound",
+        "Idle": true,
+        "IsBleeding": false,
+        "IsSlowed": false,
+        "Level": 0,
+        "MaxHealth": 50,
+        "MaximumIdleCooldown": 6,
+        "MaxRunAnimationSpeed": 150,
+        "MinimumIdleCooldown": 4,
+        "Model": {
+          "_type": "component",
+          "component_id": "77cbeaa4-fae9-47a5-8765-a5da077adec3",
+          "go": "59fc3ebe-ef6d-4710-a445-7f2433a701e1",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "MoveHelper": {
+          "_type": "component",
+          "component_id": "b2166687-2898-421a-b0ec-f2dce7e34840",
+          "go": "b4fbbf6d-b01e-4b5b-ac8c-aec0cbfa460a",
+          "component_type": "MoveHelper"
+        },
+        "MoveSpeed": 0,
+        "Name": "Prometheus",
+        "PogMode": false,
+        "Position": "0,0,0",
+        "RunningType": "Smart",
+        "RunSpeed": 180,
+        "ScaleStats": true,
+        "VisionRange": 512,
+        "WalkingType": "Dumb",
+        "WalkSpeed": 90,
+        "WindAbilityChance": 0.5,
+        "WindAbilityCooldown": 10,
+        "ZombieRagedol": {
+          "_type": "gameobject",
+          "prefab": "models/npcs/slime/slime_burst.prefab"
+        }
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "59fc3ebe-ef6d-4710-a445-7f2433a701e1",
+        "Flags": 0,
+        "Name": "body",
+        "Position": "0,0,38.58621",
+        "Scale": "0.1,0.1,0.1",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "77cbeaa4-fae9-47a5-8765-a5da077adec3",
+            "AnimationGraph": "models/npcs/prometheus/prometheus.vanmgrph",
+            "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
+            "CreateBoneObjects": false,
+            "Model": "models/npcs/prometheus/promtheus.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {
+                "prometheus_attack": true
+              },
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Sequence": {
+              "Name": "Promtheus_idle"
+            },
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          },
+          {
+            "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+            "__guid": "04977390-89b7-4c94-9e0d-05687958abba",
+            "BodyWeight": 1,
+            "EyeSource": {
+              "_type": "gameobject",
+              "go": "460b1a33-86f6-4c61-92ae-cbe15cc4400c"
+            },
+            "EyesWeight": 1,
+            "HeadWeight": 1,
+            "Height": 0.96,
+            "LookAtEnabled": false,
+            "Target": {
+              "_type": "component",
+              "component_id": "77cbeaa4-fae9-47a5-8765-a5da077adec3",
+              "go": "59fc3ebe-ef6d-4710-a445-7f2433a701e1",
+              "component_type": "SkinnedModelRenderer"
+            }
+          },
+          {
+            "__type": "Sandbox.CapsuleCollider",
+            "__guid": "b5ef1003-96f5-4f49-85e6-cc81910a5c83",
+            "End": "0,0,-70.7002",
+            "IsTrigger": false,
+            "Radius": 335.9995,
+            "Start": "10.30002,0,-129.8998",
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "f1c9fc1d-6da0-457d-999f-c7d60321850f",
+            "Flags": 0,
+            "Name": "QuickRigCharacter_Hips",
+            "Position": "8.753724,-14.27422,314.3925",
+            "Rotation": "0.506144,0.5117973,0.4937752,-0.4879219",
+            "Enabled": true,
+            "Children": [
+              {
+                "__guid": "55888942-8ad2-49b0-87a4-d0c4e416e4ec",
+                "Flags": 0,
+                "Name": "QuickRigCharacter_LeftUpLeg",
+                "Position": "3.924438,-129.8108,-19.12284",
+                "Rotation": "-0.02716769,0.920361,-0.0284764,0.3890842",
+                "Enabled": true,
+                "Children": [
+                  {
+                    "__guid": "c6e707f1-c5e4-4594-a296-1b94fddf35be",
+                    "Flags": 0,
+                    "Name": "QuickRigCharacter_LeftLeg",
+                    "Position": "116.0501,0.00227356,0.0005493164",
+                    "Rotation": "-0.8623687,-0.001561339,0.0009115561,0.5062777",
+                    "Enabled": true,
+                    "Children": [
+                      {
+                        "__guid": "c7096e91-ee5b-45fa-a96c-4ba72c9c8b87",
+                        "Flags": 0,
+                        "Name": "QuickRigCharacter_LeftFoot",
+                        "Position": "162.2546,-0.0003356934,0.0006256104",
+                        "Rotation": "-0.1788463,0.6315597,0.7499949,0.08157148",
+                        "Enabled": true,
+                        "Children": [
+                          {
+                            "__guid": "3cf77f11-8683-4fd2-897b-cc2716f44bae",
+                            "Flags": 0,
+                            "Name": "QuickRigCharacter_LeftToeBase",
+                            "Position": "91.47087,0.00004577637,0.0002288818",
+                            "Enabled": true
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "__guid": "f9d72d0e-ceda-4cd8-b462-4b942ea508bb",
+                "Flags": 0,
+                "Name": "QuickRigCharacter_RightUpLeg",
+                "Position": "-28.37097,97.71137,32.82814",
+                "Rotation": "0.8178274,0.232341,-0.3476589,0.3953599",
+                "Enabled": true,
+                "Children": [
+                  {
+                    "__guid": "1501ec68-72a8-40cf-9409-f2a872c62780",
+                    "Flags": 0,
+                    "Name": "QuickRigCharacter_RightLeg",
+                    "Position": "-138.4222,-0.0006866455,-0.00177002",
+                    "Rotation": "-0.3990962,-0.2850392,0.5054667,0.7099143",
+                    "Enabled": true,
+                    "Children": [
+                      {
+                        "__guid": "e6bcaedb-af09-4fdd-b491-c10e5a2006ec",
+                        "Flags": 0,
+                        "Name": "QuickRigCharacter_RightFoot",
+                        "Position": "-94.92725,-0.0001831055,0.000213623",
+                        "Rotation": "-0.2736839,-0.2365776,0.4171018,0.8337592",
+                        "Enabled": true,
+                        "Children": [
+                          {
+                            "__guid": "0ad6b5ca-76dd-4fd3-a679-855471cc3645",
+                            "Flags": 0,
+                            "Name": "QuickRigCharacter_RightToeBase",
+                            "Position": "-94.55917,-0.000213623,-0.00006866455",
+                            "Rotation": "0.00002568404,0.00000009074583,-0.0000002002345,1",
+                            "Enabled": true
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "__guid": "0a50b64a-7b16-42f8-a284-1d5fa308ade3",
+                "Flags": 0,
+                "Name": "QuickRigCharacter_Spine",
+                "Position": "36.53864,0.00001049042,0.00002098083",
+                "Rotation": "0.007143204,-0.03104753,-0.001863041,0.9994906",
+                "Enabled": true,
+                "Children": [
+                  {
+                    "__guid": "b2c1b17d-4ca0-4f12-a8ea-c9df916c9cda",
+                    "Flags": 0,
+                    "Name": "QuickRigCharacter_Spine1",
+                    "Position": "35.64731,0.00002479553,0.00005340576",
+                    "Rotation": "0.01538572,-0.02640582,0.01569265,0.9994097",
+                    "Enabled": true,
+                    "Children": [
+                      {
+                        "__guid": "d8d5dcc8-568d-43e7-a614-e9bfd05b3806",
+                        "Flags": 0,
+                        "Name": "QuickRigCharacter_Spine2",
+                        "Position": "66.81699,0.00002288818,0.00006866455",
+                        "Rotation": "-0.0911552,-0.251036,-0.4352306,0.8597941",
+                        "Enabled": true,
+                        "Children": [
+                          {
+                            "__guid": "c620856b-6f70-49de-98dc-bd7a58c80fe1",
+                            "Flags": 0,
+                            "Name": "QuickRigCharacter_LeftShoulder",
+                            "Position": "77.78656,-43.70273,-125.3562",
+                            "Rotation": "0.868846,-0.3018396,-0.390864,0.03499757",
+                            "Enabled": true,
+                            "Children": [
+                              {
+                                "__guid": "287a28b5-da28-4409-82eb-1876fd71b229",
+                                "Flags": 0,
+                                "Name": "QuickRigCharacter_LeftArm",
+                                "Position": "60.12842,0.0008239746,-0.0004043579",
+                                "Rotation": "-0.1048622,-0.5513313,-0.1267525,0.8179069",
+                                "Enabled": true,
+                                "Children": [
+                                  {
+                                    "__guid": "6ad952eb-fdb6-40b9-932f-5ad40eb7c3a1",
+                                    "Flags": 0,
+                                    "Name": "QuickRigCharacter_LeftForeArm",
+                                    "Position": "141.0048,0.001617432,0.0005493164",
+                                    "Rotation": "-0.00001237424,0.0001275041,0.1887098,0.9820328",
+                                    "Enabled": true,
+                                    "Children": [
+                                      {
+                                        "__guid": "7fffb3a3-a2f1-41a2-b9bf-8bf1e75718b3",
+                                        "Flags": 0,
+                                        "Name": "QuickRigCharacter_LeftHand",
+                                        "Position": "260.6294,-0.0001831055,0.0003051758",
+                                        "Rotation": "0.0000001043083,-0.0000008437793,-0.00006447368,1",
+                                        "Enabled": true
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "__guid": "f491a410-2797-4406-8723-53242833facf",
+                            "Flags": 0,
+                            "Name": "QuickRigCharacter_RightShoulder",
+                            "Position": "-78.32056,124.4814,75.19551",
+                            "Rotation": "-0.01762695,0.5975896,-0.3078167,0.7401519",
+                            "Enabled": true,
+                            "Children": [
+                              {
+                                "__guid": "d8166c8b-e7da-4277-9864-9ae2befb1a84",
+                                "Flags": 0,
+                                "Name": "QuickRigCharacter_RightArm",
+                                "Position": "-84.86774,-0.000213623,0.0001678467",
+                                "Rotation": "-0.04050915,-0.710856,-0.01856293,0.7019245",
+                                "Enabled": true,
+                                "Children": [
+                                  {
+                                    "__guid": "3bf85961-450f-47d0-a315-1ed0c4b31a8f",
+                                    "Flags": 0,
+                                    "Name": "QuickRigCharacter_RightForeArm",
+                                    "Position": "-231.4757,-0.006774902,-0.007736206",
+                                    "Rotation": "0.00007546016,-0.0001280977,0.2459154,0.9692913",
+                                    "Enabled": true,
+                                    "Children": [
+                                      {
+                                        "__guid": "2efe9455-5ec9-44ad-8c34-0b2dce19b6ad",
+                                        "Flags": 0,
+                                        "Name": "QuickRigCharacter_RightHand",
+                                        "Position": "-158.7598,0.0006103516,-0.0001983643",
+                                        "Rotation": "-0.000001739712,0.000001512469,-0.00006895891,1",
+                                        "Enabled": true
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "__guid": "ee2e0c5c-f633-4ef4-9317-1f6a5b2e4507",
+                            "Flags": 0,
+                            "Name": "QuickRigCharacter_Neck",
+                            "Position": "121.4596,-0.0004882812,0.0003814697",
+                            "Rotation": "0.4800164,-0.1196058,0.4568608,0.7392949",
+                            "Enabled": true,
+                            "Children": [
+                              {
+                                "__guid": "19da85cb-cc91-452c-98b6-507a4539df27",
+                                "Flags": 0,
+                                "Name": "QuickRigCharacter_Head",
+                                "Position": "134.6264,0.0004272461,0.0004272461",
+                                "Rotation": "0.02226314,0.1003649,-0.05095381,0.9933956",
+                                "Enabled": true
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "__guid": "460b1a33-86f6-4c61-92ae-cbe15cc4400c",
+        "Flags": 0,
+        "Name": "eye",
+        "Position": "0,0,64",
+        "Enabled": true,
+        "NetworkMode": 1
+      },
+      {
+        "__guid": "a321d974-a17a-4371-bda5-263ad97d6776",
+        "Flags": 0,
+        "Name": "World",
+        "Position": "-1.323608,-0.5550537,113.6048",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "Components": [
+          {
+            "__type": "Sandbox.WorldPanel",
+            "__guid": "4a95ba0d-85a9-4d3f-8748-7b6e18f631cd",
+            "HorizontalAlign": "Center",
+            "InteractionRange": 1000,
+            "LookAtCamera": true,
+            "PanelSize": "2000,512",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderScale": 4.5999985,
+            "VerticalAlign": "Center"
+          },
+          {
+            "__type": "GeneralGame.HUD.UI",
+            "__guid": "c0edd48b-1c0a-4c43-aba8-2d8a2d3f35e8",
+            "npc": {
+              "_type": "component",
+              "component_id": "69c5ecfe-ab03-4288-93c6-7b0205f5e373",
+              "go": "b4fbbf6d-b01e-4b5b-ac8c-aec0cbfa460a",
+              "component_type": "Prometheus"
+            }
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "d843bac8-90a3-4113-b57b-56272642f9b4",
+            "Flags": 0,
+            "Name": "Screen",
+            "Position": "2.794104,2.111025,-64.55153",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ScreenPanel",
+                "__guid": "ea0a354d-3347-4fef-a50b-b6fb52efb28b",
+                "AutoScreenScale": true,
+                "Opacity": 1,
+                "Scale": 1,
+                "ScaleStrategy": "ConsistentHeight",
+                "ZIndex": 100
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

@@ -332,7 +332,8 @@ public partial class Npc : Component, IHealthComponent
 
 	public NavigationType NavigationType => IsRunning ? RunningType : WalkingType;
 	[Property] public bool isChibi = false;
-	public bool isSlime = false;
+	[Property] public bool isSlime = false;
+	[Property]public bool isPrometheus = false;
 
 	public NavMeshAgent NavMeshAgent { get; private set; }
 
@@ -588,6 +589,10 @@ public partial class Npc : Component, IHealthComponent
 				Model.Set( "chibi_idle", true );
 				Log.Info( "Chibi Idle" );
 			}
+			if (isPrometheus && Model != null)
+			{
+				Model.Set( "prometheus_idle", true );
+			}
 			if ( TargetObject != null )
 			{
 				// Überprüfen, ob das Ziel immer noch gültig ist, oder es außerhalb der Reichweite ist
@@ -719,6 +724,12 @@ public partial class Npc : Component, IHealthComponent
 					}
 					AnimationHelper.Target.Set("b_attack", true);
 
+					if ( Model != null && isPrometheus )
+					{
+
+						Model.Set( "prometheus_attack", true );
+					}
+
 					if (Model != null && isChibi)
 					{
 						Model.Set("chibi_attack", true);
@@ -740,6 +751,7 @@ public partial class Npc : Component, IHealthComponent
 
 						}
 					}
+					
 
 
 					timeSinceHit = 0;
@@ -1361,6 +1373,11 @@ public partial class Npc : Component, IHealthComponent
 		{
 			Model.Set( "chibi_damage", true );
 		}
+		else if ( Model != null && isPrometheus )
+		{
+			Model.Set( "prometheus_damage", true );
+		}
+		
 		
 		
 		

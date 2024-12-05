@@ -1221,7 +1221,7 @@ public class  BaseGun : WeaponComponent, IUse
 			hasStoppedActions = true;
 		}
 
-		if (Player.Local.LifeState != LifeState.Dead)
+		if (Player.Local != null && Player.Local.LifeState != LifeState.Dead)
 		{
 			hasStoppedActions = false;
 		}
