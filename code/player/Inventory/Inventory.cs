@@ -543,7 +543,7 @@ public sealed class Inventory : Component
 		item.State = ItemState.Backpack;
 		item.GameObject.Enabled = false;
 		
-		TaskMaster.SubmitTriggerSignal( $"item.received.{item.Name}", Player );
+		
 
 		return true;
 	}
@@ -813,7 +813,7 @@ public sealed class Inventory : Component
 			
 			GiveEquipmentItem( equipment );
 			equipment.State = ItemState.Equipped;
-			TaskMaster.SubmitTriggerSignal( $"item.equipped.{item.Name}", Player );
+		
 			
 
 			var weaponContainer = Player.Components.Get<WeaponContainer>();
@@ -889,13 +889,12 @@ public sealed class Inventory : Component
 		{
 			throw new ArgumentNullException( nameof( item ), "Das übergebene Item ist null." );
 		}
-		if (IsProxy)
+		if ( IsProxy )
 			return true;
-			
+
 		if ( item is not ItemEquipment equipment )
 			return false;
 
-		
 		if ( IsSlotOccupied( equipment.Slot ) && !forceReplace )
 			return false;
 
@@ -905,17 +904,12 @@ public sealed class Inventory : Component
 			var placedInBackpack = UnequipItem( equippedItem );
 			if ( !placedInBackpack )
 				DropItem( equippedItem );
-				
-
-
 		}
-		
 
-		if(item.CanEquip(Player.Level))
+		if ( item.CanEquip( Player.Level ) )
 		{
 			GiveEquipmentItem( equipment );
 			equipment.State = ItemState.Equipped;
-			TaskMaster.SubmitTriggerSignal( $"item.equipped.{item.Name}", Player );
 			
 
 			var weaponContainer = Player?.Components?.Get<WeaponContainer>();
@@ -932,28 +926,20 @@ public sealed class Inventory : Component
 			{
 				MAX_BACKPACKBAG_SLOTS = (int)backpack.SlotAmount;
 
-				if ( _backpackBagItems.Count < MAX_BACKPACKBAG_SLOTS )
+				if ( _backpackBagItems != null && _backpackBagItems.Count < MAX_BACKPACKBAG_SLOTS )
 				{
 					for ( int i = _backpackBagItems.Count; i < MAX_BACKPACKBAG_SLOTS; i++ )
 					{
 						_backpackBagItems.Add( null );
-						Log.Info( "Added a new slot to the backpack bag." );
 					}
-					return true;
 				}
 			}
-
-
-			
 			return true;
 		}
-		
 		else
 		{
-			
-			Hudmaster.Instance?.ShowNotification( "player level too low", "/ui/hud/exit.gif" );
+			Hudmaster.Instance.ShowNotification( "player level too low.", "/ui/hud/exit.gif" );
 			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
-
 			return false;
 		}
 	}
@@ -1023,11 +1009,11 @@ public sealed class Inventory : Component
 		GiveBackpackItem( equipment, firstFreeSlot );
 		equipment.State = ItemState.Backpack;
 
-		TaskMaster.SubmitTriggerSignal( $"item.unequipped.{item.Name}", Player );
+		
 
 		return true;
 	}
-
+	
 
 
 
@@ -1047,6 +1033,7 @@ public sealed class Inventory : Component
 
 
 		
+		
 
 
 
@@ -1064,7 +1051,7 @@ public sealed class Inventory : Component
 			ModelColider.Enabled = true;
 		}
 		
-		TaskMaster.SubmitTriggerSignal( $"item.dropped.{item.Name}", Player );
+		
 		
 		
 
@@ -1728,7 +1715,7 @@ public sealed class Inventory : Component
 		// Fügen Sie die Statistiken der neuen Waffe hinzu
 		EquipItemStats( equipment );
 		
-		TaskMaster.SubmitTriggerSignal( $"item.equipped.{equipment.Name}", Player );
+		
 		
 		UpdateBodygroups();
 	}

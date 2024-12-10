@@ -1,9 +1,281 @@
 {
   "Title": "Merchant Tutorial",
   "Description": "Make a Tutorial",
-  "IsCompleted": false,
-  "Rewards": [],
-  "Tasks": [],
+  "IsCompleted": true,
+  "Rewards": [
+    {
+      "__version": 8,
+      "__guid": "fd3ceb70-d940-4428-b8ee-5eb12d5b2b8f",
+      "__changeId": 13,
+      "UserData": {
+        "Title": null,
+        "ReferencedComponentTypes": []
+      },
+      "Variables": [],
+      "Nodes": [
+        {
+          "Id": 0,
+          "Type": "input"
+        },
+        {
+          "Id": 1,
+          "Type": "player.getself",
+          "UserData": {
+            "Position": "168,0"
+          }
+        },
+        {
+          "Id": 2,
+          "Type": "call",
+          "Properties": {
+            "_isStatic": false,
+            "_name": "AddVyndalium",
+            "_type": "GeneralGame.Player"
+          },
+          "UserData": {
+            "Position": "456,24"
+          }
+        }
+      ],
+      "Links": [
+        {
+          "SrcId": 0,
+          "SrcName": "_signal",
+          "DstId": 1,
+          "DstName": "_signal"
+        },
+        {
+          "SrcId": 1,
+          "SrcName": "_signal",
+          "DstId": 2,
+          "DstName": "_signal"
+        },
+        {
+          "SrcId": 1,
+          "SrcName": "_result",
+          "DstId": 2,
+          "DstName": "_target"
+        },
+        {
+          "Id": 15,
+          "Value": 555,
+          "DstId": 2,
+          "DstName": "vyndaliumPointsToAdd"
+        }
+      ]
+    }
+  ],
+  "Tasks": [
+    {
+      "Description": "Open Merchant Menu",
+      "Action": {
+        "__version": 8,
+        "__guid": "668de89f-02ee-4dd4-b848-d99d8f38cf97",
+        "__changeId": 208,
+        "UserData": {
+          "Title": "Action",
+          "ReferencedComponentTypes": []
+        },
+        "Variables": [],
+        "Nodes": [
+          {
+            "Id": 0,
+            "Type": "input",
+            "UserData": {
+              "Position": "-300,-288"
+            }
+          },
+          {
+            "Id": 11,
+            "Type": "call",
+            "Properties": {
+              "_isStatic": false,
+              "_name": "OpenShop",
+              "_type": "GeneralGame.HUD.ShopPanel"
+            },
+            "UserData": {
+              "Position": "732,-240"
+            }
+          },
+          {
+            "Id": 13,
+            "Type": "property",
+            "Properties": {
+              "_name": "Instance",
+              "_type": "GeneralGame.HUD.ShopPanel"
+            },
+            "UserData": {
+              "Position": "480,-72"
+            }
+          },
+          {
+            "Id": 14,
+            "Type": "call",
+            "Properties": {
+              "_isStatic": false,
+              "_name": "CompleteTask",
+              "_type": "GeneralGame.Quest"
+            },
+            "UserData": {
+              "Position": "1188,-132"
+            }
+          },
+          {
+            "Id": 15,
+            "Type": "call",
+            "Properties": {
+              "_isStatic": false,
+              "_name": "GetNextTask",
+              "_type": "GeneralGame.Quest"
+            },
+            "UserData": {
+              "Position": "912,-156"
+            }
+          },
+          {
+            "Id": 62,
+            "Type": "call",
+            "Properties": {
+              "_isStatic": true,
+              "_name": "SubmitTriggerSignal",
+              "_type": "GeneralGame.TaskMaster"
+            },
+            "UserData": {
+              "Position": "372,-372"
+            }
+          },
+          {
+            "Id": 67,
+            "Type": "call",
+            "Properties": {
+              "_isStatic": false,
+              "_name": "TryGet",
+              "_type": "Sandbox.IComponentLister",
+              "T": "GeneralGame.Player"
+            },
+            "UserData": {
+              "Position": "84,-264"
+            }
+          },
+          {
+            "Id": 75,
+            "Type": "player.getself",
+            "UserData": {
+              "Position": "-192,-288"
+            }
+          },
+          {
+            "Id": 78,
+            "Type": "call",
+            "Properties": {
+              "_isStatic": false,
+              "_name": "StateHasChanged",
+              "_type": "Sandbox.Resource"
+            },
+            "UserData": {
+              "Position": "660,-312"
+            }
+          }
+        ],
+        "Links": [
+          {
+            "SrcId": 78,
+            "SrcName": "_signal",
+            "DstId": 11,
+            "DstName": "_signal"
+          },
+          {
+            "SrcId": 13,
+            "SrcName": "_result",
+            "DstId": 11,
+            "DstName": "_target"
+          },
+          {
+            "SrcId": 15,
+            "SrcName": "_signal",
+            "DstId": 14,
+            "DstName": "_signal"
+          },
+          {
+            "SrcId": 0,
+            "SrcName": "_target",
+            "DstId": 14,
+            "DstName": "_target"
+          },
+          {
+            "SrcId": 15,
+            "SrcName": "_result",
+            "DstId": 14,
+            "DstName": "task"
+          },
+          {
+            "SrcId": 11,
+            "SrcName": "_signal",
+            "DstId": 15,
+            "DstName": "_signal"
+          },
+          {
+            "SrcId": 0,
+            "SrcName": "_target",
+            "DstId": 15,
+            "DstName": "_target"
+          },
+          {
+            "SrcId": 75,
+            "SrcName": "_signal",
+            "DstId": 62,
+            "DstName": "_signal"
+          },
+          {
+            "Id": 114,
+            "Value": "quest.starting",
+            "DstId": 62,
+            "DstName": "signalIdentifier"
+          },
+          {
+            "SrcId": 67,
+            "SrcName": "component",
+            "DstId": 62,
+            "DstName": "triggerer"
+          },
+          {
+            "SrcId": 75,
+            "SrcName": "_result",
+            "DstId": 67,
+            "DstName": "_target"
+          },
+          {
+            "Id": 115,
+            "Value": "Enabled, InSelf, InAncestors",
+            "DstId": 67,
+            "DstName": "search"
+          },
+          {
+            "SrcId": 0,
+            "SrcName": "_signal",
+            "DstId": 75,
+            "DstName": "_signal"
+          },
+          {
+            "SrcId": 62,
+            "SrcName": "_signal",
+            "DstId": 78,
+            "DstName": "_signal"
+          },
+          {
+            "SrcId": 0,
+            "SrcName": "_target",
+            "DstId": 78,
+            "DstName": "_target"
+          }
+        ]
+      }
+    }
+  ],
+  "CompletedTasks": [],
+  "TaskOrder": [
+    1
+  ],
   "__references": [],
   "__version": 0
 }

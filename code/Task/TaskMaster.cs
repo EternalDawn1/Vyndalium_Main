@@ -18,6 +18,8 @@ public partial class TaskMaster : Component, Component.INetworkListener
 	[Property]
 	public List<GeneralTask> CurrentTasks { get; set; }
 
+	
+
 	public bool HasStarted { get; set; } = false;
 
 	/// <summary>
@@ -271,11 +273,12 @@ public partial class TaskMaster : Component, Component.INetworkListener
 			return;
 
 		var allTasks = ResourceLibrary.GetAll<GeneralTask>();
-
 		// If future updates contain new tasks or we're live adding newer ones, save those to the file too
 		foreach ( var task in allTasks )
+		{
 			if ( !TasksProgression.Tasks.Any( x => x.Task == task.ResourcePath ) )
 				AddTaskProgression( task.ResourcePath );
+		}
 
 		foreach ( var task in CurrentTasks )
 		{
@@ -286,9 +289,15 @@ public partial class TaskMaster : Component, Component.INetworkListener
 		if ( print )
 			Log.Info( "Tasks saved..." );
 
-		FileSystem.OrganizationData.WriteJson( "tasks.json", TasksProgression );
+		if ( TasksProgression.Tasks != null )
+		{
+			FileSystem.OrganizationData.WriteJson( "tasks.json", TasksProgression );
+		}
+		else
+		{
+			Log.Error( "TasksProgression.Tasks is null." );
+		}
 	}
-
 	/// <summary>
 	/// Reset the tasks progress
 	/// </summary>
@@ -320,7 +329,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 
 	protected override void OnFixedUpdate()
 	{
-		if ( !HasStarted ) return;
+		if ( !HasStarted || CurrentTasks == null ) return;
 
 		foreach ( var task in CurrentTasks )
 		{
@@ -341,7 +350,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 					subtask.SetComplete( subtask.CurrentAmount >= subtask.AmountToComplete );
 				}
 
-				// If all subtasks have been completed, the task has been completed succesfully
+				// If all subtasks have been completed, the task has been completed successfully
 				if ( task.Subtasks.All( x => x.Completed ) )
 					task.Succeed();
 
@@ -349,7 +358,6 @@ public partial class TaskMaster : Component, Component.INetworkListener
 				if ( task.FailConditionCheck != null )
 				{
 					var hasFailed = task.FailConditionCheck.Invoke( Player.Local );
-
 					if ( hasFailed ) // Fail the task if the fail condition has been met
 						task.Fail();
 				}
@@ -361,7 +369,6 @@ public partial class TaskMaster : Component, Component.INetworkListener
 				if ( activeSubtasks.All( x => x.Completed ) )
 				{
 					task.CurrentSubtaskOrder++;
-
 					foreach ( var subtask in task.ActiveSubtasks )
 					{
 						subtask.OnStart?.Invoke( Player.Local );
@@ -397,8 +404,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 	public static void SubmitTriggerSignal( string signalIdentifier, Player triggerer, bool network = true )
 	{
 		Log.Info( signalIdentifier );
-		if ( signalIdentifier == null || signalIdentifier == "" || signalIdentifier == String.Empty || signalIdentifier == "null" ) return;
-
+		if ( string.IsNullOrEmpty( signalIdentifier ) || signalIdentifier == "null" || triggerer == null ) return;
 
 		if ( _instance != null )
 		{
@@ -423,16 +429,9 @@ public partial class TaskMaster : Component, Component.INetworkListener
 
 				foreach ( var subtask in activeSubtasks )
 				{
-					if ( subtask.TriggerSignal.Identifier == signalIdentifier || subtask != null && subtask.TriggerSignal != null && signalIdentifier.Contains( subtask.TriggerSignal.Identifier ) ) // If the given signal is the one we're looking for, increase the subtask's progress
+					if ( subtask.TriggerSignal != null && (subtask.TriggerSignal.Identifier == signalIdentifier || signalIdentifier.Contains( subtask.TriggerSignal.Identifier )) ) // If the given signal is the one we're looking for, increase the subtask's progress
 						subtask.CurrentAmount++;
 				}
-			}
-
-			var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault(); // Find the story master
-
-			if ( storyMaster != null )
-			{
-				
 			}
 		}
 	}
@@ -726,7 +725,7 @@ public partial class TaskMaster : Component, Component.INetworkListener
 	[ConCmd( "General_signal" )]
 	public static void DebugSubmitSignal( string signal )
 	{
-		TaskMaster.SubmitTriggerSignal( signal, Player.Local );
+		
 	}
 
 

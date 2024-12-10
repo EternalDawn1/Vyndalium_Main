@@ -6,7 +6,7 @@ using static GeneralGame.TaskMaster;
 
 namespace GeneralGame;
 
-public class SaunaScriptedEvent
+public class VyndaliumScriptedEvent
 {
 	/// <summary>
 	/// Does this scripted event get triggered at a certain time or with a signal
@@ -72,13 +72,13 @@ public class SaunaScriptedEvent
 	[JsonIgnore]
 	public bool Triggered { get; set; } = false;
 
-	public  SaunaScriptedEvent() { }
+	public  VyndaliumScriptedEvent() { }
 
 }
-public class SaunaDay
+public class VyndaliumDay
 {
 	[Property]
-	public List<SaunaScriptedEvent> ScriptedEvents { get; set; }
+	public List<VyndaliumScriptedEvent> ScriptedEvents { get; set; }
 
 	/// <summary>
 	/// How many random events to load at the beginning of the session (ONLY session, not new day, events will unload at the end of session)
@@ -100,7 +100,7 @@ public class SaunaDay
 [Icon("auto_stories")]
 public class StoryMaster : Component
 {
-	public class SaunaStoryProgression
+	public class VyndaliumStoryProgression
 	{
 		[JsonInclude]
 		public int StoryDay { get; set; } = 1;
@@ -108,21 +108,21 @@ public class StoryMaster : Component
 		[JsonInclude]
 		public int GameDay { get; set; } = 1;
 
-		public SaunaStoryProgression() { }
+		public VyndaliumStoryProgression() { }
 	}
 
 	/// <summary>
 	/// Define each story days, if a story day hasn't been completed it will roll over to the next in-game day
 	/// </summary>
 	[Property]
-	public Dictionary<int, SaunaDay> StoryDays { get; set; } = new();
+	public Dictionary<int, VyndaliumDay> StoryDays { get; set; } = new();
 
 	/// <summary>
 	/// Current story day/game day
 	/// </summary>
 	[Property]
 	[HostSync]
-	public SaunaStoryProgression StoryProgression { get; set; }
+	public VyndaliumStoryProgression StoryProgression { get; set; }
 
 	/// <summary>
 	/// Get the current story day
@@ -150,9 +150,22 @@ public class StoryMaster : Component
 		}
 	}
 
-	public SaunaDay CurrentSaunaDay => StoryDays.TryGetValue(StoryProgression.StoryDay, out var saunaDay) ? saunaDay : LastValidSaunaDay;
-	public SaunaDay LastValidSaunaDay => StoryDays.Any() ? StoryDays.Last().Value : null;
-	public SaunaDay NextSaunaDay => StoryDays.TryGetValue(StoryProgression.StoryDay + 1, out var saunaDay) ? saunaDay : null;
+	public VyndaliumDay CurrentVyndaliumDay
+	{
+		get
+		{
+			if ( StoryProgression == null || StoryDays == null )
+			{
+				Log.Error( "StoryProgression or StoryDays is null" );
+				return null;
+			}
+
+			return StoryDays.TryGetValue( StoryProgression.StoryDay, out var VyndaliumDay ) ? VyndaliumDay : LastValidVyndaliumDay;
+		}
+	}
+
+	public VyndaliumDay LastValidVyndaliumDay => StoryDays?.Any() == true ? StoryDays.Last().Value : null;
+	public VyndaliumDay NextVyndaliumDay => StoryDays?.TryGetValue( StoryProgression.StoryDay + 1, out var VyndaliumDay ) == true ? VyndaliumDay : null;
 
 	TaskMaster _taskMaster => Components.Get<TaskMaster>();
 	GameTimeManager _timeManager => Components.Get<GameTimeManager>();
@@ -162,9 +175,9 @@ public class StoryMaster : Component
 	/// </summary>
 	public void StartStoryDay()
 	{
-		if (CurrentSaunaDay == null) return;
+		if (CurrentVyndaliumDay == null) return;
 
-		foreach (var scriptedEvent in CurrentSaunaDay.ScriptedEvents)
+		foreach (var scriptedEvent in CurrentVyndaliumDay.ScriptedEvents)
 		{
 			if (scriptedEvent.TriggerTimeslot.Range == RangedFloat.RangeType.Between)
 				scriptedEvent.TriggerTime = scriptedEvent.TriggerTimeslot.GetValue();
@@ -246,7 +259,7 @@ public class StoryMaster : Component
 	public void LoadStoryProgression()
 	{
 		if (FileSystem.OrganizationData.FileExists("story.json"))
-			StoryProgression = FileSystem.OrganizationData.ReadJsonOrDefault<SaunaStoryProgression>("story.json");
+			StoryProgression = FileSystem.OrganizationData.ReadJsonOrDefault<VyndaliumStoryProgression>("story.json");
 		else
 		{
 			StoryProgression = new();
@@ -304,13 +317,13 @@ public class StoryMaster : Component
 
 	public void LoadEventPool()
 	{
-		if (CurrentSaunaDay == null) return;
+		if (CurrentVyndaliumDay == null) return;
 
-		if (CurrentSaunaDay.RandomEvents.ContainsKey(EventRarity.Common))
+		if (CurrentVyndaliumDay.RandomEvents.ContainsKey(EventRarity.Common))
 		{
 			int eventsPicked = 0;
 
-			for (int common = 0; common < CurrentSaunaDay.RandomEvents[EventRarity.Common]; common++)
+			for (int common = 0; common < CurrentVyndaliumDay.RandomEvents[EventRarity.Common]; common++)
 			{
 				var availableCommonEvents = EventMaster.Instance.AllEvents.Where(x => x.Type != EventType.Direct && x.Rarity == EventRarity.Common)
 					.Where(x => !EventMaster.Instance.CurrentEvents.Contains(x))
@@ -332,11 +345,11 @@ public class StoryMaster : Component
 			Log.Info($"{eventsPicked} common events loaded.");
 		}
 
-		if (CurrentSaunaDay.RandomEvents.ContainsKey(EventRarity.Uncommon))
+		if (CurrentVyndaliumDay.RandomEvents.ContainsKey(EventRarity.Uncommon))
 		{
 			int eventsPicked = 0;
 
-			for (int uncommon = 0; uncommon < CurrentSaunaDay.RandomEvents[EventRarity.Uncommon]; uncommon++)
+			for (int uncommon = 0; uncommon < CurrentVyndaliumDay.RandomEvents[EventRarity.Uncommon]; uncommon++)
 			{
 				var availableUncommonEvents = EventMaster.Instance.AllEvents.Where(x => x.Type != EventType.Direct && x.Rarity == EventRarity.Uncommon)
 					.Where(x => !EventMaster.Instance.CurrentEvents.Contains(x))
@@ -358,11 +371,11 @@ public class StoryMaster : Component
 			Log.Info($"{eventsPicked} uncommon events loaded.");
 		}
 
-		if (CurrentSaunaDay.RandomEvents.ContainsKey(EventRarity.Rare))
+		if (CurrentVyndaliumDay.RandomEvents.ContainsKey(EventRarity.Rare))
 		{
 			int eventsPicked = 0;
 
-			for (int rare = 0; rare < CurrentSaunaDay.RandomEvents[EventRarity.Rare]; rare++)
+			for (int rare = 0; rare < CurrentVyndaliumDay.RandomEvents[EventRarity.Rare]; rare++)
 			{
 				var availableRareEvents = EventMaster.Instance.AllEvents.Where(x => x.Type != EventType.Direct && x.Rarity == EventRarity.Rare)
 					.Where(x => !EventMaster.Instance.CurrentEvents.Contains(x))
@@ -389,14 +402,13 @@ public class StoryMaster : Component
 	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public static void StartSession()
 	{
-		_ = PlayIntro();
+	
+		//PlayIntro();
 	}
 
-	private static async Task PlayIntro()
+	private static void PlayIntro()
 	{
-		Player.Local.BlackScreen(0f, 4f, 1f);
 		
-		await GameTask.DelayRealtimeSeconds(2f);
 
 		SetupSession();
 	}
@@ -405,14 +417,25 @@ public class StoryMaster : Component
 	{
 		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().First();
 
-		if (storyMaster == null) return;
+		if ( storyMaster == null ) return;
 
-		if (storyMaster._taskMaster != null && _instance != null)
+		if ( storyMaster._taskMaster != null && _instance != null )
 			storyMaster.ClearTasks();
 
-		if (Connection.Local.IsHost)
+		if ( Connection.Local.IsHost )
 		{
-			if (storyMaster.CurrentSaunaDay.Completed)
+			// Initialisiere StoryProgression und StoryDays, falls sie null sind
+			if ( storyMaster.StoryProgression == null )
+			{
+				storyMaster.StoryProgression = new StoryMaster.VyndaliumStoryProgression();
+			}
+
+			if ( storyMaster.StoryDays == null )
+			{
+				storyMaster.StoryDays = new Dictionary<int, VyndaliumDay>();
+			}
+
+			if ( storyMaster.CurrentVyndaliumDay != null && storyMaster.CurrentVyndaliumDay.Completed )
 				storyMaster.NextStoryDay();
 
 			storyMaster.LoadStoryProgression();
@@ -421,14 +444,14 @@ public class StoryMaster : Component
 		}
 
 		storyMaster.StartStoryDay();
-		storyMaster._timeManager.StartDay();
+
+		if ( storyMaster._timeManager != null )
+			storyMaster._timeManager.StartDay();
 
 		EventMaster.Instance.UnloadAllEvents();
 		storyMaster.LoadEventPool();
-		
-	
 
-		if (Player.Local.IsValid())
+		if ( Player.Local.IsValid() )
 			Player.Local.Respawn();
 	}
 
@@ -465,7 +488,7 @@ public class StoryMaster : Component
 	
 	public void ClearTriggeredEvents()
 	{
-		foreach (var @event in CurrentSaunaDay.ScriptedEvents)
+		foreach (var @event in CurrentVyndaliumDay.ScriptedEvents)
 		{
 			@event.Triggered = false;
 		}
@@ -546,11 +569,11 @@ public class StoryMaster : Component
 			_lastTipAttempt = 0f;
 		}
 
-		if (CurrentSaunaDay != null && !timeManager.IsDayOver)
+		if (CurrentVyndaliumDay != null && !timeManager.IsDayOver)
 		{
 			var currentHour = timeManager.InGameHours;
 
-			foreach (var scriptedEvent in CurrentSaunaDay.ScriptedEvents)
+			foreach (var scriptedEvent in CurrentVyndaliumDay.ScriptedEvents)
 			{
 				if (!scriptedEvent.Triggered)
 				{
@@ -588,16 +611,16 @@ public class StoryMaster : Component
 					EventsToTrigger.Remove(toRemove);
 			}
 
-			if (!CurrentSaunaDay.Completed)
-				if (CurrentSaunaDay.ScriptedEvents.All(x => x.Completed || x.Triggered && !x.CompletionNecessary))
+			if (!CurrentVyndaliumDay.Completed)
+				if (CurrentVyndaliumDay.ScriptedEvents.All(x => x.Completed || x.Triggered && !x.CompletionNecessary))
 				{
-					CurrentSaunaDay.Completed = true;
+					CurrentVyndaliumDay.Completed = true;
 					Log.Info("All story scripted event requirements completed, story can now progress");
 				}
 		}
 	}
 
-	internal async void BeginScriptedEvent(SaunaScriptedEvent scriptedEvent, float delay = 0f)
+	internal async void BeginScriptedEvent(VyndaliumScriptedEvent scriptedEvent, float delay = 0f)
 	{
 		scriptedEvent.Triggered = true;
 
@@ -606,7 +629,7 @@ public class StoryMaster : Component
 		scriptedEvent.SignalToComplete = signalToComplete;
 	}
 
-	[ConCmd("sauna_save")]
+	[ConCmd("Vyndalium_save")]
 	public static void SaveGameCmd()
 	{
 		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
@@ -614,7 +637,7 @@ public class StoryMaster : Component
 		storyMaster?.SaveGame();
 	}
 
-	[ConCmd("sauna_reset")]
+	[ConCmd("Vyndalium_reset")]
 	public static void DeleteSave()
 	{
 		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
@@ -641,7 +664,7 @@ public class StoryMaster : Component
 		Game.Close();
 	}
 
-	[ConCmd("sauna_reset_story")]
+	[ConCmd("Vyndalium_reset_story")]
 	public static void DeleteStory()
 	{
 		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
@@ -650,7 +673,7 @@ public class StoryMaster : Component
 			storyMaster.ResetStoryProgression();
 	}
 
-	[ConCmd("sauna_reset_tasks")]
+	[ConCmd("Vyndalium_reset_tasks")]
 	public static void DeleteTasks()
 	{
 		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
@@ -658,7 +681,7 @@ public class StoryMaster : Component
 		
 	}
 
-	[ConCmd("sauna_reset_events")]
+	[ConCmd("Vyndalium_reset_events")]
 	public static void DeleteEvents()
 	{
 		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();
@@ -667,7 +690,7 @@ public class StoryMaster : Component
 			EventMaster.Instance.ResetEventsProgression();
 	}
 
-	[ConCmd("sauna_reset_player")]
+	[ConCmd("Vyndalium_reset_player")]
 	public static void DeletePlayer()
 	{
 		var storyMaster = Game.ActiveScene.GetAllComponents<StoryMaster>().FirstOrDefault();

@@ -85,5 +85,28 @@ public static partial class PlayerNodes
 			.ToList());
 			
 	}
+	[ActionGraphNode( "player.getself" )]
+	[Title( "Get Self Player" ), Group( "Player" ), Icon( "person" )]
+	public static Player GetSelfPlayer()
+	{
+	
+		return Player.Local;
+	}
+
+	[ActionGraphNode( "quest.checkrequirements" )]
+	[Title( "Check Quest Requirements" ), Group( "Quest" ), Icon( "check_circle" )]
+	public static bool CheckQuestRequirements( Quest quest )
+	{
+		// Überprüfen, ob alle Aufgaben der Quest abgeschlossen sind
+		bool allTasksCompleted = quest.Tasks.All( task => quest.CompletedTasks.Contains( task ) );
+
+		// Wenn alle Aufgaben abgeschlossen sind, die Quest abschließen
+		if ( allTasksCompleted )
+		{
+			quest.IsCompleted = true;
+		}
+
+		return allTasksCompleted;
+	}
 	
 }

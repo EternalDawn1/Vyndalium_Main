@@ -68,6 +68,7 @@ public class ShopInteractable : BaseInteraction
                 {
                     var shopInteractable = obj.Components.Get<ShopInteractable>();
                     Storage = Components.GetOrCreate<ShopStorage>();
+                  
                     if ( shopInteractable != null && shopInteractable.Storage != null )
                     {
                         shopInteractable.Storage.OpenShop();
@@ -90,7 +91,7 @@ public class ShopInteractable : BaseInteraction
                     
             
 
-                    if ( shopInteractable != null && shopInteractable.Storage != null )
+                    if ( shopInteractable != null && shopInteractable.Storage != null && Quests.Instance != null )
                     {
                         Quests.Instance.OpenQuest();
                     }

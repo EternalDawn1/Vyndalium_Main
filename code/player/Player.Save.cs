@@ -236,27 +236,27 @@ partial class Player
 		ItemSave Serialize( ItemComponent item )
 		{
 			if ( item == null )
-       		 return default;
+				return default;
 			if ( !ResourceLibrary.TryGet<PrefabFile>( item.Prefab, out var resource ) )
 				return default;
 			var data = new Dictionary<string, string>();
 			var components = item.Components?.GetAll();
-			if (components == null) return default;
+			if ( components == null ) return default;
 			foreach ( var component in components )
 			{
-				var type = GlobalGameNamespace.TypeLibrary?.GetType(component.GetType());
-				if (type == null) continue;
-				var properties = type.Properties?.Where(property =>
+				var type = GlobalGameNamespace.TypeLibrary?.GetType( component.GetType() );
+				if ( type == null ) continue;
+				var properties = type.Properties?.Where( property =>
 				{
 					var attribute = property.GetCustomAttribute<TargetSaveAttribute>();
-					if (attribute == null) return false;
-					var ignore = attribute?.IgnoreIf?.Equals(property.GetValue(component)) ?? false;
+					if ( attribute == null ) return false;
+					var ignore = attribute?.IgnoreIf?.Equals( property.GetValue( component ) ) ?? false;
 					return !ignore;
-				});
-				if (properties == null) continue;
-				foreach (var property in properties)
+				} );
+				if ( properties == null ) continue;
+				foreach ( var property in properties )
 				{
-					data[property.Name] = property.GetValue(component)?.ToString();
+					data[property.Name] = property.GetValue( component )?.ToString();
 				}
 			}
 			item.SellPrice = item.SellPrice;
@@ -671,7 +671,7 @@ partial class Player
 				if (equipment == null)
 					continue;
 
-				player.Inventory.EquipItemFromWorld( equipment );
+				player?.Inventory?.EquipItemFromWorld( equipment );
 				ReadData( data, o );
 
 				equipment.Aspect = data.Aspect;

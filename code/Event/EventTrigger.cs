@@ -63,8 +63,7 @@ public abstract class EventTrigger : Component
 		{
 			var playerComponent = triggerer.Components.Get<Player>();
 
-			if ( playerComponent != null )
-				TaskMaster.SubmitTriggerSignal( TriggerSignalIdentifier.Identifier, playerComponent );
+			
 		}
 	}
 }

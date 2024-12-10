@@ -44,6 +44,7 @@ namespace GeneralGame
                 Networking.Disconnect();
                 return;
             }
+            
 
 
         }
@@ -60,6 +61,7 @@ namespace GeneralGame
                 Networking.Disconnect();
                 return;
             }
+            
 
             var startLocation = FindSpawnLocation().WithScale( 1 );
             var playerObject = Prefab.Clone( startLocation, name: $"Player - {channel.DisplayName}" );

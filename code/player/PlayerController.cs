@@ -459,6 +459,9 @@ public partial class Player : Component, IHealthComponent
 		{
 			ModelRenderer = Components.Get<SkinnedModelRenderer>();
 		}
+		ModelRenderer.OnFootstepEvent += OnFootstep;
+		
+
 		Collider = Components.Get<BoxCollider>( FindMode.EverythingInSelfAndDescendants );
 
 		if(CharacterController == null)
@@ -482,6 +485,34 @@ public partial class Player : Component, IHealthComponent
 		
 
 
+	}
+	private TimeSince lastStepped;
+	private void OnFootstep( SceneModel.FootstepEvent e )
+	{
+		if ( lastStepped < 0.2f )
+			return;
+
+		var pos = WorldPosition + Vector3.Up * 10;
+		var tr = Scene.Trace.Ray( pos + Vector3.Up * 10, pos + Vector3.Down * 10 )
+			.Radius( 1 )
+			.WithoutTags( "trigger" )
+			.IgnoreGameObjectHierarchy( GameObject )
+			.Run();
+
+		if ( !tr.Hit || tr.Surface == null )
+			return;
+
+		lastStepped = 0;
+
+		var path = e.FootId == 0
+			? tr.Surface.Sounds.FootLeft
+			: tr.Surface.Sounds.FootRight;
+
+		if ( string.IsNullOrEmpty( path ) )
+			return;
+
+		var sound = Sound.Play( path, tr.HitPosition + tr.Normal * 5 );
+		sound.Volume *= e.Volume;
 	}
 
 	protected override void OnStart()
@@ -507,6 +538,7 @@ public partial class Player : Component, IHealthComponent
 			
 			Setup( this );
 		}
+		
 
 
 		base.OnStart();

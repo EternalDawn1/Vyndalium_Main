@@ -76,7 +76,8 @@ public static class SceneHandler
 
 		if ( Player.Local == null )
 		{
-			
+			Log.Info( "Player not initalized (DevError)" );
+		
 		}
 
 		Player.Setup();

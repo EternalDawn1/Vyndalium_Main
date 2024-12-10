@@ -279,7 +279,7 @@ public partial class GeneralTask : GameResource
 		Log.Info( $"Succesfully completed the '{Name}' task" );
 
 		OnSuccess?.Invoke( Player.Local );
-		TaskMaster.SubmitTriggerSignal( SuccessSignal, Player.Local );
+
 		Log.Info( $"Submitted signal {SuccessSignal}" );
 		
 
@@ -303,7 +303,7 @@ public partial class GeneralTask : GameResource
 		Log.Info( $"Failed the '{Name}' task" );
 
 		OnFail?.Invoke( Player.Local );
-		TaskMaster.SubmitTriggerSignal( FailedSignal, Player.Local );
+		
 		
 
 		foreach ( var subtask in Subtasks )

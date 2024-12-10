@@ -310,15 +310,6 @@ public class EventMaster : Component
 			}
 		}
 
-		var playerComponent = foundPlayer.Components.Get<Player>();
-		if ( playerComponent != null )
-		{
-			TaskMaster.SubmitTriggerSignal( interaction, playerComponent );
-		}
-		else
-		{
-			
-		}
 
 		
 	}

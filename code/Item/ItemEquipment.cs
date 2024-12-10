@@ -204,7 +204,7 @@ public class ItemEquipment : ItemComponent
 
         if ( _model == null )
         {
-            _model = new SceneModel( world, "models/citizen/citizen.vmdl", global::Transform.Zero );
+            _model = new SceneModel( world, "models/citizen_human/citizen_human_male.vmdl", global::Transform.Zero );
             _model.RenderingEnabled = true;
         }
         return _model;

@@ -3,46 +3,126 @@ namespace GeneralGame
     [GameResource( "Quest", "quest", "a simple Quest", Icon = "event_busy", IconBgColor = "#4a4fa8", IconFgColor = "#ffffff" )]
     public class Quest : GameResource
     {
-        [Feature("Quest")] public string Title { get; set; }
+        [Feature( "Quest" )] public string Title { get; set; }
         [Feature( "Quest" )] public string Description { get; set; }
-        [Feature( "Quest" )] public bool IsCompleted { get; private set; }
-        [Feature( "Quest" )] private List<string> tasks;
-        [Feature( "Quest" )] public List<string> Rewards { get; set; }
-        [Feature( "Quest" )] public List<string> Tasks { get; set; }
+        [Feature( "Quest" )] public bool IsCompleted { get; set; }
+        [Feature( "Quest" )] public List<Action> Rewards { get; set; }
+        [Feature( "Quest" )] public List<Task> Tasks { get; set; }
+        [Feature( "Quest" )] public HashSet<Task> CompletedTasks { get; set; }
+        [Feature( "Quest" )] public List<int> TaskOrder { get; set; }
 
+        public class Task
+        {
+            public string Description { get; set; }
+            public Action Action { get; set; }
+
+            public Task() { }
+
+            public Task( string description, Action action )
+            {
+                if ( string.IsNullOrEmpty( description ) )
+                {
+                    throw new ArgumentNullException( nameof( description ), "Description cannot be null or empty" );
+                }
+
+                if ( action == null )
+                {
+                    throw new ArgumentNullException( nameof( action ), "Action cannot be null" );
+                }
+
+                Description = description;
+                Action = action;
+            }
+            protected static void OnAwake()
+            {
+                Log.Info("Task is awake");
+            }
+        }
+       
         // Parameterloser Konstruktor
         public Quest()
         {
-            tasks = new List<string>();
+            Tasks = new List<Task>();
+            Rewards = new List<Action>();
+            CompletedTasks = new HashSet<Task>();
+            TaskOrder = new List<int>();
         }
 
         public Quest( string title, string description )
         {
             Title = title;
             Description = description;
-            tasks = new List<string>();
+            Tasks = new List<Task>();
+            Rewards = new List<Action>();
+            CompletedTasks = new HashSet<Task>();
+            TaskOrder = new List<int>();
         }
 
-        public void AddTask( string task )
+        public void AddTask( Task task )
         {
-            tasks.Add( task );
+            Tasks.Add( task );
+            TaskOrder.Add( Tasks.Count - 1 );
         }
 
-        public void CompleteTask( string task )
+        public void AddTaskAt( Task task, int position )
         {
-            if ( tasks.Contains( task ) )
+            if ( position < 0 || position > Tasks.Count )
             {
-                tasks.Remove( task );
-                if ( tasks.Count == 0 )
-                {
-                    IsCompleted = true;
-                }
+                throw new ArgumentOutOfRangeException( nameof( position ), "Position must be within the range of the task list." );
+            }
+            Tasks.Insert( position, task );
+            TaskOrder.Insert( position, position );
+            // Update TaskOrder to reflect the new positions
+            for ( int i = position + 1; i < TaskOrder.Count; i++ )
+            {
+                TaskOrder[i]++;
             }
         }
 
-        public void AddReward( string reward )
+        public void CompleteTask( Task task )
         {
-            // Implement reward logic
+            if ( Tasks.Contains( task ) && !CompletedTasks.Contains( task ) )
+            {
+                task.Action.Invoke();
+                CompletedTasks.Add( task );
+                CheckCompletion();
+            }
+        }
+
+        private void CheckCompletion()
+        {
+            if ( CompletedTasks.Count == Tasks.Count )
+            {
+                IsCompleted = true;
+            }
+        }
+
+        public Task GetNextTask()
+        {
+            foreach ( var index in TaskOrder )
+            {
+                var task = Tasks[index];
+                if ( !CompletedTasks.Contains( task ) )
+                {
+                    return task;
+                }
+            }
+            return null;
+        }
+
+        public void ClaimRewards()
+        {
+            if ( IsCompleted )
+            {
+                foreach ( var reward in Rewards )
+                {
+                    reward.Invoke();
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException( "Quest is not completed yet. Complete all tasks to claim rewards." );
+            }
         }
     }
 }
@@ -55,7 +135,14 @@ namespace GeneralGame.HUD
 
         [Property] Quest quest { get; set; }
 
-        public void CloseQuest()
+		protected override void OnStart()
+		{
+           
+		}
+
+
+
+		public void CloseQuest()
         {
             // Implementieren Sie die Logik zum Schließen der Quest
         }
@@ -97,4 +184,5 @@ namespace GeneralGame.HUD
         }
     }
 }
+
 

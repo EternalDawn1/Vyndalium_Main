@@ -2,47 +2,47 @@
 @namespace GeneralGame.HUD
 <root>
     <div class="quest-panel">
-        @if (questManager != null)
+        @if (taskMaster != null && taskMaster.CurrentTasks != null && taskMaster.CurrentTasks.Any())
         {
-            @foreach (var quest in questManager.ActiveQuests)
-            {
-                <div class="quest">
-                    <h2>@quest.Title</h2>
-                    <p>@quest.Description</p>
-                    @if (quest.IsCompleted)
+            <div class="tasks">
+                <h2>Tasks</h2>
+                <ul>
+                    @foreach (var task in taskMaster.CurrentTasks)
                     {
-                        <p>Completed</p>
+                        <li>
+                            <strong>@task.Name:</strong> @task.Description
+                            <ul>
+                                @foreach (var subtask in task.Subtasks)
+                                {
+                                    <li>@subtask.Description: @subtask.CurrentAmount / @subtask.AmountToComplete</li>
+                                }
+                            </ul>
+                        </li>
                     }
-                    else
-                    {
-                        <p>In Progress</p>
-                    }
-                </div>
-            }
+                </ul>
+            </div>
         }
         else
         {
-            <p>Loading quests...</p>
+            <p>Loading tasks...</p>
         }
     </div>
 </root>
 @code {
-    private QuestManager questManager;
-
+    private TaskMaster taskMaster;
     protected override void OnAfterTreeRender(bool firstRender)
     {
         if (firstRender)
         {
-            questManager = new QuestManager();
-            questManager.LoadQuestsFromResources();
+            taskMaster = Scene.Components.GetOrCreate<TaskMaster>();
+            taskMaster.LoadTasksProgression();
+            StateHasChanged(); // Trigger a re-render after initializing taskMaster
         }
     }
-
     public override void Tick()
     {
         StateHasChanged();
     }
-
     public void Show()
     {
         StateHasChanged();

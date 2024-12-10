@@ -21,6 +21,7 @@
                         @if (quest.IsCompleted)
                         {
                             <div class="status">Completed</div>
+                            <button @onclick="@(() => quest.ClaimRewards())">Claim Rewards</button>
                         }
                         else
                         {
@@ -39,6 +40,8 @@
 
 @code {
     public static Quests Instance { get; private set; }
+
+    public Quest quest2 { get; set; }
     public QuestManager QuestManager { get; set; }
     private QuestInteraction shopStorage;
     public bool IsOpened { get; set; }

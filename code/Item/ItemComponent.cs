@@ -405,7 +405,8 @@ public class ItemComponent : Component
 	public virtual int DetermineRequiredLevelForTier( string tier )
 	{
 		int playerLevel = GetPlayerLevel();
-		int maxLevel = Player.Local?.GetMaxLevel() ?? 100; // Verwenden Sie das maximale Level des Spielers oder 100 als Fallback
+		int maxLevel = Player.Local?.GetMaxLevel() ?? 100;
+		Log.Info(maxLevel); // Verwenden Sie das maximale Level des Spielers oder 100 als Fallback
 		var random = new Random();
 		int requiredLevel;
 
@@ -417,7 +418,7 @@ public class ItemComponent : Component
 		if ( chance < 60 ) // 70% Chance auf Level innerhalb von 5 Leveln höher oder gleich dem Basislevel
 		{
 			int lowerBound = Math.Max( baseLevel, 0 );
-			int upperBound = Math.Min( baseLevel + 5, maxLevel );
+			int upperBound = Math.Min( baseLevel + 5, baseLevel + 5 );
 			requiredLevel = random.Next( lowerBound, upperBound + 1 );
 		}
 		else if ( chance < 70 ) // 20% Chance auf Level innerhalb von 10 Leveln höher oder gleich dem Basislevel

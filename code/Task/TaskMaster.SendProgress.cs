@@ -4,8 +4,10 @@ namespace GeneralGame;
 // We want to send down the active task data of the host to the clients.
 public partial class TaskMaster
 {
+	
 	public struct TaskProgress
 	{
+
 		[JsonInclude]
 		public int ResourceId;
 		[JsonInclude]

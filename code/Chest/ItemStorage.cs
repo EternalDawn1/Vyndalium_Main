@@ -1179,7 +1179,7 @@ namespace GeneralGame
         public void DestroyAfterOpen()
         {
             // Logik zum Zerstören des GameObjects
-            GameObject.Destroy( );
+            GameObject?.Destroy( );
         }
 
 

@@ -149,14 +149,14 @@
 					interaction.Sound?.InvokeOrDefault()?.ResourceId ?? -1,
 					interaction.PlaySoundFromPlayer
 				);
-				HighlightObject();
+				
 				
 			}
 		}
 		
 
 
-		bool anyCanInteract = false;
+
 
 		pos = Scene.Camera.PointToScreenPixels(pos);
 		pos *= ScaleFromScreen;
@@ -164,49 +164,13 @@
 		Style.Position = PositionMode.Absolute;
 		Style.Left = Length.Pixels(pos.x);
 		Style.Top = Length.Pixels(pos.y);
-		
-
-		if (!anyCanInteract)
-		{
-			RemoveHighlight();
-		}
+	
 
 		StateHasChanged();
 	}
 	private Interactions _lastHighlightedInteraction;
 	
-	private void HighlightObject()
-	{
-		bool shouldHighlight = ShowHint();
-		if (_targetObject.IsValid())
-		{
-			var interaction = _targetObject.Components?.Get<Interactions>();
-			if (interaction != null)
-			{
-				if (shouldHighlight)
-				{
-					if (_lastHighlightedInteraction == null || !_lastHighlightedInteraction.IsHighlighted())
-					{
-						interaction?.Highlight(true);
-						_lastHighlightedInteraction = interaction;
-					}
-				}
-				else
-				{
-					if (_lastHighlightedInteraction != null && _lastHighlightedInteraction.IsHighlighted())
-					{
-						_lastHighlightedInteraction?.Highlight(false);
-						_lastHighlightedInteraction = null;
-					}
-				}
-			}
-		}
-		else if (_lastHighlightedInteraction != null)
-		{
-			_lastHighlightedInteraction?.Highlight(false);
-			_lastHighlightedInteraction = null;
-		}
-	}
+	
 	private void RemoveHighlight()
 	{
 		if (_lastHighlightedInteraction != null && _lastHighlightedInteraction.IsHighlighted())
