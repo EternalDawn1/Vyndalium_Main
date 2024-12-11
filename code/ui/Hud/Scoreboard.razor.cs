@@ -16,6 +16,7 @@ namespace GeneralGame.HUD
 
         private bool ShowSettingsDialog { get; set; }
         private double mouseSensitivityInput { get; set; } = 1.0;
+        
 
         private void PrestigePlayer()
         {
@@ -41,6 +42,20 @@ namespace GeneralGame.HUD
                 player.ResetRankUp();
                 Player.Save();
                 Hudmaster.Instance.ShowNotification("Spieler zurückgesetzt!", "/ui/hud/inventory.png");
+            }
+            else
+            {
+                Log.Warning("Spieler nicht gefunden.");
+            }
+        }
+        public void ResetPlayerStats()
+        {
+            var player = Player.Local;
+            if ( player != null )
+            {
+                StoryMaster.DeleteSave();
+                Player.Save();
+                Hudmaster.Instance.ShowNotification("Spielerstatistiken zurückgesetzt!", "/ui/hud/inventory.png");
             }
             else
             {

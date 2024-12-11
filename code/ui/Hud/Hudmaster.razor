@@ -36,7 +36,7 @@
     }
     public void ShowQuestPanel()
     {
-        questPanel.Show();
+       
     }
     public void QuestPanelStateHasChanged()
     {
@@ -45,10 +45,7 @@
 
     public void ShowCustomDialog(string message, Action<string> confirmAction)
     {
-        customDialogMessage = message;
-        confirmCustomActionCallback = confirmAction;
-        showCustomDialog = true;
-        StateHasChanged();
+        
     }
 
     private void ConfirmCustomAction()

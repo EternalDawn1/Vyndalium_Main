@@ -491,7 +491,17 @@ partial class Player
 
 		var save = tuple.Save;
 
+		if ( player.Inventory == null )
+		{
+			Log.Error( "Player.Inventory is null." );
+			return false;
+		}
 
+		if ( player.Weapons == null )
+		{
+			Log.Error( "Player.Weapons is null." );
+			return false;
+		}
 		// Stellen Sie sicher, dass save.AmmoContainerData initialisiert wurde
 
 

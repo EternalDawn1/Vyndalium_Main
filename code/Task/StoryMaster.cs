@@ -649,6 +649,7 @@ public class StoryMaster : Component
 			EventMaster.Instance.ResetEventsProgression();
 			storyMaster.ResetPlayer();
 		}
+		
 
 		if (FileSystem.OrganizationData.FileExists("story.json"))
 			FileSystem.OrganizationData.DeleteFile("story.json");

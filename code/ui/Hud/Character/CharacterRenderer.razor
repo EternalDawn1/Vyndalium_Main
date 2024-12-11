@@ -37,7 +37,8 @@
 		_sceneLight ??= new SceneLight(_sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 4f);
 		_sceneDirectionalLight ??= new SceneDirectionalLight(_sceneWorld, global::Rotation.From(45, -45, 45), Color.White *
 		10f);
-		_character ??= new SceneModel(_sceneWorld, "models/citizen/citizen.vmdl", new Transform(Vector3.Zero, Rotation.From(0,
+		_character ??= new SceneModel(_sceneWorld, "models/citizen/citizen.vmdl", new Transform(Vector3.Zero,
+		Rotation.From(0,
 		_yaw, 0)));
 		_character.SetAnimParameter("holdtype_rifle", true);
 

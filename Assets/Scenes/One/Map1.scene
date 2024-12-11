@@ -65,6 +65,26 @@
           ]
         },
         {
+          "__guid": "3f019396-60f5-4b6f-8a54-ea2e7b492d26",
+          "Flags": 0,
+          "Name": "Point Light (6)",
+          "Position": "-947.1131,-416.9745,345.2087",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "46a9fa44-885b-4d1d-b390-67e6edadeb9a",
+              "Attenuation": 1,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,1,1,1",
+              "Radius": 93.00149,
+              "Shadows": false
+            }
+          ]
+        },
+        {
           "__guid": "e852f500-aae1-46d8-b32e-28d6d8897188",
           "Flags": 0,
           "Name": "Point Light (12)",
@@ -590,11 +610,265 @@
       "__guid": "489a7a48-f675-4812-b0c9-127098210a3c",
       "Flags": 0,
       "Name": "glock-c",
-      "Position": "-454.5183,89.28261,22.37593",
+      "Position": "-447.1913,82.32048,46.9677",
+      "Rotation": "0,0,-0.5,0.8660254",
+      "Scale": "2,2,2",
       "Enabled": true,
       "NetworkMode": 1,
-      "__Prefab": "prefabs/weapons/pm/glock-c.prefab",
-      "__PrefabVariables": {}
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "c7dac411-8b1d-4738-902f-79163714d5d8",
+          "AnimationGraph": "models/glock/glock.vanmgrph",
+          "BodyGroups": 1,
+          "CreateAttachments": false,
+          "CreateBoneObjects": false,
+          "Model": "models/glock/w/w_glock20lod0.vmdl",
+          "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Sequence": {
+            "Name": null
+          },
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "GeneralGame.BaseGun",
+          "__guid": "1b505d0f-4093-4ebf-b759-be22403962ed",
+          "AimPos": "-1.5,1.8,1",
+          "AimRotation": "0,0,0,0",
+          "AimRotationOffset": "0,0,0,0",
+          "AmmoType": "Pistol",
+          "ClipSize": 13,
+          "CurRot": "0,0,0,0",
+          "Damage": 30,
+          "DamageForce": 5,
+          "DamageType": "Bullet",
+          "DefaultAmmo": 60,
+          "DeploySound": "sounds/weapons/weapon_deploy3.sound",
+          "DeployTime": 0.5,
+          "DisplayName": "Glock 20",
+          "EmptyClipSound": "sounds/weapons/empty_submachineguns.sound",
+          "EmptyReloadSoundSequence": "models/glock/glockemptyreload.sndseq",
+          "EmptyReloadTime": 3.05,
+          "FireRate": 8,
+          "FireSound": "models/glock/glock20_fire1.sound",
+          "HitForce": 300,
+          "HoldType": "Pistol",
+          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+          "IdlePos": "-3,-0.4,-0.5",
+          "ImpactEffect": "particles/impact.generic.vpcf",
+          "IsAuto": false,
+          "IsDeployed": false,
+          "IsMagicWeapon": false,
+          "IsMelee": false,
+          "MeleeCooldown": 1,
+          "MeleeDamage": 10,
+          "MeleeRange": 1.5,
+          "MuzzleFlash": "particles/pistol_muzzleflash.vpcf",
+          "Recoil": "-5,1,0",
+          "ReloadSoundSequence": "models/glock/glockreload.sndseq",
+          "ReloadTime": 2.7,
+          "RunRotation": "0.02017635,0.06330636,0.02387928,0.9975044",
+          "Spread": 0.1,
+          "Type": "Ranged",
+          "ViewModelPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/weapons/pm/vm_glock.prefab"
+          }
+        },
+        {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "8de9379f-6501-44a9-bfb3-5aef638c79f1",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Radius": 10,
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "bb5a2e65-bb36-46b5-a11a-6b0492627f39",
+          "IsTrigger": false,
+          "Model": "models/glock/w/w_glock20lod0.vmdl",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "df3dc79c-dc26-4293-9ac5-f7204408b44e",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "X": false,
+            "Y": false,
+            "Z": false,
+            "Pitch": false,
+            "Yaw": false,
+            "Roll": false
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": true
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "7cdab95d-b5d4-45cb-a25e-3fd7ae57a093",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "ArmorPenetration": 0,
+          "Aspect": "None",
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "UniformScale": 1,
+            "IsValid": true,
+            "ForwardRay": {
+              "Position": "0,0,0",
+              "Forward": "1,0,0"
+            },
+            "Position": "0,0,0",
+            "Scale": "1,1,1",
+            "Rotation": "0,0,0,1"
+          },
+          "AttackPower": 0,
+          "AttackRange": 0,
+          "AttackSpeed": 0,
+          "BleedElementalDamage": 0,
+          "BleedResist": 0,
+          "BleedResistance": 0,
+          "BlindResist": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BuyPrice": 300,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "a weapon",
+          "DEX": 0,
+          "DMG": 50,
+          "Durability": 0,
+          "EarthElementalDamage": 0,
+          "EnableHolding": false,
+          "Evasion": 0,
+          "FireElementalDamage": 0,
+          "FireResist": 0,
+          "FireResistence": 0,
+          "FreezeElementalDamage": 0,
+          "FreezeResist": 0,
+          "HE": 0,
+          "Health": 0,
+          "HealthRegen": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Rifle",
+          "HolyElementalDamage": 0,
+          "HolyResist": 0,
+          "HolyResistence": 0,
+          "IceElementalDamage": 0,
+          "IceResist": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/glock/w/w_glock20lod0.vmdl",
+            "MaterialGroup": "",
+            "MaterialOverride": null,
+            "LightBrightness": 0,
+            "LightRadius": 0,
+            "LightColour": "0,0,0,0",
+            "DirectionalLightBrightness": 0,
+            "DirectionalLightRotation": "0,0,0",
+            "DirectionalLightColour": "0,0,0,0",
+            "Colour": "1,1,1,1",
+            "Position": "-2.85,0.75,3.45",
+            "Rotation": "0.5,-0.5,0.5,0.5",
+            "Guid": "ea2e1814-9d17-448a-94eb-b766938b4f7f"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackable": false,
+          "IsBackpack": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": true,
+          "IsMaterial": false,
+          "IsMelee": false,
+          "IsPotion": false,
+          "IsWeapon": true,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LightElementalDamage": 0,
+          "LightningElementalDamage": 0,
+          "LightningResist": 0,
+          "LightningResistence": 0,
+          "LightResist": 0,
+          "MagicDefense": 0,
+          "MagicPenetration": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "ManaRegen": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 16.59,
+          "MaxHealthDMG": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 8.69,
+          "MoveSpeed": 0,
+          "Name": "Glock 20",
+          "PER": 0,
+          "PoisonElementalDamage": 0,
+          "PoisonResist": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "RunSpeed": 0,
+          "SellPrice": 125,
+          "ShadowElementalDamage": 0,
+          "ShadowResist": 0,
+          "ShadowResistence": 0,
+          "Slot": "Hand",
+          "SlowResist": 0,
+          "SlowResistence": 0,
+          "Stamina": 0,
+          "StaminaSecond": 0,
+          "STG": 0,
+          "StunResist": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "UpdatePosition": false,
+          "UseSkinTint": false,
+          "WalkSpeed": 0,
+          "WaterElementalDamage": 0,
+          "WeightInGrams": 0,
+          "WindElementalDamage": 0
+        },
+        {
+          "__type": "GeneralGame.Interactions",
+          "__guid": "192672df-4c47-4d9a-83ea-861537660d9d",
+          "HideOnEmpty": false,
+          "ObjectInteractions": []
+        }
+      ]
     },
     {
       "__guid": "70f800e6-d8c8-4c6f-9828-34b5770f4119",
@@ -967,7 +1241,7 @@
                 "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
               "SpawnChance": 1,
-              "SpawnCount": 3,
+              "SpawnCount": 1,
               "EnableSubNpcPool": true,
               "SubNpcPool": [
                 {
@@ -1109,7 +1383,7 @@
                 "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
               "SpawnChance": 1,
-              "SpawnCount": 2,
+              "SpawnCount": 1,
               "EnableSubNpcPool": true,
               "SubNpcPool": [
                 {
@@ -1118,7 +1392,7 @@
                     "prefab": "prefabs/npc/slime_variants/va2.prefab"
                   },
                   "SpawnChance": 0.4,
-                  "SpawnCount": 3,
+                  "SpawnCount": 1,
                   "SubNpcSpawnDelayPerNpc": 1,
                   "IceAbilityChance": 0,
                   "WindAbilityChance": 0,
@@ -1393,7 +1667,7 @@
                 "prefab": "prefabs/npc/slime_variants/va1.prefab"
               },
               "SpawnChance": 1,
-              "SpawnCount": 2,
+              "SpawnCount": 1,
               "EnableSubNpcPool": true,
               "SubNpcPool": [
                 {
@@ -2762,7 +3036,7 @@
       "__guid": "563c9b02-9241-4d2c-be82-6b38a563c131",
       "Flags": 0,
       "Name": "Object",
-      "Position": "-472.7735,72.53857,24.81249",
+      "Position": "-466.1977,113.1525,24.12669",
       "Enabled": true,
       "Components": [
         {
@@ -2809,8 +3083,8 @@
           "__guid": "74513289-cac7-4ec6-9783-e95893377148",
           "Flags": 0,
           "Name": "Object",
-          "Position": "13.09875,12.82374,40.02866",
-          "Rotation": "0,0,-0.9238795,0.3826834",
+          "Position": "4.194427,5.079346,34.6666",
+          "Rotation": "0,0,-0.9659258,0.258819",
           "Enabled": true,
           "Components": [
             {
@@ -2824,7 +3098,7 @@
                 "BloomLayer": false,
                 "AfterUILayer": false
               },
-              "Scale": 0.24,
+              "Scale": 0.15,
               "TextAlignment": "Center",
               "TextScope": {
                 "Text": "Gun!",
@@ -2969,6 +3243,28 @@
           ]
         }
       ]
+    },
+    {
+      "__guid": "31b4bc9b-dc87-47f2-bbcc-e2af78006f77",
+      "Flags": 0,
+      "Name": "fracture_cube",
+      "Position": "-448.9155,87.18124,42.86497",
+      "Rotation": "0,0,0.258819,0.9659258",
+      "Scale": "0.2719611,1,0.1275793",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "c6b7b32d-bb06-422d-b249-776523ae13d9",
+          "BodyGroups": 18446744073709551615,
+          "Health": 20,
+          "IsStatic": true,
+          "Model": "models/fracture_cube.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -3013,7 +3309,8 @@
     "jammie.pixel_prop_cone#46173",
     "peter.woodcrate#73673",
     "rust.large_industrial_prop_b#25200",
-    "rust.large_industrial_prop_c#25201"
+    "rust.large_industrial_prop_c#25201",
+    "trend.fracture_cube#22555"
   ],
   "__version": 2
 }

@@ -1,50 +1,7 @@
 @using GeneralGame
 @namespace GeneralGame.HUD
 <root>
-    <div class="quest-panel">
-        @if (taskMaster != null && taskMaster.CurrentTasks != null && taskMaster.CurrentTasks.Any())
-        {
-            <div class="tasks">
-                <h2>Tasks</h2>
-                <ul>
-                    @foreach (var task in taskMaster.CurrentTasks)
-                    {
-                        <li>
-                            <strong>@task.Name:</strong> @task.Description
-                            <ul>
-                                @foreach (var subtask in task.Subtasks)
-                                {
-                                    <li>@subtask.Description: @subtask.CurrentAmount / @subtask.AmountToComplete</li>
-                                }
-                            </ul>
-                        </li>
-                    }
-                </ul>
-            </div>
-        }
-        else
-        {
-            <p>Loading tasks...</p>
-        }
-    </div>
+    
 </root>
 @code {
-    private TaskMaster taskMaster;
-    protected override void OnAfterTreeRender(bool firstRender)
-    {
-        if (firstRender)
-        {
-            taskMaster = Scene.Components.GetOrCreate<TaskMaster>();
-            taskMaster.LoadTasksProgression();
-            StateHasChanged(); // Trigger a re-render after initializing taskMaster
-        }
-    }
-    public override void Tick()
-    {
-        StateHasChanged();
-    }
-    public void Show()
-    {
-        StateHasChanged();
-    }
 }
