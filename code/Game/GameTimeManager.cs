@@ -95,9 +95,9 @@ public class GameTimeManager : Component, Component.ExecuteInEditor
 
 	public float InGameHours => MathX.Remap( InGameSeconds, 0, 86400, 0f, 24f );
 
-	[HostSync] public bool IsDayOver { get; private set; } = false;
-	[HostSync] private TimeSince InGameTime { get; set; }
-	[HostSync] private float? FrozenTime { get; set; }
+	[Sync] public bool IsDayOver { get; private set; } = false;
+	[Sync] private TimeSince InGameTime { get; set; }
+	[Sync] private float? FrozenTime { get; set; }
 	private Angles _cloudAngle = new();
 
 	protected override void OnAwake()

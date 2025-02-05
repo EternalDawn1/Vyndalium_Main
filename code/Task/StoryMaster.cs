@@ -121,7 +121,7 @@ public class StoryMaster : Component
 	/// Current story day/game day
 	/// </summary>
 	[Property]
-	[HostSync]
+	[Sync]
 	public VyndaliumStoryProgression StoryProgression { get; set; }
 
 	/// <summary>

@@ -851,6 +851,15 @@ namespace GeneralGame.HUD
             }
             
         }
+        private void SortBackpackItems( SortOption sortOption )
+        {
+            // Umschalten der Sortierrichtung
+            currentSortDirection = currentSortDirection == SortDirection.Ascending
+            ? SortDirection.Descending
+            : SortDirection.Ascending;
+
+            Player.Local.Inventory?.SortBackpackItems( sortOption );
+        }
 
         public void ToggleVisibility()
         {

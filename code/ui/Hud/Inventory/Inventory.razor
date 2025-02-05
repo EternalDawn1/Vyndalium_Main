@@ -89,7 +89,7 @@
 				</div>
 
 				<div class="Hello">Inventory</div>
-				<div class="items @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
+				<div class="items ">
 				@for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
 				{
 					var item = Player.Local.Inventory.BackpackItems[index];

@@ -19,7 +19,7 @@ public partial class Npc
     public bool IsRunning => TargetObject != null;
     public float WishSpeed => (IsRunning ? RunSpeed : WalkSpeed) * Scale;
 
-    [HostSync]
+    [Sync]
     public bool ReachedDestination { get; set; } = true;
 
     int _totalDirections

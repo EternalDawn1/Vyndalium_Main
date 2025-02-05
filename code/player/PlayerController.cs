@@ -1176,7 +1176,7 @@ public partial class Player : Component, IHealthComponent
 			return;
 		
 	}
-	
+
 
 	public void MoveToSpawnPoint()
 	{
@@ -1184,6 +1184,12 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		var spawnpoints = Scene.GetAllComponents<SpawnPoint>();
+		if ( spawnpoints == null || !spawnpoints.Any() )
+		{
+			// Handle the case where there are no spawn points
+			throw new InvalidOperationException( "No spawn points available." );
+		}
+
 		var randomSpawnpoint = Game.Random.FromList( spawnpoints.ToList() );
 
 		WorldPosition = randomSpawnpoint.WorldPosition;

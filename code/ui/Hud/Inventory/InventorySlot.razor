@@ -9,30 +9,26 @@
 
 
 <root @onrightclick=@( () => @OpenContextMenu() ) class="@CurrentDropTargetClassSelectors">
-	<div class="border" />
-	<div class="@($"background {@GetBackgroundClass()}")" style="@($"opacity: {GetOpacityBasedOnLevel()}")" />
-	@if (Item is not null)
-
-	{
-		<div class="item @HasChildDraggableClassSelector" onmouseover=@( () => OnItemHover() ) onmouseout=@( () =>OnItemHoverExit() )>
-			<div class="item-forground"><img src=@Item.IconTexture.ResourcePath @onmouseover="@OnItemHover" @onmouseout="@OnItemHoverExit" /></div>
-			<text class="count @( !Item.IsStackable ? "hidden" : "" )">@(Item.Count)x</text>
-			@if (Item.IsFavorite)
-			{
-				<img src="ui/hud/star.gif" alt="Favorite" class="favorite-icon" />
-			}
-		</div>
-	}
-	@if (EquipSlotIndex is not null)
-
-	{
-		<img class="slot" src=@EquipSlotIndex?.GetIcon() />
-	}
-	
-
-	
-
-	
+    <div class="border" />
+    <div class="@($"background {@GetBackgroundClass()}")" style="@($"opacity: {GetOpacityBasedOnLevel()}")" />
+    @if (Item is not null)
+    {
+        <div class="item @HasChildDraggableClassSelector" onmouseover=@( () => OnItemHover() ) onmouseout=@( () =>OnItemHoverExit() )>
+            @if (Item.IconTexture is not null)
+            {
+                <div class="item-forground"><img src=@Item.IconTexture.ResourcePath @onmouseover="@OnItemHover" @onmouseout="@OnItemHoverExit" /></div>
+            }
+            <text class="count @( !Item.IsStackable ? "hidden" : "" )">@(Item.Count)x</text>
+            @if (Item.IsFavorite)
+            {
+                <img src="ui/hud/star.gif" alt="Favorite" class="favorite-icon" />
+            }
+        </div>
+    }
+    @if (EquipSlotIndex is not null)
+    {
+        <img class="slot" src=@EquipSlotIndex?.GetIcon() />
+    }
 </root>
 
 @code {
@@ -475,56 +471,38 @@
 	{
 
 		base.OnMouseDown(e);
-
-
 		if (ShopSlotIndex != null)
 		{
 			// Drag-and-Drop für Shop-Slots deaktivieren
 			return;
 		}
-		if(UpgradeSlotIndex != null)
+		if (UpgradeSlotIndex != null)
 		{
 			// Drag-and-Drop für Upgrade-Slots deaktivieren
 			return;
 		}
 		if (IndependentSlotIndex != null)
 			return;
-		
-
+		if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel ==
+		FullScreenManager.FullScreenPanel.ShopPanel &&
+		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
+			return;
 
 		if (e.Button != "mouseleft")
-
 			return;
-
-
-
 		if (sinceClick < 0.4f && Item is ItemEquipment equipment)
-
 		{
-
 			if (equipment.Equipped)
-
 				Player.Local.Inventory.UnequipItem(equipment);
-
 			else
-
 				Player.Local.Inventory.EquipItemFromBackpack(equipment);
-			
-
 
 			PlaySound("drop");
-
-
-
 			Inventory.Instance.OnChanged();
-
 			sinceClick = 0;
-
-
-
 			return;
-
 		}
+		
 		if (sinceClick < 0.4f && Item is not null)
 		{
 			isMouseDown = true;
@@ -628,6 +606,7 @@
 					PlaySound("drop");
 				}
 			}
+			
 			// To backpack pack slot.
 			else if (targetSlot.BackpackPackSlotIndex is not null)
 			{

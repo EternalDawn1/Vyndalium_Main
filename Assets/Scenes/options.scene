@@ -1,15 +1,31 @@
 {
-  "Id": "23e14ca8-d0d9-4dfb-8669-abc68ac4701c",
+  "__guid": "23e14ca8-d0d9-4dfb-8669-abc68ac4701c",
   "GameObjects": [
     {
-      "Id": "cd1283c0-5af2-43f9-9dea-85bb6482a3a8",
+      "__guid": "1873822e-8efa-42c6-b1b5-6c820bf95e82",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "c7fc8f57-86f0-480c-968e-657373f6dc65",
+          "Changes": "",
+          "Description": "",
+          "Title": "Options Menu"
+        }
+      ]
+    },
+    {
+      "__guid": "cd1283c0-5af2-43f9-9dea-85bb6482a3a8",
+      "Flags": 0,
       "Name": "Main Camera",
       "Position": "-300,0,100",
       "Enabled": true,
-      "NetworkMode": 2,
       "Components": [
         {
-          "__type": "CameraComponent",
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "e18a8b50-072d-49db-a9bd-ff9b521ae93b",
           "BackgroundColor": "0.33333,0.46275,0.52157,1",
           "ClearFlags": "All",
           "FieldOfView": 60,
@@ -29,12 +45,16 @@
   ],
   "SceneProperties": {
     "FixedUpdateFrequency": 50,
-    "Lerping": true,
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "Options Menu"
+    },
     "NavMesh": {
       "Enabled": false,
       "IncludeStaticBodies": true,
@@ -48,8 +68,9 @@
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "Options Menu",
-  "Description": "",
-  "LastSaved": "2024-03-12T22:34:29.0007036\u002B01:00",
-  "__references": []
+  "Description": null,
+  "__references": [],
+  "__version": 2
 }

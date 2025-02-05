@@ -1,21 +1,348 @@
 {
-  "__guid": "48a04856-06f0-48ec-95c0-6671b81a6b0f",
+  "__guid": "4f1e547d-7e89-44df-be85-fe9992e06e8e",
   "GameObjects": [
     {
-      "__guid": "087cc65d-9421-48d6-b051-6adb3cad2e58",
+      "__guid": "9d4b76af-44c2-4f50-abff-3e62a0e2b753",
       "Flags": 0,
-      "Name": "Camera",
-      "Position": "126.5706,165.5491,-558.2849",
-      "Tags": "maincamera",
+      "Name": "MapObjects",
+      "Position": "-16.73947,-31.52794,131.4671",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "f576119b-75d5-4387-a17b-af801b10098e",
+          "Flags": 0,
+          "Name": "Map",
+          "Position": "498.2042,530.4957,103.5412",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.MapInstance",
+              "__guid": "b8a3c531-f67c-435f-9622-da7962d3e07e",
+              "__version": 1,
+              "EnableCollision": true,
+              "MapName": "maps/starting.vmap",
+              "NoOrigin": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnMapLoaded": null,
+              "OnMapUnloaded": null,
+              "UseMapFromLaunch": false
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "__guid": "e47368dc-2aa1-43c7-9701-476845bc0e7d",
+      "Flags": 32,
+      "Name": "GameManager",
+      "Position": "-4687.136,-3009.619,2645.524",
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "GeneralGame.NetworkManager",
+          "__guid": "fa171ab4-1bf0-4b91-a947-0fb928804480",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          },
+          "SpawnPoints": [
+            null
+          ],
+          "StartServer": true
+        },
+        {
+          "__type": "GeneralGame.AdminPanel",
+          "__guid": "455f5741-447b-443d-b0f2-9cac9e59d7e9",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ]
+    },
+    {
+      "__guid": "59775169-6dc0-46a9-8ada-c925124b536f",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "797.2222,-282.216,392.8482",
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "GeneralGame.Chat",
+          "__guid": "68380b1d-5cb0-40d3-81dd-2238e2b42615",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ]
+    },
+    {
+      "__guid": "252c9332-957d-4473-b4ab-860bad446d3b",
+      "Flags": 0,
+      "Name": "HUD",
+      "Position": "947.7009,710.3586,20.02546",
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "GeneralGame.HUD.Hudmaster",
+          "__guid": "bae3682a-2933-42b6-ad4a-a1d29d60ef22",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        },
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "c9a8dcc6-bb02-4d63-a6a6-4c6eb90f815e",
+          "AutoScreenScale": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Opacity": 1,
+          "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
+          "ZIndex": 100
+        },
+        {
+          "__type": "GeneralGame.Blackscreen",
+          "__guid": "c9eddf4b-1c2e-486d-a314-c984bdd2392a",
+          "BlackTransition": 2,
+          "EndingTransition": 3,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "StartingTransition": 0
+        }
+      ]
+    },
+    {
+      "__guid": "13daa235-4e76-4d63-a992-d759dfd03491",
+      "Flags": 0,
+      "Name": "Point Light",
+      "Position": "-3003.934,440.7101,384.7101",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "429025cf-dbd6-431b-a118-9b6d854f02f4",
+          "Attenuation": 0.1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 1400,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "f76a31f1-7442-4701-bc0e-a52ca8c9ef2f",
+      "Flags": 0,
+      "Name": "Point Light (5)",
+      "Position": "-3003.934,-331.8829,384.7101",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "e167e3fc-0c18-4ec8-b204-ee728deb61b2",
+          "Attenuation": 0.1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 1400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "b84784b9-4238-4ecb-b792-5e471180cf4e",
+      "Flags": 0,
+      "Name": "Point Light (6)",
+      "Position": "-3003.934,-1367.569,499.025",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "d8b31755-bb21-4c55-a783-d8804b1ee2e1",
+          "Attenuation": 0.1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 1400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "026cd675-8169-4a74-932a-5452a2f262ce",
+      "Flags": 0,
+      "Name": "Point Light (1)",
+      "Position": "-1932.639,440.7101,358.7299",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "55113139-24ce-4f47-900b-199f3ec1a63d",
+          "Attenuation": 0.1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 1400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "fd93a71a-dcee-4afa-aedc-94272b7e011f",
+      "Flags": 0,
+      "Name": "Point Light (4)",
+      "Position": "-1407.007,440.7101,358.7299",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "c44a694a-6f13-4f96-bb37-be04d3e229a4",
+          "Attenuation": 0.1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 1400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "bc7daabb-68d4-43c1-9546-e45626b7b6bf",
+      "Flags": 0,
+      "Name": "Point Light (2)",
+      "Position": "-4095.867,440.7101,358.7299",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "f7db8c9e-3c3c-4e5e-ac93-ab97532872a5",
+          "Attenuation": 0.1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 1400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "ed6ea62b-7077-493d-8f5e-93c42c287e6e",
+      "Flags": 0,
+      "Name": "Point Light (3)",
+      "Position": "-4688.02,440.7101,358.7299",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "783618b1-fdbb-4650-8790-0a0205fa18a8",
+          "Attenuation": 0.1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 1400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "6755fc4c-d547-4824-b0ac-1565c4ebd306",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-3396.22,839.1862,121.1781",
+      "Rotation": "0,0,-0.3826834,0.9238797",
       "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",
-          "__guid": "4c171792-4b66-490b-bfd7-b817be5bffd9",
-          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "__guid": "acf48562-ba7f-4d2c-9d07-ddf24a8d6890",
+          "BackgroundColor": "0,0,0,1",
           "ClearFlags": "All",
-          "FieldOfView": 60,
+          "FieldOfView": 90.51,
           "IsMainCamera": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "Orthographic": false,
           "OrthographicHeight": 1204,
           "Priority": 1,
@@ -27,17 +354,29 @@
           "ZNear": 10
         },
         {
+          "__type": "GeneralGame.HUD.StartLobby",
+          "__guid": "27e75674-7dff-42de-8494-6444f6e20dc0",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        },
+        {
           "__type": "Sandbox.ScreenPanel",
-          "__guid": "b44b681f-fbc6-4341-bd9b-5b4e9715c85a",
+          "__guid": "d90b06c1-b5c0-4067-86c0-63af870045c4",
           "AutoScreenScale": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "Opacity": 1,
           "Scale": 1,
           "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 100
-        },
-        {
-          "__type": "GeneralGame.HUD.StartLobby",
-          "__guid": "6605c00e-d2b1-4668-9891-f6ac8c416227"
         }
       ]
     }
@@ -45,28 +384,29 @@
   "SceneProperties": {
     "FixedUpdateFrequency": 50,
     "MaxFixedUpdates": 5,
-    "NetworkFrequency": 30,
+    "NetworkFrequency": 128,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {},
     "NavMesh": {
-      "Enabled": false,
+      "Enabled": true,
       "IncludeStaticBodies": true,
       "IncludeKeyframedBodies": true,
       "EditorAutoUpdate": true,
       "AgentHeight": 64,
-      "AgentRadius": 16,
-      "AgentStepSize": 18,
-      "AgentMaxSlope": 40,
-      "ExcludedBodies": "",
+      "AgentRadius": 3.13,
+      "AgentStepSize": 83.000015,
+      "AgentMaxSlope": 69.40001,
+      "ExcludedBodies": "npc",
       "IncludedBodies": ""
     }
   },
-  "Title": "lobby",
-  "Description": "",
-  "ResourceVersion": 1,
+  "ResourceVersion": 2,
+  "Title": null,
+  "Description": null,
   "__references": [],
-  "IsValid": true,
-  "__version": 1
+  "__version": 2
 }

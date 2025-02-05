@@ -953,12 +953,14 @@ public sealed class Inventory : Component
 			
 			return false;
 		}
+		
 
 		if ( item is not ItemEquipment equipment || !equipment.Equipped )
 		{
 			Log.Error( "Item is not equipment or not equipped." );
 			return false;
 		}
+		
 
 		var slotIndex = (int)equipment.Slot;
 		var equippedItem = _equippedItems[slotIndex];

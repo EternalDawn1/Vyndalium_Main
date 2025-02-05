@@ -1,38 +1,80 @@
 ﻿using Editor;
-using GeneralGame;
+
 using Sandbox;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 
 namespace GeneralGame;
 
 public class IconEditor : GraphicsView
 {
-	public const int RENDER_RESOLUTION = 256;
-
-	private SceneObject _obj;
-	private StringProperty _model;
-	private StringProperty _materialgroup;
-	private StringProperty _materialoverride;
-	private ColorProperty _color;
-	private AnglesProperty _angles;
-	private Vector3Property _position;
-	private SceneCamera _camera;
-	private SceneLight _light;
-	private SceneDirectionalLight _directionalLight;
-	private FloatProperty _lightBrightness;
-	private FloatProperty _directionalLightBrightness;
-	private Vector3Property _lightPosition;
-	private FloatProperty _lightRadius;
-	private ColorProperty _lightColor;
-	private AnglesProperty _directionalLightRotation;
-	private ColorProperty _directionalLightColor;
+	public const int RENDER_RESOLUTION = 128;
+	public readonly IconClass Instance = new();
 
 
-	public IconEditor( Widget parent ) : base( parent )
+	public class IconClass 
 	{
-		// Scene
+		public IconSettings icon;
+		public SceneObject _obj;
+
+		public string _modelPath { get; set; } 
+		public Material _materialgroup { get; set; } 
+		public Material _materialoverride { get; set; }
+		public float _lightRadius { get; set; }
+		public Color _lightColor { get; set; }
+		public float _lightBrightness { get; set; }
+		public Vector3 _lightPosition { get; set; }
+		public Angles _directionalLightRotation { get; set; }
+		public Color _directionalLightColor { get; set; }
+		public float _directionalLightBrightness { get; set; }
+		public Vector3 _position { get; set; }
+		public Angles _angles { get; set; }
+		public Color _color { get; set; }
+		public SceneCamera _camera { get; set; }
+		public SceneLight _light { get; set; }
+		public SceneLight _directionalLight { get; set; }
+
+		public void UpdateModel( string modelPath )
+		{
+		
+			var mdl = Model.Load( modelPath );
+			if ( mdl?.ResourcePath != "models/dev/error.vmdl" )
+			{
+				_obj.Model = mdl;
+				_modelPath = modelPath;
+				
+			}
+			else
+			{
+			
+				if ( mdl == null )
+				{
+					Log.Error( "Model.Load returned null." );
+				}
+				else
+				{
+					Log.Error( $"Model.ResourcePath: {mdl.ResourcePath}" );
+				}
+			}
+		}
+
+	}
+	
+
+	
+	public IconEditor( Widget parent, string modelpath ) : base( parent )
+	{
 		var world = new SceneWorld();
-		_camera = new SceneCamera()
+		Instance._camera = new SceneCamera()
 		{
 			World = world,
 			AmbientLightColor = Color.White,
@@ -43,262 +85,248 @@ public class IconEditor : GraphicsView
 			ZNear = 2
 		};
 
-		_lightPosition = new Vector3Property( this ) { Value = Vector3.Forward * 15f };
-		_lightRadius = new FloatProperty( this ) { Value = 1000f };
-		_lightColor = new ColorProperty( this ) { Value = Color.White * 1f };
-		_lightBrightness = new FloatProperty( this ) { Value = 1f };
 
-		_directionalLightRotation = new AnglesProperty( this ) { Value = global::Rotation.From( 45, -45, 45 ).Angles() };
-		_directionalLightColor = new ColorProperty( this ) { Value = Color.White * 10f };
-		_directionalLightBrightness = new FloatProperty( this ) { Value = 1f };
+		Instance._light = new SceneLight( world, Vector3.Forward * 15f, 1000f, Color.White * 0.7f );
+		Instance._directionalLight = new SceneDirectionalLight( world, global::Rotation.From( 45, -45, 45 ), Color.White * 10f );
+		Instance._obj = new SceneObject( world, Model.Load( modelpath ) );
+		Instance.UpdateModel( modelpath );
 
-		_light = new SceneLight( world, _lightPosition.Value, _lightRadius.Value, _lightColor.Value );
-		_directionalLight = new SceneDirectionalLight( world, global::Rotation.From( _directionalLightRotation.Value ), _directionalLightColor.Value );
+		var filePath = $"{Project.Current.GetRootPath().Replace( '\\', '/' )}/Assets/ui/icons/{Instance.icon.Guid}.json";
+		LoadIconSettings( filePath );
+
+		if ( string.IsNullOrEmpty( modelpath ) )
+		{
+			Log.Error( "Model path is null or empty." );
+			return;
+		}
+		else
+		{
+			Log.Info( $"Model path: {modelpath}" );
+		}
+
+
+
+
+		Instance._lightColor = Color.White;
+		Instance._color = Color.White;
+		Instance._position = Vector3.Zero;
+		Instance._angles = Angles.Zero;
+		Instance._lightRadius = 1000f;
+		Instance._lightBrightness = 0.7f;
+		Instance._lightPosition = Vector3.Forward * 15f;
+		Instance._directionalLightRotation = new Angles( 45, -45, 45 );
+		Instance._directionalLightColor = Color.White;
+		Instance._directionalLightBrightness = 10f;
+
+
+		var so = Instance.GetSerialized();
+		var cs = new ControlSheet();
+
+		Layout = Layout.Column();
+		Layout.Add( cs );
+		Layout.AddStretchCell();
+
+		cs.AddRow( so.GetProperty( nameof( IconClass._modelPath ) ) );
+
+		cs.AddProperty( Instance, x => x._angles );
+		cs.AddProperty( Instance, x => x._position );
+
+		cs.AddProperty( Instance, x => x._color );
+		cs.AddProperty( Instance, x => x._materialgroup );
+		cs.AddProperty( Instance, x => x._materialoverride );
+		cs.AddProperty( Instance, x => x._lightRadius );
+		cs.AddProperty( Instance, x => x._lightColor );
+		cs.AddProperty( Instance, x => x._lightBrightness );
+		cs.AddProperty( Instance, x => x._lightPosition );
+		cs.AddProperty( Instance, x => x._directionalLightRotation );
+		cs.AddProperty( Instance, x => x._directionalLightColor );
+		cs.AddProperty( Instance, x => x._directionalLightBrightness );
 
 		var property = (parent as IconEditorPopup).Property;
 		var icon = property.GetValue<IconSettings>();
-		if ( icon.Guid == Guid.Empty ) // Generate if empty.
+
+		if ( Instance.icon.Guid == Guid.Empty ) // Generate if empty.
 		{
-			property.SetValue( icon = new IconSettings
+			property.SetValue( Instance.icon = new IconSettings
 			{
-				Model = icon.Model,
-				MaterialGroup = icon.MaterialGroup,
-				MaterialOverride = icon.MaterialOverride,
-				
-				Colour = icon.Colour,
+				Model = Instance.icon.Model,
+				MaterialGroup = Instance.icon.MaterialGroup,
+				MaterialOverride = Instance.icon.MaterialOverride,
+				Colour = Instance.icon.Colour,
 				Rotation = global::Rotation.Identity,
 				Position = Vector3.Zero,
 				Guid = Guid.NewGuid()
 			} );
 		}
 
-		// Layout
-		Layout = Layout.Column();
-		Layout.Margin = 25;
+
+	
+		
+
+
+
+		var button = Layout.Add( new Button( this )
 		{
-
-			Layout.Add( new Label( this ) { Text = "Light Position" } );
-			Layout.Add( _lightPosition );
-			Layout.AddSpacingCell( 4 );
-			Layout.Add( new Label( this ) { Text = "Light Radius" } );
-			Layout.Add( _lightRadius );
-			Layout.AddSpacingCell( 4 );
-			Layout.Add( new Label( this ) { Text = "Light Color" } );
-			Layout.Add( _lightColor );
-			Layout.AddSpacingCell( 4 );
-			Layout.Add( new Label( this ) { Text = "Light Brightness" } );
-			Layout.Add( _lightBrightness );
-
-			
-			Layout.AddSpacingCell( 4 );
-			Layout.Add( new Label( this ) { Text = "Directional Light Rotation" } );
-			Layout.Add( _directionalLightRotation );
-			Layout.AddSpacingCell( 4 );
-			Layout.Add( new Label( this ) { Text = "Directional Light Color" } );
-			Layout.Add( _directionalLightColor );
-			Layout.AddSpacingCell( 4 );
-			Layout.Add( new Label( this ) { Text = "Directional Light Brightness" } );
-			Layout.Add( _directionalLightBrightness );
-			Layout.AddSpacingCell( 4 );
-			// Properties
-			Layout.AddSpacingCell( 4 );
-			Layout.Add( new Label( this ) { Text = "Angles" } );
-			_angles = Layout.Add( new AnglesProperty( this )
-			{
-				Value = icon.Rotation.Angles()
-			}, 0 );
-
-			Layout.AddSpacingCell( 4 );
-			Layout.Add( new Label( this ) { Text = "Position" } );
-			_position = Layout.Add( new Vector3Property( this )
-			{
-				Value = icon.Position
-			}, 0 );
-
-			Layout.AddSpacingCell( 4 );
-			Layout.Add( new Label( this ) { Text = "Model Icon" } );
-			_model = Layout.Add( new StringProperty( this )
-			{
-				Value = icon.Model
-			}, 0 );
-		
-			_model.TextEdited += ( text ) =>
-			{
-				var mdl = Model.Load( text );
-				_obj.Model = mdl?.ResourcePath == "models/dev/error.vmdl"
-					? Model.Load( "models/dev/box.vmdl" )
-					: mdl;
-			};
-			Layout.Add( new Label( this ) { Text = "Model Color" } );
-			_color = Layout.Add( new ColorProperty( this )
-			{
-				Value = icon.Colour.WithAlpha( 1 )
-			}, 0 );
-			Layout.AddSpacingCell( 4 );
-
-			Layout.Add( new Label( this ) { Text = "Material Group" } );
-
-			_materialgroup = Layout.Add( new StringProperty( this )
-			{
-				Value = icon.MaterialGroup
-			}, 0 );
-
-			Layout.AddSpacingCell( 4 );
-		
-			_materialgroup.TextEdited += ( text ) =>
-			{
-				_obj.SetMaterialGroup( text );
-			};
-
-			Layout.AddSpacingCell( 4 );
-
-			Label label = Layout.Add( new Label( this )
-			{
-				Text = "Material Override"
-			}, 0 );
-
-			_materialoverride = Layout.Add( new StringProperty( this )
-			{
-				Value = icon.MaterialOverride
-			}, 0 );
-
-			Layout.AddSpacingCell( 4 );
-
-			_materialoverride.TextEdited += ( text ) =>
-			{
-				_obj.SetMaterialOverride( material: Material.Load( text ) );
-			};
-
-			Layout.AddSpacingCell( 4 );
-
-			var button = Layout.Add( new Button( this )
-			{
-				Clicked = () => icon.Guid = Guid.NewGuid(),
-				ToolTip = " GUID doesn't overwrite icons.",
-				Text = "Reset Guid"
-			}, 0 );
-		}
-		
+			Clicked = () => Instance.icon.Guid = Guid.NewGuid(),
+			ToolTip = " GUID doesn't overwrite icons.",
+			Text = "Reset Guid"
+		}, 0 );
 
 		Layout.AddSpacingCell( 4 );
+		var renderer = Layout.Add( new NativeRenderingWidget( this )
 		{
-			// Scene
-			var renderer = Layout.Add( new NativeRenderingWidget( this )
-			{
-				Camera = _camera,
-				TranslucentBackground = true,
-			}, 1 );
-		}
+			Camera = Instance._camera,
+			TranslucentBackground = true,
+			
+		}, 1 );
+
+
 
 		Layout.AddSpacingCell( 4 );
 		{
 			// Save Button
-			var button = Layout.Add( new global::Editor.Button( this )
+			var saveButton = Layout.Add( new global::Editor.Button( this )
 			{
 				Text = "Save Icon",
 				Clicked = () =>
 				{
 					property.SetValue( new IconSettings()
 					{
-						Model = _model.Value,
-						MaterialGroup = _materialgroup.Value,
-						MaterialOverride = _materialoverride.Value,
-						
-						LightBrightness = _lightBrightness.Value,
-						LightRadius = _lightRadius.Value,
-						LightColour = _lightColor.Value,
+						Model = Instance._modelPath,
+						MaterialGroup = Instance._materialgroup,
+						MaterialOverride = Instance._materialoverride,
 
-						DirectionalLightBrightness = _directionalLightBrightness.Value,
-						DirectionalLightRotation = _directionalLightRotation.Value,
-						DirectionalLightColour = _directionalLightColor.Value,
+						LightBrightness = Instance._lightBrightness,
+						LightRadius = Instance._lightRadius,
+						LightColour = Instance._lightColor,
 
-						Colour = _color.Value,
-						Position = _position.Value,
-						Rotation = _angles.Value,
-						Guid = icon.Guid,
+						DirectionalLightBrightness = Instance._directionalLightBrightness,
+						DirectionalLightRotation = Instance._directionalLightRotation,
+						DirectionalLightColour = Instance._directionalLightColor,
 					} );
 
+					var filePath = $"{Project.Current.GetRootPath().Replace( '\\', '/' )}/Assets/ui/icons/{Instance.icon.Guid}.json";
+					SaveIconSettings( filePath );
+
 					var pixmap = new Pixmap( RENDER_RESOLUTION, RENDER_RESOLUTION );
-					var path = $"{Project.Current.GetRootPath().Replace( '\\', '/' )}/Assets/ui/icons/{icon.Guid}.png";
-					_camera.RenderToPixmap( pixmap );
+					var path = $"{Project.Current.GetRootPath().Replace( '\\', '/' )}/Assets/ui/icons/{Instance.icon.Guid}.png";
+					Instance._camera.RenderToPixmap( pixmap );
 					pixmap.SavePng( path );
 
 					parent.Close();
 				}
 			}, 1 );
 		}
-
-		// Object
-		var mdl = Model.Load( _model.Value );
-		_obj = new SceneObject(
-			world,
-			(mdl?.IsError ?? true)
-				? Model.Load( "models/dev/box.vmdl" )
-				: mdl
-		);
-		_obj.SetMaterialGroup( _materialgroup.Value );
 		
-		var materialPath = _materialoverride.Value;
-		var material = Material.Load( materialPath );
-		if ( material != null )
-		{
-			_obj.SetMaterialOverride( material, "attributeName", 1 );
-		}
-	}
+		
+
 	
 
-	public void UpdateLightPosition( Vector3 position )
+
+
+
+
+
+	}
+	public void SaveIconSettings( string filePath )
 	{
-		_light.Position = position;
+		var iconSettings = new IconSettings
+		{
+			Model = Instance._modelPath,
+			MaterialGroup = Instance._materialgroup,
+			MaterialOverride = Instance._materialoverride,
+			LightBrightness = Instance._lightBrightness,
+			LightRadius = Instance._lightRadius,
+			LightColour = Instance._lightColor,
+			DirectionalLightBrightness = Instance._directionalLightBrightness,
+			DirectionalLightRotation = Instance._directionalLightRotation,
+			DirectionalLightColour = Instance._directionalLightColor,
+			Colour = Instance._color,
+			Position = Instance._position,
+			Rotation = Instance._angles.ToRotation(),
+			Guid = Instance.icon.Guid
+		};
+
+		var json = JsonSerializer.Serialize( iconSettings );
+		File.WriteAllText( filePath, json );
 	}
 
-	public void UpdateLightRadius( float radius )
+	public void LoadIconSettings( string filePath )
 	{
-		_light.Radius = radius;
+		if ( !File.Exists( filePath ) )
+			return;
+
+		var json = File.ReadAllText( filePath );
+		var iconSettings = JsonSerializer.Deserialize<IconSettings>( json );
+
+		Instance._modelPath = iconSettings.Model;
+		Instance._materialgroup = iconSettings.MaterialGroup;
+		Instance._materialoverride = iconSettings.MaterialOverride;
+		Instance._lightBrightness = iconSettings.LightBrightness;
+		Instance._lightRadius = iconSettings.LightRadius;
+		Instance._lightColor = iconSettings.LightColour;
+		Instance._directionalLightBrightness = iconSettings.DirectionalLightBrightness;
+		Instance._directionalLightRotation = iconSettings.DirectionalLightRotation;
+		Instance._directionalLightColor = iconSettings.DirectionalLightColour;
+		Instance._color = iconSettings.Colour;
+		Instance._position = iconSettings.Position;
+		Instance._angles = iconSettings.Rotation.Angles();
+		Instance.icon.Guid = iconSettings.Guid;
 	}
 
-	public void UpdateLightColor( Color color )
-	{
-		_light.LightColor = color;
-	}
 
-	public void UpdateDirectionalLightRotation( Angles rotation )
-	{
-		_directionalLight.Rotation = global::Rotation.From( rotation );
-	}
 
-	public void UpdateDirectionalLightColor( Color color )
-	{
-		_directionalLight.LightColor = color;
-	}
 
-	public void UpdateDirectionalLightBrightness( float brightness )
-	{
-		_directionalLight.LightColor = Color.White * brightness;
-	}
 
 	[EditorEvent.Frame]
 	private void Frame()
 	{
-		if ( _obj == null )
+		if ( Instance._obj == null )
 			return;
 
-		_camera.FitModel( _obj );
-		_light.Position = _camera.Position + _camera.Rotation.Backward * 20f;
-		_light.Radius = _lightRadius.Value;
-		_light.LightColor = _lightColor.Value;
-		_light.Radius = _lightRadius.Value;
-		_light.LightColor = Color.White * _lightBrightness.Value;
-
-		_light.Position = _lightPosition.Value;
-
-		_directionalLight.Rotation = global::Rotation.From( _directionalLightRotation.Value );
-		_directionalLightRotation.Value = _directionalLight.Rotation.Angles();
-		_directionalLight.LightColor = _directionalLightColor.Value;
-		_directionalLight.LightColor = Color.White * _directionalLightBrightness.Value;
+		Instance._camera.FitModel( Instance._obj );
+		Instance._modelPath = Instance.icon.Model;
 		
-		_obj.Position = _position.Value;
-		_obj.Rotation = _angles.Value;
-		_obj.ColorTint = _color.Value;
+	
+		Instance._light.Position = Instance._camera.Position + Instance._camera.Rotation.Backward * 20f;
+		Instance._light.Radius = Instance._lightRadius;
+		Instance._light.LightColor = Instance._lightColor;
+		Instance._light.LightColor = Color.White * Instance._lightBrightness;
+
+		Instance._light.Position = Instance._lightPosition;
+
+		Instance._directionalLight.Rotation = global::Rotation.From( Instance._directionalLightRotation );
+		Instance._directionalLight.LightColor = Instance._directionalLightColor;
+		Instance._directionalLight.LightColor = Color.White * Instance._directionalLightBrightness;
+
+		Instance._obj.Position = Instance._position;
+		Instance._obj.Rotation = Instance._angles.ToRotation();
+		Instance._obj.ColorTint = Instance._color;
+	}
+}
+public class PropertyExtension
+{
+	public class StringProperty
+	{
+		private string _value;
+		public string Value
+		{
+			get => _value;
+			set
+			{
+				if ( _value != value )
+				{
+					_value = value;
+					OnTextEdited?.Invoke( _value );
+				}
+			}
+		}
+
+		public event Action<string> OnTextEdited;
+
+		public StringProperty( string value )
+		{
+			_value = value;
+		}
 	}
 }

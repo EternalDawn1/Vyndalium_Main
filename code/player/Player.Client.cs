@@ -27,7 +27,7 @@ namespace GeneralGame
         }
         
 
-        [HostSync]
+        [Sync]
         public Guid ConnectionID
         {
             get => _guid;

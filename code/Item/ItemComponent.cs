@@ -250,10 +250,7 @@ public class ItemComponent : Component
 
 
 
-	/// <summary>
-	/// The weight (in grams) of the item.
-	/// </summary>
-	[Property, Sync] public int WeightInGrams { get; set; }
+
 
 	/// <summary>
 	/// The sell price of an item in mk (-1 indicating it cannot be sold).

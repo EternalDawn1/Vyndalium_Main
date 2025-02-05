@@ -49,7 +49,7 @@ public partial class Npc : Component, IHealthComponent
 {
 	[Property]
 	public string Name { get; set; }
-	[Property,HostSync]public int Level { get; set; }
+	[Property,Sync]public int Level { get; set; }
 	
 	[Property]
 	public MoveHelper MoveHelper { get; set; }
@@ -275,12 +275,12 @@ public partial class Npc : Component, IHealthComponent
 	private Player player;
 	[Property] public GameObject Body { get; set; }
 	[Property] public GameObject Eye { get; set; }
-	[HostSync] public int NpcId { get; set; }
-	[HostSync] public Vector3 TargetPosition { get; set; }
-	[HostSync] public bool FollowingTargetObject { get; set; } = false;
-	[HostSync] public Vector3 SpawnPosition { get; set; }
-	[HostSync] public TimeUntil NextIdle { get; set; }
-	[HostSync] public TimeUntil NextAttack { get; set; }
+	[Sync] public int NpcId { get; set; }
+	[Sync] public Vector3 TargetPosition { get; set; }
+	[Sync] public bool FollowingTargetObject { get; set; } = false;
+	[Sync] public Vector3 SpawnPosition { get; set; }
+	[Sync] public TimeUntil NextIdle { get; set; }
+	[Sync] public TimeUntil NextAttack { get; set; }
 	[Sync] public LifeState LifeState { get; private set; } = LifeState.Alive;
 	[Property] public CitizenAnimationHelper AnimationHelper { get; set; }
 	public GameObject TargetObject { get; private set; } = null;

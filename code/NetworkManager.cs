@@ -8,7 +8,7 @@ namespace GeneralGame
     {
         public const int MAX_PLAYERS = 4;
         [Property] public GameObject Prefab { get; set; }
-        [HostSync] public static Guid HostId { get; set; }
+        [Sync] public static Guid HostId { get; set; }
         [Property] public bool StartServer { get; set; } = true;
         [Property] public List<GameObject> SpawnPoints { get; set; }
 
