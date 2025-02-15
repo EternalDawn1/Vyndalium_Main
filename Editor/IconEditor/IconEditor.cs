@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using Editor.Widgets;
 
 namespace GeneralGame;
 
@@ -22,14 +21,10 @@ public class IconEditor : GraphicsView
 	private SceneCamera _camera;
 	private SceneLight _light;
 
-
-
 	private Model _previousModel;
 	private string _previousMaterialGroup;
 
 	private DropdownWidget<string> _materialGroupWidget;
-
-	private string _materialoverride;
 
 	private Guid GetUniqueId( string name )
 	{
@@ -69,11 +64,7 @@ public class IconEditor : GraphicsView
 			ZNear = 2
 		};
 
-		Vector3 lightDirection = Vector3.Forward * 15f;
-		float lightRange = 1000f;
-		Color lightColor = Color.White * 0.7f;
-
-		_light = new SceneLight( world, lightDirection, lightRange, lightColor );
+		_light = new SceneLight( world, Vector3.Forward * 15f, 1000f, Color.White * 0.7f );
 		_ = new SceneDirectionalLight( world, global::Rotation.From( 45, -45, 45 ), Color.White * 10f );
 
 		Property = (parent as IconEditorPopup).Property;
@@ -90,7 +81,6 @@ public class IconEditor : GraphicsView
 			{
 				Model = modelRenderer?.Model ?? Icon.Model,
 				MaterialGroup = modelRenderer?.MaterialGroup ?? Icon.MaterialGroup,
-				MaterialOverride = modelRenderer?.MaterialOverride ?? Icon.MaterialOverride,
 				Colour = modelRenderer?.Tint ?? Icon.Colour,
 				Rotation = global::Rotation.Identity,
 				Position = Vector3.Zero,
@@ -122,11 +112,6 @@ public class IconEditor : GraphicsView
 				_materialGroupWidget = Layout.Add( new DropdownWidget<string>( materialGroup ), 0 );
 
 			if ( model != null ) UpdateMaterialGroupWidget( model.GetValue<Model>() );
-
-			Layout.AddSpacingCell( 4 );
-
-			if ( Object.TryGetProperty( "MaterialOverride", out var materialOverride ) )
-				Layout.Add( new ResourceControlWidget( materialOverride ), 0 );
 
 			Layout.AddSpacingCell( 4 );
 
@@ -163,7 +148,6 @@ public class IconEditor : GraphicsView
 					{
 						Model = Object.GetProperty( "Model" ).GetValue<Model>(),
 						MaterialGroup = Object.GetProperty( "MaterialGroup" ).GetValue<string>(),
-						MaterialOverride = Object.GetProperty( "MaterialOverride" ).GetValue<string>(),
 						Colour = Object.GetProperty( "Colour" ).GetValue<Color>(),
 						Position = Object.GetProperty( "Position" ).GetValue<Vector3>(),
 						Rotation = Object.GetProperty( "Rotation" ).GetValue<Rotation>(),
@@ -191,7 +175,6 @@ public class IconEditor : GraphicsView
 		);
 
 		_obj.SetMaterialGroup( _previousMaterialGroup );
-		
 	}
 
 	[EditorEvent.Frame]
@@ -227,12 +210,5 @@ public class IconEditor : GraphicsView
 		_obj.Position = Object.GetProperty( "Position" ).GetValue<Vector3>();
 		_obj.Rotation = Object.GetProperty( "Rotation" ).GetValue<Rotation>();
 		_obj.ColorTint = Object.GetProperty( "Colour" ).GetValue<Color>();
-
-		// Update material override.
-		var materialOverride = Object.GetProperty( "MaterialOverride" ).GetValue<string>();
 	}
 }
-
-
-
-

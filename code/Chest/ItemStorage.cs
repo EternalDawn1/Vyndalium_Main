@@ -568,7 +568,7 @@ namespace GeneralGame
         public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
             if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
-            Log.Info( "Loading random tier prefabs" );
+         
             var random = new Random();
             var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
             {

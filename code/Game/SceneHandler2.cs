@@ -128,7 +128,7 @@ public static class GeneralSceneExtensions2
     {
         return scene switch
         {
-            GeneralScene2.Creation => 1,
+            GeneralScene2.Creation => 0,
             GeneralScene2.Game => 0,
             GeneralScene2.MainMenu => 0,
             GeneralScene2.Starting => 45,

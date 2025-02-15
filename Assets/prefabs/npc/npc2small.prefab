@@ -12,7 +12,13 @@
         "__guid": "5bfadb99-61d2-4408-86af-18558738b7b8",
         "Acceleration": 241.19989,
         "Height": 70.3999,
-        "MaxSpeed": 125,
+        "MaxSpeed": 75,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Radius": 9.499976,
         "Separation": 1,
         "UpdatePosition": true,
@@ -40,6 +46,7 @@
         "AirAcceleration": 400,
         "AirFriction": 6.5,
         "Bounce": 0.5,
+        "Collider": null,
         "EnableUnstuck": false,
         "Gravity": "0,0,850",
         "GroundAcceleration": 2065,
@@ -47,8 +54,13 @@
         "GroundFriction": 33.7,
         "IgnoreTags": "",
         "MaxUnstuckTries": 20,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
         "OnComponentUpdate": {
-          "__version": 8,
+          "__version": 9,
           "__guid": "6cb2d893-42ac-41f5-b48b-55be52a90f72",
           "__changeId": 0,
           "UserData": {
@@ -103,6 +115,13 @@
         "Health": 100,
         "Immortal": false,
         "MaxHealth": 9,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnDamaged": null,
         "RegenerationCooldown": 2,
         "RegenerationTimer": 5,
         "StunnedBy": "Bullet",
@@ -112,12 +131,6 @@
         "__type": "Npc",
         "__guid": "343ea719-e2a6-4c36-8add-0d68f031e949",
         "activeStatusEffects": [],
-        "CurrentHoldType": "Punch",
-        "isChibi": false,
-        "prefabPaths": [
-          "prefabs/pickupammo.prefab",
-          "prefabs/potions/potion.prefab"
-        ],
         "AlertOthers": false,
         "AnimationHelper": {
           "_type": "component",
@@ -131,7 +144,9 @@
           "_type": "gameobject",
           "go": "1d8bc424-f317-41f6-b0b6-6d9dd5a61eb5"
         },
+        "CurrentHoldType": "Punch",
         "CurrentState": "Idle",
+        "DeathSounds": null,
         "DetectRange": 288,
         "EnemyTags": "player",
         "Eye": {
@@ -156,6 +171,9 @@
         "HitSounds": "sounds/grunt/gruntingn.sound",
         "Idle": true,
         "IsBleeding": false,
+        "isChibi": false,
+        "isPrometheus": false,
+        "isSlime": false,
         "IsSlowed": false,
         "Level": 0,
         "MaxHealth": 100,
@@ -177,7 +195,7 @@
         "MoveSpeed": 0,
         "Name": "Zombie",
         "OnAttack": {
-          "__version": 8,
+          "__version": 9,
           "__guid": "af137a52-0cf6-473a-b865-8ff82b470c4e",
           "__changeId": 1,
           "UserData": {
@@ -199,7 +217,7 @@
               "Id": 2,
               "Type": "scene.get",
               "Properties": {
-                "T": "package.viwi.new_game_two/HealthComponent"
+                "T": "HealthComponent"
               },
               "UserData": {
                 "Position": "96,60"
@@ -209,9 +227,9 @@
               "Id": 3,
               "Type": "call",
               "Properties": {
-                "_type": "package.viwi.new_game_two/HealthComponent",
+                "_isStatic": false,
                 "_name": "Damage",
-                "_isStatic": false
+                "_type": "HealthComponent"
               },
               "UserData": {
                 "Position": "516,60"
@@ -229,8 +247,8 @@
               "Type": "property",
               "ParentId": 5,
               "Properties": {
-                "_type": "Sandbox.Game/Sandbox.GameObject",
-                "_name": "Transform"
+                "_name": "Transform",
+                "_type": "Sandbox.GameObject"
               }
             },
             {
@@ -238,8 +256,8 @@
               "Type": "property",
               "ParentId": 6,
               "Properties": {
-                "_type": "Sandbox.Game/Sandbox.GameTransform",
-                "_name": "Position"
+                "_name": "Position",
+                "_type": "Sandbox.GameTransform"
               }
             }
           ],
@@ -263,7 +281,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 11,
+              "Id": 8,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -275,13 +293,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 12,
+              "Id": 9,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 13,
+              "Id": 10,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -312,8 +330,14 @@
             }
           }
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "OnDetect": {
-          "__version": 8,
+          "__version": 9,
           "__guid": "8d3c2497-0678-4c8c-b986-1b268ff1b74e",
           "__changeId": 2,
           "UserData": {
@@ -333,7 +357,7 @@
           "Links": []
         },
         "OnEnemyEscaped": {
-          "__version": 8,
+          "__version": 9,
           "__guid": "e1eb3753-6b11-46f9-b912-757d64dce89b",
           "__changeId": 3,
           "UserData": {
@@ -349,9 +373,16 @@
           ],
           "Links": []
         },
+        "OnIdle": null,
+        "OnKilled": null,
+        "OnSpawn": null,
         "PlayerProximityDistance": 80,
         "PogMode": false,
         "Position": "0,0,0",
+        "prefabPaths": [
+          "prefabs/pickupammo.prefab",
+          "prefabs/potions/potion.prefab"
+        ],
         "RunningType": "Dumb",
         "RunSpeed": 110,
         "ScaleStats": true,
@@ -375,7 +406,19 @@
         },
         "EyesWeight": 1,
         "HeadWeight": 1,
+        "Height": null,
+        "IkLeftFoot": null,
+        "IkLeftHand": null,
+        "IkRightFoot": null,
+        "IkRightHand": null,
+        "LookAt": null,
         "LookAtEnabled": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Target": {
           "_type": "component",
           "component_id": "86b14ece-10dc-4299-8a9e-82a86089d1d9",
@@ -396,12 +439,21 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "86b14ece-10dc-4299-8a9e-82a86089d1d9",
+            "AnimationGraph": null,
             "BodyGroups": 1365,
+            "BoneMergeTarget": null,
             "CreateAttachments": false,
             "CreateBoneObjects": false,
+            "MaterialGroup": null,
             "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
             "Model": "models/playermodels/skeleman.vmdl",
             "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Parameters": {
               "bools": {},
               "ints": {},
@@ -426,10 +478,22 @@
             "__type": "Sandbox.Citizen.CitizenAnimationHelper",
             "__guid": "a0b819bd-8603-46e9-8401-1c5f9883d914",
             "BodyWeight": 1,
+            "EyeSource": null,
             "EyesWeight": 1,
             "HeadWeight": 1,
             "Height": 1.04,
+            "IkLeftFoot": null,
+            "IkLeftHand": null,
+            "IkRightFoot": null,
+            "IkRightHand": null,
+            "LookAt": null,
             "LookAtEnabled": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Target": {
               "_type": "component",
               "component_id": "86b14ece-10dc-4299-8a9e-82a86089d1d9",
@@ -441,10 +505,22 @@
             "__type": "Sandbox.CapsuleCollider",
             "__guid": "41cccff0-8873-4502-b4bf-560cde360e52",
             "End": "0,0,10",
+            "Friction": null,
             "IsTrigger": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnObjectTriggerEnter": null,
+            "OnObjectTriggerExit": null,
+            "OnTriggerEnter": null,
+            "OnTriggerExit": null,
             "Radius": 12.1999855,
             "Start": "0,0,61.6",
             "Static": false,
+            "Surface": null,
             "SurfaceVelocity": "0,0,0"
           }
         ]
@@ -471,6 +547,12 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PanelSize": "2000,1000",
             "RenderOptions": {
               "GameLayer": true,
@@ -489,7 +571,13 @@
               "component_id": "343ea719-e2a6-4c36-8add-0d68f031e949",
               "go": "939b879f-4387-4260-b9b9-19fed476cde9",
               "component_type": "Npc"
-            }
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
           }
         ]
       }

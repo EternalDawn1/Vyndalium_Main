@@ -63,49 +63,49 @@
         <div class="panel-content-layout">
             <div class="main-panel">
                 <div class="box">
-                    <div class="title"> Level.1-5</div>
+                    <div class="title"> Level.1</div>
                     <SideButton 
-                        Title="Dungeon 1-1" 
-                        Subtitle="required. lvl. 1 [TESTED + Finished]" 
+                        Title="Exile Dungeon 0-1" 
+                        Subtitle="required. lvl. 0 " 
                         OnClick=@(() => ChangeScene2(GeneralScene2.One)) 
                         ImagePath=@GetImagePath(playerLevel, GeneralScene2.One.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
-                        style=""
+                        style="justify-content: center;"
                     />
                 </div>
                 <div class="box">
-                    <div class="title"> Level.10-15</div>
+                    <div class="title"> Level.10</div>
                     <SideButton 
-                        Title="Dungeon 2-1" 
-                        Subtitle="required. lvl. 10 [TESTED + Finished]" 
+                        Title="Forest Dungeon 2-1" 
+                        Subtitle="required. lvl. 10 " 
                         OnClick=@(() => ChangeScene2(GeneralScene2.Forest)) 
                         ImagePath=@GetImagePath(playerLevel, GeneralScene2.Forest.GetRequiredLevel2(), "ui/hud/tree.png", "ui/hud/exit.gif") 
-                        style="" 
+                        style="justify-content: center;" 
                     />
                     
                 </div>
                 <div class="box">
-                    <div class="title"> Level.35-45</div>
+                    <div class="title"> Level.35</div>
                     <SideButton 
                         Title="Dungeon 2-1 Extra" 
-                        Subtitle="required. lvl. 25 [TESTED + Finished]" 
+                        Subtitle="required. lvl. 25 " 
                         OnClick=@(() => ChangeScene2(GeneralScene2.Forest3)) 
                         ImagePath=@GetImagePath(playerLevel, GeneralScene2.One2.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
-                        style=""
+                        style="justify-content: center;"
                     />
                     <SideButton 
                             Title="Labyrinth"
                             Subtitle="required. lvl. 45" 
                             ImagePath=@GetImagePath(playerLevel, GeneralScene2.Starting.GetRequiredLevel2(), "ui/hud/tree.png", "ui/hud/exit.gif")
                             OnClick=@(() => ChangeScene2(GeneralScene2.Starting)) 
-                            style=""
+                            style="justify-content: center;"
                         />
-                    <div class="title"> Level.75-155</div>
+                    <div class="title"> Level.75</div>
                     <SideButton 
                         Title="Dungeon 2-1 Extra" 
-                        Subtitle="required. lvl. 25 [TESTED + Finished]" 
+                        Subtitle="required. lvl. 25 " 
                         OnClick=@(() => ChangeScene2(GeneralScene2.Forest4)) 
                         ImagePath=@GetImagePath(playerLevel, GeneralScene2.Forest4.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
-                        style=""
+                        style="justify-content: center;"
                 </div>
             </div>
         </div>

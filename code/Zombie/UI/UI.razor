@@ -47,7 +47,7 @@
                 </div>
 
                 
-                <p class="npc-health">@(Math.Round(@npc.Health / @npc.MaxHealth * 100))</p>
+                <p class="npc-health">HP:@Math.Round(@npc.Health)</p>
             </div>
         </div>
     }
@@ -102,6 +102,11 @@
     [Rpc.Broadcast]
     public  void HandleTakeDamage()
     {
+        if (npc == null)
+        {
+            Log.Error("Npc is null in HandleTakeDamage");
+            return;
+        }
         isTakingDamage = true;
         StateHasChanged();
 

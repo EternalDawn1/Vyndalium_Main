@@ -430,7 +430,7 @@ public sealed class NpcSpawnArea : Component
 	{
 		do
 		{
-			await Task.Delay((int)TimeSpan.FromSeconds(delay).TotalMilliseconds);
+			await Task.Delay((int)TimeSpan.FromSeconds(delay).TotalSeconds);
 			if (allSubNpcsKilled)
 			{
 				return;
