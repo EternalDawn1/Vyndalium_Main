@@ -72,6 +72,20 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null
+        },
+        {
+          "__type": "GeneralGame.TaskMaster",
+          "__guid": "6e40f482-60de-474f-9026-57b6cab4d672",
+          "__enabled": false,
+          "CurrentTasks": [
+            "task/newbie.task"
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         }
       ]
     },
@@ -682,6 +696,7 @@
         {
           "__type": "GeneralGame.CheckPointMaster",
           "__guid": "39ed651f-0639-4bbe-a7e4-c428f5c2ade3",
+          "checkpointActivationStatus": {},
           "checkpoints": [
             {
               "_type": "component",
@@ -691,8 +706,8 @@
             },
             {
               "_type": "component",
-              "component_id": "018ed6c7-5cb0-4609-85ba-aa18457982c0",
-              "go": "feeee72e-1047-4d11-89b1-d6f34f6b2289",
+              "component_id": "caad41a5-4181-404f-a9a3-afbf4a200d38",
+              "go": "f74242c1-c05d-4f69-8cac-1935756633bd",
               "component_type": "Checkpoint"
             }
           ],
@@ -711,20 +726,20 @@
       "__guid": "b67227f8-7a84-4c4e-aef4-11a89df0e972",
       "Flags": 0,
       "Name": "Checkpoint",
-      "Position": "-915.3888,1100.288,49.65117",
+      "Position": "-1272.983,756.0344,49.65093",
       "Enabled": true,
       "Components": [
         {
           "__type": "GeneralGame.Checkpoint",
           "__guid": "208c4ca0-d2b4-47c9-9aa5-f668151ddab9",
           "CanBeReactivated": false,
+          "CheckPointId": "968b8610-552b-44f6-a2f3-41b45781303a",
           "DetectionRadius": 150.79973,
           "DrawProximityRangeGizmo": true,
           "GameObjectToUnlock": {
             "_type": "gameobject",
             "go": "4fc73595-a717-41dc-8a61-3d1c62ca1d2e"
           },
-          "IsCompleted": false,
           "IsPermanentlyDisabled": false,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -732,13 +747,7 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Position": "0,0,0",
-          "SpriteRenderer": {
-            "_type": "component",
-            "component_id": "f4268d84-9ef7-4c79-88a6-55e8de0e4794",
-            "go": "76b63b48-1783-4492-af4b-ea900fff8b47",
-            "component_type": "SpriteRenderer"
-          }
+          "Position": "0,0,0"
         }
       ],
       "Children": [
@@ -782,23 +791,23 @@
       ]
     },
     {
-      "__guid": "feeee72e-1047-4d11-89b1-d6f34f6b2289",
+      "__guid": "f74242c1-c05d-4f69-8cac-1935756633bd",
       "Flags": 0,
       "Name": "Checkpoint (1)",
-      "Position": "-1169.881,1920.536,118.2576",
+      "Position": "-968.2488,750.8708,72.77835",
       "Enabled": true,
       "Components": [
         {
           "__type": "GeneralGame.Checkpoint",
-          "__guid": "018ed6c7-5cb0-4609-85ba-aa18457982c0",
+          "__guid": "caad41a5-4181-404f-a9a3-afbf4a200d38",
           "CanBeReactivated": false,
-          "DetectionRadius": 162.90005,
+          "CheckPointId": "968b8610-552b-44f6-a2f3-41b45781303a",
+          "DetectionRadius": 150.79973,
           "DrawProximityRangeGizmo": true,
           "GameObjectToUnlock": {
             "_type": "gameobject",
             "go": "4e8f29ef-75e1-474b-9548-af4e80f554d0"
           },
-          "IsCompleted": false,
           "IsPermanentlyDisabled": false,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -806,18 +815,12 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Position": "0,0,0",
-          "SpriteRenderer": {
-            "_type": "component",
-            "component_id": "7e1a7be5-1248-4794-baa6-f14f3b8980da",
-            "go": "8ed8eb92-d52e-4b62-96ae-ae0f22f4f76a",
-            "component_type": "SpriteRenderer"
-          }
+          "Position": "0,0,0"
         }
       ],
       "Children": [
         {
-          "__guid": "8ed8eb92-d52e-4b62-96ae-ae0f22f4f76a",
+          "__guid": "a6a34c49-2e67-48c5-ac37-0718b43a9bb8",
           "Flags": 0,
           "Name": "Sprite",
           "Position": "4.037109,0,73.46965",
@@ -825,7 +828,7 @@
           "Components": [
             {
               "__type": "Sandbox.SpriteRenderer",
-              "__guid": "7e1a7be5-1248-4794-baa6-f14f3b8980da",
+              "__guid": "99327b73-e3d5-4f58-9a46-aec071c8515c",
               "Additive": false,
               "CastShadows": true,
               "Color": "0.06667,1,0,1",
@@ -859,7 +862,8 @@
       "__guid": "4fc73595-a717-41dc-8a61-3d1c62ca1d2e",
       "Flags": 0,
       "Name": "Cube",
-      "Position": "-897.4291,1289.096,63.52037",
+      "Position": "-1201.069,765.4376,63.52092",
+      "Rotation": "0,0,-0.7071067,0.7071068",
       "Scale": "2.495659,0.3617045,2.327316",
       "Enabled": true,
       "Components": [
@@ -892,7 +896,8 @@
       "__guid": "4e8f29ef-75e1-474b-9548-af4e80f554d0",
       "Flags": 0,
       "Name": "Cube (1)",
-      "Position": "-897.4291,2187.746,63.52037",
+      "Position": "-797.4766,764.5319,63.51908",
+      "Rotation": "0,0,-0.7071067,0.7071068",
       "Scale": "2.495659,0.3617045,2.327316",
       "Enabled": true,
       "Components": [
