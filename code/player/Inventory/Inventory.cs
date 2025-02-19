@@ -40,7 +40,7 @@ public sealed class Inventory : Component
 			_onBackpackSlotsChanged -= value;
 		}
 	}
-	public int MAX_BACKPACK_SLOTS = 30;
+	public const int MAX_BACKPACK_SLOTS = 100;
 	public  int MAX_STORAGE_SLOTS = 100;
 	private const int ItemsPerPage = 20;
 	public const int MAX_UPGRADE_SLOTS = 1;
@@ -65,6 +65,11 @@ public sealed class Inventory : Component
 	[Property] public readonly List<ItemComponent> _upgradeItems;
 	[Property] public readonly List<ItemComponent> _aspectItems;
 	[Property] public readonly List<ItemComponent> _backpackBagItems;
+
+	protected override void OnStart()
+	{
+		Inventory.Instance = this;
+	}
 	public void SortBackpackBagItems( SortOption sortOption )
 	{
 		ToggleSortDirection();
@@ -474,17 +479,19 @@ public sealed class Inventory : Component
 	public Inventory()
 	{
 		_storageItems = new List<ItemComponent>( new ItemComponent[MAX_STORAGE_SLOTS] );
+		_backpackItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACK_SLOTS] );
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 		_storageBoxItems = new List<ItemComponent>();
 		_upgradeItems = new List<ItemComponent>( new ItemComponent[MAX_UPGRADE_SLOTS] );
-		_aspectItems = new List<ItemComponent>(new ItemComponent[MAX_ASPECT_SLOTS] );
-		_backpackBagItems = new List<ItemComponent>(new ItemComponent[MAX_BACKPACKBAG_SLOTS]);
-	}
-	public void InitializeBackpackSlots()
-	{
-		for ( int i = 0; i < MAX_BACKPACKBAG_SLOTS; i++ )
+		_aspectItems = new List<ItemComponent>( new ItemComponent[MAX_ASPECT_SLOTS] );
+		_backpackBagItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACKBAG_SLOTS] );
+
+		// Initialisiere die _backpackItems-Liste mit null-Werten
+		
+		for ( int i = 0; i < MAX_BACKPACK_SLOTS; i++ )
 		{
-			_backpackBagItems.Add( null ); // Initialisiere den Slot, wenn er nicht existiert
+			_backpackItems.Add( null );
+		
 		}
 	}
 

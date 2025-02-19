@@ -1,4 +1,7 @@
+
+using System.Threading.Tasks;
 namespace GeneralGame
+
 {
 	public class Checkpoint : Component
 	{
@@ -9,6 +12,14 @@ namespace GeneralGame
 		[Property] public float DetectionRadius { get; set; } = 5.0f;
 		[Property] public Guid CheckPointId { get; set; }
 
+		[Property] public SpriteRenderer SpriteRenderer { get; set; } = new SpriteRenderer();
+
+		[Property] public LineRenderer LineRenderer { get; set; } = new LineRenderer();
+
+		[Property] public Action action { get; set; }
+
+
+
 		// Parameterloser Konstruktor
 		public Checkpoint() { }
 
@@ -16,27 +27,30 @@ namespace GeneralGame
 		{
 			Position = LocalPosition;
 			CheckPointId = Guid.NewGuid();
+			
+
 		}
 
+		// ...existing code...
 		public void CheckPlayerProximity( Player player )
 		{
 			float distance = Vector3.DistanceBetween( Position, player.Position );
-			Log.Info( $"Überprüfe Spielerproximity: Spieler {player.Name}, Checkpoint {CheckPointId}, Distanz {distance}" );
+
 			if ( distance <= DetectionRadius )
 			{
-				Log.Info( $"Spieler {player.Name} ist innerhalb des Erkennungsradius von Checkpoint {CheckPointId}" );
-				//GameObjectToUnlock.Enabled = true;
-				//DisableSpriteRenderer();
 				CheckPointMaster.Instance.checkpointActivationStatus[CheckPointId] = false;
-
+				action?.Invoke();
 				// Aktiviere den nächsten Checkpoint
-				CheckPointMaster.Instance.ActivateNextCheckpoint();
-			}
-			else
-			{
-				Log.Info( $"Spieler {player.Name} ist außerhalb des Erkennungsradius von Checkpoint {CheckPointId}" );
+			
+
+				Task.Delay( 2000 ).ContinueWith( _ => CheckPointMaster.Instance.ActivateNextCheckpoint() );
+
+				// Führe die Aktion aus, wenn sie gesetzt ist
+
 			}
 		}
+		
+		// ...existing code...
 
 		public void DisableSpriteRenderer()
 		{
@@ -47,27 +61,42 @@ namespace GeneralGame
 			}
 			else
 			{
-				Log.Warning( "SpriteRenderer nicht gefunden." );
+				
 			}
 		}
-
-		public void EnableSpriteRenderer()
+		public void EnableSpriteRenderer( bool firstCheckpointReached )
 		{
-			var spriteRenderers = this.Components.GetAll<SpriteRenderer>( FindMode.EnabledInSelfAndChildren ).ToList();
-			if ( spriteRenderers != null && spriteRenderers.Count > 1 )
+			if ( SpriteRenderer != null )
 			{
-				spriteRenderers[1].Enabled = true;
-				Log.Info( "SpriteRenderer des zweiten Elements wurde aktiviert." );
-			}
-			else if ( spriteRenderers != null && spriteRenderers.Count == 1 )
-			{
-				spriteRenderers[0].Enabled = true;
-				Log.Info( "Nur ein SpriteRenderer gefunden und aktiviert." );
+				SpriteRenderer.Enabled = true;
+			
 			}
 			else
 			{
-				Log.Warning( "Nicht genügend SpriteRenderer gefunden." );
-				Log.Info( $"Anzahl der SpriteRenderer-Komponenten: {spriteRenderers?.Count ?? 0}" );
+			
+			}
+		}
+		public void DisableLineRenderer()
+		{
+			var lineRenderer = this.Components.Get<LineRenderer>( FindMode.EnabledInSelfAndChildren );
+			if ( lineRenderer != null )
+			{
+				lineRenderer.Enabled = false;
+			}
+			else
+			{
+				
+			}
+		}
+		public void EnableLineRenderer( bool firstCheckpointReached )
+		{
+			if ( LineRenderer != null )
+			{
+				LineRenderer.Enabled = true;
+			}
+			else
+			{
+				
 			}
 		}
 
@@ -87,11 +116,11 @@ namespace GeneralGame
 			// Zeichne den PlayerProximityDistance-Gizmo, wenn aktiviert
 			if ( DrawProximityRangeGizmo )
 			{
-				Gizmo.Draw.Color = Color.Red.WithAlpha( 0.3f );
-				Gizmo.Draw.LineSphere( Vector3.Zero, DetectionRadius );
+				Gizmo.Draw.Color = Color.Red.WithAlpha( 1f );
+				Gizmo.Draw.LineBBox( new BBox( Position - Vector3.One * DetectionRadius, Position + Vector3.One * DetectionRadius ) );
 			}
 		}
-	
+
 
 		[Property]
 		public bool DrawProximityRangeGizmo { get; set; } = true;
@@ -106,9 +135,10 @@ namespace GeneralGame
 
 		[Property] private float PlayerProximityDistance = 100.0f; // Beispielwert
 
-		[Property] private int currentCheckpointIndex = 0;
+		[Property] public int currentCheckpointIndex = 0;
 
-		[Property]public Dictionary<Guid, bool> checkpointActivationStatus = new Dictionary<Guid, bool>();
+		[Property] public Dictionary<Guid, bool> checkpointActivationStatus = new Dictionary<Guid, bool>();
+		
 
 		public CheckPointMaster()
 		{
@@ -116,27 +146,42 @@ namespace GeneralGame
 		}
 		protected override void OnStart()
 		{
-			Log.Info( "OnStart aufgerufen" );
+		
 
 			if ( checkpoints.Count > 0 )
 			{
+				// Weisen Sie die SpriteRenderer den Checkpoints zu
+				for ( int i = 0; i < checkpoints.Count; i++ )
+				{
+					var spriteRenderer = checkpoints[i].GetComponent<SpriteRenderer>();
+					if ( spriteRenderer != null )
+					{
+					
+						
+					}
+					else
+					{
+					
+					}
+				}
+
 				// Aktiviere nur den ersten Checkpoint
-				checkpoints[0].EnableSpriteRenderer();
+				checkpoints[0].EnableSpriteRenderer( true );
+				checkpoints[0].EnableLineRenderer(true);
 				checkpoints[0].GameObjectToUnlock.Enabled = true;
 				checkpointActivationStatus[checkpoints[0].CheckPointId] = true;
-				Log.Info( $"Erster Checkpoint {checkpoints[0].CheckPointId} aktiviert" );
+			
 
 				// Deaktiviere alle anderen Checkpoints
 				for ( int i = 1; i < checkpoints.Count; i++ )
 				{
 					checkpoints[i].DisableSpriteRenderer();
-					checkpoints[i].GameObjectToUnlock.Enabled = false;
+					checkpoints[i].DisableLineRenderer();
 					checkpointActivationStatus[checkpoints[i].CheckPointId] = false;
-					Log.Info( $"Checkpoint {checkpoints[i].CheckPointId} deaktiviert" );
+				
 				}
 			}
 		}
-
 		protected override void OnUpdate()
 		{
 			
@@ -170,26 +215,24 @@ namespace GeneralGame
 				
 			}
 		}
-
 		public void ActivateNextCheckpoint()
 		{
 			if ( currentCheckpointIndex < checkpoints.Count )
 			{
 				// Deaktiviere den aktuellen Checkpoint
 				checkpoints[currentCheckpointIndex].DisableSpriteRenderer();
+				checkpoints[currentCheckpointIndex].DisableLineRenderer();
 				checkpoints[currentCheckpointIndex].GameObjectToUnlock.Enabled = false;
 				checkpointActivationStatus[checkpoints[currentCheckpointIndex].CheckPointId] = false;
-				Log.Info( $"Checkpoint {checkpoints[currentCheckpointIndex].CheckPointId} deaktiviert" );
-				
 
-				// Aktiviere den nächsten Checkpoint
 				currentCheckpointIndex++;
 				if ( currentCheckpointIndex < checkpoints.Count )
 				{
-					checkpoints[currentCheckpointIndex].EnableSpriteRenderer();
+					// Aktiviere den nächsten Checkpoint
+					checkpoints[currentCheckpointIndex].EnableSpriteRenderer( false );
+					checkpoints[currentCheckpointIndex].EnableLineRenderer( false );
 					checkpoints[currentCheckpointIndex].GameObjectToUnlock.Enabled = true;
 					checkpointActivationStatus[checkpoints[currentCheckpointIndex].CheckPointId] = true;
-					Log.Info( $"Nächster Checkpoint {checkpoints[currentCheckpointIndex].CheckPointId} aktiviert" );
 				}
 			}
 		}
@@ -222,31 +265,7 @@ namespace GeneralGame
 			return null;
 		}
 
-		public void OnCheckpointCompleted( int index )
-		{
 		
-			if ( index < checkpoints.Count - 1 )
-			{
-			
-				var nextCheckpoint = checkpoints[index + 1];
-				if ( nextCheckpoint != null )
-				{
-					nextCheckpoint.EnableSpriteRenderer();
-					if ( nextCheckpoint.GameObjectToUnlock != null )
-					{
-						nextCheckpoint.GameObjectToUnlock.Enabled = true;
-					}
-					else
-					{
-					
-					}
-				}
-				else
-				{
-					
-				}
-			}
-		}
 	}
 }
 

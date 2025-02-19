@@ -1,7 +1,28 @@
 @using GeneralGame
 @namespace GeneralGame.HUD
+
 <root>
-    
+    @if (TaskMaster._instance != null && TaskMaster._instance.CurrentTasks != null)
+    {
+        foreach (var task in TaskMaster._instance.CurrentTasks)
+        {
+            <div class="task">
+                <h3 class="header">@task.Name</h3>
+                <ul class="subtasks">
+                    @foreach (var subtask in task.Subtasks)
+                    {
+                        <li class="subtaskstask">@subtask.Description - <p class="currentamount"> @subtask.CurrentAmount</p> / <p class="amount">@subtask.AmountToComplete</p></li>
+                    }
+                </ul>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Keine Aufgaben verfügbar.</p>
+    }
 </root>
+
 @code {
+    
 }

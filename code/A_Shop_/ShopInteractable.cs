@@ -8,7 +8,7 @@ public class ShopInteractable : BaseInteraction
     [Property]public bool Missions { get; set; }
     [Property]public bool Tutorial { get; set; }
     [Property]public bool isMerchantTutorial { get; set; }
-    public Quests Quests{ get; private set; }
+   
     
 
     protected override void OnStart()
@@ -81,27 +81,7 @@ public class ShopInteractable : BaseInteraction
                 Accessibility = AccessibleFrom.All,
             } );
 
-            interactions.AddInteraction( new Interaction()
-            {
-                Identifier = "shop.quests",
-                Action = ( Player interactor, GameObject obj ) =>
-                {
-                    var shopInteractable = obj.Components.Get<ShopInteractable>();
-                    Storage = Components.GetOrCreate<ShopStorage>();
-                    
             
-
-                    if ( shopInteractable != null && shopInteractable.Storage != null && Quests.Instance != null )
-                    {
-                        Quests.Instance.OpenQuest();
-                    }
-                },
-                Keybind = "use2",
-                Description = "Quests",
-                Stats = "Buy",
-                ShowWhenDisabled = () => true,
-                Accessibility = AccessibleFrom.All,
-            } );
         }
     }
     

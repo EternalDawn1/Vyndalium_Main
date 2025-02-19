@@ -67,7 +67,7 @@ public partial class Player : Component, IHealthComponent
 	private RealTimeSince TimeSinceManaUsed { get; set; }
 
 	private static bool isFirstSpawn = true;
-	[Property]public int MAX_BACKPACK_SLOTS = 20;
+	[Property]public int MAX_BACKPACK_SLOTS = 100;
 
 	private bool WantsToCrouch { get; set; }
 	private Angles Recoil { get; set; }
@@ -538,6 +538,7 @@ public partial class Player : Component, IHealthComponent
 		{
 			
 			Setup( this );
+			MAX_BACKPACK_SLOTS = 100;
 		}
 		
 
@@ -560,13 +561,14 @@ public partial class Player : Component, IHealthComponent
 
 	private void UpdateWeaponModelVisibility()
 	{
-		if(IsProxy) 
+		if(!IsProxy) 
 		return;
 		var deployedWeapon = Weapons.Deployed;
 		foreach ( var weapon in Weapons.All )
 		{
 			var modelRenderer = weapon.Components.Get<ModelRenderer>();
 			var itemComponent = weapon.Components.Get<ItemComponent>();
+			var skinnedmodelRenderer = weapon.Components.Get<SkinnedModelRenderer>();
 
 			if ( modelRenderer != null && itemComponent != null )
 			{
@@ -583,15 +585,19 @@ public partial class Player : Component, IHealthComponent
 					weapon.GameObject.Enabled = false;
 				}
 			}
+			if ( skinnedmodelRenderer != null )
+			{
+				skinnedmodelRenderer.Enabled = weapon == deployedWeapon;
+			}
 		}
+		
 	}
 
 
 
 	private void UpdateModelVisibility()
 	{
-		if (!ModelRenderer.IsValid())
-			return;
+		if (!ModelRenderer.IsValid());
 
 		if (IsProxy) PlyCamera.Enabled = false;
 
@@ -653,27 +659,7 @@ public partial class Player : Component, IHealthComponent
 		if (!PlyCamera.IsValid() || !Eye.IsValid())
 			return;
 
-		var cameraPosition = PlyCamera.WorldPosition;
-		var cameraDirection = PlyCamera.WorldRotation.Forward;
-		var fieldOfView = DefaultFov;
-		IEnumerable<SceneObject> sceneObjects = GetSceneObjects(); // Annahme: PlyCamera hat eine Eigenschaft FieldOfView
-
-		foreach (var obj in sceneObjects) // Pseudocode: Iteriere über alle Objekte in der Szene
-		{
-			var directionToObject = (obj.Transform.Position - cameraPosition).Normal;
-			var angleToObject = Vector3Extensions.AngleBetween(cameraDirection, directionToObject);
-
-			if (angleToObject <= fieldOfView / 2)
-			{
-				// Das Objekt ist im Sichtfeld der Kamera
-				obj.SetVisibility(true); // Pseudocode: Setze die Sichtbarkeit des Objekts
-			}
-			else
-			{
-				// Das Objekt ist außerhalb des Sichtfelds der Kamera
-				obj.SetVisibility(false); // Pseudocode: Setze die Sichtbarkeit des Objekts
-			}
-		}
+		
 	}
 	public IEnumerable<SceneObject> GetSceneObjects()
 	{
@@ -721,7 +707,7 @@ public partial class Player : Component, IHealthComponent
 
 		UpdateModelVisibility();
 
-		if (IsProxy)
+		if (!IsProxy)
 			return;
 
 		if (!Eye.IsValid())
@@ -792,15 +778,13 @@ public partial class Player : Component, IHealthComponent
 	private float crouchTimer = 0.0f;
 	protected override void OnUpdate()
 	{
-		UpdateModelVisibility();
-		if (IsProxy)
-		{
-			return;
-		}
-
+		
+		if (!IsProxy)
+		
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
-		
+		UpdateModelVisibility();
+		UpdateWeaponModelVisibility();
 
 		if ( !Eye.IsValid() )
 			return;
@@ -812,6 +796,7 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		}
+		
 		if ( Input.Down( "attack1" ) && Time.Now >= lastSwingTime + swingCooldown )
 		{
 			if ( EquippedItem == null )
@@ -1080,7 +1065,7 @@ public partial class Player : Component, IHealthComponent
 			CharacterController.Velocity = CharacterController.Velocity.WithZ(0);
 			LastGroundedTime = 0f;
 		}
-
+		WorldPosition = CharacterController.LocalPosition;
 		WorldRotation = Rotation.FromYaw(EyeAngles.ToRotation().Yaw());
 	}
 	protected override void OnFixedUpdate()

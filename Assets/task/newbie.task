@@ -1,16 +1,16 @@
 {
-  "Name": "GreasyBear",
+  "Name": "Movement Quest",
   "Subtitle": "Kindly do the needful",
-  "Description": "We need you to do x immediately, right now! If you don\u0027t I am going to start punching myself.",
-  "Giver": "Friend",
-  "Message": "Hey buddy can you do this for me",
+  "Description": "We need you to do x immediately, right now! If you don't I am going to start punching myself.",
+  "Giver": "",
+  "Message": "",
   "TaskType": "Any",
   "TaskRarity": "Any",
   "IsPrimary": true,
   "Global": false,
-  "ExperienceGiven": 50,
-  "SuccessSignal": "task.success.GreasyBear",
-  "FailedSignal": "task.failed.GreasyBear",
+  "ExperienceGiven": 500,
+  "SuccessSignal": "task.success.Movement Quest",
+  "FailedSignal": "task.failed.Movement Quest",
   "TimeLimited": false,
   "TimeLimitInSeconds": 120,
   "PersistThroughSessions": true,
@@ -19,7 +19,52 @@
   "OnSuccess": null,
   "OnFail": null,
   "FailConditionCheck": null,
-  "Subtasks": [],
+  "Subtasks": [
+    {
+      "Description": "Press WASD",
+      "SubtaskOrder": 0,
+      "TriggerSignal": "walking",
+      "AmountToComplete": 9,
+      "EvaluateOnTick": null,
+      "OnStart": null,
+      "OnEnd": null,
+      "CurrentAmount": 0,
+      "Completed": false
+    },
+    {
+      "Description": "Look Around with your Mouse",
+      "SubtaskOrder": 1,
+      "TriggerSignal": "around",
+      "AmountToComplete": 1,
+      "EvaluateOnTick": null,
+      "OnStart": null,
+      "OnEnd": null,
+      "CurrentAmount": 0,
+      "Completed": false
+    },
+    {
+      "Description": "Press CTRL to Duck",
+      "SubtaskOrder": 3,
+      "TriggerSignal": "duck",
+      "AmountToComplete": 1,
+      "EvaluateOnTick": null,
+      "OnStart": null,
+      "OnEnd": null,
+      "CurrentAmount": 0,
+      "Completed": false
+    },
+    {
+      "Description": "Press Space to Jump",
+      "SubtaskOrder": 4,
+      "TriggerSignal": "hi",
+      "AmountToComplete": 1,
+      "EvaluateOnTick": null,
+      "OnStart": null,
+      "OnEnd": null,
+      "CurrentAmount": 0,
+      "Completed": false
+    }
+  ],
   "__references": [],
   "__version": 0
 }

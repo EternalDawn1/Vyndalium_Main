@@ -96,15 +96,7 @@ public class ItemInteractable : BaseInteraction
                 Accessibility = AccessibleFrom.All,
             } );
 
-            interactions.AddInteraction( new Interaction()
-            {
-                Identifier = "item.drop",
-                Keybind = "use2",
-                Description = "Loot",
-                Stats = "Drop",
-                ShowWhenDisabled = () => true,
-                Accessibility = AccessibleFrom.All,
-            } );
+            
         }
         
 

@@ -76,7 +76,6 @@
         {
           "__type": "GeneralGame.TaskMaster",
           "__guid": "6e40f482-60de-474f-9026-57b6cab4d672",
-          "__enabled": false,
           "CurrentTasks": [
             "task/newbie.task"
           ],
@@ -92,7 +91,7 @@
     {
       "__guid": "59775169-6dc0-46a9-8ada-c925124b536f",
       "Flags": 0,
-      "Name": "Object",
+      "Name": "HUD",
       "Enabled": true,
       "NetworkMode": 1,
       "Components": [
@@ -134,554 +133,401 @@
       ]
     },
     {
-      "__guid": "18c02428-2afa-43f2-8de8-c2e7285ccaf5",
+      "__guid": "20637556-c18e-4fb0-ab97-0484bd6d497c",
       "Flags": 0,
-      "Name": "Dungeon",
-      "Position": "-3012.821,-893.9249,153.5909",
+      "Name": "Lights",
+      "Position": "-836.4567,799.1475,167.6069",
       "Enabled": true,
-      "Components": [
+      "Children": [
         {
-          "__type": "Sandbox.SphereCollider",
-          "__guid": "306058ff-ffae-4723-afda-d7589f6a624f",
-          "Center": "0,0,0",
-          "Friction": null,
-          "IsTrigger": false,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "OnObjectTriggerEnter": null,
-          "OnObjectTriggerExit": null,
-          "OnTriggerEnter": null,
-          "OnTriggerExit": null,
-          "Radius": 99.09987,
-          "Static": false,
-          "Surface": null,
-          "SurfaceVelocity": "0,0,0"
+          "__guid": "bed6c1af-4023-4076-bc43-aba0cc3c91cb",
+          "Flags": 0,
+          "Name": "Point Light (6)",
+          "Position": "-205.6172,2755.51,89.65091",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "89b137ce-604a-40d3-8806-e03cbab335b3",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
         },
         {
-          "__type": "GeneralGame.ShopInteractable",
-          "__guid": "d0968ace-922f-4467-b4af-b0dc4389cb2f",
-          "AbilityHaste": 0,
-          "Armor": 0,
-          "ArmorPenetration": 0,
-          "Aspect": "None",
-          "AttackPower": 0,
-          "AttackRange": 0,
-          "AttackSpeed": 0,
-          "BleedElementalDamage": 0,
-          "BleedResist": 0,
-          "BleedResistance": 0,
-          "BlindResist": 0,
-          "BlindResistance": 0,
-          "BonusEXP": 0,
-          "BonusScore": 0,
-          "BonusVyndalium": 0,
-          "BuyPrice": 0,
-          "Count": 1,
-          "Cover": 0,
-          "CritHitChance": 0,
-          "CritHitDamage": 0,
-          "DamageBalance": 0,
-          "Description": null,
-          "DEX": 0,
-          "DMG": 78,
-          "Durability": 0,
-          "EarthElementalDamage": 0,
-          "Evasion": 0,
-          "FireElementalDamage": 0,
-          "FireResist": 0,
-          "FireResistence": 0,
-          "FreezeElementalDamage": 0,
-          "FreezeResist": 0,
-          "HE": 0,
-          "Health": 0,
-          "HealthRegen": 0,
-          "HolyElementalDamage": 0,
-          "HolyResist": 0,
-          "HolyResistence": 0,
-          "IceElementalDamage": 0,
-          "IceResist": 0,
-          "IceResistence": 0,
-          "Icon": {
-            "Model": null,
-            "MaterialGroup": null,
-            "MaterialOverride": null,
-            "Colour": "0,0,0,0",
-            "Position": "0,0,0",
-            "Rotation": "0,0,0,0",
-            "Guid": "00000000-0000-0000-0000-000000000000"
-          },
-          "INT": 0,
-          "IsAccessory": false,
-          "IsArmor": false,
-          "IsAspect": false,
-          "IsBackpack": false,
-          "IsConsumable": false,
-          "IsEquipment": false,
-          "IsItem": false,
-          "isLocked": false,
-          "IsMaterial": false,
-          "IsMelee": false,
-          "isMerchantTutorial": false,
-          "isOpen": false,
-          "IsPotion": false,
-          "IsWeapon": false,
-          "IsWorld": false,
-          "ItemLevel": 0,
-          "LastOwner": null,
-          "LightElementalDamage": 0,
-          "LightningElementalDamage": 0,
-          "LightningResist": 0,
-          "LightningResistence": 0,
-          "LightResist": 0,
-          "MagicDefense": 0,
-          "MagicPenetration": 0,
-          "MagicPower": 0,
-          "Mana": 0,
-          "ManaRegen": 0,
-          "MaxArmorValue": 0,
-          "MaxAttackValue": 0,
-          "MaxHealthDMG": 0,
-          "MaxStack": 1,
-          "MinArmorValue": 0,
-          "MinAttackValue": 0,
-          "Missions": true,
-          "MoveSpeed": 0,
-          "Name": null,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "PER": 0,
-          "PoisonElementalDamage": 0,
-          "PoisonResist": 0,
-          "PoisonResistence": 0,
-          "RequiredLevel": 0,
-          "RunSpeed": 0,
-          "SellPrice": 0,
-          "ShadowElementalDamage": 0,
-          "ShadowResist": 0,
-          "ShadowResistence": 0,
-          "SlowResist": 0,
-          "SlowResistence": 0,
-          "Stamina": 0,
-          "StaminaSecond": 0,
-          "STG": 0,
-          "StunResist": 0,
-          "StunResistance": 0,
-          "Tenacity": 0,
-          "Tier": "C",
-          "Tutorial": false,
-          "WalkSpeed": 0,
-          "WaterElementalDamage": 0,
-          "WindElementalDamage": 0
+          "__guid": "a655ae18-afff-4aa9-845d-023c208d634d",
+          "Flags": 0,
+          "Name": "Point Light (5)",
+          "Position": "-205.6172,2232.995,89.65091",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "34ec1d4f-1fb5-4884-be49-e094980ddba4",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
         },
         {
-          "__type": "GeneralGame.Interactions",
-          "__guid": "27cd365a-28c4-49ea-b7f7-414fdc9d5ca3",
-          "HideOnEmpty": false,
-          "ObjectInteractions": [],
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null
-        }
-      ]
-    },
-    {
-      "__guid": "67ad44a8-612d-4b7a-ab1a-870e580f4d0c",
-      "Flags": 0,
-      "Name": "Point Light",
-      "Position": "-1081.661,775.612,329.769",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "477cdf85-7813-4cd3-829d-f2b24de8659c",
+          "Flags": 0,
+          "Name": "Point Light (4)",
+          "Position": "-205.6172,1591.042,89.65091",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "75ced2ba-01d7-4a11-b910-a778644503ef",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "774ee81e-9183-4358-b155-30ae3138c5fe",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "d78d4ee5-ee0d-4050-b7ae-dae29c469553",
-      "Flags": 0,
-      "Name": "Point Light (12)",
-      "Position": "-1081.661,229.2808,329.769",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "ee37d827-bfe4-4d07-a6de-7ccd2c75ca71",
+          "Flags": 0,
+          "Name": "Point Light (3)",
+          "Position": "-205.6172,1189.099,89.65091",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "9c1e8f3c-8c25-4bf8-8b53-50d3d4640873",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "3a2d53b7-8af4-4fa7-8a0e-e49744ea894c",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "08eaa605-b61f-4a32-bc07-1efc5560c4e7",
-      "Flags": 0,
-      "Name": "Point Light (13)",
-      "Position": "-1081.661,-546.9755,329.769",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "95262295-7c73-4037-8b56-7d654fa01d5f",
+          "Flags": 0,
+          "Name": "Point Light (2)",
+          "Position": "-205.6172,668.0035,89.65091",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "d4199e94-8f7f-43a4-96be-27276be79cae",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "a1938afb-45d6-44a9-96c0-674599b1bbb2",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "5191344d-531e-429c-b4e1-7061aae43890",
-      "Flags": 0,
-      "Name": "Point Light (14)",
-      "Position": "-1081.661,-988.8068,329.769",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "4019f860-3887-433c-a1b8-3802680472cc",
+          "Flags": 0,
+          "Name": "Point Light (1)",
+          "Position": "-245.2043,251.7315,89.65091",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "3400fe5d-40f7-4633-a36b-64298ff24731",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "270a98c9-0f8f-4490-ae3d-bd708eba723e",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "4b8f20e6-2602-46b2-8f30-2cbaab08264e",
-      "Flags": 0,
-      "Name": "Point Light (7)",
-      "Position": "-383.9561,775.612,197.2149",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "ef01779e-f0a9-4b1b-8322-650b09a37597",
+          "Flags": 0,
+          "Name": "Point Light (11)",
+          "Position": "3410.335,-23.53552,-42.90321",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "384d29f7-86f4-46f9-9712-0305764ade43",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "502b345c-c290-4e17-96ea-0d08e6e9dbcb",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "582ac48d-494a-47a0-ae4a-dfa982d1f6dd",
-      "Flags": 0,
-      "Name": "Point Light (8)",
-      "Position": "522.2737,775.612,197.2149",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "51674d23-b556-4303-95d8-b3ca1d1f1cc2",
+          "Flags": 0,
+          "Name": "Point Light (10)",
+          "Position": "3014.364,-23.53552,-42.90321",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "1858bfe2-6312-4921-b008-a6396c270772",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "671eee68-e564-4acb-8224-40e52e09e92c",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "025d82ed-7038-46b3-a31e-ee393f0b364a",
-      "Flags": 0,
-      "Name": "Point Light (9)",
-      "Position": "1358.962,775.612,197.2149",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "025d82ed-7038-46b3-a31e-ee393f0b364a",
+          "Flags": 0,
+          "Name": "Point Light (9)",
+          "Position": "2195.419,-23.53552,-42.90321",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "c7415ef2-96ed-4147-a237-2443726ea099",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "c7415ef2-96ed-4147-a237-2443726ea099",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "51674d23-b556-4303-95d8-b3ca1d1f1cc2",
-      "Flags": 0,
-      "Name": "Point Light (10)",
-      "Position": "2177.907,775.612,197.2149",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "582ac48d-494a-47a0-ae4a-dfa982d1f6dd",
+          "Flags": 0,
+          "Name": "Point Light (8)",
+          "Position": "1358.73,-23.53552,-42.90321",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "671eee68-e564-4acb-8224-40e52e09e92c",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "1858bfe2-6312-4921-b008-a6396c270772",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "ef01779e-f0a9-4b1b-8322-650b09a37597",
-      "Flags": 0,
-      "Name": "Point Light (11)",
-      "Position": "2573.878,775.612,197.2149",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "4b8f20e6-2602-46b2-8f30-2cbaab08264e",
+          "Flags": 0,
+          "Name": "Point Light (7)",
+          "Position": "452.5006,-23.53552,-42.90321",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "502b345c-c290-4e17-96ea-0d08e6e9dbcb",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "384d29f7-86f4-46f9-9712-0305764ade43",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "4019f860-3887-433c-a1b8-3802680472cc",
-      "Flags": 0,
-      "Name": "Point Light (1)",
-      "Position": "-1081.661,1050.879,329.769",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "5191344d-531e-429c-b4e1-7061aae43890",
+          "Flags": 0,
+          "Name": "Point Light (14)",
+          "Position": "-245.2043,-1787.954,89.65091",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "270a98c9-0f8f-4490-ae3d-bd708eba723e",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "3400fe5d-40f7-4633-a36b-64298ff24731",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "95262295-7c73-4037-8b56-7d654fa01d5f",
-      "Flags": 0,
-      "Name": "Point Light (2)",
-      "Position": "-1042.074,1467.151,329.769",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "08eaa605-b61f-4a32-bc07-1efc5560c4e7",
+          "Flags": 0,
+          "Name": "Point Light (13)",
+          "Position": "-245.2043,-1346.123,89.65091",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "a1938afb-45d6-44a9-96c0-674599b1bbb2",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "d4199e94-8f7f-43a4-96be-27276be79cae",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "ee37d827-bfe4-4d07-a6de-7ccd2c75ca71",
-      "Flags": 0,
-      "Name": "Point Light (3)",
-      "Position": "-1042.074,1988.247,329.769",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
+          "__guid": "d78d4ee5-ee0d-4050-b7ae-dae29c469553",
+          "Flags": 0,
+          "Name": "Point Light (12)",
+          "Position": "-245.2043,-569.8667,89.65091",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "3a2d53b7-8af4-4fa7-8a0e-e49744ea894c",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
+        },
         {
-          "__type": "Sandbox.PointLight",
-          "__guid": "9c1e8f3c-8c25-4bf8-8b53-50d3d4640873",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "477cdf85-7813-4cd3-829d-f2b24de8659c",
-      "Flags": 0,
-      "Name": "Point Light (4)",
-      "Position": "-1042.074,2390.19,329.769",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.PointLight",
-          "__guid": "75ced2ba-01d7-4a11-b910-a778644503ef",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "a655ae18-afff-4aa9-845d-023c208d634d",
-      "Flags": 0,
-      "Name": "Point Light (5)",
-      "Position": "-1042.074,3032.142,329.769",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.PointLight",
-          "__guid": "34ec1d4f-1fb5-4884-be49-e094980ddba4",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "bed6c1af-4023-4076-bc43-aba0cc3c91cb",
-      "Flags": 0,
-      "Name": "Point Light (6)",
-      "Position": "-1042.074,3554.657,329.769",
-      "Tags": "light_point,light",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.PointLight",
-          "__guid": "89b137ce-604a-40d3-8806-e03cbab335b3",
-          "Attenuation": 0.03,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 609.9001,
-          "Shadows": false
+          "__guid": "67ad44a8-612d-4b7a-ab1a-870e580f4d0c",
+          "Flags": 0,
+          "Name": "Point Light",
+          "Position": "-245.2043,-23.53552,89.65091",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "774ee81e-9183-4358-b155-30ae3138c5fe",
+              "Attenuation": 0.14,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.58085,0.61022,0.83256,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 609.9001,
+              "Shadows": false
+            }
+          ]
         }
       ]
     },
@@ -689,25 +535,43 @@
       "__guid": "88cf8f1f-7a19-4179-af21-8a355bb5727e",
       "Flags": 0,
       "Name": "CheckpointMaster",
-      "Position": "-964.8662,751.8958,163.4959",
+      "Position": "-966.0618,751.8958,563.316",
       "Enabled": true,
       "NetworkMode": 1,
       "Components": [
         {
           "__type": "GeneralGame.CheckPointMaster",
-          "__guid": "39ed651f-0639-4bbe-a7e4-c428f5c2ade3",
+          "__guid": "4d47b8b7-fcda-4983-bb43-a024deecf4d1",
           "checkpointActivationStatus": {},
           "checkpoints": [
             {
               "_type": "component",
-              "component_id": "208c4ca0-d2b4-47c9-9aa5-f668151ddab9",
+              "component_id": "9d5f54f7-1129-45e8-a912-47c23a7c68e1",
               "go": "b67227f8-7a84-4c4e-aef4-11a89df0e972",
               "component_type": "Checkpoint"
             },
             {
               "_type": "component",
-              "component_id": "caad41a5-4181-404f-a9a3-afbf4a200d38",
-              "go": "f74242c1-c05d-4f69-8cac-1935756633bd",
+              "component_id": "72d538ad-c918-4cf7-a81c-9d539168c087",
+              "go": "95ab5005-fd71-4e7f-beef-65c5b801c1ee",
+              "component_type": "Checkpoint"
+            },
+            {
+              "_type": "component",
+              "component_id": "0d0624b0-2890-4d1b-821e-41ecad81a788",
+              "go": "c6bf8562-13d5-45fc-ada6-7ac24b9df099",
+              "component_type": "Checkpoint"
+            },
+            {
+              "_type": "component",
+              "component_id": "0713d8f5-9e50-43cf-9a17-43418df1ff85",
+              "go": "a292f5b8-3d25-48dc-9da1-3fb87e17170b",
+              "component_type": "Checkpoint"
+            },
+            {
+              "_type": "component",
+              "component_id": "0506a83b-72b1-4629-90a4-5660049134c4",
+              "go": "df0349e5-7528-481d-9c9c-92bc21a5687c",
               "component_type": "Checkpoint"
             }
           ],
@@ -726,36 +590,121 @@
       "__guid": "b67227f8-7a84-4c4e-aef4-11a89df0e972",
       "Flags": 0,
       "Name": "Checkpoint",
-      "Position": "-1272.983,756.0344,49.65093",
+      "Position": "-906.4426,765.1616,49.65093",
       "Enabled": true,
       "Components": [
         {
           "__type": "GeneralGame.Checkpoint",
-          "__guid": "208c4ca0-d2b4-47c9-9aa5-f668151ddab9",
+          "__guid": "9d5f54f7-1129-45e8-a912-47c23a7c68e1",
+          "action": {
+            "__version": 9,
+            "__guid": "5aee43e2-fc7e-4e9b-852d-3a78a9f36225",
+            "__changeId": 70,
+            "UserData": {
+              "Title": "Action",
+              "ReferencedComponentTypes": []
+            },
+            "Variables": [],
+            "Nodes": [
+              {
+                "Id": 0,
+                "Type": "input",
+                "UserData": {
+                  "Position": "84,48"
+                }
+              },
+              {
+                "Id": 4,
+                "Type": "log.info",
+                "UserData": {
+                  "Position": "732,84"
+                }
+              },
+              {
+                "Id": 16,
+                "Type": "player.getself",
+                "UserData": {
+                  "Position": "348,60"
+                }
+              },
+              {
+                "Id": 28,
+                "Type": "input.down",
+                "UserData": {
+                  "Position": "312,252"
+                }
+              }
+            ],
+            "Links": [
+              {
+                "SrcId": 16,
+                "SrcName": "_signal",
+                "DstId": 4,
+                "DstName": "_signal"
+              },
+              {
+                "Id": 29,
+                "Value": "",
+                "DstId": 4,
+                "DstName": "args",
+                "DstIndex": 0
+              },
+              {
+                "Id": 30,
+                "Value": "helllo",
+                "DstId": 4,
+                "DstName": "format"
+              },
+              {
+                "SrcId": 0,
+                "SrcName": "_signal",
+                "DstId": 16,
+                "DstName": "_signal"
+              },
+              {
+                "Id": 31,
+                "Value": "Jump",
+                "DstId": 28,
+                "DstName": "action"
+              }
+            ]
+          },
           "CanBeReactivated": false,
-          "CheckPointId": "968b8610-552b-44f6-a2f3-41b45781303a",
-          "DetectionRadius": 150.79973,
+          "CheckPointId": "00000000-0000-0000-0000-000000000000",
+          "DetectionRadius": 125.500725,
           "DrawProximityRangeGizmo": true,
           "GameObjectToUnlock": {
             "_type": "gameobject",
             "go": "4fc73595-a717-41dc-8a61-3d1c62ca1d2e"
           },
           "IsPermanentlyDisabled": false,
+          "LineRenderer": {
+            "_type": "component",
+            "component_id": "4c403020-09ad-4685-88e3-2d2742802ed9",
+            "go": "7194591c-de8e-42bb-8be0-6367730db10a",
+            "component_type": "LineRenderer"
+          },
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Position": "0,0,0"
+          "Position": "-73.2997,100.2009,77.29967",
+          "SpriteRenderer": {
+            "_type": "component",
+            "component_id": "f4268d84-9ef7-4c79-88a6-55e8de0e4794",
+            "go": "76b63b48-1783-4492-af4b-ea900fff8b47",
+            "component_type": "SpriteRenderer"
+          }
         }
       ],
       "Children": [
         {
           "__guid": "76b63b48-1783-4492-af4b-ea900fff8b47",
           "Flags": 0,
-          "Name": "Sprite",
-          "Position": "4.037109,0,73.46965",
+          "Name": "Sprite1",
+          "Position": "19.17352,147.3955,43.79551",
           "Enabled": true,
           "Components": [
             {
@@ -787,48 +736,262 @@
               "Texture": "sprites/vidya/shapes/exclamation.vtex"
             }
           ]
+        },
+        {
+          "__guid": "4fc73595-a717-41dc-8a61-3d1c62ca1d2e",
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "14.46454,156.5271,5.532619",
+          "Rotation": "0,0,-0.9999999,0.0000001490116",
+          "Scale": "2.585534,0.3617045,5.704382",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "bb10dc7b-b7c3-4bea-8256-530d79498820",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/glass/wired_glass_b.vmat",
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,0,0,1"
+            },
+            {
+              "__type": "Sandbox.ModelCollider",
+              "__guid": "69b335bf-3605-4a0e-bc7e-53a3e1932525",
+              "Friction": null,
+              "IsTrigger": false,
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
+              "Static": false,
+              "Surface": null,
+              "SurfaceVelocity": "0,0,0"
+            }
+          ]
+        },
+        {
+          "__guid": "7194591c-de8e-42bb-8be0-6367730db10a",
+          "Flags": 0,
+          "Name": "Line",
+          "Position": "-194.2854,-20.24475,-31.63608",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.LineRenderer",
+              "__guid": "4c403020-09ad-4685-88e3-2d2742802ed9",
+              "Additive": false,
+              "CastShadows": true,
+              "Color": {
+                "blend": "Linear",
+                "color": [
+                  {
+                    "t": 0,
+                    "c": "0.51628,0.51628,0.51628,1"
+                  },
+                  {
+                    "t": 0,
+                    "c": "0.21667,1,0,1"
+                  },
+                  {
+                    "t": 1,
+                    "c": "0.13643,0.8186,0,1"
+                  }
+                ],
+                "alpha": [
+                  {
+                    "t": 0,
+                    "a": 1
+                  },
+                  {
+                    "t": 1,
+                    "a": 1
+                  }
+                ]
+              },
+              "DepthFeather": 0,
+              "EndCap": "Triangle",
+              "Face": "Camera",
+              "FogStrength": 1,
+              "Lighting": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": false,
+              "Points": [
+                {
+                  "_type": "gameobject",
+                  "go": "106b3ea4-68d3-4a10-9b45-9252bb5c3726"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "29a7c1fa-e302-4948-91b9-8677bdd4d01a"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "dac92aec-f7c3-4fb6-915a-55da10442b6e"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "b6c6e9c1-bb49-4b02-abd8-5ef0a69b784d"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "1c623d66-8794-46de-bbd1-8742b05f608f"
+                }
+              ],
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "SplineBias": -0.28,
+              "SplineContinuity": 1,
+              "SplineInterpolation": 2,
+              "SplineTension": 1,
+              "StartCap": "Triangle",
+              "Texturing": {
+                "Texture": "sprites/vidya/shapes/rhombus.vtex",
+                "WorldSpace": true,
+                "UnitsPerTexture": 6.899996,
+                "Scale": 1,
+                "Offset": 0,
+                "Scroll": 5.599973
+              },
+              "UseVectorPoints": false,
+              "VectorPoints": [],
+              "Width": {
+                "rangey": "0,2",
+                "frames": [
+                  {
+                    "x": 0,
+                    "y": 1,
+                    "in": 0,
+                    "out": 0,
+                    "mode": "Mirrored"
+                  }
+                ]
+              },
+              "Wireframe": false
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "106b3ea4-68d3-4a10-9b45-9252bb5c3726",
+              "Flags": 0,
+              "Name": "Point 1",
+              "Position": "0,145.2906,-16.25565",
+              "Enabled": true
+            },
+            {
+              "__guid": "29a7c1fa-e302-4948-91b9-8677bdd4d01a",
+              "Flags": 0,
+              "Name": "Point 2",
+              "Position": "-1.096069,0.7823486,-17.14086",
+              "Enabled": true
+            },
+            {
+              "__guid": "dac92aec-f7c3-4fb6-915a-55da10442b6e",
+              "Flags": 0,
+              "Name": "Point 3",
+              "Position": "330.1914,3.474487,-14.08414",
+              "Enabled": true
+            },
+            {
+              "__guid": "b6c6e9c1-bb49-4b02-abd8-5ef0a69b784d",
+              "Flags": 0,
+              "Name": "Point 4",
+              "Position": "331.1709,150.2873,-15.418",
+              "Enabled": true
+            },
+            {
+              "__guid": "1c623d66-8794-46de-bbd1-8742b05f608f",
+              "Flags": 0,
+              "Name": "Point 4",
+              "Position": "-0.06750488,147.9728,-17.2882",
+              "Enabled": true
+            }
+          ]
         }
       ]
     },
     {
-      "__guid": "f74242c1-c05d-4f69-8cac-1935756633bd",
+      "__guid": "95ab5005-fd71-4e7f-beef-65c5b801c1ee",
       "Flags": 0,
       "Name": "Checkpoint (1)",
-      "Position": "-968.2488,750.8708,72.77835",
+      "Position": "-912.3352,1141.956,49.65093",
       "Enabled": true,
       "Components": [
         {
           "__type": "GeneralGame.Checkpoint",
-          "__guid": "caad41a5-4181-404f-a9a3-afbf4a200d38",
+          "__guid": "72d538ad-c918-4cf7-a81c-9d539168c087",
+          "action": null,
           "CanBeReactivated": false,
-          "CheckPointId": "968b8610-552b-44f6-a2f3-41b45781303a",
-          "DetectionRadius": 150.79973,
+          "CheckPointId": "00000000-0000-0000-0000-000000000000",
+          "DetectionRadius": 136.0999,
           "DrawProximityRangeGizmo": true,
           "GameObjectToUnlock": {
             "_type": "gameobject",
-            "go": "4e8f29ef-75e1-474b-9548-af4e80f554d0"
+            "go": "1bf2179d-a658-4206-a9d7-0e272cbbbeae"
           },
           "IsPermanentlyDisabled": false,
+          "LineRenderer": {
+            "_type": "component",
+            "component_id": "f943859a-bcd6-4712-95d6-cbd5ea7fa76e",
+            "go": "02b78406-f410-4be1-87a3-3ac4e8572078",
+            "component_type": "LineRenderer"
+          },
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Position": "0,0,0"
+          "Position": "-41.20004,143.9998,0",
+          "SpriteRenderer": {
+            "_type": "component",
+            "component_id": "cb03f711-33f9-41cc-ad1e-7fba66e3e5f7",
+            "go": "a61bef55-3aec-43be-b0f4-708a9bec5074",
+            "component_type": "SpriteRenderer"
+          }
         }
       ],
       "Children": [
         {
-          "__guid": "a6a34c49-2e67-48c5-ac37-0718b43a9bb8",
+          "__guid": "a61bef55-3aec-43be-b0f4-708a9bec5074",
           "Flags": 0,
-          "Name": "Sprite",
-          "Position": "4.037109,0,73.46965",
+          "Name": "Sprite1",
+          "Position": "19.17352,147.3955,43.79551",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.SpriteRenderer",
-              "__guid": "99327b73-e3d5-4f58-9a46-aec071c8515c",
+              "__guid": "cb03f711-33f9-41cc-ad1e-7fba66e3e5f7",
               "Additive": false,
               "CastShadows": true,
               "Color": "0.06667,1,0,1",
@@ -855,26 +1018,1249 @@
               "Texture": "sprites/vidya/shapes/exclamation.vtex"
             }
           ]
+        },
+        {
+          "__guid": "1bf2179d-a658-4206-a9d7-0e272cbbbeae",
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "14.46454,156.5271,5.532619",
+          "Rotation": "0,0,-0.9999999,0.0000001490116",
+          "Scale": "2.585534,0.3617045,5.704382",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "c0a0121a-b921-4312-9e3b-9290e4a6a935",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/glass/wired_glass_b.vmat",
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,0,0,1"
+            },
+            {
+              "__type": "Sandbox.ModelCollider",
+              "__guid": "736d312f-16ed-4cbc-b30e-d0ca42afbd74",
+              "Friction": null,
+              "IsTrigger": false,
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
+              "Static": false,
+              "Surface": null,
+              "SurfaceVelocity": "0,0,0"
+            }
+          ]
+        },
+        {
+          "__guid": "02b78406-f410-4be1-87a3-3ac4e8572078",
+          "Flags": 0,
+          "Name": "Line (1)",
+          "Position": "-182.6643,945.9124,-31.63585",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.LineRenderer",
+              "__guid": "f943859a-bcd6-4712-95d6-cbd5ea7fa76e",
+              "Additive": false,
+              "CastShadows": true,
+              "Color": {
+                "blend": "Linear",
+                "color": [
+                  {
+                    "t": 0,
+                    "c": "0.51628,0.51628,0.51628,1"
+                  },
+                  {
+                    "t": 0,
+                    "c": "0.21667,1,0,1"
+                  },
+                  {
+                    "t": 1,
+                    "c": "0.13643,0.8186,0,1"
+                  }
+                ],
+                "alpha": [
+                  {
+                    "t": 0,
+                    "a": 1
+                  },
+                  {
+                    "t": 1,
+                    "a": 1
+                  }
+                ]
+              },
+              "DepthFeather": 0,
+              "EndCap": "Triangle",
+              "Face": "Camera",
+              "FogStrength": 1,
+              "Lighting": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": false,
+              "Points": [
+                {
+                  "_type": "gameobject",
+                  "go": "6c49cf81-3ce2-482c-91be-e280ab99351f"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "a1cc2977-1d06-43b5-b6f6-9174be0573d7"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "dc051196-78f6-4b14-9489-6c454a3e4116"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "40bc5a99-5e68-4acc-ab36-84915a6d10b9"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "ac023ae6-3835-4316-982f-d3fc24f846b8"
+                }
+              ],
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "SplineBias": -0.28,
+              "SplineContinuity": 1,
+              "SplineInterpolation": 2,
+              "SplineTension": 1,
+              "StartCap": "Triangle",
+              "Texturing": {
+                "Texture": "sprites/vidya/shapes/rhombus.vtex",
+                "WorldSpace": true,
+                "UnitsPerTexture": 6.899996,
+                "Scale": 1,
+                "Offset": 0,
+                "Scroll": 5.599973
+              },
+              "UseVectorPoints": false,
+              "VectorPoints": [],
+              "Width": {
+                "rangey": "0,2",
+                "frames": [
+                  {
+                    "x": 0,
+                    "y": 1,
+                    "in": 0,
+                    "out": 0,
+                    "mode": "Mirrored"
+                  }
+                ]
+              },
+              "Wireframe": false
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "6c49cf81-3ce2-482c-91be-e280ab99351f",
+              "Flags": 0,
+              "Name": "Point 1",
+              "Position": "0,145.2906,-16.25565",
+              "Enabled": true
+            },
+            {
+              "__guid": "a1cc2977-1d06-43b5-b6f6-9174be0573d7",
+              "Flags": 0,
+              "Name": "Point 2",
+              "Position": "-1.096069,0.7823486,-17.14086",
+              "Enabled": true
+            },
+            {
+              "__guid": "dc051196-78f6-4b14-9489-6c454a3e4116",
+              "Flags": 0,
+              "Name": "Point 3",
+              "Position": "330.1914,3.474487,-14.08414",
+              "Enabled": true
+            },
+            {
+              "__guid": "40bc5a99-5e68-4acc-ab36-84915a6d10b9",
+              "Flags": 0,
+              "Name": "Point 4",
+              "Position": "331.1709,150.2873,-15.418",
+              "Enabled": true
+            },
+            {
+              "__guid": "ac023ae6-3835-4316-982f-d3fc24f846b8",
+              "Flags": 0,
+              "Name": "Point 4",
+              "Position": "-0.06750488,147.9728,-17.2882",
+              "Enabled": true
+            }
+          ]
         }
       ]
     },
     {
-      "__guid": "4fc73595-a717-41dc-8a61-3d1c62ca1d2e",
+      "__guid": "c6bf8562-13d5-45fc-ada6-7ac24b9df099",
       "Flags": 0,
-      "Name": "Cube",
-      "Position": "-1201.069,765.4376,63.52092",
-      "Rotation": "0,0,-0.7071067,0.7071068",
-      "Scale": "2.495659,0.3617045,2.327316",
+      "Name": "Checkpoint (2)",
+      "Position": "-940.9911,2045.372,52.2758",
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "bb10dc7b-b7c3-4bea-8256-530d79498820",
-          "BodyGroups": 18446744073709551615,
-          "CreateAttachments": false,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Model": "models/dev/box.vmdl",
+          "__type": "GeneralGame.Checkpoint",
+          "__guid": "0d0624b0-2890-4d1b-821e-41ecad81a788",
+          "action": null,
+          "CanBeReactivated": false,
+          "CheckPointId": "00000000-0000-0000-0000-000000000000",
+          "DetectionRadius": 136.30032,
+          "DrawProximityRangeGizmo": true,
+          "GameObjectToUnlock": {
+            "_type": "gameobject",
+            "go": "686138a7-e657-4e80-b520-fbf2d858dafb"
+          },
+          "IsPermanentlyDisabled": false,
+          "LineRenderer": {
+            "_type": "component",
+            "component_id": "ebbe2c0f-4665-4da6-bbe4-207b8b90ace8",
+            "go": "942d8bbd-c23f-4db7-a2a7-1a93b31a1734",
+            "component_type": "LineRenderer"
+          },
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Position": "-11.2,179,0",
+          "SpriteRenderer": {
+            "_type": "component",
+            "component_id": "1b6d395c-20c7-48d9-981b-74d8ece4d130",
+            "go": "550f28e4-cf90-40ba-aaaf-1ac2b0cd34cb",
+            "component_type": "SpriteRenderer"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "550f28e4-cf90-40ba-aaaf-1ac2b0cd34cb",
+          "Flags": 0,
+          "Name": "Sprite1",
+          "Position": "19.17352,147.3955,43.79551",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpriteRenderer",
+              "__guid": "1b6d395c-20c7-48d9-981b-74d8ece4d130",
+              "Additive": false,
+              "CastShadows": true,
+              "Color": "0.06667,1,0,1",
+              "DepthFeather": 0,
+              "FlipHorizontal": false,
+              "FlipVertical": false,
+              "FogStrength": 1,
+              "Lighting": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": true,
+              "Pivot": "0.5,0.5",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": true
+              },
+              "Size": "72.80042,70.69988",
+              "Texture": "sprites/vidya/shapes/exclamation.vtex"
+            }
+          ]
+        },
+        {
+          "__guid": "686138a7-e657-4e80-b520-fbf2d858dafb",
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "14.46454,156.5272,5.532619",
+          "Rotation": "0,0,-0.9999999,0.0000001490116",
+          "Scale": "2.585534,0.3617045,5.704382",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "df244b35-cc67-4b7e-a72e-8fe4cce0c88c",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/glass/wired_glass_b.vmat",
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,0,0,1"
+            },
+            {
+              "__type": "Sandbox.ModelCollider",
+              "__guid": "8e1b753a-95f3-4ea7-ac29-9e6a179a0791",
+              "Friction": null,
+              "IsTrigger": false,
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
+              "Static": false,
+              "Surface": null,
+              "SurfaceVelocity": "0,0,0"
+            }
+          ]
+        },
+        {
+          "__guid": "942d8bbd-c23f-4db7-a2a7-1a93b31a1734",
+          "Flags": 0,
+          "Name": "Line (1)",
+          "Position": "-154.0084,-885.4351,-34.26072",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.LineRenderer",
+              "__guid": "ebbe2c0f-4665-4da6-bbe4-207b8b90ace8",
+              "Additive": false,
+              "CastShadows": true,
+              "Color": {
+                "blend": "Linear",
+                "color": [
+                  {
+                    "t": 0,
+                    "c": "0.51628,0.51628,0.51628,1"
+                  },
+                  {
+                    "t": 0,
+                    "c": "0.21667,1,0,1"
+                  },
+                  {
+                    "t": 1,
+                    "c": "0.13643,0.8186,0,1"
+                  }
+                ],
+                "alpha": [
+                  {
+                    "t": 0,
+                    "a": 1
+                  },
+                  {
+                    "t": 1,
+                    "a": 1
+                  }
+                ]
+              },
+              "DepthFeather": 0,
+              "EndCap": "Triangle",
+              "Face": "Camera",
+              "FogStrength": 1,
+              "Lighting": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": false,
+              "Points": [
+                {
+                  "_type": "gameobject",
+                  "go": "6d8381e7-df48-4052-8b69-6f7739e6c70b"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "fe41905d-5605-4e37-9ab2-d1ab4fd82f9e"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "476fa367-a2b8-4423-85ad-782498739a72"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "4813aa83-7dd3-4b00-a1f8-925fc4794d9e"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "9faa2bda-0a7f-4837-b944-e3ebdfb3e936"
+                }
+              ],
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "SplineBias": -0.28,
+              "SplineContinuity": 1,
+              "SplineInterpolation": 2,
+              "SplineTension": 1,
+              "StartCap": "Triangle",
+              "Texturing": {
+                "Texture": "sprites/vidya/shapes/rhombus.vtex",
+                "WorldSpace": true,
+                "UnitsPerTexture": 6.899996,
+                "Scale": 1,
+                "Offset": 0,
+                "Scroll": 5.599973
+              },
+              "UseVectorPoints": false,
+              "VectorPoints": [],
+              "Width": {
+                "rangey": "0,2",
+                "frames": [
+                  {
+                    "x": 0,
+                    "y": 1,
+                    "in": 0,
+                    "out": 0,
+                    "mode": "Mirrored"
+                  }
+                ]
+              },
+              "Wireframe": false
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "6d8381e7-df48-4052-8b69-6f7739e6c70b",
+              "Flags": 0,
+              "Name": "Point 1",
+              "Position": "0,145.2906,-16.25565",
+              "Enabled": true
+            },
+            {
+              "__guid": "fe41905d-5605-4e37-9ab2-d1ab4fd82f9e",
+              "Flags": 0,
+              "Name": "Point 2",
+              "Position": "-1.096069,0.7823486,-17.14086",
+              "Enabled": true
+            },
+            {
+              "__guid": "476fa367-a2b8-4423-85ad-782498739a72",
+              "Flags": 0,
+              "Name": "Point 3",
+              "Position": "330.1914,3.474487,-14.08414",
+              "Enabled": true
+            },
+            {
+              "__guid": "4813aa83-7dd3-4b00-a1f8-925fc4794d9e",
+              "Flags": 0,
+              "Name": "Point 4",
+              "Position": "331.1709,150.2873,-15.418",
+              "Enabled": true
+            },
+            {
+              "__guid": "9faa2bda-0a7f-4837-b944-e3ebdfb3e936",
+              "Flags": 0,
+              "Name": "Point 4",
+              "Position": "-0.06750488,147.9728,-17.2882",
+              "Enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "a292f5b8-3d25-48dc-9da1-3fb87e17170b",
+      "Flags": 0,
+      "Name": "Checkpoint (3)",
+      "Position": "-983.1249,3232.106,66.08966",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.Checkpoint",
+          "__guid": "0713d8f5-9e50-43cf-9a17-43418df1ff85",
+          "action": null,
+          "CanBeReactivated": false,
+          "CheckPointId": "00000000-0000-0000-0000-000000000000",
+          "DetectionRadius": 200,
+          "DrawProximityRangeGizmo": true,
+          "GameObjectToUnlock": {
+            "_type": "gameobject",
+            "go": "27bbeb3b-b5f9-4f86-97d1-a3d8157dbf36"
+          },
+          "IsPermanentlyDisabled": false,
+          "LineRenderer": {
+            "_type": "component",
+            "component_id": "552dbf56-a721-4583-af02-f16a4a0ea538",
+            "go": "dc3ab7c0-77fe-4ab2-9713-e3565bf35838",
+            "component_type": "LineRenderer"
+          },
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Position": "-20.20002,108.1998,0",
+          "SpriteRenderer": {
+            "_type": "component",
+            "component_id": "a9cf1e1a-0d7b-4a9c-bf79-f2aad1cfad21",
+            "go": "3a5d921f-7b29-47ac-891c-dec2b111ee97",
+            "component_type": "SpriteRenderer"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "3a5d921f-7b29-47ac-891c-dec2b111ee97",
+          "Flags": 0,
+          "Name": "Sprite1",
+          "Position": "19.17352,147.3955,43.79551",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpriteRenderer",
+              "__guid": "a9cf1e1a-0d7b-4a9c-bf79-f2aad1cfad21",
+              "Additive": false,
+              "CastShadows": true,
+              "Color": "0.06667,1,0,1",
+              "DepthFeather": 0,
+              "FlipHorizontal": false,
+              "FlipVertical": false,
+              "FogStrength": 1,
+              "Lighting": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": true,
+              "Pivot": "0.5,0.5",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": true
+              },
+              "Size": "72.80042,70.69988",
+              "Texture": "sprites/vidya/shapes/exclamation.vtex"
+            },
+            {
+              "__type": "Sandbox.Circle",
+              "__guid": "87ad7fea-f440-4035-8f3e-317eda62b25f",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ]
+        },
+        {
+          "__guid": "27bbeb3b-b5f9-4f86-97d1-a3d8157dbf36",
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "14.46454,153.6021,5.532616",
+          "Rotation": "0,0,-0.9999999,0.0000001490116",
+          "Scale": "2.585534,0.3617045,5.704382",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "243424e3-ea5d-43eb-941d-d3a84ce5b3e4",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/glass/wired_glass_b.vmat",
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,0,0,1"
+            },
+            {
+              "__type": "Sandbox.ModelCollider",
+              "__guid": "d5b9f0a7-5230-4cfa-b027-4508304fb507",
+              "Friction": null,
+              "IsTrigger": false,
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
+              "Static": false,
+              "Surface": null,
+              "SurfaceVelocity": "0,0,0"
+            }
+          ]
+        },
+        {
+          "__guid": "dc3ab7c0-77fe-4ab2-9713-e3565bf35838",
+          "Flags": 0,
+          "Name": "Line (1)",
+          "Position": "-230.9657,-140.1389,-48.07458",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.LineRenderer",
+              "__guid": "552dbf56-a721-4583-af02-f16a4a0ea538",
+              "Additive": false,
+              "CastShadows": true,
+              "Color": {
+                "blend": "Linear",
+                "color": [
+                  {
+                    "t": 0,
+                    "c": "0.51628,0.51628,0.51628,1"
+                  },
+                  {
+                    "t": 0,
+                    "c": "0.21667,1,0,1"
+                  },
+                  {
+                    "t": 1,
+                    "c": "0.13643,0.8186,0,1"
+                  }
+                ],
+                "alpha": [
+                  {
+                    "t": 0,
+                    "a": 1
+                  },
+                  {
+                    "t": 1,
+                    "a": 1
+                  }
+                ]
+              },
+              "DepthFeather": 0,
+              "EndCap": "Triangle",
+              "Face": "Camera",
+              "FogStrength": 1,
+              "Lighting": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": false,
+              "Points": [
+                {
+                  "_type": "gameobject",
+                  "go": "1f84c9bf-c50e-48eb-9e83-a65ac23d016b"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "ad25ec21-07e9-4d7e-92d8-13a50d091f2f"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "597c503a-b5d9-4b8a-b194-cd6b148bef1e"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "76ca636e-61c9-477a-ae9d-1bcc34a76958"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "df855790-4c39-4c64-a856-fae1f884bb58"
+                }
+              ],
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "SplineBias": -0.28,
+              "SplineContinuity": 1,
+              "SplineInterpolation": 2,
+              "SplineTension": 1,
+              "StartCap": "Triangle",
+              "Texturing": {
+                "Texture": "sprites/vidya/shapes/rhombus.vtex",
+                "WorldSpace": true,
+                "UnitsPerTexture": 6.899996,
+                "Scale": 1,
+                "Offset": 0,
+                "Scroll": 5.599973
+              },
+              "UseVectorPoints": false,
+              "VectorPoints": [],
+              "Width": {
+                "rangey": "0,2",
+                "frames": [
+                  {
+                    "x": 0,
+                    "y": 1,
+                    "in": 0,
+                    "out": 0,
+                    "mode": "Mirrored"
+                  }
+                ]
+              },
+              "Wireframe": false
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "1f84c9bf-c50e-48eb-9e83-a65ac23d016b",
+              "Flags": 0,
+              "Name": "Point 1",
+              "Position": "0,145.2906,-16.25565",
+              "Enabled": true
+            },
+            {
+              "__guid": "ad25ec21-07e9-4d7e-92d8-13a50d091f2f",
+              "Flags": 0,
+              "Name": "Point 2",
+              "Position": "-1.096069,0.7823486,-17.14086",
+              "Enabled": true
+            },
+            {
+              "__guid": "597c503a-b5d9-4b8a-b194-cd6b148bef1e",
+              "Flags": 0,
+              "Name": "Point 3",
+              "Position": "378.8766,3.474365,-14.08414",
+              "Enabled": true
+            },
+            {
+              "__guid": "76ca636e-61c9-477a-ae9d-1bcc34a76958",
+              "Flags": 0,
+              "Name": "Point 4",
+              "Position": "379.5098,150.2874,-15.418",
+              "Enabled": true
+            },
+            {
+              "__guid": "df855790-4c39-4c64-a856-fae1f884bb58",
+              "Flags": 0,
+              "Name": "Point 4",
+              "Position": "-0.06750488,147.9728,-17.2882",
+              "Enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "df0349e5-7528-481d-9c9c-92bc21a5687c",
+      "Flags": 0,
+      "Name": "Checkpoint (4)",
+      "Position": "-1021.975,3829.15,66.08966",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.Checkpoint",
+          "__guid": "0506a83b-72b1-4629-90a4-5660049134c4",
+          "action": null,
+          "CanBeReactivated": false,
+          "CheckPointId": "00000000-0000-0000-0000-000000000000",
+          "DetectionRadius": 200,
+          "DrawProximityRangeGizmo": true,
+          "GameObjectToUnlock": {
+            "_type": "gameobject",
+            "go": "0a2bf69c-8ddd-4961-a892-a69c51ab8c31"
+          },
+          "IsPermanentlyDisabled": false,
+          "LineRenderer": {
+            "_type": "component",
+            "component_id": "e1e73c34-e259-4231-a1b1-3a8dbbc7c0ef",
+            "go": "9e8d23c0-41ec-4546-b46b-3def6b14c247",
+            "component_type": "LineRenderer"
+          },
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Position": "0,0,0",
+          "SpriteRenderer": {
+            "_type": "component",
+            "component_id": "cdefc57f-a5cc-45db-b4e4-558098029819",
+            "go": "a3a80845-c89b-4039-886b-b65b2d25181e",
+            "component_type": "SpriteRenderer"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "a3a80845-c89b-4039-886b-b65b2d25181e",
+          "Flags": 0,
+          "Name": "Sprite1",
+          "Position": "19.17352,147.3955,43.79551",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpriteRenderer",
+              "__guid": "cdefc57f-a5cc-45db-b4e4-558098029819",
+              "Additive": false,
+              "CastShadows": true,
+              "Color": "0.06667,1,0,1",
+              "DepthFeather": 0,
+              "FlipHorizontal": false,
+              "FlipVertical": false,
+              "FogStrength": 1,
+              "Lighting": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": true,
+              "Pivot": "0.5,0.5",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": true
+              },
+              "Size": "72.80042,70.69988",
+              "Texture": "sprites/vidya/shapes/exclamation.vtex"
+            }
+          ]
+        },
+        {
+          "__guid": "0a2bf69c-8ddd-4961-a892-a69c51ab8c31",
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "273.2465,-3061.091,5.532616",
+          "Rotation": "0,0,-0.7071069,-0.7071065",
+          "Scale": "2.585534,0.3617045,5.704382",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "9cd584ba-2a63-4b57-a80b-faf4770df38b",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/glass/wired_glass_b.vmat",
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,0,0,1"
+            },
+            {
+              "__type": "Sandbox.ModelCollider",
+              "__guid": "be72d2ea-1552-4277-9f46-6ec4ff6bc883",
+              "Friction": null,
+              "IsTrigger": false,
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
+              "Static": false,
+              "Surface": null,
+              "SurfaceVelocity": "0,0,0"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "26009e87-d136-46dd-9f43-011981872c8b",
+              "Center": "0,0,0",
+              "Friction": null,
+              "IsTrigger": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
+              "Scale": "57.29993,43.79995,42.69996",
+              "Static": false,
+              "Surface": null,
+              "SurfaceVelocity": "0,0,0"
+            }
+          ]
+        },
+        {
+          "__guid": "9e8d23c0-41ec-4546-b46b-3def6b14c247",
+          "Flags": 0,
+          "Name": "Line (1)",
+          "Position": "-152.3224,-194.0007,-48.07458",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.LineRenderer",
+              "__guid": "e1e73c34-e259-4231-a1b1-3a8dbbc7c0ef",
+              "Additive": false,
+              "CastShadows": true,
+              "Color": {
+                "blend": "Linear",
+                "color": [
+                  {
+                    "t": 0,
+                    "c": "0.51628,0.51628,0.51628,1"
+                  },
+                  {
+                    "t": 0,
+                    "c": "0.21667,1,0,1"
+                  },
+                  {
+                    "t": 1,
+                    "c": "0.13643,0.8186,0,1"
+                  }
+                ],
+                "alpha": [
+                  {
+                    "t": 0,
+                    "a": 1
+                  },
+                  {
+                    "t": 1,
+                    "a": 1
+                  }
+                ]
+              },
+              "DepthFeather": 0,
+              "EndCap": "Triangle",
+              "Face": "Camera",
+              "FogStrength": 1,
+              "Lighting": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": false,
+              "Points": [
+                {
+                  "_type": "gameobject",
+                  "go": "67857d48-070e-4ac3-9476-0858a2f0d776"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "c79e8d15-07b5-4cc6-8d84-0e02e66a09ee"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "6523345b-7492-4767-98c0-c3efebb69a68"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "02f7f03e-f9ed-4049-9981-5cc27bff91c1"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "6b1ced53-95b3-41b2-a30c-19efeddb865e"
+                }
+              ],
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "SplineBias": -0.28,
+              "SplineContinuity": 1,
+              "SplineInterpolation": 2,
+              "SplineTension": 1,
+              "StartCap": "Triangle",
+              "Texturing": {
+                "Texture": "sprites/vidya/shapes/rhombus.vtex",
+                "WorldSpace": true,
+                "UnitsPerTexture": 6.899996,
+                "Scale": 1,
+                "Offset": 0,
+                "Scroll": 5.599973
+              },
+              "UseVectorPoints": false,
+              "VectorPoints": [],
+              "Width": {
+                "rangey": "0,2",
+                "frames": [
+                  {
+                    "x": 0,
+                    "y": 1,
+                    "in": 0,
+                    "out": 0,
+                    "mode": "Mirrored"
+                  }
+                ]
+              },
+              "Wireframe": false
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "67857d48-070e-4ac3-9476-0858a2f0d776",
+              "Flags": 0,
+              "Name": "Point 1",
+              "Position": "-38.09045,145.2905,-16.25565",
+              "Enabled": true
+            },
+            {
+              "__guid": "c79e8d15-07b5-4cc6-8d84-0e02e66a09ee",
+              "Flags": 0,
+              "Name": "Point 2",
+              "Position": "-40.1366,0.7822266,-17.14086",
+              "Enabled": true
+            },
+            {
+              "__guid": "6523345b-7492-4767-98c0-c3efebb69a68",
+              "Flags": 0,
+              "Name": "Point 3",
+              "Position": "330.1914,3.474487,-14.08414",
+              "Enabled": true
+            },
+            {
+              "__guid": "02f7f03e-f9ed-4049-9981-5cc27bff91c1",
+              "Flags": 0,
+              "Name": "Point 4",
+              "Position": "331.1709,150.2873,-15.418",
+              "Enabled": true
+            },
+            {
+              "__guid": "6b1ced53-95b3-41b2-a30c-19efeddb865e",
+              "Flags": 0,
+              "Name": "Point 4",
+              "Position": "-40.11438,147.9729,-17.2882",
+              "Enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "aed027b9-2113-491c-b57c-49d7d9b1cabd",
+      "Flags": 0,
+      "Name": "Teleport Positon point",
+      "Position": "-1097.449,1585.86,893.1964",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "TeleportPositionPoint",
+          "__guid": "f3563e4f-4b86-426b-a0d3-dda61dae1e27",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Position": "0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "6e642ced-5622-4ddb-9a2d-52d1b115df98",
+      "Flags": 0,
+      "Name": "Teleport Positon point (1)",
+      "Position": "-1097.449,2341.669,893.1964",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "TeleportPositionPoint",
+          "__guid": "c27b0cb6-0b70-40ce-84d3-513304a78218",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Position": "0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "343cdbaa-f0ef-4109-abc9-2a6a0cbca616",
+      "Flags": 0,
+      "Name": "Teleport Positon point (2)",
+      "Position": "-1024.562,727.7262,144.6037",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "TeleportPositionPoint",
+          "__guid": "73ec77fd-624a-4c5d-99a1-6541caad5444",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Position": "0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "4cf89ac7-1fd3-448c-972f-ddee91f9ed04",
+      "Flags": 0,
+      "Name": "Teleport Area",
+      "Position": "-1090.287,1789.644,-841.9663",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.TeleportArea",
+          "__guid": "21e37fc3-fe02-430d-b8f9-90912a617e57",
+          "DetectionRadius": 258.0002,
+          "DrawProximityRangeGizmo": true,
+          "hasTeleported": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "ResetHasTeleported": true,
+          "TeleportPositionPoint": {
+            "_type": "component",
+            "component_id": "f3563e4f-4b86-426b-a0d3-dda61dae1e27",
+            "go": "aed027b9-2113-491c-b57c-49d7d9b1cabd",
+            "component_type": "TeleportPositionPoint"
+          },
+          "TeleportRadius": 251.29973
+        }
+      ]
+    },
+    {
+      "__guid": "3ade855f-0bfe-4043-9fa7-2a5d4b988dfe",
+      "Flags": 0,
+      "Name": "Teleport Area (1)",
+      "Position": "-1013.789,2731.275,-951.4811",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.TeleportArea",
+          "__guid": "b2791077-5754-4bf3-8bf5-1477d0540ec3",
+          "DetectionRadius": 258.0002,
+          "DrawProximityRangeGizmo": true,
+          "hasTeleported": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "ResetHasTeleported": true,
+          "TeleportPositionPoint": {
+            "_type": "component",
+            "component_id": "c27b0cb6-0b70-40ce-84d3-513304a78218",
+            "go": "6e642ced-5622-4ddb-9a2d-52d1b115df98",
+            "component_type": "TeleportPositionPoint"
+          },
+          "TeleportRadius": 251.29973
+        }
+      ]
+    },
+    {
+      "__guid": "d3032c17-3b85-4463-81b6-54b755e6b1ce",
+      "Flags": 0,
+      "Name": "Teleport Area (2)",
+      "Position": "-1009.098,3950.596,-17.14099",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.TeleportArea",
+          "__guid": "c29660ec-cbd0-4706-98eb-58ef54310634",
+          "DetectionRadius": 258.0002,
+          "DrawProximityRangeGizmo": true,
+          "hasTeleported": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "ResetHasTeleported": true,
+          "TeleportPositionPoint": {
+            "_type": "component",
+            "component_id": "73ec77fd-624a-4c5d-99a1-6541caad5444",
+            "go": "343cdbaa-f0ef-4109-abc9-2a6a0cbca616",
+            "component_type": "TeleportPositionPoint"
+          },
+          "TeleportRadius": 251.29973
+        }
+      ]
+    },
+    {
+      "__guid": "c8efd614-0fe0-40a9-b039-c40839af70ac",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-1289.224,751.8925,111.5737",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "00ec3fc6-3ca3-4a06-a4cd-187bb4000bc8",
+          "__version": 1,
+          "BlendMode": "Normal",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -887,28 +2273,77 @@
             "BloomLayer": false,
             "AfterUILayer": false
           },
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
+          "Scale": 0.07,
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "Welcome to Vyndalium",
+            "TextColor": "1,1,1,1",
+            "FontName": "Poppins",
+            "FontSize": 256,
+            "FontWeight": 400,
+            "FontItalic": false,
+            "LineHeight": 5,
+            "LetterSpacing": 0,
+            "WordSpacing": 0,
+            "Outline": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
+        },
+        {
+          "__type": "GeneralGame.TimedEvent",
+          "__guid": "b8036f2c-3aba-43d6-b414-1a6814558711",
+          "DetectionRadius": 279.90073,
+          "DrawProximityRangeGizmo": true,
+          "FadeDuration": 0.9,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SpriteRenderer": null,
+          "TextRenderer": {
+            "_type": "component",
+            "component_id": "00ec3fc6-3ca3-4a06-a4cd-187bb4000bc8",
+            "go": "c8efd614-0fe0-40a9-b039-c40839af70ac",
+            "component_type": "TextRenderer"
+          }
         }
       ]
     },
     {
-      "__guid": "4e8f29ef-75e1-474b-9548-af4e80f554d0",
+      "__guid": "aa82f6fb-e9ca-4456-9200-09e1e0d7a415",
       "Flags": 0,
-      "Name": "Cube (1)",
-      "Position": "-797.4766,764.5319,63.51908",
-      "Rotation": "0,0,-0.7071067,0.7071068",
-      "Scale": "2.495659,0.3617045,2.327316",
+      "Name": "Object (5)",
+      "Position": "-926.5623,838.7554,75.8851",
+      "Rotation": "0,0,0.5,0.8660255",
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "29f191cd-6396-42b1-8e32-e06c4abb1395",
-          "BodyGroups": 18446744073709551615,
-          "CreateAttachments": false,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Model": "models/dev/box.vmdl",
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "b3eabb73-3e03-45a3-b05d-b27e7d2bee70",
+          "__version": 1,
+          "BlendMode": "Normal",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -921,8 +2356,683 @@
             "BloomLayer": false,
             "AfterUILayer": false
           },
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
+          "Scale": 0.07,
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "Movement Course",
+            "TextColor": "1,1,1,1",
+            "FontName": "Poppins",
+            "FontSize": 256,
+            "FontWeight": 400,
+            "FontItalic": false,
+            "LineHeight": 5,
+            "LetterSpacing": 0,
+            "WordSpacing": 0,
+            "Outline": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
+        },
+        {
+          "__type": "GeneralGame.TimedEvent",
+          "__guid": "c600f6be-31b1-4d78-902e-294249155b2c",
+          "DetectionRadius": 279.90073,
+          "DrawProximityRangeGizmo": true,
+          "FadeDuration": 0.9,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SpriteRenderer": null,
+          "TextRenderer": {
+            "_type": "component",
+            "component_id": "b3eabb73-3e03-45a3-b05d-b27e7d2bee70",
+            "go": "aa82f6fb-e9ca-4456-9200-09e1e0d7a415",
+            "component_type": "TextRenderer"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "7d2502ba-2ff0-4e8b-8cf4-1a413a843b27",
+      "Flags": 0,
+      "Name": "Object (4)",
+      "Position": "-1089.819,1577.759,43.69372",
+      "Rotation": "0,0,0.7071068,0.7071069",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "2a50cce5-df11-4713-9cf1-78f942f191b1",
+          "__version": 1,
+          "BlendMode": "Normal",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": true
+          },
+          "Scale": 0.07,
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "Press Space to jump",
+            "TextColor": "1,1,1,1",
+            "FontName": "Poppins",
+            "FontSize": 256,
+            "FontWeight": 400,
+            "FontItalic": false,
+            "LineHeight": 5,
+            "LetterSpacing": 0,
+            "WordSpacing": 0,
+            "Outline": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
+        },
+        {
+          "__type": "GeneralGame.TimedEvent",
+          "__guid": "0d0b2beb-6c53-434b-a3e5-8ec2d6874451",
+          "DetectionRadius": 279.90073,
+          "DrawProximityRangeGizmo": true,
+          "FadeDuration": 0.4,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SpriteRenderer": null,
+          "TextRenderer": {
+            "_type": "component",
+            "component_id": "2a50cce5-df11-4713-9cf1-78f942f191b1",
+            "go": "7d2502ba-2ff0-4e8b-8cf4-1a413a843b27",
+            "component_type": "TextRenderer"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "4052032d-5e97-4146-86bd-5c3cbfc55869",
+      "Flags": 0,
+      "Name": "Object (6)",
+      "Position": "-1082.756,1789.185,137.0671",
+      "Rotation": "0,0,0.7071068,0.7071069",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "a8451ab2-4879-4a5b-93e9-5f7420d47925",
+          "__version": 1,
+          "BlendMode": "Normal",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": true
+          },
+          "Scale": 0.07,
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "Jump over it",
+            "TextColor": "1,1,1,1",
+            "FontName": "Poppins",
+            "FontSize": 256,
+            "FontWeight": 400,
+            "FontItalic": false,
+            "LineHeight": 5,
+            "LetterSpacing": 0,
+            "WordSpacing": 0,
+            "Outline": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
+        },
+        {
+          "__type": "GeneralGame.TimedEvent",
+          "__guid": "84b2d20e-37fb-4a3d-9500-b913ea5ee2ea",
+          "DetectionRadius": 279.90073,
+          "DrawProximityRangeGizmo": true,
+          "FadeDuration": 0.4,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SpriteRenderer": null,
+          "TextRenderer": {
+            "_type": "component",
+            "component_id": "a8451ab2-4879-4a5b-93e9-5f7420d47925",
+            "go": "4052032d-5e97-4146-86bd-5c3cbfc55869",
+            "component_type": "TextRenderer"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "3e2fafe4-b3dc-4a95-beb0-d96e81c36d07",
+      "Flags": 0,
+      "Name": "Object (7)",
+      "Position": "-922.4128,2197.313,76.16299",
+      "Rotation": "0,0,0.7071068,0.7071069",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "851175dd-7076-4801-ba83-a5f09dcd6e0f",
+          "__version": 1,
+          "BlendMode": "Normal",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": true
+          },
+          "Scale": 0.07,
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "Press CTRL to duck",
+            "TextColor": "1,1,1,1",
+            "FontName": "Poppins",
+            "FontSize": 256,
+            "FontWeight": 400,
+            "FontItalic": false,
+            "LineHeight": 5,
+            "LetterSpacing": 0,
+            "WordSpacing": 0,
+            "Outline": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
+        },
+        {
+          "__type": "GeneralGame.TimedEvent",
+          "__guid": "ff21c059-e4a1-4d28-812f-f0ef59355161",
+          "DetectionRadius": 279.90073,
+          "DrawProximityRangeGizmo": true,
+          "FadeDuration": 0.4,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SpriteRenderer": null,
+          "TextRenderer": {
+            "_type": "component",
+            "component_id": "851175dd-7076-4801-ba83-a5f09dcd6e0f",
+            "go": "3e2fafe4-b3dc-4a95-beb0-d96e81c36d07",
+            "component_type": "TextRenderer"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "b6046e1b-d454-4696-ae02-dae49a6ac8cc",
+      "Flags": 0,
+      "Name": "Object (8)",
+      "Position": "-981.3367,2609.391,54.4071",
+      "Rotation": "0,0,0.7071068,0.7071069",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "9dc64cfb-0b2e-4272-bb8a-f433c7047c93",
+          "__version": 1,
+          "BlendMode": "Normal",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": true
+          },
+          "Scale": 0.07,
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "Press Shift to Run",
+            "TextColor": "1,1,1,1",
+            "FontName": "Poppins",
+            "FontSize": 256,
+            "FontWeight": 400,
+            "FontItalic": false,
+            "LineHeight": 5,
+            "LetterSpacing": 0,
+            "WordSpacing": 0,
+            "Outline": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
+        },
+        {
+          "__type": "GeneralGame.TimedEvent",
+          "__guid": "5c51e385-365d-4b5e-a34e-ecd8e284a921",
+          "DetectionRadius": 279.90073,
+          "DrawProximityRangeGizmo": true,
+          "FadeDuration": 0.4,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SpriteRenderer": null,
+          "TextRenderer": {
+            "_type": "component",
+            "component_id": "9dc64cfb-0b2e-4272-bb8a-f433c7047c93",
+            "go": "b6046e1b-d454-4696-ae02-dae49a6ac8cc",
+            "component_type": "TextRenderer"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "b9fed14a-33af-4919-a83c-5585fb2ac909",
+      "Flags": 0,
+      "Name": "Object (3)",
+      "Position": "-660.1549,766.8322,75.8851",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "e1f814e1-aeb2-4caa-a8fe-39f9a561789f",
+          "__version": 1,
+          "BlendMode": "Normal",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": true
+          },
+          "Scale": 0.05,
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "finish Movement course to unlock",
+            "TextColor": "1,1,1,1",
+            "FontName": "Poppins",
+            "FontSize": 214.76,
+            "FontWeight": 368,
+            "FontItalic": false,
+            "LineHeight": 5,
+            "LetterSpacing": 0,
+            "WordSpacing": 0,
+            "Outline": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
+        },
+        {
+          "__type": "GeneralGame.TimedEvent",
+          "__guid": "ef6173a7-2b7f-4429-8335-1cf5df3cbbcd",
+          "DetectionRadius": 279.90073,
+          "DrawProximityRangeGizmo": true,
+          "FadeDuration": 0.3,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SpriteRenderer": null,
+          "TextRenderer": {
+            "_type": "component",
+            "component_id": "e1f814e1-aeb2-4caa-a8fe-39f9a561789f",
+            "go": "b9fed14a-33af-4919-a83c-5585fb2ac909",
+            "component_type": "TextRenderer"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "23175be3-6e91-4569-a247-4626ae727b67",
+      "Flags": 0,
+      "Name": "Object (1)",
+      "Position": "-1287.689,762.5994,95.50426",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "38288d3f-0b7b-43f3-a822-273216858314",
+          "__version": 1,
+          "BlendMode": "Normal",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "Scale": 0.06,
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "Tutorial Map",
+            "TextColor": "1,1,1,1",
+            "FontName": "Poppins",
+            "FontSize": 256,
+            "FontWeight": 400,
+            "FontItalic": false,
+            "LineHeight": 5,
+            "LetterSpacing": 0,
+            "WordSpacing": 0,
+            "Outline": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
+        },
+        {
+          "__type": "GeneralGame.TimedEvent",
+          "__guid": "2cb9f7a3-fa2a-44e6-894d-be26b839a724",
+          "DetectionRadius": 279.90073,
+          "DrawProximityRangeGizmo": true,
+          "FadeDuration": 0.9,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SpriteRenderer": null,
+          "TextRenderer": {
+            "_type": "component",
+            "component_id": "38288d3f-0b7b-43f3-a822-273216858314",
+            "go": "23175be3-6e91-4569-a247-4626ae727b67",
+            "component_type": "TextRenderer"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "f0990a6c-4629-4630-b541-ee147f33e7db",
+      "Flags": 0,
+      "Name": "Object (2)",
+      "Position": "-1275.171,760.8032,44.25407",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "8990df2d-c27d-4771-a0eb-83309bbee88b",
+          "__version": 1,
+          "BlendMode": "Normal",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "Scale": 0.07,
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "WASD to move",
+            "TextColor": "0.08984,1,0.07442,1",
+            "FontName": "Poppins",
+            "FontSize": 256,
+            "FontWeight": 400,
+            "FontItalic": false,
+            "LineHeight": 5,
+            "LetterSpacing": 0,
+            "WordSpacing": 0,
+            "Outline": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Enabled": false,
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
+        },
+        {
+          "__type": "GeneralGame.TimedEvent",
+          "__guid": "a18a9ca4-95e3-4732-9078-3548e1ca1638",
+          "DetectionRadius": 279.90073,
+          "DrawProximityRangeGizmo": true,
+          "FadeDuration": 0.9,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SpriteRenderer": {
+            "_type": "component",
+            "component_id": "22ff16a6-a52e-49ca-85e3-58a346bd8af0",
+            "go": "f1fdbf6d-4677-43a5-8a2c-43a6c96b190e",
+            "component_type": "SpriteRenderer"
+          },
+          "TextRenderer": {
+            "_type": "component",
+            "component_id": "8990df2d-c27d-4771-a0eb-83309bbee88b",
+            "go": "f0990a6c-4629-4630-b541-ee147f33e7db",
+            "component_type": "TextRenderer"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "f1fdbf6d-4677-43a5-8a2c-43a6c96b190e",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "0.0002441406,-0.0001831055,115.9786",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpriteRenderer",
+              "__guid": "22ff16a6-a52e-49ca-85e3-58a346bd8af0",
+              "Additive": false,
+              "CastShadows": false,
+              "Color": "0.22103,0.73488,0.03418,1",
+              "DepthFeather": 0,
+              "FlipHorizontal": false,
+              "FlipVertical": false,
+              "FogStrength": 1,
+              "Lighting": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": false,
+              "Pivot": "0.5,0.5",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": true
+              },
+              "Size": "50,50",
+              "Texture": "sprites/vidya/shapes/exclamation.vtex"
+            }
+          ]
         }
       ]
     }
@@ -954,7 +3064,9 @@
   "Title": null,
   "Description": null,
   "__references": [
-    "vidya.shape-exclamation#45509"
+    "facepunch.wired_glass_b#19957",
+    "vidya.shape-exclamation#45509",
+    "vidya.shape-rhombus#45504"
   ],
   "__version": 2
 }

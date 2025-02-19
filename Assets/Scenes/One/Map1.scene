@@ -901,6 +901,7 @@
             "vectors": {},
             "rotations": {}
           },
+          "PlaybackRate": 1,
           "RenderOptions": {
             "GameLayer": true,
             "OverlayLayer": false,
@@ -1174,6 +1175,71 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "1dd50743-4b5a-4530-be85-5aa846a68e5a",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-3.023953,1.74588,8.371294",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpriteRenderer",
+              "__guid": "e708813a-c9d4-4b2e-91b6-fec5c5059526",
+              "Additive": false,
+              "CastShadows": true,
+              "Color": "1,1,1,1",
+              "DepthFeather": 0,
+              "FlipHorizontal": false,
+              "FlipVertical": false,
+              "FogStrength": 1,
+              "Lighting": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": false,
+              "Pivot": "0.5,0.5",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "Size": "10,10",
+              "Texture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/icons/0ae15781-2541-4bdd-b785-cd31c1d91497.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Padding": {
+                    "Size": "0,0",
+                    "EdgeSize": "0,0"
+                  },
+                  "Sharpen": 0,
+                  "Blur": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "0,1,0,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              }
+            }
+          ]
         }
       ]
     },
@@ -3687,7 +3753,7 @@
       "__guid": "563c9b02-9241-4d2c-be82-6b38a563c131",
       "Flags": 0,
       "Name": "Object",
-      "Position": "-466.1977,113.1525,24.12669",
+      "Position": "-466.1977,113.1525,49.96383",
       "Enabled": true,
       "Components": [
         {
@@ -3717,7 +3783,7 @@
           "Level85To90": false,
           "Level90To95": false,
           "Level95To100": false,
-          "MaxSpawns": 100,
+          "MaxSpawns": 10,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -3741,7 +3807,7 @@
           "__guid": "74513289-cac7-4ec6-9783-e95893377148",
           "Flags": 0,
           "Name": "Object",
-          "Position": "4.194427,5.079346,34.6666",
+          "Position": "22.67157,-15.82597,34.6666",
           "Rotation": "0,0,-0.9659258,0.258819",
           "Enabled": true,
           "Components": [
@@ -3799,6 +3865,69 @@
               }
             }
           ]
+        },
+        {
+          "__guid": "a0eacc13-d310-45a8-9bdc-a0136dbc149f",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "0,0,10.02596",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpriteRenderer",
+              "__guid": "6a15c3ff-d9b4-4d9c-b0a6-e93a2eba56aa",
+              "Additive": false,
+              "CastShadows": false,
+              "Color": "1,1,1,1",
+              "DepthFeather": 0,
+              "FlipHorizontal": false,
+              "FlipVertical": false,
+              "FogStrength": 1,
+              "Lighting": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": false,
+              "Pivot": "0.5,0.5",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "Size": "10,10",
+              "Texture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/hud/bullet.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Padding": {
+                    "Size": "0,0",
+                    "EdgeSize": "0,0"
+                  },
+                  "Sharpen": 0,
+                  "Blur": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "0,1,0,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              }
+            }
+          ]
         }
       ]
     },
@@ -3853,71 +3982,6 @@
             "_type": "gameobject",
             "prefab": "prefabs/pickupammo.prefab"
           }
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "868ef0ef-9004-4f42-be42-6832d4cbcfef",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "13.09875,12.82374,40.02866",
-          "Rotation": "0,0,-0.9238795,0.3826834",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.TextRenderer",
-              "__guid": "6d5a270e-166c-4835-b4d1-045621a4af06",
-              "__version": 1,
-              "BlendMode": "Normal",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "Scale": 0.24,
-              "TextAlignment": "Center",
-              "TextScope": {
-                "Text": "Gun!",
-                "TextColor": "0,1,0.11667,1",
-                "FontName": "Poppins",
-                "FontSize": 128,
-                "FontWeight": 400,
-                "FontItalic": false,
-                "LineHeight": 1,
-                "LetterSpacing": 0,
-                "WordSpacing": 0,
-                "Outline": {
-                  "Enabled": false,
-                  "Size": 4,
-                  "Color": "0,0,1,1"
-                },
-                "Shadow": {
-                  "Enabled": false,
-                  "Size": 4,
-                  "Color": "0,0,0,1",
-                  "Offset": "4,4"
-                },
-                "OutlineUnder": {
-                  "Enabled": false,
-                  "Size": 4,
-                  "Color": "0,1,0,1"
-                },
-                "ShadowUnder": {
-                  "Enabled": false,
-                  "Size": 4,
-                  "Color": "0,0,0,1",
-                  "Offset": "4,4"
-                }
-              }
-            }
-          ]
         }
       ]
     },

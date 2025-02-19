@@ -1379,6 +1379,11 @@ public class  BaseGun : WeaponComponent, IUse
 		{
 			throw new InvalidOperationException( "SceneWorld is null." );
 		}
+		if ( EffectRenderer.SceneModel == null )
+		{
+			Log.Warning( "EffectRenderer.SceneModel is null." );
+			return;
+		}
 
 		string particleEffect;
 		switch ( attackType )

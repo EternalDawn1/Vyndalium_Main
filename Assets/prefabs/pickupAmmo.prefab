@@ -7,27 +7,24 @@
     "Enabled": true,
     "Components": [
       {
-        "__type": "Sandbox.ModelRenderer",
-        "__guid": "3c66b98c-5289-4a0d-a88d-860489ad2cf1",
-        "BodyGroups": 18446744073709551615,
-        "CreateAttachments": false,
-        "Model": "models/props/ammo_box/ammobox.vmdl",
-        "RenderOptions": {
-          "GameLayer": true,
-          "OverlayLayer": false,
-          "BloomLayer": false,
-          "AfterUILayer": false
-        },
-        "RenderType": "On",
-        "Tint": "0.66953,1,0.31628,1"
-      },
-      {
         "__type": "Sandbox.BoxCollider",
         "__guid": "c4ab9970-5513-4cbd-a3c5-6a0f318821c3",
-        "Center": "0,0,0",
+        "Center": "7.399998,-0.2814847,45.84533",
+        "Friction": null,
         "IsTrigger": true,
-        "Scale": "50,50,50",
-        "Static": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnObjectTriggerEnter": null,
+        "OnObjectTriggerExit": null,
+        "OnTriggerEnter": null,
+        "OnTriggerExit": null,
+        "Scale": "50,57.83702,49.90926",
+        "Static": true,
+        "Surface": null,
         "SurfaceVelocity": "0,0,0"
       },
       {
@@ -35,14 +32,28 @@
         "__guid": "902ff831-2251-42ce-859e-5291dddf6a18",
         "AmmoTypen": "Rifle",
         "MaxCount": 8,
-        "MinCount": 4
+        "MinCount": 4,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "TriggerSoundPath": null
       },
       {
         "__type": "GeneralGame.AmmoPickup",
         "__guid": "5a3b002b-e30a-4870-bd79-069f96e9d04f",
         "AmmoTypen": "Pistol",
         "MaxCount": 8,
-        "MinCount": 4
+        "MinCount": 4,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "TriggerSoundPath": null
       }
     ],
     "Children": [
@@ -50,9 +61,101 @@
         "__guid": "0a0017f5-c5b1-4a62-b047-4f3196b4cd3c",
         "Flags": 0,
         "Name": "Object",
+        "Position": "0.2121705,1.536795,79.94958",
+        "Scale": "4,4,4",
         "Tags": "light_point,light",
         "Enabled": true,
-        "NetworkMode": 1
+        "NetworkMode": 1,
+        "Components": [
+          {
+            "__type": "Sandbox.SpriteRenderer",
+            "__guid": "d0ae4c99-e816-4803-ab08-e3013566586d",
+            "Additive": false,
+            "CastShadows": false,
+            "Color": "1,1,1,1",
+            "DepthFeather": 0,
+            "FlipHorizontal": false,
+            "FlipVertical": false,
+            "FogStrength": 1,
+            "Lighting": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Opaque": false,
+            "Pivot": "0.5,0.5",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": true
+            },
+            "Size": "5,5",
+            "Texture": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/hud/bullet.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Padding": {
+                  "Size": "0,0",
+                  "EdgeSize": "0,0"
+                },
+                "Sharpen": 0,
+                "Blur": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "0,1,0,1",
+                "CacheToDisk": true
+              },
+              "compiled": null
+            }
+          }
+        ]
+      },
+      {
+        "__guid": "bc273545-b282-4147-9604-99251bd4a41a",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "0,0,69.31018",
+        "Scale": "0.9,0.3999999,0.5999999",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "6252794a-632f-4aa8-9de6-b50880ecd335",
+            "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/props/ammo_box/ammobox.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Tint": "0.51666,1,0,1"
+          }
+        ]
       }
     ],
     "__variables": [],
