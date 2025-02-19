@@ -70,8 +70,53 @@ namespace GeneralGame.HUD
 			// Optional: Aufrufen von StateHasChanged(), wenn Sie in einer Blazor-Komponente sind, um die UI zu aktualisieren
 			
 		}
+		private HashSet<int> selectedItems = new();
 
-	
+		private void ToggleSelectItem( int index )
+		{
+			if ( selectedItems.Contains( index ) )
+			{
+				selectedItems.Remove( index );
+			}
+			else
+			{
+				selectedItems.Add( index );
+			}
+		}
+
+		private void TakeSelectedItems()
+		{
+			var playerInventory = Player.Local.Inventory;
+			foreach ( var index in selectedItems.ToList() )
+			{
+				var item = itemStorage.Items.ElementAtOrDefault( index );
+				if ( item != null && playerInventory.GiveItem( item ) )
+				{
+					itemStorage.Items.Remove( item );
+					selectedItems.Remove( index );
+				}
+			}
+			Inventory.Instance?.OnChanged();
+		}
+		private void TakeAllItems()
+		{
+			var playerInventory = Player.Local.Inventory;
+			foreach ( var item in itemStorage.Items.ToList() )
+			{
+				if ( playerInventory.GiveItem( item ) )
+				{
+					itemStorage.Items.Remove( item );
+				}
+				else
+				{
+					// Handle case where player inventory is full or item cannot be added
+					break;
+				}
+			}
+			Inventory.Instance?.OnChanged();
+		}
+
+
 		public void CloseStorage()
 		{
 			if ( itemStorage != null && itemStorage.IsOpened )
