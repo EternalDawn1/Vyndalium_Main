@@ -1194,6 +1194,29 @@ namespace GeneralGame
                     itemPosition.z += 50.5f; // Erhöhe die Z-Achse um 0.5 Einheiten
                     item.GameObject.LocalPosition = itemPosition;
                     item.GameObject.Enabled = true;
+
+                    var itemRigidbody = item.GameObject.Components.Get<Rigidbody>();
+                    if ( itemRigidbody != null )
+                    {
+                        itemRigidbody.Enabled = true;
+                        itemRigidbody.MotionEnabled = true;
+                        itemRigidbody.RigidbodyFlags = RigidbodyFlags.DisableCollisionSounds;
+                    }
+
+                    // Wenn das Item eine Rüstung ist, erstelle ein Parcel
+                    if ( item.IsArmor )
+                    {
+                        var itemRenderer = item.GameObject.Components.Get<ModelRenderer>();
+                        if ( itemRenderer != null )
+                        {
+                            itemRenderer.Model = ItemEquipment.Parcel;
+                        }
+                        else
+                        {
+                            var newRenderer = item.GameObject.Components.Create<ModelRenderer>();
+                            newRenderer.Model = ItemEquipment.Parcel;
+                        }
+                    }
                 }
             }
             Items.Clear(); // Leere die Kiste
