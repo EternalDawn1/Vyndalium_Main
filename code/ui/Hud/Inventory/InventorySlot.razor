@@ -13,7 +13,7 @@
     <div class="@($"background {@GetBackgroundClass()}")" style="@($"opacity: {GetOpacityBasedOnLevel()}")" />
     @if (Item is not null)
     {
-        <div class="item @HasChildDraggableClassSelector" onmouseover=@( () => OnItemHover() ) onmouseout=@( () => OnItemHoverExit() ) @onleftclick=@( () => @OpenContextMenu() )>
+        <div class="item @HasChildDraggableClassSelector" onmouseover=@( () => OnItemHover() ) onmouseout=@( () => OnItemHoverExit() ) )>
             @if (Item.IconTexture is not null)
             {
                 <div class="item-forground"><img src=@Item.IconTexture.ResourcePath @onmouseover="@OnItemHover" @onmouseout="@OnItemHoverExit" /></div>
@@ -32,7 +32,7 @@
 </root>
 
 @code {
-	public bool IsSelected { get; set; }
+	
 	public bool IsProxy { get; set; } = false;
 	
 	public enum SlotType
@@ -275,7 +275,7 @@
 
 		if(IndependentSlotIndex != null)
 		{
-			return true;
+			return false;
 		}
 		if (StorageSlotIndex != null)
 
@@ -464,6 +464,7 @@
 	}
 
 	
+	
 
 	
 	protected override void OnMouseDown(MousePanelEvent e)
@@ -478,6 +479,20 @@
 		{
 			// Drag-and-Drop für Upgrade-Slots deaktivieren
 			return;
+		}
+		if (IndependentSlotIndex != null)
+		{
+			if (sinceClick < 0.4f)
+			{
+				AddItemToPlayerInventory(Item);
+				PlaySound("drop");
+				Inventory.Instance.OnChanged();
+				sinceClick = 0;
+				
+				return;
+			}
+
+			
 		}
 
 		if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel ==
@@ -706,7 +721,7 @@
 	{
 
 		base.OnMouseUp(e);
-
+		
 
 
 		if (ChildDraggable == null)
@@ -784,6 +799,10 @@
 	{
 		if (ChildDraggable == null)
 			return;
+
+		if (IndependentSlotIndex != null)
+		return;
+
 		ChildDraggable.RemoveClass("is-hovering-slot");
 		ChildDraggable.RemoveClass("is-hovering-character");
 		ChildDraggable.RemoveClass("should-trash");
@@ -794,8 +813,10 @@
 			return;
 
 		// Check for what's under the ChildDraggable
-		var rendererTarget = Inventory.Instance.Descendants?.OfType<CharacterRenderer>()?.FirstOrDefault(v => v?.IsHoveredByMouse() == true);
-		var targetSlot = Inventory.Instance.Descendants?.OfType<InventorySlot>()?.FirstOrDefault(v => v?.IsHoveredByMouse() == true);
+		var rendererTarget = Inventory.Instance.Descendants?.OfType<CharacterRenderer>()?.FirstOrDefault(v =>
+		v?.IsHoveredByMouse() == true);
+		var targetSlot = Inventory.Instance.Descendants?.OfType<InventorySlot>()?.FirstOrDefault(v => v?.IsHoveredByMouse() ==
+		true);
 
 		if (targetSlot != null)
 		{
@@ -803,17 +824,26 @@
 			ChildDraggable.LastHoveredSlot = targetSlot;
 			_childDraggableTrashAnimationTimer = TimeUntilChildDraggableCanBeTrashedAnimation;
 			_childDraggableTrashTimer = TimeUntilChildDraggableCanBeTrashed;
-			ChildDraggable.SetClass("can-drop", true);
+
+			// Check if the target slot is not an IndependentSlotIndex
+			if (targetSlot.IndependentSlotIndex == null)
+			{
+				ChildDraggable.SetClass("can-drop", true);
+			}
 		}
 		else
 		{
 			if (_childDraggableTrashAnimationTimer)
 				ChildDraggable.SetClass("should-trash", true);
-			ChildDraggable.SetClass("can-drop", true);
+
+			// Check if the current slot is not an IndependentSlotIndex
+			if (IndependentSlotIndex == null)
+			{
+				ChildDraggable.SetClass("can-drop", true);
+			}
 		}
 		ChildDraggable.StateHasChanged();
 	}
-
 
 	protected override void OnMouseMove(MousePanelEvent e)
 	{
@@ -821,6 +851,8 @@
 
 		if (ChildDraggable == null)
 			return;
+		
+		
 
 		// Mouse.Delta returns 0,0 for small values?
 		// Make our own delta!
@@ -849,6 +881,9 @@
 		if (Item == null)
 			return; // Ignore itemless slot
 
+		if (IndependentSlotIndex != null)
+			return;
+
 			
 		ChildDraggable = new DraggableItem(this, holdPoint: Mouse.Position - Box.Rect.TopLeft);
 		ChildDraggable.SetPositionInScreenPixels(Mouse.Position);
@@ -871,6 +906,65 @@
 
 			UpdateChildDraggableState();
 
+	}
+
+	///
+	/// Add the item to the player's inventory
+	///
+	private void AddItemToPlayerInventory(ItemComponent item)
+	{
+		if (item == null) return;
+
+		var player = Player.Local;
+		if (player == null)
+		{
+			Log.Error("Player.Local ist null.");
+			return;
+		}
+
+		var inventory = player.Inventory;
+		if (inventory == null)
+		{
+			Log.Error("Player.Inventory ist null.");
+			return;
+		}
+
+		var firstFreeSlot = inventory._backpackItems.IndexOf(null);
+
+		// Überprüfen Sie, ob das Item bereits im Inventar ist
+		if (inventory._backpackItems.Contains(item))
+		{
+			Log.Info($"Item {item.Name} ist bereits im Inventar.");
+			return;
+		}
+
+		// Überprüfen Sie, ob ein freier Slot verfügbar ist
+		if (firstFreeSlot != -1)
+		{
+			// Fügen Sie das Item in den ersten freien Slot ein
+			inventory._backpackItems[firstFreeSlot] = item;
+			item.State = ItemState.Backpack;
+
+			// Entfernen Sie das Item aus der StorageBox
+			var storageBox = StorageBox.Instance?.itemStorage;
+			if (storageBox != null && storageBox.Items.Contains(item))
+			{
+				storageBox.Items.Remove(item);
+			}
+
+			Inventory.Instance?.OnChanged();
+			Hudmaster.Instance.ShowNotification($"received {item.Name}", "/ui/hud/hand_slot.png");
+
+			// Fügen Sie diesen Aufruf hinzu, um die Komponente neu zu rendern
+			StateHasChanged();
+
+			// Schließen Sie das Item-Informationsfenster
+			HoverPanel.Close();
+		}
+		else
+		{
+			Log.Error("Kein freier Slot im Rucksack verfügbar.");
+		}
 	}
 
 

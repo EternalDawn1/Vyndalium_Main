@@ -107,9 +107,10 @@ public sealed class Inventory : Component
 			int index = _backpackItems.IndexOf( item );
 			_backpackItems[index] = null; // Setze den Slot auf null, anstatt das Item zu entfernen
 			item.State = ItemState.None;
-			
 			return true;
 		}
+		// Fügen Sie hier weitere Logik hinzu, falls das Item in anderen Listen enthalten sein könnte
+		
 		else if (_storageItems.Contains(item))
 		{
 			int index = _storageItems.IndexOf( item );

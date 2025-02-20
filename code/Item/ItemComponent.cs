@@ -403,7 +403,7 @@ public class ItemComponent : Component
 	{
 		int playerLevel = GetPlayerLevel();
 		int maxLevel = Player.Local?.GetMaxLevel() ?? 100;
-		Log.Info(maxLevel); // Verwenden Sie das maximale Level des Spielers oder 100 als Fallback
+		 // Verwenden Sie das maximale Level des Spielers oder 100 als Fallback
 		var random = new Random();
 		int requiredLevel;
 
