@@ -597,7 +597,7 @@ public partial class Player : Component, IHealthComponent
 
 	private void UpdateModelVisibility()
 	{
-		if (!ModelRenderer.IsValid());
+		if (!ModelRenderer.IsValid())
 
 		if (IsProxy) PlyCamera.Enabled = false;
 

@@ -467,9 +467,7 @@
 
 	
 	protected override void OnMouseDown(MousePanelEvent e)
-
 	{
-
 		base.OnMouseDown(e);
 		if (ShopSlotIndex != null)
 		{
@@ -481,7 +479,7 @@
 			// Drag-and-Drop für Upgrade-Slots deaktivieren
 			return;
 		}
-		
+
 		if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel ==
 		FullScreenManager.FullScreenPanel.ShopPanel &&
 		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
@@ -489,93 +487,46 @@
 
 		if (e.Button != "mouseleft")
 			return;
-			
+
 		if (sinceClick < 0.4f && Item is ItemEquipment equipment)
 		{
-			if (equipment.Equipped)
-				Player.Local.Inventory.UnequipItem(equipment);
-			else
-				Player.Local.Inventory.EquipItemFromBackpack(equipment);
+			if (equipment.IsWeapon || equipment.IsArmor)
+			{
+				if (equipment.Equipped)
+					Player.Local.Inventory.UnequipItem(equipment);
+				else
+					Player.Local.Inventory.EquipItemFromBackpack(equipment);
 
-			PlaySound("drop");
-			Inventory.Instance.OnChanged();
-			sinceClick = 0;
-			return;
+				PlaySound("drop");
+				Inventory.Instance.OnChanged();
+				sinceClick = 0;
+				return;
+			}
 		}
-		
-		if (sinceClick < 0.4f && Item is not null)
-		{
-			isMouseDown = true;
-			sinceClick = 0;
 
-			// Verschiebe das Item vom Inventar zum Storage oder umgekehrt
-			if (BackpackSlotIndex != null)
-			{
-				MoveItemToStorage(Item);
-			}
-			else if(BackpackPackSlotIndex != null)
-			{
-				MoveItemToStorage(Item);
-			}
-			else if (StorageSlotIndex != null)
-			{
-				MoveItemToBackpack(Item);
-			}
-			else if (IndependentSlotIndex != null)
-			{
-				MoveItemToStorage(Item);
-			}
-			
-		}
-		else
-		{
-			isMouseDown = true;
-			sinceClick = 0;
-			OnDragStart();
-		}
 		
 		
 
 		isMouseDown = true;
-
-
-
 		sinceClick = 0;
 		OnDragStart();
 
-
 		if (ChildDraggable != null)
-
 			return;
 
-
-
 		if (Item == null)
-
 			return; // Ignore itemless slot
 
-
-
 		ChildDraggable = new DraggableItem(this, holdPoint: Mouse.Position - Box.Rect.TopLeft);
-
 		ChildDraggable.SetPositionInScreenPixels(Mouse.Position);
 
-
-
 		var fraction = (Mouse.Position - Box.Rect.Size / 2f) / Screen.Size;
-
 		ChildDraggable.Style.Left = Length.Fraction(fraction.x);
-
 		ChildDraggable.Style.Top = Length.Fraction(fraction.y);
 
-
-
 		Hudmaster.Instance.Panel.AddChild(ChildDraggable);
-
 		CurrentDraggable = ChildDraggable;
-
 	}
-
 
 
 	private void MoveItemTo(InventorySlot targetSlot)
@@ -813,11 +764,18 @@
 
 
 
-		ChildDraggable?.Delete();
-
-		ChildDraggable = null;
-
-		CurrentDraggable = null;
+		if (sinceClick < 0.4f)
+		{
+			ChildDraggable?.Delete();
+			ChildDraggable = null;
+			CurrentDraggable = null;
+		}
+		else
+		{
+			ChildDraggable?.Delete();
+			ChildDraggable = null;
+			CurrentDraggable = null;
+		}
 
 	}
 
