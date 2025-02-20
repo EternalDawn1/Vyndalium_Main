@@ -1173,6 +1173,7 @@ namespace GeneralGame
             {
                 
             }
+            DropRemainingItems();
 
             // Setzen der Variable, um anzuzeigen, dass die Kiste geschlossen ist
         }
@@ -1180,6 +1181,22 @@ namespace GeneralGame
         {
             // Logik zum Zerstören des GameObjects
             GameObject?.Destroy( );
+        }
+        private void DropRemainingItems()
+        {
+            var chestPosition = GameObject.LocalPosition; // Position der Kiste
+            foreach ( var item in Items )
+            {
+                if ( item != null )
+                {
+                    // Logik zum Werfen des Items auf den Boden an der Position der Kiste
+                    var itemPosition = chestPosition;
+                    itemPosition.z += 50.5f; // Erhöhe die Z-Achse um 0.5 Einheiten
+                    item.GameObject.LocalPosition = itemPosition;
+                    item.GameObject.Enabled = true;
+                }
+            }
+            Items.Clear(); // Leere die Kiste
         }
 
 
