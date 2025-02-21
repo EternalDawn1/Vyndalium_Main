@@ -370,7 +370,6 @@ public partial class Npc : Component, IHealthComponent
 
 	protected override void OnAwake()
 	{
-		
 		var spawnTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 1f, WorldPosition - Vector3.Up * 200f )
 			.Size( 5f )
 			.IgnoreGameObjectHierarchy( GameObject )
@@ -380,14 +379,11 @@ public partial class Npc : Component, IHealthComponent
 		player = Scene.GetAllComponents<Player>().FirstOrDefault();
 		agent = Components.Get<NavMeshAgent>();
 
+		// Setze die Geschwindigkeit des NavMeshAgent
+		agent.MaxSpeed = RunSpeed;
+
 		SpawnPosition = spawnTrace.Hit ? spawnTrace.HitPosition : WorldPosition;
-
-
-		
-
-
 	}
-
 
 	public void InitializeNPC()
 	{
@@ -516,7 +512,7 @@ public partial class Npc : Component, IHealthComponent
 				{
 					CurrentState = NpcState.Walking;
 					
-					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
+					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Walk;
 					
 					agent.Stop();
 					NormalTrace();
@@ -628,7 +624,7 @@ public partial class Npc : Component, IHealthComponent
 		}
 
 		// Wenn kein Zielobjekt vorhanden ist, bewege den NPC zur letzten bekannten Position des Spielers
-		
+		UpdateFootAnimations();
 
 		
 	}
@@ -662,12 +658,12 @@ public partial class Npc : Component, IHealthComponent
 		
 
 	}
-	
+
 
 	void UpdateFootAnimations()
 	{
 		// Holen Sie die Geschwindigkeit des NPCs
-		var scaledSpeed = MaxRunAnimationSpeed ;
+		var scaledSpeed = MaxRunAnimationSpeed;
 		var forwardVelocity = Vector3.Dot( MoveHelper.Velocity, Model.WorldRotation.Forward ) / scaledSpeed;
 		var rightVelocity = Vector3.Dot( MoveHelper.Velocity, Model.WorldRotation.Right ) / scaledSpeed;
 
@@ -696,7 +692,7 @@ public partial class Npc : Component, IHealthComponent
 				var player = tr.GameObject.Components.Get<Player>();
 				if ( player != null )
 				{
-					Log.Info( $"NPC greift Spieler {player.Name} an." );
+					
 					int baseDamage = random2.Next( 1, 8 );
 
 					// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
@@ -757,6 +753,75 @@ public partial class Npc : Component, IHealthComponent
 
 					Sound.Play( HitSounds, WorldPosition );
 				}
+			}
+		}
+
+		// Füge eine zusätzliche Überprüfung hinzu, um Spieler in der Nähe anzugreifen
+		var nearbyPlayers = Scene.GetAllComponents<Player>().Where( p => (p.WorldPosition - Body.WorldPosition).Length <= AttackRange );
+		foreach ( var nearbyPlayer in nearbyPlayers )
+		{
+			if ( nearbyPlayer != null && nearbyPlayer != player )
+			{
+				Log.Info( $"NPC greift Spieler {nearbyPlayer.Name} an." );
+				int baseDamage = random2.Next( 1, 8 );
+
+				// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
+				int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
+				int exponentialDamage = (int)(baseDamage * Math.Pow( 1.05, npcLevel ));
+
+				// Berücksichtige die Rüstung des Spielers als Prozentsatz
+				int playerDefensePercentage = random.Next( (int)nearbyPlayer.MinArmorValue / 10, (int)nearbyPlayer.MaxArmorValue / 10 + 1 );
+				double damageReductionFactor = (100 - playerDefensePercentage) / 100.0;
+
+				// Berechne den endgültigen Schaden unter Berücksichtigung der Rüstung
+				int finalDamage = (int)(exponentialDamage * damageReductionFactor);
+
+				if ( nearbyPlayer.Block > 0 )
+				{
+					double coverReduction = Math.Min( nearbyPlayer.Block / 50.0, 0.5 ); // Maximal 50% Reduktion
+					finalDamage = (int)(finalDamage * (1 - coverReduction));
+				}
+
+				// Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
+				nearbyPlayer.Components.Get<IHealthComponent>().TakeDamage( DamageType.Bullet, finalDamage, nearbyPlayer.WorldPosition, Vector3.Zero, GameObject.Id, GameObject.Id );
+
+				if ( HasFireAbility )
+				{
+					// Generiere eine zufällige Brenndauer zwischen 1 und 5 Sekunden
+					int burnDuration = random2.Next( 1, 6 );
+					ApplyBurn( nearbyPlayer, burnDuration );
+				}
+				AnimationHelper.Target.Set( "b_attack", true );
+
+				if ( Model != null && isPrometheus )
+				{
+					Model.Set( "prometheus_attack", true );
+				}
+
+				if ( Model != null && isChibi )
+				{
+					Model.Set( "chibi_attack", true );
+				}
+				if ( Model != null && isSlime )
+				{
+					// Erzeuge eine Zufallszahl zwischen 0 und 1
+					Random random2 = new Random();
+					int randomNumber = random2.Next( 0, 2 ); // 0 oder 1
+
+					// Wähle zufällig zwischen den beiden Animationen
+					if ( randomNumber == 0 )
+					{
+						Model.Set( "slime_attack", true );
+					}
+					else
+					{
+						Model.Set( "slime_attack_v2", true );
+					}
+				}
+
+				timeSinceHit = 0;
+
+				Sound.Play( HitSounds, WorldPosition );
 			}
 		}
 	}

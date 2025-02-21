@@ -1,0 +1,332 @@
+{
+  "RootObject": {
+    "__guid": "b67227f8-7a84-4c4e-aef4-11a89df0e972",
+    "Flags": 0,
+    "Name": "checkpoint",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "GeneralGame.Checkpoint",
+        "__guid": "9d5f54f7-1129-45e8-a912-47c23a7c68e1",
+        "action": {
+          "__version": 9,
+          "__guid": "5aee43e2-fc7e-4e9b-852d-3a78a9f36225",
+          "__changeId": 71,
+          "UserData": {
+            "Title": "Action",
+            "ReferencedComponentTypes": []
+          },
+          "Variables": [],
+          "Nodes": [
+            {
+              "Id": 0,
+              "Type": "input",
+              "UserData": {
+                "Position": "84,48"
+              }
+            },
+            {
+              "Id": 4,
+              "Type": "log.info",
+              "UserData": {
+                "Position": "732,84"
+              }
+            },
+            {
+              "Id": 16,
+              "Type": "player.getself",
+              "UserData": {
+                "Position": "348,60"
+              }
+            },
+            {
+              "Id": 28,
+              "Type": "input.down",
+              "UserData": {
+                "Position": "312,252"
+              }
+            }
+          ],
+          "Links": [
+            {
+              "SrcId": 16,
+              "SrcName": "_signal",
+              "DstId": 4,
+              "DstName": "_signal"
+            },
+            {
+              "Id": 38,
+              "Value": "",
+              "DstId": 4,
+              "DstName": "args",
+              "DstIndex": 0
+            },
+            {
+              "Id": 39,
+              "Value": "helllo",
+              "DstId": 4,
+              "DstName": "format"
+            },
+            {
+              "SrcId": 0,
+              "SrcName": "_signal",
+              "DstId": 16,
+              "DstName": "_signal"
+            },
+            {
+              "Id": 40,
+              "Value": "Jump",
+              "DstId": 28,
+              "DstName": "action"
+            }
+          ]
+        },
+        "CanBeReactivated": false,
+        "CheckPointId": "00000000-0000-0000-0000-000000000000",
+        "DetectionRadius": 51.50079,
+        "DrawProximityRangeGizmo": true,
+        "GameObjectToUnlock": null,
+        "IsPermanentlyDisabled": false,
+        "LineRenderer": {
+          "_type": "component",
+          "component_id": "4c403020-09ad-4685-88e3-2d2742802ed9",
+          "go": "7194591c-de8e-42bb-8be0-6367730db10a",
+          "component_type": "LineRenderer"
+        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Position": "0,0,24.90003",
+        "SpriteRenderer": {
+          "_type": "component",
+          "component_id": "f4268d84-9ef7-4c79-88a6-55e8de0e4794",
+          "go": "76b63b48-1783-4492-af4b-ea900fff8b47",
+          "component_type": "SpriteRenderer"
+        }
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "76b63b48-1783-4492-af4b-ea900fff8b47",
+        "Flags": 0,
+        "Name": "Sprite1",
+        "Position": "0,0,147.5768",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SpriteRenderer",
+            "__guid": "f4268d84-9ef7-4c79-88a6-55e8de0e4794",
+            "Additive": false,
+            "CastShadows": true,
+            "Color": "0.06667,1,0,1",
+            "DepthFeather": 0,
+            "FlipHorizontal": false,
+            "FlipVertical": false,
+            "FogStrength": 1,
+            "Lighting": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Opaque": true,
+            "Pivot": "0.5,0.5",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": true
+            },
+            "Size": "72.80042,70.69988",
+            "Texture": "sprites/vidya/shapes/exclamation.vtex"
+          }
+        ]
+      },
+      {
+        "__guid": "7194591c-de8e-42bb-8be0-6367730db10a",
+        "Flags": 0,
+        "Name": "Line",
+        "Position": "-52.45499,-71.50491,46.16003",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.LineRenderer",
+            "__guid": "4c403020-09ad-4685-88e3-2d2742802ed9",
+            "Additive": false,
+            "CastShadows": true,
+            "Color": {
+              "blend": "Linear",
+              "color": [
+                {
+                  "t": 0,
+                  "c": "0.51628,0.51628,0.51628,1"
+                },
+                {
+                  "t": 0,
+                  "c": "0.21667,1,0,1"
+                },
+                {
+                  "t": 1,
+                  "c": "0.13643,0.8186,0,1"
+                }
+              ],
+              "alpha": [
+                {
+                  "t": 0,
+                  "a": 1
+                },
+                {
+                  "t": 1,
+                  "a": 1
+                }
+              ]
+            },
+            "DepthFeather": 0,
+            "EndCap": "Triangle",
+            "Face": "Camera",
+            "FogStrength": 1,
+            "Lighting": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Opaque": false,
+            "Points": [
+              {
+                "_type": "gameobject",
+                "go": "106b3ea4-68d3-4a10-9b45-9252bb5c3726"
+              },
+              {
+                "_type": "gameobject",
+                "go": "29a7c1fa-e302-4948-91b9-8677bdd4d01a"
+              },
+              {
+                "_type": "gameobject",
+                "go": "dac92aec-f7c3-4fb6-915a-55da10442b6e"
+              },
+              {
+                "_type": "gameobject",
+                "go": "b6c6e9c1-bb49-4b02-abd8-5ef0a69b784d"
+              },
+              {
+                "_type": "gameobject",
+                "go": "1c623d66-8794-46de-bbd1-8742b05f608f"
+              }
+            ],
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "SplineBias": -0.28,
+            "SplineContinuity": 1,
+            "SplineInterpolation": 2,
+            "SplineTension": 1,
+            "StartCap": "Triangle",
+            "Texturing": {
+              "Texture": "sprites/vidya/shapes/rhombus.vtex",
+              "WorldSpace": true,
+              "UnitsPerTexture": 6.899996,
+              "Scale": 1,
+              "Offset": 0,
+              "Scroll": 5.599973
+            },
+            "UseVectorPoints": false,
+            "VectorPoints": [],
+            "Width": {
+              "rangey": "0,2",
+              "frames": [
+                {
+                  "x": 0,
+                  "y": 1,
+                  "in": 0,
+                  "out": 0,
+                  "mode": "Mirrored"
+                }
+              ]
+            },
+            "Wireframe": false
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "106b3ea4-68d3-4a10-9b45-9252bb5c3726",
+            "Flags": 0,
+            "Name": "Point 1",
+            "Position": "-1.720245,145.2906,-16.25565",
+            "Enabled": true
+          },
+          {
+            "__guid": "29a7c1fa-e302-4948-91b9-8677bdd4d01a",
+            "Flags": 0,
+            "Name": "Point 2",
+            "Position": "-1.096069,0.7823486,-17.14086",
+            "Enabled": true
+          },
+          {
+            "__guid": "dac92aec-f7c3-4fb6-915a-55da10442b6e",
+            "Flags": 0,
+            "Name": "Point 3",
+            "Position": "100.8653,0.5215321,-14.08414",
+            "Enabled": true
+          },
+          {
+            "__guid": "b6c6e9c1-bb49-4b02-abd8-5ef0a69b784d",
+            "Flags": 0,
+            "Name": "Point 4",
+            "Position": "104.1241,150.2873,-15.7906",
+            "Enabled": true
+          },
+          {
+            "__guid": "1c623d66-8794-46de-bbd1-8742b05f608f",
+            "Flags": 0,
+            "Name": "Point 4",
+            "Position": "-0.06750488,147.9728,-17.2882",
+            "Enabled": true
+          }
+        ]
+      }
+    ],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "ResourceVersion": 1,
+  "__references": [
+    "vidya.shape-exclamation#45509",
+    "vidya.shape-rhombus#45504"
+  ],
+  "__version": 1
+}
