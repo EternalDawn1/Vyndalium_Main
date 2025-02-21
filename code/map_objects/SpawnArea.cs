@@ -307,79 +307,77 @@ public sealed class NpcSpawnArea : Component
 		RemoveNPCs();
 
 		// Spawne die normalen NPCs
-		foreach (var npcChance in NpcPool)
+		foreach ( var npcChance in NpcPool )
 		{
-			var random = Game.Random.Float(0f, 1f);
+			var random = Game.Random.Float( 0f, 1f );
 			var shouldSpawn = random <= npcChance.SpawnChance;
-			if (shouldSpawn)
+			if ( shouldSpawn )
 			{
-				for (int i = 0; i < npcChance.SpawnCount; i++)
+				for ( int i = 0; i < npcChance.SpawnCount; i++ )
 				{
-					var npc = SpawnNpc(npcChance.Npc);
-					if (npc != null)
+					var npc = SpawnNpc( npcChance.Npc );
+					if ( npc != null )
 					{
 						var npcComponent = npc.GetComponent<Npc>();
-						if (npcComponent != null)
+						if ( npcComponent != null )
 						{
-							npcComponent.Level = new Random().Next(npcChance.MinLevel, npcChance.MaxLevel + 1);
+							npcComponent.Level = new Random().Next( npcChance.MinLevel, npcChance.MaxLevel + 1 );
 							npcComponent.SetHealthBasedOnLevel();
 							var abilityRandom = new Random();
 							npcComponent.HasIceAbility = npcChance.IceAbilityChance >= 1.0 || new Random().NextDouble() <= npcChance.IceAbilityChance;
 							npcComponent.HasWindAbility = npcChance.WindAbilityChance >= 1.0 || new Random().NextDouble() <= npcChance.WindAbilityChance;
 							npcComponent.HasFireAbility = npcChance.FireAbilityChance >= 1.0 || new Random().NextDouble() <= npcChance.FireAbilityChance;
-							if (npcComponent.HasFireAbility)
+							if ( npcComponent.HasFireAbility )
 							{
 								// Laden Sie das Prefab über die ResourceLibrary
-								var firePrefab = ResourceLibrary.Get<PrefabFile>("prefabs/npc/slime_variants/fire.prefab");
+								var firePrefab = ResourceLibrary.Get<PrefabFile>( "prefabs/npc/slime_variants/fire.prefab" );
 
-								if (firePrefab != null)
+								if ( firePrefab != null )
 								{
 									// Erstellen Sie eine Instanz des Prefabs auf dem NPC-GameObject
-									var fireInstance = GameObject.Clone(firePrefab);
-									if (fireInstance != null)
+									var fireInstance = GameObject.Clone( firePrefab );
+									if ( fireInstance != null )
 									{
 										fireInstance.Parent = GameObject; // Explizite Konvertierung zu GameObject
 										fireInstance.WorldPosition = npcComponent.WorldPosition; // Setzen Sie die Position relativ zum NPC
 										fireInstance.NetworkSpawn();
 
 										var fireNpcComponent = fireInstance.GetComponent<Npc>();
-										if (fireNpcComponent != null)
+										if ( fireNpcComponent != null )
 										{
-										
 											fireNpcComponent.SetHealthBasedOnLevel();
 										}
 									}
 								}
 								else
 								{
-									Log.Error("Fire prefab could not be loaded.");
+									Log.Error( "Fire prefab could not be loaded." );
 								}
-
 							}
 
-							if (npcComponent is Slime)
+							if ( npcComponent is Slime )
 							{
-								npcComponent.Model.Set("slime_spawn", true);
-
+								npcComponent.Model.Set( "slime_spawn", true );
 							}
-							else if (npcComponent is Npc && npcComponent.Model != null)
+							else if ( npcComponent is Npc && npcComponent.Model != null )
 							{
-								npcComponent.Model.Set("chibi_spawn", true);
+								npcComponent.Model.Set( "chibi_spawn", true );
 							}
 						}
-						
-						
-						
-						CreateSpawnParticle(npc.WorldPosition);
 
-						SpawnedNpcs.Add(npc);
-						if (npcChance.SequentialSpawn)
+						CreateSpawnParticle( npc.WorldPosition );
+						SpawnedNpcs.Add( npc );
+
+						if ( npcChance.SequentialSpawn )
 						{
-							await Task.Delay((int)(npcChance.SpawnInterval * 1000));
+							await Task.Delay( (int)(npcChance.SpawnInterval * 1000) );
 						}
-
-						_ = SpawnSubNpcsWithDelay(npcChance.SubNpcPool, npcChance.SubNpcSpawnDelay);
 					}
+				}
+
+				if ( npcChance.EnableSubNpcPool )
+				{
+					_ = SpawnSubNpcsWithDelay( npcChance.SubNpcPool, npcChance.SubNpcSpawnDelay );
 				}
 			}
 		}

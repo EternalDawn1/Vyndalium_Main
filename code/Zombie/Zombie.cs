@@ -155,7 +155,7 @@ public partial class Npc : Component, IHealthComponent
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[Range( 30f, 200f, 10f, false )]
+	[Range( 30f, 2000f, 10f, false )]
 	public float AttackRange { get; private set; } = 80f;
 
 	/// <summary>
@@ -455,9 +455,14 @@ public partial class Npc : Component, IHealthComponent
 		if ( Model == null || (Healthone != null && !Healthone.Alive) )
 			return;
 
+		UpdateFootAnimations();
+
 		bool isPlayerNearby = IsPlayerNearby();
 
-			
+		if ( isPlayerNearby )
+		{
+			Log.Info( "Spieler ist in der Nähe und angreifbar." );
+		}
 
 		// Suchen Sie nach allen Spielern in der Szene
 		var players = Scene.GetAllComponents<Player>();
@@ -511,7 +516,7 @@ public partial class Npc : Component, IHealthComponent
 				{
 					CurrentState = NpcState.Walking;
 					
-					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Walk;
+					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 					
 					agent.Stop();
 					NormalTrace();
@@ -625,7 +630,7 @@ public partial class Npc : Component, IHealthComponent
 		// Wenn kein Zielobjekt vorhanden ist, bewege den NPC zur letzten bekannten Position des Spielers
 		
 
-		UpdateFootAnimations();
+		
 	}
 	
 
@@ -679,93 +684,79 @@ public partial class Npc : Component, IHealthComponent
 	private Random random2 = new Random();
 	public void NormalTrace()
 	{
-		
-		var tr = Scene.Trace.Ray( Body.WorldPosition, Body.WorldPosition + Body.WorldRotation.Forward * 100 ).Run();
+		var tr = Scene.Trace.Ray( Body.WorldPosition, Body.WorldPosition + Body.WorldRotation.Forward * AttackRange ).Run();
 
 		if ( tr.Hit && timeSinceHit > 1.5f && GameObject != null )
 		{
 			IHealthComponent damageable = tr.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
 
-			if (damageable != null && tr.GameObject.Tags.Has( "player" ) || tr.GameObject.Tags.Has( "npc" ) )
+			if ( damageable != null && (tr.GameObject.Tags.Has( "player" ) || tr.GameObject.Tags.Has( "npc" )) )
 			{
 				// Annahme: tr.GameObject kann in Player umgewandelt werden
 				var player = tr.GameObject.Components.Get<Player>();
 				if ( player != null )
 				{
-					int baseDamage = random2.Next(1, 8);
+					Log.Info( $"NPC greift Spieler {player.Name} an." );
+					int baseDamage = random2.Next( 1, 8 );
 
 					// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
 					int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
-					int exponentialDamage = (int)(baseDamage * Math.Pow(1.05, npcLevel));
+					int exponentialDamage = (int)(baseDamage * Math.Pow( 1.05, npcLevel ));
 
 					// Berücksichtige die Rüstung des Spielers als Prozentsatz
-					int playerDefensePercentage = random.Next((int)player.MinArmorValue / 10, (int)player.MaxArmorValue / 10 + 1);
+					int playerDefensePercentage = random.Next( (int)player.MinArmorValue / 10, (int)player.MaxArmorValue / 10 + 1 );
 					double damageReductionFactor = (100 - playerDefensePercentage) / 100.0;
 
 					// Berechne den endgültigen Schaden unter Berücksichtigung der Rüstung
 					int finalDamage = (int)(exponentialDamage * damageReductionFactor);
 
-					if (player.Block > 0)
+					if ( player.Block > 0 )
 					{
-						double coverReduction = Math.Min(player.Block / 50.0, 0.5); // Maximal 50% Reduktion
+						double coverReduction = Math.Min( player.Block / 50.0, 0.5 ); // Maximal 50% Reduktion
 						finalDamage = (int)(finalDamage * (1 - coverReduction));
 					}
 
-
-
 					// Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
-					damageable.TakeDamage(DamageType.Bullet, finalDamage, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id);
+					damageable.TakeDamage( DamageType.Bullet, finalDamage, tr.EndPosition, tr.Direction * 5, GameObject.Id, GameObject.Id );
 
-					if (HasFireAbility)
+					if ( HasFireAbility )
 					{
 						// Generiere eine zufällige Brenndauer zwischen 1 und 5 Sekunden
-						int burnDuration = random2.Next(1, 6);
-						ApplyBurn(player, burnDuration);
+						int burnDuration = random2.Next( 1, 6 );
+						ApplyBurn( player, burnDuration );
 					}
-					AnimationHelper.Target.Set("b_attack", true);
+					AnimationHelper.Target.Set( "b_attack", true );
 
 					if ( Model != null && isPrometheus )
 					{
-
 						Model.Set( "prometheus_attack", true );
 					}
 
-					if (Model != null && isChibi)
+					if ( Model != null && isChibi )
 					{
-						Model.Set("chibi_attack", true);
+						Model.Set( "chibi_attack", true );
 					}
-					if (Model != null && isSlime)
+					if ( Model != null && isSlime )
 					{
 						// Erzeuge eine Zufallszahl zwischen 0 und 1
 						Random random2 = new Random();
-						int randomNumber = random2.Next(0, 2); // 0 oder 1
+						int randomNumber = random2.Next( 0, 2 ); // 0 oder 1
 
 						// Wähle zufällig zwischen den beiden Animationen
-						if (randomNumber == 0)
+						if ( randomNumber == 0 )
 						{
-							Model.Set("slime_attack", true);
+							Model.Set( "slime_attack", true );
 						}
 						else
 						{
-							Model.Set("slime_attack_v2", true);
-
+							Model.Set( "slime_attack_v2", true );
 						}
 					}
-					
-
 
 					timeSinceHit = 0;
 
-					Sound.Play(HitSounds, WorldPosition);
-
+					Sound.Play( HitSounds, WorldPosition );
 				}
-				else
-				{
-					
-					
-				}
-				
-				
 			}
 		}
 	}
