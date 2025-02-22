@@ -4,6 +4,9 @@ using GeneralGame;
 [Icon("groups")]
 public sealed class NpcSpawnArea : Component
 {
+	[Property] public Checkpoint Checkpoint { get; set; }
+	[Property] public ChallengeDoor ChallengeDoor { get; set; }
+
 	public enum GizmoType
 	{
 		Sphere,
@@ -200,7 +203,20 @@ public sealed class NpcSpawnArea : Component
 	[Sync]
 	public NetList<GameObject> SpawnedNpcs { get; set; } = new();
 
+	private void CheckAllNpcsKilled()
+	{
+		if ( SpawnedNpcs.All( npc => npc == null || !npc.IsValid ) )
+		{
+			Checkpoint?.Activate();
+		}
+	}
+	private void OnNpcKilled( GameObject npc )
+	{
+		SpawnedNpcs.Remove( npc );
+		CheckAllNpcsKilled();
+	}
 
+	
 
 	protected override void DrawGizmos()
 	{
@@ -258,32 +274,85 @@ public sealed class NpcSpawnArea : Component
 			}
 		}
 	}
-
+	private float playerProximityDuration = 3.0f; // Zeit in Sekunden, die der Spieler in der Nähe sein muss
+	private float playerProximityTimer = 0.0f;
 	protected override void OnFixedUpdate()
 	{
-		if (!IsPlayerNearby())
+		if ( !IsPlayerInRoom() )
 		{
+			playerProximityTimer = 0.0f; // Timer zurücksetzen, wenn der Spieler nicht im Raum ist
 			return;
 		}
-		
-		if (!hasSpawnedNPCs)
-		{
-			SpawnNPCs();
-			hasSpawnedNPCs = SpawnedNpcs.Count > 0; // Setze auf true, wenn NPCs erfolgreich gespawnt wurden
-		}
 
-		// Überprüfen, ob alle NPCs aus dem NpcPool tot sind
-		if (!hasSpawnedBoss)
+		playerProximityTimer += Time.Delta; // Timer erhöhen, wenn der Spieler im Raum ist
+
+		if ( playerProximityTimer >= playerProximityDuration )
 		{
-			if (TimeUntilBossSpawn == null || TimeUntilBossSpawn <= 0)
+			if ( ChallengeDoor != null && ChallengeDoor.GameObject != null )
 			{
-				SpawnBossNPCs();
-				hasSpawnedBoss = SpawnedNpcs.Count > 0; // Setze auf true, wenn Boss-NPCs erfolgreich gespawnt wurden
+				ChallengeDoor.GameObject.Enabled = true;
+			}
+
+			if ( !hasSpawnedNPCs )
+			{
+				SpawnNPCs();
+				hasSpawnedNPCs = SpawnedNpcs.Count > 0; // Setze auf true, wenn NPCs erfolgreich gespawnt wurden
+			}
+
+			// Überprüfen, ob alle NPCs aus dem NpcPool tot sind
+			if ( !hasSpawnedBoss )
+			{
+				if ( TimeUntilBossSpawn == null || TimeUntilBossSpawn <= 0 )
+				{
+					SpawnBossNPCs();
+					hasSpawnedBoss = SpawnedNpcs.Count > 0; // Setze auf true, wenn Boss-NPCs erfolgreich gespawnt wurden
+				}
 			}
 		}
-		
+	}
+	private bool IsPlayerInDoor( Player player )
+	{
+		if ( ChallengeDoor == null || ChallengeDoor.GameObject == null )
+		{
+			return false;
+		}
+
+		// Implementieren Sie die Logik, um zu überprüfen, ob der Spieler sich in der Tür befindet
+		// Beispiel: Überprüfen Sie die Position des Spielers relativ zur Tür
+		var doorPosition = ChallengeDoor.GameObject.WorldPosition;
+		var playerPosition = player.WorldPosition;
+		var distanceToDoor = (playerPosition - doorPosition).Length;
+
+		// Beispielwert für die Türbreite, anpassen nach Bedarf
+		float doorWidth = 2.0f;
+
+		return distanceToDoor < doorWidth;
 	}
 
+	private bool IsPlayerInRoom()
+	{
+		if ( Network.IsProxy || NpcPool == null || NpcPool.Count == 0 )
+			return false;
+
+		var players = Scene.GetAllComponents<Player>();
+		if ( players == null )
+		{
+			return false;
+		}
+
+		foreach ( var player in players )
+		{
+			if ( (player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance.Length )
+			{
+				// Überprüfen, ob der Spieler sich nicht in der Tür befindet
+				if ( !IsPlayerInDoor( player ) )
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	private bool IsPlayerNearby()
 	{
 		if ( Network.IsProxy || NpcPool == null || NpcPool.Count == 0 )

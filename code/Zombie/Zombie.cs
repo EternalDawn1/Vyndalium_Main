@@ -455,10 +455,7 @@ public partial class Npc : Component, IHealthComponent
 
 		bool isPlayerNearby = IsPlayerNearby();
 
-		if ( isPlayerNearby )
-		{
-			Log.Info( "Spieler ist in der Nähe und angreifbar." );
-		}
+		
 
 		// Suchen Sie nach allen Spielern in der Szene
 		var players = Scene.GetAllComponents<Player>();

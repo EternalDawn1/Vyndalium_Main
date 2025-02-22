@@ -470,6 +470,7 @@
 	protected override void OnMouseDown(MousePanelEvent e)
 	{
 		base.OnMouseDown(e);
+
 		if (ShopSlotIndex != null)
 		{
 			// Drag-and-Drop für Shop-Slots deaktivieren
@@ -488,15 +489,12 @@
 				PlaySound("drop");
 				Inventory.Instance.OnChanged();
 				sinceClick = 0;
-				
 				return;
 			}
-
-			
 		}
 
-		if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel ==
-		FullScreenManager.FullScreenPanel.ShopPanel &&
+		if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
+		&&
 		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
 			return;
 
@@ -519,9 +517,6 @@
 			}
 		}
 
-		
-		
-
 		isMouseDown = true;
 		sinceClick = 0;
 		OnDragStart();
@@ -530,7 +525,19 @@
 			return;
 
 		if (Item == null)
-			return; // Ignore itemless slot
+			return; 
+
+		if (Player.Local == null)
+		{
+			Log.Error("Player.Local ist null.");
+			return;
+		}
+
+		if (Player.Local.Inventory == null)
+		{
+			Log.Error("Player.Local.Inventory ist null.");
+			return;
+		}
 
 		ChildDraggable = new DraggableItem(this, holdPoint: Mouse.Position - Box.Rect.TopLeft);
 		ChildDraggable.SetPositionInScreenPixels(Mouse.Position);
@@ -542,7 +549,6 @@
 		Hudmaster.Instance.Panel.AddChild(ChildDraggable);
 		CurrentDraggable = ChildDraggable;
 	}
-
 
 	private void MoveItemTo(InventorySlot targetSlot)
 	{

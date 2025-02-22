@@ -171,6 +171,7 @@ public class ItemEquipment : ItemComponent
             Accessibility = AccessibleFrom.World,
             Sound = () => _equipSound,
         });
+       
 
         Renderer ??= Components.GetAll<ModelRenderer>(FindMode.InSelf).FirstOrDefault(x => x != parcelRenderer);
         if (Renderer != null) Renderer.RenderType = ModelRenderer.ShadowRenderType.On;
@@ -193,6 +194,7 @@ public class ItemEquipment : ItemComponent
         obj.Transform = transform;
         (obj as SceneModel)?.Update(RealTime.Delta);
     }
+   
 
     #region GIZMO STUFF
     private SceneModel _model;

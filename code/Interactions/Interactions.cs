@@ -59,6 +59,8 @@ public class Interaction
 	[Property, Category( "Required" )]
 	public string Stats { get; set; }
 
+	public ItemComponent Item { get; set; }
+
 
 
 	/// <summary>
@@ -72,7 +74,7 @@ public class Interaction
 	/// The max distance you can use this interaction from
 	/// </summary>
 	[Property, Category( "Optional" )]
-	public float InteractDistance { get; set; } = 125f;
+	public float InteractDistance { get; set; } = 225f;
 
 	/// <summary>
 	/// Where this interaction is accessible from
@@ -203,7 +205,7 @@ public class Interaction
 
 public class Interactions : Component
 {
-	public float InteractDistance { get; set; } = 125f;
+	public float InteractDistance { get; set; } = 175f;
 	[Property]
 	public List<Interaction> ObjectInteractions { get; set; }
 
@@ -218,6 +220,7 @@ public class Interactions : Component
 	{
 		programmedInteractions ??= new();
 		programmedInteractions.Add( interaction );
+		interactionList.Add(interaction);
 	}
 
 	public void AddInteractions( List<Interaction> interactions )
@@ -291,7 +294,13 @@ public class Interactions : Component
 			_ => Color.White, // Standardfarbe, falls keine Übereinstimmung gefunden wird
 		};
 	}
-	
+	private List<Interaction> interactionList = new List<Interaction>();
+	public Interaction GetInteraction(string identifier)
+	{
+		return interactionList.FirstOrDefault(interaction => interaction.Identifier == identifier);
+	}
+
+
 	public Tier Tier { get; set; }
 	public void Highlight( bool shouldHighlight )
 	{

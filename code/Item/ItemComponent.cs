@@ -1,5 +1,9 @@
 
-
+using Sandbox.Physics;
+using Sandbox.Utility;
+using System.Numerics;
+using System.Linq;
+using Editor;
 namespace GeneralGame;
 
 public enum ItemState
@@ -1254,11 +1258,193 @@ public class ItemComponent : Component
 		if ( this is ItemEquipment equipment )
 			equipment.UpdateEquipped();
 	}
+	private bool isMovingItem = false;
+
+
+	protected override void OnUpdate()
+	{
+		if (isMovingItem)
+		{
+			MoveItemToMousePosition();
+		}
+		
+	}
+	private PhysicsBody GrabbedBody;
+	private GameObject GrabbedObject;
+
+	private Vector3 GrabbedAimLocal;
+	private Vector3 GrabbedObjectLocal;
+
+	private PhysicsBody GrabBody;
+	private Sandbox.Physics.FixedJoint GrabJoint;
+
+	private Vector3 itemOffset = new Vector3(15.0f, 0.0f, 0.0f); // Standard-Offset
+
+	PhysicsGraber grabber = null;
+
+	protected override void OnFixedUpdate()
+	{
+		if ( IsProxy )
+			return;
+
+		if ( !GrabbedBody.IsValid() )
+			return;
+
+		if ( !GrabBody.IsValid() )
+			return;
+
+		var aimTransform = Scene.Camera.WorldTransform;
+		GrabBody.Position = aimTransform.PointToWorld( GrabbedAimLocal );
+	}
+	protected override void OnEnabled()
+	{
+		base.OnEnabled();
+
+		Clear();
+
+		GrabBody = new PhysicsBody( Scene.PhysicsWorld )
+		{
+			BodyType = PhysicsBodyType.Keyframed
+		};
+	}
+
+	protected override void OnDisabled()
+	{
+		base.OnDisabled();
+
+		Clear();
+	}
+
+	protected override void OnDestroy()
+	{
+		base.OnDestroy();
+
+		Clear();
+	}
+
+	private void Clear()
+	{
+		GrabJoint?.Remove();
+		GrabJoint = null;
+
+		GrabBody?.Remove();
+		GrabBody = null;
+
+		GrabbedBody = null;
+		GrabbedObject = null;
+		GrabbedAimLocal = default;
+	}
+
+	protected override void OnPreRender()
+	{
+		base.OnPreRender();
+
+		if ( !GrabbedObject.IsValid() )
+		{
+			var tr = Scene.Trace.Ray( Scene.Camera.ScreenNormalToRay( 0.5f ), 1000.0f )
+						.IgnoreGameObjectHierarchy( GameObject.Root )
+						
+						.Run();
+
+			if ( tr.Hit )
+			{
+				
+				
+			}
+		}
+		else
+		{
+			var position = GrabbedObject.WorldTransform.PointToWorld( GrabbedObjectLocal );
+
+			
+			
+		}
+	}
+
+	private void MoveItemToMousePosition()
+	{
+		if ( IsProxy )
+			return;
+
+		if ( GrabbedBody != null && GrabbedBody.IsValid() )
+		{
+			if ( !Input.Down( "reload" ) )
+			{
+				GrabJoint?.Remove();
+				GrabJoint = null;
+
+				GrabbedBody = null;
+				GrabbedObject = null;
+				GrabbedAimLocal = default;
+				isMovingItem = false; // Beenden des Bewegens des Items
+			}
+			else
+			{
+				return;
+			}
+		}
+
+		var tr = Scene.Trace.Ray( Scene.Camera.WorldPosition, Scene.Camera.WorldPosition + Scene.Camera.WorldRotation.Forward * 1000 )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.Run();
+
+		if ( !tr.Hit || tr.Body is null )
+			return;
+
+		if ( tr.Body.BodyType == PhysicsBodyType.Static )
+			return;
+
+		if ( Input.Down( "reload" ) )
+		{
+			var aimTransform = Scene.Camera.WorldTransform;
+
+			GrabbedBody = tr.Body;
+			GrabbedObject = tr.GameObject;
+			GrabbedObjectLocal = GrabbedObject.WorldTransform.PointToLocal( tr.HitPosition );
+
+			var localOffset = GrabbedBody.Transform.PointToLocal( tr.HitPosition );
+
+			GrabbedAimLocal = aimTransform.PointToLocal( tr.HitPosition );
+
+			// Initialisiere GrabBody, falls es null ist
+			if ( GrabBody == null )
+			{
+				GrabBody = new PhysicsBody( Scene.PhysicsWorld )
+				{
+					BodyType = PhysicsBodyType.Keyframed
+				};
+			}
+
+			GrabBody.Position = tr.HitPosition;
+
+			GrabJoint?.Remove();
+			GrabJoint = PhysicsJoint.CreateFixed( new PhysicsPoint( GrabBody ), new PhysicsPoint( GrabbedBody ) );
+			GrabJoint.Point1 = new PhysicsPoint( GrabBody );
+			GrabJoint.Point2 = new PhysicsPoint( GrabbedBody, localOffset );
+
+			var maxForce = 100.0f * tr.Body.Mass * Scene.PhysicsWorld.Gravity.Length;
+			GrabJoint.SpringLinear = new PhysicsSpring( 15, 1, maxForce );
+			GrabJoint.SpringAngular = new PhysicsSpring( 0, 0, 0 );
+		}
+	}
 
 	protected override void OnStart()
 	{
 		GameObject.SetupNetworking();
 		var interactions = Components.GetOrCreate<Interactions>();
+		interactions.AddInteraction( new Interaction()
+		{
+			Identifier = $"item.move.{Name}",
+			Action = ( Player interactor, GameObject obj ) =>
+			{
+				isMovingItem = !isMovingItem;
+			},
+			Keybind = "reload",
+			Description = "Move",
+			Disabled = () => !CanMoveItem(),
+			ShowWhenDisabled = () => true,
+			Accessibility = AccessibleFrom.World,
+		} );
 		if ( IsItem != true )
 		{
 			interactions.AddInteraction( new Interaction()
@@ -1273,6 +1459,7 @@ public class ItemComponent : Component
 				Accessibility = AccessibleFrom.All,
 
 			} );
+			
 		}
 		else
 		{
@@ -1293,6 +1480,11 @@ public class ItemComponent : Component
 		}
 		
 	}
+	private bool CanMoveItem()
+	{
+		return !isMovingItem;
+	}
+
 
 	
 }

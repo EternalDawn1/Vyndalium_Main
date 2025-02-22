@@ -30,6 +30,12 @@ namespace GeneralGame
 			
 
 		}
+		public void Activate()
+		{
+			GameObjectToUnlock.Enabled = true;
+			EnableSpriteRenderer( false );
+			EnableLineRenderer( false );
+		}
 
 		// ...existing code...
 		public void CheckPlayerProximity( Player player )
