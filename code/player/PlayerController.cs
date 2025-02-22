@@ -607,7 +607,7 @@ public partial class Player : Component, IHealthComponent
 		var skinnedModelRenderer = ModelRenderer.Components.Get<SkinnedModelRenderer>(true);
 
 		var hasViewModel = Weapons.Deployed.IsValid() && Weapons.Deployed.HasViewModel;
-		var clothing = ModelRenderer.Components.GetAll<ClothingComponent>(FindMode.EverythingInSelfAndDescendants);
+		
 
 		if (hasViewModel)
 		{
@@ -616,11 +616,7 @@ public partial class Player : Component, IHealthComponent
 
 			ModelRenderer.Enabled = Ragdoll.IsRagdolled;
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
-			foreach (var c in clothing)
-			{
-				c.ModelRenderer.Enabled = Ragdoll.IsRagdolled;
-				c.ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
-			}
+			
 
 			// SkinnedModelRenderer aktivieren
 			if (skinnedModelRenderer != null)
@@ -647,14 +643,7 @@ public partial class Player : Component, IHealthComponent
 			shadowRenderer.Enabled = true;
 		}
 
-		foreach (var c in clothing)
-		{
-			c.ModelRenderer.Enabled = false;
-			if (c.Category is Clothing.ClothingCategory.Hair or Clothing.ClothingCategory.Facial or Clothing.ClothingCategory.Hat)
-			{
-				c.ModelRenderer.RenderType = IsProxy ? Sandbox.ModelRenderer.ShadowRenderType.On : Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
-			}
-		}
+		
 
 		if (!PlyCamera.IsValid() || !Eye.IsValid())
 			return;

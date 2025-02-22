@@ -1278,9 +1278,9 @@ public class ItemComponent : Component
 	private PhysicsBody GrabBody;
 	private Sandbox.Physics.FixedJoint GrabJoint;
 
-	private Vector3 itemOffset = new Vector3(15.0f, 0.0f, 0.0f); // Standard-Offset
 
-	PhysicsGraber grabber = null;
+
+	
 
 	protected override void OnFixedUpdate()
 	{

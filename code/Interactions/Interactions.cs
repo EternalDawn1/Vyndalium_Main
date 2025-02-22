@@ -220,7 +220,7 @@ public class Interactions : Component
 	{
 		programmedInteractions ??= new();
 		programmedInteractions.Add( interaction );
-		interactionList.Add(interaction);
+		interactionList.Add( interaction );
 	}
 
 	public void AddInteractions( List<Interaction> interactions )

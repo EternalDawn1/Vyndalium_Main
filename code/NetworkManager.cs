@@ -200,8 +200,5 @@ namespace GeneralGame
 
     }
     
-    public class PlayerInfo
-    {
-        public string Name { get; set; }
-    }
+
 }

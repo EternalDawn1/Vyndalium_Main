@@ -1267,6 +1267,7 @@ public class  BaseGun : WeaponComponent, IUse
 				hasPlayedChargedSound = false; // Zurücksetzen, wenn die Aufladung nicht vollständig ist
 			}
 		}
+		
 		base.OnUpdate();
 	}
 	[Rpc.Broadcast]
