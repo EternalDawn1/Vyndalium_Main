@@ -5,46 +5,54 @@ namespace GeneralGame
 {
     public sealed class DamageTrigger : Component, Component.ITriggerListener
     {
-        [Property] public SoundEvent TriggerSoundPath { get; set; } 
-        
-        
+        [Property] public SoundEvent TriggerSoundPath { get; set; }
+
         [Property] float Amount { get; set; } = 10f;
 
         private float timer = 0f;
         private bool isPlayerInside = false;
         private Player playerInside;
 
-		protected override void OnUpdate()
-		{
-			base.OnUpdate();
-			timer += Time.Delta;
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+            timer += Time.Delta;
 
-            if (timer >= 1f && isPlayerInside && playerInside != null)
+            // Überprüfen, ob der Spieler gestorben ist und die Variable zurücksetzen
+            if ( playerInside != null && playerInside.LifeState == LifeState.Dead )
             {
-                playerInside.TakeDamage(DamageType.Bullet, Amount, new Vector3(), new Vector3(), new Guid(), GameObject.Id);
-                Sound.Play(TriggerSoundPath, WorldPosition);
+                isPlayerInside = false;
+                playerInside = null;
+                timer = 0f;
+                return;
+            }
+
+            if ( timer >= 1f && isPlayerInside && playerInside != null && playerInside.LifeState == LifeState.Alive )
+            {
+                playerInside.TakeDamage( DamageType.Bullet, Amount, new Vector3(), new Vector3(), new Guid(), GameObject.Id );
+                Sound.Play( TriggerSoundPath, WorldPosition );
                 timer = 0f;
             }
-		}
-        
+        }
 
-        public void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter( Collider other )
         {
             var player = other.Components.Get<Player>();
-            if (player != null)
+            if ( player != null )
             {
                 isPlayerInside = true;
                 playerInside = player;
             }
         }
 
-        public void OnTriggerExit(Collider other)
+        public void OnTriggerExit( Collider other )
         {
             var player = other.Components.Get<Player>();
-            if (player != null)
+            if ( player != null )
             {
                 isPlayerInside = false;
                 playerInside = null;
+                timer = 0f; // Timer zurücksetzen, wenn der Spieler den Triggerbereich verlässt
             }
         }
     }

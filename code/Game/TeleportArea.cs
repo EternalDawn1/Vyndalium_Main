@@ -4,7 +4,7 @@ namespace GeneralGame
 	{
 		[Property] public TeleportPositionPoint TeleportPositionPoint { get; set; }
 		[Property] public float DetectionRadius { get; set; } = 5.0f;
-		[Property] public float TeleportRadius { get; set; } = 5.0f;
+		
 		[Property] public bool DrawProximityRangeGizmo { get; set; } = true;
 		
 
