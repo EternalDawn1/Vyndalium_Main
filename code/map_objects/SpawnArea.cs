@@ -123,6 +123,15 @@ public sealed class NpcSpawnArea : Component
 		[ShowIf("SequentialSpawn", true)]
 		public float SpawnInterval { get; set; } = 1f;
 
+		[Property]
+		[JsonInclude]
+		public bool EnableDestroyAfterTime { get; set; } = false;
+
+		[Property]
+		[JsonInclude]
+		[ShowIf( "EnableDestroyAfterTime", true )]
+		public float DestroyAfterTime { get; set; } = 10f;
+
 		public SubNpcChance() { }
 	}
 
@@ -329,7 +338,7 @@ public sealed class NpcSpawnArea : Component
 		return distanceToDoor < doorWidth;
 	}
 
-	private bool IsPlayerInRoom()
+	public bool IsPlayerInRoom()
 	{
 		if ( Network.IsProxy || NpcPool == null || NpcPool.Count == 0 )
 			return false;
@@ -471,7 +480,7 @@ public sealed class NpcSpawnArea : Component
 						if (npcComponent != null)
 						{
 							npcComponent.Level = new Random().Next(bossChance.MinLevel, bossChance.MaxLevel + 1);
-							npcComponent.SetHealthBasedOnLevel();
+							npcComponent.SetHealthBasedOnLevelBoss( boss.GetComponent<Npc>().MaxHealth ); // Verwende die neue Methode
 							var abilityRandom = new Random();
 							npcComponent.HasIceAbility = bossChance.IceAbilityChance >= 1.0 || new Random().NextDouble() <= bossChance.IceAbilityChance;
 							npcComponent.HasWindAbility = bossChance.WindAbilityChance >= 1.0 || new Random().NextDouble() <= bossChance.WindAbilityChance;
@@ -493,30 +502,30 @@ public sealed class NpcSpawnArea : Component
 		}
 	}
 
-	private async Task SpawnSubNpcsWithDelay(List<SubNpcChance> subNpcPool, float delay)
+	private async Task SpawnSubNpcsWithDelay( List<SubNpcChance> subNpcPool, float delay )
 	{
 		do
 		{
-			await Task.Delay((int)TimeSpan.FromSeconds(delay).TotalSeconds);
-			if (allSubNpcsKilled)
+			await Task.Delay( (int)TimeSpan.FromSeconds( delay ).TotalSeconds );
+			if ( allSubNpcsKilled )
 			{
 				return;
 			}
-			foreach (var npcChance in subNpcPool)
+			foreach ( var npcChance in subNpcPool )
 			{
-				var random = Game.Random.Float(0f, 1f);
+				var random = Game.Random.Float( 0f, 1f );
 				var shouldSpawn = random <= npcChance.SpawnChance;
-				if (shouldSpawn)
+				if ( shouldSpawn )
 				{
-					for (int i = 0; i < npcChance.SpawnCount; i++)
+					for ( int i = 0; i < npcChance.SpawnCount; i++ )
 					{
-						var npc = SpawnNpc(npcChance.Npc);
-						if (npc != null)
+						var npc = SpawnNpc( npcChance.Npc );
+						if ( npc != null )
 						{
 							var npcComponent = npc.GetComponent<Npc>();
-							if (npcComponent != null)
+							if ( npcComponent != null )
 							{
-								npcComponent.Level = new Random().Next(npcChance.MinLevel, npcChance.MaxLevel + 1);
+								npcComponent.Level = new Random().Next( npcChance.MinLevel, npcChance.MaxLevel + 1 );
 								npcComponent.SetHealthBasedOnLevel();
 
 								var abilityRandom = new Random();
@@ -524,21 +533,32 @@ public sealed class NpcSpawnArea : Component
 								npcComponent.HasWindAbility = npcChance.WindAbilityChance >= 1.0 || new Random().NextDouble() <= npcChance.WindAbilityChance;
 								npcComponent.HasFireAbility = npcChance.FireAbilityChance >= 1.0 || new Random().NextDouble() <= npcChance.FireAbilityChance;
 							}
-							SpawnedNpcs.Add(npc);
+							SpawnedNpcs.Add( npc );
+
+							if ( npcChance.EnableDestroyAfterTime )
+							{
+								_ = DestroyAfterTime( npc, npcChance.DestroyAfterTime );
+							}
 						}
-						if (npcChance.SequentialSpawn)
+						if ( npcChance.SequentialSpawn )
 						{
-							await Task.Delay((int)(npcChance.SpawnInterval * 1000));
+							await Task.Delay( (int)(npcChance.SpawnInterval * 1000) );
 						}
 					}
 				}
 			}
-		} while (LoopSpawning);
+		} while ( LoopSpawning );
 
-		if (DestroyAfterSpawning)
+		if ( DestroyAfterSpawning && ChallengeDoor != null && ChallengeDoor.IsTimerExpired() )
 		{
 			GameObject.Destroy();
 		}
+	}
+
+	private async Task DestroyAfterTime( GameObject npc, float time )
+	{
+		await Task.Delay( (int)(time * 1000) );
+		npc?.Destroy();
 	}
 
 

@@ -1144,6 +1144,12 @@ public partial class Npc : Component, IHealthComponent
 		MaxHealth = (float)(100 * Math.Pow( 1.09, Level ));
 		Health = MaxHealth;
 	}
+	public void SetHealthBasedOnLevelBoss( float baseHealth )
+	{
+		// Berechne das MaxHealth und Health basierend auf dem Level und dem Basiswert des Prefabs
+		MaxHealth = baseHealth * (float)Math.Pow( 1.09, Level );
+		Health = MaxHealth;
+	}
 
 	/// <summary>
 	/// Get a random position around the position (Horizonal)

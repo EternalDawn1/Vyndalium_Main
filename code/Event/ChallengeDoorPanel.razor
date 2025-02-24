@@ -1,0 +1,28 @@
+@using System
+@using System.Linq
+@using Sandbox
+@inherits PanelComponent
+@namespace GeneralGame.HUD
+
+<root>
+    <div>@Math.Round(ChallengeDoorInstance.timer)</div>
+    <div class="progress-bar">
+        <div class="progress" style="width:@(ChallengeDoorInstance.timer / ChallengeDoorInstance.CloseDuration * 100)%">
+        </div>
+    </div>
+</root>
+
+@code {
+    [Property] public ChallengeDoorPanel ChallengeDoorPanelInstance;
+    [Property] private ChallengeDoor ChallengeDoorInstance;
+
+    protected override void OnUpdate()
+    {
+        ChallengeDoorInstance = ChallengeDoorPanelInstance.ChallengeDoorInstance;
+        if (ChallengeDoorInstance.timer <= 0)
+        {
+            GameObject.Destroy();
+        }
+        this.StateHasChanged();
+    }
+}

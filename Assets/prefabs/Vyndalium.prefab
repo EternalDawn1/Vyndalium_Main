@@ -11,7 +11,16 @@
         "__type": "Sandbox.ModelRenderer",
         "__guid": "1ae8da74-c988-45d4-b27e-089c0f9dae95",
         "BodyGroups": 18446744073709551615,
+        "CreateAttachments": false,
+        "MaterialGroup": null,
+        "MaterialOverride": null,
         "Model": "models/prism/prism.vmdl",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "RenderOptions": {
           "GameLayer": true,
           "OverlayLayer": false,
@@ -25,15 +34,34 @@
         "__type": "Sandbox.BoxCollider",
         "__guid": "bc6d0160-8bd4-4d63-9015-ba2053298360",
         "Center": "0,0,0",
+        "Friction": null,
         "IsTrigger": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnObjectTriggerEnter": null,
+        "OnObjectTriggerExit": null,
+        "OnTriggerEnter": null,
+        "OnTriggerExit": null,
         "Scale": "50,50,50",
-        "Static": false
+        "Static": false,
+        "Surface": null,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "GeneralGame.VyndaliumTrigger",
         "__guid": "8dd5cb3a-9597-4eaa-b56c-487278c19317",
         "MaxVyndaliumAmount": 50,
         "MinVyndaliumAmount": 1,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "TriggerSoundPath": "sounds/prism_pickup/prism_pickup.sound"
       }
     ],
@@ -51,17 +79,75 @@
             "FogMode": "Enabled",
             "FogStrength": 1,
             "LightColor": "0.95814,0.83061,0.50804,1",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Radius": 64,
             "Shadows": true
           }
         ]
+      },
+      {
+        "__guid": "9135db40-dac8-42f4-909e-0c3f47844454",
+        "Flags": 0,
+        "Name": "prism",
+        "Position": "-22.88409,-78.68571,4.337184",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "a63ad7ad-71c4-41a9-845c-f3bbfc5f78b5",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "MaterialGroup": null,
+            "Model": "models/prism/prism.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnPropBreak": null,
+            "OnPropTakeDamage": null,
+            "StartAsleep": false,
+            "Tint": "1,1,1,1"
+          }
+        ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
