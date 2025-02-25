@@ -1343,21 +1343,20 @@ public class ItemComponent : Component
 		{
 			var tr = Scene.Trace.Ray( Scene.Camera.ScreenNormalToRay( 0.5f ), 1000.0f )
 						.IgnoreGameObjectHierarchy( GameObject.Root )
-						
 						.Run();
 
 			if ( tr.Hit )
 			{
-				
-				
+				// Hier können Sie zusätzliche Logik hinzufügen, falls erforderlich
 			}
 		}
 		else
 		{
-			var position = GrabbedObject.WorldTransform.PointToWorld( GrabbedObjectLocal );
-
-			
-			
+			if ( GrabbedObject != null )
+			{
+				var position = GrabbedObject.WorldTransform.PointToWorld( GrabbedObjectLocal );
+				// Hier können Sie zusätzliche Logik hinzufügen, falls erforderlich
+			}
 		}
 	}
 
