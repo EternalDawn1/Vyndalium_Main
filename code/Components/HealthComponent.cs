@@ -118,6 +118,19 @@ public sealed class HealthComponent : Component
 	[Property] public CitizenAnimationHelper AnimationHelper { get; set; }
 
 
+	public event Action<GameObject, int> OnHit;
+
+	public void TakeDamage( DamageType damageType, int damage, Vector3 position, Vector3 direction, Guid attackerId, Guid targetId )
+	{
+		Health -= damage;
+		OnHit?.Invoke( this.GameObject, damage );
+
+		if ( Health <= 0 )
+		{
+			// Handle death
+		}
+	}
+
 
 
 	protected override void OnStart()

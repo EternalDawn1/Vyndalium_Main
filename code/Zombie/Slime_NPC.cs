@@ -12,13 +12,29 @@ public partial class Slime : Npc, IHealthComponent
 
 	[Property]
 	public string FireBallPrefabPath { get; set; }
+	[Property]
+	public string FireBallAvatarPrefabPath { get; set; }
 
 	private List<GameObject> activeFireRingObjects = new();
 	private DateTime lastFireRingAttackTime = DateTime.MinValue;
 	private DateTime lastFireBallAttackTime = DateTime.MinValue;
+	private DateTime lastAvatarModeAttackTime = DateTime.MinValue;
+
+	[Property] SoundEvent FireBallSound { get; set; }
+	[Property] SoundEvent FireRingSound { get; set; }
+
+	[Property] SoundEvent FireBallMultipleSound { get; set; }
+
+	[Property] SoundEvent FireBallAvatarSound { get; set; }
+	[Property] SoundEvent FireBallAvatarChargeSound { get; set; }	
+
+
+
 	private const float proximityRange = 100.0f; // Proximity range in units
 	private const float fireRingCooldown = 10.0f; // Cooldown in seconds
 	private const float fireBallCooldown = 10.0f; // Cooldown in seconds
+
+	private const float avatarModeCooldown = 10.0f; // Cooldown in seconds
 	public Vector3 PlayerProximityDistance { get; set; } = new Vector3( 1000f, 1000f, 1000f );
 
 	protected override void OnUpdate()
@@ -42,7 +58,7 @@ public partial class Slime : Npc, IHealthComponent
 						lastFireRingAttackTime = DateTime.Now;
 					}
 				}
-				else if ( distanceToPlayer > proximityRange )
+				else if ( distanceToPlayer > proximityRange && distanceToPlayer <= PlayerProximityDistance.Length )
 				{
 					if ( DateTime.Now >= lastFireBallAttackTime.AddSeconds( fireBallCooldown ) )
 					{
@@ -50,6 +66,17 @@ public partial class Slime : Npc, IHealthComponent
 						lastFireBallAttackTime = DateTime.Now;
 					}
 				}
+				else if (distanceToPlayer > proximityRange && distanceToPlayer > PlayerProximityDistance.Length)
+				{
+					if ( Health < MaxHealth * 0.5f && lastAvatarModeAttackTime.AddSeconds( avatarModeCooldown ) <= DateTime.Now )
+					{
+						ExecuteAvatarModeAttack( targetPlayer );
+						lastAvatarModeAttackTime = DateTime.Now;
+					}
+				}
+
+				// Überprüfen Sie, ob die Gesundheit unter 50% liegt und führen Sie den Avatar-Modus-Angriff aus
+				
 			}
 		}
 	}
@@ -98,7 +125,14 @@ public partial class Slime : Npc, IHealthComponent
 		}
 
 		var random = new Random();
-		bool useDirectAttack = random.Next( 2 ) == 0;
+		bool useDirectAttack = random.Next( 3 ) == 0;
+
+		if ( Health < MaxHealth * 0.5f )
+		{
+			
+			ExecuteAvatarModeAttack( targetPlayer );
+			
+		}
 
 		if ( useDirectAttack )
 		{
@@ -111,7 +145,12 @@ public partial class Slime : Npc, IHealthComponent
 				fireBallObject.WorldPosition = WorldPosition + Vector3.Right * spacing * i; // Setze die Startposition mit Abstand
 				fireBallObject.WorldRotation = Rotation.Identity;
 				fireBallObject.NetworkSpawn();
+				if(FireBallMultipleSound != null)
+				{
+					Sound.Play( FireBallMultipleSound );
+				}
 
+				
 				if ( i == 0 )
 				{
 					// Kugel 1 zielt direkt auf den Spieler
@@ -135,8 +174,141 @@ public partial class Slime : Npc, IHealthComponent
 			_ = MoveFireBallObjectArtillery( fireBallObject, targetPlayer );
 		}
 
-		Log.Info( "Fireball launched" );
+		float distanceToPlayer = (targetPlayer.WorldPosition - this.WorldPosition).Length;
+
+		if ( distanceToPlayer < 450.0f )
+		{
+			if ( DateTime.Now >= lastFireRingAttackTime.AddSeconds( fireRingCooldown ) )
+			{
+				
+
+				ExecuteFireRingAttack();
+				lastFireRingAttackTime = DateTime.Now;
+			}
+		}
+		else
+		{
+			// Reset the cooldown if the player moves out of range
+			lastFireRingAttackTime = DateTime.MinValue;
+		}
+
+		
 	}
+	private async void ExecuteAvatarModeAttack( Player targetPlayer )
+	{
+		if ( string.IsNullOrEmpty( FireBallAvatarPrefabPath ) )
+		{
+			return;
+		}
+
+		var prefab = ResourceLibrary.Get<PrefabFile>( FireBallAvatarPrefabPath );
+		if ( prefab == null )
+		{
+			return;
+		}
+
+		var fireBallObjects = new List<GameObject>();
+
+		// Erstelle vier Feuerkugeln
+		for ( int i = 0; i < 4; i++ )
+		{
+			var fireBallObject = GameObject.Clone( prefab );
+			fireBallObject.WorldPosition = WorldPosition + new Vector3( 0, 0, 150 ); // 50 Einheiten über dem NPC
+			fireBallObject.WorldRotation = Rotation.Identity;
+			fireBallObject.NetworkSpawn();
+			fireBallObjects.Add( fireBallObject );
+
+			if(FireBallAvatarChargeSound != null)
+			{
+				Sound.Play( FireBallAvatarChargeSound );
+			}
+
+			// Verzögerung zwischen den Spawns
+			await Task.Delay( 1000 ); // 500ms Verzögerung
+		}
+
+		if(FireBallAvatarSound != null)
+		{
+			Sound.Play( FireBallAvatarSound );
+		}
+		// Bewege die Feuerkugeln in einem Bogen
+		var directions = new Vector3[]
+		{
+		new Vector3(0, 0, 1), // Oben
+        new Vector3(0, 0, -1), // Unten
+        new Vector3(0, 1, 0), // Rechts
+        new Vector3(0, -1, 0) // Links
+		};
+
+		for ( int i = 0; i < fireBallObjects.Count; i++ )
+		{
+			var fireBallObject = fireBallObjects[i];
+			var direction = directions[i];
+			_ = MoveFireBallObjectAvatarMode( fireBallObject, targetPlayer, direction );
+		}
+	}
+	private async Task MoveFireBallObjectAvatarMode( GameObject fireBallObject, Player targetPlayer, Vector3 initialDirection )
+	{
+		const float speed = 400.0f; // Geschwindigkeit des Feuerballs
+		const float updateInterval = 0.01f; // Update alle 10ms für eine flüssigere Bewegung
+		const float homingDuration = 1.0f; // Dauer des Homing-Effekts in Sekunden
+		const float straightFlightDuration = 5.0f; // Dauer des geraden Flugs in Sekunden
+		const float increasedSpeed = 600.0f; // Erhöhte Geschwindigkeit nach dem Homing-Effekt
+
+		// Schieße die Kugel in die angegebene Richtung
+		fireBallObject.WorldPosition += initialDirection * 200.0f;
+
+		
+		
+		float elapsedTime = 0.0f;
+
+		while ( elapsedTime < homingDuration )
+		{
+			await Task.Delay( (int)(updateInterval * 1000) ); // Update alle 10ms
+			var targetPosition = targetPlayer.WorldPosition;
+			var direction = (targetPosition - fireBallObject.WorldPosition).Normal;
+			fireBallObject.WorldPosition += direction * speed * updateInterval; // Bewege das Objekt
+
+			// Kollisionserkennung mit Spielern
+			var players = Scene.GetAllComponents<Player>();
+			foreach ( var player in players )
+			{
+				if ( (player.WorldPosition - fireBallObject.WorldPosition).Length < 1.0f )
+				{
+					// Füge dem Spieler Schaden zu
+					var playerHealthComponent = player.GetComponent<IHealthComponent>();
+					if ( playerHealthComponent != null )
+					{
+						playerHealthComponent.TakeDamage( DamageType.fire, 50, fireBallObject.WorldPosition, Vector3.Zero, Guid.Empty, fireBallObject.Id );
+					}
+
+					// Lösche das Feuerballobjekt nach einer Sekunde Verzögerung
+					fireBallObject.Destroy();
+					return;
+				}
+			}
+
+			elapsedTime += updateInterval;
+		}
+
+		// Fliege für eine Sekunde geradeaus und erhöhe die Geschwindigkeit
+		var straightFlightDirection = (targetPlayer.WorldPosition - fireBallObject.WorldPosition).Normal;
+		elapsedTime = 0.0f;
+
+		while ( elapsedTime < straightFlightDuration )
+		{
+			await Task.Delay( (int)(updateInterval * 1000) ); // Update alle 10ms
+			fireBallObject.WorldPosition += straightFlightDirection * increasedSpeed * updateInterval; // Bewege das Objekt
+
+			elapsedTime += updateInterval;
+		}
+
+		
+		
+		fireBallObject.Destroy();
+	}
+
+	
 
 	private async Task MoveFireBallObjectArtillery( GameObject fireBallObject, Player targetPlayer )
 	{
@@ -148,6 +320,10 @@ public partial class Slime : Npc, IHealthComponent
 
 		// Schieße die Kugel nach oben
 		fireBallObject.WorldPosition += Vector3.Up * 200.0f;
+		if(FireBallSound != null)
+		{
+			Sound.Play( FireBallSound );
+		}
 
 		float elapsedTime = 0.0f;
 
@@ -194,7 +370,7 @@ public partial class Slime : Npc, IHealthComponent
 		}
 
 		// Lösche das Feuerballobjekt nach einer Sekunde Verzögerung
-		await Task.Delay( 1000 );
+		
 		fireBallObject.Destroy();
 	}
 
@@ -272,7 +448,12 @@ public partial class Slime : Npc, IHealthComponent
 				fireObject.WorldPosition = WorldPosition;
 				fireObject.WorldRotation = Rotation.Identity;
 				fireObject.NetworkSpawn();
+				
 				activeFireRingObjects.Add( fireObject );
+				if ( FireRingSound != null )
+				{
+					Sound.Play( FireBallSound );
+				}
 
 				_ = MoveFireObject( fireObject, direction, objectSpeed, maxDistance );
 			}

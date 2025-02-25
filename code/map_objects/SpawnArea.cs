@@ -6,6 +6,13 @@ public sealed class NpcSpawnArea : Component
 {
 	[Property] public Checkpoint Checkpoint { get; set; }
 	[Property] public ChallengeDoor ChallengeDoor { get; set; }
+	[Property] public SoundEvent BattleMusic { get; set; }
+	[Property] public List<Light> Lights { get; set; } = new();
+	[Property] public Color BaseColor { get; set; } = Color.White;
+	[Property] public Color FadingToColor { get; set; } = Color.Red;
+	[Property] public float ColorChangeDuration { get; set; } = 2.0f;
+
+
 
 	public enum GizmoType
 	{
@@ -488,6 +495,16 @@ public sealed class NpcSpawnArea : Component
 						}
 						SpawnedNpcs.Add(boss);
 
+						foreach ( var light in Lights )
+						{
+							_ = LerpLightColor( light, BaseColor, FadingToColor, ColorChangeDuration );
+						}
+
+						if ( BattleMusic != null)
+						{
+							Sound.Play(BattleMusic, boss.WorldPosition);
+						}
+
 						// Setze die Variable zurück, wenn ein neuer Boss gespawnt wird
 						allSubNpcsKilled = false;
 						// Spawne die Sub-NPCs des Bosses mit einer Verzögerung
@@ -660,7 +677,17 @@ public sealed class NpcSpawnArea : Component
 		p.SetControlPoint(1, new Vector3(5.5f, 0.1f, 0.1f));
 		p.PlayUntilFinished(Task);
 	}
-	
+	private async Task LerpLightColor( Light light, Color startColor, Color endColor, float duration )
+	{
+		float time = 0;
+		while ( time < duration )
+		{
+			light.LightColor = Color.Lerp( startColor, endColor, time / duration );
+			time += Time.Delta;
+			await Task.Yield();
+		}
+		light.LightColor = endColor;
+	}
 
 
 

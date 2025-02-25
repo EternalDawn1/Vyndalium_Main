@@ -1095,7 +1095,24 @@ public class  BaseGun : WeaponComponent, IUse
 		IHealthComponent damageable = null;
 
 		if ( trace.Component.IsValid() )
+		{
 			damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+			if ( damageable == null )
+			{
+				var healthComponent = trace.Component.Components.GetInAncestorsOrSelf<HealthComponent>();
+				if ( healthComponent != null )
+				{
+					
+				}
+			}
+
+			if ( damageable != null )
+			{
+				// Fügen Sie hier den Code hinzu, um Schaden zu verursachen
+				damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
+			}
+		}
+
 
 
 		if ( damageable is not null )

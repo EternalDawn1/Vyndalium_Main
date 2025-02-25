@@ -4,11 +4,14 @@ public sealed class Switch : Component
 {
 	[Property]
 	public PointLight Light { get; set; }
-	
-	
-	
+
 	[Property] public bool DrawProximityRangeGizmo { get; set; }
 	[Property] public float PlayerProximityDistance { get; set; } = 1000f;
+	[Property] public float CheckInterval { get; set; } = 1.0f; // Intervall in Sekunden
+
+	private float timeSinceLastCheck = 0f;
+	private bool isPlayerNearby = false;
+
 	protected override void DrawGizmos()
 	{
 		const float boxSize = 4f;
@@ -29,19 +32,20 @@ public sealed class Switch : Component
 			Gizmo.Draw.LineSphere( Vector3.Zero, PlayerProximityDistance );
 		}
 	}
+
 	protected override void OnUpdate()
 	{
 		if ( Light == null ) return;
 
-		if ( !IsPlayerNearby() ) // Überprüfen, ob ein Spieler in der Nähe ist
+		timeSinceLastCheck += Time.Delta;
+		if ( timeSinceLastCheck >= CheckInterval )
 		{
-			Light.Enabled = false;
-			return;
+			isPlayerNearby = IsPlayerNearby();
+			timeSinceLastCheck = 0f;
 		}
 
-		Light.Enabled = true;
+		Light.Enabled = isPlayerNearby;
 	}
-
 
 	private bool IsPlayerNearby()
 	{
