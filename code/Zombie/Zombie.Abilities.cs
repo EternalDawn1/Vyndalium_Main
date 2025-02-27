@@ -5,17 +5,17 @@ public class Abilities : Component
     [Order( 100 ),Property,Group("General Settings")] bool HasSpecialAbility { get; set; }
 
     [Order( 20 ),Feature("SpecialAbility"),Property,Group("Abilities"),ShowIf( "HasSpecialAbility", true )] bool FireAbility { get; set; }
-    [Order( 100 ),Feature( "SpecialAbility" ),Property,Group("FireGroup"),ShowIf( "FireAbility", true )] bool FireQuadrupleAttack  { get; set; }
+    [Order( 100 ),Feature( "SpecialAbility" ),Property,Group("FireGroup"),ShowIf( "FireAbility", true )] bool FireAttackEnabled  { get; set; }
 
     [Order( 20 ),Feature("SpecialAbility"),Property,Group("Abilities"),ShowIf( "HasSpecialAbility", true )] PrefabFile FireBallPrefab { get; set; }
 
     [Order( 20 ), Feature( "SpecialAbility" ), Property, Group( "Abilities" ), ShowIf( "HasSpecialAbility", true )] SoundEvent FireBallChargeSound { get; set; }
     [Order( 20 ), Feature( "SpecialAbility" ), Property, Group( "Abilities" ), ShowIf( "HasSpecialAbility", true )] SoundEvent FireBallAttackSound { get; set; }
 
-    public Vector3 PlayerProximityDistance { get; set; } = new Vector3( 1000f, 1000f, 1000f );
+    public Vector3 PlayerProximityDistance { get; set; } = new Vector3( 500f, 500f, 500f );
 
-    [Property]private RealTimeSince lastAvatarModeAttackTime;
-    [Property]private float avatarModeCooldown = 15.0f;
+    [Property]private RealTimeSince FireBallAttackTime;
+    [Property]private float FireBallCooldown = 15.0f;
 
     protected override void OnUpdate()
     {
@@ -35,10 +35,10 @@ public class Abilities : Component
                     float distanceToPlayer = (targetPlayer.WorldPosition - this.WorldPosition).Length;
                     if ( distanceToPlayer <= PlayerProximityDistance.Length ) // Überprüfen Sie die Berechnung der Distanz
                     {
-                        if ( lastAvatarModeAttackTime > avatarModeCooldown ) // Überprüfen Sie den Wert von lastAvatarModeAttackTime
+                        if ( FireBallAttackTime > FireBallCooldown ) // Überprüfen Sie den Wert von FireBallAttackTime
                         {
-                            ExecuteAvatarModeAttack( targetPlayer ); // Diese Methode sollte aufgerufen werden
-                            lastAvatarModeAttackTime = 0.0f;
+                           FireBallAttack( targetPlayer ); // Diese Methode sollte aufgerufen werden
+                            FireBallAttackTime = 0.0f;
                         }
                     }
                 }
@@ -62,13 +62,13 @@ public class Abilities : Component
         }
         return false;
     }
-    private async void ExecuteAvatarModeAttack( Player targetPlayer )
+    private async void FireBallAttack( Player targetPlayer )
     {
         if ( targetPlayer == null )
         {
             return;
         }
-        if ( !FireQuadrupleAttack )
+        if ( !FireAttackEnabled)
         {
             return;
         }
@@ -86,6 +86,7 @@ public class Abilities : Component
         for ( int i = 0; i < 4; i++ )
         {
             var fireBallObject = GameObject.Clone( prefab );
+            
             fireBallObject.WorldPosition = WorldPosition + new Vector3( 0, 0, 150 ); // 50 Einheiten über dem NPC
             fireBallObject.WorldRotation = Rotation.Identity;
             fireBallObject.NetworkSpawn();
@@ -97,7 +98,7 @@ public class Abilities : Component
             }
 
             // Verzögerung zwischen den Spawns
-            Task.DelayRealtime( 500 ).Wait();
+            await Task.Delay( 250 ); // 500ms Verzögerung
         }
 
         if ( FireBallAttackSound != null )
@@ -107,10 +108,11 @@ public class Abilities : Component
         // Bewege die Feuerkugeln in einem Bogen
         var directions = new Vector3[]
         {
-        new Vector3(0, 0, 1), // Oben
-        new Vector3(0, 0, -1), // Unten
-        new Vector3(0, 1, 0), // Rechts
-        new Vector3(0, -1, 0) // Links
+        Vector3.Up, // Oben
+        Vector3.Down, // Unten
+        Vector3.Right, // Rechts
+        Vector3.Left // Links
+      
         };
 
         for ( int i = 0; i < fireBallObjects.Count; i++ )
@@ -119,7 +121,7 @@ public class Abilities : Component
             var direction = directions[i];
             _ = MoveFireBallObjectAvatarMode( fireBallObject, targetPlayer, direction );
         }
-        lastAvatarModeAttackTime = 0.0f;
+         FireBallAttackTime = 0.0f;
     }
     private async Task MoveFireBallObjectAvatarMode( GameObject fireBallObject, Player targetPlayer, Vector3 initialDirection )
     {
