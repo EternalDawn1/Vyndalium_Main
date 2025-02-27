@@ -55,13 +55,18 @@ namespace GeneralGame
 
         public void OnActive( Connection channel )
         {
-            if ( Player.All.Count >= MAX_PLAYERS )
+            if ( Player.All == null || Player.All.Count >= MAX_PLAYERS )
             {
                 SceneHandler.ChangeScene( GeneralScene.MainMenu );
                 Networking.Disconnect();
                 return;
             }
-            
+
+            if ( Prefab == null )
+            {
+                Log.Error( "Prefab is not set." );
+                return;
+            }
 
             var startLocation = FindSpawnLocation().WithScale( 1 );
             var playerObject = Prefab.Clone( startLocation, name: $"Player - {channel.DisplayName}" );
@@ -69,14 +74,14 @@ namespace GeneralGame
             var playerComponent = playerObject.Components.Get<Player>( FindMode.EverythingInSelfAndDescendants );
             if ( playerComponent == null )
             {
-               
+                Log.Error( "Player component not found in the cloned object." );
                 return;
             }
 
             AssignComponentsToAllPlayers( playerComponent );
 
             playerComponent.SetupConnection( channel );
-            
+
             if ( Player._InternalPlayers == null )
             {
                 Log.Error( "Player._InternalPlayers is not initialized." );

@@ -124,59 +124,57 @@
 	
 	
 	private void Update()
-	{
-		var mousePos = MousePosition;
-		var headPos = _scenePanel.Camera.ToScreen((_character.GetAttachment("eyes") ?? Transform.Zero).Position);
-		var localPos = mousePos - headPos;
+{
+    if (_scenePanel == null || _character == null || Player.Local == null || Player.Local.Inventory == null)
+        return;
 
-		_character.SetAnimParameter("lookat", new Vector3(1000f, localPos.x, -localPos.y) * _character.Rotation.Inverse);
+    var mousePos = MousePosition;
+    var headPos = _scenePanel.Camera.ToScreen((_character.GetAttachment("eyes") ?? Transform.Zero).Position);
+    var localPos = mousePos - headPos;
 
-		_character.Update( RealTime.Delta );
+    _character.SetAnimParameter("lookat", new Vector3(1000f, localPos.x, -localPos.y) * _character.Rotation.Inverse);
 
-		// Überprüfen Sie, ob das ausgerüstete Item eine Waffe ist
-		
-		
-		_character.SetAnimParameter( "hold_type", (int)Player.Local.HoldType );
-		_character.Rotation = Rotation.From( 0, _yaw, 0 );
-		
+    _character.Update(RealTime.Delta);
 
+    // Überprüfen Sie, ob das ausgerüstete Item eine Waffe ist
+    _character.SetAnimParameter("hold_type", (int)Player.Local.HoldType);
+    _character.Rotation = Rotation.From(0, _yaw, 0);
 
-		if ( _clothes != null )
-		{
-			if ( Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] is ItemEquipment hand && hand.UpdatePosition )
-				_clothes[(int)EquipSlot.Hand].Transform = (_character.GetAttachment( hand.Attachment, true ) ?? global::Transform.Zero)
-					.ToWorld( hand.AttachmentTransform )
-					.WithScale( 1 );
-				_character.SetAnimParameter( "b_swim", (int)Player.Local.HoldType );
-			
-				
+    if (_clothes != null)
+    {
+        if (Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] is ItemEquipment hand && hand.UpdatePosition)
+        {
+            _clothes[(int)EquipSlot.Hand].Transform = (_character.GetAttachment(hand.Attachment, true) ?? global::Transform.Zero)
+                .ToWorld(hand.AttachmentTransform)
+                .WithScale(1);
+        }
 
-			foreach ( var clothing in _clothes )
-				if ( clothing.IsValid() )
-					clothing?.Update( RealTime.Delta );
-		}
-		
-		
+        _character.SetAnimParameter("b_swim", (int)Player.Local.HoldType);
 
-		// i'm not sure how to make a fraction 0-1 where 0 is not hovered and 1 is hovered
-		// well i mean I'm doing it this way but I feel there's a better way
-		var isDropTarget = IsHoveredByMouse() && InventorySlot.CurrentDraggable != null && InventorySlot.CurrentDraggable.HasClass( "can-drop" );
-		float fraction;
-		if ( isDropTarget )
-		{
-			_hoverEffectDeactivation = HoverEffectDuration;
-			fraction = _hoverEffectActivation.Fraction;
-		}
-		else
-		{
-			_hoverEffectActivation = HoverEffectDuration;
-			fraction = 1 - _hoverEffectDeactivation.Fraction;
-		}
+        foreach (var clothing in _clothes)
+        {
+            if (clothing.IsValid())
+                clothing?.Update(RealTime.Delta);
+        }
+    }
 
-		var multiplier = 4 + Easing.EaseIn( fraction ) * 55;
-		var sceneDirectionalLightColor = Color.White * multiplier;
-		_sceneDirectionalLight.LightColor = sceneDirectionalLightColor;
-	}
+    var isDropTarget = IsHoveredByMouse() && InventorySlot.CurrentDraggable != null && InventorySlot.CurrentDraggable.HasClass("can-drop");
+    float fraction;
+    if (isDropTarget)
+    {
+        _hoverEffectDeactivation = HoverEffectDuration;
+        fraction = _hoverEffectActivation.Fraction;
+    }
+    else
+    {
+        _hoverEffectActivation = HoverEffectDuration;
+        fraction = 1 - _hoverEffectDeactivation.Fraction;
+    }
+
+    var multiplier = 4 + Easing.EaseIn(fraction) * 55;
+    var sceneDirectionalLightColor = Color.White * multiplier;
+    _sceneDirectionalLight.LightColor = sceneDirectionalLightColor;
+}
 
 	public override void OnButtonEvent( ButtonEvent e )
 	{

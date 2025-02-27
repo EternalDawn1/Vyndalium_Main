@@ -111,18 +111,25 @@
     }
 
     private void Toggle(FullScreenPanel panel)
+{
+    if (ActivePanel == panel)
     {
-        if (ActivePanel == panel)
-            ActivePanel = FullScreenPanel.InGameHud;
-            
-        else if(ActivePanel == FullScreenPanel.PauseMenu)
-            Input.EscapePressed = false;
-        
-        else
-            ActivePanel = panel;
-            Player.Local.BlockInputs = false;
-            
+        ActivePanel = FullScreenPanel.InGameHud;
     }
+    else if (ActivePanel == FullScreenPanel.PauseMenu)
+    {
+        Input.EscapePressed = false;
+    }
+    else
+    {
+        ActivePanel = panel;
+    }
+
+    if (Player.Local != null)
+    {
+        Player.Local.BlockInputs = false;
+    }
+}
 
     public static bool Is(FullScreenPanel mode)
 		=> FullScreenManager.Instance?.ActivePanel == mode;

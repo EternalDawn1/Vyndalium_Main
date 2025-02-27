@@ -1104,17 +1104,9 @@ public class ItemComponent : Component
 		int baseMinAbilityHaste = 1, baseMaxAbilityHaste = 10;
 		int baseMinCritHitChance = 1, baseMaxCritHitChance = 10;
 		int baseMinCritHitDamage = 1, baseMaxCritHitDamage = 10;
-		
-	
-
-
-		
-
-		
 
 		// Bestimmen Sie die maximalen Werte basierend auf dem Tier
 		var (minBonusEXP, maxBonusEXP) = GetStatRange( baseMinBonusEXP, baseMaxBonusEXP );
-		
 		var (minBonusScore, maxBonusScore) = GetStatRange( baseMinBonusScore, baseMaxBonusScore );
 		var (minBonusVyndalium, maxBonusVyndalium) = GetStatRange( baseMinBonusVyndalium, baseMaxBonusVyndalium );
 		var (minTenacity, maxTenacity) = GetStatRange( baseMinTenacity, baseMaxTenacity );
@@ -1129,10 +1121,7 @@ public class ItemComponent : Component
 		var (minLightningResistence, maxLightningResistence) = GetStatRange( baseMinLightningResistence, baseMaxLightningResistence );
 		var (minHolyResistence, maxHolyResistence) = GetStatRange( baseMinHolyResistence, baseMaxHolyResistence );
 		var (minLightResist, maxLightResist) = GetStatRange( baseMinLightResistence, baseMaxLightResistence );
-		
-
 		var (minStamina, maxStamina) = GetStatRange( baseMinStamina, baseMaxStamina );
-		
 		var (minStaminaSecond, maxStaminaSecond) = GetStatRange( basestaminapersecond, basemaxStaminaSecond );
 		var (minWalkSpeed, maxWalkSpeed) = GetStatRange( baseminWalkSpeed, basemaxWalkSpeed );
 		var (minRunSpeed, maxRunSpeed) = GetStatRange( baseminRunSpeed, basemaxRunSpeed );
@@ -1140,11 +1129,10 @@ public class ItemComponent : Component
 		var (minCritHitChance, maxCritHitChance) = GetStatRange( baseMinCritHitChance, baseMaxCritHitChance );
 		var (minCritHitDamage, maxCritHitDamage) = GetStatRange( baseMinCritHitDamage, baseMaxCritHitDamage );
 
+		// Sicherstellen, dass minValue nicht größer als maxValue ist
 		if ( minAbilityHaste > maxAbilityHaste ) (minAbilityHaste, maxAbilityHaste) = (maxAbilityHaste, minAbilityHaste);
 		if ( minCritHitChance > maxCritHitChance ) (minCritHitChance, maxCritHitChance) = (maxCritHitChance, minCritHitChance);
 		if ( minCritHitDamage > maxCritHitDamage ) (minCritHitDamage, maxCritHitDamage) = (maxCritHitDamage, minCritHitDamage);
-
-
 
 		// Bestimmen Sie die maximale Anzahl von Statistiken basierend auf dem Tier
 		double[] probabilities = { 0.7, 0.1, 0.05, 0.025, 0.0125, 0.01, 0.0075, 0.005 };
@@ -1185,36 +1173,28 @@ public class ItemComponent : Component
 		() => AbilityHaste = random.Next(minAbilityHaste, maxAbilityHaste + 1),
 		() => CritHitChance = random.Next(minCritHitChance, maxCritHitChance + 1),
 		() => CritHitDamage = random.Next(minCritHitDamage, maxCritHitDamage + 1),
-
-
-
 		() => BlindResistance = random.Next(minBlindResistance, maxBlindResistance + 1),
 		() => FreezeResist = random.Next(baseMinFreezeResistance, baseMaxFreezeResistance + 1),
-	
 		() => SlowResistence = random.Next(minSlowResistence, maxSlowResistence + 1),
 		() => FireResistence = random.Next(minFireResistence, maxFireResistence + 1),
 		() => BleedResistance = random.Next(minBleedResistance, maxBleedResistance + 1),
-
 		() => PoisonResistence = random.Next(minPoisonResistence, maxPoisonResistence + 1),
 		() => IceResistence = random.Next(minIceResistence, maxIceResistence + 1),
 		() => LightningResistence = random.Next(minLightningResistence, maxLightningResistence + 1),
 		() => HolyResistence = random.Next(minHolyResistence, maxHolyResistence + 1),
 		() => ShadowResist = random.Next(minShadowResist, maxShadowResist + 1),
 		() => LightResist = random.Next(minLightResist, maxLightResist + 1),
-	
-	
-	
-		
 		() => BonusScore = random.Next(minBonusScore, maxBonusScore + 1),
 		() => BonusVyndalium = random.Next(minBonusVyndalium, maxBonusVyndalium + 1),
 		() => Tenacity = random.Next(minTenacity, maxTenacity + 1),
 		() => StunResistance = random.Next(minStunResistance, maxStunResistance + 1),
 		() => ItemLevel = GenerateRandomItemLevel(random),
 	};
-		
+
 		// Wählen Sie zufällig eine bestimmte Anzahl von Statistiken aus
 		statsGenerators.OrderBy( x => random.Next() ).Take( maxStats ).ToList().ForEach( action => action() );
 	}
+	
 
 	private int GenerateRandomItemLevel( Random random )
 	{
@@ -1339,6 +1319,9 @@ public class ItemComponent : Component
 	{
 		base.OnPreRender();
 
+		if ( Scene.Camera == null )
+			return;
+
 		if ( !GrabbedObject.IsValid() )
 		{
 			var tr = Scene.Trace.Ray( Scene.Camera.ScreenNormalToRay( 0.5f ), 1000.0f )
@@ -1359,7 +1342,6 @@ public class ItemComponent : Component
 			}
 		}
 	}
-
 	private void MoveItemToMousePosition()
 	{
 		if ( IsProxy )

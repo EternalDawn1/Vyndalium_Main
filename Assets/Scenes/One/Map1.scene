@@ -4717,7 +4717,7 @@
               "__guid": "cf756c2b-902a-48ae-9a60-43952d7603c7",
               "Flags": 0,
               "Name": "Timer",
-              "Position": "-16.50195,-196.3345,218.8963",
+              "Position": "-16.50159,-280.27,196.4059",
               "Rotation": "0.09229596,0.09229594,-0.7010573,0.7010574",
               "Enabled": true,
               "Components": [
@@ -7999,8 +7999,8 @@
           "__type": "GeneralGame.AmmoPickup",
           "__guid": "963e70df-f3a7-43f3-b546-a4371c20b972",
           "AmmoTypen": "Rifle",
-          "MaxCount": 8,
-          "MinCount": 4,
+          "MaxCount": 800,
+          "MinCount": 400,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -8013,8 +8013,8 @@
           "__type": "GeneralGame.AmmoPickup",
           "__guid": "a9de8433-e3ad-4526-8d9a-4ababc304b92",
           "AmmoTypen": "Pistol",
-          "MaxCount": 8,
-          "MinCount": 4,
+          "MaxCount": 800,
+          "MinCount": 400,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -8037,6 +8037,102 @@
             {
               "__type": "Sandbox.ModelRenderer",
               "__guid": "8b517b4a-fdda-41fb-924b-d8213b07eeea",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Model": "models/props/ammo_box/ammobox.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.51666,1,0,1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "60500351-e629-4856-8aae-9b3886691b59",
+      "Flags": 0,
+      "Name": "pickupammo (1)",
+      "Position": "-709.6956,1325.904,325.7079",
+      "Rotation": "0.02938637,0.02938613,-0.706496,0.7064958",
+      "Scale": "0.7399458,0.7399458,0.7399458",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "97b5e7e4-6e98-4aae-bd6b-383e0e2b8b2f",
+          "Center": "7.399998,-0.2814847,45.84533",
+          "Friction": null,
+          "IsTrigger": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "Scale": "50,57.83702,49.90926",
+          "Static": true,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "b2e548ec-35bb-4ecb-8ac6-7d0a25ca912f",
+          "AmmoTypen": "Rifle",
+          "MaxCount": 800,
+          "MinCount": 400,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "TriggerSoundPath": null
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "f20d5515-7d6a-4506-b6af-20c471c443c4",
+          "AmmoTypen": "Pistol",
+          "MaxCount": 800,
+          "MinCount": 400,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "TriggerSoundPath": null
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "7ae93e16-10d7-4258-b4fa-8ccb00687208",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "0.5878319,0.00002158813,62.25617",
+          "Scale": "0.9,0.3999999,0.5999999",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "3a1819e3-436c-481c-bd34-2ea0d1c089d5",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "MaterialGroup": null,
@@ -8565,6 +8661,7 @@
     "facepunch.v_usp#64712",
     "facepunch.w_usp#17493",
     "facepunch.wired_glass_a#19956",
+    "garry.ground037#59704",
     "nolankicks.lake_water#65330",
     "rustextended.glass_industrial_b#43277"
   ],
