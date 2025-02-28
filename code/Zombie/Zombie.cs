@@ -1583,6 +1583,26 @@ public partial class Npc : Component, IHealthComponent
 
 	}
 
+	public void Kill()
+	{
+		if ( LifeState == LifeState.Dead )
+			return;
+
+		LifeState = LifeState.Dead;
+
+		// Erstellen Sie ein Ragdoll oder führen Sie andere Todesanimationen aus
+		var zombie = ZombieRagedol.Clone( this.GameObject.WorldPosition, this.GameObject.WorldRotation );
+		zombie.NetworkSpawn();
+
+		// Spawn a random item at the NPC's position
+		SpawnItemAtPosition( this.GameObject.WorldPosition );
+
+		// Destroy the NPC's game object
+		GameObject.Destroy();
+
+		// Trigger the OnKilled event
+		OnKilled?.Invoke( null );
+	}
 	public void SpawnItemAtPosition( Vector3 position )
 	{
 		SpawnRandomPrefab( position );

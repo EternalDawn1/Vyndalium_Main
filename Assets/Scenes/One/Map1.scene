@@ -311,7 +311,7 @@
           "Flags": 0,
           "Name": "Object",
           "Position": "-0,0,86.00391",
-          "Rotation": "0,0,0.7071067,0.7071068",
+          "Rotation": "0.000000000000003552714,0,0.9999999,0.0000001490116",
           "Enabled": true,
           "Components": [
             {
@@ -329,15 +329,15 @@
                 "GameLayer": true,
                 "OverlayLayer": false,
                 "BloomLayer": false,
-                "AfterUILayer": false
+                "AfterUILayer": true
               },
-              "Scale": 0.08,
+              "Scale": 0.07,
               "TextAlignment": "Center",
               "TextScope": {
                 "Text": "EXIT",
                 "TextColor": "1,1,1,1",
                 "FontName": "Poppins",
-                "FontSize": 90.47,
+                "FontSize": 1048,
                 "FontWeight": 800,
                 "FontItalic": false,
                 "LineHeight": 1,
@@ -4512,7 +4512,7 @@
           "__guid": "28c9412f-4e22-4d1f-bbd8-73327e859a4b",
           "Flags": 0,
           "Name": "boss spawner",
-          "Position": "-2318.824,1580.659,255.7486",
+          "Position": "-2318.824,1470.861,255.7486",
           "Enabled": true,
           "Components": [
             {
@@ -4566,29 +4566,11 @@
                       "SpawnInterval": 1,
                       "EnableDestroyAfterTime": false,
                       "DestroyAfterTime": 0
-                    },
-                    {
-                      "Npc": {
-                        "_type": "gameobject",
-                        "prefab": "prefabs/npc/slime_variants/va7-boss.prefab"
-                      },
-                      "SpawnChance": 1,
-                      "SpawnCount": 2,
-                      "SubNpcSpawnDelayPerNpc": 0,
-                      "IceAbilityChance": 0,
-                      "WindAbilityChance": 0,
-                      "FireAbilityChance": 0,
-                      "MinLevel": 1,
-                      "MaxLevel": 15,
-                      "SequentialSpawn": false,
-                      "SpawnInterval": 1,
-                      "EnableDestroyAfterTime": false,
-                      "DestroyAfterTime": 10
                     }
                   ],
                   "SubNpcSpawnDelay": 1,
                   "MinLevel": 5,
-                  "MaxLevel": 25,
+                  "MaxLevel": 15,
                   "IceAbilityChance": 0.12,
                   "WindAbilityChance": 0,
                   "FireAbilityChance": 0.19,
@@ -4706,10 +4688,10 @@
               "OnComponentUpdate": null,
               "PlayerProximityDistance": "994.601,414.9005,358.6001",
               "PositionOffset": "0,0,0",
-              "Radius": "745.4001,0,0",
+              "Radius": "586.4009,0,0",
               "SpawnAreaGizmoColor": "0,0,1,1",
               "StopDrawingDistance": 8000,
-              "StopLogicDistance": 200
+              "StopLogicDistance": 500
             }
           ],
           "Children": [
@@ -4791,7 +4773,7 @@
                         "go": "cf756c2b-902a-48ae-9a60-43952d7603c7",
                         "component_type": "ChallengeDoorPanel"
                       },
-                      "CloseDuration": 120,
+                      "CloseDuration": 60,
                       "isTimerActive": false,
                       "modelRenderer": {
                         "_type": "component",
@@ -4856,6 +4838,80 @@
                       "Static": false,
                       "Surface": null,
                       "SurfaceVelocity": "0,0,0"
+                    }
+                  ]
+                },
+                {
+                  "__guid": "fae1c3d2-efef-49ea-ad52-b51600e4f19c",
+                  "Flags": 0,
+                  "Name": "Object",
+                  "Position": "-0.273243,59.50758,-1.517669",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.SpriteRenderer",
+                      "__guid": "c040806e-05f3-41a5-9cef-88c64392e09e",
+                      "Additive": false,
+                      "CastShadows": false,
+                      "Color": "0.01667,1,0,1",
+                      "DepthFeather": 0,
+                      "FlipHorizontal": false,
+                      "FlipVertical": false,
+                      "FogStrength": 1,
+                      "Lighting": false,
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
+                      "Opaque": false,
+                      "Pivot": "0.5,0.5",
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": false
+                      },
+                      "Size": "70,70",
+                      "Texture": "sprites/vidya/shapes/exclamation.vtex"
+                    }
+                  ]
+                },
+                {
+                  "__guid": "ba40a452-fc49-4140-b744-ba88f07a39e1",
+                  "Flags": 0,
+                  "Name": "Object (3)",
+                  "Position": "-0.2732582,-54.64008,-1.517637",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.SpriteRenderer",
+                      "__guid": "df311fcd-ceda-4c4d-9506-2d691459ef3c",
+                      "Additive": false,
+                      "CastShadows": false,
+                      "Color": "0.01667,1,0,1",
+                      "DepthFeather": 0,
+                      "FlipHorizontal": false,
+                      "FlipVertical": false,
+                      "FogStrength": 1,
+                      "Lighting": false,
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
+                      "Opaque": false,
+                      "Pivot": "0.5,0.5",
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": true
+                      },
+                      "Size": "70,70",
+                      "Texture": "sprites/vidya/shapes/exclamation.vtex"
                     }
                   ]
                 }
@@ -8661,9 +8717,9 @@
     "facepunch.v_usp#64712",
     "facepunch.w_usp#17493",
     "facepunch.wired_glass_a#19956",
-    "garry.ground037#59704",
     "nolankicks.lake_water#65330",
-    "rustextended.glass_industrial_b#43277"
+    "rustextended.glass_industrial_b#43277",
+    "vidya.shape-exclamation#45509"
   ],
   "__version": 2
 }

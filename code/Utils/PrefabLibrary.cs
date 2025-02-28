@@ -160,4 +160,6 @@ public static class PrefabLibrary
 	/// <returns></returns>
 	public static bool TryGetByPath( string path, out PrefabDefinition prefab )
 		=> (prefab = all.FirstOrDefault( kvp => FileSystem.NormalizeFilename( path ).Equals( kvp.Value?.Path ) ).Value) != null;
+
+		
 }
