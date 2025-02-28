@@ -9,6 +9,8 @@ public class Abilities : Component
     [Order( 100 ), Feature( "SpecialAbility" ), Property, Group( "FireGroup" ), ShowIf( "FireAbility", true )] bool FireAttackEnabled { get; set; }
     [Order( 100 ), Feature( "SpecialAbility" ), Property, Group( "FireGroup" ), ShowIf( "FireAbility", true )] bool FireWallEnabled{ get; set; }
     [Order( 20 ),Feature("SpecialAbility"),Property,Group("Abilities"),ShowIf( "HasSpecialAbility", true )] bool FireAbility { get; set; }
+    [Order( 20 ), Feature( "SpecialAbility" ), Property, Group( "Abilities" ), ShowIf( "HasSpecialAbility", true )] bool FireUltimateEnabled { get; set; }
+
 
 
     [Order( 20 ),Feature("SpecialAbility"),Property,Group( "FireBall" ),ShowIf( "HasSpecialAbility", true )] PrefabFile FireBallPrefab { get; set; }
@@ -27,6 +29,7 @@ public class Abilities : Component
 
     [Order( 20 ), Feature( "SpecialAbility" ), Property, Group( "FireWall" ), ShowIf( "HasSpecialAbility", true )] PrefabFile FireWallPrefab { get; set; }
     [Order( 20 ), Feature( "SpecialAbility" ), Property, Group( "FireWall" ), ShowIf( "HasSpecialAbility", true )] SoundEvent FireWallSound { get; set; }
+
  
 
 
@@ -50,12 +53,30 @@ public class Abilities : Component
     [Property] private RealTimeSince FlameWallAttackTime;
     [Property] private float FlameWallCooldown = 20.0f;
 
-	protected override void OnStart()
-	{
-		this.npc = this.GetComponent<Npc>();
-	}
+    [Property] private RealTimeSince UltimateJumpAttackTime;
+    [Property] private float UltimateJumpAttackCooldown = 30.0f;
 
-	protected override void OnUpdate()
+    [Property, Group( "Ultimate Jump Attack Settings" )] private float HoverDuration { get; set; } = 2f;
+    [Property, Group( "Ultimate Jump Attack Settings" )] private Vector3 MidPointOffset { get; set; } = new Vector3( 0, 0, 300 );
+
+    protected override void OnStart()
+    {
+        this.npc = this.GetComponent<Npc>();
+        if ( this.npc != null )
+        {
+            this.npc.NavMeshAgent = this.npc.GetComponent<NavMeshAgent>();
+            if ( this.npc.NavMeshAgent == null )
+            {
+                Log.Error( "NavMeshAgent is null." );
+            }
+        }
+        else
+        {
+            Log.Error( "NPC is null." );
+        }
+    }
+
+    protected override void OnUpdate()
     {
        
         var players = Scene.GetAllComponents<Player>();
@@ -99,11 +120,21 @@ public class Abilities : Component
             FlameWallAttack( targetPlayer );
             FlameWallAttackTime = 0.0f;
         }
-        
+        if ( FireUltimateEnabled && UltimateJumpAttackTime > UltimateJumpAttackCooldown )
+        {
+            UltimateJumpAttack( targetPlayer );
+            UltimateJumpAttackTime = 0.0f; // Setzen Sie die UltimateJumpAttackTime zurück
+        }
+
 
     }
     
     private bool IsPlayerTooClose( Player targetPlayer )
+    {
+        float distanceToPlayer = (targetPlayer.WorldPosition - this.WorldPosition).Length;
+        return distanceToPlayer < 400.0f; // Beispielwert für zu nahe Distanz
+    }
+    private bool IsPlayerTooCloseUltimate( Player targetPlayer )
     {
         float distanceToPlayer = (targetPlayer.WorldPosition - this.WorldPosition).Length;
         return distanceToPlayer < 400.0f; // Beispielwert für zu nahe Distanz
@@ -551,6 +582,85 @@ public class Abilities : Component
 
         flameWallObject.Destroy();
     }
+    private async void UltimateJumpAttack( Player targetPlayer )
+    {
+        
+        if ( targetPlayer == null )
+        {
+            
+            return;
+        }
 
+        if ( this.npc == null )
+        {
+          
+            return;
+        }
 
+        if ( this.npc.NavMeshAgent == null )
+        {
+           
+            return;
+        }
+        if(!IsPlayerTooCloseUltimate(targetPlayer))
+        {
+            return;
+        }
+
+        // Speichern Sie die letzte bekannte Position des Spielers
+        var targetPosition = GetRandomPositionAround( targetPlayer.WorldPosition, 50f, 100f ); // Generiere eine zufällige Position im Radius von 50 bis 100 Einheiten um den Spieler
+
+        // Verzögerung vor dem Sprung
+        const float jumpDelay = 0.1f; // 1 Sekunde Verzögerung
+        await Task.Delay( (int)(jumpDelay * 1000) );
+
+        // Berechnen Sie die Zwischenpunkte für die Bogenbewegung
+        var startPosition = this.WorldPosition;
+        var midPoint = (startPosition + targetPosition) / 2 + MidPointOffset; // Verwenden Sie die Property MidPointOffset
+        const float updateInterval = 0.01f; // Update alle 10ms für eine flüssigere Bewegung
+
+        float elapsedTime = 0.0f;
+
+    
+
+        // Deaktivieren Sie die automatische Positionsaktualisierung
+        this.npc.NavMeshAgent.UpdatePosition = false;
+
+        // Bewege den NPC in einem Bogen zur Zielposition
+        while ( elapsedTime < HoverDuration )
+        {
+            await Task.Delay( (int)(updateInterval * 1000) ); // Update alle 10ms
+            float t = elapsedTime / HoverDuration;
+            this.WorldPosition = Vector3.Lerp( Vector3.Lerp( startPosition, midPoint, t ), Vector3.Lerp( midPoint, targetPosition, t ), t );
+            elapsedTime += updateInterval;
+        }
+
+        // Setze die Position des NPCs auf die Zielposition
+        this.WorldPosition = targetPosition;
+        this.npc.NavMeshAgent.SetAgentPosition( targetPosition );
+
+        // Reaktivieren Sie die automatische Positionsaktualisierung
+        this.npc.NavMeshAgent.UpdatePosition = true;
+
+       
+
+        // Lösen Sie den FireRing-Angriff aus, wenn die Abklingzeit abgelaufen ist
+        if ( FireRingAttackTime > FireRingCooldown )
+        {
+            ExecuteFireRingAttack();
+            FireRingAttackTime = 0.0f;
+        }
+
+        // Setzen Sie die UltimateJumpAttackTime zurück
+        UltimateJumpAttackTime = 0.0f;
+    }
+
+    private Vector3 GetRandomPositionAround( Vector3 position, float minRange, float maxRange )
+    {
+        var random = new Random();
+        var angle = random.NextDouble() * Math.PI * 2;
+        var radius = random.NextDouble() * (maxRange - minRange) + minRange;
+        var offset = new Vector3( (float)(Math.Cos( angle ) * radius), (float)(Math.Sin( angle ) * radius), 0 );
+        return position + offset;
+    }
 }

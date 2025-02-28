@@ -472,47 +472,52 @@ public sealed class NpcSpawnArea : Component
 	private void SpawnBossNPCs()
 	{
 		// Spawne die Boss-NPCs
-		foreach (var bossChance in BossNpcPool)
+		foreach ( var bossChance in BossNpcPool )
 		{
-			var random = Game.Random.Float(0f, 1f);
+			var random = Game.Random.Float( 0f, 1f );
 			var shouldSpawn = random <= bossChance.SpawnChance;
-			if (shouldSpawn)
+			Log.Info( $"Boss Spawn Chance: {bossChance.SpawnChance}, Random Value: {random}, Should Spawn: {shouldSpawn}" );
+			if ( shouldSpawn )
 			{
-				for (int i = 0; i < bossChance.SpawnCount; i++)
+				for ( int i = 0; i < bossChance.SpawnCount; i++ )
 				{
-					var boss = SpawnNpc(bossChance.Npc);
-					if (boss != null)
+					var boss = SpawnNpc( bossChance.Npc );
+					if ( boss != null )
 					{
 						var npcComponent = boss.GetComponent<Npc>();
-						if (npcComponent != null)
+						if ( npcComponent != null )
 						{
-							npcComponent.Level = new Random().Next(bossChance.MinLevel, bossChance.MaxLevel + 1);
+							npcComponent.Level = new Random().Next( bossChance.MinLevel, bossChance.MaxLevel + 1 );
 							npcComponent.SetHealthBasedOnLevelBoss( boss.GetComponent<Npc>().MaxHealth ); // Verwende die neue Methode
 							var abilityRandom = new Random();
 							npcComponent.HasIceAbility = bossChance.IceAbilityChance >= 1.0 || new Random().NextDouble() <= bossChance.IceAbilityChance;
 							npcComponent.HasWindAbility = bossChance.WindAbilityChance >= 1.0 || new Random().NextDouble() <= bossChance.WindAbilityChance;
 							npcComponent.HasFireAbility = bossChance.FireAbilityChance >= 1.0 || new Random().NextDouble() <= bossChance.FireAbilityChance;
 						}
-						SpawnedNpcs.Add(boss);
+						SpawnedNpcs.Add( boss );
 
 						foreach ( var light in Lights )
 						{
 							_ = LerpLightColor( light, BaseColor, FadingToColor, ColorChangeDuration );
 						}
 
-						if ( BattleMusic != null)
+						if ( BattleMusic != null )
 						{
-							Sound.Play(BattleMusic, boss.WorldPosition);
+							Sound.Play( BattleMusic, boss.WorldPosition );
 						}
 
 						// Setze die Variable zurück, wenn ein neuer Boss gespawnt wird
 						allSubNpcsKilled = false;
 						// Spawne die Sub-NPCs des Bosses mit einer Verzögerung
-						_ = SpawnSubNpcsWithDelay(bossChance.SubNpcPool, bossChance.SubNpcSpawnDelay);
+						_ = SpawnSubNpcsWithDelay( bossChance.SubNpcPool, bossChance.SubNpcSpawnDelay );
+					}
+					else
+					{
+						Log.Error( "Boss NPC konnte nicht gespawnt werden." );
 					}
 				}
 			}
-			if (allSubNpcsKilled)
+			if ( allSubNpcsKilled )
 			{
 				break;
 			}
@@ -604,6 +609,7 @@ public sealed class NpcSpawnArea : Component
 			}
 			tries++;
 		}
+		Log.Warning( "Failed to spawn NPC after 20 tries." );
 		return null;
 	}
 

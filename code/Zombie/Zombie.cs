@@ -285,7 +285,7 @@ public partial class Npc : Component, IHealthComponent
 	[Property] public CitizenAnimationHelper AnimationHelper { get; set; }
 	public GameObject TargetObject { get; private set; } = null;
 	public Collider Collider { get; private set; }
-	private NavMeshAgent agent;
+	public NavMeshAgent agent { get; set; }
 	[Property] public SoundEvent HitSounds { get; set; }
 	private TimeSince timeSinceHit = 0;
 	public int VyndaliumPoints { get; private set; }
@@ -335,7 +335,7 @@ public partial class Npc : Component, IHealthComponent
 	[Property] public bool isSlime = false;
 	[Property]public bool isPrometheus = false;
 
-	public NavMeshAgent NavMeshAgent { get; private set; }
+	public NavMeshAgent NavMeshAgent { get; set; }
 
 
 	[Property]
