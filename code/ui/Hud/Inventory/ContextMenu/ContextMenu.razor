@@ -432,7 +432,7 @@
 
         // Füge den Gesamtverkaufspreis zum Vyndalium des Spielers hinzu
         player.Vyndalium += totalSellPrice;
-        Log.Info($"Item {item.Name} verkauft für {totalSellPrice} Vyndalium.");
+        
         Hudmaster.Instance.ShowNotification($"Item {item.Name} was sold for {totalSellPrice} Vyndalium.", "/ui/hud/shop.png");
         item.GameObject.Destroy();
         Inventory.Instance?.OnChanged();

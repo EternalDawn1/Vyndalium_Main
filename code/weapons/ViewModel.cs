@@ -78,6 +78,7 @@ public sealed class ViewModel : Component
 
 	protected override void OnStart()
 	{
+		
 
 		ModelRenderer.Set( "b_deploy", true );
 

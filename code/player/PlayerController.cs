@@ -522,10 +522,13 @@ public partial class Player : Component, IHealthComponent
 	}
 	protected override void OnStart()
 	{
-		Log.Info( "OnStart wurde aufgerufen" );
+		PlyCamera.Enabled = false;
 		base.OnStart();
 
-		Log.Info( $"Anzahl der Spieler: {Player.All.Count}" );
+		if ( IsProxy )
+			return;
+
+		
 
 		if ( !IsProxy )
 		{
@@ -542,6 +545,7 @@ public partial class Player : Component, IHealthComponent
 
 		if ( !IsProxy ) // Load save.
 		{
+			
 			Setup( this );
 			MAX_BACKPACK_SLOTS = 100;
 		}

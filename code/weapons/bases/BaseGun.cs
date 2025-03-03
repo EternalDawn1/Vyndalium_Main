@@ -1399,7 +1399,7 @@ public class  BaseGun : WeaponComponent, IUse
 		}
 		if ( EffectRenderer.SceneModel == null )
 		{
-			Log.Warning( "EffectRenderer.SceneModel is null." );
+			
 			return;
 		}
 
