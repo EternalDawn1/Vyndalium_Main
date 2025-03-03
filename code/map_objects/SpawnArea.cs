@@ -181,6 +181,8 @@ public sealed class NpcSpawnArea : Component
 	[Property, Group( "General" )] public bool InfiniteLoops { get; set; } = false;
 	[Property, Group("General")] public float LoopSpawnInterval { get; set; } = 300f;
 	[Property,Group("General")] public RealTimeSince lastSpawnTime = 0f;
+	[Property, Group( "General" )] public bool EnableFadeIn { get; set; } = true;
+	[Property, Group( "General" )] public float FadeInDuration { get; set; } = 2.0f;
 	[Property, Group("General")]public bool DestroyAfterSpawning { get; set; }
 
 	[Property, Group("SpawnRange")]
@@ -407,6 +409,25 @@ public sealed class NpcSpawnArea : Component
 		}
 		return false;
 	}
+	private async Task FadeInModel( GameObject npc, float duration )
+	{
+		var modelRenderer = npc.GetComponent<ModelRenderer>();
+		if ( modelRenderer == null )
+		{
+			Log.Warning( "ModelRenderer not found on NPC." );
+			return;
+		}
+
+		float elapsedTime = 0f;
+		while ( elapsedTime < duration )
+		{
+			float alpha = elapsedTime / duration;
+			modelRenderer.Tint = modelRenderer.Tint.WithAlpha( alpha );
+			elapsedTime += Time.Delta;
+			await Task.Yield();
+		}
+		modelRenderer.Tint = modelRenderer.Tint.WithAlpha( 1f );
+	}
 
 	public async void SpawnNPCs()
 	{
@@ -544,6 +565,7 @@ public sealed class NpcSpawnArea : Component
 			}
 		}
 	}
+	
 
 	private async Task SpawnSubNpcsWithDelay( List<SubNpcChance> subNpcPool, float delay )
 	{
@@ -630,6 +652,12 @@ public sealed class NpcSpawnArea : Component
 					var clone = npcPrefab.Clone( groundTrace.HitPosition, Rotation.FromYaw( Game.Random.Float( 360f ) ) );
 					clone.NetworkMode = NetworkMode.Object;
 					clone.NetworkSpawn();
+
+					if ( EnableFadeIn )
+					{
+						_ = FadeInModel( clone, FadeInDuration );
+					}
+
 					return clone;
 				}
 			}
