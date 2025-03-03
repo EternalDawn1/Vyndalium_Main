@@ -518,7 +518,7 @@ public sealed class NpcSpawnArea : Component
 		{
 			var random = Game.Random.Float( 0f, 1f );
 			var shouldSpawn = random <= bossChance.SpawnChance;
-			Log.Info( $"Boss Spawn Chance: {bossChance.SpawnChance}, Random Value: {random}, Should Spawn: {shouldSpawn}" );
+			
 			if ( shouldSpawn )
 			{
 				for ( int i = 0; i < bossChance.SpawnCount; i++ )
