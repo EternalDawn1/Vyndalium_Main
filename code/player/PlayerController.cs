@@ -95,11 +95,11 @@ public partial class Player : Component, IHealthComponent
 			if ( ModelRenderer == null )
 				return;
 
-			ModelRenderer.SetBodyGroup( "head", _hideBodygroups.HasFlag( HiddenBodyGroup.Head ) ? 1 : 0 );
-			ModelRenderer.SetBodyGroup( "torso", _hideBodygroups.HasFlag( HiddenBodyGroup.Torso ) ? 1 : 0 );
-			ModelRenderer.SetBodyGroup( "hands", _hideBodygroups.HasFlag( HiddenBodyGroup.Hands ) ? 1 : 0 );
-			ModelRenderer.SetBodyGroup( "legs", _hideBodygroups.HasFlag( HiddenBodyGroup.Legs ) ? 1 : 0 );
-			ModelRenderer.SetBodyGroup( "feet", _hideBodygroups.HasFlag( HiddenBodyGroup.Feet ) ? 1 : 0 );
+			ModelRenderer.SetBodyGroup( "head", _hideBodygroups.HasFlag( HiddenBodyGroup.Head ) ? 0 : 0 );
+			ModelRenderer.SetBodyGroup( "torso", _hideBodygroups.HasFlag( HiddenBodyGroup.Torso ) ? 0 : 0 );
+			ModelRenderer.SetBodyGroup( "hands", _hideBodygroups.HasFlag( HiddenBodyGroup.Hands ) ? 0 : 0 );
+			ModelRenderer.SetBodyGroup( "legs", _hideBodygroups.HasFlag( HiddenBodyGroup.Legs ) ? 0 : 0 );
+			ModelRenderer.SetBodyGroup( "feet", _hideBodygroups.HasFlag( HiddenBodyGroup.Feet ) ? 0 : 0 );
 		}
 	}
 	bool _blockMovements = false;
@@ -462,6 +462,7 @@ public partial class Player : Component, IHealthComponent
 		}
 		ModelRenderer.OnFootstepEvent += OnFootstep;
 		
+		
 
 		Collider = Components.Get<BoxCollider>( FindMode.EverythingInSelfAndDescendants );
 
@@ -488,9 +489,14 @@ public partial class Player : Component, IHealthComponent
 
 	}
 	private TimeSince lastStepped;
+	private bool isLeftFoot = true;
+
 	private void OnFootstep( SceneModel.FootstepEvent e )
 	{
-		if ( lastStepped < 0.2f )
+		if ( lastStepped < (IsRunning ? 0.2f : 0.4f) ) // Erhöhen Sie das Intervall, um doppelte Schritte zu vermeiden
+			return;
+
+		if ( !CharacterController.IsOnGround || CharacterController.Velocity.Length < 0.1f ) // Überprüfen Sie, ob der Spieler auf dem Boden ist und sich bewegt
 			return;
 
 		var pos = WorldPosition + Vector3.Up * 10;
@@ -505,9 +511,8 @@ public partial class Player : Component, IHealthComponent
 
 		lastStepped = 0;
 
-		var path = e.FootId == 0
-			? tr.Surface.Sounds.FootLeft
-			: tr.Surface.Sounds.FootRight;
+		var path = isLeftFoot ? tr.Surface.Sounds.FootLeft : tr.Surface.Sounds.FootRight;
+		isLeftFoot = !isLeftFoot; // Wechseln Sie zwischen linkem und rechtem Fuß
 
 		if ( string.IsNullOrEmpty( path ) )
 			return;
@@ -515,37 +520,34 @@ public partial class Player : Component, IHealthComponent
 		var sound = Sound.Play( path, tr.HitPosition + tr.Normal * 5 );
 		sound.Volume *= e.Volume;
 	}
-
 	protected override void OnStart()
 	{
-		
+		Log.Info( "OnStart wurde aufgerufen" );
+		base.OnStart();
+
+		Log.Info( $"Anzahl der Spieler: {Player.All.Count}" );
 
 		if ( !IsProxy )
 		{
 			BlackScreen( 0f, 2f, 3f );
 			Respawn();
-			
+
 			Animators.Clear(); // Entfernt alle vorherigen Einträge
 			Animators.Add( ShadowAnimator );
 			Animators.Add( AnimationHelper );
-			
-
 		}
+
 		if ( !Game.IsPlaying || Scene == GameObject )
 			return;
 
 		if ( !IsProxy ) // Load save.
 		{
-			
 			Setup( this );
 			MAX_BACKPACK_SLOTS = 100;
 		}
+
 		
-
-
-		base.OnStart();
 	}
-
 
 	[ConCmd("kill_player")]
 	public  void KillPlayer()
@@ -597,29 +599,31 @@ public partial class Player : Component, IHealthComponent
 
 	private void UpdateModelVisibility()
 	{
-		if (!ModelRenderer.IsValid())
+		if ( !ModelRenderer.IsValid() )
+			return;
+		if ( !PlyCamera.IsValid() )
+			return;
 
-		if (IsProxy) PlyCamera.Enabled = false;
+		if ( !IsProxy )
+			PlyCamera.Enabled = true;
 
 		UpdateWeaponModelVisibility(); // Neue Methode aufrufen
 
-		var shadowRenderer = ShadowAnimator.Components.Get<SkinnedModelRenderer>(true);
-		var skinnedModelRenderer = ModelRenderer.Components.Get<SkinnedModelRenderer>(true);
+		var shadowRenderer = ShadowAnimator.Components.Get<SkinnedModelRenderer>( true );
+		var skinnedModelRenderer = ModelRenderer.Components.Get<SkinnedModelRenderer>( true );
 
 		var hasViewModel = Weapons.Deployed.IsValid() && Weapons.Deployed.HasViewModel;
-		
 
-		if (hasViewModel)
+		if ( hasViewModel )
 		{
 			shadowRenderer.Enabled = false;
 			ModelRenderer.Enabled = true;
 
 			ModelRenderer.Enabled = Ragdoll.IsRagdolled;
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
-			
 
 			// SkinnedModelRenderer aktivieren
-			if (skinnedModelRenderer != null)
+			if ( skinnedModelRenderer != null )
 			{
 				skinnedModelRenderer.Enabled = false;
 			}
@@ -627,10 +631,10 @@ public partial class Player : Component, IHealthComponent
 			return;
 		}
 
-		ModelRenderer.SetBodyGroup("head", IsProxy ? 0 : 1);
+		ModelRenderer.SetBodyGroup( "head", IsProxy ? 0 : 1 );
 		ModelRenderer.Enabled = true;
 
-		if (Ragdoll.IsRagdolled)
+		if ( Ragdoll.IsRagdolled )
 		{
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
 			shadowRenderer.Enabled = false;
@@ -643,44 +647,8 @@ public partial class Player : Component, IHealthComponent
 			shadowRenderer.Enabled = true;
 		}
 
-		
-
-		if (!PlyCamera.IsValid() || !Eye.IsValid())
+		if ( !PlyCamera.IsValid() || !Eye.IsValid() )
 			return;
-
-		
-	}
-	public IEnumerable<SceneObject> GetSceneObjects()
-	{
-		// Implementierung abhängig von der spezifischen Logik Ihrer Anwendung
-		return new List<SceneObject>(); // Beispielrückgabe
-	}
-	public void StartSwingAnimation()
-	{
-		if ( GameObject == null )
-		{
-			Log.Warning( "GameObject is null." );
-			return;
-		}
-
-		var animator = GameObject.Components.Get<CitizenAnimationHelper>();
-		if ( animator == null )
-		{
-			// Fügen Sie die CitizenAnimationHelper-Komponente hinzu, falls sie nicht vorhanden ist
-			animator = GameObject.Components.Create<CitizenAnimationHelper>();
-			Log.Info( "CitizenAnimationHelper-Komponente hinzugefügt." );
-		}
-
-		if ( animator != null  )
-		{
-			animator.Target.Set( "b_attack", true );
-			animator.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
-			Log.Info( "Swing animation started." );
-		}
-		else
-		{
-			Log.Warning( "No animator or animator target found." );
-		}
 	}
 
 
@@ -691,77 +659,31 @@ public partial class Player : Component, IHealthComponent
 	{
 		base.OnPreRender();
 
-		if (!Scene.IsValid() || !PlyCamera.IsValid())
+		if ( !Scene.IsValid() || !PlyCamera.IsValid() )
 			return;
 
 		UpdateModelVisibility();
 
-		if (!IsProxy)
+		if ( IsProxy )
 			return;
 
-		if (!Eye.IsValid())
+		if ( !Eye.IsValid() )
 			return;
 
-		if (Ragdoll.IsRagdolled)
+		if ( Ragdoll.IsRagdolled )
 		{
-			PlyCamera.WorldPosition = PlyCamera.WorldPosition.LerpTo(Eye.WorldPosition, Time.Delta * 32f);
-			PlyCamera.WorldRotation = Rotation.Lerp(PlyCamera.WorldRotation, Eye.WorldRotation, Time.Delta * 16f);
+			PlyCamera.WorldPosition = PlyCamera.WorldPosition.LerpTo( Eye.WorldPosition, Time.Delta * 32f );
+			PlyCamera.WorldRotation = Rotation.Lerp( PlyCamera.WorldRotation, Eye.WorldRotation, Time.Delta * 16f );
 			return;
-
 		}
 
-
-
-
-		if (!IsProxy)
-
-		{
-			PlyCamera.LocalPosition = Vector3.Zero;
-			var idealEyePos = Eye.WorldPosition;
-			var headPosition = WorldPosition + Vector3.Up * CharacterController.Height;
-			var headTrace = Scene.Trace.Ray(WorldPosition, headPosition)
-				.UsePhysicsWorld()
-				.IgnoreGameObjectHierarchy(GameObject)
-				.WithAnyTags("solid")
-				.Run();
-
-			headPosition = headTrace.EndPosition - headTrace.Direction * 2f;
-
-			var trace = Scene.Trace.Ray(headPosition, idealEyePos)
-				.UsePhysicsWorld()
-				.IgnoreGameObjectHierarchy(GameObject)
-				.WithAnyTags("solid")
-				.Radius(2f)
-				.Run();
-
-			var deployedWeapon = Weapons.Deployed;
-			var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
-
-			if (hasViewModel)
-				PlyCamera.WorldPosition = Head.WorldPosition;
-			else
-				PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
-
-			if (SicknessMode)
-				PlyCamera.WorldRotation = Rotation.LookAt(Eye.WorldRotation.Left) * Rotation.FromPitch(-10f);
-			else
-				PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
-
-
-			if (IsCrouching && hasViewModel)
-			{
-				PlyCamera.WorldPosition = PlyCamera.WorldPosition + SieatOffset;
-			}
-		}
+		
 	}
-		bool isLowHealthSoundPlaying = false;
+	bool isLowHealthSoundPlaying = false;
 	public bool SicknessMode { get; set; }
 	bool isMidHealthSoundPlaying = false;
 	public bool IsSwinging { get; set; }
-	private float swingCooldown = 1.0f; // Cooldown-Zeit in Sekunden
-	private float lastSwingTime = -1.0f;
-	private float swingDuration = 0.5f; // Dauer der Swing-Animation in Sekunden
-	private float swingStartTime = -1.0f;
+	
 	private Vector3 targetCrouchPosition;
 	private float crouchDuration = 0.225f; // Dauer des Crouchens in Sekunden
 	private float crouchTimer = 0.0f;
@@ -772,8 +694,7 @@ public partial class Player : Component, IHealthComponent
 		
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
-		UpdateModelVisibility();
-		UpdateWeaponModelVisibility();
+		
 
 		if ( !Eye.IsValid() )
 			return;
@@ -785,35 +706,11 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		}
+		UpdateModelVisibility();
+		UpdateWeaponModelVisibility();
+
 		
-		if ( Input.Down( "attack1" ) && Time.Now >= lastSwingTime + swingCooldown )
-		{
-			if ( EquippedItem == null )
-			{
-				
-			}
-			else if ( EquippedItem.Slot == EquipSlot.Hand && EquippedItem.IsMelee )
-			{
-				Log.Info( "Attack1 pressed" );
-				StartSwingAnimation();
-				IsSwinging = true;
-				lastSwingTime = Time.Now;
-				swingStartTime = Time.Now;
-			}
-		}
-
-		// Überprüfen, ob die Animationsdauer abgelaufen ist
-		if ( IsSwinging && Time.Now >= swingStartTime + swingDuration )
-		{
-			Log.Info( "Swing animation completed" );
-			IsSwinging = false;
-		}
-		if (Player.Local == this)
-		{
-			PlyCamera.WorldPosition = Eye.WorldPosition;
-			PlyCamera.WorldRotation = Eye.WorldRotation;
-		}
-
+		
 		for ( int i = activeStatusEffects.Count - 1; i >= 0; i-- ) 
 		{
 			var effect = activeStatusEffects[i];
@@ -842,8 +739,7 @@ public partial class Player : Component, IHealthComponent
 		}
 
 
-		if ( !Scene.IsValid() || !PlyCamera.IsValid() )
-			return;
+		
 
 		
 
@@ -946,7 +842,7 @@ public partial class Player : Component, IHealthComponent
 				}
 				break;
 		}
-		UpdateModelVisibility();
+		//UpdateModelVisibility();
 
 
 		var weapon = Weapons.Deployed;
@@ -1005,57 +901,57 @@ public partial class Player : Component, IHealthComponent
 
 	protected virtual void DoMovementInput()
 	{
-		if (IsProxy)
+		if ( IsProxy )
 			return;
-		if (BlockInputs)
+		if ( BlockInputs )
 		{
 			return;
 		}
-		if (isFrozen)
+		if ( isFrozen )
 		{
 			return;
 		}
 
 		BuildWishVelocity();
 
-
-		if (CharacterController.IsOnGround && Input.Pressed("Jump") && TryJump())
+		if ( CharacterController.IsOnGround && Input.Pressed( "Jump" ) && TryJump() )
 		{
-			CharacterController.Punch(Vector3.Up * 300f);
+			CharacterController.Punch( Vector3.Up * 300f );
 			SendJumpMessage();
 		}
 
-		MoveSpeed = CharacterController.Velocity.WithZ(0).Length;
+		MoveSpeed = CharacterController.Velocity.WithZ( 0 ).Length;
 
-		if (CharacterController.IsOnGround)
+		if ( CharacterController.IsOnGround )
 		{
-			CharacterController.Velocity = CharacterController.Velocity.WithZ(0f);
-			CharacterController.Accelerate(WishVelocity);
-			CharacterController.ApplyFriction(GroundControl);
+			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0f );
+			CharacterController.Accelerate( WishVelocity );
+			CharacterController.ApplyFriction( GroundControl );
+
+			// Fußschritte erzeugen
+			OnFootstep( new SceneModel.FootstepEvent { FootId = 0, Volume = 0.2f } );
 		}
 		else
 		{
 			CharacterController.Velocity -= Gravity * Time.Delta * 0.5f;
-			CharacterController.Accelerate(WishVelocity.ClampLength(50f));
-			CharacterController.ApplyFriction(Aircontrol);
+			CharacterController.Accelerate( WishVelocity.ClampLength( 50f ) );
+			CharacterController.ApplyFriction( Aircontrol );
 		}
 
 		CharacterController.Move();
 
-		
-
-		if (!CharacterController.IsOnGround)
+		if ( !CharacterController.IsOnGround )
 		{
 			CharacterController.Velocity -= Gravity * Time.Delta * 0.5f;
 			LastUngroundedTime = 0f;
 		}
 		else
 		{
-			CharacterController.Velocity = CharacterController.Velocity.WithZ(0);
+			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0 );
 			LastGroundedTime = 0f;
 		}
 		WorldPosition = CharacterController.LocalPosition;
-		WorldRotation = Rotation.FromYaw(EyeAngles.ToRotation().Yaw());
+		WorldRotation = Rotation.FromYaw( EyeAngles.ToRotation().Yaw() );
 	}
 	protected override void OnFixedUpdate()
 	{
@@ -1084,33 +980,7 @@ public partial class Player : Component, IHealthComponent
 		DoCrouchingInput();
 		DoMovementInput();
 
-		if ( Input.MouseWheel.y > 0 )
-			Weapons.Next();
-		else if ( Input.MouseWheel.y < 0 )
-			Weapons.Previous();
-
-		if ( Input.Pressed( "use3" ) )
-		{
-			var startPos = PlyCamera.WorldPosition;
-			var direction = PlyCamera.WorldRotation.Forward;
-
-			var endPos = startPos + direction * 10000f;
-			var trace = Scene.Trace.Ray( startPos, endPos )
-				.IgnoreGameObjectHierarchy( GameObject.Root )
-				.UsePhysicsWorld()
-				.UseHitboxes()
-				.Run();
-
-			IUse usable = null;
-
-			if ( trace.Component.IsValid() )
-				usable = trace.Component.Components.GetInAncestorsOrSelf<IUse>();
-
-			if ( usable is not null )
-			{
-				usable.OnUse( GameObject.Id );
-			}
-		}
+		
 
 
 		var weapon = Weapons.Deployed;
@@ -1143,11 +1013,9 @@ public partial class Player : Component, IHealthComponent
 
 		}
 
-		if ( !Game.IsPlaying )
-			return;
+		
 
-		if ( IsProxy )
-			return;
+		
 		
 	}
 
@@ -1170,54 +1038,47 @@ public partial class Player : Component, IHealthComponent
 		WorldRotation = Rotation.FromYaw( randomSpawnpoint.WorldRotation.Yaw() );
 		EyeAngles = WorldRotation;
 	}
-	public void Move()
-	{
-		if ( IsProxy )
-			return;
-		// Aktualisiere die Bewegungslogik des Spielers
-		BuildWishVelocity();
-
-		Log.Info( "Player is moving" );
-	}
 
 	private void BuildWishVelocity()
 	{
-		if (IsProxy)
+		if ( IsProxy )
 			return;
-		if (isFrozen)
+		if ( isFrozen )
 		{
-			Log.Info("Player cannot build wish velocity while frozen");
+			Log.Info( "Player cannot build wish velocity while frozen" );
 			return;
 		}
 
 		var moveInput = Input.AnalogMove;
 
 		// Log the input values for debugging
-		
+
 		// Set WishVelocity to zero if there is no movement input
-		if (moveInput.IsNearlyZero())
+		if ( moveInput.IsNearlyZero() )
 		{
 			WishVelocity = Vector3.Zero;
 		}
 		else
 		{
-			var rotation = EyeAngles.WithRoll(0f).ToRotation();
+			var rotation = EyeAngles.WithRoll( 0f ).ToRotation();
 			WishVelocity = rotation * moveInput;
-			WishVelocity = WishVelocity.WithZ(0f);
+			WishVelocity = WishVelocity.WithZ( 0f );
 
-			if (!WishVelocity.IsNearZeroLength)
+			if ( !WishVelocity.IsNearZeroLength )
+			{
 				WishVelocity = WishVelocity.Normal;
+				
+			}
 
-			if (IsCrouching)
+			if ( IsCrouching )
 				WishVelocity *= 64f;
-			else if (IsRunning)
+			else if ( IsRunning )
 				WishVelocity *= PlayerRunSpeed;
 			else
 				WishVelocity *= PlayerWalkSpeed;
 		}
 
 		// Log the calculated WishVelocity for debugging
-	
 	}
 
 	[Rpc.Broadcast]

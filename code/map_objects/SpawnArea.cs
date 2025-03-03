@@ -29,7 +29,7 @@ public sealed class NpcSpawnArea : Component
 
 		[Property]
 		[JsonInclude]
-		[Range(0.01f, 1f, 0.01f)]
+		[Range( 0.0001f, 1f, 0.0001f )]
 		public float SpawnChance { get; set; } = 0.2f;
 
 		[Property]

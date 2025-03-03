@@ -4542,7 +4542,10 @@
             "prefab": "prefabs/player.prefab"
           },
           "SpawnPoints": [
-            null
+            {
+              "_type": "gameobject",
+              "go": "c39eafc5-af12-41af-8eb5-86f30ef729db"
+            }
           ],
           "StartServer": true
         },
@@ -4614,6 +4617,19 @@
         {
           "__type": "GeneralGame.Blackscreen",
           "__guid": "c9eddf4b-1c2e-486d-a314-c984bdd2392a",
+          "BlackTransition": 2,
+          "EndingTransition": 3,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "StartingTransition": 0
+        },
+        {
+          "__type": "GeneralGame.Blackscreen",
+          "__guid": "15cb31d7-eb79-4650-bed4-0fc2af5e758a",
           "BlackTransition": 2,
           "EndingTransition": 3,
           "OnComponentDestroy": null,
@@ -7109,7 +7125,7 @@
       "__guid": "b0f1a1c3-fd57-4d9f-bc1b-82631aa86239",
       "Flags": 0,
       "Name": "Spawner",
-      "Position": "-1050.026,-1547.16,246.0836",
+      "Position": "-342.1146,16.30481,246.0832",
       "Rotation": "-0.03003949,-0.02290592,0.7946289,-0.605919",
       "Enabled": true,
       "Components": [
@@ -7139,7 +7155,7 @@
           "InfiniteLoops": true,
           "lastSpawnTime": {
             "Absolute": 0,
-            "Relative": 100029064
+            "Relative": 100032856
           },
           "Lights": [],
           "LoopSpawning": true,
@@ -7191,7 +7207,7 @@
           "OnComponentUpdate": null,
           "PlayerProximityDistance": "1639.798,392.3,261.7998",
           "PositionOffset": "0,0,0",
-          "Radius": "460.4001,0,0",
+          "Radius": "696.4999,0,0",
           "SpawnAreaGizmoColor": "0,0,1,1",
           "StopDrawingDistance": 8000,
           "StopLogicDistance": 200
@@ -7253,6 +7269,26 @@
             "Id": "d93c78cd-55b1-4f66-8186-a177725512fa"
           },
           "Volume": 0.14
+        }
+      ]
+    },
+    {
+      "__guid": "c39eafc5-af12-41af-8eb5-86f30ef729db",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-4455.095,-1232.216,236.0005",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "df9a8f95-df5f-4ce7-9700-f19488dc0f99",
+          "Color": "0.8902,0.31765,0.05098,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         }
       ]
     }
