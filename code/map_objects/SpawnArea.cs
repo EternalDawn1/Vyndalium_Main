@@ -177,6 +177,10 @@ public sealed class NpcSpawnArea : Component
 	private bool allSubNpcsKilled = false;
 
 	[Property , Group("General")]public bool LoopSpawning { get; set; }
+
+	[Property, Group( "General" )] public bool InfiniteLoops { get; set; } = false;
+	[Property, Group("General")] public float LoopSpawnInterval { get; set; } = 300f;
+	[Property,Group("General")] public RealTimeSince lastSpawnTime = 0f;
 	[Property, Group("General")]public bool DestroyAfterSpawning { get; set; }
 
 	[Property, Group("SpawnRange")]
@@ -324,6 +328,23 @@ public sealed class NpcSpawnArea : Component
 					hasSpawnedBoss = SpawnedNpcs.Count > 0; // Setze auf true, wenn Boss-NPCs erfolgreich gespawnt wurden
 				}
 			}
+		}
+
+		// Loop-Spawning-Logik
+		if ( LoopSpawning && lastSpawnTime >= LoopSpawnInterval )
+		{
+			SpawnNPCs();
+			lastSpawnTime = 0f; // Timer zurücksetzen
+			if ( !InfiniteLoops )
+			{
+				LoopSpawning = false; // Deaktiviere LoopSpawning nach einmaligem Ausführen, wenn InfiniteLoops nicht aktiviert ist
+			}
+		}
+
+		// Setze LoopSpawning nach Ablauf des Intervalls wieder auf true, wenn InfiniteLoops aktiviert ist
+		if ( InfiniteLoops && !LoopSpawning && lastSpawnTime >= LoopSpawnInterval )
+		{
+			LoopSpawning = true;
 		}
 	}
 	private bool IsPlayerInDoor( Player player )
@@ -528,11 +549,12 @@ public sealed class NpcSpawnArea : Component
 	{
 		do
 		{
-			await Task.Delay( (int)TimeSpan.FromSeconds( delay ).TotalSeconds );
+			await Task.Delay( (int)(delay * 1000) );
 			if ( allSubNpcsKilled )
 			{
 				return;
 			}
+
 			foreach ( var npcChance in subNpcPool )
 			{
 				var random = Game.Random.Float( 0f, 1f );
@@ -569,7 +591,11 @@ public sealed class NpcSpawnArea : Component
 					}
 				}
 			}
-		} while ( LoopSpawning );
+
+			// Füge eine Verzögerung hinzu, um den Cooldown zu berücksichtigen
+			await Task.Delay( (int)(LoopSpawnInterval * 1000) );
+
+		} while ( LoopSpawning && lastSpawnTime >= LoopSpawnInterval );
 
 		if ( DestroyAfterSpawning && ChallengeDoor != null && ChallengeDoor.IsTimerExpired() )
 		{
