@@ -689,7 +689,7 @@ public partial class Player : Component, IHealthComponent
 	public bool IsSwinging { get; set; }
 	
 	private Vector3 targetCrouchPosition;
-	private float crouchDuration = 0.225f; // Dauer des Crouchens in Sekunden
+	private float crouchDuration = 5f; // Dauer des Crouchens in Sekunden
 	private float crouchTimer = 0.0f;
 	protected override void OnUpdate()
 	{
@@ -791,6 +791,7 @@ public partial class Player : Component, IHealthComponent
 			else
 			{
 				crouchTimer = 0.0f; // Reset Timer wenn nicht crouching
+				
 			}
 			
 		}

@@ -4517,6 +4517,84 @@
           "Name": "Sound Point",
           "Position": "-3010.325,-415.0228,120.9708",
           "Enabled": true
+        },
+        {
+          "__guid": "f662fec9-467c-4f32-bd6a-279f295ecb4e",
+          "Flags": 0,
+          "Name": "Soundbox",
+          "Position": "-2989.861,-616.9072,177.5211",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SoundBoxComponent",
+              "__guid": "dd1d9e68-f1c8-48e5-9134-5a46825106ca",
+              "Distance": 512,
+              "DistanceAttenuation": true,
+              "DistanceAttenuationOverride": true,
+              "Falloff": [
+                {
+                  "x": 0,
+                  "y": 1,
+                  "in": 3.1415927,
+                  "out": -3.1415927,
+                  "mode": "Mirrored"
+                },
+                {
+                  "x": 1,
+                  "y": 0,
+                  "in": 0,
+                  "out": 0,
+                  "mode": "Mirrored"
+                }
+              ],
+              "Force2d": false,
+              "MaxRepeatTime": 1,
+              "MinRepeatTime": 1,
+              "Occlusion": false,
+              "OcclusionOverride": false,
+              "OcclusionRadius": 32,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Pitch": 1,
+              "PlayOnStart": true,
+              "ReflectionOverride": false,
+              "Reflections": false,
+              "Repeat": false,
+              "Scale": "398.2,826.0997,224.8999",
+              "SoundEvent": "sounds/lobby/jazz.sound",
+              "SoundOverride": true,
+              "StopOnNew": false,
+              "TargetMixer": {
+                "Name": "music",
+                "Id": "d93c78cd-55b1-4f66-8186-a177725512fa"
+              },
+              "Volume": 0.14
+            }
+          ]
+        },
+        {
+          "__guid": "c39eafc5-af12-41af-8eb5-86f30ef729db",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-4438.356,-1200.688,104.5334",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "df9a8f95-df5f-4ce7-9700-f19488dc0f99",
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ]
         }
       ]
     },
@@ -4630,6 +4708,32 @@
         {
           "__type": "GeneralGame.Blackscreen",
           "__guid": "15cb31d7-eb79-4650-bed4-0fc2af5e758a",
+          "BlackTransition": 2,
+          "EndingTransition": 3,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "StartingTransition": 0
+        },
+        {
+          "__type": "GeneralGame.Blackscreen",
+          "__guid": "fb2284ae-689f-4972-93ee-19d6ffd6101e",
+          "BlackTransition": 2,
+          "EndingTransition": 3,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "StartingTransition": 0
+        },
+        {
+          "__type": "GeneralGame.Blackscreen",
+          "__guid": "4fd8f844-a71b-4009-ae89-a5445db558c1",
           "BlackTransition": 2,
           "EndingTransition": 3,
           "OnComponentDestroy": null,
@@ -7122,173 +7226,2878 @@
       ]
     },
     {
-      "__guid": "b0f1a1c3-fd57-4d9f-bc1b-82631aa86239",
+      "__guid": "28e22aa8-3d39-4c36-923a-60e0e3de5b23",
       "Flags": 0,
-      "Name": "Spawner",
-      "Position": "-342.1146,16.30481,246.0832",
-      "Rotation": "-0.03003949,-0.02290592,0.7946289,-0.605919",
+      "Name": "spawner",
+      "Position": "340.6754,-1266.425,3222.619",
       "Enabled": true,
-      "Components": [
+      "Children": [
         {
-          "__type": "NpcSpawnArea",
-          "__guid": "8f30d2be-fae7-4f09-a012-204481b4f261",
-          "allSubNpcsKilled": false,
-          "BaseColor": "1,1,1,1",
-          "BattleMusic": null,
-          "BossNpcPool": [],
-          "BossSpawnDelay": 10,
-          "ChallengeDoor": null,
-          "Checkpoint": null,
-          "ColorChangeDuration": 2,
-          "DestroyAfterSpawning": true,
-          "DrawProximityRangeGizmo": true,
-          "DrawSpawnAreaGizmo": true,
-          "EnableFadeIn": true,
-          "FadeInDuration": 2,
-          "FadingToColor": "1,0,0,1",
-          "FillGizmo": false,
-          "GizmoColor": "1,0.83333,0,1",
-          "GizmoShape": "Cylinder",
-          "hasSpawnedBoss": false,
-          "hasSpawnedNPCs": false,
-          "Height": 269.40042,
-          "InfiniteLoops": true,
-          "lastSpawnTime": {
-            "Absolute": 0,
-            "Relative": 100036936
-          },
-          "Lights": [],
-          "LoopSpawning": true,
-          "LoopSpawnInterval": 30,
-          "NpcPool": [
+          "__guid": "3936ecc2-d529-4d5c-8799-8746f97e22c5",
+          "Flags": 0,
+          "Name": "Spawner (11)",
+          "Position": "3153.389,4510.699,-2976.536",
+          "Enabled": true,
+          "Components": [
             {
-              "Npc": {
-                "_type": "gameobject",
-                "prefab": "prefabs/npc/slime_variants/va1.prefab"
+              "__type": "NpcSpawnArea",
+              "__guid": "88ff28e7-8baf-403f-b75c-3105106b435b",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
               },
-              "SpawnChance": 1,
-              "SpawnCount": 2,
-              "EnableSubNpcPool": true,
-              "SubNpcPool": [
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
                 {
                   "Npc": {
                     "_type": "gameobject",
-                    "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
                   },
-                  "SpawnChance": 0.4,
-                  "SpawnCount": 3,
-                  "SubNpcSpawnDelayPerNpc": 1,
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
                   "IceAbilityChance": 0,
                   "WindAbilityChance": 0,
                   "FireAbilityChance": 0,
-                  "MinLevel": 1,
-                  "MaxLevel": 5,
                   "SequentialSpawn": false,
-                  "SpawnInterval": 1,
-                  "EnableDestroyAfterTime": false,
-                  "DestroyAfterTime": 10
+                  "SpawnInterval": 1
                 }
               ],
-              "SubNpcSpawnDelay": 2,
-              "MinLevel": 1,
-              "MaxLevel": 5,
-              "IceAbilityChance": 0,
-              "WindAbilityChance": 0,
-              "FireAbilityChance": 0,
-              "SequentialSpawn": false,
-              "SpawnInterval": 1
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
             }
-          ],
+          ]
+        },
+        {
+          "__guid": "b836ab28-2193-4707-9081-d427dae9193d",
+          "Flags": 0,
+          "Name": "Spawner (10)",
+          "Position": "3627.75,2522.917,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "aa6c7458-20f8-4bde-95a4-8cca7f2d51eb",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        },
+        {
+          "__guid": "60a81970-4cff-4167-bc9a-e2386f73b009",
+          "Flags": 0,
+          "Name": "Spawner (9)",
+          "Position": "-3147.572,-3477.553,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "777c9599-9662-49d7-8fed-dfacd65d96d5",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        },
+        {
+          "__guid": "3046b1a5-6dbd-4037-b81c-87a923b80878",
+          "Flags": 0,
+          "Name": "Spawner (8)",
+          "Position": "-522.4876,-3493.749,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "f308c0dd-6f61-436e-b99d-7c17ce508562",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        },
+        {
+          "__guid": "12783e39-bece-44de-8cdf-d823adbe1ff9",
+          "Flags": 0,
+          "Name": "Spawner (7)",
+          "Position": "1733.959,-2957.339,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "b5b4d7e4-45d6-46c4-8b3e-6ec0b9064760",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        },
+        {
+          "__guid": "d2ddcbbd-cd41-491d-a561-053437108444",
+          "Flags": 0,
+          "Name": "Spawner (6)",
+          "Position": "3533.991,-154.0195,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "29a3fd6e-34ea-4acd-90f8-c8799c1609b0",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        },
+        {
+          "__guid": "8dce048a-d710-4cab-bf5e-a87050d31ee0",
+          "Flags": 0,
+          "Name": "Spawner (5)",
+          "Position": "1860.944,-572.1526,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "6b2ad254-a14d-434b-bd6d-8bd327cd8db0",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        },
+        {
+          "__guid": "16d5a9a1-b667-4105-9db3-85c250b7f4ba",
+          "Flags": 0,
+          "Name": "Spawner (4)",
+          "Position": "1531.012,1729.13,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "9fb703e6-88c7-47cb-a069-1b25ccbf8f06",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        },
+        {
+          "__guid": "03e0a47e-1227-47d2-af2e-b65bdf357d69",
+          "Flags": 0,
+          "Name": "Spawner (3)",
+          "Position": "-3936.112,4552.647,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "b013700d-cbd1-4125-abfc-7a2941f96e75",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        },
+        {
+          "__guid": "0514bb94-2538-4a2d-9169-5e072bb677b4",
+          "Flags": 0,
+          "Name": "Spawner (2)",
+          "Position": "-1598.061,4253.633,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "6c0f3eb0-2982-4330-8363-326b3807c3c6",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        },
+        {
+          "__guid": "d6739e28-9fe5-42b3-8405-e13d16b5a1b3",
+          "Flags": 0,
+          "Name": "Spawner (1)",
+          "Position": "-2403.289,3158.754,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "42a16c85-a814-450f-ab91-9143fbd47d45",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        },
+        {
+          "__guid": "b0f1a1c3-fd57-4d9f-bc1b-82631aa86239",
+          "Flags": 0,
+          "Name": "Spawner",
+          "Position": "-682.7899,1282.73,-2976.536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "NpcSpawnArea",
+              "__guid": "8f30d2be-fae7-4f09-a012-204481b4f261",
+              "allSubNpcsKilled": false,
+              "BaseColor": "1,1,1,1",
+              "BattleMusic": null,
+              "BossNpcPool": [],
+              "BossSpawnDelay": 10,
+              "ChallengeDoor": null,
+              "Checkpoint": null,
+              "ColorChangeDuration": 2,
+              "DestroyAfterSpawning": true,
+              "DrawProximityRangeGizmo": true,
+              "DrawSpawnAreaGizmo": true,
+              "EnableFadeIn": false,
+              "FadeInDuration": 2,
+              "FadingToColor": "1,0,0,1",
+              "FillGizmo": false,
+              "GizmoColor": "1,0.83333,0,1",
+              "GizmoShape": "Cylinder",
+              "hasSpawnedBoss": false,
+              "hasSpawnedNPCs": false,
+              "Height": 269.40042,
+              "InfiniteLoops": true,
+              "lastSpawnTime": {
+                "Absolute": 0,
+                "Relative": 100043510
+              },
+              "Lights": [],
+              "LoopSpawning": true,
+              "LoopSpawnInterval": 60,
+              "NpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va1.prefab"
+                  },
+                  "SpawnChance": 0.5,
+                  "SpawnCount": 2,
+                  "EnableSubNpcPool": true,
+                  "SubNpcPool": [
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va2.prefab"
+                      },
+                      "SpawnChance": 0.4,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 1,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va3.prefab"
+                      },
+                      "SpawnChance": 0.5,
+                      "SpawnCount": 3,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.13,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.1,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/npc/slime_variants/va5.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 5,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0.12,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0.14,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+                      },
+                      "SpawnChance": 0.2,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    },
+                    {
+                      "Npc": {
+                        "_type": "gameobject",
+                        "prefab": "prefabs/entitys/chestsystem/example 5.prefab"
+                      },
+                      "SpawnChance": 0.1,
+                      "SpawnCount": 2,
+                      "SubNpcSpawnDelayPerNpc": 0,
+                      "IceAbilityChance": 0,
+                      "WindAbilityChance": 0,
+                      "FireAbilityChance": 0,
+                      "MinLevel": 1,
+                      "MaxLevel": 5,
+                      "SequentialSpawn": false,
+                      "SpawnInterval": 1,
+                      "EnableDestroyAfterTime": false,
+                      "DestroyAfterTime": 10
+                    }
+                  ],
+                  "SubNpcSpawnDelay": 2,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": "2192.497,392.3,261.7998",
+              "PositionOffset": "0,0,0",
+              "Radius": "875.9005,0,0",
+              "SpawnAreaGizmoColor": "0,0,1,1",
+              "StopDrawingDistance": 8000,
+              "StopLogicDistance": 200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "51a2cba8-32ed-4f51-a936-4ce229f20985",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a",
+      "Position": "-949.7925,503.6403,158.3424",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "667dbe17-76a2-4cdc-934b-6864575e7f66",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "PlayerProximityDistance": "1639.798,392.3,261.7998",
-          "PositionOffset": "0,0,0",
-          "Radius": "696.4999,0,0",
-          "SpawnAreaGizmoColor": "0,0,1,1",
-          "StopDrawingDistance": 8000,
-          "StopLogicDistance": 200
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
         }
       ]
     },
     {
-      "__guid": "f662fec9-467c-4f32-bd6a-279f295ecb4e",
+      "__guid": "8bdcc809-dbba-4d92-b88c-982ee0ef3f2d",
       "Flags": 0,
-      "Name": "Soundbox",
-      "Position": "-3006.6,-648.4352,308.9882",
+      "Name": "tree_oak_medium_a (25)",
+      "Position": "-271.2937,-2068.103,206.8864",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.SoundBoxComponent",
-          "__guid": "dd1d9e68-f1c8-48e5-9134-5a46825106ca",
-          "Distance": 512,
-          "DistanceAttenuation": true,
-          "DistanceAttenuationOverride": true,
-          "Falloff": [
-            {
-              "x": 0,
-              "y": 1,
-              "in": 3.1415927,
-              "out": -3.1415927,
-              "mode": "Mirrored"
-            },
-            {
-              "x": 1,
-              "y": 0,
-              "in": 0,
-              "out": 0,
-              "mode": "Mirrored"
-            }
-          ],
-          "Force2d": false,
-          "MaxRepeatTime": 1,
-          "MinRepeatTime": 1,
-          "Occlusion": false,
-          "OcclusionOverride": false,
-          "OcclusionRadius": 32,
+          "__type": "Sandbox.Prop",
+          "__guid": "622246ee-e534-473b-be4c-27f18d226b2f",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Pitch": 1,
-          "PlayOnStart": true,
-          "ReflectionOverride": false,
-          "Reflections": false,
-          "Repeat": false,
-          "Scale": "398.2,826.0997,224.8999",
-          "SoundEvent": "sounds/lobby/jazz.sound",
-          "SoundOverride": true,
-          "StopOnNew": false,
-          "TargetMixer": {
-            "Name": "music",
-            "Id": "d93c78cd-55b1-4f66-8186-a177725512fa"
-          },
-          "Volume": 0.14
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
         }
       ]
     },
     {
-      "__guid": "c39eafc5-af12-41af-8eb5-86f30ef729db",
+      "__guid": "138e7d5e-1b80-43d3-8a01-3f9b2645caa8",
       "Flags": 0,
-      "Name": "Object",
-      "Position": "-4455.095,-1232.216,236.0005",
+      "Name": "tree_oak_medium_a (26)",
+      "Position": "-980.9272,-2801.469,149.9771",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.SpawnPoint",
-          "__guid": "df9a8f95-df5f-4ce7-9700-f19488dc0f99",
-          "Color": "0.8902,0.31765,0.05098,1",
+          "__type": "Sandbox.Prop",
+          "__guid": "1574ce9b-91e0-4ecd-9c7e-2de148d685da",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
-          "OnComponentUpdate": null
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "23746f68-33c5-4836-99e9-1a802ede4c9c",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (27)",
+      "Position": "-2160.748,-4681.508,227.6587",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "fb1af801-8ab7-4ee8-8e78-3050c335d607",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "307b2b4a-e183-4f14-be5b-74e0f3083af7",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (28)",
+      "Position": "-559.9561,-4755.483,189.2407",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "cf3bb086-c6c7-4eb8-82e1-bc6f2de1314e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "8dd5c393-aed0-4659-bbe1-2f1582a91a51",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (29)",
+      "Position": "1652.669,-4653.139,224.4108",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "fffd6169-1b46-400d-ab3b-ef7ad574a060",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c4e56084-8804-4b81-961a-b4618c2a063d",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (30)",
+      "Position": "3406.537,-4315.201,171.6277",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "7dbefa63-de2f-4707-a7e8-3b11c663a14c",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5b98a8b7-d1eb-44eb-815b-33b69a15b02e",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (1)",
+      "Position": "-528.5874,1116.308,132.1031",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "63e7d29d-ad26-43cc-b710-9a05310938b7",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7a984c83-2250-49e3-bdbc-22142fba8d8c",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (2)",
+      "Position": "392.8304,1595.139,96.68452",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "3b71c6cb-3c5d-4f4e-8312-047e49476d34",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "8a84b949-854e-4fe3-8061-cc83bcd64929",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (3)",
+      "Position": "562.4353,-354.4796,142.1645",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "cc984dbb-795c-4c2e-8aeb-bdafe6205b0e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "8ee61303-374c-4d8d-bd08-a27a1ebed67e",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (4)",
+      "Position": "1202.057,-1632.241,158.6657",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "c6d3356e-5a50-42bd-ad1b-335c04e38190",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "122c5862-4c94-409d-af32-26c332cc1747",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (5)",
+      "Position": "2424.763,-2477.542,149.4504",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "229576ae-1a8a-4bb9-9be6-23f5f1c733a3",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "74574e2f-ffbb-4810-89c3-0d061b9dd071",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (6)",
+      "Position": "3611.682,-1583.323,96.74702",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "72ce23fe-d887-45c1-ad1b-c1bb7ba7ac24",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "53c50e58-c11a-477f-9d15-a7e876356b7b",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (7)",
+      "Position": "3875.253,-658.597,66.51357",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "16495021-c533-44c9-be3c-f06c30201896",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "175c0a90-0e6c-4fc4-a154-e9529a6ee3b3",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (8)",
+      "Position": "4896.272,1493.923,-14.12024",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "58619c51-12c0-443f-a05b-a738fc669df5",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "6b3ca160-6785-4f6d-b034-44228a9a8d39",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (9)",
+      "Position": "4784.241,2221.97,-29.87716",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "0baed0dc-d025-4b04-bc4b-9e492818965b",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "68aabab0-2e21-4a87-b135-d4b9b6f51e35",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (10)",
+      "Position": "4030.961,3185.803,-35.50555",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "c4f1e434-4594-468a-991a-580ceeb56cae",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "27f13d26-5e3b-49eb-bc60-da55486c11fe",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (11)",
+      "Position": "3251.15,3276.796,-18.1931",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "6e37e67a-8996-45c3-9577-669ff08d53a4",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "19d7d4a7-42f3-4550-a6a5-fcb6dda6de86",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (12)",
+      "Position": "986.5327,4351.923,11.3913",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "0b90d26d-4642-4d80-b0ea-38f54c1579c8",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7e39ad9e-e42a-49d6-a06d-16df8eb60ead",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (13)",
+      "Position": "1968.024,4377.27,-13.96788",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "6313aaaa-2ece-4b19-b759-c3643e53cc2f",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "8d3964ab-f25b-45e6-996d-e1978e268ee2",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (14)",
+      "Position": "3162.938,4109.984,-37.23331",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "f00ed711-8385-456a-bb43-7a37eb0f4d9e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "279eb494-b951-4095-a0a9-6c30f4c914c4",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (15)",
+      "Position": "-670.9587,4447.111,50.69531",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "565079f0-11de-4652-b866-e7f74539c887",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "76112cb9-1340-4cbe-bfca-b5da71c4da4a",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (16)",
+      "Position": "-2105.901,4155.015,94.28085",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a644a11d-4800-4daf-8d02-26deebbb3553",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "6227ecbe-333f-44c5-af2f-4a1ffd78aefd",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (21)",
+      "Position": "-1858.987,2488.582,130.5876",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "fb090fcd-27ad-44dd-b0cd-59a0514761b5",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "79b97bf5-1325-4d6c-9bc6-95d1443e5c39",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (22)",
+      "Position": "-1147,2573.962,110.4821",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "eb5d826e-4564-48cf-be97-e2699c878ed0",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d1639f3b-acf5-4303-b4da-c8e0c2ea5add",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (23)",
+      "Position": "-595.6138,3061.717,84.15258",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "c7b7cace-c1ba-4a82-ba2c-be3b997734e0",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f7ac0f4d-568d-4a87-adbc-2c3b5e9b91bf",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (24)",
+      "Position": "-4173.696,1888.327,82.11476",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "b60e995a-edb3-4db9-a3ec-4f53968d1abb",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e5d9f6a2-2eb4-4404-a400-14ac0d08b747",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (17)",
+      "Position": "-2825.755,4389.558,106.4188",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "e6ac4431-10aa-45b2-9cba-d0361d352924",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f2dcbc52-db94-44bd-9797-f9e9fabffe57",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (18)",
+      "Position": "-4025.216,4669.25,129.4846",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "94ee642c-0ffe-47f2-9fdc-31c33c84cf48",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ce263919-090b-4a7f-abd3-adeaa90b7f05",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (19)",
+      "Position": "-4627.625,4173.45,157.3041",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "ac166aa1-4e6a-4a5a-b506-81236273201e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "47a7216d-2ac1-419e-8f74-2b2393256511",
+      "Flags": 0,
+      "Name": "tree_oak_medium_a (20)",
+      "Position": "-4803.713,3485.079,70.68991",
+      "Rotation": "-0.006911442,0.01652884,0.3857123,0.9224452",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "08c3d99c-8171-46a3-b4b8-817334c48f8f",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": "default",
+          "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
         }
       ]
     }
@@ -7309,8 +10118,8 @@
       "IncludeKeyframedBodies": true,
       "EditorAutoUpdate": true,
       "AgentHeight": 64,
-      "AgentRadius": 3.13,
-      "AgentStepSize": 83.000015,
+      "AgentRadius": -3.7700002,
+      "AgentStepSize": -106.79992,
       "AgentMaxSlope": 69.40001,
       "ExcludedBodies": "npc",
       "IncludedBodies": ""
@@ -7331,6 +10140,7 @@
     "facepunch.sconce_wall_light#42946",
     "facepunch.tablerounda#83538",
     "facepunch.ticket_machine#58720",
+    "facepunch.tree_oak_medium_a#33692",
     "rust.large_industrial_prop_c#25201",
     "rust.pallet_boxes_a#25350",
     "rust.pallet_boxes_b#25352",
