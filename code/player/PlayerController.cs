@@ -710,8 +710,8 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		}
-		UpdateModelVisibility();
-		UpdateWeaponModelVisibility();
+		//UpdateModelVisibility();
+		//UpdateWeaponModelVisibility();
 
 		
 		
@@ -850,19 +850,11 @@ public partial class Player : Component, IHealthComponent
 		//UpdateModelVisibility();
 
 
-		var weapon = Weapons.Deployed;
+		
 
 		foreach ( var animator in Animators )
 		{
-			if ( !IsSwinging )
-			{
-				animator.HoldType = weapon.IsValid() ? weapon.HoldType : CitizenAnimationHelper.HoldTypes.None;
-			}
-			else if ( IsSwinging )
-			{
-				animator.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
-				
-			}
+			
 			animator.WithVelocity( CharacterController.Velocity );
 			animator.WithWishVelocity( WishVelocity );
 			animator.IsGrounded = CharacterController.IsOnGround;

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ViWi.editor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6cd460c54d2affd50b372e6951fa9ba8bc6f68a3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6d3024199b73800b0be87b367dc0c5037d993d5")]
 [assembly: System.Reflection.AssemblyProductAttribute("ViWi.editor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ViWi.editor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
