@@ -11,6 +11,7 @@
 @using GeneralGame.HUD
 
 
+
 <root>
     <div class="sidehud">
         <SideButton OnClick=@(() => ShowPanel(PanelType.CTier)) 
@@ -321,101 +322,87 @@
     }
    
     private void ChangeScene2(GeneralScene2 scene)
-        {
-            if (isSceneChanging)
-        {
-            return;
-        }
-        var player = Player.Local;
-        if (player == null)
-        {
-            Log.Error("Player.Local is null.");
-            return;
-        }
-        if (isSceneChanging)
-        {
-            
-            return;
-        }
-        int playerLevel = Player.Local.GetLevel();
-        int requiredLevel = scene.GetRequiredLevel2();
-        
-        
-        if (!SceneHandler2.HasRequiredLevel2(scene))
-        {
-           
+{
+    if (isSceneChanging)
+    {
+        return;
+    }
 
-            Hudmaster.Instance.ShowNotification(
+    var player = Player.Local;
+    if (player == null)
+    {
+        Log.Error("Player.Local is null.");
+        return;
+    }
+
+    if (!player.IsHost())
+    {
+        Log.Error("Player is not the host.");
+        return;
+    }
+
+    if (isSceneChanging)
+    {
+        return;
+    }
+
+    int playerLevel = Player.Local.GetLevel();
+    int requiredLevel = scene.GetRequiredLevel2();
+
+    if (!SceneHandler2.HasRequiredLevel2(scene))
+    {
+        Hudmaster.Instance.ShowNotification(
             "lvl. " + playerLevel + "\n" +
             "required lvl. " + requiredLevel + "\n" +
             "level too low",
             "/ui/hud/exit.gif"
-            );
-            Player.Local?.PlaySuccessSoundFromPath("sounds/upgrade/error2.sound", 0.025f);
-            return;
-        }
-
-        Player.Save();
-        isSceneChanging = true;
-        SceneHandler2.DeleteCurrentScene();
-        
-        // Hier die Logik zum tatsächlichen Wechsel der Szene hinzufügen
-        // Beispiel:
-        switch (scene)
-        {
-            case GeneralScene2.Forest:
-                // Logik zum Wechseln zur Forest-Szene
-                
-                SceneHandler2.ChangeScene2(scene);
-                
-                break;
-            case GeneralScene2.Game:
-                // Logik zum Wechseln zur Game-Szene
-               
-                SceneHandler2.ChangeScene2(scene);
-                break;
-            case GeneralScene2.Starting:
-                // Logik zum Wechseln zur Starting-Szene
-              
-                SceneHandler2.ChangeScene2(scene);
-                break;
-            case GeneralScene2.StartBase:
-                // Logik zum Wechseln zur StartBase-Szene
-            
-                SceneHandler2.ChangeScene2(scene);
-                break;
-
-            case GeneralScene2.One:
-                // Logik zum Wechseln zur One-Szene
-               
-                SceneHandler2.ChangeScene2(scene);
-                break;
-            case GeneralScene2.One2:
-                // Logik zum Wechseln zur Two-Szene
-               
-                SceneHandler2.ChangeScene2(scene);
-                break;
-            case GeneralScene2.One3:
-                // Logik zum Wechseln zur Three-Szene
-               
-                SceneHandler2.ChangeScene2(scene);
-                break;
-            case GeneralScene2.Forest3:
-           
-               
-                SceneHandler2.ChangeScene2(scene);
-                break;
-            case GeneralScene2.Forest4:
-               
-                SceneHandler2.ChangeScene2(scene);
-                break;
-            default:
-                Log.Info("No scene?");
-                break;
-        }
-
-        isSceneChanging = false;
+        );
+        Player.Local?.PlaySuccessSoundFromPath("sounds/upgrade/error2.sound", 0.025f);
+        return;
     }
+
+    Player.Save();
+    isSceneChanging = true;
+    SceneHandler2.DeleteCurrentScene();
+
+    // Hier die Logik zum tatsächlichen Wechsel der Szene hinzufügen
+    // Beispiel:
+    switch (scene)
+    {
+        case GeneralScene2.Forest:
+            SceneHandler2.ChangeScene2(scene);
+            break;
+        case GeneralScene2.Game:
+            SceneHandler2.ChangeScene2(scene);
+            break;
+        case GeneralScene2.Starting:
+            SceneHandler2.ChangeScene2(scene);
+            break;
+        case GeneralScene2.StartBase:
+            SceneHandler2.ChangeScene2(scene);
+            break;
+        case GeneralScene2.One:
+            SceneHandler2.ChangeScene2(scene);
+            break;
+        case GeneralScene2.One2:
+            SceneHandler2.ChangeScene2(scene);
+            break;
+        case GeneralScene2.One3:
+            SceneHandler2.ChangeScene2(scene);
+            break;
+        case GeneralScene2.Forest3:
+            SceneHandler2.ChangeScene2(scene);
+            break;
+        case GeneralScene2.Forest4:
+            SceneHandler2.ChangeScene2(scene);
+            break;
+        default:
+            Log.Info("No scene?");
+            break;
+    }
+
+    isSceneChanging = false;
+}
     
     // Beispielwert, ersetzen Sie dies durch die tatsächliche Spielerlevel-Variable
 

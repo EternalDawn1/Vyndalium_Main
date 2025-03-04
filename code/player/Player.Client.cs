@@ -20,11 +20,7 @@ namespace GeneralGame
             return Connection != null && Connection.IsHost;
         }
       
-        public void SetReadyStatus( bool readyStatus )
-        {
-            IsReady = readyStatus;
-            Log.Info( $"Spieler {this} Bereitschaftsstatus gesetzt auf: {IsReady}" );
-        }
+        
         
 
         [Sync]
