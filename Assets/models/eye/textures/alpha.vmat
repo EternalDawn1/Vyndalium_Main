@@ -1,0 +1,52 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/eyeball.shader"
+
+	//---- Color ----
+	g_flModelTintAmount "1.000"
+	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
+	TextureColor "models/eye/textures/diffuse02.png"
+
+	//---- Fade ----
+	g_flFadeExponent "1.000"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Iris ----
+	g_flIrisBumpStrength "1.000"
+	g_flParallaxStrength "0.200"
+	g_vIrisAutoexposureRange "[0.743 0.390]"
+	IrisNormal "models/eye/textures/Diffuse02.png"
+	IrisRoughness "[0.783000 0.783000 0.783000 0.000000]"
+	TextureIrisMask "models/eye/textures/Alpha.png"
+
+	//---- Lighting ----
+	g_vReflectanceRange "[0.000 1.000]"
+	TextureReflectance "[0.122000 0.122000 0.122000 0.000000]"
+
+	//---- Normal ----
+	g_flCorneaScleraBumpStrength "1.000"
+	g_flScleraDiffuseExponent "1.507"
+	g_flScleraDiffuseWrap "0.424"
+	TextureNormal "models/eye/textures/normal.png"
+
+	//---- Occlusion ----
+	g_flOcclusionStrength "0.750"
+	g_flOcclusionWidth "3.000"
+	TextureOcclusion "materials/default/default_color.tga"
+
+	//---- Texture Coordinates ----
+	g_nScaleTexCoordUByModelScaleAxis "0"
+	g_nScaleTexCoordVByModelScaleAxis "0"
+	g_vTexCoordOffset "[-0.500 -0.015]"
+	g_vTexCoordScale "[1.000 1.000]"
+	g_vTexCoordScrollSpeed "[0.000 0.000]"
+
+	DynamicParams
+	{
+		g_vTexCoordOffset "\nreturn BossMode"
+	}
+}

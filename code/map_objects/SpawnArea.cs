@@ -431,7 +431,6 @@ public sealed class NpcSpawnArea : Component
 	public async void SpawnNPCs()
 	{
 		
-
 		// Spawne die normalen NPCs
 		foreach ( var npcChance in NpcPool )
 		{

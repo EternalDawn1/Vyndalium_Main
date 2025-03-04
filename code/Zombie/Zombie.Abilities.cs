@@ -606,6 +606,11 @@ public class Abilities : Component
         {
             return;
         }
+        SkinnedModelRenderer skinnedModelRenderer = this.GetComponent<SkinnedModelRenderer>();
+        if ( skinnedModelRenderer != null )
+        {
+            skinnedModelRenderer.SceneObject.Attributes.Set( "BossMode", true );
+        }
 
         // Speichern Sie die letzte bekannte Position des Spielers
         var targetPosition = GetRandomPositionAround( targetPlayer.WorldPosition, 50f, 100f ); // Generiere eine zufällige Position im Radius von 50 bis 100 Einheiten um den Spieler

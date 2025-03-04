@@ -1085,6 +1085,8 @@ public class  BaseGun : WeaponComponent, IUse
 			.UseHitboxes()
 			.Run();
 
+		
+
 		var damage = Damage;
 		var origin = attachment?.Position ?? startPos;
 
