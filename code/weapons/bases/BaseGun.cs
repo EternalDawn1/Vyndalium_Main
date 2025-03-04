@@ -347,44 +347,7 @@ public class  BaseGun : WeaponComponent, IUse
 			// Berechne die Flugbahn des Messers
 			Vector3 direction = Owner.PlyCamera.WorldRotation.Forward;
 
-			string attackType = "default";
-			var itemComponent = GetComponent<ItemComponent>();
-			if ( itemComponent == null )
-			{
-				switch ( itemComponent.Aspect )
-				{
-					case AspectType.Fire:
-						attackType = "fire";
-						break;
-					case AspectType.Water:
-						attackType = "water";
-						break;
-					case AspectType.Ice:
-						attackType = "ice";
-						break;
-					case AspectType.Air:
-						attackType = "air";
-						break;
-					case AspectType.Earth:
-						attackType = "earth";
-						break;
-					case AspectType.Shadow:
-						attackType = "shadow";
-						break;
-					case AspectType.Holy:
-						attackType = "holy";
-						break;
-					case AspectType.Bleed:
-						attackType = "bleed";
-						break;
-					case AspectType.Poison:
-						attackType = "poison";
-						break;
-					default:
-						attackType = "default";
-						break;
-				}
-			}
+			
 			
 			// Definiere die Start- und Endposition des Traces
 			var startPos = Owner.PlyCamera.WorldPosition;
@@ -408,7 +371,7 @@ public class  BaseGun : WeaponComponent, IUse
 				var damage = Damage;
 				var origin = attachment?.Position ?? startPos;
 
-				SendAttackMessage( origin, trace.EndPosition, trace.Distance , attackType );
+		
 
 				if ( trace.Component.IsValid() )
 				{
@@ -545,76 +508,10 @@ public class  BaseGun : WeaponComponent, IUse
 
 	[Rpc.Broadcast]
 
-	public void ShowMeleeAttack( Vector3 origin, Vector3 endPosition )
-	{
-		if ( lineRenderer == null )
-		{
-			Log.Error( "LineRenderer is not assigned." );
-			return;
-		}
 
-		// Alpha-Wert auf den Standardwert zurücksetzen und aktivieren
-		SetLineRendererAlpha( lineRenderer, 1.0f );
-		lineRenderer.Enabled = true;
+	
 
-		lineRenderer.UseVectorPoints = true;
-		lineRenderer.VectorPoints = new List<Vector3> { origin, endPosition };
-
-		// Kollisionsabfrage
-		var trace = Scene.Trace.Ray( origin, endPosition )
-			.WithoutTags( "player" )
-			.Run();
-
-		if ( trace.Hit )
-		{
-			IHealthComponent damageable = null;
-
-			if ( trace.Component.IsValid() )
-				damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
-			if ( damageable != null )
-			{
-				var damage = Damage;
-				damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
-			}
-		}
-
-		// Starten Sie die asynchrone Methode
-		_ = FadeLineRenderer( lineRenderer, 0.5f );
-	}
-	private async Task FadeLineRenderer( LineRenderer lineRenderer, float duration )
-	{
-		float halfDuration = duration / 2f;
-		float elapsedTime = 0f;
-
-		// Einblenden
-		while ( elapsedTime < halfDuration )
-		{
-			elapsedTime += Time.Delta;
-			float alpha = elapsedTime / halfDuration;
-			SetLineRendererAlpha( lineRenderer, alpha );
-			await Task.Delay( 5 ); // Kleinere Verzögerung für glatteres Fading
-		}
-
-		// Ausblenden
-		elapsedTime = 0f;
-		while ( elapsedTime < halfDuration )
-		{
-			elapsedTime += Time.Delta;
-			float alpha = 1f - (elapsedTime / halfDuration);
-			SetLineRendererAlpha( lineRenderer, alpha );
-			await Task.Delay( 5 ); // Kleinere Verzögerung für glatteres Fading
-		}
-
-		// Linie deaktivieren
-		lineRenderer.Enabled = false;
-	}
-
-	private void SetLineRendererAlpha( LineRenderer lineRenderer, float alpha )
-	{
-		var color = lineRenderer.Color;
-		color.AddAlpha( 0, alpha ); // Setzen Sie den Alpha-Wert der Farbe
-		lineRenderer.Color = color; // Setzen Sie die modifizierte Farbe zurück an den LineRenderer
-	}
+	
 	private void PerformMeleeAttack( Player player )
 	{
 		if ( NextMeleeAttackTime > 0 ) return;
@@ -634,7 +531,7 @@ public class  BaseGun : WeaponComponent, IUse
 		var endPos = playerPosition + forwardDirection * 50 + cameraRight * 25;
 
 		// Zeigen Sie den Nahkampfangriff an
-		ShowMeleeAttack( startPos, endPos );
+		
 		
 
 		// Führen Sie den Nahkampfangriff aus (Ihre bestehende Logik)
@@ -959,33 +856,28 @@ public class  BaseGun : WeaponComponent, IUse
 	{
 		if ( shooter == null || Owner == null || EffectRenderer == null || Scene == null )
 		{
-		
 			return;
 		}
 		if ( shooter.LifeState == LifeState.Dead )
 		{
-			
 			return;
 		}
 
 		if ( !NextAttackTime )
 		{
-		
 			return;
 		}
-		if(shooter.IsRunning)
+		if ( shooter.IsRunning )
 		{
 			return;
 		}
 		if ( IsReloading )
 		{
-		
 			return;
 		}
 
 		if ( IsMagicWeapon && Player.Local.Mana < 10 )
 		{
-		
 			return;
 		}
 
@@ -997,7 +889,6 @@ public class  BaseGun : WeaponComponent, IUse
 
 		if ( AmmoInClip <= 0 )
 		{
-		
 			SendEmptyClipMessage();
 			ReloadAction();
 			NextAttackTime = 1f / FireRate;
@@ -1006,9 +897,7 @@ public class  BaseGun : WeaponComponent, IUse
 		string attackType = "default";
 		var itemComponent = Components.Get<ItemComponent>();
 		if ( itemComponent != null )
-
 		{
-			
 			switch ( itemComponent.Aspect )
 			{
 				case AspectType.Fire:
@@ -1034,7 +923,6 @@ public class  BaseGun : WeaponComponent, IUse
 				case AspectType.Lightning:
 					FireBulletWithLightningAspect( shooter );
 					attackType = "lightning";
-
 					break;
 				case AspectType.Shadow:
 					FireBulletWithShadowAspect( shooter );
@@ -1063,8 +951,6 @@ public class  BaseGun : WeaponComponent, IUse
 			FireDefaultBullet( shooter );
 		}
 
-
-
 		if ( Owner.MoveSpeed > 150f ) return;
 		Owner.ApplyRecoil( Recoil );
 		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
@@ -1078,21 +964,17 @@ public class  BaseGun : WeaponComponent, IUse
 		var direction = Owner.PlyCamera.WorldRotation.Forward;
 		direction += Vector3.Random * Spread;
 
-		var endPos = startPos + direction * 5000f;
+		var endPos = startPos + direction * 1000f;
 		var trace = Scene.Trace.Ray( startPos, endPos )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.WithoutTags( "player" )
 			.UseHitboxes()
 			.Run();
 
-		
-
 		var damage = Damage;
 		var origin = attachment?.Position ?? startPos;
 
-
-
-		SendAttackMessage( origin, trace.EndPosition, trace.Distance , attackType );
+		SendAttackMessage( origin, trace.EndPosition, trace.Distance, attackType, trace );
 
 		IHealthComponent damageable = null;
 
@@ -1104,22 +986,13 @@ public class  BaseGun : WeaponComponent, IUse
 				var healthComponent = trace.Component.Components.GetInAncestorsOrSelf<HealthComponent>();
 				if ( healthComponent != null )
 				{
-					
+					// Additional logic if needed
 				}
-			}
-
-			if ( damageable != null )
-			{
-				// Fügen Sie hier den Code hinzu, um Schaden zu verursachen
-				damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
 			}
 		}
 
-
-
 		if ( damageable is not null )
 		{
-		
 			Random random = new Random();
 
 			float playerAttackValue = random.Next( (int)shooter.MinAttackValue, (int)shooter.MaxAttackValue + 10 );
@@ -1130,7 +1003,6 @@ public class  BaseGun : WeaponComponent, IUse
 			var armorPenetration = shooter.ArmorPenetration;
 
 			damage += (int)(damage * (playerAttackValue / 15.0f));
-			
 
 			int calculatedDamage = (int)(damage * (playerAttackPower / 10.0f));
 			damage += random.Next( 0, calculatedDamage + 1 );
@@ -1141,29 +1013,26 @@ public class  BaseGun : WeaponComponent, IUse
 				{
 					damage += (int)(damage * 0.5f + playerCritDamage);
 					isCriticalHit = true;
-
 				}
 				else
 				{
 					isCriticalHit = false;
 				}
 			}
-			if (damageable is Npc npc)
+			if ( damageable is Npc npc )
 			{
 				var zombieArmor = npc.Armor; // Angenommen, das Ziel hat eine Rüstungseigenschaft
-				var effectiveArmor = Math.Max(0, zombieArmor - armorPenetration);
+				var effectiveArmor = Math.Max( 0, zombieArmor - armorPenetration );
 				damage = (int)(damage * (100f / (100f + effectiveArmor)));
 			}
 
 			damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
-
 
 			Vector3 randomOffset = new Vector3(
 			random.Next( -15, -10 ) * (random.Next( 0, 2 ) * 2 - 1), // Zufällige Verschiebung auf der X-Achse, links oder rechts
 			random.Next( -15, -10 ) * (random.Next( 0, 2 ) * 2 - 1), // Zufällige Verschiebung auf der Y-Achse, oben oder unten
 			random.Next( -15, 10 )  // Zufällige Verschiebung auf der Z-Achse
 			);
-
 
 			GameObject hitinfo = Hitprefab.Clone( trace.EndPosition + randomOffset );
 			FaceThing facething = hitinfo.Components.Get<FaceThing>();
@@ -1181,15 +1050,11 @@ public class  BaseGun : WeaponComponent, IUse
 			textRenderer.Text = $"{damage}";
 			ScaleTextWithDistance scaleTextWithDistance = hitinfo.Components.Get<ScaleTextWithDistance>();
 			scaleTextWithDistance.Thing = shooter.GameObject;
-			
 		}
 		else if ( trace.Hit )
 		{
 			SendImpactMessage( trace.EndPosition, trace.Normal );
 		}
-
-
-
 
 		var target = trace.GameObject;
 		if ( target != null )
@@ -1200,10 +1065,6 @@ public class  BaseGun : WeaponComponent, IUse
 			if ( target.Components.TryGet<HealthComponent>( out var health ) )
 				health.Damage( Damage, DamageType, shooter.GameObject, trace.HitPosition, trace.Direction, HitForce );
 		}
-
-		
-
-
 	}
 
 
@@ -1387,7 +1248,7 @@ public class  BaseGun : WeaponComponent, IUse
 		}
 	}
 	[Rpc.Broadcast]
-	private void SendAttackMessage( Vector3 startPos, Vector3 endPos, float distance, string attackType )
+	private void SendAttackMessage( Vector3 startPos, Vector3 endPos, float distance, string attackType, SceneTraceResult trace )
 	{
 		if ( Player.Local == null || Player.Local.LifeState == LifeState.Dead && !IsMelee )
 		{
@@ -1401,7 +1262,6 @@ public class  BaseGun : WeaponComponent, IUse
 		}
 		if ( EffectRenderer.SceneModel == null )
 		{
-			
 			return;
 		}
 
@@ -1435,30 +1295,15 @@ public class  BaseGun : WeaponComponent, IUse
 			case "bleed":
 				particleEffect = "particles/trail_bullet_bleed.vpcf";
 				break;
-				
 			default:
 				particleEffect = "particles/tracer/trail_smoke.vpcf";
 				break;
 		}
 
-		var trace = Scene.Trace.Ray( startPos, endPos )
-		.UseHitboxes()
-		.IgnoreGameObjectHierarchy( GameObject.Root )
-		.WithoutTags( "player" )// 'this' als gültiges GameObject übergeben
-		.Run();
-
-		// Trefferposition ermitteln
-		var hitPosition = trace.EndPosition;
-		var distanceToHit = (hitPosition - startPos).Length; // Umbenennung von 'distance' zu 'distanceToHit'
-
-		// Partikel erstellen und Kontrollpunkte setzen
 		var p = new SceneParticles( Scene.SceneWorld, particleEffect );
 		p.SetControlPoint( 0, startPos );
-		p.SetControlPoint( 1, hitPosition ); // Endposition des Strahls
-		p.SetControlPoint( 2, distanceToHit );
-
-		
-
+		p.SetControlPoint( 1, trace.EndPosition ); // Endposition des Strahls
+		p.SetControlPoint( 2, trace.Distance );
 
 		p.PlayUntilFinished( Task );
 
@@ -1481,30 +1326,30 @@ public class  BaseGun : WeaponComponent, IUse
 			}
 		}
 
-		if (FireSound != null)
+		if ( FireSound != null )
 		{
-			if (EffectRenderer.SceneModel != null)
+			if ( EffectRenderer.SceneModel != null )
 			{
-				var transform = EffectRenderer.SceneModel.GetAttachment("muzzle");
+				var transform = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
 
-				if (transform.HasValue)
+				if ( transform.HasValue )
 				{
 					// Spiele den FireSound an der Position der Mündung ab
-					Sound.Play(FireSound, transform.Value.Position);
+					Sound.Play( FireSound, transform.Value.Position );
 				}
 				else
 				{
-					Log.Warning("Muzzle attachment not found.");
+					Log.Warning( "Muzzle attachment not found." );
 				}
 			}
 			else
 			{
-				Log.Warning("EffectRenderer.SceneModel is null.");
+				Log.Warning( "EffectRenderer.SceneModel is null." );
 			}
 		}
 		else
 		{
-			Log.Warning("FireSound is null.");
+			Log.Warning( "FireSound is null." );
 		}
 	}
 	public class DamageText : Panel

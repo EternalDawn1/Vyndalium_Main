@@ -29,6 +29,14 @@
                             <div class="title">Inventory</div>
                             <div class="help">?</div>
                             <div class="title2">Sell</div>
+                            <div class="box-information-main">
+                                <div class="box-information">
+                                    <div class="box-title">Tip!</div>
+                                    <div class="box-description">*-- Right Click on Items to Sell</div>
+                                    
+
+                                </div>
+                            </div>
                             <div class="items0" CanDragScroll="false">
                                 @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
                                 {
@@ -75,6 +83,16 @@
                                     <button class="toggle" @onclick="@ToggleStorageSortOptions"></button>
                                 </div>
                         </div>
+                        <div class="box-information-main">
+                                <div class="box-information">
+                                    <div class="box-title">Tip!</div>
+                                    <div class="box-description">*-- Right Click to Store Items from Inventory</div>
+                                     <div class="box-description">*-- Right Click to Store Items from Storage</div>
+                                        <div class="box-description">*-- Right Click to Sell Items </div>
+                                    
+
+                                </div>
+                            </div>
                         <div class="items-container">
                             <div class="items2">
                                 @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
@@ -137,6 +155,7 @@
     <div class="panel-content-text">
         <div class="panel-content-layout">  
             <div class="upgrade-section">
+                
                     <div class="title" style="color:blue">Upgrade</div>
               
                         <div class="items2">
@@ -148,6 +167,7 @@
                                     }
                         </div>
                     <div class="upgrade-slot">
+                        
                         <div class="title4" style="color:blue">Equipment</div>
                         <div class="items2">
                             @for (var index = 0; index < Player.Local.Inventory.UpgradeItems.Count; index++)
@@ -155,16 +175,17 @@
                                 var item = Player.Local.Inventory.UpgradeItems[index];
                                 <InventorySlot Item=@item UpgradeSlotIndex=@index />
                             }
-                            
-                            
-                                
-                            
                         </div>
-                       
-                        
-
                     </div>
+                    <div class="iteminformation">
+                                @if(Item != null)
+                                {
+                                    <ItemInformation Item=@Item style="max-width: 700px;" />
+                                }
+                                    
+                            </div>
                     <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
+                    
                     @if (isUpgradePanelVisible)
                     {
                         <div class="upgrade-panel @(isUpgradePanelVisible ? "visible" : "")">
@@ -195,6 +216,7 @@
                             </p>
                             <button class="upgrade-button" @onclick="@(() => ShowUpgradeConfirmation(UpgradeItem))"
                                 disabled="@(Player.Local.Vyndalium < upgradeCost || upgradeItem.ItemLevel >= 27)">Upgrade</button>
+                            
                             
                             </p>
                         </div>
@@ -253,6 +275,13 @@
                         </div>
                         
                     </div>
+                    <div class="iteminformation">
+                                @if(Item != null)
+                                {
+                                    <ItemInformation Item=@Item style="max-width: 700px;" />
+                                }
+                                    
+                            </div>
                     
                     <div class="upgrade-slot" style="left: 65%; background-color: rgba(255, 0, 0, 0); top: 45%;">
                         <div class="title4" style="color:blue">Aspect</div>

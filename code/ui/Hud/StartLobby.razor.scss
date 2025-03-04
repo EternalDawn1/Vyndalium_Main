@@ -2,7 +2,7 @@
 
 $white: #ffffff;
 $black: #0f0f0f;
-$small-fish-blue: #2446f7;
+
 
 StartLobby {
 	position: absolute;
@@ -50,47 +50,94 @@ StartLobby {
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		justify-content: center;
+		
 		opacity: 1;
 		
 		
 		
 		.left {
-				margin-top: 64px;
+				margin-top: 16px;
+				margin-left: 16px;
 				flex-direction: column;
-				width: 900px;
+				width: 21%;
+				height: 95%;
 				font-family: Cambria;
+				background-image: url('/ui/textures/blue.jpg');
+				background-position: center;
+				opacity: 0.96;
+				background-size: cover;
+				border-radius: 13px;
+				padding: 10px;
+				border-width: 5px;
+				border-color: rgb(56, 56, 56);
+				box-shadow: 5 5 5px 5px rgb(0, 0, 0);
+				transition: all 0.2s ease-out;
+				
+				
 		
 		
 				>.title {
 					font-size: 64px;
 					font-weight: bold;
-					color: darkcyan;
+					color: rgb(255, 255, 255);
+					margin-bottom: 32px;
+					margin-left: 10px;
+					justify-content: center;
+					background-image: url('/ui/textures/grey.jpg');
+					background-position: center;
+					background-size: cover;
+
+					border-radius: 13px;
+					padding: 10px;
+				
+					box-shadow: 5 5 0 0 rgb(66, 66, 66);
+					
 				}
 		
 				>.explanation {
 					color: #ffd900b6;
 					font-size: 24px;
-					flex-direction: column;
-					width: 100%;
+					background-image: url('/ui/textures/grey.jpg');
+					background-position: center;
+					background-size: cover;
+					
 					border-radius: 13px;
+					padding: 10px;
+					margin-left: 10px;
+					
+					
+					box-shadow: 5 5 1px 1px rgb(0, 0, 0);
+					justify-content: center;
+					align-items: center;
 				}
 		
 				>.button-list {
-					margin-top: 64px;
+					
 					flex-direction: column;
-					gap: 28px;
+					gap: 58px;
+					margin-top: 32px;
+					left: 5%;
+					
+						background-position: center;
+						background-size: cover;
+					justify-content: flex-start;
+					border-radius: 13px;
+					padding: 10px;
+				
 		
 					>.button {
+						position: relative;
 						background-color: transparent;
 						color: #f7f7f7;
 						font-size: 32px;
+						margin-left: 11%;
 						padding: 15px;
 						border-radius: 18px;
 						cursor: pointer;
 						width: 300px;
 						flex-direction: column;
 						transition: all 0.2s ease-out;
+						align-items: center;
 		
 		
 						&:hover {
@@ -102,6 +149,7 @@ StartLobby {
 							sound-in: 'light_click';
 						}
 					}
+					
 				}
 			}
 		
@@ -111,20 +159,44 @@ StartLobby {
 				width: 100%;
 				font-weight: bold;
 				color: rgb(116, 224, 66);
+				justify-content: center;
+				align-items: center;
 			}
 		
 			.lobby-list {
-				margin-top: 64px;
-				width: 600px;
+				height: 70%;
+				width: 30%;
+				margin-top: 16px;
+				margin-left: 26px;
 				flex-direction: column;
+					background-image: url('/ui/textures/blue.jpg');
+				background-position: center;
+				background-size: cover;
+				border-radius: 13px;
+				padding: 10px;
+				box-shadow: 5 5 5px 5px rgb(0, 0, 0);
+				transition: all 0.2s ease-out;
+
+				.title2 {
+						color: rgb(223, 6, 6);
+						justify-content: center;
+						align-items: center;
+						position: relative;
+						margin-left: 80px;
+						
+						
+					}
 		
 		
 		
 				>label {
-					color: #aaaa;
+					color: #ffffffd7;
 					font-size: 24px;
 					flex-direction: column;
 					width: 100%;
+					justify-content: center;
+					align-items: center;
+					
 				}
 		
 				>.button-list {
@@ -149,6 +221,7 @@ StartLobby {
 							font-weight: bold;
 							font-size: 20px;
 						}
+						
 		
 						.meta {
 							font-size: 16px;

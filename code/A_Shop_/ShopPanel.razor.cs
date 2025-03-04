@@ -23,8 +23,8 @@ namespace GeneralGame.HUD
         private string statusClass = "visible";
         private bool upgradeSuccessful;
         private bool upgradeDestroyed;
-        
-       
+
+        public ItemComponent Item { get; set; }
         private void ShowUpgradeConfirmation( Action confirmAction )
         {
             var requiredMaterials = GetRequiredMaterials( upgradeItem.ItemLevel, upgradeItem.Tier );
@@ -165,9 +165,6 @@ namespace GeneralGame.HUD
                 Log.Warning( "shopInteractable ist null." );
                 return;
             }
-           
-
-            
 
             // Überprüfen, ob es gültige Upgrade-Items im Inventar des Spielers gibt
             isUpgradePanelVisible = Player.Local.Inventory.UpgradeItems.Any( item => item != null && item.ItemLevel < 27 );
@@ -189,6 +186,10 @@ namespace GeneralGame.HUD
             {
                 upgradeItem = null;
             }
+
+            // Aktualisiere die ItemInformation-Komponente
+            Item = upgradeItem;
+            StateHasChanged();
         }
         private bool isAspectPanelVisible;
      
@@ -366,7 +367,7 @@ namespace GeneralGame.HUD
                 if ( upgradeItem.IsPotion || upgradeItem.IsMaterial )
                 {
                     Hudmaster.Instance.ShowNotification( "you cannot upgrade that.", "/ui/hud/exit.gif" );
-                    PlaySuccessSoundFromPath( "sounds/upgrade/notenoughmoney.sound", 0.0125f );
+                    PlaySuccessSoundFromPath( "sounds/upgrade/notenoughmoney.sound", 0.125f );
                     return;
                 }
                 // Ab Level 4 werden Materialien benötigt
@@ -376,7 +377,7 @@ namespace GeneralGame.HUD
                     if ( !HasRequiredMaterials( requiredMaterials ) )
                     {
                         Hudmaster.Instance.ShowNotification( "Not enough materials", "/ui/hud/exit.gif" );
-                        PlaySuccessSoundFromPath( "sounds/upgrade/notenoughmoney.sound", 0.0125f );
+                        PlaySuccessSoundFromPath( "sounds/upgrade/notenoughmoney.sound", 0.125f );
                         return;
                     }
                     RemoveRequiredMaterials( requiredMaterials );
@@ -499,7 +500,7 @@ namespace GeneralGame.HUD
                         upgradeItem.HolyResistence += (int)(upgradeItem.HolyResistence * 0.3);
 
 
-                    PlaySuccessSoundFromPath( "sounds/upgrade/noti.sound",0.0125f );
+                    PlaySuccessSoundFromPath( "sounds/upgrade/noti.sound",0.125f );
                     upgradeSuccessful = true;
 
                     CheckUpgradeSlot(); // Aktualisieren Sie den Panel-Zustand
@@ -613,14 +614,14 @@ namespace GeneralGame.HUD
                             upgradeItem.HolyResistence -= (int)(upgradeItem.HolyResistence * 0.3);
                         upgradeItem.SellPrice -= (int)(upgradeCost * 0.5);
                         Hudmaster.Instance.ShowNotification( $"Upgrade failed. Item {upgradeItem.Name} has been downgraded to {upgradeItem.ItemLevel}.", "/ui/hud/exit.gif" );
-                        PlaySuccessSoundFromPath("sounds/upgrade/error.sound", 0.0125f);
+                        PlaySuccessSoundFromPath("sounds/upgrade/error.sound", 0.125f);
                     }
                     else
                     {
                         
                         Player.Local.Inventory?.RemoveItem( upgradeItem );
                         Hudmaster.Instance.ShowNotification( $"Upgrade failed. Item {upgradeItem.Name} has been destroyed.", "/ui/hud/exit.gif" );
-                        PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
+                        PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.125f );
                         
                         StateHasChanged();
                         CheckUpgradeSlot();

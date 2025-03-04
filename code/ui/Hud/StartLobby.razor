@@ -21,36 +21,34 @@
 
 			<div class="explanation">
 				<p>
-					an RPG Game from ViWi.
+					 from Dawnsoft Games.
 				</p>
 			</div>
-
 			<div class="button-list">
-				<div class="button" style="opacity: @(ShowCoopMenu ? 1 : 0)" onclick=@( () => ToggleMainMenu() )>
-					Main Menu
-				</div>
-				<div class="button" style="opacity: @(ShowCoopMenu ? 1 : 0)" onclick=@( () => CreateServer() )>
-					Start Coop
-				</div>
-				<div class="button" style="opacity: @(ShowCoopMenu ? 1 : 0)" onclick=@( () => ToggleMainMenu() )>
-					Coop Config
-				</div>
-				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => Singleplayer() )>
+
+				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => CreateServer() )>
 					Play
 				</div>
-
 				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => ToggleMainMenu() )>
-					Coop
+					Browse Servers
 				</div>
 
 				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => Options() )>
 					Options
 				</div>
 
-				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => Quit() )>
+				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1); top:70%;" onclick=@( () => Quit() )>
 					Quit
 				</div>
 			</div>
+
+			<div class="button-list" style="opacity: @(ShowCoopMenu ? 1 : 0)">
+				<div class="button" style="opacity: @(ShowCoopMenu ? 1 : 0)" onclick=@( () => ToggleMainMenu() )>
+					Go Back
+				</div>
+				
+			</div>
+			
 		</div>
 
 		<div class="lobby-list" style="opacity: @(ShowCoopMenu ? 1 : 0)">
@@ -60,11 +58,11 @@
 
 			@if (IsRefreshing)
 			{
-				<label>Refreshing the server list, please wait...</label>
+				<label class="title2">Refreshing the server list, please wait...</label>
 			}
 			else if (List.Count == 0)
 			{
-				<label>there are no server's online , create one'.</label>
+				<label class="title2">there are currently no server's online.</label>
 			}
 			else
 			{
@@ -90,14 +88,7 @@
 				</div>
 			}
 		</div>
-		@if (ShowCoopMenu)
-		{
-			<div>
-				<label>Max Players:</label>
-				<input type="range" min="1" max="4" @bind="@MaxPlayers" />
-				<span>@MaxPlayers</span>
-			</div>
-		}
+		
 	</div>
 </root>
 

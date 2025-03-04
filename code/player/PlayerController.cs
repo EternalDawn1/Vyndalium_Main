@@ -575,6 +575,7 @@ public partial class Player : Component, IHealthComponent
 			var modelRenderer = weapon.Components.Get<ModelRenderer>();
 			var itemComponent = weapon.Components.Get<ItemComponent>();
 			var skinnedmodelRenderer = weapon.Components.Get<SkinnedModelRenderer>();
+			var BoxCollider = weapon.Components.Get<BoxCollider>();
 
 			if ( modelRenderer != null && itemComponent != null )
 			{
@@ -594,6 +595,11 @@ public partial class Player : Component, IHealthComponent
 			if ( skinnedmodelRenderer != null )
 			{
 				skinnedmodelRenderer.Enabled = weapon == deployedWeapon;
+			}
+			if ( BoxCollider != null )
+			{
+				BoxCollider.Enabled = weapon == deployedWeapon;
+				BoxCollider.Enabled = false;
 			}
 		}
 		
@@ -710,8 +716,8 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		}
-		//UpdateModelVisibility();
-		//UpdateWeaponModelVisibility();
+		UpdateModelVisibility();
+		UpdateWeaponModelVisibility();
 
 		
 		
