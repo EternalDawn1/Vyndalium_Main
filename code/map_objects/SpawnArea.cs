@@ -20,6 +20,23 @@ public sealed class NpcSpawnArea : Component
 		Box,
 		Cylinder
 	}
+	public struct SpawnCountRange
+	{
+		[Property]
+		[JsonInclude]
+		public int MinCount { get; set; } = 1;
+
+		[Property]
+		[JsonInclude]
+		public int MaxCount { get; set; } = 10;
+
+		[Property]
+		[JsonInclude]
+		[Range( 0.01f, 1f, 0.01f )]
+		public float SpawnChance { get; set; } = 0.2f;
+
+		public SpawnCountRange() { }
+	}
 
 	public struct NpcChance
 	{
@@ -29,8 +46,9 @@ public sealed class NpcSpawnArea : Component
 
 		[Property]
 		[JsonInclude]
-		[Range( 0.0001f, 1f, 0.0001f )]
-		public float SpawnChance { get; set; } = 0.2f;
+		public SpawnCountRange SpawnCountRange { get; set; } = new();
+
+	
 
 		[Property]
 		[JsonInclude]
@@ -181,8 +199,7 @@ public sealed class NpcSpawnArea : Component
 	[Property, Group( "General" )] public bool InfiniteLoops { get; set; } = false;
 	[Property, Group("General")] public float LoopSpawnInterval { get; set; } = 300f;
 	[Property,Group("General")] public RealTimeSince lastSpawnTime = 0f;
-	[Property, Group( "General" )] public bool EnableFadeIn { get; set; } = true;
-	[Property, Group( "General" )] public float FadeInDuration { get; set; } = 2.0f;
+
 	[Property, Group("General")]public bool DestroyAfterSpawning { get; set; }
 
 	[Property, Group("SpawnRange")]
@@ -409,25 +426,7 @@ public sealed class NpcSpawnArea : Component
 		}
 		return false;
 	}
-	private async Task FadeInModel( GameObject npc, float duration )
-	{
-		var modelRenderer = npc.GetComponent<ModelRenderer>();
-		if ( modelRenderer == null )
-		{
-			Log.Warning( "ModelRenderer not found on NPC." );
-			return;
-		}
-
-		float elapsedTime = 0f;
-		while ( elapsedTime < duration )
-		{
-			float alpha = elapsedTime / duration;
-			modelRenderer.Tint = modelRenderer.Tint.WithAlpha( alpha );
-			elapsedTime += Time.Delta;
-			await Task.Yield();
-		}
-		modelRenderer.Tint = modelRenderer.Tint.WithAlpha( 1f );
-	}
+	
 
 	public async void SpawnNPCs()
 	{
@@ -437,10 +436,11 @@ public sealed class NpcSpawnArea : Component
 		foreach ( var npcChance in NpcPool )
 		{
 			var random = Game.Random.Float( 0f, 1f );
-			var shouldSpawn = random <= npcChance.SpawnChance;
+			var shouldSpawn = random <= npcChance.SpawnCountRange.SpawnChance;
 			if ( shouldSpawn )
 			{
-				for ( int i = 0; i < npcChance.SpawnCount; i++ )
+				var spawnCount = Game.Random.Int( npcChance.SpawnCountRange.MinCount, npcChance.SpawnCountRange.MaxCount );
+				for ( int i = 0; i < spawnCount; i++ )
 				{
 					var npc = SpawnNpc( npcChance.Npc );
 					if ( npc != null )
@@ -517,12 +517,14 @@ public sealed class NpcSpawnArea : Component
 		foreach ( var bossChance in BossNpcPool )
 		{
 			var random = Game.Random.Float( 0f, 1f );
-			var shouldSpawn = random <= bossChance.SpawnChance;
-			
+			var shouldSpawn = random <= bossChance.SpawnCountRange.SpawnChance;
 			if ( shouldSpawn )
+
+				if ( shouldSpawn )
 			{
-				for ( int i = 0; i < bossChance.SpawnCount; i++ )
-				{
+					var spawnCount = Game.Random.Int( bossChance.SpawnCountRange.MinCount, bossChance.SpawnCountRange.MaxCount );
+					for ( int i = 0; i < spawnCount; i++ )
+					{
 					var boss = SpawnNpc( bossChance.Npc );
 					if ( boss != null )
 					{
@@ -653,11 +655,7 @@ public sealed class NpcSpawnArea : Component
 					clone.NetworkMode = NetworkMode.Object;
 					clone.NetworkSpawn();
 
-					if ( EnableFadeIn )
-					{
-						_ = FadeInModel( clone, FadeInDuration );
-					}
-
+					
 					return clone;
 				}
 			}
