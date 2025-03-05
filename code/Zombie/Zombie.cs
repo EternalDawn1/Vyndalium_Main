@@ -697,11 +697,10 @@ public partial class Npc : Component, IHealthComponent
 					int exponentialDamage = (int)(baseDamage * Math.Pow( 1.05, npcLevel ));
 
 					// Berücksichtige die Rüstung des Spielers als Prozentsatz
-					int playerDefensePercentage = random.Next( (int)player.MinArmorValue / 10, (int)player.MaxArmorValue / 10 + 1 );
-					double damageReductionFactor = (100 - playerDefensePercentage) / 100.0;
+				
 
 					// Berechne den endgültigen Schaden unter Berücksichtigung der Rüstung
-					int finalDamage = (int)(exponentialDamage * damageReductionFactor);
+					int finalDamage = (int)(exponentialDamage);
 
 					if ( player.Block > 0 )
 					{
@@ -753,77 +752,7 @@ public partial class Npc : Component, IHealthComponent
 			}
 		}
 
-		// Füge eine zusätzliche Überprüfung hinzu, um Spieler in der Nähe anzugreifen
-		var nearbyPlayers = Scene.GetAllComponents<Player>().Where( p => (p.WorldPosition - Body.WorldPosition).Length <= AttackRange );
-		foreach ( var nearbyPlayer in nearbyPlayers )
-		{
-			if ( nearbyPlayer != null && nearbyPlayer != player )
-			{
-			
-				int baseDamage = random2.Next( 1, 8 );
-
-				// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
-				int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
-				int exponentialDamage = (int)(baseDamage * Math.Pow( 1.05, npcLevel ));
-
-				int playerDefensePercentage = random.Next( (int)nearbyPlayer.MinArmorValue / 10, (int)nearbyPlayer.MaxArmorValue / 10 + 1 );
-				double damageReductionFactor = (100 - playerDefensePercentage) / 100.0;
-
-				// Berechne den endgültigen Schaden unter Berücksichtigung der Rüstung
-				int finalDamage = (int)(exponentialDamage * damageReductionFactor);
-
-				// Stelle sicher, dass der Schaden nicht unter 1 fällt
-				finalDamage = Math.Max( finalDamage, 1 );
-
-				if ( nearbyPlayer.Block > 0 )
-				{
-					double coverReduction = Math.Min( nearbyPlayer.Block / 50.0, 0.5 ); // Maximal 50% Reduktion
-					finalDamage = (int)(finalDamage * (1 - coverReduction));
-				}
-
-				// Fügen Sie die GameObject.Id des angreifenden Spielers hinzu
-				nearbyPlayer.Components.Get<IHealthComponent>().TakeDamage( DamageType.Bullet, finalDamage, nearbyPlayer.WorldPosition, Vector3.Zero, GameObject.Id, GameObject.Id );
-
-				if ( HasFireAbility )
-				{
-					// Generiere eine zufällige Brenndauer zwischen 1 und 5 Sekunden
-					int burnDuration = random2.Next( 1, 6 );
-					ApplyBurn( nearbyPlayer, burnDuration );
-				}
-				AnimationHelper.Target.Set( "b_attack", true );
-
-				if ( Model != null && isPrometheus )
-				{
-					Model.Set( "prometheus_attack", true );
-				}
-
-				if ( Model != null && isChibi )
-				{
-					Model.Set( "chibi_attack", true );
-				}
-				if ( Model != null && isSlime )
-				{
-					// Erzeuge eine Zufallszahl zwischen 0 und 1
-					Random random2 = new Random();
-					int randomNumber = random2.Next( 0, 2 ); // 0 oder 1
-
-					// Wähle zufällig zwischen den beiden Animationen
-					if ( randomNumber == 0 )
-					{
-						Model.Set( "slime_attack", true );
-					}
-					else
-					{
-						Model.Set( "slime_attack_v2", true );
-					}
-				}
-
-				
-			}
-			timeSinceHit = 0;
-
-			Sound.Play( HitSounds, WorldPosition );
-		}
+		
 		
 	}
 	private void ApplyBurn( Player player, int duration )
