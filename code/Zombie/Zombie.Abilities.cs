@@ -39,7 +39,7 @@ public class Abilities : Component
     private List<GameObject> activeFireRingObjects = new();
     [Property]private Npc npc { get; set; } = new Npc();
 
-    public Vector3 PlayerProximityDistance { get; set; } = new Vector3( 500f, 500f, 500f );
+    [Property] public Vector3 PlayerProximityDistance { get; set; } = new Vector3( 500f, 500f, 500f );
 
     [Property]private RealTimeSince FireBallAttackTime;
     [Property]private float FireBallCooldown = 15.0f;
@@ -137,7 +137,7 @@ public class Abilities : Component
     private bool IsPlayerTooCloseUltimate( Player targetPlayer )
     {
         float distanceToPlayer = (targetPlayer.WorldPosition - this.WorldPosition).Length;
-        return distanceToPlayer < 400.0f; // Beispielwert für zu nahe Distanz
+        return distanceToPlayer < 250.0f; // Beispielwert für zu nahe Distanz
     }
 
     private bool IsPlayerInProximity()

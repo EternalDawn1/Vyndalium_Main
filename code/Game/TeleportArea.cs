@@ -1,5 +1,13 @@
 namespace GeneralGame
 {
+	
+	public enum TeleportDirection
+    {
+        North,
+        East,
+        South,
+        West
+    }
 	public sealed class TeleportArea : Component
 	{
 		[Property] public TeleportPositionPoint TeleportPositionPoint { get; set; }
@@ -11,6 +19,7 @@ namespace GeneralGame
 		[Property] public bool ResetHasTeleported { get; set; } = false;
 
 		[Property] private bool hasTeleported = false;
+		[Property] public TeleportDirection TeleportDirection { get; set; } = TeleportDirection.North;
 
 		protected override void OnUpdate()
 		{
@@ -94,6 +103,22 @@ namespace GeneralGame
 
 			// Stelle sicher, dass die Position-Eigenschaft des Players schreibbar ist
 			player.WorldPosition = TeleportPositionPoint.Position;
+
+			switch ( TeleportDirection )
+			{
+				case TeleportDirection.North:
+					player.WorldRotation = Rotation.FromYaw( 0 );
+					break;
+				case TeleportDirection.East:
+					player.WorldRotation = Rotation.FromYaw( 90 );
+					break;
+				case TeleportDirection.South:
+					player.WorldRotation = Rotation.FromYaw( 180 );
+					break;
+				case TeleportDirection.West:
+					player.WorldRotation = Rotation.FromYaw( 270 );
+					break;
+			}
 			Player.Local.PlaySuccessSoundFromPath( "/sounds/chargedattack.sound", 0.0125f );
 
 			// Debug-Ausgabe der aktuellen Position des Spielers nach dem Teleportieren

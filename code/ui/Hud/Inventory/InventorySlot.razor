@@ -507,6 +507,11 @@
 		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Armor)
 			return;
 
+		if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
+		&&
+		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.StoreItems)
+			return;
+
 		if (e.Button != "mouseleft")
 			return;
 

@@ -262,6 +262,7 @@
 		var healthPercentage = player.Health / player.MaxHealth;
 		// Berechne die Textfarbe basierend auf dem Gesundheitsprozentsatz
 		var colorValue = (int)(255 * (1 - healthPercentage));
+		colorValue = Math.Clamp(colorValue, 0, 255); // Stelle sicher, dass der Wert zwischen 0 und 255 liegt
 		return $"rgb({colorValue}, {colorValue}, {colorValue})"; // Von Weiß (255,255,255) zu Schwarz (0,0,0)
 	}
 	private string ToRoman(int number)

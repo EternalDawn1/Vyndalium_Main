@@ -40,7 +40,7 @@ public sealed class Inventory : Component
 			_onBackpackSlotsChanged -= value;
 		}
 	}
-	public const int MAX_BACKPACK_SLOTS = 100;
+	public const int MAX_BACKPACK_SLOTS = 50;
 	public  int MAX_STORAGE_SLOTS = 100;
 	private const int ItemsPerPage = 20;
 	public const int MAX_UPGRADE_SLOTS = 1;
@@ -481,19 +481,20 @@ public sealed class Inventory : Component
 	{
 		_storageItems = new List<ItemComponent>( new ItemComponent[MAX_STORAGE_SLOTS] );
 		_backpackItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACK_SLOTS] );
+		for ( int i = 0; i < MAX_BACKPACK_SLOTS; i++ )
+		{
+			Log.Info( MAX_BACKPACK_SLOTS );
+			_backpackItems.Add( null );
+		}
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
 		_storageBoxItems = new List<ItemComponent>();
 		_upgradeItems = new List<ItemComponent>( new ItemComponent[MAX_UPGRADE_SLOTS] );
 		_aspectItems = new List<ItemComponent>( new ItemComponent[MAX_ASPECT_SLOTS] );
 		_backpackBagItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACKBAG_SLOTS] );
 
-		// Initialisiere die _backpackItems-Liste mit null-Werten
+		Log.Info( "Inventory created." );
+
 		
-		for ( int i = 0; i < MAX_BACKPACK_SLOTS; i++ )
-		{
-			_backpackItems.Add( null );
-		
-		}
 	}
 
 	public int IndexOf( ItemComponent item )

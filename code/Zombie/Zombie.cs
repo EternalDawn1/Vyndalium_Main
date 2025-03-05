@@ -759,19 +759,21 @@ public partial class Npc : Component, IHealthComponent
 		{
 			if ( nearbyPlayer != null && nearbyPlayer != player )
 			{
-				Log.Info( $"NPC greift Spieler {nearbyPlayer.Name} an." );
+			
 				int baseDamage = random2.Next( 1, 8 );
 
 				// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
 				int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
 				int exponentialDamage = (int)(baseDamage * Math.Pow( 1.05, npcLevel ));
 
-				// Berücksichtige die Rüstung des Spielers als Prozentsatz
 				int playerDefensePercentage = random.Next( (int)nearbyPlayer.MinArmorValue / 10, (int)nearbyPlayer.MaxArmorValue / 10 + 1 );
 				double damageReductionFactor = (100 - playerDefensePercentage) / 100.0;
 
 				// Berechne den endgültigen Schaden unter Berücksichtigung der Rüstung
 				int finalDamage = (int)(exponentialDamage * damageReductionFactor);
+
+				// Stelle sicher, dass der Schaden nicht unter 1 fällt
+				finalDamage = Math.Max( finalDamage, 1 );
 
 				if ( nearbyPlayer.Block > 0 )
 				{
@@ -816,11 +818,13 @@ public partial class Npc : Component, IHealthComponent
 					}
 				}
 
-				timeSinceHit = 0;
-
-				Sound.Play( HitSounds, WorldPosition );
+				
 			}
+			timeSinceHit = 0;
+
+			Sound.Play( HitSounds, WorldPosition );
 		}
+		
 	}
 	private void ApplyBurn( Player player, int duration )
 	{
