@@ -1287,8 +1287,8 @@
       "__guid": "e83e06a7-0614-4caa-acef-c3d08477e7a1",
       "Flags": 0,
       "Name": "Hub (1)",
-      "Position": "3382.32,1139.153,158.5408",
-      "Rotation": "0,0,0.1305262,0.9914448",
+      "Position": "3450.597,1129.174,158.5408",
+      "Rotation": "0,0,-0.258819,0.9659259",
       "Enabled": true,
       "Components": [
         {
@@ -1710,7 +1710,7 @@
       "__guid": "79651af3-6ad6-4556-a924-23457c98f186",
       "Flags": 0,
       "Name": "Spawner (6)",
-      "Position": "1292.984,999.8046,72.07767",
+      "Position": "1370.827,1011.799,72.07767",
       "Enabled": true,
       "Components": [
         {
@@ -1737,7 +1737,7 @@
           "InfiniteLoops": false,
           "lastSpawnTime": {
             "Absolute": 0,
-            "Relative": 100170720
+            "Relative": 100193480
           },
           "Lights": [],
           "LoopSpawning": false,
@@ -1865,6 +1865,1456 @@
           "StopLogicDistance": 200
         }
       ]
+    },
+    {
+      "__guid": "3797db2f-a6f6-4ccb-8c0f-21c3ea8e269a",
+      "Flags": 0,
+      "Name": "Spawner (1)",
+      "Position": "1347.945,-333.0967,72.07767",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "2fb66d50-9b24-4c9c-80be-edc8ac938ef1",
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": null,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "ChallengeDoor": null,
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "1,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 269.40042,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 100193480
+          },
+          "Lights": [],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/zombie variants/z1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 1
+              },
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+                  },
+                  "SpawnChance": 0.3,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 1,
+              "MaxLevel": 5,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.5
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "494.9999,392.3,261.7998",
+          "PositionOffset": "0,0,0",
+          "Radius": "254.8001,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "8453420f-d1bd-466d-b117-fffe6ccde446",
+      "Flags": 0,
+      "Name": "Spawner (2)",
+      "Position": "2041.289,-220.1885,72.07767",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "71464587-91d6-433c-8976-e8c999a7723e",
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": null,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "ChallengeDoor": null,
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "1,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 269.40042,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 100193480
+          },
+          "Lights": [],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/zombie variants/z1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 1
+              },
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+                  },
+                  "SpawnChance": 0.3,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 1,
+              "MaxLevel": 5,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.5
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "494.9999,392.3,261.7998",
+          "PositionOffset": "0,0,0",
+          "Radius": "254.8001,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "689e7497-37ea-4cb1-847f-823d17864817",
+      "Flags": 0,
+      "Name": "Spawner (3)",
+      "Position": "2237.302,328.6668,72.07767",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "e5742ff9-d659-4b37-8d7f-1cc238d2f81a",
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": null,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "ChallengeDoor": null,
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "1,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 269.40042,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 100193480
+          },
+          "Lights": [],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/zombie variants/z1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 1
+              },
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+                  },
+                  "SpawnChance": 0.3,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 1,
+              "MaxLevel": 5,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.5
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "494.9999,392.3,261.7998",
+          "PositionOffset": "0,0,0",
+          "Radius": "254.8001,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "6b26f68c-0c4b-45d2-a6ad-8e616941c713",
+      "Flags": 0,
+      "Name": "Spawner (4)",
+      "Position": "2030.923,1086.901,72.07767",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "eeb98445-550d-4fff-b61d-d9347dbbc1e2",
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": null,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "ChallengeDoor": null,
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "1,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 269.40042,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 100193480
+          },
+          "Lights": [],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/zombie variants/z1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 1
+              },
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+                  },
+                  "SpawnChance": 0.3,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 1,
+              "MaxLevel": 5,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.5
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "494.9999,392.3,261.7998",
+          "PositionOffset": "0,0,0",
+          "Radius": "254.8001,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "978522c4-397c-4a86-98e7-2da9e4d71e5e",
+      "Flags": 0,
+      "Name": "Spawner (5)",
+      "Position": "3208.251,950.8531,72.07755",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "7ec1068a-85b1-42e8-aa3d-2bb31307e619",
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": null,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "ChallengeDoor": null,
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "1,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 269.40042,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 100193480
+          },
+          "Lights": [],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/zombie variants/z1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 1
+              },
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+                  },
+                  "SpawnChance": 0.3,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 1,
+              "MaxLevel": 5,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.5
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "494.9999,392.3,261.7998",
+          "PositionOffset": "0,0,0",
+          "Radius": "254.8001,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "a77a585d-c544-4761-872b-dcf9489f993b",
+      "Flags": 0,
+      "Name": "Spawner (7)",
+      "Position": "3217.535,304.239,72.07765",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "2bbe8883-6ba9-4bcc-98ab-022c5e376ad1",
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": null,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "ChallengeDoor": null,
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "1,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 269.40042,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 100193480
+          },
+          "Lights": [],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/zombie variants/z1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 1
+              },
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+                  },
+                  "SpawnChance": 0.3,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 1,
+              "MaxLevel": 5,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.5
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "494.9999,392.3,261.7998",
+          "PositionOffset": "0,0,0",
+          "Radius": "254.8001,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "12dd10af-2150-49e3-983e-6bdfddfdc93b",
+      "Flags": 0,
+      "Name": "Spawner (8)",
+      "Position": "3119.524,-224.8668,72.07765",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "d94a9150-89c4-4aa9-a914-611e57fb91bb",
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": null,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "ChallengeDoor": null,
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "1,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 269.40042,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 100193480
+          },
+          "Lights": [],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/zombie variants/z1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 1
+              },
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+                  },
+                  "SpawnChance": 0.3,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 1,
+              "MaxLevel": 5,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.5
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "494.9999,392.3,261.7998",
+          "PositionOffset": "0,0,0",
+          "Radius": "254.8001,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "80c539ea-ce62-49d6-b6b0-39fdeaa49033",
+      "Flags": 0,
+      "Name": "Spawner (9)",
+      "Position": "3077.306,-564.4857,72.07765",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "7413eb59-fad6-44f2-a0c8-53808e47286c",
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": null,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "ChallengeDoor": null,
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "1,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 269.40042,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 100193480
+          },
+          "Lights": [],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/zombie variants/z1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 1
+              },
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+                  },
+                  "SpawnChance": 0.3,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 1,
+              "MaxLevel": 5,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.5
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "494.9999,392.3,261.7998",
+          "PositionOffset": "0,0,0",
+          "Radius": "254.8001,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "b34ff6e1-b858-4789-b396-b9a1bba409c7",
+      "Flags": 0,
+      "Name": "Spawner (10)",
+      "Position": "2851.032,-978.7913,72.07765",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "5cf34962-ccd3-4d76-8ca9-627c5af488e9",
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": null,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "ChallengeDoor": null,
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "1,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 269.40042,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 100193480
+          },
+          "Lights": [],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/zombie variants/z1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 1
+              },
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/zombie_new_1_test.prefab"
+                  },
+                  "SpawnChance": 0.3,
+                  "SpawnCount": 3,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 1,
+              "MaxLevel": 5,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.5
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 0.2
+              },
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "494.9999,392.3,261.7998",
+          "PositionOffset": "0,0,0",
+          "Radius": "254.8001,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "528b4a20-9697-427e-8d47-dc8251730034",
+      "Flags": 0,
+      "Name": "exit",
+      "Position": "3199.585,1184.544,183.7602",
+      "Rotation": "-0.008033567,0.008033569,-0.707061,0.7070611",
+      "Enabled": true,
+      "__Prefab": "prefabs/exit.prefab",
+      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {

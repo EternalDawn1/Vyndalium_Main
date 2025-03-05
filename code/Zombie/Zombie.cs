@@ -509,10 +509,11 @@ public partial class Npc : Component, IHealthComponent
 				{
 					CurrentState = NpcState.Walking;
 					
-					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Walk;
+					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 					
 					agent.Stop();
 					NormalTrace();
+					
 				}
 				else
 				{

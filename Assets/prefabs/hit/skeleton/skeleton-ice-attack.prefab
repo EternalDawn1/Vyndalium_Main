@@ -1,0 +1,443 @@
+{
+  "RootObject": {
+    "__guid": "a3279374-1cf7-4e4a-b032-c3d77c03bf66",
+    "Flags": 0,
+    "Name": "skeleton-ice-attack",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "Components": [
+      {
+        "__type": "GeneralGame.DamageTrigger",
+        "__guid": "cf1d7071-a532-484b-8000-eb08b3584b9c",
+        "Amount": 2.5,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "TriggerSoundPath": "sounds/impacts/bullets/impact-bullet-metal.sound"
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "dc7fce56-c9c0-4b62-8a2c-e4a2f5e22a7f",
+        "Center": "1.449055,-2.256761,25.46644",
+        "Friction": null,
+        "IsTrigger": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnObjectTriggerEnter": null,
+        "OnObjectTriggerExit": null,
+        "OnTriggerEnter": null,
+        "OnTriggerExit": null,
+        "Scale": "33.88784,19.14931,25.2629",
+        "Static": false,
+        "Surface": null,
+        "SurfaceVelocity": "0,0,0"
+      },
+      {
+        "__type": "Sandbox.SpriteRenderer",
+        "__guid": "b46b71a3-7764-4a53-a3ce-0f035bddf526",
+        "Additive": true,
+        "CastShadows": false,
+        "Color": "0.06264,0,0.93953,1",
+        "DepthFeather": 0,
+        "FlipHorizontal": false,
+        "FlipVertical": false,
+        "FogStrength": 1,
+        "Lighting": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Opaque": false,
+        "Pivot": "0.5,0.22",
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
+        "Size": "50,50",
+        "Texture": "particles/textures/thunder2.vtex"
+      },
+      {
+        "__type": "GeneralGame.RotationObject",
+        "__guid": "ef84fe22-018e-414b-a4fd-8800208c5f4e",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RotateClockwise": false,
+        "RotationDuration": 100,
+        "RotationSpeed": 400,
+        "TargetObject": {
+          "_type": "gameobject",
+          "go": "a3279374-1cf7-4e4a-b032-c3d77c03bf66"
+        }
+      },
+      {
+        "__type": "Sandbox.SpriteRenderer",
+        "__guid": "eaf6e767-063a-4eda-9311-91d7698451fe",
+        "__enabled": false,
+        "Additive": false,
+        "CastShadows": false,
+        "Color": "1,1,1,1",
+        "DepthFeather": 0,
+        "FlipHorizontal": false,
+        "FlipVertical": false,
+        "FogStrength": 1,
+        "Lighting": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Opaque": false,
+        "Pivot": "0.5,0.26",
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": true
+        },
+        "Size": "100,100",
+        "Texture": "particles/explosion/explosion001.vtex"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "2e34d3b5-0f94-4fad-b529-04301c248c4f",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "-20.46828,0,17.09463",
+        "Rotation": "0,0.7071067,0,0.7071068",
+        "Enabled": true,
+        "Children": [
+          {
+            "__guid": "de88b99a-ae44-4011-8d2f-f764b06b8b1b",
+            "Flags": 0,
+            "Name": "Object (1)",
+            "Position": "-0.000002861023,-2.119665,30.77532",
+            "Rotation": "0,0.7071067,0,0.7071068",
+            "Scale": "0.9487171,0.9487171,0.9487171",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "f6e05a1e-6939-46c5-b472-88847beaaeb9",
+                "BodyGroups": 18446744073709551615,
+                "CreateAttachments": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/props/shield/13037_buckler_shield_v1_l3.vmdl",
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Tint": "0.06667,0,1,1"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "353a459a-796c-428a-93d1-46e04b6c6603",
+                "Flags": 0,
+                "Name": "Object",
+                "Position": "10.29105,0,-10.31099",
+                "Rotation": "0,0.7071066,0,0.7071068",
+                "Scale": "1.318481,1.318481,1.318481",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "773a6818-48cc-4b8f-9f58-cc829952508d",
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Model": "models/editor/arrow.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "0,0.83529,1,1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "__guid": "57491a6b-6b8f-4254-8ed5-03627da8b1d0",
+            "Flags": 0,
+            "Name": "Object (2)",
+            "Position": "0.06139326,-2.119667,30.77532",
+            "Rotation": "0.5,0.4999999,-0.4999999,0.5",
+            "Scale": "0.9487171,0.9487171,0.9487171",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "d04af25b-9b66-497f-929d-5a63b1c821c9",
+                "BodyGroups": 18446744073709551615,
+                "CreateAttachments": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/props/shield/13037_buckler_shield_v1_l3.vmdl",
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Tint": "0,0.06667,1,1"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "6a31ad68-d9e2-4912-b524-c9edd320e03e",
+                "Flags": 0,
+                "Name": "Object",
+                "Position": "10.29105,-0.02745672,-9.647052",
+                "Rotation": "0,0.7071066,0,0.7071068",
+                "Scale": "1.318481,1.318481,1.318481",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "b4262d4f-f5f8-4e06-8496-4e80921f1b34",
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Model": "models/editor/arrow.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "0,0.83529,1,1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "__guid": "c126b586-c3fc-4c66-a734-e0f8dcc859a1",
+            "Flags": 0,
+            "Name": "Object (3)",
+            "Position": "-0.000002861023,-2.119665,30.77532",
+            "Rotation": "0.7071067,0,-0.7071067,0.0000001192093",
+            "Scale": "0.9487171,0.9487171,0.9487171",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "f84dcc6a-8b4b-4894-854c-a53c804db184",
+                "BodyGroups": 18446744073709551615,
+                "CreateAttachments": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/props/shield/13037_buckler_shield_v1_l3.vmdl",
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Tint": "0.16279,0,0,1"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "e07f71cf-e75a-4175-bb95-318fa4f7cd24",
+                "Flags": 0,
+                "Name": "Object",
+                "Position": "10.29105,0.0000002513063,-9.983113",
+                "Rotation": "0,0.7071066,0,0.7071068",
+                "Scale": "1.318481,1.318481,1.318481",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "c9238b09-d191-41c7-8a82-1c4f985fcf54",
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Model": "models/editor/arrow.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "0,0.83529,1,1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "__guid": "a9b70396-a64b-4952-bb80-3f5fa97a86b5",
+            "Flags": 0,
+            "Name": "Object (4)",
+            "Position": "-0.000002861023,-2.119665,30.77532",
+            "Rotation": "0.5,-0.4999999,-0.4999999,-0.4999998",
+            "Scale": "0.9487171,0.9487171,0.9487171",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "7fd37e6f-983f-4f9a-9d42-d715cf236206",
+                "BodyGroups": 18446744073709551615,
+                "CreateAttachments": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/props/shield/13037_buckler_shield_v1_l3.vmdl",
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Tint": "0.01667,0,1,1"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "c1b41cd7-82e4-45d8-87de-be8b0bccb2ee",
+                "Flags": 0,
+                "Name": "Object",
+                "Position": "10.29105,-0.00000001177998,-9.014369",
+                "Rotation": "0,0.7071066,0,0.7071068",
+                "Scale": "1.318481,1.318481,1.318481",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "661741df-682a-4d55-bd22-35c672fadf29",
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Model": "models/editor/arrow.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "0,0.83333,1,1"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.explosion001#45287"
+  ],
+  "__version": 1
+}

@@ -483,7 +483,7 @@ public sealed class Inventory : Component
 		_backpackItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACK_SLOTS] );
 		for ( int i = 0; i < MAX_BACKPACK_SLOTS; i++ )
 		{
-			Log.Info( MAX_BACKPACK_SLOTS );
+			
 			_backpackItems.Add( null );
 		}
 		_equippedItems = new List<ItemComponent>( new ItemComponent[Enum.GetNames( typeof( EquipSlot ) ).Length] );
@@ -492,7 +492,7 @@ public sealed class Inventory : Component
 		_aspectItems = new List<ItemComponent>( new ItemComponent[MAX_ASPECT_SLOTS] );
 		_backpackBagItems = new List<ItemComponent>( new ItemComponent[MAX_BACKPACKBAG_SLOTS] );
 
-		Log.Info( "Inventory created." );
+		
 
 		
 	}

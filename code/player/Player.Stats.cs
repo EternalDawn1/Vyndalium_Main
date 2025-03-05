@@ -112,16 +112,17 @@ public partial class Player
 
     public void ApplyFreeze( float durationInSeconds )
     {
+        Log.Info( $"Player {Name} is frozen for {durationInSeconds} seconds." );
         
-        // Deaktiviere die Bewegungslogik
-       
+        GameObject.Components.Create<HealthEffects>().FreezeEffect();
 
-        // Erstelle oder aktiviere die Vignette
-        //GameObject.Components.Create<HealthEffects>().FreezeEffect();
+        isFrozen = true;
+        Task.DelaySeconds( durationInSeconds ).ContinueWith( _ =>
+        {
+            isFrozen = false;
+            Log.Info( $"Player {Name} is no longer frozen." );
+        } );
         
-        
-
-        // Verwenden Sie einen Timer, um die Bewegungslogik nach der angegebenen Dauer wieder zu aktivieren
         
     }
    

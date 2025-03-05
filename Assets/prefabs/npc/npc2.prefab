@@ -11,8 +11,9 @@
         "__type": "Sandbox.NavMeshAgent",
         "__guid": "5bfadb99-61d2-4408-86af-18558738b7b8",
         "Acceleration": 241.19989,
+        "AutoTraverseLinks": true,
         "Height": 70.3999,
-        "MaxSpeed": 150,
+        "MaxSpeed": 80,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -334,7 +335,7 @@
         "OnDetect": {
           "__version": 9,
           "__guid": "8d3c2497-0678-4c8c-b986-1b268ff1b74e",
-          "__changeId": 2,
+          "__changeId": 3,
           "UserData": {
             "Title": "On Detect",
             "ReferencedComponentTypes": []
@@ -380,11 +381,11 @@
           "prefabs/items/wood_log.prefab"
         ],
         "RunningType": "Dumb",
-        "RunSpeed": 110,
+        "RunSpeed": 60,
         "ScaleStats": true,
         "VisionRange": 544,
         "WalkingType": "Dumb",
-        "WalkSpeed": 90,
+        "WalkSpeed": 30,
         "WindAbilityChance": 0.5,
         "WindAbilityCooldown": 10,
         "ZombieRagedol": {
@@ -434,13 +435,13 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "86b14ece-10dc-4299-8a9e-82a86089d1d9",
-            "AnimationGraph": null,
+            "AnimationGraph": "models/citizen/citizen.vanmgrph",
             "BodyGroups": 1365,
             "BoneMergeTarget": null,
             "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialGroup": null,
-            "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
+            "MaterialOverride": null,
             "Model": "models/playermodels/skeleman.vmdl",
             "Morphs": {},
             "OnComponentDestroy": null,
@@ -456,6 +457,7 @@
               "vectors": {},
               "rotations": {}
             },
+            "PlaybackRate": 1,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -607,6 +609,8 @@
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "luke.skeleman#19898"
+  ],
   "__version": 1
 }

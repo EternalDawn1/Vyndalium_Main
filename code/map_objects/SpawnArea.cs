@@ -635,6 +635,11 @@ public sealed class NpcSpawnArea : Component
 
 	private GameObject SpawnNpc( GameObject npcPrefab )
 	{
+		if ( npcPrefab == null )
+		{
+			Log.Warning( "npcPrefab is null." );
+			return null;
+		}
 		var tries = 0;
 		while ( tries <= 20 )
 		{

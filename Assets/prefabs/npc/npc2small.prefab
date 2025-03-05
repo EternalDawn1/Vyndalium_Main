@@ -11,8 +11,9 @@
         "__type": "Sandbox.NavMeshAgent",
         "__guid": "5bfadb99-61d2-4408-86af-18558738b7b8",
         "Acceleration": 241.19989,
-        "Height": 70.3999,
-        "MaxSpeed": 75,
+        "AutoTraverseLinks": true,
+        "Height": 35.19994,
+        "MaxSpeed": 50,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -147,7 +148,7 @@
         "CurrentHoldType": "Punch",
         "CurrentState": "Idle",
         "DeathSounds": null,
-        "DetectRange": 288,
+        "DetectRange": 224,
         "EnemyTags": "player",
         "Eye": {
           "_type": "gameobject",
@@ -281,7 +282,7 @@
               "DstName": "_target"
             },
             {
-              "Id": 8,
+              "Id": 11,
               "Value": 40,
               "DstId": 3,
               "DstName": "amount"
@@ -293,13 +294,13 @@
               "DstName": "attacker"
             },
             {
-              "Id": 9,
+              "Id": 12,
               "Value": 400,
               "DstId": 3,
               "DstName": "force"
             },
             {
-              "Id": 10,
+              "Id": 13,
               "Value": "Serious",
               "DstId": 3,
               "DstName": "type"
@@ -384,11 +385,11 @@
           "prefabs/potions/potion.prefab"
         ],
         "RunningType": "Dumb",
-        "RunSpeed": 110,
+        "RunSpeed": 50,
         "ScaleStats": true,
         "VisionRange": 544,
         "WalkingType": "Dumb",
-        "WalkSpeed": 90,
+        "WalkSpeed": 20,
         "WindAbilityChance": 0.5,
         "WindAbilityCooldown": 10,
         "ZombieRagedol": {
@@ -461,6 +462,7 @@
               "vectors": {},
               "rotations": {}
             },
+            "PlaybackRate": 1,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -504,7 +506,7 @@
           {
             "__type": "Sandbox.CapsuleCollider",
             "__guid": "41cccff0-8873-4502-b4bf-560cde360e52",
-            "End": "0,0,10",
+            "End": "0,0,9.799999",
             "Friction": null,
             "IsTrigger": false,
             "OnComponentDestroy": null,
@@ -612,6 +614,8 @@
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "luke.skeleman#19898"
+  ],
   "__version": 1
 }
