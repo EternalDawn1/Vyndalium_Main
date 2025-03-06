@@ -381,11 +381,11 @@ public sealed class ZombieSpawner : Component
 	private void CreateSpawnParticle(Vector3 position)
         {
             // Erstelle und spiele ein Partikelsystem beim Spawnen
-            var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
+          /*   var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
 			p.SetControlPoint( 0, position );
 			p.SetControlPoint( 0,  -1f ) ;
 			p.SetControlPoint(1, new Vector3(5.5f, 0.1f, 0.1f));
-			p.PlayUntilFinished( Task );
+			p.PlayUntilFinished( Task ); */
         }
 	private bool IsPlayerNearby()
         {

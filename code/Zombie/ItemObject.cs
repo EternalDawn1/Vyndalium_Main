@@ -104,11 +104,11 @@ namespace GeneralGame
 
             if ( type == DamageType.Bullet || type == DamageType.Serious )
             {
-                var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
+                /* var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
                 p.SetControlPoint( 0, hitPosition );
                 p.SetControlPoint( 0, Rotation.LookAt( hitDirection.Normal * -1f ) );
                 p.SetControlPoint( 1, new Vector3( 0.5f, 0.1f, 0.1f ) );
-                p.PlayUntilFinished( Task );
+                p.PlayUntilFinished( Task ); */
             }
 
             if ( Network.IsProxy )

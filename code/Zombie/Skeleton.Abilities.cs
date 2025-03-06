@@ -3,22 +3,25 @@ namespace GeneralGame;
 public class SkeletonAbilities : Abilities
 {
     [Property] public bool HasIceAbility { get; set; } = false; // Boolean zum Aktivieren/Deaktivieren der Eisfähigkeit
-    [Property,Group("IceBall"),Feature("Ice"), ShowIf( "HasIceAbility", true )] public float IceBallAttackCooldown { get; set; } = 10.0f; // Abklingzeit des Eisangriffs
+    [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public float IceBallAttackCooldown { get; set; } = 10.0f; // Abklingzeit des Eisangriffs
     [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public PrefabFile IceBallPrefab { get; set; } // Prefab für den Eisball
-    [Property, Group( "IceBall" ),Order(0), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public bool CanUseIceBallAttack { get; set; } = true; // Boolean zum Aktivieren/
-
-    [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceBallAttackSound { get; set; } 
-    
+    [Property, Group( "IceBall" ), Order( 0 ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public bool CanUseIceBallAttack { get; set; } = true; // Boolean zum Aktivieren/
+    [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceBallAttackSound { get; set; }
     [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceUnfreezeSound { get; set; } // Sound für das Auftauen
 
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public PrefabFile IcePillarPrefab { get; set; } // Prefab für den IcePillar
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public float IcePillarCooldown { get; set; } = 20.0f; // Cooldown für den IcePillar-Angriff
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public bool CanUseIcePillar { get; set; } = true; // Boolean zum Aktivieren/Deaktivieren des IcePillar-Angriffs
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IcePillarAttackSound { get; set; } // Sound für den IcePillar-Angriff
+
     private RealTimeSince timeSinceIceBallAttack;
+    private RealTimeSince timeSinceIcePillarAttack;
 
     protected override void OnUpdate()
     {
         base.OnUpdate();
 
-        if ( !CanUseIceBallAttack || IceBallPrefab == null )
-            return;
+        
 
         var players = Scene.GetAllComponents<Player>();
         var targetPlayer = players.FirstOrDefault();
@@ -27,12 +30,20 @@ public class SkeletonAbilities : Abilities
             return;
         }
 
-        if ( timeSinceIceBallAttack > IceBallAttackCooldown )
+        if ( timeSinceIceBallAttack > IceBallAttackCooldown && CanUseIceBallAttack )
         {
             IceBallAttack( targetPlayer );
             timeSinceIceBallAttack = 0.0f;
         }
+
+        if ( CanUseIcePillar && timeSinceIcePillarAttack > IcePillarCooldown  )
+        {
+           
+            IcePillarAttack();
+            timeSinceIcePillarAttack = 0.0f;
+        }
     }
+
 
     private async void IceBallAttack( Player targetPlayer )
     {
@@ -176,4 +187,86 @@ public class SkeletonAbilities : Abilities
 
         freezeEffectObject.Destroy();
     }
+    private async void IcePillarAttack()
+    {
+        const int pillarCount = 5;
+        const float radius = 150.0f; // Radius um den Skeleton-Boss
+        const float freezeDistance = 100.0f; // Distanz zum Einfrieren der Spieler
+        const float freezeDuration = 2.0f; // Dauer des Einfrierens
+        const int spawnDelay = 1000; // Verzögerung zwischen den Spawns in Millisekunden
+
+  
+
+        if ( IcePillarAttackSound != null )
+        {
+            Sound.Play( IcePillarAttackSound, this.WorldPosition );
+        }
+
+        for ( int i = 0; i < pillarCount; i++ )
+        {
+            var angle = i * (360.0f / pillarCount);
+            var position = this.WorldPosition + new Vector3( MathF.Cos( angle ), MathF.Sin( angle ), 0 ) * radius;
+
+            var prefab = ResourceLibrary.Get<PrefabFile>( IcePillarPrefab.ResourcePath );
+            if ( prefab == null )
+            {
+            
+                continue;
+            }
+
+            var icePillarObject = GameObject.Clone( prefab );
+            icePillarObject.WorldPosition = position;
+
+            var boxCollider = icePillarObject.Components?.Get<BoxCollider>();
+           
+            boxCollider.IsTrigger = true; // Als Trigger festlegen
+          
+
+            boxCollider.OnTriggerEnter += ( Collider other ) =>
+            {
+                var player = other.GameObject.GetComponent<Player>();
+                if ( player != null )
+                {
+                    
+                    player.ApplyFreeze( freezeDuration );
+                }
+            };
+           
+
+            _ = CheckPlayerProximityAndFreeze( icePillarObject, freezeDistance, freezeDuration );
+
+            // Zerstören Sie das IcePillar-Objekt nach 5 Sekunden
+            _ = DestroyIcePillarAfterDelay( icePillarObject, 5000 );
+
+            // Verzögerung zwischen den Spawns
+            await Task.Delay( spawnDelay );
+        }
+
+   
+    }
+    private async Task CheckPlayerProximityAndFreeze( GameObject icePillarObject, float freezeDistance, float freezeDuration )
+    {
+        while ( icePillarObject != null )
+        {
+            var players = Scene.GetAllComponents<Player>();
+            foreach ( var player in players )
+            {
+                var distance = Vector3.DistanceBetween( player.WorldPosition, icePillarObject.WorldPosition );
+                if ( distance <= freezeDistance )
+                {
+                    player.ApplyFreeze( freezeDuration );
+                }
+            }
+            await Task.Delay( 1000 ); // Überprüfen Sie jede Sekunde
+        }
+    }
+
+
+    private async Task DestroyIcePillarAfterDelay( GameObject icePillarObject, int delay )
+    {
+        await Task.Delay( delay );
+        icePillarObject.Destroy();
+       
+    }
+
 }

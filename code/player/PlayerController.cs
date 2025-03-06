@@ -382,10 +382,11 @@ public partial class Player : Component, IHealthComponent
 
 		if ( type == DamageType.Bullet )
 		{
-			var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
-			p.SetControlPoint( 0, hitPosition );
-			p.SetControlPoint( 0, Rotation.LookAt( hitDirection.Normal * -1f ) );
-			p.PlayUntilFinished( Task );
+			// Entfernen der Partikel-Logik
+			// var p = Particles.Create("particles/impact.flesh.bloodpuff.vpcf", hitPosition);
+			// p.SetControlPoint(0, hitPosition);
+			// p.SetControlPoint(0, Rotation.LookAt(hitDirection.Normal * -1f));
+			// p.PlayUntilFinished(Task);
 
 			if ( HurtSound is not null )
 			{
@@ -495,6 +496,7 @@ public partial class Player : Component, IHealthComponent
 	{
 		if(isFrozen)
 		return;
+		
 		if ( lastStepped < (IsRunning ? 0.2f : 0.4f) ) // Erhöhen Sie das Intervall, um doppelte Schritte zu vermeiden
 			return;
 

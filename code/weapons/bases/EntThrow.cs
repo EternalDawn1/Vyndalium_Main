@@ -51,9 +51,9 @@ public class EntThrow : Component
 				}
 			}
 
-			var p = new SceneParticles( Scene.SceneWorld, explosionEffect );
-			p.SetControlPoint( 0, WorldPosition );
-			p.PlayUntilFinished( Task );
+				/* 	var p = new SceneParticles( Scene.SceneWorld, explosionEffect );
+					p.SetControlPoint( 0, WorldPosition );
+					p.PlayUntilFinished( Task ); */
 
 			Sound.Play( explodeSound, WorldPosition );
 		}

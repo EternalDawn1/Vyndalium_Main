@@ -1213,11 +1213,11 @@ public class  BaseGun : WeaponComponent, IUse
 		if ( ImpactEffect is null ) return;
 		
 		
-
+/* 
 		var p = new SceneParticles( Scene.SceneWorld, ImpactEffect );
 		p.SetControlPoint( 0, position );
 		p.SetControlPoint( 0, Rotation.LookAt( normal ) );
-		p.PlayUntilFinished( Task );
+		p.PlayUntilFinished( Task ); */
 	}
 
 	[Rpc.Broadcast]
@@ -1265,7 +1265,7 @@ public class  BaseGun : WeaponComponent, IUse
 			return;
 		}
 
-		string particleEffect;
+		/* string particleEffect;
 		switch ( attackType )
 		{
 			case "fire":
@@ -1298,14 +1298,14 @@ public class  BaseGun : WeaponComponent, IUse
 			default:
 				particleEffect = "particles/tracer/trail_smoke.vpcf";
 				break;
-		}
+		} */
 
-		var p = new SceneParticles( Scene.SceneWorld, particleEffect );
+		/* var p = new SceneParticles( Scene.SceneWorld, particleEffect );
 		p.SetControlPoint( 0, startPos );
 		p.SetControlPoint( 1, trace.EndPosition ); // Endposition des Strahls
-		p.SetControlPoint( 2, trace.Distance );
+		p.SetControlPoint( 2, trace.Distance ); */
 
-		p.PlayUntilFinished( Task );
+		/* p.PlayUntilFinished( Task ); */
 
 		if ( MuzzleFlash != null )
 		{
@@ -1315,9 +1315,9 @@ public class  BaseGun : WeaponComponent, IUse
 
 				if ( transform.HasValue )
 				{
-					p = new SceneParticles( Scene.SceneWorld, MuzzleFlash );
+					/* p = new SceneParticles( Scene.SceneWorld, MuzzleFlash );
 					p.SetControlPoint( 0, transform.Value );
-					p.PlayUntilFinished( Task );
+					p.PlayUntilFinished( Task ); */
 				}
 			}
 			else

@@ -1352,11 +1352,11 @@ public partial class Npc : Component, IHealthComponent
 		if ( type == DamageType.Bullet || type == DamageType.Serious )
 		{
 
-			var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
+			/* var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
 			p.SetControlPoint( 0, hitPosition );
 			p.SetControlPoint( 0, Rotation.LookAt( hitDirection.Normal * -1f ) );
 			p.SetControlPoint( 1, new Vector3( 0.5f, 0.1f, 0.1f ) );
-			p.PlayUntilFinished( Task );
+			p.PlayUntilFinished( Task ); */
 		}
 		if ( Model != null && isSlime )
 		{
@@ -1547,11 +1547,11 @@ public partial class Npc : Component, IHealthComponent
 		Vector3 adjustedNpcPosition = new Vector3( npcPosition.x, npcPosition.y, npcPosition.z + 100.0f );
 		Vector3 adjustedPlayerPosition = new Vector3( playerPosition.x, playerPosition.y, playerPosition.z + 100.0f );
 
-		var p = new SceneParticles( Scene.SceneWorld, "particles/bleed.vpcf" );
+		/* var p = new SceneParticles( Scene.SceneWorld, "particles/bleed.vpcf" );
 		p.SetControlPoint( 0, adjustedNpcPosition );
 		p.SetControlPoint( 1, adjustedPlayerPosition ); // Endposition des Strahls
 		p.SetControlPoint( 2, (adjustedPlayerPosition - adjustedNpcPosition).Length ); // Distanz zwischen NPC und Spieler
-		p.PlayUntilFinished( Task );
+		p.PlayUntilFinished( Task ); */
 	}
 
 
@@ -1586,11 +1586,11 @@ public partial class Npc : Component, IHealthComponent
 		Vector3 adjustedPosition = new Vector3( position.x, position.y, position.z + 100.0f ); // Erhöhe die z-Koordinate um 20.0f
 
 
-		var p = new SceneParticles( Scene.SceneWorld, "particles/fire.vpcf" );
+		/* var p = new SceneParticles( Scene.SceneWorld, "particles/fire.vpcf" );
 		p.SetControlPoint( 0, adjustedPosition );
 		p.SetControlPoint( 1, rotation.Forward * -5f );
 		p.SetControlPoint( 2, new Vector3( 0f, 0f, 0f ) );
-		p.PlayUntilFinished( Task );
+		p.PlayUntilFinished( Task ); */
 
 	
 	}
@@ -1600,11 +1600,11 @@ public partial class Npc : Component, IHealthComponent
 		Vector3 adjustedNpcPosition = new Vector3( npcPosition.x, npcPosition.y, npcPosition.z + 100.0f );
 		Vector3 adjustedPlayerPosition = new Vector3( playerPosition.x, playerPosition.y, playerPosition.z + 100.0f );
 
-		var p = new SceneParticles( Scene.SceneWorld, "particles/bleed.vpcf" );
+		/* var p = new SceneParticles( Scene.SceneWorld, "particles/bleed.vpcf" );
 		p.SetControlPoint( 0, adjustedNpcPosition );
 		p.SetControlPoint( 1, adjustedPlayerPosition ); // Endposition des Strahls
 		p.SetControlPoint( 2, (adjustedPlayerPosition - adjustedNpcPosition).Length ); // Distanz zwischen NPC und Spieler
-		p.PlayUntilFinished( Task );
+		p.PlayUntilFinished( Task ); */
 	}
 
 

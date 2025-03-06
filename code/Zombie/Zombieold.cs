@@ -79,10 +79,10 @@ public sealed class Zombie : Component, IHealthComponent
 
 		if ( type == DamageType.Bullet )
 		{
-			var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
+			/* var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
 			p.SetControlPoint( 0, position );
 			p.SetControlPoint( 0, Rotation.LookAt( force.Normal * -1f ) );
-			p.PlayUntilFinished( Task );
+			p.PlayUntilFinished( Task ); */
 		}
 
 		if ( IsProxy )

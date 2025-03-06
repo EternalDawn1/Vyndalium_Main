@@ -110,19 +110,29 @@ public partial class Player
     private int burnDamagePerSecond = 5;
     public string Name { get; set; }
 
+   
+
+    public float LastFreezeTime { get; set; } = -float.MaxValue;
+    private const float FreezeCooldown = 10.0f; // Abklingzeit für das Einfrieren in Sekunden
+
     public void ApplyFreeze( float durationInSeconds )
     {
-        Log.Info( $"Player {Name} is frozen for {durationInSeconds} seconds." );
+        if ( Time.Now < LastFreezeTime + FreezeCooldown )
+        {
+            // Cooldown ist noch aktiv, Einfrieren wird nicht angewendet
+            return;
+        }
 
         var healthEffects = GameObject.Components.GetOrCreate<HealthEffects>();
         healthEffects.FreezeEffect();
 
         isFrozen = true;
+        LastFreezeTime = Time.Now; // Aktualisieren Sie die letzte Einfrierzeit
+
         Task.DelaySeconds( durationInSeconds ).ContinueWith( _ =>
         {
             isFrozen = false;
             healthEffects.DestroyFreeze();
-            Log.Info( $"Player {Name} is no longer frozen." );
         } );
     }
 
