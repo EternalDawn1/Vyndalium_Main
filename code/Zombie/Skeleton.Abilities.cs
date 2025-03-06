@@ -2,13 +2,14 @@ namespace GeneralGame;
 
 public class SkeletonAbilities : Abilities
 {
-    [Property] public float IceBallAttackCooldown { get; set; } = 10.0f; // Abklingzeit des Eisangriffs
-    [Property] public PrefabFile IceBallPrefab { get; set; } // Prefab für den Eisball
-    [Property] public bool CanUseIceBallAttack { get; set; } = true; // Boolean zum Aktivieren/
+    [Property] public bool HasIceAbility { get; set; } = false; // Boolean zum Aktivieren/Deaktivieren der Eisfähigkeit
+    [Property,Group("IceBall"),Feature("Ice"), ShowIf( "HasIceAbility", true )] public float IceBallAttackCooldown { get; set; } = 10.0f; // Abklingzeit des Eisangriffs
+    [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public PrefabFile IceBallPrefab { get; set; } // Prefab für den Eisball
+    [Property, Group( "IceBall" ),Order(0), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public bool CanUseIceBallAttack { get; set; } = true; // Boolean zum Aktivieren/
 
-    [Property] public SoundEvent IceBallAttackSound { get; set; } 
+    [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceBallAttackSound { get; set; } 
     
-    [Property] public SoundEvent IceUnfreezeSound { get; set; } // Sound für das Auftauen
+    [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceUnfreezeSound { get; set; } // Sound für das Auftauen
 
     private RealTimeSince timeSinceIceBallAttack;
 
