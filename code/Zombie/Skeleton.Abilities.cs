@@ -6,7 +6,9 @@ public class SkeletonAbilities : Abilities
     [Property] public PrefabFile IceBallPrefab { get; set; } // Prefab für den Eisball
     [Property] public bool CanUseIceBallAttack { get; set; } = true; // Boolean zum Aktivieren/
 
-    [Property] public SoundEvent IceBallAttackSound { get; set; } // Sound für den Eisangriff
+    [Property] public SoundEvent IceBallAttackSound { get; set; } 
+    
+    [Property] public SoundEvent IceUnfreezeSound { get; set; } // Sound für das Auftauen
 
     private RealTimeSince timeSinceIceBallAttack;
 
@@ -45,7 +47,7 @@ public class SkeletonAbilities : Abilities
         }
 
         // Logik für den Eisangriff
-        const float freezeDuration = 5.0f; // Dauer des Einfrierens in Sekunden
+         // Dauer des Einfrierens in Sekunden
         const float iceBallSpeed = 200.0f; // Geschwindigkeit des Eisballs
 
         var iceBallObject = GameObject.Clone( prefab ); // Erstellen Sie das Eisball-Objekt aus dem Prefab
@@ -62,8 +64,7 @@ public class SkeletonAbilities : Abilities
         // Explodiere und verursache Schaden
         ExplodeAndDamage( iceBallObject, targetPlayer );
 
-        // Spieler einfrieren
-        targetPlayer.ApplyFreeze( freezeDuration );
+       
     }
 
     private async Task MoveIceBallObject( GameObject iceBallObject, Player targetPlayer, Vector3 initialDirection )
@@ -103,31 +104,75 @@ public class SkeletonAbilities : Abilities
         }
     }
 
-    private void ExplodeAndDamage( GameObject iceBallObject, Player targetPlayer )
+    private async void ExplodeAndDamage( GameObject iceBallObject, Player targetPlayer )
     {
-        const float explosionRadius = 300.0f; // Radius der Explosion
+        const float explosionRadius = 200.0f; // Radius der Explosion
         const float damageAmount = 25.0f; // Schaden der Explosion
+        const float freezeDuration = 5.0f;
 
-        // Erstellen und konfigurieren Sie den SpriteRenderer für die Explosion
-        var spriteRenderer = iceBallObject.AddComponent<SpriteRenderer>();
-        spriteRenderer.Texture = ResourceLibrary.Get<Texture>( "particles/explosion/explosion001.vtex_c" );
-        spriteRenderer.Enabled = true;
-
+        var explosionObject = new GameObject();
+        explosionObject.WorldPosition = iceBallObject.WorldPosition;
         if ( IceBallAttackSound != null )
         {
-            Sound.Play( IceBallAttackSound, iceBallObject.WorldPosition );
+            Sound.Play( IceBallAttackSound, explosionObject.WorldPosition );
         }
+        // Erstellen und konfigurieren Sie den SpriteRenderer für die Explosion
+        var spriteRenderer = explosionObject.Components.GetOrCreate<SpriteRenderer>();
+        spriteRenderer.Texture = ResourceLibrary.Get<Texture>( "particles/explosion/explosion001.vtex_c" );
+        spriteRenderer.Size = new Vector2( explosionRadius * 2, explosionRadius * 2 );
+        spriteRenderer.Color = Color.Blue;
+        spriteRenderer.RenderOptions.AfterUI = true;
+        spriteRenderer.Enabled = true;
+
+        // Erstellen Sie ein neues GameObject aus einem Prefab
+        var explosionObjectv2 = ResourceLibrary.Get<PrefabFile>( "prefabs/hit/skeleton/explosion_v2.prefab" );
+        var freezeEffectObjectv2 = GameObject.Clone( explosionObjectv2 );
+        freezeEffectObjectv2.WorldPosition = explosionObject.WorldPosition;
 
         // Logik für die Explosion und den Schaden
         var players = Scene.GetAllComponents<Player>();
         foreach ( var player in players )
         {
-            if ( (player.WorldPosition - iceBallObject.WorldPosition).Length <= explosionRadius )
+            if ( (player.WorldPosition - explosionObject.WorldPosition).Length <= explosionRadius )
             {
-                player.TakeDamage( DamageType.ice, damageAmount, iceBallObject.WorldPosition, Vector3.Zero, Guid.Empty, Guid.Empty );
+                player.TakeDamage( DamageType.ice, damageAmount, explosionObject.WorldPosition, Vector3.Zero, Guid.Empty, Guid.Empty );
+
+                // Erstellen Sie ein neues GameObject aus einem Prefab
+                var freezeEffectPrefab = ResourceLibrary.Get<PrefabFile>( "prefabs/hit/skeleton/ice_game.prefab" );
+                var freezeEffectObject = GameObject.Clone( freezeEffectPrefab );
+                freezeEffectObject.WorldPosition = targetPlayer.WorldPosition;
+
+                targetPlayer.ApplyFreeze( freezeDuration );
+
+                // Überprüfen Sie die Zeit und zerstören Sie das Freeze-Effekt-Objekt nach Ablauf der Freeze-Dauer
+                _ = DestroyFreezeEffectAfterDuration( freezeEffectObject, freezeDuration );
             }
         }
 
+        // Zerstören Sie das ursprüngliche Eisball-Objekt
         iceBallObject.Destroy();
+
+        // Warten Sie eine Sekunde, bevor Sie das Explosion-Objekt zerstören
+        await Task.Delay( 100 );
+        explosionObject.Destroy();
+
+        // Zerstören Sie das Freeze-Effekt-Objekt nach Ablauf der Freeze-Dauer
+        _ = DestroyFreezeEffectAfterDuration( freezeEffectObjectv2, freezeDuration );
+    }
+
+    private async Task DestroyFreezeEffectAfterDuration( GameObject freezeEffectObject, float duration )
+    {
+        RealTimeSince timeSinceFreeze = 0.0f;
+
+        while ( timeSinceFreeze < duration )
+        {
+            await Task.Delay( 100 ); // Überprüfen Sie alle 100ms
+        }
+        if ( IceUnfreezeSound != null )
+        {
+            Sound.Play( IceUnfreezeSound, freezeEffectObject.WorldPosition );
+        }
+
+        freezeEffectObject.Destroy();
     }
 }

@@ -76,31 +76,77 @@ public sealed partial class HealthEffects : Component
 
 	public void FreezeEffect()
 	{
+		
+
 		if ( !LocalPlayer.IsValid() )
 		{
+			
 			LocalPlayer = Scene.GetAllComponents<Player>()
 				.FirstOrDefault( p => p.Network.IsOwner );
 		}
 
 		if ( !LocalPlayer.IsValid() )
+		{
+			
 			return;
+		}
 
 		if ( !Freeze.IsValid() )
+		{
+		
 			return;
+		}
+
+		
 
 		FreezeAdjustments.Saturation = 0.1f;
-		Freeze.Intensity = 1.6f;
+		Freeze.Intensity = 1.1f;
 		Freeze.Color = Color.Lerp( Color.White, Color.Blue, 1f );
 
 		// Aktivieren Sie die Vignette
 		Freeze.Enabled = true;
+
+		
 	}
 
 	public void DestroyFreeze()
 	{
 		if ( Freeze != null )
 		{
-			Freeze.Enabled = false;
+			// Starte eine Coroutine, um den Freeze-Effekt langsam zu entfernen
+			_ = FadeOutFreezeEffect();
 		}
+	}
+
+	private async Task FadeOutFreezeEffect()
+	{
+		float duration = 2.0f; // Dauer des Fade-Out-Effekts in Sekunden
+		float elapsed = 0.0f;
+
+		Color initialColor = Freeze.Color;
+		float initialIntensity = Freeze.Intensity;
+		float initialSaturation = FreezeAdjustments.Saturation;
+
+		while ( elapsed < duration )
+		{
+			float t = elapsed / duration;
+
+			Freeze.Color = Color.Lerp( initialColor, Color.White, t );
+			Freeze.Intensity = MathHelper.Lerp( initialIntensity, 0.0f, t );
+			FreezeAdjustments.Saturation = MathHelper.Lerp( initialSaturation, 1.0f, t );
+
+			elapsed += Time.Delta;
+			await Task.Delay( (int)(Time.Delta * 1000) );
+		}
+
+		// Deaktiviere die Vignette nach dem Fade-Out
+		Freeze.Enabled = false;
+	}
+}
+public static class MathHelper
+{
+	public static float Lerp( float a, float b, float t )
+	{
+		return a + (b - a) * t;
 	}
 }

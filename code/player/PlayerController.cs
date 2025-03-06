@@ -493,6 +493,8 @@ public partial class Player : Component, IHealthComponent
 
 	private void OnFootstep( SceneModel.FootstepEvent e )
 	{
+		if(isFrozen)
+		return;
 		if ( lastStepped < (IsRunning ? 0.2f : 0.4f) ) // Erhöhen Sie das Intervall, um doppelte Schritte zu vermeiden
 			return;
 

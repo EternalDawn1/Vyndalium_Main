@@ -113,21 +113,21 @@ public partial class Player
     public void ApplyFreeze( float durationInSeconds )
     {
         Log.Info( $"Player {Name} is frozen for {durationInSeconds} seconds." );
-        
-        GameObject.Components.Create<HealthEffects>().FreezeEffect();
+
+        var healthEffects = GameObject.Components.GetOrCreate<HealthEffects>();
+        healthEffects.FreezeEffect();
 
         isFrozen = true;
         Task.DelaySeconds( durationInSeconds ).ContinueWith( _ =>
         {
             isFrozen = false;
+            healthEffects.DestroyFreeze();
             Log.Info( $"Player {Name} is no longer frozen." );
         } );
-        
-        
     }
-   
 
-  
+
+
 
 
     private List<StatusEffect> activeStatusEffects = new List<StatusEffect>();
