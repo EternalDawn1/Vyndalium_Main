@@ -10,9 +10,7 @@ public sealed class DungeonEnter : Component, Component.ITriggerListener
 	[Property] bool MissionPanel { get; set; }
 	[Property] bool ShopPanel { get; set; }
 
-	[Property] bool Inventory { get; set; }
-
-	[Property] bool Character { get; set; }
+	
 
 	float PlayerProximityDistance = 300.0f;
 

@@ -23,7 +23,7 @@ public enum GeneralScene2
 
 public static class SceneHandler2
 {
-    public static GeneralScene2 CurrentScene { get; private set; }
+    public static GeneralScene2 CurrentScene { get; set; }
 
     public static void ChangeScene2( GeneralScene2 scene, ulong? lobby = null, bool stopSound = true )
     {
@@ -91,6 +91,8 @@ public static class SceneHandler2
         // Zerstören der alten Szene
         DeleteCurrentScene();
 
+        CurrentScene = scene;
+
         
 
     }
@@ -108,14 +110,35 @@ public static class SceneHandler2
         if ( CurrentScene != GeneralScene2.MainMenu ) // Beispiel: MainMenu als Standardwert
         {
             CurrentScene.Reset2();
-            CurrentScene = GeneralScene2.MainMenu;
         }
+        CurrentScene = GeneralScene2.MainMenu;
     }
 
     public static bool HasRequiredLevel2( GeneralScene2 scene )
     {
         int playerLevel = Player.Local.GetLevel(); // Annahme: Es gibt eine Methode, um das Spielerlevel zu bekommen
         return playerLevel >= scene.GetRequiredLevel2();
+    }
+    public static string GetSceneName( GeneralScene2 scene )
+    {
+        Log.Info( "Scene Name: " + scene );
+        return scene switch
+        {
+            GeneralScene2.Creation => "Creation",
+            GeneralScene2.Game => "Game",
+            GeneralScene2.MainMenu => "Main Menu",
+            GeneralScene2.Starting => "Starting",
+            GeneralScene2.Forest => "Forest 2-1",
+            GeneralScene2.Forest2 => "Forest 2-2",
+            GeneralScene2.One => "One 1-1",
+            GeneralScene2.StartBase => "Start Base",
+            GeneralScene2.One2 => "One 1-2",
+            GeneralScene2.One3 => "One 1-3",
+            GeneralScene2.Forest3 => "Forest 2-3",
+            GeneralScene2.Forest4 => "Forest 2-4",
+            GeneralScene2.untitled3 => "Untitled 3",
+            _ => "Unknown"
+        };
     }
 }
 

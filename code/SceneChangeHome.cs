@@ -8,7 +8,7 @@ namespace GeneralGame
         private bool sceneChanged = false;
 
         [Property]
-        public GeneralScene SceneToLoad { get; set; }
+        public GeneralScene2 SceneToLoad { get; set; }
 
         public void OnTriggerEnter(Collider other)
         {
@@ -22,6 +22,7 @@ namespace GeneralGame
             if (player != null && !sceneChanged)
             {
                 ChangeScene(player);
+                
                 sceneChanged = true;
 
                
@@ -36,7 +37,8 @@ namespace GeneralGame
         {
             
             await Task.DelaySeconds(.01f);
-            SceneHandler.ChangeScene(SceneToLoad);
+            SceneHandler2.ChangeScene2(SceneToLoad);
+            
         }
 
         public void OnTriggerExit(Collider other)
