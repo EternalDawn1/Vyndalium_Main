@@ -14,9 +14,22 @@ public class SkeletonAbilities : Abilities
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public bool CanUseIcePillar { get; set; } = true; // Boolean zum Aktivieren/Deaktivieren des IcePillar-Angriffs
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IcePillarAttackSound { get; set; } // Sound für den IcePillar-Angriff
 
+    [Property, Group( "IceGround" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public PrefabFile IceGroundPrefab { get; set; } // Prefab für den IceGround
+    [Property, Group( "IceGround" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public float IceGroundCooldown { get; set; } = 15.0f; // Cooldown für den IceGround-Angriff
+    [Property, Group( "IceGround" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public bool CanUseIceGround { get; set; } = true; // Boolean zum Aktivieren/Deaktivieren des IceGround-Angriffs
+    [Property, Group( "IceGround" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceGroundAttackSound { get; set; } // Sound für den 
+                                                                                                                                             // 
+                                                                                                                                             // IceGround-Angriff
+
+    [Property, Group( "IceWormhole" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public PrefabFile IceWormholePrefab { get; set; } // Prefab für das Ice Wormhole
+    [Property, Group( "IceWormhole" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public float IceWormholeCooldown { get; set; } = 60.0f; // Cooldown für das Ice Wormhole
+    [Property, Group( "IceWormhole" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public bool CanUseIceWormhole { get; set; } = true; // Boolean zum Aktivieren/Deaktivieren des Ice Wormhole
+    [Property, Group( "IceWormhole" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceWormholeSound { get; set; } // Sound für das Ice Wormhole
+
     private RealTimeSince timeSinceIceBallAttack;
     private RealTimeSince timeSinceIcePillarAttack;
-
+    private RealTimeSince timeSinceIceGroundAttack;
+    private RealTimeSince timeSinceIceWormhole;
     protected override void OnUpdate()
     {
         base.OnUpdate();
@@ -41,6 +54,16 @@ public class SkeletonAbilities : Abilities
            
             IcePillarAttack();
             timeSinceIcePillarAttack = 0.0f;
+        }
+        if ( CanUseIceGround && timeSinceIceGroundAttack > IceGroundCooldown )
+        {
+            IceGroundAttack();
+            timeSinceIceGroundAttack = 0.0f;
+        }
+        if ( CanUseIceWormhole && timeSinceIceWormhole > IceWormholeCooldown )
+        {
+            IceWormholeUltimate( targetPlayer );
+            timeSinceIceWormhole = 0.0f;
         }
     }
 
@@ -268,5 +291,185 @@ public class SkeletonAbilities : Abilities
         icePillarObject.Destroy();
        
     }
+    private async void IceGroundAttack()
+    {
+        const int groundCount = 16;
+        const int outerGroundCount = groundCount * 2; // Doppelte Anzahl für die äußeren Bögen
+        const float spawnDistance = 90.0f; // Abstand zwischen den GameObjects
+        const float arcSpawnDistance = spawnDistance / 2; // Abstand zwischen den GameObjects in den Bögen
+        const float freezeDuration = 3.0f; // Dauer des Einfrierens
+        const float minAngle = 15.0f; // Minimaler Winkel
+        const float maxAngle = 45f; // Maximaler Winkel
 
+        if ( IceGroundAttackSound != null )
+        {
+            Sound.Play( IceGroundAttackSound, this.WorldPosition );
+        }
+
+        var players = Scene.GetAllComponents<Player>();
+        var targetPlayer = players.FirstOrDefault();
+        if ( targetPlayer == null )
+        {
+            return;
+        }
+
+        var direction = (targetPlayer.WorldPosition - this.WorldPosition).Normal;
+
+        // Gerade auf den Spieler zu
+        await SpawnIceGroundPath( direction, groundCount, spawnDistance, freezeDuration );
+
+        // Links herum in einem Bogen
+        await SpawnIceGroundArc( direction, outerGroundCount, arcSpawnDistance, freezeDuration, true, 30000 ); // 30 Sekunden
+
+        // Rechts herum in einem Bogen
+        await SpawnIceGroundArc( direction, outerGroundCount, arcSpawnDistance, freezeDuration, false, 30000 ); // 30 Sekunden
+
+        // Gemischte Variante
+        for ( int i = 0; i < groundCount; i++ )
+        {
+            var offset = direction * spawnDistance * i;
+            var angle = (i % 2 == 0) ? minAngle : maxAngle;
+            var radians = MathF.PI / 180.0f * angle;
+            var mixedDirection = new Vector3(
+                direction.x * MathF.Cos( radians ) - direction.y * MathF.Sin( radians ),
+                direction.x * MathF.Sin( radians ) + direction.y * MathF.Cos( radians ),
+                direction.z
+            );
+
+            await SpawnIceGroundObject( this.WorldPosition + offset, mixedDirection, freezeDuration, 5000 ); // 5 Sekunden
+        }
+    }
+
+    private async Task SpawnIceGroundPath( Vector3 direction, int groundCount, float spawnDistance, float freezeDuration )
+    {
+        for ( int i = 0; i < groundCount; i++ )
+        {
+            var offset = direction * spawnDistance * i;
+            await SpawnIceGroundObject( this.WorldPosition + offset, direction, freezeDuration, 5000 ); // 5 Sekunden
+        }
+    }
+
+    private async Task SpawnIceGroundArc( Vector3 direction, int groundCount, float spawnDistance, float freezeDuration, bool left, int delay )
+    {
+        for ( int i = 0; i < groundCount; i++ )
+        {
+            var angle = (left ? -1 : 1) * (i * 10.0f); // Winkel für den Bogen
+            var radians = MathF.PI / 180.0f * angle;
+            var arcDirection = new Vector3(
+                direction.x * MathF.Cos( radians ) - direction.y * MathF.Sin( radians ),
+                direction.x * MathF.Sin( radians ) + direction.y * MathF.Cos( radians ),
+                direction.z
+            );
+
+            // Spiegeln der Richtung um 180 Grad
+            arcDirection = -arcDirection;
+
+            var offset = arcDirection * spawnDistance * i;
+            await SpawnIceGroundObject( this.WorldPosition + offset, arcDirection, freezeDuration, delay );
+        }
+    }
+
+    private async Task SpawnIceGroundObject( Vector3 position, Vector3 direction, float freezeDuration, int delay )
+    {
+        var prefab = ResourceLibrary.Get<PrefabFile>( IceGroundPrefab.ResourcePath );
+        if ( prefab == null )
+        {
+            return;
+        }
+
+        var iceGroundObject = GameObject.Clone( prefab );
+        iceGroundObject.WorldPosition = position;
+
+        var random = new Random();
+        var randomDirection = random.Next( 0, 2 ) == 0 ? Vector3.Right : Vector3.Left;
+        iceGroundObject.WorldRotation = Rotation.FromAxis( randomDirection, random.Next( 15, 45 ) );
+
+        var randomScaleX = NextFloat( random, 0.3f, 2.5f );
+        var randomScaleY = NextFloat( random, 0.3f, 2.5f );
+        iceGroundObject.LocalScale = new Vector3( randomScaleX, randomScaleY, iceGroundObject.LocalScale.z );
+
+        var boxCollider = iceGroundObject.Components?.GetOrCreate<BoxCollider>();
+        boxCollider.IsTrigger = true; // Als Trigger festlegen
+
+        boxCollider.OnTriggerEnter += ( Collider other ) =>
+        {
+            var player = other.GameObject.GetComponent<Player>();
+            if ( player != null )
+            {
+                player.ApplyFreeze( freezeDuration );
+            }
+        };
+
+        // Zerstören Sie das IceGround-Objekt nach der angegebenen Verzögerung
+        _ = DestroyIceGroundAfterDelay( iceGroundObject, delay );
+
+        await Task.Delay( 100 ); // Verzögerung zwischen den Spawns
+    }
+
+    private float NextFloat( Random random, float minValue, float maxValue )
+    {
+        return (float)(random.NextDouble() * (maxValue - minValue) + minValue);
+    }
+
+    private async Task DestroyIceGroundAfterDelay( GameObject iceGroundObject, int delay )
+    {
+        await Task.Delay( delay );
+        iceGroundObject.Destroy();
+    }
+
+    private async void IceWormholeUltimate( Player targetPlayer )
+    {
+        const float pullRadius = 1300.0f; // Radius des Anziehungseffekts
+        const float pullStrength = 750.0f; // Stärke des Anziehungseffekts
+        const float pullDuration = 5.0f; // Dauer des Anziehungseffekts
+        const float wormholeDuration = 10.0f; // Dauer des Wormholes
+        float[] liftHeights = { 50.0f, 100.0f, 150.0f }; // Höhen, in die das Wormhole zieht
+        int liftIndex = 0;
+
+        var prefab = ResourceLibrary.Get<PrefabFile>( IceWormholePrefab.ResourcePath );
+        if ( prefab == null )
+        {
+            return;
+        }
+
+        var wormholeObject = GameObject.Clone( prefab );
+        wormholeObject.WorldPosition = this.WorldPosition;
+
+        if ( IceWormholeSound != null )
+        {
+            Sound.Play( IceWormholeSound, wormholeObject.WorldPosition );
+        }
+
+        var spriteRenderer = wormholeObject.Components.GetOrCreate<ParticleSpriteRenderer>();
+
+        var players = Scene.GetAllComponents<Player>();
+
+        // Anziehungseffekt für eine bestimmte Dauer anwenden
+        for ( float elapsedTime = 0; elapsedTime < pullDuration; elapsedTime += Time.Delta )
+        {
+            foreach ( var player in players )
+            {
+                var distance = Vector3.DistanceBetween( player.WorldPosition, wormholeObject.WorldPosition );
+                if ( distance <= pullRadius )
+                {
+                    var direction = (wormholeObject.WorldPosition - player.WorldPosition).Normal;
+                    player.WorldPosition += direction * pullStrength * Time.Delta;
+                }
+            }
+
+            // Ändere den RotationOffset des spriteRenderer
+            spriteRenderer.RotationOffset = liftHeights[liftIndex];
+            liftIndex = (liftIndex + 1) % liftHeights.Length;
+
+            // Zufällige Höhe zwischen den Werten in liftHeights
+            wormholeObject.WorldPosition = this.WorldPosition + Vector3.Up * liftHeights[liftIndex];
+
+            await Task.Delay( 100 ); // Wartezeit zwischen den Höhenänderungen
+        }
+
+        // Wurmloch für die restliche Dauer bestehen lassen, ohne Anziehungseffekt
+        await Task.Delay( (int)((wormholeDuration - pullDuration) * 1000) );
+
+        wormholeObject.Destroy();
+    }
 }
