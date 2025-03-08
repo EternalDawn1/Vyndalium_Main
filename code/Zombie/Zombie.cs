@@ -678,7 +678,7 @@ public partial class Npc : Component, IHealthComponent
 	private Random random2 = new Random();
 	public void NormalTrace()
 	{
-		var tr = Scene.Trace.Ray( Body.WorldPosition, Body.WorldPosition + Body.WorldRotation.Forward * AttackRange ).Run();
+		var tr = Scene.Trace.Sphere( 50.0f, Body.WorldPosition, Body.WorldPosition + Body.WorldRotation.Forward * AttackRange ).Run();
 
 		if ( tr.Hit && timeSinceHit > 1.5f && GameObject != null )
 		{
