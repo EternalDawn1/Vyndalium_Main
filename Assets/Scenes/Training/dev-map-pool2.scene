@@ -39,9 +39,10 @@
     },
     {
       "__guid": "e47368dc-2aa1-43c7-9701-476845bc0e7d",
-      "Flags": 32,
+      "Flags": 0,
       "Name": "GameManager",
       "Position": "-4687.136,-3009.619,2645.524",
+      "Enabled": true,
       "NetworkMode": 1,
       "Components": [
         {
@@ -157,7 +158,7 @@
       "Name": "e",
       "Position": "50.53986,-128.3157,340.2228",
       "Rotation": "0,0.7071066,0,0.7071067",
-      "Tags": "light_directional,light",
+      "Tags": "light_directional,light,light_point",
       "Enabled": true,
       "Components": [
         {
@@ -611,6 +612,7 @@
           "OnComponentStart": null,
           "OnComponentUpdate": null,
           "ResetHasTeleported": false,
+          "TeleportDirection": "North",
           "TeleportPositionPoint": {
             "_type": "component",
             "component_id": "ee53dd3a-4d37-44d4-8f14-e061db4e8100",
@@ -669,7 +671,6 @@
       "Flags": 0,
       "Name": "Player Controller",
       "Position": "-441.2922,-997.2098,458.1663",
-      "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.PlayerController",
@@ -678,6 +679,7 @@
           "AimStrengthBody": 1,
           "AimStrengthEyes": 1,
           "AimStrengthHead": 1,
+          "AirFriction": 0.1,
           "AltMoveButton": "run",
           "Body": {
             "_type": "component",
@@ -914,7 +916,6 @@
       "Name": "Camera",
       "Position": "-474.7766,-812.3431,218.3889",
       "Tags": "maincamera",
-      "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",

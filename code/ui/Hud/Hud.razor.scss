@@ -6,10 +6,35 @@
 
 	z-index: 1;
 
-	.scene-name{
-		position: absolute;
-		color:red;
-	}
+	.scene-name {
+			position: absolute;
+			color: rgb(236, 236, 236);
+			font-size: 50px;
+			width:20%;
+			height: 7%;
+			right:40%;
+			top: 15%;
+			animation: slideAndFade 6s ease-out;
+			display: flex;
+			font-family: Geneva;
+			background-color: rgb(34, 34, 34);
+			opacity: 0;
+			justify-content: center;
+			align-items: center;
+			border-radius: 10px;
+			border-width: 1px;
+			border-color: rgb(10, 0, 0);
+			padding: 10px;
+			transition: opacity 1s ease-in-out;
+			font-weight: bold;
+			box-shadow: 0 5 20px rgba(0, 0, 0, 0.5);
+			text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+
+		
+			
+		}
+	
+		
 
 	.tips {
 			position: absolute;
@@ -699,3 +724,28 @@
 		background-color: red;
 	}
 }
+ @keyframes slideAndFade {
+ 	0% {
+ 		opacity: 0;
+ 		transform: translateX(-100%);
+ 	}
+
+ 	40% {
+ 		opacity: 1;
+ 		transform: translateX(0%);
+ 	}
+
+ 	60% {
+ 		opacity: 1;
+ 		transform: translateX(0%);
+		
+ 	}
+
+ 	100% {
+ 		transform: translateX(100%);
+		opacity: 0;
+ 	
+		
+		
+ 	}
+ }

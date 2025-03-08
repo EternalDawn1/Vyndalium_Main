@@ -30,7 +30,7 @@ public static class SceneHandler2
         if ( !HasRequiredLevel2( scene ) )
         {
             // Handle insufficient level
-            Log.Info( "Level zu niedrig, um diese Szene zu wechseln." );
+         
             return;
         }
        
@@ -65,13 +65,13 @@ public static class SceneHandler2
         if ( stopSound )
         {
             Sound.StopAll( 5f );
-            Log.Info( "Szene wird gewechselt." );
+          
         }
 
         // If is game.
         if ( lobby.HasValue )
         {
-            Log.Info( "Lobby" );
+           
             Networking.Connect( lobby.Value );
             // Return if connection fails.
         }
@@ -79,7 +79,7 @@ public static class SceneHandler2
 
 
         Player.Setup();
-        Log.Info( "loading +" + resource );
+       
 
      
 
@@ -121,7 +121,7 @@ public static class SceneHandler2
     }
     public static string GetSceneName( GeneralScene2 scene )
     {
-        Log.Info( "Scene Name: " + scene );
+      
         return scene switch
         {
             GeneralScene2.Creation => "Creation",
@@ -130,10 +130,10 @@ public static class SceneHandler2
             GeneralScene2.Starting => "Starting",
             GeneralScene2.Forest => "Forest 2-1",
             GeneralScene2.Forest2 => "Forest 2-2",
-            GeneralScene2.One => "One 1-1",
-            GeneralScene2.StartBase => "Start Base",
-            GeneralScene2.One2 => "One 1-2",
-            GeneralScene2.One3 => "One 1-3",
+            GeneralScene2.One => "1-1",
+            GeneralScene2.StartBase => "Lobby",
+            GeneralScene2.One2 => "1-2",
+            GeneralScene2.One3 => "1-3",
             GeneralScene2.Forest3 => "Forest 2-3",
             GeneralScene2.Forest4 => "Forest 2-4",
             GeneralScene2.untitled3 => "Untitled 3",
@@ -170,6 +170,6 @@ public static class GeneralSceneExtensions2
     public static void Reset2( this GeneralScene2 scene )
     {
        
-        Log.Info( "Resetting scene: " + scene );
+     
     }
 }

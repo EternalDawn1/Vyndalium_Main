@@ -11,11 +11,12 @@
 
 <root>
 	
-
+	<div class="scene-name">@SceneHandler2.GetSceneName(SceneHandler2.CurrentScene)</div>
 	@if (FullScreenManager.Instance?.ActivePanel != FullScreenManager.FullScreenPanel.InGameHud)
 	{
 		return; // Exit early if FullScreenManager is active
 	}
+
 
 	@{
 		if (player is null)
@@ -162,14 +163,15 @@
 			
 			
 			<div class="b">@player.Level</div>
-			<div class="scene-name">@SceneHandler2.GetSceneName(SceneHandler2.CurrentScene)</div>
+			
 			
 
 	
 		</div>
 	}
-
-
+	
+		
+	
 
 
 </root>
@@ -205,6 +207,7 @@
 	private TimeSpan playTime = TimeSpan.Zero;
 
 	private DateTime lastUpdateTime = DateTime.Now;
+	
 	
 	private double nextUpdateInterval;
 	protected override void OnFixedUpdate()
