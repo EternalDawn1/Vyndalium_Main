@@ -13,6 +13,7 @@ public sealed partial class HealthEffects : Component
 	private Player LocalPlayer { get; set; }
 	[Property] private Vignette Vignette { get; set; }
 	[Property] private Vignette Freeze { get; set; }
+	[Property] private Vignette Poison { get; set; }
 
 	public HealthEffects()
 	{
@@ -23,10 +24,12 @@ public sealed partial class HealthEffects : Component
 	protected override void OnStart()
 	{
 		var vignettes = Components.GetAll<Vignette>().ToList();
-		if ( vignettes.Count > 2 )
+		if ( vignettes.Count > 3 )
 		{
 			Vignette = vignettes.ElementAt( 1 );
 			Freeze = vignettes.ElementAt( 2 );
+			Poison = vignettes.ElementAt( 3 );
+
 		}
 		else
 		{
@@ -108,6 +111,40 @@ public sealed partial class HealthEffects : Component
 
 		
 	}
+	public void PoisonEffect()
+	{
+		
+
+		if ( !LocalPlayer.IsValid() )
+		{
+			
+			LocalPlayer = Scene.GetAllComponents<Player>()
+				.FirstOrDefault( p => p.Network.IsOwner );
+		}
+
+		if ( !LocalPlayer.IsValid() )
+		{
+			
+			return;
+		}
+
+		if ( !Freeze.IsValid() )
+		{
+		
+			return;
+		}
+
+		
+
+		FreezeAdjustments.Saturation = 0.1f;
+		Freeze.Intensity = 1.1f;
+		Freeze.Color = Color.Lerp( Color.White, Color.Green, 1f );
+
+		// Aktivieren Sie die Vignette
+		Freeze.Enabled = true;
+
+		
+	}
 
 	public void DestroyFreeze()
 	{
@@ -116,6 +153,39 @@ public sealed partial class HealthEffects : Component
 			// Starte eine Coroutine, um den Freeze-Effekt langsam zu entfernen
 			_ = FadeOutFreezeEffect();
 		}
+	}
+
+	public void DestroyPoison()
+	{
+		if ( Freeze != null )
+		{
+			// Starte eine Coroutine, um den Freeze-Effekt langsam zu entfernen
+			_ = FadeutPoisonEffect();
+		}
+	}
+	private async Task FadeutPoisonEffect()
+	{
+		float duration = 2.0f; // Dauer des Fade-Out-Effekts in Sekunden
+		float elapsed = 0.0f;
+
+		Color initialColor = Freeze.Color;
+		float initialIntensity = Freeze.Intensity;
+		float initialSaturation = FreezeAdjustments.Saturation;
+
+		while ( elapsed < duration )
+		{
+			float t = elapsed / duration;
+
+			Freeze.Color = Color.Lerp( initialColor, Color.White, t );
+			Freeze.Intensity = MathHelper.Lerp( initialIntensity, 0.0f, t );
+			FreezeAdjustments.Saturation = MathHelper.Lerp( initialSaturation, 1.0f, t );
+
+			elapsed += Time.Delta;
+			await Task.Delay( (int)(Time.Delta * 1000) );
+		}
+
+		// Deaktiviere die Vignette nach dem Fade-Out
+		Freeze.Enabled = false;
 	}
 
 	private async Task FadeOutFreezeEffect()

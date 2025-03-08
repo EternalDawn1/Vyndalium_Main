@@ -1,5 +1,14 @@
 namespace GeneralGame;
 
+[Flags]
+public enum EffectFlags
+{
+    None = 0,
+    ApplyFreeze = 1 << 0,
+    ApplyPoison = 1 << 1,
+    // Weitere Effekte hier hinzufügen
+}
+
 public class SkeletonAbilities : Abilities
 {
     [Property] public bool HasIceAbility { get; set; } = false; // Boolean zum Aktivieren/Deaktivieren der Eisfähigkeit
@@ -9,10 +18,21 @@ public class SkeletonAbilities : Abilities
     [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceBallAttackSound { get; set; }
     [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceUnfreezeSound { get; set; } // Sound für das Auftauen
 
+    
+
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public PrefabFile IcePillarPrefab { get; set; } // Prefab für den IcePillar
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public float IcePillarCooldown { get; set; } = 20.0f; // Cooldown für den IcePillar-Angriff
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public bool CanUseIcePillar { get; set; } = true; // Boolean zum Aktivieren/Deaktivieren des IcePillar-Angriffs
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IcePillarAttackSound { get; set; } // Sound für den IcePillar-Angriff
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public EffectFlags Effects { get; set; } = EffectFlags.None;
+
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] int pillarCount = 5;
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )]float radius = 150.0f; 
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )]  float freezeDuration = 2.0f;
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )]  float poisonDuration = 5.0f;
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )]  int spawnDelay = 1000; 
+
+
 
     [Property, Group( "IceGround" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public PrefabFile IceGroundPrefab { get; set; } // Prefab für den IceGround
     [Property, Group( "IceGround" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public float IceGroundCooldown { get; set; } = 15.0f; // Cooldown für den IceGround-Angriff
@@ -212,11 +232,7 @@ public class SkeletonAbilities : Abilities
     }
     private async void IcePillarAttack()
     {
-        const int pillarCount = 5;
-        const float radius = 150.0f; // Radius um den Skeleton-Boss
-        const float freezeDistance = 100.0f; // Distanz zum Einfrieren der Spieler
-        const float freezeDuration = 2.0f; // Dauer des Einfrierens
-        const int spawnDelay = 1000; // Verzögerung zwischen den Spawns in Millisekunden
+        
 
   
 
@@ -250,13 +266,22 @@ public class SkeletonAbilities : Abilities
                 var player = other.GameObject.GetComponent<Player>();
                 if ( player != null )
                 {
-                    
-                    player.ApplyFreeze( freezeDuration );
+                    if ( Effects.HasFlag( EffectFlags.ApplyFreeze ) )
+                    {
+                        player.ApplyFreeze( freezeDuration );
+                    }
+
+                    if ( Effects.HasFlag( EffectFlags.ApplyPoison ) )
+                    {
+                        player.ApplyPoison( poisonDuration );
+                    }
+
+                    // Weitere Effekte hier hinzufügen
                 }
             };
            
 
-            _ = CheckPlayerProximityAndFreeze( icePillarObject, freezeDistance, freezeDuration );
+            //_ = CheckPlayerProximityAndFreeze( icePillarObject, freezeDistance, freezeDuration );
 
             // Zerstören Sie das IcePillar-Objekt nach 5 Sekunden
             _ = DestroyIcePillarAfterDelay( icePillarObject, 5000 );

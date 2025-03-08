@@ -135,6 +135,26 @@ public partial class Player
             healthEffects.DestroyFreeze();
         } );
     }
+    public void ApplyPoison( float durationInSeconds )
+    {
+        // Überprüfen, ob der Spieler bereits vergiftet ist
+        if ( activeStatusEffects.OfType<PoisonEffect>().Any() )
+        {
+            return; // Effekt nicht erneut anwenden
+        }
+
+        var healthEffects = GameObject.Components.GetOrCreate<HealthEffects>();
+        healthEffects.PoisonEffect();
+
+        var poisonEffect = new PoisonEffect( durationInSeconds );
+        activeStatusEffects.Add( poisonEffect );
+
+        Task.DelaySeconds( durationInSeconds ).ContinueWith( _ =>
+        {
+            healthEffects.DestroyPoison();
+            activeStatusEffects.Remove( poisonEffect );
+        } );
+    }
 
 
 
@@ -145,14 +165,29 @@ public partial class Player
 
     public void ApplyStatusEffect( StatusEffect effect )
     {
-        if ( effect is BurnEffect burnEffect )
+        // Überprüfen, ob der Effekt bereits aktiv ist
+        if ( activeStatusEffects.Any( e => e.GetType() == effect.GetType() ) )
         {
-            activeStatusEffects.Add( burnEffect );
-           
+            return; // Effekt nicht erneut anwenden
         }
+
+        activeStatusEffects.Add( effect );
+        effect.Apply( this );
     }
 
 
+}
+public class PoisonEffect : StatusEffect
+{
+    public PoisonEffect( float duration )
+    {
+        Duration = duration;
+    }
+
+    public override void Apply( Player player )
+    {
+        // Logik für den Vergiftungseffekt
+    }
 }
 public class BurnEffect : StatusEffect
 {

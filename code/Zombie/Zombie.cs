@@ -356,7 +356,10 @@ public partial class Npc : Component, IHealthComponent
 
 	protected override void OnStart()
 	{
+		
 		Tags.Set( "npc", true );
+
+		
 
 		Hitprefab = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ) );
 		NpcId = Scene.GetAllComponents<Npc>().OrderByDescending( x => x.NpcId ).First().NpcId + 1;
@@ -449,7 +452,7 @@ public partial class Npc : Component, IHealthComponent
 	{
 		// Überprüfe auf Vorbedingungen, um eine ungültige Ausführung zu vermeiden
 		if ( Model == null || (Healthone != null && !Healthone.Alive) )
-			return;
+			
 
 		UpdateFootAnimations();
 
@@ -660,20 +663,19 @@ public partial class Npc : Component, IHealthComponent
 
 	void UpdateFootAnimations()
 	{
+		
 		// Holen Sie die Geschwindigkeit des NPCs
-		var scaledSpeed = MaxRunAnimationSpeed;
-		var forwardVelocity = Vector3.Dot( MoveHelper.Velocity, Model.WorldRotation.Forward ) / scaledSpeed;
-		var rightVelocity = Vector3.Dot( MoveHelper.Velocity, Model.WorldRotation.Right ) / scaledSpeed;
-
-		// Lerp nur, wenn sich die Geschwindigkeit ändert
 		var oldX = Model.GetFloat( "move_x" );
 		var oldY = Model.GetFloat( "move_y" );
-		var newX = MathX.Lerp( oldX, forwardVelocity, Time.Delta * 5f );
-		var newY = MathX.Lerp( oldY, rightVelocity, Time.Delta * 5f );
+		var scaledSpeed = MaxRunAnimationSpeed * Scale; // Model is scaled uniformally by the max value on the scale it seems
 
-		// Batchen Sie die Set-Operationen
-		Model.Set( "move_x", newX );
-		Model.Set( "move_y", newY );
+		var newX = Vector3.Dot( MoveHelper.Velocity, Model.WorldRotation.Forward ) / scaledSpeed;
+		var newY = Vector3.Dot( MoveHelper.Velocity, Model.WorldRotation.Right ) / scaledSpeed;
+		var x = MathX.Lerp( oldX, newX, Time.Delta * 5f );
+		var y = MathX.Lerp( oldY, newY, Time.Delta * 5f );
+
+		Model.Set( "move_x", x );
+		Model.Set( "move_y", y );
 	}
 	private Random random2 = new Random();
 	public void NormalTrace()
