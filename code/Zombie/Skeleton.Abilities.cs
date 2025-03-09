@@ -18,7 +18,7 @@ public class SkeletonAbilities : Abilities
     [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceBallAttackSound { get; set; }
     [Property, Group( "IceBall" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public SoundEvent IceUnfreezeSound { get; set; } // Sound für das Auftauen
 
-    
+
 
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public PrefabFile IcePillarPrefab { get; set; } // Prefab für den IcePillar
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public float IcePillarCooldown { get; set; } = 20.0f; // Cooldown für den IcePillar-Angriff
@@ -27,7 +27,7 @@ public class SkeletonAbilities : Abilities
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] public EffectFlags Effects { get; set; } = EffectFlags.None;
 
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] int pillarCount = 5;
-    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )]float radius = 150.0f; 
+    [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )] float radius = 150.0f; 
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )]  float freezeDuration = 2.0f;
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )]  float poisonDuration = 5.0f;
     [Property, Group( "IcePillar" ), Feature( "Ice" ), ShowIf( "HasIceAbility", true )]  int spawnDelay = 1000; 

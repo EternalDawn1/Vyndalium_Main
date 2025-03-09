@@ -446,6 +446,8 @@ public partial class Npc : Component, IHealthComponent
 				return true;
 		}
 		return false;
+
+		
 	}
 
 	protected override void OnUpdate()
