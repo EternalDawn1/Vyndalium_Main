@@ -1613,7 +1613,7 @@
           "__guid": "19487e25-24c9-437a-8332-17ed4a81294b",
           "Flags": 0,
           "Name": "Spawnpoint",
-          "Position": "5813.625,791.747,-137.2758",
+          "Position": "5610.126,729.0051,-137.2758",
           "Rotation": "0,0,-0.06540307,-0.9978589",
           "Enabled": true,
           "Components": [
@@ -3033,7 +3033,7 @@
               "Color": "1,1,1,1",
               "Friction": null,
               "HideInGame": false,
-              "IsTrigger": false,
+              "IsTrigger": true,
               "Mesh": {
                 "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
                 "Position": "552.0728,320.5889,-236.139",
@@ -3162,7 +3162,7 @@
             {
               "__type": "GeneralGame.DamageTrigger",
               "__guid": "90548dc5-519c-4c00-af71-a9cc2c30ea8d",
-              "Amount": 10,
+              "Amount": 999,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -3184,7 +3184,7 @@
               "__type": "Sandbox.MeshComponent",
               "__guid": "a761abbe-2d40-4463-a5d5-fa124ce2b268",
               "Collision": "Mesh",
-              "Color": "1,0,0,1",
+              "Color": "0,0,0,1",
               "Friction": null,
               "HideInGame": false,
               "IsTrigger": false,
@@ -4259,6 +4259,37 @@
       ]
     },
     {
+      "__guid": "6cce4862-d76a-464a-8f7b-96ab9d214a4d",
+      "Flags": 0,
+      "Name": "active area",
+      "Position": "122.6794,-1455.428,258.0143",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ActiveArea",
+          "__guid": "6eeab0ad-6d06-415f-ab14-c143201d878a",
+          "__enabled": false,
+          "attackCooldown": 2,
+          "AttackPrefab": "prefabs/hit/poison/gas_v2.prefab",
+          "BoxPosition": "101.5002,0,385.0997",
+          "BoxSize": "1820.902,1954.609,773.8015",
+          "ObjectLifetime": 50,
+          "ObjectSpeed": 800,
+          "ObjectsPerSide": 5,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "patternChangeInterval": 10,
+          "SelectedAttackPattern": "Box",
+          "SpawnInterval": 0.1,
+          "timeSinceLastAttack": 0
+        }
+      ]
+    },
+    {
       "__guid": "50b8ba97-ee6b-424a-8d88-3b40b005e354",
       "Flags": 0,
       "Name": "spawner",
@@ -4275,6 +4306,12 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "7c2b8b2c-e9c5-4fee-a1d6-cc74878ff62f",
+              "ActiveArena": {
+                "_type": "component",
+                "component_id": "6eeab0ad-6d06-415f-ab14-c143201d878a",
+                "go": "6cce4862-d76a-464a-8f7b-96ab9d214a4d",
+                "component_type": "ActiveArea"
+              },
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": "sounds/battle-music/battlemusic2.sound",
@@ -4379,7 +4416,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [
                 {
@@ -4529,10 +4566,9 @@
                   "__guid": "4e010b76-3382-40fa-aa71-17659b21bdf0",
                   "Flags": 0,
                   "Name": "ChallengeDoor2",
-                  "Position": "-1280.516,64.26361,-460.8257",
-                  "Rotation": "-0.0499502,-0.1205905,0.3794096,0.9159757",
+                  "Position": "-839.1129,134.7249,-217.4545",
+                  "Rotation": "0.00000001892124,-0.00000002131485,0.3826835,0.9238797",
                   "Scale": "1.000001,4.799998,7.699995",
-                  "Enabled": true,
                   "Components": [
                     {
                       "__type": "GeneralGame.ChallengeDoor",
@@ -4692,13 +4728,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "__guid": "f26f945f-5a9a-4ebf-a610-214cc643db69",
-              "Flags": 0,
-              "Name": "area",
-              "Position": "-88.9525,638.0891,-0.0009765625",
-              "Enabled": true
             }
           ]
         },
@@ -4712,6 +4741,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "5cf34962-ccd3-4d76-8ca9-627c5af488e9",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -4733,7 +4763,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -4872,6 +4902,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "6cf211b9-8f2a-4e24-be6f-fb4e93c68ad6",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -4893,7 +4924,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -5032,6 +5063,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "94b736ff-aa73-4512-a2c1-04f4932fe59a",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -5053,7 +5085,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -5192,6 +5224,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "f7ba7703-53bb-4483-b16a-318682efb545",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -5213,7 +5246,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -5352,6 +5385,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "2eed8cd8-5ebe-4dd7-b47c-467e09d74c27",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -5373,7 +5407,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -5512,6 +5546,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "8ef8ebac-8f9b-45fb-83f2-99483b99deb5",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -5533,7 +5568,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -5672,6 +5707,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "1b85176f-3876-4b83-bc2d-382ab9b45131",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -5693,7 +5729,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -5832,6 +5868,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "b7f8d8a6-2a09-443b-a44b-595ac9d80256",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -5853,7 +5890,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -5992,6 +6029,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "98759451-741a-4a95-a81d-76ff324e4785",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -6013,7 +6051,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -6152,6 +6190,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "268493a2-03d2-44de-8a3a-f88941a61a98",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -6173,7 +6212,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -6312,6 +6351,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "6369cef1-45b7-4f17-943f-7465258276b0",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -6333,7 +6373,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -6472,6 +6512,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "93e8b0a8-87d4-41e1-9411-f792ae22c16f",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -6493,7 +6534,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -6632,6 +6673,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "6b3955e2-0706-4ee2-96b7-decf6c143bd2",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -6653,7 +6695,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -6792,6 +6834,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "854aaa67-28ad-4c20-843f-0c005ec16ee1",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -6813,7 +6856,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -6952,6 +6995,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "a8e334af-d48f-476a-9c5a-db82f08d60e9",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -6973,7 +7017,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7112,6 +7156,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "63910624-5f7c-45a1-96c2-4f09d1a5848e",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -7133,7 +7178,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7272,6 +7317,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "095b44cb-63e1-42d7-ab63-44698e9539c1",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -7293,7 +7339,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7432,6 +7478,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "17f430b4-bb39-4a16-8571-3627087089b7",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -7453,7 +7500,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7592,6 +7639,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "c8432035-d47f-4ab2-b729-fd124daff290",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -7613,7 +7661,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7752,6 +7800,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "cbd8faf6-f421-4c98-be84-c022164b8fc4",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -7773,7 +7822,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7912,6 +7961,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "155a4d4c-fce1-43ed-96ee-465a9941180c",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -7933,7 +7983,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8072,6 +8122,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "4be3b922-8791-4000-b96c-92b815f27c34",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -8093,7 +8144,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8232,6 +8283,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "09fc99ff-4d54-4ca8-81fc-4e74429e74b4",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -8253,7 +8305,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8392,6 +8444,7 @@
             {
               "__type": "NpcSpawnArea",
               "__guid": "21215ce7-43ce-4326-86d6-de7b1368e836",
+              "ActiveArena": null,
               "allSubNpcsKilled": false,
               "BaseColor": "1,1,1,1",
               "BattleMusic": null,
@@ -8413,7 +8466,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100545830
+                "Relative": 100570310
               },
               "Lights": [],
               "LoopSpawning": false,

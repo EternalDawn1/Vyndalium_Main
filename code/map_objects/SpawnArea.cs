@@ -7,6 +7,10 @@ public sealed class NpcSpawnArea : Component
 	[Property] public Checkpoint Checkpoint { get; set; }
 	[Property] public ChallengeDoor ChallengeDoor { get; set; }
 	[Property] public SoundEvent BattleMusic { get; set; }
+
+	[Property] public ActiveArea ActiveArena { get; set; }
+
+
 	[Property] public List<Light> Lights { get; set; } = new();
 	[Property] public Color BaseColor { get; set; } = Color.White;
 	[Property] public Color FadingToColor { get; set; } = Color.Red;
@@ -548,6 +552,10 @@ public sealed class NpcSpawnArea : Component
 						{
 							Sound.Play( BattleMusic, boss.WorldPosition );
 						}
+						if( ActiveArena != null )
+						{
+							ActiveArena.Enabled = true;
+						}
 
 						// Setze die Variable zurück, wenn ein neuer Boss gespawnt wird
 						allSubNpcsKilled = false;
@@ -565,6 +573,7 @@ public sealed class NpcSpawnArea : Component
 				break;
 			}
 		}
+		
 	}
 	
 
@@ -623,6 +632,7 @@ public sealed class NpcSpawnArea : Component
 		if ( DestroyAfterSpawning && ChallengeDoor != null && ChallengeDoor.IsTimerExpired() )
 		{
 			GameObject.Destroy();
+			ActiveArena?.Destroy();
 		}
 	}
 

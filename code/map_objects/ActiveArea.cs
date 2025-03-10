@@ -10,8 +10,14 @@ public sealed class ActiveArea : Component
 	public enum AttackPattern
 	{
 		Box,
-		Tornado,
-		Vortex
+		Random,
+		FullCircle,
+		
+		Cross,
+		Diagonal,
+
+		Flood,
+
 	}
 
 	[Property, Group( "Attack Pattern Settings" )]
@@ -30,20 +36,34 @@ public sealed class ActiveArea : Component
 	private Vector3 BoxSize { get; set; }
 
 	[Property, Group( "Attack Pattern Settings" )]
+	private Vector3 BoxPosition { get; set; }
+
+	[Property, Group( "Attack Pattern Settings" )]
 	private PrefabFile AttackPrefab { get; set; }
 
 	[Property, Group( "Attack Pattern Settings" )]
 	private AttackPattern SelectedAttackPattern { get; set; } = AttackPattern.Box;
 
 	private List<GameObject> activeAttackObjects = new();
-	private float attackCooldown = 10.0f; // Cooldown in Sekunden
-	private float timeSinceLastAttack = 0.0f;
+	[Property, Group( "Attack Pattern Settings" )] private float attackCooldown = 10.0f; // Cooldown in Sekunden
+	[Property, Group( "Attack Pattern Settings" )] private float timeSinceLastAttack = 0.0f;
+
+	[Property, Group( "Attack Pattern Settings" )] private float patternChangeInterval = 10f; // Intervall in Sekunden für den Musterwechsel
+	private float timeSinceLastPatternChange = 0.0f;
 
 	protected override void OnUpdate()
 	{
 		base.OnUpdate();
 
 		timeSinceLastAttack += Time.Delta;
+		timeSinceLastPatternChange += Time.Delta;
+
+		if ( timeSinceLastPatternChange >= patternChangeInterval )
+		{
+			// Wechseln Sie das Angriffsmuster
+			SelectedAttackPattern = (AttackPattern)new Random().Next( 0, 6 ); // Aktualisiert, um die neuen Muster einzuschließen
+			timeSinceLastPatternChange = 0.0f;
+		}
 
 		if ( timeSinceLastAttack >= attackCooldown )
 		{
@@ -52,17 +72,136 @@ public sealed class ActiveArea : Component
 				case AttackPattern.Box:
 					ExecuteBoxAttackPattern();
 					break;
-				case AttackPattern.Tornado:
-					ExecuteTornadoAttackPattern();
+				case AttackPattern.Random:
+					ExecuteRandomAttackPattern();
 					break;
-				case AttackPattern.Vortex:
-					ExecuteVortexAttackPattern();
+				case AttackPattern.FullCircle:
+					Execute360AttackPattern();
 					break;
+				case AttackPattern.Cross:
+					ExecuteCrossAttackPattern();
+					break;
+				case AttackPattern.Diagonal:
+					ExecuteDiagonalAttackPattern();
+					break;
+			
+				case AttackPattern.Flood:
+					ExecuteFloodAttackPattern();
+					break;
+				
+				
 			}
 			timeSinceLastAttack = 0.0f;
 		}
 	}
 
+	private async void ExecuteFloodAttackPattern()
+	{
+		if ( AttackPrefab == null )
+		{
+			return;
+		}
+
+		var prefab = ResourceLibrary.Get<PrefabFile>( AttackPrefab.ResourcePath );
+		if ( prefab == null )
+		{
+			return;
+		}
+
+		int[] waveSizes = { 1, 2, 3, 9 }; // Anzahl der Objekte pro Welle
+		float waveInterval = 1.0f; // Intervall zwischen den Wellen in Sekunden
+
+		foreach ( int waveSize in waveSizes )
+		{
+			for ( int i = 0; i < waveSize; i++ )
+			{
+				float angleStep = 360.0f / waveSize;
+				for ( int j = 0; j < waveSize; j++ )
+				{
+					float angle = j * angleStep;
+					Vector3 direction = new Vector3(
+						(float)Math.Cos( DegreesToRadians( angle ) ),
+						(float)Math.Sin( DegreesToRadians( angle ) ),
+						0
+					);
+
+					Vector3 randomPosition = new Vector3(
+						(float)(new System.Random().NextDouble() * BoxSize.x - BoxSize.x / 2),
+						(float)(new System.Random().NextDouble() * BoxSize.y - BoxSize.y / 2),
+						(float)(new System.Random().NextDouble() * BoxSize.z - BoxSize.z / 2)
+					);
+
+					SpawnObjectAtPosition( prefab, BoxPosition + randomPosition, direction );
+				}
+			}
+
+			await Task.Delay( (int)(waveInterval * 1000) ); // Wartezeit zwischen den Wellen
+		}
+	}
+
+	private void SpawnObjectAtPosition( PrefabFile prefab, Vector3 position, Vector3 direction )
+	{
+		var spawnPosition = LocalPosition; // Setze die Spawn-Position auf den Mittelpunkt der Box
+
+		var attackObject = GameObject.Clone( prefab );
+		attackObject.LocalPosition = spawnPosition;
+		attackObject.WorldRotation = Rotation.Identity;
+		attackObject.NetworkSpawn();
+
+		activeAttackObjects.Add( attackObject );
+		_ = MoveAttackObject( attackObject, direction );
+	}
+
+
+
+	private async void ExecuteCrossAttackPattern()
+	{
+		if ( AttackPrefab == null )
+		{
+			return;
+		}
+
+		var prefab = ResourceLibrary.Get<PrefabFile>( AttackPrefab.ResourcePath );
+		if ( prefab == null )
+		{
+			return;
+		}
+
+		for ( int i = 0; i < ObjectsPerSide; i++ )
+		{
+			SpawnObjectAtBoxSide( prefab, BoxSize.x, Vector3.Left );
+			SpawnObjectAtBoxSide( prefab, BoxSize.x, Vector3.Right );
+			
+
+			await Task.Delay( (int)(SpawnInterval * 1000) );
+		}
+	}
+
+	private async void ExecuteDiagonalAttackPattern()
+	{
+		if ( AttackPrefab == null )
+		{
+			return;
+		}
+
+		var prefab = ResourceLibrary.Get<PrefabFile>( AttackPrefab.ResourcePath );
+		if ( prefab == null )
+		{
+			return;
+		}
+
+		for ( int i = 0; i < ObjectsPerSide; i++ )
+		{
+			SpawnObjectAtBoxSide( prefab, BoxSize.Length, Normalize( new Vector3( 1, 1, 0 ) ) );
+			SpawnObjectAtBoxSide( prefab, BoxSize.Length, Normalize( new Vector3( -1, 1, 0 ) ) );
+			SpawnObjectAtBoxSide( prefab, BoxSize.Length, Normalize( new Vector3( 1, -1, 0 ) ) );
+			SpawnObjectAtBoxSide( prefab, BoxSize.Length, Normalize( new Vector3( -1, -1, 0 ) ) );
+
+			await Task.Delay( (int)(SpawnInterval * 1000) );
+		}
+	}
+
+	
 	private async void ExecuteBoxAttackPattern()
 	{
 		if ( AttackPrefab == null )
@@ -78,12 +217,82 @@ public sealed class ActiveArea : Component
 
 		for ( int i = 0; i < ObjectsPerSide; i++ )
 		{
-			SpawnObjectAtBoxSide( prefab, BoxSize.y, Vector3.Up );
+			
 
 			SpawnObjectAtBoxSide( prefab, BoxSize.z, Vector3.Forward );
 			SpawnObjectAtBoxSide( prefab, BoxSize.z, Vector3.Backward );
 			SpawnObjectAtBoxSide( prefab, BoxSize.x, Vector3.Left );
 			SpawnObjectAtBoxSide( prefab, BoxSize.x, Vector3.Right );
+
+			await Task.Delay( (int)(SpawnInterval * 1000) );
+		}
+	}
+	private async void Execute360AttackPattern()
+	{
+		if ( AttackPrefab == null )
+		{
+			return;
+		}
+
+		var prefab = ResourceLibrary.Get<PrefabFile>( AttackPrefab.ResourcePath );
+		if ( prefab == null )
+		{
+			return;
+		}
+
+		int numberOfObjects = 36; // Anzahl der Objekte, die in einem Kreis gespawnt werden
+		float angleStep = 360.0f / numberOfObjects;
+
+		for ( int i = 0; i < numberOfObjects; i++ )
+		{
+			float angle = i * angleStep;
+			Vector3 direction = new Vector3(
+				(float)Math.Cos( DegreesToRadians( angle ) ),
+				(float)Math.Sin( DegreesToRadians( angle ) ),
+				0
+			);
+
+			SpawnObjectAtBoxSide( prefab, BoxSize.Length, direction );
+
+			await Task.Delay( (int)(SpawnInterval * 500) );
+		}
+	}
+	private float DegreesToRadians( float degrees )
+	{
+		return (float)(degrees * Math.PI / 180.0);
+	}
+	private Vector3 Normalize( Vector3 vector )
+	{
+		float length = vector.Length;
+		if ( length > 0 )
+		{
+			return vector / length;
+		}
+		return Vector3.Zero;
+	}
+	private async void ExecuteRandomAttackPattern()
+	{
+		if ( AttackPrefab == null )
+		{
+			return;
+		}
+
+		var prefab = ResourceLibrary.Get<PrefabFile>( AttackPrefab.ResourcePath );
+		if ( prefab == null )
+		{
+			return;
+		}
+
+		for ( int i = 0; i < ObjectsPerSide; i++ )
+		{
+			Vector3 randomDirection = new Vector3(
+				(float)(new System.Random().NextDouble() * 2 - 1),
+				(float)(new System.Random().NextDouble() * 2 - 1),
+				(float)(new System.Random().NextDouble() * 2 - 1)
+			);
+			randomDirection = Normalize( randomDirection );
+
+			SpawnObjectAtBoxSide( prefab, BoxSize.Length, randomDirection );
 
 			await Task.Delay( (int)(SpawnInterval * 1000) );
 		}
@@ -94,7 +303,7 @@ public sealed class ActiveArea : Component
 		var spawnPosition = LocalPosition; // Setze die Spawn-Position auf den Mittelpunkt der Box
 
 		var attackObject = GameObject.Clone( prefab );
-		attackObject.WorldPosition = spawnPosition;
+		attackObject.LocalPosition = spawnPosition;
 		attackObject.WorldRotation = Rotation.Identity;
 		attackObject.NetworkSpawn();
 
@@ -127,130 +336,6 @@ public sealed class ActiveArea : Component
 		activeAttackObjects.Remove( attackObject );
 	}
 
-	private async void ExecuteTornadoAttackPattern()
-	{
-		if ( AttackPrefab == null )
-		{
-			return;
-		}
-
-		var prefab = ResourceLibrary.Get<PrefabFile>( AttackPrefab.ResourcePath );
-		if ( prefab == null )
-		{
-			return;
-		}
-
-		for ( int i = 0; i < ObjectsPerSide; i++ )
-		{
-			SpawnObjectInTornadoPattern( prefab, BoxSize.y, Vector3.Up );
-			await Task.Delay( (int)(SpawnInterval * 1000) );
-		}
-	}
-
-	private void SpawnObjectInTornadoPattern( PrefabFile prefab, float boxSideLength, Vector3 direction )
-	{
-		var spawnPosition = LocalPosition; // Setze die Spawn-Position auf den Mittelpunkt der Box
-
-		var attackObject = GameObject.Clone( prefab );
-		attackObject.WorldPosition = spawnPosition;
-		attackObject.WorldRotation = Rotation.Identity;
-		attackObject.NetworkSpawn();
-
-		activeAttackObjects.Add( attackObject );
-		_ = MoveAttackObjectInTornado( attackObject, direction );
-	}
-
-	private async Task MoveAttackObjectInTornado( GameObject attackObject, Vector3 direction )
-	{
-		float elapsedTime = 0.0f;
-		Vector3 boxMin = LocalPosition - BoxSize / 2;
-		Vector3 boxMax = LocalPosition + BoxSize / 2;
-		float angle = 0.0f;
-
-		while ( elapsedTime < ObjectLifetime )
-		{
-			await Task.Delay( 10 ); // Update alle 10ms
-			angle += 0.1f; // Winkel erhöhen, um die Drehung zu simulieren
-			float radius = 0.5f * BoxSize.Length; // Radius des Tornados
-			Vector3 offset = new Vector3( MathF.Cos( angle ), MathF.Sin( angle ), 0 ) * radius;
-			attackObject.WorldPosition = LocalPosition + offset + direction * ObjectSpeed * elapsedTime; // Bewege das Objekt in einem Bogen
-			elapsedTime += 0.01f;
-
-			// Überprüfe, ob das Objekt den Rand der Box erreicht hat
-			if ( attackObject.WorldPosition.x < boxMin.x || attackObject.WorldPosition.x > boxMax.x ||
-				attackObject.WorldPosition.y < boxMin.y || attackObject.WorldPosition.y > boxMax.y ||
-				attackObject.WorldPosition.z < boxMin.z || attackObject.WorldPosition.z > boxMax.z )
-			{
-				break;
-			}
-		}
-
-		attackObject.Destroy();
-		activeAttackObjects.Remove( attackObject );
-	}
-
-	private async void ExecuteVortexAttackPattern()
-	{
-		if ( AttackPrefab == null )
-		{
-			return;
-		}
-
-		var prefab = ResourceLibrary.Get<PrefabFile>( AttackPrefab.ResourcePath );
-		if ( prefab == null )
-		{
-			return;
-		}
-
-		for ( int i = 0; i < ObjectsPerSide; i++ )
-		{
-			SpawnObjectInVortexPattern( prefab, BoxSize.y, Vector3.Up );
-			await Task.Delay( (int)(SpawnInterval * 1000) );
-		}
-	}
-
-	private void SpawnObjectInVortexPattern( PrefabFile prefab, float boxSideLength, Vector3 direction )
-	{
-		var spawnPosition = LocalPosition; // Setze die Spawn-Position auf den Mittelpunkt der Box
-
-		var attackObject = GameObject.Clone( prefab );
-		attackObject.WorldPosition = spawnPosition;
-		attackObject.WorldRotation = Rotation.Identity;
-		attackObject.NetworkSpawn();
-
-		activeAttackObjects.Add( attackObject );
-		_ = MoveAttackObjectInVortex( attackObject, direction );
-	}
-
-	private async Task MoveAttackObjectInVortex( GameObject attackObject, Vector3 direction )
-	{
-		float elapsedTime = 0.0f;
-		Vector3 boxMin = LocalPosition - BoxSize / 2;
-		Vector3 boxMax = LocalPosition + BoxSize / 2;
-		float angle = 0.0f;
-
-		while ( elapsedTime < ObjectLifetime )
-		{
-			await Task.Delay( 10 ); // Update alle 10ms
-			angle += 0.1f; // Winkel erhöhen, um die Drehung zu simulieren
-			float radius = 0.5f * BoxSize.Length; // Radius des Vortex
-			Vector3 offset = new Vector3( MathF.Cos( angle ), MathF.Sin( angle ), 0 ) * radius;
-			attackObject.WorldPosition = LocalPosition + offset + direction * ObjectSpeed * elapsedTime; // Bewege das Objekt in einem Bogen
-			elapsedTime += 0.01f;
-
-			// Überprüfe, ob das Objekt den Rand der Box erreicht hat
-			if ( attackObject.WorldPosition.x < boxMin.x || attackObject.WorldPosition.x > boxMax.x ||
-				attackObject.WorldPosition.y < boxMin.y || attackObject.WorldPosition.y > boxMax.y ||
-				attackObject.WorldPosition.z < boxMin.z || attackObject.WorldPosition.z > boxMax.z )
-			{
-				break;
-			}
-		}
-
-		attackObject.Destroy();
-		activeAttackObjects.Remove( attackObject );
-	}
-
 	protected override void DrawGizmos()
 	{
 		base.DrawGizmos();
@@ -258,8 +343,7 @@ public sealed class ActiveArea : Component
 		Gizmo.Draw.Color = Color.Red; // Farbe des Gizmos
 
 		// Zeichne die Box an der festen Position
-		Vector3 center = LocalPosition;
+		Vector3 center = BoxPosition; // Verwende die BoxPosition anstelle von LocalPosition
 		Gizmo.Draw.LineBBox( new BBox( center - BoxSize / 2, center + BoxSize / 2 ) );
 	}
-	// ...existing code...
 }
