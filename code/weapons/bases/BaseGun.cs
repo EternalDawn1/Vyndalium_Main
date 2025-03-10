@@ -1001,11 +1001,19 @@ public class  BaseGun : WeaponComponent, IUse
 			var playerCritChance = shooter.CritHitChance;
 			var playerCritDamage = shooter.CritHitDamage;
 			var armorPenetration = shooter.ArmorPenetration;
-
 			damage += (int)(damage * (playerAttackValue / 15.0f));
 
 			int calculatedDamage = (int)(damage * (playerAttackPower / 10.0f));
-			damage += random.Next( 0, calculatedDamage + 1 );
+			int minDamage = 0;
+			int maxDamage = calculatedDamage + 1;
+
+			// Ensure minDamage is not greater than maxDamage
+			if ( minDamage > maxDamage )
+			{
+				minDamage = maxDamage;
+			}
+
+			damage += random.Next( minDamage, maxDamage );
 
 			int critRoll = random.Next( 0, 101 );
 			{

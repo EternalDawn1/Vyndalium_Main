@@ -12,7 +12,16 @@
         "BodyGroups": 18446744073709551615,
         "Health": 0,
         "IsStatic": true,
-        "Model": "models/rust_props/wooden_crates/wooden_crate_a.vmdl",
+        "MaterialGroup": null,
+        "Model": "models/barrel_stylized.vmdl",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnPropBreak": null,
+        "OnPropTakeDamage": null,
         "StartAsleep": false,
         "Tint": "1,1,1,1"
       },
@@ -22,10 +31,23 @@
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
-        "Locking": {},
+        "Locking": {
+          "X": false,
+          "Y": false,
+          "Z": false,
+          "Pitch": false,
+          "Yaw": false,
+          "Roll": false
+        },
         "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "OverrideMassCenter": false,
         "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
@@ -33,16 +55,22 @@
       {
         "__type": "GeneralGame.ItemObject",
         "__guid": "a21b82d1-0801-41f8-b31e-158fbe61952e",
+        "DeathSound": "sounds/upgrade/gold.sound",
+        "Health": 50,
+        "MaxHealth": 50,
+        "Name": "Item",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "prefabPaths": [
           "prefabs/potions/potion_small.prefab",
           "prefabs/items/wood_log.prefab",
           "prefabs/entitys/chestsystem/example1.prefab",
           "prefabs/pickupamo.prefab"
         ],
-        "DeathSound": "sounds/upgrade/gold.sound",
-        "Health": 50,
-        "MaxHealth": 50,
-        "Name": "Item",
         "Ragdoll": {
           "_type": "gameobject",
           "prefab": "models/npcs/slime/item.prefab"
@@ -68,7 +96,13 @@
               "component_id": "a21b82d1-0801-41f8-b31e-158fbe61952e",
               "go": "978ebd06-49b0-43b6-a33c-6277cf074ae3",
               "component_type": "ItemObject"
-            }
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
           },
           {
             "__type": "Sandbox.WorldPanel",
@@ -76,6 +110,12 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PanelSize": "512,512",
             "RenderOptions": {
               "GameLayer": true,
@@ -119,7 +159,8 @@
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [],
-  "HasUnsavedChanges": false,
+  "__references": [
+    "myo.barrel_stylized#27492"
+  ],
   "__version": 1
 }

@@ -128,7 +128,7 @@
     if (_scenePanel == null || _character == null || Player.Local == null || Player.Local.Inventory == null)
         return;
 
-    var mousePos = MousePosition;
+    var mousePos = Mouse.Position;
     var headPos = _scenePanel.Camera.ToScreen((_character.GetAttachment("eyes") ?? Transform.Zero).Position);
     var localPos = mousePos - headPos;
 

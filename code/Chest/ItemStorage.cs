@@ -1187,7 +1187,7 @@ namespace GeneralGame
             var chestPosition = GameObject.LocalPosition; // Position der Kiste
             foreach ( var item in Items )
             {
-                if ( item != null )
+                if ( item != null && item.GameObject != null )
                 {
                     // Logik zum Werfen des Items auf den Boden an der Position der Kiste
                     var itemPosition = chestPosition;

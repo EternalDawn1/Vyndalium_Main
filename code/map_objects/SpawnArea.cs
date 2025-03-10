@@ -650,6 +650,7 @@ public sealed class NpcSpawnArea : Component
 			Log.Warning( "npcPrefab is null." );
 			return null;
 		}
+
 		var tries = 0;
 		while ( tries <= 20 )
 		{
@@ -661,15 +662,21 @@ public sealed class NpcSpawnArea : Component
 				.Size( 5f )
 				.WithoutTags( "player", "npc", "trigger" )
 				.Run();
+
 			if ( groundTrace.Hit && !groundTrace.StartedSolid )
 			{
 				if ( Vector3.GetAngle( Vector3.Up, groundTrace.Normal ) <= 60f )
 				{
 					var clone = npcPrefab.Clone( groundTrace.HitPosition, Rotation.FromYaw( Game.Random.Float( 360f ) ) );
+					if ( clone == null )
+					{
+						Log.Warning( "Failed to clone npcPrefab." );
+						return null;
+					}
+
 					clone.NetworkMode = NetworkMode.Object;
 					clone.NetworkSpawn();
 
-					
 					return clone;
 				}
 			}
