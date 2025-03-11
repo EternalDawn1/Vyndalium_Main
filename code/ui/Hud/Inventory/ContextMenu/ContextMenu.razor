@@ -140,6 +140,15 @@
 							ImagePath="ui/hud/potions.png"
 							onclick=@(() => UseHealthPotion(healthPotion)) />
 		}
+        if(_item is ItemComponent itemComponent && itemComponent.IsChest)
+        {
+            if(itemComponent != null)
+            {
+                <ContextMenuOption Description="Open"
+                                   ImagePath="ui/hud/brain.png"
+                                   onclick=@(() => OpenChest(itemComponent)) />
+            }
+        }
        
         
         @if (_item is ItemEquipment equipment && !equipment.IsAspect)
@@ -412,7 +421,8 @@
 		{
 			storageBox.Items.Add(item);
 			player.Inventory.RemoveItem(item);
-			
+            
+			Player.Save();
 			Hudmaster.Instance.ShowNotification($"Deposit {item.Name}","/ui/hud/storage.png");
 			Inventory.Instance?.OnChanged();
 		}
@@ -493,7 +503,7 @@
                 storageBox.Items.Remove(item);
                 
             }
-
+            Player.Save();
             Inventory.Instance?.OnChanged();
 			Hudmaster.Instance.ShowNotification($"received {item.Name}", "/ui/hud/hand_slot.png");
         }
@@ -651,6 +661,22 @@
 		
 	}
 
+   public void OpenChest(ItemComponent item)
+    {
+        if (item == null) return;
+
+        var chest = new ItemStorage();
+        chest.LoadPrefabs();
+
+    
+    
+
+        // Zeige die StorageBox im FullScreenPanel an
+        FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.StorageBox);
+
+        Player.Local.Inventory.RemoveItem(item);
+        Inventory.Instance?.OnChanged();
+    }
 	protected override int BuildHash()
 	{
 		return HashCode.Combine(_item is ItemEquipment);

@@ -506,7 +506,7 @@ public partial class Npc : Component, IHealthComponent
 				}
 				
 
-				UpdateAnimations( closestPlayer );
+				//UpdateAnimations( closestPlayer );
 				float maxProximityDistance = 80f;
 
 				// Überprüfe die Entfernung zum nächsten Spieler und passe die Bewegungsart entsprechend an
@@ -635,6 +635,10 @@ public partial class Npc : Component, IHealthComponent
 
 	void UpdateAnimations( Player player )
 	{
+		if ( AnimationHelper == null )
+		{
+			return;
+		}
 		AnimationHelper.WithWishVelocity( agent.WishVelocity );
 		AnimationHelper.WithVelocity( MoveHelper.Velocity );
 
@@ -665,7 +669,10 @@ public partial class Npc : Component, IHealthComponent
 
 	void UpdateFootAnimations()
 	{
-		
+		if (Model == null)
+		{
+			return;
+		}
 		// Holen Sie die Geschwindigkeit des NPCs
 		var oldX = Model.GetFloat( "move_x" );
 		var oldY = Model.GetFloat( "move_y" );

@@ -64,23 +64,41 @@
         <div class="panel-content-layout">
             <div class="main-panel">
                 <div class="box">
-                    <div class="title"> Level.1</div>
+                    <div class="title"> Level.0</div>
                     <SideButton 
-                        Title="Exile Dungeon 0-1" 
-                        Subtitle="required. lvl. 0 " 
+                        Title="1-1 [ Exil ] [ Dungeon ] "
+                        TitleStyle=@GetTitleStyle(playerLevel, GeneralScene2.One.GetRequiredLevel2())
+                        Subtitle="min. lvl. 0 " 
                         OnClick=@(() => ChangeScene2(GeneralScene2.One)) 
                         ImagePath=@GetImagePath(playerLevel, GeneralScene2.One.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
-                        style="justify-content: center;"
+                        style=" margin-left: 20px;"
+                    />
+                    <SideButton 
+                        Title="1-2 [ Zykan ] [ Dungeon ] "
+                        TitleStyle=@GetTitleStyle(playerLevel, GeneralScene2.One2.GetRequiredLevel2())
+                        Subtitle="min. lvl. 5 " 
+                        OnClick=@(() => ChangeScene2(GeneralScene2.One2)) 
+                        ImagePath=@GetImagePath(playerLevel, GeneralScene2.One2.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
+                        style=" margin-left: 20px;"
+                    />
+                    <SideButton 
+                        Title="1-3 [ Myron ] [ Dungeon ] "
+                        TitleStyle=@GetTitleStyle(playerLevel, GeneralScene2.One3.GetRequiredLevel2())
+                        Subtitle="min. lvl. 10 " 
+                        OnClick=@(() => ChangeScene2(GeneralScene2.One3)) 
+                        ImagePath=@GetImagePath(playerLevel, GeneralScene2.One3.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
+                        style=" margin-left: 20px;"
                     />
                 </div>
                 <div class="box">
-                    <div class="title"> Level.10</div>
+                    <div class="title"> Level.5</div>
                     <SideButton 
-                        Title="Forest Dungeon 2-1" 
-                        Subtitle="required. lvl. 10 " 
+                        Title="2-1 [Dungeon] [Forest]"  
+                        TitleStyle=@GetTitleStyle(playerLevel, GeneralScene2.Forest.GetRequiredLevel2())
+                        Subtitle="min. lvl. 5 " 
                         OnClick=@(() => ChangeScene2(GeneralScene2.Forest)) 
                         ImagePath=@GetImagePath(playerLevel, GeneralScene2.Forest.GetRequiredLevel2(), "ui/hud/tree.png", "ui/hud/exit.gif") 
-                        style="justify-content: center;" 
+                        style="margin-left: 20px;" 
                     />
                     
                 </div>
@@ -88,26 +106,22 @@
                     <div class="title"> Level.35</div>
                     <SideButton 
                         Title="Dungeon 2-1 Extra" 
-                        Subtitle="required. lvl. 25 " 
+                        TitleStyle=@GetTitleStyle(playerLevel, GeneralScene2.Forest2.GetRequiredLevel2())
+                        Subtitle="min. lvl. 25 " 
                         OnClick=@(() => ChangeScene2(GeneralScene2.Forest3)) 
-                        ImagePath=@GetImagePath(playerLevel, GeneralScene2.One2.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
-                        style="justify-content: center;"
+                        ImagePath=@GetImagePath(playerLevel, GeneralScene2.Forest2.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
+                        style="margin-left: 20px;"
                     />
                     <SideButton 
                             Title="Labyrinth"
-                            Subtitle="required. lvl. 45" 
+                            TitleStyle=@GetTitleStyle(playerLevel, GeneralScene2.Starting.GetRequiredLevel2())
+                            Subtitle="min. lvl. 45" 
                             ImagePath=@GetImagePath(playerLevel, GeneralScene2.Starting.GetRequiredLevel2(), "ui/hud/tree.png", "ui/hud/exit.gif")
                             OnClick=@(() => ChangeScene2(GeneralScene2.Starting)) 
-                            style="justify-content: center;"
+                            style="margin-left: 20px;"
                         />
-                    <div class="title"> Level.75</div>
-                    <SideButton 
-                        Title="Dungeon 2-1 Extra" 
-                        Subtitle="required. lvl. 25 " 
-                        OnClick=@(() => ChangeScene2(GeneralScene2.Forest4)) 
-                        ImagePath=@GetImagePath(playerLevel, GeneralScene2.Forest4.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
-                        style="justify-content: center;"
-                </div>
+                    
+            </div>>
             </div>
         </div>
     </div>
@@ -121,7 +135,7 @@
                         <div class="title"> [WIP] Level.16-20</div>
                         <SideButton 
                             Title="Dungeon 3-1" 
-                            Subtitle="required. lvl. 16 [TESTED + Finished]" 
+                            Subtitle="min. lvl. 16 [TESTED + Finished]" 
                             
                             style=""
                         />
@@ -130,7 +144,7 @@
                                 <div class="title"> [WIP] Level.21-25</div>
                         <SideButton 
                             Title="Dungeon 4-1" 
-                            Subtitle="required. lvl. 21 [TESTED + Finished]" 
+                            Subtitle="min. lvl. 21 [TESTED + Finished]" 
                             
                             style="" 
                         />
@@ -271,7 +285,10 @@
 
 @code {
    Hud hud = new Hud();
-   
+    private string GetTitleStyle(int playerLevel, int requiredLevel)
+    {
+        return playerLevel >= requiredLevel ? "color: green;" : "color: red;";
+    }
     private void CloseMission()
     {
         Player.Local.BlockInputs = false;

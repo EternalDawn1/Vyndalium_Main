@@ -117,6 +117,11 @@ public partial class Player
 
     public void ApplyFreeze( float durationInSeconds )
     {
+        if ( activeStatusEffects.OfType<FreezeEffect>().Any() )
+        {
+            return; // Effekt nicht erneut anwenden
+        }
+
         if ( Time.Now < LastFreezeTime + FreezeCooldown )
         {
             // Cooldown ist noch aktiv, Einfrieren wird nicht angewendet
@@ -176,6 +181,18 @@ public partial class Player
     }
 
 
+}
+public class FreezeEffect : StatusEffect
+{
+    public FreezeEffect( float duration )
+    {
+        Duration = duration;
+    }
+
+    public override void Apply( Player player )
+    {
+        // Logik für den Einfriereffekt
+    }
 }
 public class PoisonEffect : StatusEffect
 {

@@ -632,7 +632,7 @@ public sealed class NpcSpawnArea : Component
 		if ( DestroyAfterSpawning && ChallengeDoor != null && ChallengeDoor.IsTimerExpired() )
 		{
 			GameObject.Destroy();
-			ActiveArena?.Destroy();
+			
 		}
 	}
 

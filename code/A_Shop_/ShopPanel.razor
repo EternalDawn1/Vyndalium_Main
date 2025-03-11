@@ -330,13 +330,13 @@
             <div class="main-panel">
                 <div class="Panel">
                     <div class="section2">
-                        <div class="title" style="color:blue">Item Shop</div>
+                        <div class="title" style="color:rgb(255, 255, 255)">Item Shop</div>
                             <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
                         <div class="items-container2">
                             <div class="items3">
                                 
                                 <div class="box">
-                                    
+                                      <div class="title3">Potions</div>
                                     <div class="potions">
                                         @for (var index = 0; index < 10; index++) // 10 Slots für den Shop
                                         {
@@ -344,21 +344,24 @@
                                             <InventorySlot Item=@item ShopSlotIndex=@index />
                                         }
                                     </div>
-                                    <div class="title3">Potions</div>
+                                  
                                 </div>
 
                                 <div class="box">
+                                    <div class="title3">Equipment</div>
                                     <div class="weapon">
+                                        
                                         @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
                                         {
                                             var item = (index < shopStorage.WeaponItems.Count) ? shopStorage.WeaponItems[index] : null;
                                             <InventorySlot Item=@item ShopSlotIndex=@index />
                                         }
                                     </div>
-                                    <div class="title3">Weapons</div>
+                                    
                                 </div>
 
                                 <div class="box">
+                                       <div class="title3">Armor</div>
                                     <div class="armor">
                                         @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
                                         {
@@ -366,10 +369,11 @@
                                             <InventorySlot Item=@item ShopSlotIndex=@index />
                                         }
                                     </div>
-                                    <div class="title3">Armor</div>
+                                 
                                 </div>
 
                                 <div class="box">
+                                    <div class="title3">Materials</div>
                                     <div class="materials">
                                         @for (var index = 0; index < 3; index++) // 3 Slots für den Shop
                                         {
@@ -377,10 +381,11 @@
                                             <InventorySlot Item=@item ShopSlotIndex=@index />
                                         }
                                     </div>
-                                    <div class="title3">Materials</div>
+                                    
                                 </div>
 
                                 <div class="box">
+                                     <div class="title3">Accessories</div>
                                     <div class="accessories">
                                         @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
                                         {
@@ -388,10 +393,11 @@
                                             <InventorySlot Item=@item ShopSlotIndex=@index />
                                         }
                                     </div>
-                                    <div class="title3">Accessories</div>
+                                   
                                 </div>
 
                                 <div class="box">
+                                        <div class="title3">Consumables</div>
                                     <div class="consumables">
                                         @for (var index = 0; index < 5; index++) // 5 Slots für den Shop
                                         {
@@ -399,7 +405,7 @@
                                             <InventorySlot Item=@item ShopSlotIndex=@index />
                                         }
                                     </div>
-                                    <div class="title3">Consumables</div>
+                                
                                 </div>
                             </div>
                         </div>

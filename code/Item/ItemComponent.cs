@@ -68,6 +68,10 @@ public class ItemComponent : Component
 	public bool IsAccessory { get; set; }
 	[Property , Group( "Type" )]
 	public bool IsConsumable { get; set; }
+
+	[Property, Group( "Type" )] 
+	public bool IsChest { get; set; }
+	
 	[Property, Group( "Type" )] public bool IsAspect { get; set; }
 	[Property, Group( "Type" )] public bool IsBackpack { get; set; }
 	[Property, Group( "Type" )] public bool IsWorld { get; set; }

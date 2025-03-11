@@ -2,9 +2,43 @@
   "RootObject": {
     "__guid": "7f995574-17b3-4f08-b815-3867ab0c917f",
     "Flags": 0,
-    "Name": "ice",
-    "Position": "796.1357,-425.5897,35.16125",
+    "Name": "ice_game",
     "Enabled": true,
+    "Components": [
+      {
+        "__type": "GeneralGame.DamageTrigger",
+        "__guid": "056eac62-78e2-4d87-8ca6-9aff5d6583e1",
+        "Amount": 0.15,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "TriggerSoundPath": null
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "3cb81abf-666d-438f-b8f8-a8c10105df66",
+        "Center": "25.45932,-16.40443,75.75602",
+        "Friction": null,
+        "IsTrigger": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnObjectTriggerEnter": null,
+        "OnObjectTriggerExit": null,
+        "OnTriggerEnter": null,
+        "OnTriggerExit": null,
+        "Scale": "175.8347,194.2289,201.512",
+        "Static": false,
+        "Surface": null,
+        "SurfaceVelocity": "0,0,0"
+      }
+    ],
     "Children": [
       {
         "__guid": "ad099112-3722-408d-8514-35d2b6f4598e",
@@ -73,7 +107,31 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,

@@ -2,8 +2,7 @@
   "RootObject": {
     "__guid": "868ba517-1053-45be-8b92-4e4ec0a84c5b",
     "Flags": 0,
-    "Name": "eyed_version_shield_skeleton_king",
-    "Position": "589.4536,-366.2444,5.787094",
+    "Name": "skeleton_king_v2",
     "Scale": "2,2,2",
     "Tags": "npc,bad",
     "NetworkMode": 1,
@@ -428,9 +427,11 @@
         "__type": "GeneralGame.SkeletonAbilities",
         "__guid": "a3d07db8-2390-4c9b-8220-e16269e6bdf7",
         "CanUseIceBallAttack": true,
-        "CanUseIceGround": false,
-        "CanUseIcePillar": false,
+        "CanUseIceGround": true,
+        "CanUseIcePillar": true,
         "CanUseIceWormhole": false,
+        "Effects": "ApplyFreeze",
+        "freezeDuration": 2,
         "HasIceAbility": true,
         "IceBallAttackCooldown": 10,
         "IceBallAttackSound": "sounds/impacts/melee/impact-melee-glass.sound",
@@ -451,17 +452,21 @@
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
-        "PlayerProximityDistance": "500,500,500"
+        "pillarCount": 5,
+        "PlayerProximityDistance": "500,500,500",
+        "poisonDuration": 5,
+        "radius": 150,
+        "spawnDelay": 1000
       },
       {
         "__type": "GeneralGame.Abilities",
         "__guid": "283772a4-266d-4d2b-8859-2d6ebc620eb3",
         "FireAbility": true,
-        "FireAttackEnabled": false,
+        "FireAttackEnabled": true,
         "FireBallAttackSound": null,
         "FireBallAttackTime": {
           "Absolute": 0,
-          "Relative": 100396776
+          "Relative": 100642536
         },
         "FireBallChargeSound": null,
         "FireBallCooldown": 15,
@@ -469,30 +474,30 @@
         "FireCannonAttackSound": null,
         "FireCannonAttackTime": {
           "Absolute": 0,
-          "Relative": 100396776
+          "Relative": 100642536
         },
         "FireCannonChargeSound": null,
         "FireCannonCooldown": 5,
-        "FireCannonEnabled": false,
+        "FireCannonEnabled": true,
         "FireCannonPrefab": "prefabs/hit/skeleton/skeleton.prefab",
         "FireRingAttackTime": {
           "Absolute": 0,
-          "Relative": 100396776
+          "Relative": 100642536
         },
         "FireRingCooldown": 10,
-        "FireRingEnabled": false,
+        "FireRingEnabled": true,
         "FireRingPrefab": "prefabs/hit/skeleton/skeleton_wall.prefab",
         "FireRingSound": null,
         "FireUltimateEnabled": true,
-        "FireWallEnabled": false,
+        "FireWallEnabled": true,
         "FireWallPrefab": "prefabs/hit/skeleton/skeleton.prefab",
         "FireWallSound": null,
         "FlameWallAttackTime": {
           "Absolute": 0,
-          "Relative": 100396776
+          "Relative": 100642536
         },
         "FlameWallCooldown": 20,
-        "HasSpecialAbility": false,
+        "HasSpecialAbility": true,
         "HoverDuration": 2,
         "MidPointOffset": "0,0,300",
         "npc": null,
@@ -506,7 +511,7 @@
         "UltimateJumpAttackCooldown": 30,
         "UltimateJumpAttackTime": {
           "Absolute": 0,
-          "Relative": 100396776
+          "Relative": 100642536
         }
       }
     ],
@@ -1779,7 +1784,31 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,

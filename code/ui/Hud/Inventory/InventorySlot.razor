@@ -971,7 +971,7 @@
 			{
 				storageBox.Items.Remove(item);
 			}
-
+			Player.Save();
 			Inventory.Instance?.OnChanged();
 			Hudmaster.Instance.ShowNotification($"received {item.Name}", "/ui/hud/hand_slot.png");
 

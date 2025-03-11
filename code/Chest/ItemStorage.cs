@@ -1184,6 +1184,11 @@ namespace GeneralGame
         }
         private void DropRemainingItems()
         {
+            if ( GameObject == null )
+            {
+                
+                return;
+            }
             var chestPosition = GameObject.LocalPosition; // Position der Kiste
             foreach ( var item in Items )
             {

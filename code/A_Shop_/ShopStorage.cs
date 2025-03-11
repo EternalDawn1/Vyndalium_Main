@@ -78,10 +78,12 @@ namespace GeneralGame
 
             var weaponPrefabs = new List<string>
             {
-                
-                
-                "prefabs/weapons/pm/glock-c.prefab",
-                "prefabs/weapons/facepunch/usp/uspc.prefab"
+
+
+                "prefabs/pickupammo.prefab",
+                "prefabs/weapons/facepunch/usp/uspc.prefab",
+                "prefabs/weapons/facepunch/mp5/mp5c.prefab",
+                "prefabs/weapons/facepunch/shotgun/shotgunc.prefab",
 
 
 
@@ -95,7 +97,7 @@ namespace GeneralGame
             };
             var accessoryPrefabs = new List<string> // Hinzugefügt
             {
-                
+                "prefabs/entitys/chestsystem/test_chest.prefab",
             };
             var consumablePrefabs = new List<string> // Hinzugefügt
             {

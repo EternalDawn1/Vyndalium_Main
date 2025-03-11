@@ -1531,7 +1531,7 @@ public sealed class Inventory : Component
 			}
 			else
 			{
-				Log.Info( "Item is not world item." );	
+				
 				var modelRenderer = item.GameObject.Components.Get<ModelRenderer>();
 				if ( modelRenderer != null )
 				{

@@ -1001,6 +1001,7 @@ public class  BaseGun : WeaponComponent, IUse
 			var playerCritChance = shooter.CritHitChance;
 			var playerCritDamage = shooter.CritHitDamage;
 			var armorPenetration = shooter.ArmorPenetration;
+			
 			damage += (int)(damage * (playerAttackValue / 15.0f));
 
 			int calculatedDamage = (int)(damage * (playerAttackPower / 10.0f));

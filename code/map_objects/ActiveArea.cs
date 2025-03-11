@@ -16,7 +16,6 @@ public sealed class ActiveArea : Component
 		Cross,
 		Diagonal,
 
-		Flood,
 
 	}
 
@@ -55,13 +54,14 @@ public sealed class ActiveArea : Component
 	{
 		base.OnUpdate();
 
+
 		timeSinceLastAttack += Time.Delta;
 		timeSinceLastPatternChange += Time.Delta;
 
 		if ( timeSinceLastPatternChange >= patternChangeInterval )
 		{
 			// Wechseln Sie das Angriffsmuster
-			SelectedAttackPattern = (AttackPattern)new Random().Next( 0, 6 ); // Aktualisiert, um die neuen Muster einzuschließen
+			SelectedAttackPattern = (AttackPattern)new Random().Next( 0, 5 ); // Aktualisiert, um die neuen Muster einzuschließen
 			timeSinceLastPatternChange = 0.0f;
 		}
 
@@ -85,72 +85,14 @@ public sealed class ActiveArea : Component
 					ExecuteDiagonalAttackPattern();
 					break;
 			
-				case AttackPattern.Flood:
-					ExecuteFloodAttackPattern();
-					break;
+				
 				
 				
 			}
 			timeSinceLastAttack = 0.0f;
 		}
 	}
-
-	private async void ExecuteFloodAttackPattern()
-	{
-		if ( AttackPrefab == null )
-		{
-			return;
-		}
-
-		var prefab = ResourceLibrary.Get<PrefabFile>( AttackPrefab.ResourcePath );
-		if ( prefab == null )
-		{
-			return;
-		}
-
-		int[] waveSizes = { 1, 2, 3, 9 }; // Anzahl der Objekte pro Welle
-		float waveInterval = 1.0f; // Intervall zwischen den Wellen in Sekunden
-
-		foreach ( int waveSize in waveSizes )
-		{
-			for ( int i = 0; i < waveSize; i++ )
-			{
-				float angleStep = 360.0f / waveSize;
-				for ( int j = 0; j < waveSize; j++ )
-				{
-					float angle = j * angleStep;
-					Vector3 direction = new Vector3(
-						(float)Math.Cos( DegreesToRadians( angle ) ),
-						(float)Math.Sin( DegreesToRadians( angle ) ),
-						0
-					);
-
-					Vector3 randomPosition = new Vector3(
-						(float)(new System.Random().NextDouble() * BoxSize.x - BoxSize.x / 2),
-						(float)(new System.Random().NextDouble() * BoxSize.y - BoxSize.y / 2),
-						(float)(new System.Random().NextDouble() * BoxSize.z - BoxSize.z / 2)
-					);
-
-					SpawnObjectAtPosition( prefab, BoxPosition + randomPosition, direction );
-				}
-			}
-
-			await Task.Delay( (int)(waveInterval * 1000) ); // Wartezeit zwischen den Wellen
-		}
-	}
-
-	private void SpawnObjectAtPosition( PrefabFile prefab, Vector3 position, Vector3 direction )
-	{
-		var spawnPosition = LocalPosition; // Setze die Spawn-Position auf den Mittelpunkt der Box
-
-		var attackObject = GameObject.Clone( prefab );
-		attackObject.LocalPosition = spawnPosition;
-		attackObject.WorldRotation = Rotation.Identity;
-		attackObject.NetworkSpawn();
-
-		activeAttackObjects.Add( attackObject );
-		_ = MoveAttackObject( attackObject, direction );
-	}
+	
 
 
 

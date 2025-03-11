@@ -124,57 +124,58 @@
 	
 	
 	private void Update()
-{
-    if (_scenePanel == null || _character == null || Player.Local == null || Player.Local.Inventory == null)
-        return;
+	{
+		if (_scenePanel == null || _character == null || Player.Local == null || Player.Local.Inventory == null)
+			return;
 
-    var mousePos = Mouse.Position;
-    var headPos = _scenePanel.Camera.ToScreen((_character.GetAttachment("eyes") ?? Transform.Zero).Position);
-    var localPos = mousePos - headPos;
+		var mousePos = Mouse.Position;
+		var headPos = _scenePanel.Camera.ToScreen((_character.GetAttachment("eyes") ?? Transform.Zero).Position);
+		var localPos = mousePos - headPos;
 
-    _character.SetAnimParameter("lookat", new Vector3(1000f, localPos.x, -localPos.y) * _character.Rotation.Inverse);
+		_character.SetAnimParameter("lookat", new Vector3(1000f, localPos.x, -localPos.y) * _character.Rotation.Inverse);
 
-    _character.Update(RealTime.Delta);
+		_character.Update(RealTime.Delta);
 
-    // Überprüfen Sie, ob das ausgerüstete Item eine Waffe ist
-    _character.SetAnimParameter("hold_type", (int)Player.Local.HoldType);
-    _character.Rotation = Rotation.From(0, _yaw, 0);
+		// Überprüfen Sie, ob das ausgerüstete Item eine Waffe ist
+		_character.SetAnimParameter("hold_type", (int)Player.Local.HoldType);
+		_character.Rotation = Rotation.From(0, _yaw, 0);
 
-    if (_clothes != null)
-    {
-        if (Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] is ItemEquipment hand && hand.UpdatePosition)
-        {
-            _clothes[(int)EquipSlot.Hand].Transform = (_character.GetAttachment(hand.Attachment, true) ?? global::Transform.Zero)
-                .ToWorld(hand.AttachmentTransform)
-                .WithScale(1);
-        }
+		if (_clothes != null)
+		{
+			if (Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] is ItemEquipment hand && hand.UpdatePosition)
+			{
+				_clothes[(int)EquipSlot.Hand].Transform = (_character.GetAttachment(hand.Attachment, true) ?? global::Transform.Zero)
+				.ToWorld(hand.AttachmentTransform)
+				.WithScale(1);
+			}
 
-        _character.SetAnimParameter("b_swim", (int)Player.Local.HoldType);
+			_character.SetAnimParameter("b_swim", (int)Player.Local.HoldType);
 
-        foreach (var clothing in _clothes)
-        {
-            if (clothing.IsValid())
-                clothing?.Update(RealTime.Delta);
-        }
-    }
+			foreach (var clothing in _clothes)
+			{
+				if (clothing.IsValid())
+					clothing?.Update(RealTime.Delta);
+			}
+		}
 
-    var isDropTarget = IsHoveredByMouse() && InventorySlot.CurrentDraggable != null && InventorySlot.CurrentDraggable.HasClass("can-drop");
-    float fraction;
-    if (isDropTarget)
-    {
-        _hoverEffectDeactivation = HoverEffectDuration;
-        fraction = _hoverEffectActivation.Fraction;
-    }
-    else
-    {
-        _hoverEffectActivation = HoverEffectDuration;
-        fraction = 1 - _hoverEffectDeactivation.Fraction;
-    }
+		var isDropTarget = IsHoveredByMouse() && InventorySlot.CurrentDraggable != null &&
+		InventorySlot.CurrentDraggable.HasClass("can-drop");
+		float fraction;
+		if (isDropTarget)
+		{
+			_hoverEffectDeactivation = HoverEffectDuration;
+			fraction = _hoverEffectActivation.Fraction;
+		}
+		else
+		{
+			_hoverEffectActivation = HoverEffectDuration;
+			fraction = 1 - _hoverEffectDeactivation.Fraction;
+		}
 
-    var multiplier = 4 + Easing.EaseIn(fraction) * 55;
-    var sceneDirectionalLightColor = Color.White * multiplier;
-    _sceneDirectionalLight.LightColor = sceneDirectionalLightColor;
-}
+		var multiplier = 4 + Easing.EaseIn(fraction) * 55;
+		var sceneDirectionalLightColor = Color.White * multiplier;
+		_sceneDirectionalLight.LightColor = sceneDirectionalLightColor;
+	}
 
 	public override void OnButtonEvent( ButtonEvent e )
 	{
