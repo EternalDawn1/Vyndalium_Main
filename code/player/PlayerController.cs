@@ -482,35 +482,57 @@ public partial class Player : Component, IHealthComponent
 
 	private void OnFootstep( SceneModel.FootstepEvent e )
 	{
-		if(isFrozen)
-		return;
 		
-		if ( lastStepped < (IsRunning ? 0.2f : 0.4f) ) // Erhöhen Sie das Intervall, um doppelte Schritte zu vermeiden
-			return;
 
-		if ( !CharacterController.IsOnGround || CharacterController.Velocity.Length < 0.1f ) // Überprüfen Sie, ob der Spieler auf dem Boden ist und sich bewegt
+		if ( isFrozen )
+		{
+			
 			return;
+		}
 
-		var pos = WorldPosition + Vector3.Up * 10;
-		var tr = Scene.Trace.Ray( pos + Vector3.Up * 10, pos + Vector3.Down * 10 )
-			.Radius( 1 )
+		if ( lastStepped < (IsRunning ? 0.2f : 0.5f) )
+		{
+	
+			return;
+		}
+
+		if ( !CharacterController.IsOnGround || CharacterController.Velocity.Length < 0.1f )
+		{
+
+			return;
+		}
+
+		var pos = WorldPosition + Vector3.Up * 1;
+		var tr = Scene.Trace.Sphere( 1, pos + Vector3.Up * 100, pos + Vector3.Down * 100 )
 			.WithoutTags( "trigger" )
 			.IgnoreGameObjectHierarchy( GameObject )
+			
 			.Run();
 
-		if ( !tr.Hit || tr.Surface == null )
-			return;
+		
 
+		// Überprüfe die Neigung der Oberfläche
+		
+
+		// Spiele den Sound ab
 		lastStepped = 0;
-
 		var path = isLeftFoot ? tr.Surface.Sounds.FootLeft : tr.Surface.Sounds.FootRight;
 		isLeftFoot = !isLeftFoot; // Wechseln Sie zwischen linkem und rechtem Fuß
 
 		if ( string.IsNullOrEmpty( path ) )
+		{
+			
 			return;
+		}
+		if ( !tr.Hit || tr.Surface == null )
+		{
+		
+			return;
+		}
 
 		var sound = Sound.Play( path, tr.HitPosition + tr.Normal * 5 );
 		sound.Volume *= e.Volume;
+
 	}
 	protected override void OnStart()
 	{
