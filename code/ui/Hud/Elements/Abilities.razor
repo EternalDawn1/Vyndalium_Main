@@ -521,7 +521,7 @@
             {
                 Player.Local.MaxStamina -= 2;
                 Player.Local.PlayerRunSpeed -= 1;
-                Player.Local.MAX_BACKPACK_SLOTS += 1;
+             
 
             }
             if (Player.Local.STG % 8 == 0)
@@ -835,13 +835,7 @@
             Player.Local.PlaySuccessSoundFromPath("sounds/upgrade/success.sound", 0.15f);
         }
     }
-    public void CheckBackpackSlots()
-    {
-        var playerInstance = Player.Local; // Annahme, dass Player.Local eine Instanz von Player ist
-        int maxSlots = playerInstance.MAX_BACKPACK_SLOTS;
-        // Verwenden Sie maxSlots nach Bedarf
-    }
-
+ 
 
     protected override int BuildHash()
     {
@@ -851,7 +845,6 @@
 
         return HashCode.Combine(
         Player.Local.Level,
-        Player.Local.MAX_BACKPACK_SLOTS,
         PanelTypeText.Strength,
         PanelTypeText.AttackPower,
         Player.Local.Inventory.BackpackItems.HashCombine(i => i?.GetHashCode() ?? -1),

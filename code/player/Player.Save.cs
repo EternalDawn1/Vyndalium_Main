@@ -375,7 +375,7 @@ partial class Player
 			MaxArmorValue = player.MaxArmorValue,
 			MinAttackValue = player.MinAttackValue,
 			MaxAttackValue = player.MaxAttackValue,
-			MAX_BACKPACK_SLOTS = player.MAX_BACKPACK_SLOTS,
+		
 			DefaultFOV = player.DefaultFov,
 			PrestigeLevel = player.PrestigeLevel,
 
@@ -543,7 +543,7 @@ partial class Player
 		player.MaxStamina = save.MaxStamina;
 		player.Vyndalium = save.Vyndalium;
 		player.Experience = save.Experience;
-		player.MAX_BACKPACK_SLOTS = save.MAX_BACKPACK_SLOTS;
+	
 		player.Level = save.Level;
 		player.StatsPoints = save.StatsPoints;
 		player.MaxStamina = save.MaxStamina;

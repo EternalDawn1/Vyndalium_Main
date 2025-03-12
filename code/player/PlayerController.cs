@@ -67,7 +67,7 @@ public partial class Player : Component, IHealthComponent
 	private RealTimeSince TimeSinceManaUsed { get; set; }
 
 	private static bool isFirstSpawn = true;
-	[Property]public int MAX_BACKPACK_SLOTS = 100;
+
 
 	private bool WantsToCrouch { get; set; }
 	private Angles Recoil { get; set; }
@@ -506,15 +506,8 @@ public partial class Player : Component, IHealthComponent
 		var tr = Scene.Trace.Sphere( 1, pos + Vector3.Up * 100, pos + Vector3.Down * 100 )
 			.WithoutTags( "trigger" )
 			.IgnoreGameObjectHierarchy( GameObject )
-			
 			.Run();
 
-		
-
-		// Überprüfe die Neigung der Oberfläche
-		
-
-		// Spiele den Sound ab
 		lastStepped = 0;
 		var path = isLeftFoot ? tr.Surface.Sounds.FootLeft : tr.Surface.Sounds.FootRight;
 		isLeftFoot = !isLeftFoot; // Wechseln Sie zwischen linkem und rechtem Fuß
@@ -561,7 +554,7 @@ public partial class Player : Component, IHealthComponent
 		{
 			
 			Setup( this );
-			MAX_BACKPACK_SLOTS = 100;
+			
 		}
 
 		
@@ -730,8 +723,8 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		}
-		UpdateModelVisibility();
-		UpdateWeaponModelVisibility();
+		//UpdateModelVisibility();
+		//UpdateWeaponModelVisibility();
 
 		
 		
