@@ -23,6 +23,10 @@
             {
                 <img src="ui/hud/star.gif" alt="Favorite" class="favorite-icon" />
             }
+			@if (IsSelected)
+			{
+				<div class="select"><img src="ui/hud/success.gif" alt="Selected" class="selected-icon" /></div>
+			}
         </div>
     }
     @if (EquipSlotIndex is not null)
@@ -32,9 +36,21 @@
 </root>
 
 @code {
-	
+	public bool IsSelected { get; set; } = false;
 	public bool IsProxy { get; set; } = false;
-	
+	public void ToggleSelection()
+	{
+		IsSelected = !IsSelected;
+		if (IsSelected)
+		{
+			ShopPanel.Instance.selectedItems.Add(Item);
+		}
+		else
+		{
+			ShopPanel.Instance.selectedItems.Remove(Item);
+		}
+		StateHasChanged();
+	}
 	public enum SlotType
 	{
 		Backpack,
@@ -491,6 +507,19 @@
 				sinceClick = 0;
 				return;
 			}
+		}
+
+		if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
+		&&
+		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
+		{
+			if (Item == null)
+				return;
+			if (e.Button != "mouseleft")
+				return;
+			ToggleSelection();
+
+			return;
 		}
 
 		if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel

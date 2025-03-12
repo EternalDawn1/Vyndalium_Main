@@ -48,25 +48,22 @@ public sealed partial class HealthEffects : Component
 				.FirstOrDefault( p => p.Network.IsOwner );
 		}
 
-		if ( !LocalPlayer.IsValid() )
-			return;
-
-		if ( !Vignette.IsValid() )
-			return;
-
-		if ( Adjustments == null )
+		if ( !LocalPlayer.IsValid() || !Vignette.IsValid() || Adjustments == null || FreezeAdjustments == null )
 		{
-			Log.Error( "Adjustments ist null fixed." );
+			if ( Adjustments == null )
+			{
+				Log.Error( "Adjustments ist null fixed." );
+			}
+
+			if ( FreezeAdjustments == null )
+			{
+				Log.Error( "FreezeAdjustments ist null fixed." );
+			}
+
 			return;
 		}
 
-		if ( FreezeAdjustments == null )
-		{
-			Log.Error( "FreezeAdjustments ist null fixed." );
-			return;
-		}
-
-		var health = (1f / LocalPlayer.MaxHealth) * LocalPlayer.Health;
+		var health = LocalPlayer.Health / LocalPlayer.MaxHealth;
 
 		Adjustments.Saturation = 1f - (1f - health) * 0.9f;
 		Vignette.Intensity = 0.6f * (1f - health);
@@ -76,7 +73,6 @@ public sealed partial class HealthEffects : Component
 
 		base.OnFixedUpdate();
 	}
-
 	public void FreezeEffect()
 	{
 		

@@ -11,6 +11,7 @@ public sealed class FaceThing : Component
 			Log.Error( "Thing is null." );
 			return;
 		}
+		
 
 		WorldRotation = Rotation.LookAt( WorldPosition - Thing.WorldPosition );
 	}

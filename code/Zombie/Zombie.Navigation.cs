@@ -75,7 +75,7 @@ public partial class Npc
 
         var currentTick = (int)(Time.Now / Time.Delta);
 
-        if ( currentTick % _tickToCheck != NpcId % _tickToCheck ) return;
+      
 
         CheckNewTargetPos();
 

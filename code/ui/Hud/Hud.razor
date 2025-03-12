@@ -215,6 +215,10 @@
 		if (player == null || !player.IsValid())
 		{
 			player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.Owner == Connection.Local);
+			if (player == null)
+			{
+				return; // Frühzeitiger Abbruch, wenn kein gültiger Spieler gefunden wird
+			}
 		}
 
 		var currentTime = DateTime.Now;

@@ -965,37 +965,27 @@ public partial class Player : Component, IHealthComponent
 	}
 	protected override void OnFixedUpdate()
 	{
-		if ( IsProxy )
-			return;
-
-		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
+		if ( IsProxy || Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
 
 		UpdateInteractions();
 
 		if ( TimeSinceDamaged > 5f )
 		{
-			Health += HealthRegenPerSecond * Time.Delta;
-			Health = MathF.Min( Health, MaxHealth );
+			Health = MathF.Min( Health + HealthRegenPerSecond * Time.Delta, MaxHealth );
 		}
+
 		if ( TimeSinceManaUsed > 5f )
 		{
-			Mana += ManaRegenPerSecond * Time.Delta;
-			Mana = MathF.Min( Mana, MaxMana );
+			Mana = MathF.Min( Mana + ManaRegenPerSecond * Time.Delta, MaxMana );
 		}
 
-
-		
 		RegenerateStamina();
 		DoCrouchingInput();
 		DoMovementInput();
 
-		
-
-
 		var weapon = Weapons.Deployed;
 		if ( !weapon.IsValid() ) return;
-
 
 		if ( Input.Pressed( "Reload" ) )
 		{
@@ -1020,13 +1010,7 @@ public partial class Player : Component, IHealthComponent
 		if ( Input.Released( "Attack2" ) )
 		{
 			weapon.SeccondaryActionRelease();
-
 		}
-
-		
-
-		
-		
 	}
 
 

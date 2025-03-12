@@ -31,8 +31,9 @@
                             <div class="title2">Sell</div>
                             <div class="box-information-main">
                                 <div class="box-information">
-                                    <div class="box-title">Tip!</div>
-                                    <div class="box-description">*-- Right Click on Items to Sell</div>
+                                 
+                                    <div class="box-description"><div class="icon2"></div> to Sell Items</div>
+                                    <div class="box-description"><div class="icon"></div> to Select Items </div>
                                     
 
                                 </div>
@@ -53,12 +54,23 @@
                             @for (var index = 0; index < backpackBagItems.Count; index++)
                             {
                                 var item = backpackBagItems[index];
-                                <InventorySlot Item=@item BackpackPackSlotIndex=@index />
+                                <InventorySlot Item=@item BackpackPackSlotIndex=@index IsSelected=@selectedItems.Contains(item)/>
                             }
                             
                             </div>
                             <div class="money">$@Player.Local.Vyndalium.ToString("N0")</div>
                             <div style="align-items: center; margin: 20px 5px;"></div>
+
+                           
+                            
+                                @if (selectedItems.Count > 0)
+                                {
+                                    <div class="sell-info">
+                                        <div class="sell-amount"> $@selectedItems.Sum(item => item.SellPrice).ToString("N0")</div>
+                                        <button class="sell-button" @onclick="@SellSelectedItems">Sell Selected</button>
+                                    </div>
+                                }
+                                
                             
                             
                         </div>

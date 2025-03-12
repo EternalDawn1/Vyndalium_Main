@@ -123,10 +123,10 @@ public sealed class ViewModel : Component
 	}
 	protected override void OnUpdate()
 	{
+		
 		if (PlayerController == null || ModelRenderer == null || Weapon == null)
 		{
-			// Loggen Sie eine Fehlermeldung oder werfen Sie eine Ausnahme
-			throw new InvalidOperationException("Ein erforderliches Objekt ist null.");
+			return;
 		}
 
 		if (IsMoving())

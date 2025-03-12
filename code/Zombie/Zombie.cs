@@ -362,13 +362,13 @@ public partial class Npc : Component, IHealthComponent
 		
 
 		Hitprefab = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/hitinfo.prefab" ) );
-		NpcId = Scene.GetAllComponents<Npc>().OrderByDescending( x => x.NpcId ).First().NpcId + 1;
+		//NpcId = Scene.GetAllComponents<Npc>().OrderByDescending( x => x.NpcId ).First().NpcId + 1;
 
-		if ( MoveHelper != null )
-			MoveHelper.AirFriction = 100f;
+		/* if ( MoveHelper != null )
+			MoveHelper.AirFriction = 100f; */
 
-		Collider = Components.Get<Collider>();
-		SceneWorld = Game.ActiveScene.SceneWorld;
+		/* Collider = Components.Get<Collider>();
+		SceneWorld = Game.ActiveScene.SceneWorld; */
 	}
 
 	protected override void OnAwake()
@@ -379,7 +379,7 @@ public partial class Npc : Component, IHealthComponent
 			.WithoutTags( "player", "npc", "trigger" )
 			.Run();
 
-		player = Scene.GetAllComponents<Player>().FirstOrDefault();
+		/* player = Scene.GetAllComponents<Player>().FirstOrDefault(); */
 		agent = Components.Get<NavMeshAgent>();
 
 		// Setze die Geschwindigkeit des NavMeshAgent
@@ -388,12 +388,6 @@ public partial class Npc : Component, IHealthComponent
 		SpawnPosition = spawnTrace.Hit ? spawnTrace.HitPosition : WorldPosition;
 	}
 
-	public void InitializeNPC()
-	{
-		// Set a random target position around the spawn point
-		TargetPosition = GetRandomPositionAround( WorldPosition );
-		FollowingTargetObject = false;
-	}
 	public void MoveToTargetPosition()
 	{
 		if ( WorldPosition.Distance( TargetPosition ) <= 5f )
@@ -407,34 +401,14 @@ public partial class Npc : Component, IHealthComponent
 		}
 	}
 
-	public  void TryFreezePlayer( float durationInSeconds , Player player )
-	{
-		
-		if ( HasIceAbility )
-		{
-			int freezeChance = Level switch
-			{
-				<= 15 => 15,
-				<= 30 => 30,
-				<= 55 => 55,
-				<= 70 => 70,
-				<= 90 => 90,
-				_ => 100
-			};
-
-			if ( random.Next( 100 ) < freezeChance )
-			{
-				
-
-				
-			}
-		}
-	}
+	
 	
 
 
 	private bool IsPlayerNearby()
 	{
+		
+			
 		if ( Network.IsProxy )
 			return false;
 
@@ -481,10 +455,7 @@ public partial class Npc : Component, IHealthComponent
 			}
 		}
 
-		if (PogMode)
-		{
-			
-		}
+		
 
 		if ( closestPlayer != null )
 		{
@@ -782,39 +753,29 @@ public partial class Npc : Component, IHealthComponent
 
 	protected override void OnFixedUpdate()
 	{
-		if ( Healthone != null && Healthone.Alive ) // If we are still alive
-		{
-			if ( Ragdoll == null ) // If we are not ragdolled
-			{
-				if ( !IsPlayerNearby() )
-
-
-					return;
-				if ( TargetObject == null )
-				{
-					if ( Idle && NextIdle )
-					{
-						BroadcastOnIdle();
-						NextIdle = Game.Random.Float( MinimumIdleCooldown, MaximumIdleCooldown );
-					}
-				}
-
-				if ( MoveHelper == null ) return;
-				{
-					
-				}
-
-
-			}
-		}
-		else
+		if ( Healthone == null || !Healthone.Alive )
 		{
 			MoveHelper.WishVelocity = 0;
-
+			return;
 		}
 
+		if ( Ragdoll != null || !IsPlayerNearby() )
+		{
+			return;
+		}
 
+		if ( TargetObject == null && Idle && NextIdle )
+		{
+			BroadcastOnIdle();
+			NextIdle = Game.Random.Float( MinimumIdleCooldown, MaximumIdleCooldown );
+		}
 
+		if ( MoveHelper == null )
+		{
+			return;
+		}
+
+		// Weitere Logik hier einfügen, falls erforderlich
 	}
 	[Rpc.Broadcast]
 	private void BroadcastOnIdle()
@@ -1350,25 +1311,8 @@ public partial class Npc : Component, IHealthComponent
 		if ( LifeState == LifeState.Dead )
 			return;
 
-		if (Armor > 0)
-		{
-			amount *= 0.75f; // Reduzieren Sie den Schaden um 25%
-			Armor -= (int)amount; // Verringern Sie die Armor um den reduzierten Schaden
-			if (Armor < 0)
-			{
-				Armor = 0; // Stellen Sie sicher, dass Armor nicht negativ wird
-			}
-		}
-
-		if ( type == DamageType.Bullet || type == DamageType.Serious )
-		{
-
-			/* var p = new SceneParticles( Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf" );
-			p.SetControlPoint( 0, hitPosition );
-			p.SetControlPoint( 0, Rotation.LookAt( hitDirection.Normal * -1f ) );
-			p.SetControlPoint( 1, new Vector3( 0.5f, 0.1f, 0.1f ) );
-			p.PlayUntilFinished( Task ); */
-		}
+		
+		
 		if ( Model != null && isSlime )
 		{
 			Model.Set( "slime_damage", true );
@@ -1431,11 +1375,7 @@ public partial class Npc : Component, IHealthComponent
 				// Logge oder handle den Fehler
 				return;
 			}
-			if ( this == null )
-			{
-				// Logge oder handle den Fehler
-				return;
-			}
+			
 
 			int npcLevel = this.Level;
 

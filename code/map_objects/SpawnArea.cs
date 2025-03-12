@@ -329,28 +329,25 @@ public sealed class NpcSpawnArea : Component
 
 		playerProximityTimer += Time.Delta; // Timer erhöhen, wenn der Spieler im Raum ist
 
-		if ( playerProximityTimer >= playerProximityDuration )
+		if ( playerProximityTimer < playerProximityDuration )
+			return;
+
+		if ( ChallengeDoor?.GameObject != null )
 		{
-			if ( ChallengeDoor != null && ChallengeDoor.GameObject != null )
-			{
-				ChallengeDoor.GameObject.Enabled = true;
-			}
+			ChallengeDoor.GameObject.Enabled = true;
+		}
 
-			if ( !hasSpawnedNPCs )
-			{
-				SpawnNPCs();
-				hasSpawnedNPCs = SpawnedNpcs.Count > 0; // Setze auf true, wenn NPCs erfolgreich gespawnt wurden
-			}
+		if ( !hasSpawnedNPCs )
+		{
+			SpawnNPCs();
+			hasSpawnedNPCs = SpawnedNpcs.Count > 0; // Setze auf true, wenn NPCs erfolgreich gespawnt wurden
+		}
 
-			// Überprüfen, ob alle NPCs aus dem NpcPool tot sind
-			if ( !hasSpawnedBoss )
-			{
-				if ( TimeUntilBossSpawn == null || TimeUntilBossSpawn <= 0 )
-				{
-					SpawnBossNPCs();
-					hasSpawnedBoss = SpawnedNpcs.Count > 0; // Setze auf true, wenn Boss-NPCs erfolgreich gespawnt wurden
-				}
-			}
+		// Überprüfen, ob alle NPCs aus dem NpcPool tot sind
+		if ( !hasSpawnedBoss && (TimeUntilBossSpawn == null || TimeUntilBossSpawn <= 0) )
+		{
+			SpawnBossNPCs();
+			hasSpawnedBoss = SpawnedNpcs.Count > 0; // Setze auf true, wenn Boss-NPCs erfolgreich gespawnt wurden
 		}
 
 		// Loop-Spawning-Logik

@@ -786,7 +786,17 @@ namespace GeneralGame.HUD
                 currentPage++;
             }
         }
-       
+        public List<ItemComponent> selectedItems = new List<ItemComponent>();
+        public void SellSelectedItems()
+        {
+            foreach ( var item in selectedItems )
+            {
+                Player.Local.Inventory.RemoveItem( item );
+                Player.Local.Vyndalium += item.SellPrice;
+            }
+            Player.Save();
+            selectedItems.Clear();
+        }
 
         public static bool IsDragging { get; private set; }
         public static new bool IsVisible { get; set; }
