@@ -50,10 +50,7 @@
 			_scenePanel.Camera.FieldOfView = 5f;
 			_scenePanel.Camera.ZNear = 3;
 			_scenePanel.Camera.FitModel(_character);
-			_scenePanel.Camera.OnRenderPostProcess = () =>
-			{
-				// Post-process logic here
-			};
+			
 
 			_sceneLight.Position = _scenePanel.Camera.Position + _scenePanel.Camera.Rotation.Forward * 500f;
 		}

@@ -220,8 +220,10 @@
 	public void ShowPanel(PanelType panel)
 	{
 		currentPanel = panel;
+		panelShownTime = 0;
 	}
 
+	private RealTimeSince panelShownTime;
 	public void Inspect(ItemComponent item)
 	{
 		if (item is not null)

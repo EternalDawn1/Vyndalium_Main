@@ -300,18 +300,7 @@ public partial class Player : Component, IHealthComponent
 		await Task.DelaySeconds( seconds );
 		Respawn();
 	}
-	public void EquipWeaponsOnSpawn()
-	{
-		if ( IsProxy )
-			return;
-		foreach ( var item in Inventory.EquippedItems )
-		{
-			if ( item is ItemEquipment equipment )
-			{
-				
-			}
-		}
-	}
+
 	public Transform GetAttachment( string attachment, bool world = true )
 	=> ModelRenderer.GetAttachment( attachment, world ) ?? global::Transform.Zero;
 
@@ -320,8 +309,7 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy )
 			return;
 
-		Weapons.GiveDefault();
-		EquipWeaponsOnSpawn();
+		
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
 		
