@@ -98,14 +98,33 @@
                 Toggle(FullScreenPanel.InGameHud);
         }
 
-        if (Input.Pressed(InputAction.Inventory)) // Stellen Sie sicher, dass "InputAction" korrekt referenziert wird.
-            Toggle(FullScreenPanel.Inventory);
+        if (Input.Pressed(InputAction.Inventory))
+
+        {
+                    if (ActivePanel == FullScreenPanel.Inventory)
+                    {
+                        ActivePanel = FullScreenPanel.InGameHud;
+                    }
+                    else
+                    {
+                        ActivePanel = FullScreenPanel.Inventory;
+                    }
+        }
+            //Toggle(FullScreenPanel.Inventory);
 
         
 
-        if (Input.Pressed(InputAction.Abilities)) // Stellen Sie sicher, dass "InputAction" korrekt referenziert wird.
-            Toggle(FullScreenPanel.Abilities);
-        
+        if (Input.Pressed(InputAction.Abilities))
+        {
+            if (ActivePanel == FullScreenPanel.Abilities)
+            {
+                ActivePanel = FullScreenPanel.InGameHud;
+            }
+            else
+            {
+                ActivePanel = FullScreenPanel.Abilities;
+            }
+        }
 
         
     }
