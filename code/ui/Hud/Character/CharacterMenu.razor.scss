@@ -8,6 +8,12 @@ CharacterMenu {
     background-color: $fullscreen-bg;
     backdrop-filter: $fullscreen-blur;
     pointer-events: all;
+
+    transition: opacity 0.5s ease;
+    
+        &:intro {
+            opacity: 0;
+        }
     
     .top{
         position: absolute;
@@ -242,7 +248,11 @@ CharacterMenu {
         top: 6%;
         gap: 15px;
         
+        transition: opacity 0.2s ease;
         
+            &:intro {
+                opacity: 0;
+            }
         
         
 

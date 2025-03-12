@@ -8,6 +8,11 @@ Abilities{
         background-color: rgba(0, 0, 0, 0.913);
         backdrop-filter: $fullscreen-blur;
         pointer-events: all;
+        transition: opacity 0.5s ease;
+        
+            &:intro {
+                opacity: 0;
+            }
 
         .sidehud {
         position: absolute;
