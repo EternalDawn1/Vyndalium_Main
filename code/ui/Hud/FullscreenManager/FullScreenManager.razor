@@ -79,8 +79,11 @@
 
     public void Display(FullScreenPanel panel)
     {
+        if (ActivePanel != panel)
+    {
         ActivePanel = panel;
-        
+        StateHasChanged(); // Erzwingt eine UI-Aktualisierung
+    }
     }
 
     public override void Tick()

@@ -38,9 +38,9 @@
                 <button class="take-all-button" @onclick="@TakeAllItems">Take All</button>
                
                 <div class="items2 @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
-                    @for (var index = 0; index < 20; index++) // 10 Slots für die Kiste
+                    @for (var index = 0; index < itemStorage.Items.Count; index++) // Zeige alle Items an
                     {
-                        var item = (index < itemStorage.Items.Count) ? itemStorage.Items[index] : null;
+                        var item = itemStorage.Items[index];
                         <InventorySlot Item=@item IndependentSlotIndex=@index />
                     }
                 </div>
