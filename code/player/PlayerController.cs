@@ -309,7 +309,7 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy )
 			return;
 
-		
+		Weapons.GiveDefault();
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
 		

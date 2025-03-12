@@ -647,7 +647,7 @@ public sealed class NpcSpawnArea : Component
 	{
 		if ( npcPrefab == null )
 		{
-			Log.Warning( "npcPrefab is null." );
+			
 			return null;
 		}
 
