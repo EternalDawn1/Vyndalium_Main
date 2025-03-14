@@ -15,6 +15,12 @@ namespace GeneralGame;
 public class  BaseGun : WeaponComponent, IUse
 {
 	[Property]public bool IsMelee { get; set; }
+
+	[Property]
+	public PrefabFile Trail { get; set; } 
+
+	[Property] PrefabFile ImpactArea { get; set; }
+
 	[Property, Category( "Parameters" )] public DamageType DamageType { get; set; } = DamageType.Serious;
 	[Property, Category( "Parameters" )] public WeaponType Type { get; set; }
 	[Property, Category( "Parameters" )] public float ReloadTime { get; set; } = 2f;
@@ -179,6 +185,9 @@ public class  BaseGun : WeaponComponent, IUse
 			chargeComponent = Components.GetOrCreate<ChargeComponent>();
 		}
 		Components.GetOrCreate<Interactions>();
+
+		Trail = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/firebullet_normal.prefab" );
+		ImpactArea = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/impact_area.prefab" );
 
 		base.OnStart();
 	}
@@ -960,120 +969,51 @@ public class  BaseGun : WeaponComponent, IUse
 		AmmoInClip--;
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
-		var startPos = Owner.PlyCamera.WorldPosition;
+		var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
 		var direction = Owner.PlyCamera.WorldRotation.Forward;
 		direction += Vector3.Random * Spread;
+		var endPos = startPos + direction * 5000f;
 
-		var endPos = startPos + direction * 1000f;
 		var trace = Scene.Trace.Ray( startPos, endPos )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.WithoutTags( "player" )
-			.UseHitboxes()
+			.UseHitboxes( true )
 			.Run();
 
-		var damage = Damage;
-		var origin = attachment?.Position ?? startPos;
-
-		SendAttackMessage( origin, trace.EndPosition, trace.Distance, attackType, trace );
-
-		IHealthComponent damageable = null;
-
-		if ( trace.Component.IsValid() )
+		// Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+		if ( trace.Hit )
 		{
-			damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
-			if ( damageable == null )
+			endPos = trace.EndPosition;
+		}
+
+		if ( Trail != null )
+		{
+			var trailInstance = ResourceLibrary.Get<PrefabFile>( Trail.ResourcePath ); // Korrigiere die Eigenschaft
+			if ( trailInstance != null )
 			{
-				var healthComponent = trace.Component.Components.GetInAncestorsOrSelf<HealthComponent>();
-				if ( healthComponent != null )
+				var trailobject = GameObject.Clone( trailInstance );
+				if ( trailobject != null )
 				{
-					// Additional logic if needed
+					trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+					var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+					{
+						if ( trailobjectRenderer != null )
+						{
+							trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+							trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+
+						}
+					}
+					
+					
+					var speed = 1000f; // Geschwindigkeit des Schusses, anpassen nach Bedarf
+					UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
 				}
 			}
 		}
 
-		if ( damageable is not null )
-		{
-			Random random = new Random();
-
-			float playerAttackValue = random.Next( (int)shooter.MinAttackValue, (int)shooter.MaxAttackValue + 10 );
-			var playerAttackPower = shooter.AttackPower;
-
-			var playerCritChance = shooter.CritHitChance;
-			var playerCritDamage = shooter.CritHitDamage;
-			var armorPenetration = shooter.ArmorPenetration;
-			
-			damage += (int)(damage * (playerAttackValue / 15.0f));
-
-			int calculatedDamage = (int)(damage * (playerAttackPower / 10.0f));
-			int minDamage = 0;
-			int maxDamage = calculatedDamage + 1;
-
-			// Ensure minDamage is not greater than maxDamage
-			if ( minDamage > maxDamage )
-			{
-				minDamage = maxDamage;
-			}
-
-			damage += random.Next( minDamage, maxDamage );
-
-			int critRoll = random.Next( 0, 101 );
-			{
-				if ( critRoll <= playerCritChance )
-				{
-					damage += (int)(damage * 0.5f + playerCritDamage);
-					isCriticalHit = true;
-				}
-				else
-				{
-					isCriticalHit = false;
-				}
-			}
-			if ( damageable is Npc npc )
-			{
-				var zombieArmor = npc.Armor; // Angenommen, das Ziel hat eine Rüstungseigenschaft
-				var effectiveArmor = Math.Max( 0, zombieArmor - armorPenetration );
-				damage = (int)(damage * (100f / (100f + effectiveArmor)));
-			}
-
-			damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, GameObject.Id );
-
-			Vector3 randomOffset = new Vector3(
-			random.Next( -15, -10 ) * (random.Next( 0, 2 ) * 2 - 1), // Zufällige Verschiebung auf der X-Achse, links oder rechts
-			random.Next( -15, -10 ) * (random.Next( 0, 2 ) * 2 - 1), // Zufällige Verschiebung auf der Y-Achse, oben oder unten
-			random.Next( -15, 10 )  // Zufällige Verschiebung auf der Z-Achse
-			);
-
-			GameObject hitinfo = Hitprefab.Clone( trace.EndPosition + randomOffset );
-			FaceThing facething = hitinfo.Components.Get<FaceThing>();
-			facething.Thing = shooter.GameObject;
-			TextRenderer textRenderer = hitinfo.Components.Get<TextRenderer>();
-
-			if ( isCriticalHit )
-			{
-				textRenderer.Color = Color.Red;
-			}
-			else
-			{
-				textRenderer.Color = Color.White;
-			}
-			textRenderer.Text = $"{damage}";
-			ScaleTextWithDistance scaleTextWithDistance = hitinfo.Components.Get<ScaleTextWithDistance>();
-			scaleTextWithDistance.Thing = shooter.GameObject;
-		}
-		else if ( trace.Hit )
-		{
-			SendImpactMessage( trace.EndPosition, trace.Normal );
-		}
-
-		var target = trace.GameObject;
-		if ( target != null )
-		{
-			if ( target.Components.TryGet<Rigidbody>( out var body ) )
-				body.ApplyImpulseAt( trace.HitPosition, trace.Direction * HitForce );
-
-			if ( target.Components.TryGet<HealthComponent>( out var health ) )
-				health.Damage( Damage, DamageType, shooter.GameObject, trace.HitPosition, trace.Direction, HitForce );
-		}
+		SendAttackMessage( startPos, endPos, trace.Distance, attackType, trace );
 	}
 
 
@@ -1256,6 +1196,137 @@ public class  BaseGun : WeaponComponent, IUse
 			
 		}
 	}
+
+	private async void UpdateTrailObjectPosition( GameObject trailobject, Vector3 direction, float speed, Vector3 endPos, Player shooter )
+	{
+		var startTime = Time.Now;
+		var duration = 2.0f; // Dauer der Bewegung in Sekunden, anpassen nach Bedarf
+
+		while ( Time.Now - startTime < duration )
+		{
+			trailobject.WorldPosition += direction * speed * Time.Delta;
+
+			// Logge die aktuelle Position des Trail-Objekts
+			
+
+			// Überprüfen, ob das Objekt die Endposition erreicht hat oder etwas trifft
+			var trace = Scene.Trace.Ray( trailobject.WorldPosition, trailobject.WorldPosition + direction * 100f )
+				.IgnoreGameObjectHierarchy( GameObject.Root )
+				.WithoutTags( "player" )
+				.UseHitboxes( true )
+				.Run();
+
+			if ( trace.Hit )
+			{
+				// Logge die Trefferinformationen
+				
+
+				// Berechne den Schaden
+				var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+				if ( damageable != null )
+				{
+					int damage = CalculateDamage( shooter );
+					damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
+
+					// Erzeuge ein Treffer-Feedback
+					CreateHitFeedback( trace.EndPosition, damage, shooter );
+
+					
+				}
+				if ( ImpactArea != null )
+				{
+					var impactInstance = ResourceLibrary.Get<PrefabFile>( ImpactArea.ResourcePath );
+					if ( impactInstance != null )
+					{
+						var impactObject = GameObject.Clone( impactInstance );
+						if ( impactObject != null )
+						{
+							impactObject.WorldPosition = trace.EndPosition;
+							impactObject.WorldRotation = Rotation.LookAt( trace.Normal );
+
+							var impactRenderer = impactObject.Components.Get<ParticleEffect>();
+							if ( impactRenderer != null )
+							{
+								impactRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+								impactRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+
+							}
+						}
+						
+					}
+					
+				}
+
+				
+				trailobject.Destroy(); // Zerstöre das Objekt
+				return;
+			}
+
+			if ( (trailobject.WorldPosition - endPos).Length < 1.0f ) // Überprüfen, ob das Objekt die Endposition erreicht hat
+			{
+				// Logge das Erreichen der Endposition
+				
+
+				trailobject.Destroy(); // Zerstöre das Objekt
+				return;
+			}
+
+			await Task.Delay( 10 ); // Aktualisiere die Position alle 10 Millisekunden
+		}
+
+		// Logge das Ende der Bewegung
+		
+
+		trailobject.Destroy(); // Zerstöre das Objekt nach Ablauf der Dauer
+	}
+	private int CalculateDamage( Player shooter )
+	{
+		Random random = new Random();
+		float playerAttackValue = random.Next( (int)shooter.MinAttackValue, (int)shooter.MaxAttackValue + 10 ) / 4;
+		var playerAttackPower = shooter.AttackPower;
+
+		int damage = (int)(Damage * (playerAttackValue / 15.0f));
+		int calculatedDamage = (int)(damage * (playerAttackPower / 5f) * 0.05);
+		int minDamage = 0;
+		int maxDamage = calculatedDamage + 1;
+
+		// Ensure minDamage is not greater than maxDamage
+		if ( minDamage > maxDamage )
+		{
+			minDamage = maxDamage;
+		}
+
+		damage += random.Next( minDamage, maxDamage );
+
+		int critRoll = random.Next( 0, 101 );
+		if ( critRoll <= shooter.CritHitChance )
+		{
+			damage += (int)(damage * 0.5f + shooter.CritHitDamage);
+		}
+
+		return damage;
+	}
+
+	private void CreateHitFeedback( Vector3 position, int damage, Player shooter )
+	{
+		Vector3 randomOffset = new Vector3(
+			new Random().Next( -15, -10 ) * (new Random().Next( 0, 2 ) * 2 - 1), // Zufällige Verschiebung auf der X-Achse, links oder rechts
+			new Random().Next( -15, -10 ) * (new Random().Next( 0, 2 ) * 2 - 1), // Zufällige Verschiebung auf der Y-Achse, oben oder unten
+			new Random().Next( -15, 10 )  // Zufällige Verschiebung auf der Z-Achse
+		);
+
+		GameObject hitinfo = Hitprefab.Clone( position + randomOffset );
+		FaceThing facething = hitinfo.Components.Get<FaceThing>();
+		facething.Thing = shooter.GameObject;
+		TextRenderer textRenderer = hitinfo.Components.Get<TextRenderer>();
+
+		textRenderer.Color = Color.White;
+		textRenderer.Text = $"{damage}";
+		ScaleTextWithDistance scaleTextWithDistance = hitinfo.Components.Get<ScaleTextWithDistance>();
+		scaleTextWithDistance.Thing = shooter.GameObject;
+
+
+	}
 	[Rpc.Broadcast]
 	private void SendAttackMessage( Vector3 startPos, Vector3 endPos, float distance, string attackType, SceneTraceResult trace )
 	{
@@ -1273,6 +1344,8 @@ public class  BaseGun : WeaponComponent, IUse
 		{
 			return;
 		}
+		
+		
 
 		/* string particleEffect;
 		switch ( attackType )

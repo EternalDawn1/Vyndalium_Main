@@ -883,6 +883,7 @@ namespace GeneralGame.HUD
             bool newState = !shopStorage.IsOpened;
             shopStorage.IsOpened = newState;
             IsVisible = newState;
+            StateHasChanged();
         }
 
         public void OpenShop()
@@ -891,6 +892,7 @@ namespace GeneralGame.HUD
             {
                 shopStorage.IsOpened = true;
                 IsVisible = true;
+                StateHasChanged();
             }
         }
 
@@ -901,6 +903,7 @@ namespace GeneralGame.HUD
             {
                 shopStorage.IsOpened = false;
                 IsVisible = false;
+                StateHasChanged();
             }
         }
 
@@ -912,6 +915,7 @@ namespace GeneralGame.HUD
         public void ResetVisibility()
         {
             IsVisible = false;
+            StateHasChanged();
         }
 
         protected override int BuildHash()
@@ -941,6 +945,7 @@ namespace GeneralGame.HUD
         public void SetPanelVisibility( bool isVisible )
         {
             IsVisible = isVisible;
+            StateHasChanged();
         }
     }
 }

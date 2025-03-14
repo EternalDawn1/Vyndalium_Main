@@ -76,33 +76,43 @@
   
     public override void Tick()
     {
-                Log.Info("Leaderboard Tick");
-                leaderboard = Sandbox.Services.Leaderboards.GetFromStat("vyndalium_count");
-                leaderboard.Refresh();
-                
-                if (leaderboard != null)
-                {
-                    leaderboard.Refresh();
-                    Refresh();
-                    leaderboard.SetAggregationMax();
-                  
-                }
-                else
-                {
-                    Log.Warning("Leaderboard 'vyndalium_count1' not found.");
-                }
+        if (leaderboard == null)
+        {
+            leaderboard = Sandbox.Services.Leaderboards.GetFromStat("vyndalium_count");
+            if (leaderboard != null)
+            {
+                leaderboard.SetAggregationMax();
+            }
+            else
+            {
+                Log.Warning("Leaderboard 'vyndalium_count' not found.");
+            }
+        }
 
-                leaderboard2 = Sandbox.Services.Leaderboards.GetFromStat("npc");
-                if (leaderboard2 != null)
-                {
-                    leaderboard2.Refresh();
-                    leaderboard2.SetAggregationSum();
-                    Refresh();
-                }
-                else
-                {
-                    Log.Warning("Leaderboard 'npc' not found.");
-                }
+        if (leaderboard != null)
+        {
+            leaderboard.Refresh();
+            Refresh();
+        }
+
+        if (leaderboard2 == null)
+        {
+            leaderboard2 = Sandbox.Services.Leaderboards.GetFromStat("npc");
+            if (leaderboard2 != null)
+            {
+                leaderboard2.SetAggregationSum();
+            }
+            else
+            {
+                Log.Warning("Leaderboard 'npc' not found.");
+            }
+        }
+
+        if (leaderboard2 != null)
+        {
+            leaderboard2.Refresh();
+            Refresh();
+        }
     }
   
     

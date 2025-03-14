@@ -296,11 +296,11 @@
 
 
 	protected override int BuildHash() => 
-	HashCode.Combine
-	(
-	RealTime.Now, 
-	player?.Experience,
-	
-	player?.Level,
-	player.GetRankName);
+    HashCode.Combine
+    (
+        RealTime.Now, 
+        player?.Experience,
+        player?.Level,
+        player?.GetRankName()
+    );
 }

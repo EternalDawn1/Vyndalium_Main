@@ -1,4 +1,6 @@
-﻿namespace GeneralGame.HUD;
+﻿using Sandbox;
+namespace GeneralGame.HUD;
+
 
 public static class InputAction
 {
@@ -14,8 +16,12 @@ public static class InputAction
 	public const string Inventory = "Inventory";
 	public const string Character = "Character";
 	public const string Abilities = "Abilities";
-
+	
+	
 	public const string Shop = "Shop";
-
+	public static bool Pressed( string action )
+	{
+		return Sandbox.Input.Pressed( action );
+	}
 	public const string Interaction = "Interaction";
 }
