@@ -1471,7 +1471,7 @@ public partial class Npc : Component, IHealthComponent
 	public void Kill()
 	{
 		if ( LifeState == LifeState.Dead )
-			return;
+			
 
 		LifeState = LifeState.Dead;
 
@@ -1627,7 +1627,9 @@ public class BleedEffect : StatusEffect
 				{
 					npc.Health = 0;
 					npc.LifeState = LifeState.Dead;
-					npc.Destroy();
+
+					// Rufe die Kill-Methode des NPCs auf, um sicherzustellen, dass alle notwendigen Schritte ausgeführt werden
+					npc.Kill();
 
 					// Entferne den Bleed-Effekt aus der aktiven Liste
 					npc.RemoveStatusEffect( this );

@@ -790,30 +790,63 @@ public class  BaseGun : WeaponComponent, IUse
 
 	private void FireBulletWithWaterAspect( Player shooter )
 	{
-		
 
-		// Berechne den Wasserschaden
-		int waterDamage = CalculateWaterDamage( shooter );
 
-		// Führe einen Trace aus, um zu überprüfen, ob das Geschoss etwas trifft
-		var trace = Scene.Trace.Ray( shooter.PlyCamera.WorldPosition, shooter.PlyCamera.WorldPosition + shooter.PlyCamera.WorldRotation.Forward * 5000f )
-			.IgnoreGameObjectHierarchy( shooter.GameObject.Root )
+		if ( Owner.MoveSpeed > 150f ) return;
+		Owner.ApplyRecoil( Recoil );
+		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+		EffectRenderer?.Set( "b_attack", true );
+		EffectRenderer?.Set( "b_reload", false );
+		NextAttackTime = 1f / FireRate;
+		AmmoInClip--;
+
+		var attachment = EffectRenderer.GetAttachment( "muzzle" );
+		var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+		var direction = Owner.PlyCamera.WorldRotation.Forward;
+		direction += Vector3.Random * Spread;
+		var endPos = startPos + direction * 5000f;
+
+		var trace = Scene.Trace.Ray( startPos, endPos )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.WithoutTags( "player" )
-			.UseHitboxes()
+			.UseHitboxes( true )
 			.Run();
 
+		// Setze endPos auf die Trefferposition, wenn etwas getroffen wird
 		if ( trace.Hit )
 		{
-			var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
-			if ( damageable != null )
-			{
-				// Wende den Wasserschaden an
-				damageable.TakeDamage( DamageType.water, waterDamage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
+			endPos = trace.EndPosition;
+		}
 
-				// Aktiviere die passive Fähigkeit des Wasseraspekts
-				ApplyWaterAspectPassive( damageable );
+		if ( Trail != null )
+		{
+			var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_water.prefab" ); // Verwende das neue Prefab
+			if ( trailInstance != null )
+			{
+				var trailobject = GameObject.Clone( trailInstance );
+				if ( trailobject != null )
+				{
+					trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+
+					var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+					if ( trailobjectRenderer != null )
+					{
+						trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+						trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+
+					}
+
+					var speed = BulletSpeed * 750f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+					UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+				}
 			}
 		}
+
+
+		SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+		return;
 	}
 	private void FireBulletWithIceAspect( Player shooter )
 	{
@@ -874,23 +907,61 @@ public class  BaseGun : WeaponComponent, IUse
 
 	private void FireBulletWithAirAspect( Player shooter )
 	{
-		int airDamage = 5; // Beispielhafter Luftschaden
+		if ( Owner.MoveSpeed > 150f ) return;
+		Owner.ApplyRecoil( Recoil );
+		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+		EffectRenderer?.Set( "b_attack", true );
+		EffectRenderer?.Set( "b_reload", false );
+		NextAttackTime = 1f / FireRate;
+		AmmoInClip--;
 
-		var trace = Scene.Trace.Ray( shooter.PlyCamera.WorldPosition, shooter.PlyCamera.WorldPosition + shooter.PlyCamera.WorldRotation.Forward * 5000f )
-			.IgnoreGameObjectHierarchy( shooter.GameObject.Root )
+		var attachment = EffectRenderer.GetAttachment( "muzzle" );
+		var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+		var direction = Owner.PlyCamera.WorldRotation.Forward;
+		direction += Vector3.Random * Spread;
+		var endPos = startPos + direction * 5000f;
+
+		var trace = Scene.Trace.Ray( startPos, endPos )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.WithoutTags( "player" )
-			.UseHitboxes()
+			.UseHitboxes( true )
 			.Run();
-		
+
+		// Setze endPos auf die Trefferposition, wenn etwas getroffen wird
 		if ( trace.Hit )
 		{
-			var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
-			if ( damageable != null )
+			endPos = trace.EndPosition;
+		}
+
+		if ( Trail != null )
+		{
+			var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_air.prefab" ); // Verwende das neue Prefab
+			if ( trailInstance != null )
 			{
-				damageable.TakeDamage( DamageType.air, airDamage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
-				ApplyAirAspectPassive( damageable );
+				var trailobject = GameObject.Clone( trailInstance );
+				if ( trailobject != null )
+				{
+					trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+					
+
+					var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+					if ( trailobjectRenderer != null )
+					{
+						trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+						trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+						
+					}
+
+					var speed = BulletSpeed * 750f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+					UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+				}
 			}
 		}
+
+
+		SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+		return;
 	}
 
 	private void FireBulletWithEarthAspect( Player shooter )
@@ -1738,7 +1809,19 @@ public class  BaseGun : WeaponComponent, IUse
 					}
 					return;
 				case AspectType.Air:
-					Sound.Play( "sounds/fireaspect.sound", startPos );
+					var transformair= EffectRenderer.SceneModel.GetAttachment( "muzzle" );
+					{
+						if ( transformair.HasValue )
+						{
+							
+							Sound.Play( FireSound, transformair.Value.Position );
+						
+							
+
+
+						}
+
+					}
 					return;
 				case AspectType.Earth:
 					Sound.Play( "sounds/fireaspect.sound", startPos );
