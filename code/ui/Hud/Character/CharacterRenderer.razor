@@ -50,8 +50,6 @@
 			_scenePanel.Camera.FieldOfView = 5f;
 			_scenePanel.Camera.ZNear = 3;
 			_scenePanel.Camera.FitModel(_character);
-			
-			
 
 			_sceneLight.Position = _scenePanel.Camera.Position + _scenePanel.Camera.Rotation.Forward * 500f;
 		}
@@ -88,7 +86,8 @@
 				continue;
 
 			
-		
+			// Setze den HoldType auf Shotgun, wenn das ItemEquipment angezogen wird
+			
 			
 
 			var cloth = _clothes[i] = new SceneModel(_sceneWorld, renderer.Model, global::Transform.Zero);
@@ -99,6 +98,12 @@
 
 			_character.AddChild( $"clothing_{i}_{equipment.Name}", cloth );
 			
+			
+			
+			
+			
+				var handAttachment = _character.GetAttachment("hold_R", true) ?? global::Transform.Zero;
+				cloth.Transform = handAttachment.ToWorld(equipment.AttachmentTransform).WithScale(1);
 			
 				
 				
@@ -130,12 +135,11 @@
 		var headPos = _scenePanel.Camera.ToScreen((_character.GetAttachment("eyes") ?? Transform.Zero).Position);
 		var localPos = mousePos - headPos;
 
+
 		_character.SetAnimParameter("lookat", new Vector3(1000f, localPos.x, -localPos.y) * _character.Rotation.Inverse);
 
 		_character.Update(RealTime.Delta);
 
-		// Überprüfen Sie, ob das ausgerüstete Item eine Waffe ist
-		_character.SetAnimParameter("hold_type", (int)Player.Local.HoldType);
 		_character.Rotation = Rotation.From(0, _yaw, 0);
 
 		if (_clothes != null)
@@ -145,9 +149,11 @@
 				_clothes[(int)EquipSlot.Hand].Transform = (_character.GetAttachment(hand.Attachment, true) ?? global::Transform.Zero)
 				.ToWorld(hand.AttachmentTransform)
 				.WithScale(1);
+
+				
 			}
 
-			_character.SetAnimParameter("b_idle", (int)Player.Local.HoldType);
+			
 
 			foreach (var clothing in _clothes)
 			{
@@ -155,6 +161,7 @@
 					clothing?.Update(RealTime.Delta);
 			}
 		}
+
 
 		var isDropTarget = IsHoveredByMouse() && InventorySlot.CurrentDraggable != null &&
 		InventorySlot.CurrentDraggable.HasClass("can-drop");

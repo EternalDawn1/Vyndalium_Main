@@ -176,7 +176,7 @@ public class WeaponComponent : Component
 
 	public virtual void ReloadAction()
 	{
-
+		
 	}
 
 
