@@ -966,9 +966,59 @@ public class  BaseGun : WeaponComponent, IUse
 
 	private void FireBulletWithEarthAspect( Player shooter )
 	{
-		// Implementiere die Logik für das Abfeuern eines Erd-Aspekt-Geschosses
-		
-		// Beispiel: Erzeuge ein Erdprojektil
+		if ( Owner.MoveSpeed > 150f ) return;
+		Owner.ApplyRecoil( Recoil );
+		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+		EffectRenderer?.Set( "b_attack", true );
+		EffectRenderer?.Set( "b_reload", false );
+		NextAttackTime = 1f / FireRate;
+		AmmoInClip--;
+
+		var attachment = EffectRenderer.GetAttachment( "muzzle" );
+		var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+		var direction = Owner.PlyCamera.WorldRotation.Forward;
+		direction += Vector3.Random * Spread;
+		var endPos = startPos + direction * 5000f;
+
+		var trace = Scene.Trace.Ray( startPos, endPos )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.WithoutTags( "player" )
+			.UseHitboxes( true )
+			.Run();
+
+		// Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+		if ( trace.Hit )
+		{
+			endPos = trace.EndPosition;
+		}
+
+		if ( Trail != null )
+		{
+			var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_earth.prefab" ); // Verwende das neue Prefab
+			if ( trailInstance != null )
+			{
+				var trailobject = GameObject.Clone( trailInstance );
+				if ( trailobject != null )
+				{
+					trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+					var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+					if ( trailobjectRenderer != null )
+					{
+						trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+						trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+					}
+
+					var speed = BulletSpeed * 400f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+					UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+				}
+			}
+		}
+
+
+		SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+		return;
 	}
 
 	private void FireBulletWithShadowAspect( Player shooter )
@@ -1029,9 +1079,59 @@ public class  BaseGun : WeaponComponent, IUse
 	}
 	private void FireBulletWithLightningAspect( Player shooter )
 	{
-		// Implementiere die Logik für das Abfeuern eines Blitz-Aspekt-Geschosses
-	
-		// Beispiel: Erzeuge ein Blitzprojektil
+		if ( Owner.MoveSpeed > 150f ) return;
+		Owner.ApplyRecoil( Recoil );
+		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+		EffectRenderer?.Set( "b_attack", true );
+		EffectRenderer?.Set( "b_reload", false );
+		NextAttackTime = 1f / FireRate;
+		AmmoInClip--;
+
+		var attachment = EffectRenderer.GetAttachment( "muzzle" );
+		var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+		var direction = Owner.PlyCamera.WorldRotation.Forward;
+		direction += Vector3.Random * Spread;
+		var endPos = startPos + direction * 5000f;
+
+		var trace = Scene.Trace.Ray( startPos, endPos )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.WithoutTags( "player" )
+			.UseHitboxes( true )
+			.Run();
+
+		// Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+		if ( trace.Hit )
+		{
+			endPos = trace.EndPosition;
+		}
+
+		if ( Trail != null )
+		{
+			var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_lightning.prefab" ); // Verwende das neue Prefab
+			if ( trailInstance != null )
+			{
+				var trailobject = GameObject.Clone( trailInstance );
+				if ( trailobject != null )
+				{
+					trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+					var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+					if ( trailobjectRenderer != null )
+					{
+						trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+						trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+					}
+
+					var speed = BulletSpeed * 400f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+					UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+				}
+			}
+		}
+
+
+		SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+		return;
 	}
 
 	private void FireBulletWithHolyAspect( Player shooter )
@@ -1792,7 +1892,7 @@ public class  BaseGun : WeaponComponent, IUse
 					Sound.Play( "sounds/guns/m1911/pistol_shoot.sound", startPos );
 					return;
 				case AspectType.Water:
-					Sound.Play( "sounds/fireaspect.sound", startPos );
+					Sound.Play( "sounds/aspects/water/water.sound", startPos );
 					return;
 				case AspectType.Ice:
 					var transformice = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
@@ -1824,7 +1924,7 @@ public class  BaseGun : WeaponComponent, IUse
 					}
 					return;
 				case AspectType.Earth:
-					Sound.Play( "sounds/fireaspect.sound", startPos );
+					Sound.Play( "sounds/impacts/bullets/impact-bullet-sand.sound", startPos );
 					return;
 				case AspectType.Lightning:
 					Sound.Play( "sounds/fireaspect.sound", startPos );
