@@ -25,7 +25,7 @@
         "DieOnCollisionChance": 0,
         "Force": true,
         "ForceDirection": "0,0,0",
-        "ForceScale": 1,
+        "ForceScale": 0,
         "ForceSpace": "World",
         "Friction": 0,
         "Gradient": {
@@ -54,7 +54,7 @@
           "ConstantA": "1,1,1,1",
           "ConstantB": "1,0.55,0,1"
         },
-        "Lifetime": 1,
+        "Lifetime": 1000,
         "MaxParticles": 1,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -70,7 +70,7 @@
           "Z": 0
         },
         "OrbitalPull": 0,
-        "PerParticleTimeScale": 1,
+        "PerParticleTimeScale": 0,
         "Pitch": 0,
         "PreWarm": 0,
         "PushStrength": 0,
@@ -89,96 +89,13 @@
         "Yaw": 0
       },
       {
-        "__type": "Sandbox.ParticleTrailRenderer",
-        "__guid": "938ac7ed-a4d7-4f42-ba03-1a89edc029c4",
-        "__enabled": false,
-        "BlendMode": "Normal",
-        "CastShadows": false,
-        "Color": {
-          "blend": "Linear",
-          "color": [
-            {
-              "t": 0,
-              "c": "1,0.55,0,1"
-            },
-            {
-              "t": 1,
-              "c": "0,0,0,1"
-            }
-          ],
-          "alpha": [
-            {
-              "t": 0,
-              "a": 1
-            },
-            {
-              "t": 1,
-              "a": 1
-            }
-          ]
-        },
-        "LifeTime": 1,
-        "MaxPoints": 2,
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null,
-        "Opaque": false,
-        "PointDistance": 1,
-        "RenderOptions": {
-          "GameLayer": true,
-          "OverlayLayer": false,
-          "BloomLayer": false,
-          "AfterUILayer": false
-        },
-        "ScaleFromParticle": true,
-        "Texturing": {
-          "Texture": "materials/particles/shapes/line1.vtex",
-          "WorldSpace": false,
-          "UnitsPerTexture": 1,
-          "Scale": 1,
-          "Offset": 0,
-          "Scroll": 0
-        },
-        "TintFromParticle": true,
-        "Width": {
-          "rangey": "0,10",
-          "frames": [
-            {
-              "x": 0,
-              "y": 1,
-              "in": 0,
-              "out": 0,
-              "mode": "Mirrored"
-            },
-            {
-              "x": 0.4493865,
-              "y": 0.5425532,
-              "in": 0,
-              "out": 0,
-              "mode": "Mirrored"
-            },
-            {
-              "x": 1,
-              "y": 0,
-              "in": 0,
-              "out": 0,
-              "mode": "Mirrored"
-            }
-          ]
-        },
-        "Wireframe": false
-      },
-      {
         "__type": "Sandbox.ParticleConeEmitter",
         "__guid": "b5077f23-7cc4-4f7b-a526-d48eba75e7d7",
-        "Burst": 100,
+        "Burst": 1,
         "CenterBias": 0,
         "CenterBiasVelocity": 0,
         "ConeAngle": 31.100115,
-        "ConeFar": 135.8001,
+        "ConeFar": 66.9,
         "ConeNear": 0,
         "Delay": 0,
         "DestroyOnEnd": true,
@@ -196,67 +113,6 @@
         "RateOverDistance": 0,
         "VelocityMultiplier": 0,
         "VelocityRandom": 0
-      },
-      {
-        "__type": "Sandbox.ParticleSpriteRenderer",
-        "__guid": "1fce517c-6b80-4b0e-8756-d84460187261",
-        "__enabled": false,
-        "Additive": true,
-        "Alignment": "Particle",
-        "BlurAmount": 0.5,
-        "BlurOpacity": 0.5,
-        "BlurSpacing": 0.5,
-        "DepthFeather": 45.62,
-        "FaceVelocity": true,
-        "FogStrength": 1,
-        "LeadingTrail": true,
-        "Lighting": false,
-        "MotionBlur": false,
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null,
-        "Opaque": false,
-        "Pivot": "0.5,0.5",
-        "RenderOptions": {
-          "GameLayer": true,
-          "OverlayLayer": false,
-          "BloomLayer": false,
-          "AfterUILayer": false
-        },
-        "RotationOffset": 0,
-        "Scale": 3,
-        "Shadows": false,
-        "SortMode": "Unsorted",
-        "Texture": {
-          "$compiler": "texture",
-          "$source": "imagefile",
-          "data": {
-            "FilePath": "materials/particles/shapes/ring1.png",
-            "MaxSize": 4096,
-            "ConvertHeightToNormals": false,
-            "NormalScale": 1,
-            "Rotate": 0,
-            "FlipVertical": false,
-            "FlipHorizontal": false,
-            "Padding": {
-              "Size": "0,0",
-              "EdgeSize": "0,0"
-            },
-            "Sharpen": 0,
-            "Blur": 0,
-            "Brightness": 1,
-            "Contrast": 1,
-            "Saturation": 1,
-            "Hue": 0,
-            "Colorize": false,
-            "TargetColor": "0,1,0,1",
-            "CacheToDisk": true
-          },
-          "compiled": "textures/generated/imagefile/780afc6270529409.vtex"
-        }
       },
       {
         "__type": "Sandbox.ParticleModelRenderer",

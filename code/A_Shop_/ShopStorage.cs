@@ -265,6 +265,8 @@ namespace GeneralGame
                 AbilityHaste = item.AbilityHaste,
                 AttackPower = item.AttackPower,
                 MagicPower = item.MagicPower,
+                FireRate = item.FireRate,
+                BulletSpeed = item.BulletSpeed,
                 Tier = item.Tier,
                 DamageBalance = item.DamageBalance,
                 Durability = item.Durability,

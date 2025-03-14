@@ -112,6 +112,20 @@
 					<p class="x">@Item.Durability </p>
 				</div>
 			}
+			@if(Item.FireRate != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">
+					<p class="y4">Fire Rate: </p>
+					<p class="x">@Item.FireRate</p>
+				</div>
+			}
+			@if(Item.BulletSpeed != default(float))
+			{
+				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">
+					<p class="y5">Bullet Speed: </p>
+					<p class="x">@Item.BulletSpeed</p>
+				</div>
+			}
 			@if (Item.STG != default(float))
 			{
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">STG: +@Item.STG

@@ -430,6 +430,13 @@ namespace GeneralGame.HUD
                     if ( upgradeItem.Mana > 0 )
                         upgradeItem.Mana += (int)(upgradeItem.Mana * 0.3);
 
+
+                    if(upgradeItem.FireRate > 0)
+                        upgradeItem.FireRate += (int)(upgradeItem.FireRate * 0.1);
+
+                    if(upgradeItem.BulletSpeed > 0)
+                        upgradeItem.BulletSpeed += (int)(upgradeItem.BulletSpeed * 0.5);
+
                     if ( upgradeItem.CritHitDamage > 0 )
                         upgradeItem.CritHitDamage += (int)(upgradeItem.CritHitDamage * 0.3);
 
@@ -543,6 +550,12 @@ namespace GeneralGame.HUD
 
                         if ( upgradeItem.Mana > 0 )
                             upgradeItem.Mana -= (int)(upgradeItem.Mana * 0.3);
+
+                        if(upgradeItem.FireRate > 0)
+                            upgradeItem.FireRate -= (int)(upgradeItem.FireRate * 0.1);
+                        
+                        if(upgradeItem.BulletSpeed > 0)
+                            upgradeItem.BulletSpeed -= (int)(upgradeItem.BulletSpeed * 0.5);
 
                         if ( upgradeItem.CritHitDamage > 0 )
                             upgradeItem.CritHitDamage -= (int)(upgradeItem.CritHitDamage * 0.3);

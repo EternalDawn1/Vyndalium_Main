@@ -345,6 +345,7 @@ public sealed class Inventory : Component
 
 		Player.Local.MinArmorValue += item.MinArmorValue;
 		Player.Local.MaxArmorValue += item.MaxArmorValue;
+		
 
 		Player.Local.Health += item.Health;
 		Player.Local.STG += item.STG;

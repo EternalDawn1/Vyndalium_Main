@@ -21,21 +21,26 @@ public class  BaseGun : WeaponComponent, IUse
 
 	[Property] PrefabFile ImpactArea { get; set; }
 
+	[Property] public bool IsShotgun { get; set; } = false;
 	[Property, Category( "Parameters" )] public DamageType DamageType { get; set; } = DamageType.Serious;
 	[Property, Category( "Parameters" )] public WeaponType Type { get; set; }
 	[Property, Category( "Parameters" )] public float ReloadTime { get; set; } = 2f;
 	[Property, Category( "Parameters" )] public float EmptyReloadTime { get; set; } = 2f;
-	[Property, Category( "Parameters" )] public float Spread { get; set; } = 0.01f;
-	[Property, Category( "Parameters" )] public float HitForce { get; set; } = 300;
+	[Property, Category( "Parameters" ), Feature( "Weapon Properties" )] public float Spread { get; set; } = 0.01f;
+	[Property, Category( "Parameters" ), Feature( "Weapon Properties" )] public float HitForce { get; set; } = 300;
+
+	[Property, Category( "Parameters" ),Range(0, 0.1f, 10), Feature( "Weapon Properties" )] public float BulletSpeed { get; set; } = 1f;
 
 
 	[Property, Category( "Parameters_melee" )] public float MeleeRange { get; set; } = 1.5f;
 	[Property, Category( "Parameters_melee" )] public float MeleeDamage { get; set; } = 10f;
 	[Property, Category( "Parameters_melee" )] public float MeleeCooldown { get; set; } = 1f;
 
+
+
 	public TimeUntil NextMeleeAttackTime { get; set; }
 	[Property] public Angles Recoil { get; set; }
-	[Property] public SoundEvent FireSound { get; set; }
+	[Property, Feature( "Weapon Properties" )] public SoundEvent FireSound { get; set; }
 	[Property] public bool IsAuto { get; set; } = false;
 	[Property] public SoundEvent EmptyClipSound { get; set; }
 	[Property] public SoundSequenceData ReloadSoundSequence { get; set; }
@@ -44,7 +49,7 @@ public class  BaseGun : WeaponComponent, IUse
 	[Property] public ParticleSystem ImpactEffect { get; set; }
 	[Property] public AmmoType AmmoType { get; set; } = AmmoType.Pistol;
 	[Property] public int DefaultAmmo { get; set; } = 1;
-	[Property] public int ClipSize { get; set; } = 15;
+	[Property, Feature( "Weapon Properties" )] public int ClipSize { get; set; } = 15;
 	[Sync] public bool IsReloading { get; set; }
 	[Sync] public int AmmoInClip { get; set; }
 	public SoundSequence ReloadSound { get; set; }
@@ -63,7 +68,7 @@ public class  BaseGun : WeaponComponent, IUse
 	public bool isCriticalHit = false;
 
 	public ChargeComponent chargeComponent { get; set; }
-	[Property] public bool IsMagicWeapon { get; set; }
+	[Property, Feature( "Weapon Properties" )] public bool IsMagicWeapon { get; set; }
 
 	public void InitializeAmmo( AmmoContainer ammoContainer )
 	{
@@ -74,7 +79,11 @@ public class  BaseGun : WeaponComponent, IUse
 		}
 	}
 
-
+	public void InitializeFireRate( ItemComponent itemComponent )
+	{
+		FireRate = itemComponent.FireRate;
+		BulletSpeed = itemComponent.BulletSpeed;
+	}
 
 
 	public virtual void OnEquip( Player player )
@@ -903,6 +912,11 @@ public class  BaseGun : WeaponComponent, IUse
 			NextAttackTime = 1f / FireRate;
 			return;
 		}
+		if ( IsShotgun )
+		{
+			FireShotgun( shooter );
+			return;
+		}
 		string attackType = "default";
 		var itemComponent = Components.Get<ItemComponent>();
 		if ( itemComponent != null )
@@ -1005,9 +1019,9 @@ public class  BaseGun : WeaponComponent, IUse
 
 						}
 					}
-					
-					
-					var speed = 1000f; // Geschwindigkeit des Schusses, anpassen nach Bedarf
+
+
+					var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
 					UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
 				}
 			}
@@ -1018,7 +1032,71 @@ public class  BaseGun : WeaponComponent, IUse
 
 
 
+	private void FireShotgun( Player shooter )
+	{
+		int pelletCount = 9;
+		float spreadAngle = 15f; // Kegelwinkel in Grad
 
+		var attachment = EffectRenderer.GetAttachment( "muzzle" );
+		var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+		var forwardDirection = Owner.PlyCamera.WorldRotation.Forward;
+
+		for ( int i = 0; i < pelletCount; i++ )
+		{
+			var randomDirection = GetRandomDirectionInCone( forwardDirection, spreadAngle );
+			var endPos = startPos + randomDirection * 5000f;
+
+			var trace = Scene.Trace.Ray( startPos, endPos )
+				.IgnoreGameObjectHierarchy( GameObject.Root )
+				.WithoutTags( "player" )
+				.UseHitboxes( true )
+				.Run();
+
+			if ( trace.Hit )
+			{
+				endPos = trace.EndPosition;
+				var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+				if ( damageable != null )
+				{
+					int damage = CalculateDamage( shooter );
+					damageable.TakeDamage( DamageType.Bullet, damage, trace.EndPosition, trace.Direction * DamageForce, shooter.GameObject.Id, shooter.GameObject.Id );
+				}
+				SendImpactMessage( trace.EndPosition, trace.Normal );
+			}
+
+			if ( Trail != null )
+			{
+				var trailInstance = ResourceLibrary.Get<PrefabFile>( Trail.ResourcePath );
+				if ( trailInstance != null )
+				{
+					var trailobject = GameObject.Clone( trailInstance );
+					if ( trailobject != null )
+					{
+						trailobject.WorldPosition = startPos;
+						var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+						if ( trailobjectRenderer != null )
+						{
+							trailobjectRenderer.Yaw = Rotation.LookAt( randomDirection ).Yaw();
+							trailobjectRenderer.Pitch = Rotation.LookAt( randomDirection ).Pitch();
+						}
+						var speed = BulletSpeed * 1000f;
+						UpdateTrailObjectPosition( trailobject, randomDirection, speed, endPos, shooter );
+					}
+				}
+			}
+
+			SendAttackMessage( startPos, endPos, trace.Distance, "shotgun", trace );
+		}
+	}
+
+	private Vector3 GetRandomDirectionInCone( Vector3 forward, float angle )
+	{
+		var random = new Random();
+		float randomYaw = (float)(random.NextDouble() * angle - angle / 2);
+		float randomPitch = (float)(random.NextDouble() * angle - angle / 2);
+		var rotation = Rotation.FromYaw( randomYaw ) * Rotation.FromPitch( randomPitch );
+		return rotation * forward;
+	}
 
 	private bool hasStoppedActions = false;
 	protected virtual void OnReloadEnd()
@@ -1200,7 +1278,7 @@ public class  BaseGun : WeaponComponent, IUse
 	private async void UpdateTrailObjectPosition( GameObject trailobject, Vector3 direction, float speed, Vector3 endPos, Player shooter )
 	{
 		var startTime = Time.Now;
-		var duration = 2.0f; // Dauer der Bewegung in Sekunden, anpassen nach Bedarf
+		var duration = 20.0f; // Dauer der Bewegung in Sekunden, anpassen nach Bedarf
 
 		while ( Time.Now - startTime < duration )
 		{

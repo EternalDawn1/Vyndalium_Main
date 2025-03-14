@@ -157,6 +157,11 @@ public class ItemComponent : Component
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public float Health { get; set; }
 	
 	[Property, Range( 0, 27 )] public int ItemLevel { get; set; }
+	[Property,Group("Weapon"),Range(1,20)]public float FireRate { get; set; }
+	[Property,Group("Weapon"),Range(0,1000)]public float BulletSpeed { get; set; }
+	[Property,Group("Weapon"),Range(0,1000)]public float BulletSpread { get; set; }
+	[Property,Group("Weapon"),Range(0,1000)]public float Clipsize { get; set; }
+
 	[Property, Group( "Weapon" ), Range( 0, 175 )] public float CritHitDamage { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 150 )] public float CritHitChance { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 46 )] public float AbilityHaste { get; set; }
@@ -184,9 +189,12 @@ public class ItemComponent : Component
 	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float EarthElementalDamage { get; set; }
 	[Property, Group( "Weapon" ), Range( 0, 1000 )] public float WindElementalDamage { get; set; }
 
+
+
 	[Property] public Tier Tier { get; set; }
 	[Property, Range( 100, 0 )] public int DamageBalance { get; set; }
 	[Property, Range( 1000, 0 )] public int Durability { get; set; }
+	
 	
 	
 
@@ -818,6 +826,7 @@ public class ItemComponent : Component
 		int baseMinWaterElementalDamage = 1, baseMaxWaterElementalDamage = 100;
 		int baseMinEarthElementalDamage = 1, baseMaxEarthElementalDamage = 100;
 		int baseMinWindElementalDamage = 1, baseMaxWindElementalDamage = 100;
+		
 
 
 
@@ -852,7 +861,8 @@ public class ItemComponent : Component
 		var (minWaterElementalDamage, maxWaterElementalDamage) = GetStatRange( baseMinWaterElementalDamage, baseMaxWaterElementalDamage );
 		var (minEarthElementalDamage, maxEarthElementalDamage) = GetStatRange( baseMinEarthElementalDamage, baseMaxEarthElementalDamage );
 		var (minWindElementalDamage, maxWindElementalDamage) = GetStatRange( baseMinWindElementalDamage, baseMaxWindElementalDamage );
-
+		var (minFireRate, maxFireRate) = GetFireRateRange( Tier );
+		var (minBulletSpeed, maxBulletSpeed) = GetBulletSpeedRange( Tier );
 
 
 
@@ -908,7 +918,7 @@ public class ItemComponent : Component
 		() => LightningElementalDamage = random.Next(minLightningElementalDamage, maxLightningElementalDamage + 1),
 		() => HolyElementalDamage = random.Next(minHolyElementalDamage, maxHolyElementalDamage + 1),
 		() => LightElementalDamage = random.Next(minLightElementalDamage, maxLightElementalDamage + 1),
-
+		
 
 		
 		() => ShadowElementalDamage = random.Next(minShadowElementalDamage, maxShadowElementalDamage + 1),
@@ -927,11 +937,45 @@ public class ItemComponent : Component
 		() => BonusScore = random.Next(minBonusScore, maxBonusScore + 1),
 		() => BonusEXP = random.Next(minBonusEXP, maxBonusEXP + 1),
 		() => BonusVyndalium = random.Next(minBonusVyndalium, maxBonusVyndalium + 1),
+		() => FireRate = random.Next(minFireRate, maxFireRate + 1),
+		() => BulletSpeed = random.Next((int)minBulletSpeed, (int)maxBulletSpeed + 1),
 		() => ItemLevel = GenerateRandomItemLevel(random),
 	};
 		
 		// Wählen Sie zufällig eine bestimmte Anzahl von Statistiken aus
 		statsGenerators.OrderBy( x => random.Next() ).Take( maxStats ).ToList().ForEach( action => action() );
+
+		FireRate = random.Next( minFireRate, maxFireRate + 1 );
+		BulletSpeed = random.Next( (int)minBulletSpeed, (int)maxBulletSpeed + 1 );
+	}
+	private (int min, int max) GetFireRateRange( Tier tier )
+	{
+		return tier switch
+		{
+			Tier.C => (2, 6),
+			Tier.B => (6, 9),
+			Tier.A => (7, 13),
+			Tier.S => (8, 15),
+			Tier.SS => (9, 17),
+			Tier.SSS => (10, 22),
+			Tier.Ultimate => (8, 30),
+			_ => (0, 30)
+		};
+	}
+
+	private (float min, float max) GetBulletSpeedRange( Tier tier )
+	{
+		return tier switch
+		{
+			Tier.C => (0.2f, 1),
+			Tier.B => (0.20f, 1.5f),
+			Tier.A => (0.25f, 2.0f),
+			Tier.S => (0.3f, 2.5f),
+			Tier.SS => (0.4f, 3.0f),
+			Tier.SSS => (0.5f, 3.5f),
+			Tier.Ultimate => (3.5f, 10.0f),
+			_ => (0, 30)
+		};
 	}
 	private int GetRandomStatCount( double[] probabilities, Random random )
 	{
@@ -1192,6 +1236,7 @@ public class ItemComponent : Component
 		() => BonusVyndalium = random.Next(minBonusVyndalium, maxBonusVyndalium + 1),
 		() => Tenacity = random.Next(minTenacity, maxTenacity + 1),
 		() => StunResistance = random.Next(minStunResistance, maxStunResistance + 1),
+		
 		() => ItemLevel = GenerateRandomItemLevel(random),
 	};
 
@@ -1231,8 +1276,13 @@ public class ItemComponent : Component
 		{
 			ItemTier = new TierClass(); // oder eine geeignete Standardinitialisierung
 		}
+		var baseGun = GameObject.Components.Get<BaseGun>();
+		if ( baseGun != null )
+		{
+			baseGun.InitializeFireRate( this );
+		}
 
-		
+
 
 		//GenerateRandomStats();
 	}

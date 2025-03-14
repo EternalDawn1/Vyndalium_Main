@@ -40,7 +40,7 @@
 		_character ??= new SceneModel(_sceneWorld, "models/citizen/citizen.vmdl", new Transform(Vector3.Zero,
 		Rotation.From(0,
 		_yaw, 0)));
-		_character.SetAnimParameter("holdtype_rifle", true);
+	
 
 		if (firstTime) Refresh();
 
@@ -50,6 +50,7 @@
 			_scenePanel.Camera.FieldOfView = 5f;
 			_scenePanel.Camera.ZNear = 3;
 			_scenePanel.Camera.FitModel(_character);
+			
 			
 
 			_sceneLight.Position = _scenePanel.Camera.Position + _scenePanel.Camera.Rotation.Forward * 500f;
@@ -146,7 +147,7 @@
 				.WithScale(1);
 			}
 
-			_character.SetAnimParameter("b_swim", (int)Player.Local.HoldType);
+			_character.SetAnimParameter("b_idle", (int)Player.Local.HoldType);
 
 			foreach (var clothing in _clothes)
 			{

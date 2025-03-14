@@ -32,6 +32,8 @@ public struct ItemSave
 	[JsonInclude] public int Health { get; set; }
 	[JsonInclude] public int ItemLevel { get; set; }
 	[JsonInclude]public int CritHitDamage { get; set; }
+	[JsonInclude] public int FireRate { get; set; }
+	[JsonInclude] public int BulletSpeed { get; set; }
 	[JsonInclude] public int CritHitChance { get; set; }
 	[JsonInclude]public int AbilityHaste { get; set; }
 	[JsonInclude] public int AttackPower { get; set; }
@@ -309,6 +311,8 @@ partial class Player
 				Health = (int)item.Health,
 				ItemLevel = item.ItemLevel,
 				CritHitDamage = (int)item.CritHitDamage,
+				FireRate = (int)item.FireRate,
+				BulletSpeed = (int)item.BulletSpeed,
 				CritHitChance = (int)item.CritHitChance,
 				AbilityHaste = (int)item.AbilityHaste,
 				AttackPower = (int)item.AttackPower,
@@ -633,6 +637,8 @@ partial class Player
 					item.Health = data.Health;
 					item.ItemLevel = data.ItemLevel;
 					item.CritHitDamage = data.CritHitDamage;
+					item.FireRate = data.FireRate;
+					item.BulletSpeed = data.BulletSpeed;
 					item.CritHitChance = data.CritHitChance;
 					item.AbilityHaste = data.AbilityHaste;
 					item.AttackPower = data.AttackPower;
@@ -693,6 +699,7 @@ partial class Player
 				equipment.MaxArmorValue = data.MaxArmorValue;
 				equipment.MinAttackValue = data.MinAttackValue;
 				equipment.MaxAttackValue = data.MaxAttackValue;
+				equipment.FireRate = data.FireRate;
 				equipment.State = data.State;
 				equipment.MaxStack = data.MaxStack;
 				equipment.Count = data.Count;
@@ -700,6 +707,7 @@ partial class Player
 				equipment.BuyPrice = (int)data.BuyPrice;
 				equipment.DMG = data.DMG;
 				equipment.STG = data.STG;
+				equipment.BulletSpeed = data.BulletSpeed;
 				equipment.HE = data.HE;
 				equipment.DEX = data.DEX;
 				equipment.PER = data.PER;
@@ -768,10 +776,12 @@ partial class Player
 				item.MaxArmorValue = data.MaxArmorValue;
 				item.MinAttackValue = data.MinAttackValue;
 				item.MaxAttackValue = data.MaxAttackValue;
+				item.FireRate = data.FireRate;
 				item.MaxStack = data.MaxStack;
 				item.Count = data.Count;
 				item.SellPrice = (int)data.SellPrice;
 				item.BuyPrice = (int)data.BuyPrice;
+				item.BulletSpeed = data.BulletSpeed;
 				item.DMG = data.DMG;
 				item.STG = data.STG;
 				item.HE = data.HE;
@@ -838,9 +848,11 @@ partial class Player
 				item.MinAttackValue = data.MinAttackValue;
 				item.MaxAttackValue = data.MaxAttackValue;
 				item.RequiredLevel = data.RequiredLevel;
+				item.FireRate = data.FireRate;
 				item.SellPrice = (int)data.SellPrice;
 				item.BuyPrice = (int)data.BuyPrice;
 				item.DMG = data.DMG;
+				item.BulletSpeed = data.BulletSpeed;
 				item.STG = data.STG;
 				item.HE = data.HE;
 				item.DEX = data.DEX;
@@ -906,6 +918,7 @@ partial class Player
 				item.MinAttackValue = data.MinAttackValue;
 				item.MaxAttackValue = data.MaxAttackValue;
 				item.RequiredLevel = data.RequiredLevel;
+				item.FireRate = data.FireRate;
 				item.SellPrice = (int)data.SellPrice;
 				item.BuyPrice = (int)data.BuyPrice;
 				item.DMG = data.DMG;
@@ -914,6 +927,7 @@ partial class Player
 				item.DEX = data.DEX;
 				item.PER = data.PER;
 				item.INT = data.INT;
+				item.BulletSpeed = data.BulletSpeed;
 				item.Mana = data.Mana;
 				item.Health = data.Health;
 				item.ItemLevel = data.ItemLevel;
