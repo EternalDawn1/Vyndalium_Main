@@ -281,7 +281,7 @@ public partial class Npc : Component, IHealthComponent
 	[Sync] public Vector3 SpawnPosition { get; set; }
 	[Sync] public TimeUntil NextIdle { get; set; }
 	[Sync] public TimeUntil NextAttack { get; set; }
-	[Sync] public LifeState LifeState { get; private set; } = LifeState.Alive;
+	[Sync] public LifeState LifeState { get; set; } = LifeState.Alive;
 	[Property] public CitizenAnimationHelper AnimationHelper { get; set; }
 	public GameObject TargetObject { get; private set; } = null;
 	public Collider Collider { get; private set; }
@@ -1557,7 +1557,10 @@ public partial class Npc : Component, IHealthComponent
 		p.SetControlPoint( 2, (adjustedPlayerPosition - adjustedNpcPosition).Length ); // Distanz zwischen NPC und Spieler
 		p.PlayUntilFinished( Task ); */
 	}
-
+	public void RemoveStatusEffect( StatusEffect effect )
+	{
+		activeStatusEffects.Remove( effect );
+	}
 
 
 }
@@ -1597,7 +1600,6 @@ public class BurnEffectNpc : StatusEffect
 }
 public class BleedEffect : StatusEffect
 {
-	
 	public BleedEffect( float duration )
 	{
 		Duration = duration;
@@ -1607,7 +1609,6 @@ public class BleedEffect : StatusEffect
 	{
 		int damagePerSecond = 5; // Schaden pro Sekunde
 		int totalDuration = (int)Duration;  // Gesamtdauer des Bluteffekts in Sekunden
-		
 
 		npc.IsBleeding = true;
 
@@ -1618,15 +1619,20 @@ public class BleedEffect : StatusEffect
 			// Überprüfen, ob der NPC noch lebt
 			if ( npc.Health > 0 )
 			{
-				// Heile den Angreifer um 1% seines maximalen Lebens
-
 				// Fügen Sie dem NPC Schaden zu
 				npc.Health -= damagePerSecond;
-				
-				// Erstelle Partikeleffekt
-				
 
-				
+				// Überprüfen, ob der NPC gestorben ist
+				if ( npc.Health <= 0 )
+				{
+					npc.Health = 0;
+					npc.LifeState = LifeState.Dead;
+					npc.Destroy();
+
+					// Entferne den Bleed-Effekt aus der aktiven Liste
+					npc.RemoveStatusEffect( this );
+					break;
+				}
 			}
 		}
 

@@ -535,8 +535,73 @@ public class  BaseGun : WeaponComponent, IUse
 		if ( AmmoInClip >= ClipSize )
 		{
 			
-			Log.Info( "Magazin ist bereits voll, Nachladeanimation gestoppt." );
+			
 			EffectRenderer?.Set( "b_reload", false );
+		}
+	}
+	private void CreateHomingBleedPrefab( Npc npc, Player shooter )
+	{
+		
+		var prefabInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/homing_bleed.prefab" );
+		if ( prefabInstance != null )
+		{
+			var prefabObject = GameObject.Clone( prefabInstance );
+			if ( prefabObject != null )
+			{
+				prefabObject.WorldPosition = npc.WorldPosition; // Startposition auf den NPC setzen
+
+				// Bewege das Prefab auf den Spieler zu
+				MovePrefabToPlayer( prefabObject, shooter );
+			}
+		}
+	}
+
+	private async void MovePrefabToPlayer( GameObject prefabObject, Player shooter )
+	{
+		var startTime = Time.Now;
+		var duration = 2.0f; // Dauer der Bewegung in Sekunden, anpassen nach Bedarf
+		var speed = 500.0f; // Geschwindigkeit des Prefabs
+
+		while ( Time.Now - startTime < duration )
+		{
+			var direction = (shooter.WorldPosition - prefabObject.WorldPosition).Normal;
+			prefabObject.WorldPosition += direction * speed * Time.Delta;
+
+			// Überprüfen, ob das Prefab den Spieler erreicht hat
+			if ( (prefabObject.WorldPosition - shooter.WorldPosition).Length < 1.0f )
+			{
+				// Heile den Spieler um 25% seines maximalen Lebens
+				shooter.Health = Math.Min( shooter.MaxHealth, shooter.Health + shooter.MaxHealth * 0.25f );
+
+				// Zerstöre das Prefab
+				prefabObject.Destroy();
+				return;
+			}
+
+			await Task.Delay( 10 ); // Aktualisiere die Position alle 10 Millisekunden
+		}
+
+		// Zerstöre das Prefab nach Ablauf der Dauer
+		prefabObject.Destroy();
+	}
+	private void ApplyBleedAspectPassive( IHealthComponent damageable, Player shooter )
+	{
+		
+		if ( damageable is Npc npc )
+		{
+			Random random = new Random();
+			random.Next( 0, 101 );
+			if ( random.Next( 0, 101 ) <= 10 )
+			{
+				var bleedEffect = new BleedEffect( 5 ); // Dauer in Sekunden
+				npc.ApplyStatusEffect( bleedEffect );
+
+				// Erstelle das Prefab und lasse es auf den Spieler zufliegen
+				CreateHomingBleedPrefab( npc, shooter );
+			}
+			
+				
+			
 		}
 	}
 	[Property]public LineRenderer lineRenderer { get; set; }
@@ -546,7 +611,6 @@ public class  BaseGun : WeaponComponent, IUse
 
 	
 
-	
 	private void PerformMeleeAttack( Player player )
 	{
 		if ( NextMeleeAttackTime > 0 ) return;
@@ -932,6 +996,8 @@ public class  BaseGun : WeaponComponent, IUse
 		if ( trace.Hit )
 		{
 			endPos = trace.EndPosition;
+
+			
 		}
 
 		if ( Trail != null )
@@ -956,6 +1022,15 @@ public class  BaseGun : WeaponComponent, IUse
 				}
 			}
 		}
+		if ( trace.Hit )
+		{
+			var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+			if ( damageable != null )
+			{
+				ApplyBleedAspectPassive( damageable, shooter );
+			}
+		}
+
 
 
 		SendAttackMessage( startPos, endPos, trace.Distance, trace );
@@ -1037,25 +1112,7 @@ public class  BaseGun : WeaponComponent, IUse
 			}
 		}
 	}
-	private void ApplyBleedAspectPassive( IHealthComponent damageable, Player shooter )
-	{
-		// Beispielhafte Implementierung einer passiven Fähigkeit des Blutungsaspekts
-		if ( damageable is Npc npc )
-		{
-			// Generiere eine Zufallszahl zwischen 0 und 100
-			Random random = new Random();
-			int chance = random.Next( 0, 100 );
-
-			// Überprüfe, ob die Zufallszahl innerhalb der 20%-Wahrscheinlichkeit liegt
-			if ( chance < 20 )
-			{
-				var bleedEffect = new BleedEffect( 5); // Dauer in Sekunden
-				npc.ApplyStatusEffect( bleedEffect );
-				// Heile den Angreifer um 1% seines maximalen Lebens
-				shooter.Health = Math.Min( shooter.MaxHealth, shooter.Health + shooter.MaxHealth * 0.01f );
-			}
-		}
-	}
+	
 	public virtual void FireBullet( Player shooter )
 	{
 		if ( shooter == null || Owner == null || EffectRenderer == null || Scene == null )
@@ -1708,7 +1765,18 @@ public class  BaseGun : WeaponComponent, IUse
 					Sound.Play( "sounds/fireaspect.sound", startPos );
 					return;
 				case AspectType.Bleed:
-					Sound.Play( "sounds/fireaspect.sound", startPos );
+					var transformbleed = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
+					{
+						if ( transformbleed.HasValue )
+						{
+							Sound.Play( FireSound, transformbleed.Value.Position );
+							Task.Delay( 5000 );
+							Sound.Play( "sounds/aspects/shadow.sound", transformbleed.Value.Position );
+
+
+						}
+
+					}
 					return;
 				case AspectType.Poison:
 					Sound.Play( "sounds/fireaspect.sound", startPos );
