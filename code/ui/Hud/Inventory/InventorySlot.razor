@@ -9,15 +9,19 @@
 
 
 <root @onrightclick=@( () => @OpenContextMenu() ) class="@CurrentDropTargetClassSelectors">
+	
     <div class="border" />
     <div class="@($"background {@GetBackgroundClass()}")" style="@($"opacity: {GetOpacityBasedOnLevel()}")" />
     @if (Item is not null)
     {
+		
         <div class="item @HasChildDraggableClassSelector" onmouseover=@( () => OnItemHover() ) onmouseout=@( () => OnItemHoverExit() ) )>
             @if (Item.IconTexture is not null)
             {
                 <div class="item-forground"><img src=@Item.IconTexture.ResourcePath @onmouseover="@OnItemHover" @onmouseout="@OnItemHoverExit" /></div>
+				
             }
+			
             <text class="count @( !Item.IsStackable ? "hidden" : "" )">@(Item.Count)x</text>
             @if (Item.IsFavorite)
             {
@@ -27,12 +31,19 @@
 			{
 				<div class="select"><img src="ui/hud/success.gif" alt="Selected" class="selected-icon" /></div>
 			}
+			@if (Item.Aspect != AspectType.None)
+				{
+					<div class="aspect-icon"><img src=@Item.GetAspectIcon() alt="Aspect" /></div>
+				}
+			
+
         </div>
     }
     @if (EquipSlotIndex is not null)
     {
         <img class="slot" src=@EquipSlotIndex?.GetIcon() />
     }
+	
 </root>
 
 @code {
@@ -51,6 +62,7 @@
 		}
 		StateHasChanged();
 	}
+	
 	public enum SlotType
 	{
 		Backpack,

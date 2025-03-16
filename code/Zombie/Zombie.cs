@@ -341,7 +341,7 @@ public partial class Npc : Component, IHealthComponent
 	[Property]
 	public float MoveSpeed { get; set; }
 	
-	[Property]private List<StatusEffect> activeStatusEffects = new List<StatusEffect>();
+	[Property]public List<StatusEffect> activeStatusEffects = new List<StatusEffect>();
 
 	public void ApplyStatusEffect( StatusEffect effect )
 	{
@@ -1564,23 +1564,42 @@ public partial class Npc : Component, IHealthComponent
 
 
 }
+public static class NpcExtensions
+{
+	public static bool HasStatusEffect<T>( this Npc npc ) where T : StatusEffect
+	{
+		return npc.activeStatusEffects.OfType<T>().Any();
+	}
+}
 public abstract class StatusEffect
 {
 	public float Duration { get; set; }
 	public abstract void Apply( Npc npc , Player attacker);
 }
 public class BurnEffectNpc : StatusEffect
-    {
-        public BurnEffectNpc(float duration)
-        {
-            Duration = duration;
-        }
-		
+{
+	private GameObject fireEffectInstance;
 
-	public override async void Apply( Npc npc , Player attacker)
+	public BurnEffectNpc( float duration )
+	{
+		Duration = duration;
+	}
+
+	public override async void Apply( Npc npc, Player attacker )
 	{
 		int damagePerSecond = 10; // Schaden pro Sekunde
 		int totalDuration = (int)Duration;  // Gesamtdauer des Brenneffekts in Sekunden
+
+		// Erstelle das Feuer-Prefab und setze es auf die Position des NPCs
+		var firePrefab = ResourceLibrary.Get<PrefabFile>( "prefabs/hit/fire-spawn_v2.prefab" );
+		if ( firePrefab != null )
+		{
+			fireEffectInstance = GameObject.Clone( firePrefab );
+			if ( fireEffectInstance != null )
+			{
+				fireEffectInstance.LocalPosition = npc.LocalPosition + new Vector3( 0, 0, 50 ); // Erhöhe die z-Koordinate um 50 Einheiten
+			}
+		}
 
 		for ( int i = 0; i < totalDuration; i++ )
 		{
@@ -1589,12 +1608,34 @@ public class BurnEffectNpc : StatusEffect
 			// Überprüfen, ob der NPC noch lebt
 			if ( npc.Health > 0 )
 			{
+				// Aktualisiere die Position des Feuer-Prefabs
+				if ( fireEffectInstance != null )
+				{
+					fireEffectInstance.LocalPosition = npc.LocalPosition;
+				}
+
 				// Fügen Sie dem NPC Schaden zu
 				npc.Health -= damagePerSecond;
-				npc.CreateParticleEffect( npc.WorldPosition, Rotation.Identity );
 
+				if ( npc.Health <= 0 )
+				{
+					npc.Health = 0;
+					npc.LifeState = LifeState.Dead;
 
+					// Rufe die Kill-Methode des NPCs auf, um sicherzustellen, dass alle notwendigen Schritte ausgeführt werden
+					npc.Kill();
+
+					// Entferne den Brenneffekt aus der aktiven Liste
+					npc.RemoveStatusEffect( this );
+					break;
+				}
 			}
+		}
+
+		// Entferne das Feuer-Prefab, wenn der Brenneffekt endet
+		if ( fireEffectInstance != null )
+		{
+			fireEffectInstance.Destroy();
 		}
 	}
 }

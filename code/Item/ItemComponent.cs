@@ -43,6 +43,7 @@ public enum AspectType
 	Bleed,
 	Poison,
 	Lightning,
+	Glitch,
 }
 
 
@@ -146,6 +147,24 @@ public class ItemComponent : Component
 		{
 			_dmg = value;
 		}
+	}
+	public string GetAspectIcon()
+	{
+		return Aspect switch
+		{
+			AspectType.Fire => "ui/textures/fire.png",
+			AspectType.Water => "ui/aspects/water-drop.png",
+			AspectType.Ice => "ui/textures/snow.png",
+			AspectType.Air => "ui/textures/storm.png",
+			AspectType.Earth => "ui/hud/tree.png",
+			AspectType.Shadow => "ui/aspects/purple-ribbon.png",
+			AspectType.Holy => "ui/aspects/holy-star.png",
+			AspectType.Bleed => "ui/textures/blood.png",
+			AspectType.Poison => "ui/aspects/poison.png",
+			AspectType.Lightning => "ui/aspects/flash.png",
+			AspectType.Glitch => "ui/aspects/bath-salt-bomb.png",
+			_ => "",
+		};
 	}
 	private int _dmg;
 	[Property, Group( "Weapon" ), Range( 0, 100 )] public int STG { get; set; }

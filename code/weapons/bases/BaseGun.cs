@@ -45,7 +45,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 	[Property] public SoundEvent EmptyClipSound { get; set; }
 	[Property] public SoundSequenceData ReloadSoundSequence { get; set; }
 	[Property] public SoundSequenceData EmptyReloadSoundSequence { get; set; }
-	[Property] public ParticleSystem MuzzleFlash { get; set; }
+	[Property] public PrefabFile MuzzleFlash { get; set; }
 	[Property] public ParticleSystem ImpactEffect { get; set; }
 	[Property] public AmmoType AmmoType { get; set; } = AmmoType.Pistol;
 	[Property] public int DefaultAmmo { get; set; } = 1;
@@ -664,9 +664,72 @@ public partial class  BaseGun : WeaponComponent, IUse
 	
 	private void FireDefaultBullet( Player shooter )
 	{
-		// Implementiere die Standard-Logik für das Abfeuern eines Geschosses
 		
-		// Beispiel: Erzeuge ein Standardprojektil
+		if ( shooter == null || Owner == null || EffectRenderer == null || Scene == null )
+		{
+			return;
+		}
+		if ( AmmoInClip <= 0 )
+		{
+			SendEmptyClipMessage();
+			ReloadAction();
+			NextAttackTime = 1f / FireRate;
+			return;
+		}
+		if ( Owner.MoveSpeed > 150f ) return;
+		Owner.ApplyRecoil( Recoil );
+		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+		EffectRenderer?.Set( "b_attack", true );
+		EffectRenderer?.Set( "b_reload", false );
+		NextAttackTime = 1f / FireRate;
+		AmmoInClip--;
+
+		var attachment = EffectRenderer.GetAttachment( "muzzle" );
+		var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+		var direction = Owner.PlyCamera.WorldRotation.Forward;
+		direction += Vector3.Random * Spread;
+		var endPos = startPos + direction * 5000f;
+
+		var trace = Scene.Trace.Ray( startPos, endPos )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.WithoutTags( "player" )
+			.UseHitboxes( true )
+			.Run();
+
+		// Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+		if ( trace.Hit )
+		{
+			endPos = trace.EndPosition;
+		}
+
+		if ( Trail != null )
+		{
+			var trailInstance = ResourceLibrary.Get<PrefabFile>( Trail.ResourcePath ); // Korrigiere die Eigenschaft
+			if ( trailInstance != null )
+			{
+				var trailobject = GameObject.Clone( trailInstance );
+				if ( trailobject != null )
+				{
+					trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+					var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+					{
+						if ( trailobjectRenderer != null )
+						{
+							trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+							trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+
+						}
+					}
+
+
+					var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+					UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+				}
+			}
+		}
+
+		SendAttackMessage( startPos, endPos, trace.Distance, trace );
 	}
 
 	public virtual void FireBullet( Player shooter )
@@ -840,6 +903,9 @@ public partial class  BaseGun : WeaponComponent, IUse
 				}
 			}
 		}
+
+
+		
 
 		SendAttackMessage( startPos, endPos, trace.Distance, trace );
 	}
@@ -1243,10 +1309,6 @@ public partial class  BaseGun : WeaponComponent, IUse
 		{
 			return;
 		}
-		
-		
-
-
 		if ( MuzzleFlash != null )
 		{
 			if ( EffectRenderer.SceneModel != null )
@@ -1255,16 +1317,30 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 				if ( transform.HasValue )
 				{
-					/* p = new SceneParticles( Scene.SceneWorld, MuzzleFlash );
-					p.SetControlPoint( 0, transform.Value );
-					p.PlayUntilFinished( Task ); */
+					var muzzleFlashInstance = ResourceLibrary.Get<PrefabFile>( MuzzleFlash.ResourcePath );
+					if ( muzzleFlashInstance != null )
+					{
+						var muzzleFlash = GameObject.Clone( muzzleFlashInstance );
+						if ( muzzleFlash != null )
+						{
+							muzzleFlash.WorldPosition = transform.Value.Position;
+							muzzleFlash.WorldRotation = Rotation.LookAt( trace.Direction );
+						}
+						muzzleFlash.Destroy();
+						
+					}
+					
 				}
+				
 			}
 			else
 			{
 				//Log.Warning("EffectRenderer.SceneModel is null.");
 			}
 		}
+
+
+
 		var itemComponent = Components.Get<ItemComponent>();
 		if ( itemComponent != null )
 		{
@@ -1272,7 +1348,18 @@ public partial class  BaseGun : WeaponComponent, IUse
 			{
 				case AspectType.Fire:
 					// Feueraspekt implementieren
-					Sound.Play( "sounds/guns/m1911/pistol_shoot.sound", startPos );
+					var transformfire = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
+					{
+						if ( transformfire.HasValue )
+						{
+							Sound.Play( "prefabs/hit/fire-sounds/breath.sound", transformfire.Value.Position );
+							Sound.Play( FireSound, transformfire.Value.Position );
+							
+
+
+						}
+
+					}
 					return;
 				case AspectType.Water:
 					Sound.Play( "sounds/aspects/water/water.sound", startPos );
@@ -1459,4 +1546,4 @@ public class ChargeComponent : Component
 			HasPlayedChargedSound = false; // Zurücksetzen, wenn die Aufladung zurückgesetzt wird
 		}
 	}
-
+// Neue Komponente, um den Sound zu verfolgen
