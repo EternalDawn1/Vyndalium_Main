@@ -6,6 +6,61 @@
 
 	z-index: 1;
 
+	.level-up-panel {
+			position: absolute;
+			left: 35%;
+			top: 15%;
+			width: 30%;
+			height: 50%;
+			justify-content: center;
+			transform: scale(0.5);
+			align-items: center;
+			background-image: url("/ui/textures/levelup.png");
+			background-size: cover;
+			background-position: center;
+			color: white;
+			opacity: 0;
+			z-index: 1000;
+			transition: opacity 3s ease, transform 3s ease;
+	
+			
+	
+			.level-up-content {
+				.txt {
+					position: absolute;
+					width: 50%;
+
+					left: 40%;
+					top: -10%;
+					justify-content: center;
+					align-items: center;
+					font-size: 90px;
+					color: white;
+					font-family: Geneva;
+					font-weight: bold;
+					background-color: rgb(255, 187, 0);
+					border-radius: 10px;
+					padding: 10px;
+					border-width: 1px;
+					border-color: rgba(10, 0, 0, 0.5);
+					box-shadow: 0 5 20px rgba(0, 0, 0, 0.5);
+					text-shadow: 5px 5px 5px rgb(0, 0, 0);
+					opacity: 1;
+					transition: opacity 5s ease-in-out;
+					border-width: 15px;
+					border-color: rgb(10, 0, 0);
+				}
+			}
+		}
+	
+		.level-up-panel.visible {
+			opacity: 1;
+		}
+	
+		.level-up-panel.hidden {
+			opacity: 0;
+		}
+  
 	.scene-name {
 			position: absolute;
 			color: rgb(236, 236, 236);

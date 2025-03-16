@@ -12,6 +12,12 @@
 <root>
 	
 	<div class="scene-name">@SceneHandler2.GetSceneName(SceneHandler2.CurrentScene)</div>
+
+	<div class="level-up-panel @levelUpClass">
+		<div class="level-up-content">
+			<p class="txt">Lvl.@player.Level</p>
+		</div>
+	</div>
 	@if (FullScreenManager.Instance?.ActivePanel != FullScreenManager.FullScreenPanel.InGameHud)
 	{
 		return; // Exit early if FullScreenManager is active
@@ -207,7 +213,21 @@
 	private TimeSpan playTime = TimeSpan.Zero;
 
 	private DateTime lastUpdateTime = DateTime.Now;
-	
+	private string levelUpClass = "hidden";
+
+	private async void ShowLevelUpPanel()
+	{
+		levelUpClass = "visible";
+		StateHasChanged();
+		await Task.Delay(2000);
+		levelUpClass = "hidden";
+		StateHasChanged();
+	}
+	private void OnPlayerLevelUp(int level)
+	{
+		ShowLevelUpPanel();
+	}
+
 	
 	private double nextUpdateInterval;
 	protected override void OnFixedUpdate()
@@ -219,6 +239,7 @@
 			{
 				return; // Frühzeitiger Abbruch, wenn kein gültiger Spieler gefunden wird
 			}
+			player.OnLevelUp += OnPlayerLevelUp;
 		}
 
 		var currentTime = DateTime.Now;
@@ -230,6 +251,8 @@
 			SetNextUpdateInterval();
 			lastUpdateTime = currentTime; // Aktualisiere lastUpdateTime nur hier
 		}
+	
+		
 
 		StateHasChanged();
 	}
@@ -240,7 +263,11 @@
 	}
 	protected override void OnAwake()
 	{
-		
+		if (player != null)
+		{
+			player.OnLevelUp += (level) => ShowLevelUpPanel();
+			StateHasChanged();
+		}
 		UpdateTip();
 	}
 	private async void UpdateTip()
@@ -300,6 +327,7 @@
 	(
 	RealTime.Now,
 	player?.Experience,
+
 	player?.Level,
 	player?.GetRankName()
 	);
