@@ -1721,3 +1721,14 @@ public class KnockbackEffect : StatusEffect
 		isKnockedBack = false;
 	}
 }
+public class StunEffect : StatusEffect
+{
+	public StunEffect( float duration )
+	{
+		Duration = duration;
+	}
+	public override void Apply( Npc npc , Player attacker)
+	{
+		
+	}
+}

@@ -1,0 +1,781 @@
+using Sandbox;
+using System;
+using System.Numerics;
+using Sandbox; // Für GameObject, Transform, etc.
+using Sandbox.Physics;
+using Sandbox.UI; // Für TextRenderer, FaceThing, etc.
+using System.Threading.Tasks; // Für asynchrone Methoden
+using System.Collections.Generic; // Für Listen
+using System.Linq; // Für LINQ-Abfragen
+
+
+
+namespace GeneralGame;
+
+public partial class BaseGun : WeaponComponent, IUse
+{
+    private void ApplyBleedAspectPassive( IHealthComponent damageable, Player shooter )
+    {
+
+        if ( damageable is Npc npc )
+        {
+            Random random = new Random();
+            random.Next( 0, 101 );
+            if ( random.Next( 0, 101 ) <= 10 )
+            {
+                var bleedEffect = new BleedEffect( 5 ); // Dauer in Sekunden
+                npc.ApplyStatusEffect( bleedEffect );
+
+                // Erstelle das Prefab und lasse es auf den Spieler zufliegen
+                CreateHomingBleedPrefab( npc, shooter );
+            }
+
+
+
+        }
+    }
+    private void CreateHomingBleedPrefab( Npc npc, Player shooter )
+    {
+
+        var prefabInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/homing_bleed.prefab" );
+        if ( prefabInstance != null )
+        {
+            var prefabObject = GameObject.Clone( prefabInstance );
+            if ( prefabObject != null )
+            {
+                prefabObject.WorldPosition = npc.WorldPosition; // Startposition auf den NPC setzen
+
+                // Bewege das Prefab auf den Spieler zu
+                MovePrefabToPlayer( prefabObject, shooter );
+            }
+        }
+    }
+    private void FireBulletWithBleedAspect( Player shooter )
+    {
+        if ( Owner.MoveSpeed > 150f ) return;
+        Owner.ApplyRecoil( Recoil );
+        EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+        EffectRenderer?.Set( "b_attack", true );
+        EffectRenderer?.Set( "b_reload", false );
+        NextAttackTime = 1f / FireRate;
+        AmmoInClip--;
+
+        var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+        var direction = Owner.PlyCamera.WorldRotation.Forward;
+        direction += Vector3.Random * Spread;
+        var endPos = startPos + direction * 5000f;
+
+        var trace = Scene.Trace.Ray( startPos, endPos )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        // Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+        if ( trace.Hit )
+        {
+            endPos = trace.EndPosition;
+
+
+        }
+
+        if ( Trail != null )
+        {
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_bleed.prefab" ); // Verwende das neue Prefab
+            if ( trailInstance != null )
+            {
+                var trailobject = GameObject.Clone( trailInstance );
+                if ( trailobject != null )
+                {
+                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+                    var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+                    if ( trailobjectRenderer != null )
+                    {
+                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                    }
+
+                    var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                }
+            }
+        }
+        if ( trace.Hit )
+        {
+            var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+            if ( damageable != null )
+            {
+                ApplyBleedAspectPassive( damageable, shooter );
+            }
+        }
+
+
+
+        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+        return;
+    }
+
+
+    private void FireBulletWithFireAspect( Player shooter )
+    {
+        if ( Owner.MoveSpeed > 150f ) return;
+        Owner.ApplyRecoil( Recoil );
+        EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+        EffectRenderer?.Set( "b_attack", true );
+        EffectRenderer?.Set( "b_reload", false );
+        NextAttackTime = 1f / FireRate;
+        AmmoInClip--;
+
+        var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+        var direction = Owner.PlyCamera.WorldRotation.Forward;
+        direction += Vector3.Random * Spread;
+        var endPos = startPos + direction * 5000f;
+
+        var trace = Scene.Trace.Ray( startPos, endPos )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        // Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+        if ( trace.Hit )
+        {
+            endPos = trace.EndPosition;
+        }
+
+        if ( Trail != null )
+        {
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_fire.prefab" ); // Verwende das neue Prefab
+            if ( trailInstance != null )
+            {
+                var trailobject = GameObject.Clone( trailInstance );
+                if ( trailobject != null )
+                {
+                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+                    var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+                    if ( trailobjectRenderer != null )
+                    {
+                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                    }
+
+                    var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                }
+            }
+        }
+
+
+        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+
+    }
+
+    private void FireBulletWithWaterAspect( Player shooter )
+    {
+
+
+        if ( Owner.MoveSpeed > 150f ) return;
+        Owner.ApplyRecoil( Recoil );
+        EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+        EffectRenderer?.Set( "b_attack", true );
+        EffectRenderer?.Set( "b_reload", false );
+        NextAttackTime = 1f / FireRate;
+        AmmoInClip--;
+
+        var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+        var direction = Owner.PlyCamera.WorldRotation.Forward;
+        direction += Vector3.Random * Spread;
+        var endPos = startPos + direction * 5000f;
+
+        var trace = Scene.Trace.Ray( startPos, endPos )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        // Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+        if ( trace.Hit )
+        {
+            endPos = trace.EndPosition;
+        }
+
+        if ( Trail != null )
+        {
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_water.prefab" ); // Verwende das neue Prefab
+            if ( trailInstance != null )
+            {
+                var trailobject = GameObject.Clone( trailInstance );
+                if ( trailobject != null )
+                {
+                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+
+                    var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+                    if ( trailobjectRenderer != null )
+                    {
+                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+
+                    }
+
+                    var speed = BulletSpeed * 750f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                }
+            }
+        }
+
+
+        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+        return;
+    }
+    private void FireBulletWithIceAspect( Player shooter )
+    {
+        if ( Owner.MoveSpeed > 150f ) return;
+        Owner.ApplyRecoil( Recoil );
+        EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+        EffectRenderer?.Set( "b_attack", true );
+        EffectRenderer?.Set( "b_reload", false );
+        NextAttackTime = 1f / FireRate;
+        AmmoInClip--;
+
+        var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+        var direction = Owner.PlyCamera.WorldRotation.Forward;
+        direction += Vector3.Random * Spread;
+        var endPos = startPos + direction * 5000f;
+
+        var trace = Scene.Trace.Ray( startPos, endPos )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        // Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+        if ( trace.Hit )
+        {
+            endPos = trace.EndPosition;
+        }
+
+        if ( Trail != null )
+        {
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_ice.prefab" ); // Verwende das neue Prefab
+            if ( trailInstance != null )
+            {
+                var trailobject = GameObject.Clone( trailInstance );
+                if ( trailobject != null )
+                {
+                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+                    var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+                    if ( trailobjectRenderer != null )
+                    {
+                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                    }
+
+                    var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                }
+            }
+        }
+
+
+        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+        return;
+    }
+
+    private void FireBulletWithAirAspect( Player shooter )
+    {
+        if ( Owner.MoveSpeed > 150f ) return;
+        Owner.ApplyRecoil( Recoil );
+        EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+        EffectRenderer?.Set( "b_attack", true );
+        EffectRenderer?.Set( "b_reload", false );
+        NextAttackTime = 1f / FireRate;
+        AmmoInClip--;
+
+        var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+        var direction = Owner.PlyCamera.WorldRotation.Forward;
+        direction += Vector3.Random * Spread;
+        var endPos = startPos + direction * 5000f;
+
+        var trace = Scene.Trace.Ray( startPos, endPos )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        // Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+        if ( trace.Hit )
+        {
+            endPos = trace.EndPosition;
+        }
+
+        if ( Trail != null )
+        {
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_air.prefab" ); // Verwende das neue Prefab
+            if ( trailInstance != null )
+            {
+                var trailobject = GameObject.Clone( trailInstance );
+                if ( trailobject != null )
+                {
+                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+
+                    var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+                    if ( trailobjectRenderer != null )
+                    {
+                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+
+                    }
+
+                    var speed = BulletSpeed * 750f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                }
+            }
+        }
+
+
+        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+        return;
+    }
+
+    private void FireBulletWithEarthAspect( Player shooter )
+    {
+        if ( Owner.MoveSpeed > 150f ) return;
+        Owner.ApplyRecoil( Recoil );
+        EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+        EffectRenderer?.Set( "b_attack", true );
+        EffectRenderer?.Set( "b_reload", false );
+        NextAttackTime = 1f / FireRate;
+        AmmoInClip--;
+
+        var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+        var direction = Owner.PlyCamera.WorldRotation.Forward;
+        direction += Vector3.Random * Spread;
+        var endPos = startPos + direction * 5000f;
+
+        var trace = Scene.Trace.Ray( startPos, endPos )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        // Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+        if ( trace.Hit )
+        {
+            endPos = trace.EndPosition;
+        }
+
+        if ( Trail != null )
+        {
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_earth.prefab" ); // Verwende das neue Prefab
+            if ( trailInstance != null )
+            {
+                var trailobject = GameObject.Clone( trailInstance );
+                if ( trailobject != null )
+                {
+                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+                    var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+                    if ( trailobjectRenderer != null )
+                    {
+                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                    }
+
+                    var speed = BulletSpeed * 400f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                }
+            }
+        }
+
+
+        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+        return;
+    }
+
+   
+    private void FireBulletWithShadowAspect( Player shooter )
+    {
+        if ( Owner.MoveSpeed > 150f ) return;
+        Owner.ApplyRecoil( Recoil );
+        EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+        EffectRenderer?.Set( "b_attack", true );
+        EffectRenderer?.Set( "b_reload", false );
+        NextAttackTime = 1f / FireRate;
+        AmmoInClip--;
+
+        var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+        var direction = Owner.PlyCamera.WorldRotation.Forward;
+        direction += Vector3.Random * Spread;
+        var endPos = startPos + direction * 5000f;
+
+        var trace = Scene.Trace.Ray( startPos, endPos )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        // Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+        if ( trace.Hit )
+        {
+            endPos = trace.EndPosition;
+        }
+
+        if ( Trail != null )
+        {
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_shadow.prefab" ); // Verwende das neue Prefab
+            if ( trailInstance != null )
+            {
+                var trailobject = GameObject.Clone( trailInstance );
+                if ( trailobject != null )
+                {
+                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+                    var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+                    if ( trailobjectRenderer != null )
+                    {
+                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                    }
+
+                    var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                }
+            }
+        }
+
+
+        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+        return;
+    }
+
+
+
+
+
+  
+    private void FireBulletWithLightningAspect( Player shooter )
+    {
+        if ( Owner.MoveSpeed > 150f ) return;
+        Owner.ApplyRecoil( Recoil );
+        EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+        EffectRenderer?.Set( "b_attack", true );
+        EffectRenderer?.Set( "b_reload", false );
+        NextAttackTime = 1f / FireRate;
+        AmmoInClip--;
+
+        var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+        var direction = Owner.PlyCamera.WorldRotation.Forward;
+        direction += Vector3.Random * Spread;
+        var endPos = startPos + direction * 5000f;
+
+        var trace = Scene.Trace.Ray( startPos, endPos )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        // Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+        if ( trace.Hit )
+        {
+            endPos = trace.EndPosition;
+        }
+
+        if ( Trail != null )
+        {
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_lightning.prefab" ); // Verwende das neue Prefab
+            if ( trailInstance != null )
+            {
+                var trailobject = GameObject.Clone( trailInstance );
+                if ( trailobject != null )
+                {
+                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+                    var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+                    if ( trailobjectRenderer != null )
+                    {
+                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                    }
+
+                    var speed = BulletSpeed * 400f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                }
+            }
+        }
+        if ( trace.Hit )
+        {
+            var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+            if ( damageable != null )
+            {
+                ApplyLightningAspectPassive( damageable );
+            }
+        }
+
+        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+        return;
+    }
+    private async void Tornado( GameObject trailobject, Vector3 direction, float speed, Vector3 endPos, Player shooter )
+    {
+        var startTime = Time.Now;
+        var duration = 5.0f; // Dauer der Bewegung in Sekunden, anpassen nach Bedarf
+        var zigzagFrequency = 15.0f; // Frequenz der Zickzack-Bewegung
+        var zigzagAmplitude = 15.0f; // Amplitude der Zickzack-Bewegung
+        var pullRadius = 500.0f; // Radius, in dem NPCs angezogen werden
+        var pullStrength = 100.0f; // Stärke des Anziehens
+        var airDuration = 3.0f; // Dauer, die NPCs in der Luft bleiben sollen
+
+        var affectedNpcs = new List<Npc>();
+        var npcStartTimes = new Dictionary<Npc, float>();
+
+        while ( Time.Now - startTime < duration )
+        {
+            var elapsedTime = Time.Now - startTime;
+            var zigzagOffset = new Vector3(
+                MathF.Sin( elapsedTime * zigzagFrequency ) * zigzagAmplitude,
+                MathF.Cos( elapsedTime * zigzagFrequency ) * zigzagAmplitude,
+                0
+            );
+
+            if ( trailobject != null )
+            {
+                trailobject.WorldPosition += (direction * speed * Time.Delta) + zigzagOffset;
+
+                // Überprüfen, ob das Objekt die Endposition erreicht hat oder etwas trifft
+                var trace = Scene.Trace.Ray( trailobject.WorldPosition, trailobject.WorldPosition + direction * 100f )
+                    .IgnoreGameObjectHierarchy( GameObject.Root )
+                    .WithoutTags( "player" )
+                    .UseHitboxes( true )
+                    .Run();
+
+                if ( trace.Hit )
+                {
+                    var damageable = trace.Component?.Components.GetInAncestorsOrSelf<IHealthComponent>();
+                    if ( damageable != null )
+                    {
+                        ApplyLightningAspectPassive( damageable ); // Blitz-Aspekt anwenden
+                    }
+
+                    if ( ImpactArea != null )
+                    {
+                        var impactInstance = ResourceLibrary.Get<PrefabFile>( ImpactArea.ResourcePath );
+                        if ( impactInstance != null )
+                        {
+                            var impactObject = GameObject.Clone( impactInstance );
+                            if ( impactObject != null )
+                            {
+                                impactObject.WorldPosition = trace.EndPosition;
+                                impactObject.WorldRotation = Rotation.LookAt( trace.Normal );
+
+                                var impactRenderer = impactObject.Components.Get<ParticleEffect>();
+                                if ( impactRenderer != null )
+                                {
+                                    impactRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                                    impactRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                                }
+                            }
+                        }
+                    }
+
+                    trailobject.Destroy(); // Zerstöre das Objekt
+                    return;
+                }
+
+                // Ziehe NPCs in der Nähe an und schleudere sie um den Tornado
+                var npcs = FindNpcsInRadius( trailobject.WorldPosition, pullRadius );
+                foreach ( var npc in npcs )
+                {
+                    if ( !affectedNpcs.Contains( npc ) )
+                    {
+                        if ( npc.NavMeshAgent != null )
+                        {
+                            npc.NavMeshAgent.UpdatePosition = false;
+                            npc.NavMeshAgent.Enabled = false;
+                            affectedNpcs.Add( npc );
+                            npcStartTimes[npc] = Time.Now;
+                        }
+                    }
+
+                    var toTornado = (trailobject.WorldPosition - npc.WorldPosition).Normal;
+                    npc.WorldPosition += toTornado * pullStrength * Time.Delta;
+
+                    // Hebe den NPC in die Luft
+                    npc.WorldPosition += Vector3.Up * 10.0f * Time.Delta;
+
+                    // Schleudere NPCs um den Tornado
+                    var angle = elapsedTime * zigzagFrequency;
+                    var offset = new Vector3(
+                        MathF.Cos( angle ) * zigzagAmplitude,
+                        MathF.Sin( angle ) * zigzagAmplitude,
+                        0
+                    );
+                    npc.WorldPosition += offset * Time.Delta;
+
+                    // Überprüfen, ob die NPCs 5 Sekunden in der Luft waren
+                    if ( npcStartTimes.ContainsKey( npc ) && Time.Now - npcStartTimes[npc] >= airDuration )
+                    {
+                        npc.NavMeshAgent.UpdatePosition = true;
+                        affectedNpcs.Remove( npc );
+                        npcStartTimes.Remove( npc );
+                    }
+                }
+
+                // Aktualisiere die Position der NPCs, um dem Trail zu folgen
+                foreach ( var npc in affectedNpcs )
+                {
+                    if ( trailobject != null && npc != null && npc.IsValid() )
+                    {
+                        var toTrail = (trailobject.WorldPosition - npc.WorldPosition).Normal;
+                        npc.WorldPosition += toTrail * speed * Time.Delta;
+                    }
+                }
+
+                if ( trailobject != null && (trailobject.WorldPosition - endPos).Length < 1.0f ) // Überprüfen, ob das Objekt die Endposition erreicht hat
+                {
+                    trailobject.Destroy(); // Zerstöre das Objekt
+                    break;
+                }
+            }
+
+            await Task.Delay( 10 ); // Aktualisiere die Position alle 10 Millisekunden
+        }
+
+        // Reaktiviere NavMeshAgent.UpdatePosition für alle betroffenen NPCs
+        foreach ( var npc in affectedNpcs )
+        {
+            if ( npc.NavMeshAgent != null && npc.IsValid() )
+            {
+                npc.NavMeshAgent.UpdatePosition = true;
+                npc.NavMeshAgent.Enabled = true;
+
+                // Setze die NPC-Position auf den Boden
+                var groundTrace = Scene.Trace.Ray( npc.WorldPosition, npc.WorldPosition - Vector3.Up * 200f )
+                    .IgnoreGameObjectHierarchy( npc.GameObject )
+                    .WithoutTags( "player", "npc", "trigger" )
+                    .Run();
+
+                if ( groundTrace.Hit )
+                {
+                    npc.WorldPosition = groundTrace.EndPosition;
+                }
+            }
+        }
+
+        if ( trailobject != null )
+        {
+            trailobject.Destroy(); // Zerstöre das Objekt nach Ablauf der Dauer
+        }
+    }
+    private IEnumerable<Npc> FindNpcsInRadius( Vector3 position, float radius )
+    {
+        return Scene.GetAllComponents<Npc>().Where( npc => (npc.WorldPosition - position).Length < radius );
+    }
+    private void ApplyLightningAspectPassive( IHealthComponent damageable )
+    {
+        // Implementiere die Logik für den Blitz-Aspekt
+        if ( damageable is Npc npc )
+        {
+            Random random = new Random();
+            int chance = random.Next( 0, 100 );
+            if ( chance < 40 )
+            {
+                var stunEffect = new StunEffect( 3 ); // Dauer in Sekunden
+                npc.ApplyStatusEffect( stunEffect );
+
+                // Erzeuge einen Tornado
+                var tornadoPrefab = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/firebullet_air_extra.prefab" );
+                if ( tornadoPrefab != null )
+                {
+                    for ( int i = 0; i < 2; i++ )
+                    {
+                        var tornadoObject = GameObject.Clone( tornadoPrefab );
+                        if ( tornadoObject != null )
+                        {
+                            float heightOffset = random.Next( 5,25 ); // Zufällige Höhe zwischen 5 und 20
+                            float speed = random.Next( 30, 100 ); // Zufällige Geschwindigkeit zwischen 30 und 70
+                            float width = random.Next( 5, 5 ); // Zufällige Breite zwischen 5 und 15
+
+                            tornadoObject.WorldPosition = npc.WorldPosition + Vector3.Up * heightOffset; // Setze die Startposition auf den NPC und versetze sie
+                            var direction = Vector3.Up; // Beispielhafte Richtung, anpassen nach Bedarf
+                            var endPos = npc.WorldPosition + direction * 200.0f; // Beispielhafte Endposition, anpassen nach Bedarf
+                            Tornado( tornadoObject, direction, speed, endPos, null ); // Spieler ist hier nicht relevant
+                        }
+                        //tornadoObject.Destroy();
+
+                    }
+                    
+                }
+                
+            }
+        }
+        
+        
+    }
+
+
+
+
+    private void FireBulletWithHolyAspect( Player shooter )
+    {
+        // Implementiere die Logik für das Abfeuern eines Heilig-Aspekt-Geschosses
+
+        // Beispiel: Erzeuge ein Heiligprojektil
+    }
+
+       private void FireBulletWithPoisonAspect( Player shooter )
+    {
+        // Implementiere die Logik für das Abfeuern eines Gift-Aspekt-Geschosses
+
+        // Beispiel: Erzeuge ein Giftprojektil
+    }
+    
+    private async void MovePrefabToPlayer( GameObject prefabObject, Player shooter )
+    {
+        var startTime = Time.Now;
+        var duration = 2.0f; // Dauer der Bewegung in Sekunden, anpassen nach Bedarf
+        var speed = 500.0f; // Geschwindigkeit des Prefabs
+
+        while ( Time.Now - startTime < duration )
+        {
+            var direction = (shooter.WorldPosition - prefabObject.WorldPosition).Normal;
+            prefabObject.WorldPosition += direction * speed * Time.Delta;
+
+            // Überprüfen, ob das Prefab den Spieler erreicht hat
+            if ( (prefabObject.WorldPosition - shooter.WorldPosition).Length < 1.0f )
+            {
+                // Heile den Spieler um 25% seines maximalen Lebens
+                shooter.Health = Math.Min( shooter.MaxHealth, shooter.Health + shooter.MaxHealth * 0.25f );
+
+                // Zerstöre das Prefab
+                prefabObject.Destroy();
+                return;
+            }
+
+            await Task.Delay( 10 ); // Aktualisiere die Position alle 10 Millisekunden
+        }
+
+        // Zerstöre das Prefab nach Ablauf der Dauer
+        prefabObject.Destroy();
+    }
+
+}

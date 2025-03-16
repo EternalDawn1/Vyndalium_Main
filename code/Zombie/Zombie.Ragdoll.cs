@@ -49,8 +49,6 @@ public partial class Npc
 			_unragdoll = duration;
 			_lastPosition = Ragdoll.Transform.World.Position;
 			_spin = spin;
-
-			
 		}
 		else
 		{
@@ -127,7 +125,6 @@ public partial class Npc
 					_puppet.Enabled = false;
 					_puppet.Enabled = true;
 					_puppet.SceneModel.RenderingEnabled = false;
-				
 				}
 
 				var transition = 0.15f;
@@ -157,6 +154,7 @@ public partial class Npc
 
 							if ( body != null )
 							{
+								body.Transform = body.Transform.Lerp( transform, time );
 							}
 						}
 					}
@@ -184,5 +182,17 @@ public partial class Npc
 				}
 			}
 		}
+	}
+}
+public static class TransformExtensions
+{
+	public static Transform Lerp( this Transform from, Transform to, float amount )
+	{
+		return new Transform
+		{
+			Position = Vector3.Lerp( from.Position, to.Position, amount ),
+			Rotation = Rotation.Lerp( from.Rotation, to.Rotation, amount ),
+			Scale = from.Scale + (to.Scale - from.Scale) * amount
+		};
 	}
 }
