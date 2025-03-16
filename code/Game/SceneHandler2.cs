@@ -116,6 +116,12 @@ public static class SceneHandler2
 
     public static bool HasRequiredLevel2( GeneralScene2 scene )
     {
+        if ( Player.Local == null )
+        {
+            // Handle null Player.Local
+            return false;
+        }
+
         int playerLevel = Player.Local.GetLevel(); // Annahme: Es gibt eine Methode, um das Spielerlevel zu bekommen
         return playerLevel >= scene.GetRequiredLevel2();
     }
@@ -159,8 +165,8 @@ public static class GeneralSceneExtensions2
             GeneralScene2.Forest2 => 10,
             GeneralScene2.One => 0,
             GeneralScene2.StartBase => 0,
-            GeneralScene2.One2 => 5,
-            GeneralScene2.One3 => 10,
+            GeneralScene2.One2 => 0,
+            GeneralScene2.One3 => 0,
             GeneralScene2.Forest3 => 25,
             GeneralScene2.Forest4 => 25,
             GeneralScene2.untitled3 => 0,

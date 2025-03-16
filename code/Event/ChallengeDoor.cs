@@ -3,8 +3,8 @@ namespace GeneralGame;
 
 public sealed class ChallengeDoor : Component
 {
-	[Property] ModelRenderer modelRenderer;
-	[Property] BoxCollider boxCollider;
+	[Property] ModelRenderer modelRenderer { get; set; }
+	[Property] BoxCollider boxCollider { get; set; }
 
 	[Property, Group( "General" )]
 	public float CloseDuration { get; set; } = 30f;

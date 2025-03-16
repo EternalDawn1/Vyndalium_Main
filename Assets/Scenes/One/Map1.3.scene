@@ -3022,6 +3022,7 @@
           "Opacity": 1,
           "Scale": 1,
           "ScaleStrategy": "ConsistentHeight",
+          "TargetCamera": null,
           "ZIndex": 100
         }
       ]
@@ -4591,26 +4592,152 @@
       "Scale": "3.899999,3.099999,1",
       "Tags": "light_point,light_spot,light",
       "Enabled": true,
-      "__Prefab": "prefabs/entitys/exit.prefab",
-      "__PrefabVariables": {}
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "153f9327-c089-4332-83c7-e26eba3b9063",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Model": "models/portal/portal.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "04cebef2-28a8-485b-95c7-394e0dc3afd8",
+          "Center": "0,0,0",
+          "Friction": null,
+          "IsTrigger": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "Scale": "50,50,50",
+          "Static": false,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "GeneralGame.SceneChangeTrigger",
+          "__guid": "a173413f-ed0a-4023-9673-74e246d7387d",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SceneToLoad": "StartBase"
+        },
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "17ea81ca-1821-4c73-9ba4-89bceab64221",
+          "Attenuation": 1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0,0.76667,1,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 400,
+          "Shadows": true
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "e449727d-114d-43bd-8acb-53fd4853c0af",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-0,0,86.00391",
+          "Rotation": "0,0,0.7071067,0.7071068",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "ea9e6313-c8a2-4b56-9174-61ced7880fcc",
+              "__version": 1,
+              "BlendMode": "Normal",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "Scale": 0.08,
+              "TextAlignment": "Center",
+              "TextScope": {
+                "Text": "EXIT",
+                "TextColor": "1,1,1,1",
+                "FontName": "Poppins",
+                "FontSize": 90.47,
+                "FontWeight": 800,
+                "FontItalic": false,
+                "LineHeight": 1,
+                "LetterSpacing": 0,
+                "WordSpacing": 0,
+                "Outline": {
+                  "Enabled": false,
+                  "Size": 4,
+                  "Color": "0,0,1,1"
+                },
+                "Shadow": {
+                  "Enabled": false,
+                  "Size": 4,
+                  "Color": "0,0,0,1",
+                  "Offset": "4,4"
+                },
+                "OutlineUnder": {
+                  "Enabled": false,
+                  "Size": 4,
+                  "Color": "0,1,0,1"
+                },
+                "ShadowUnder": {
+                  "Enabled": false,
+                  "Size": 4,
+                  "Color": "0,0,0,1",
+                  "Offset": "4,4"
+                }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "__guid": "8e1fd363-a77e-4b8a-a09f-77a601c76961",
       "Flags": 0,
       "Name": "Hub (1)",
       "Position": "4102.535,3268.579,240.7163",
-      "Rotation": "0,0,-0.0000003894144,-1",
-      "Scale": "4.699998,3.099999,1",
-      "Tags": "light_point,light_spot,light",
-      "Enabled": true,
-      "__Prefab": "prefabs/entitys/exit.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "3a3e1b8e-22c8-4a4b-9ebe-8228c3dc959f",
-      "Flags": 0,
-      "Name": "Hub (2)",
-      "Position": "3585.372,3260.743,238.039",
       "Rotation": "0,0,-0.0000003894144,-1",
       "Scale": "4.699998,3.099999,1",
       "Tags": "light_point,light_spot,light",
@@ -6452,7 +6579,7 @@
           "InfiniteLoops": false,
           "lastSpawnTime": {
             "Absolute": 0,
-            "Relative": 100828010
+            "Relative": 101163540
           },
           "Lights": [
             {
@@ -6835,7 +6962,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -6996,7 +7123,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7157,7 +7284,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7318,7 +7445,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7479,7 +7606,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7640,7 +7767,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7801,7 +7928,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7962,7 +8089,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8123,7 +8250,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8284,7 +8411,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8445,7 +8572,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8606,7 +8733,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8767,7 +8894,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8928,7 +9055,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9089,7 +9216,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9250,7 +9377,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9411,7 +9538,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9572,7 +9699,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9733,7 +9860,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9894,7 +10021,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10055,7 +10182,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10216,7 +10343,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10377,7 +10504,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10538,7 +10665,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10699,7 +10826,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10860,7 +10987,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -11021,7 +11148,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -11182,7 +11309,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -11343,7 +11470,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -11504,7 +11631,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -11665,7 +11792,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -11826,7 +11953,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -11987,7 +12114,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -12148,7 +12275,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -12309,7 +12436,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 100828010
+                "Relative": 101163540
               },
               "Lights": [],
               "LoopSpawning": false,

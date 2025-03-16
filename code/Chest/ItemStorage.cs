@@ -23,23 +23,23 @@ namespace GeneralGame
 
         private Dictionary<string, (int MinAttack, int MaxAttack)> tierAttackValues = new Dictionary<string, (int MinAttack, int MaxAttack)>
         {
-            { "C", (27, 34) },
-            { "B", (62, 69) },
-            { "A", (107, 114) },
-            { "S", (192, 199) },
-            { "SS", (207, 214) },
-            { "SSS", (232, 239) },
-            { "Ultimate", (250, 250) }
+            { "C", (5, 20) },
+            { "B", (20, 25) },
+            { "A", (30, 55) },
+            { "S", (60, 70) },
+            { "SS", (70, 80) },
+            { "SSS", (90, 110) },
+            { "Ultimate", (250, 300) }
         };
 
         private Dictionary<string, (int MinArmor, int MaxArmor)> tierArmorValues = new Dictionary<string, (int MinArmor, int MaxArmor)>
         {
-            { "C", (27, 34) },
-            { "B", (62, 69) },
-            { "A", (107, 114) },
-            { "S", (192, 199) },
-            { "SS", (207, 214) },
-            { "SSS", (232, 239) },
+            { "C", (5, 10) },
+            { "B", (10, 20) },
+            { "A", (20, 30) },
+            { "S", (30, 35) },
+            { "SS", (45, 55) },
+            { "SSS", (60, 70) },
             { "Ultimate", (250, 250) }
         };
 

@@ -723,7 +723,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 					}
 
 
-					var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+					var speed = (0.8f + BulletSpeed) * 1000f;
 					UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
 				}
 			}
@@ -1309,6 +1309,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 		{
 			return;
 		}
+		
 		if ( MuzzleFlash != null )
 		{
 			if ( EffectRenderer.SceneModel != null )

@@ -133,6 +133,13 @@ public partial class BaseGun : WeaponComponent, IUse
     {
         if ( Owner.MoveSpeed > 150f ) return;
         Owner.ApplyRecoil( Recoil );
+
+        if ( EffectRenderer == null )
+        {
+            Log.Error( "EffectRenderer is null" );
+            return;
+        }
+
         EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
         EffectRenderer?.Set( "b_attack", true );
         EffectRenderer?.Set( "b_reload", false );
@@ -140,6 +147,12 @@ public partial class BaseGun : WeaponComponent, IUse
         AmmoInClip--;
 
         var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        if ( attachment == null )
+        {
+            Log.Error( "Attachment is null" );
+            return;
+        }
+
         var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
         var direction = Owner.PlyCamera.WorldRotation.Forward;
         direction += Vector3.Random * Spread;
@@ -167,13 +180,11 @@ public partial class BaseGun : WeaponComponent, IUse
                 {
                     trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
 
-
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
                         trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
                         trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
-
                     }
 
                     var speed = BulletSpeed * 750f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
@@ -181,10 +192,14 @@ public partial class BaseGun : WeaponComponent, IUse
                 }
             }
         }
-        var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
-        if ( damageable != null )
+
+        if ( trace.Component != null )
         {
-            ApplyAirAspectPassive( damageable );
+            var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+            if ( damageable != null )
+            {
+                ApplyAirAspectPassive( damageable );
+            }
         }
 
         SendAttackMessage( startPos, endPos, trace.Distance, trace );
@@ -349,6 +364,8 @@ public partial class BaseGun : WeaponComponent, IUse
                     trailobject.Destroy(); // Zerstöre das Objekt
                     break;
                 }
+
+
             }
 
             await Task.Delay( 10 ); // Aktualisiere die Position alle 10 Millisekunden
@@ -450,6 +467,7 @@ public partial class BaseGun : WeaponComponent, IUse
     }
     private void ApplyFireAspectPassive( IHealthComponent damageable, Player shooter )
     {
+        
         if ( damageable is Npc npc )
         {
             var fireEffect = new BurnEffectNpc( 5 ); // Dauer in Sekunden
@@ -469,6 +487,10 @@ public partial class BaseGun : WeaponComponent, IUse
 
 
 
+/// <summary>
+/// // Water Aspect
+/// </summary>
+/// <param name="shooter"></param>
     private void FireBulletWithWaterAspect( Player shooter )
     {
 
@@ -523,12 +545,65 @@ public partial class BaseGun : WeaponComponent, IUse
                 }
             }
         }
-
+        if ( trace.Hit )
+        {
+            var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+            if ( damageable != null )
+            {
+                ApplyWaterAspectPassive( damageable );
+            }
+        }
 
         SendAttackMessage( startPos, endPos, trace.Distance, trace );
 
         return;
     }
+    private void ApplyWaterAspectPassive( IHealthComponent damageable )
+    {
+       
+        // Implementiere die Logik für den Blitz-Aspekt
+        if ( damageable is Npc npc )
+        {
+            Random random = new Random();
+            int chance = random.Next( 0, 100 );
+            if ( chance < 10 )
+            {
+                var stunEffect = new StunEffect( 3 ); // Dauer in Sekunden
+                npc.ApplyStatusEffect( stunEffect );
+
+                // Erzeuge einen Tornado
+                var tornadoPrefab = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/firebullet_air_extra.prefab" );
+                if ( tornadoPrefab != null )
+                {
+                    for ( int i = 0; i < 2; i++ )
+                    {
+                        var tornadoObject = GameObject.Clone( tornadoPrefab );
+                        if ( tornadoObject != null )
+                        {
+                            float heightOffset = random.Next( 5, 25 ); // Zufällige Höhe zwischen 5 und 20
+                            float speed = random.Next( 30, 100 ); // Zufällige Geschwindigkeit zwischen 30 und 70
+
+
+                            tornadoObject.WorldPosition = npc.WorldPosition + Vector3.Up * heightOffset; // Setze die Startposition auf den NPC und versetze sie
+                            var direction = Vector3.Up; // Beispielhafte Richtung, anpassen nach Bedarf
+                            var endPos = npc.WorldPosition + direction * 200.0f; // Beispielhafte Endposition, anpassen nach Bedarf
+                            Tornado( tornadoObject, direction, speed, endPos, null ); // Spieler ist hier nicht relevant
+                        }
+                        //tornadoObject.Destroy();
+
+                    }
+
+                }
+
+            }
+        }
+    }
+
+
+/// <summary>
+/// Ice Aspect
+/// </summary>
+/// <param name="shooter"></param>
     private void FireBulletWithIceAspect( Player shooter )
     {
         if ( Owner.MoveSpeed > 150f ) return;
@@ -580,15 +655,43 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
+        if ( trace.Hit )
+        {
+            var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+            if ( damageable != null )
+            {
+                ApplyIceAspectPassive( damageable, shooter );
+            }
+        }
 
         SendAttackMessage( startPos, endPos, trace.Distance, trace );
+    }
+    private void ApplyIceAspectPassive( IHealthComponent damageable, Player shooter )
+    {
+        Random random = new Random();
+        random.Next( 0, 101 );
+        if ( random.Next( 0, 101 ) <= 10 )
+        {
+            if ( damageable is Npc npc  ) 
+            {
+                if(!npc.HasStatusEffect<FreezeEffectNpc>())
+                {
+                    var freezeEffect = new FreezeEffectNpc( 5 ); // Dauer in Sekunden
+                    npc.ApplyStatusEffect( freezeEffect );
+                }
+                
 
-        return;
+            }
+        }
+           
     }
 
 
 
-
+/// <summary>
+/// Earth Aspect
+/// </summary>
+/// <param name="shooter"></param>
     private void FireBulletWithEarthAspect( Player shooter )
     {
         if ( Owner.MoveSpeed > 150f ) return;
@@ -619,7 +722,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
         if ( Trail != null )
         {
-            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_earth.prefab" ); // Verwende das neue Prefab
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_earth.prefab" );
             if ( trailInstance != null )
             {
                 var trailobject = GameObject.Clone( trailInstance );
@@ -640,13 +743,101 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
+        if ( trace.Hit )
+        {
+            var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+            if ( damageable != null )
+            {
+                Random random = new Random();
+                random.Next( 0, 101 );
+                if ( random.Next( 0, 101 ) <= 5 )
+                {
+
+                    
+                    ApplyEarthAspectDamage( damageable, shooter );
+                    SpawnEarthProjectilesAroundTarget( trace.EndPosition, shooter );
+                }
+            }
+        }
 
         SendAttackMessage( startPos, endPos, trace.Distance, trace );
-
-        return;
     }
 
-   
+    private void SpawnEarthProjectilesAroundTarget( Vector3 targetPosition, Player shooter )
+    {
+        var prefab = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_earth.prefab" );
+        if ( prefab != null )
+        {
+            for ( int i = 0; i < 4; i++ )
+            {
+                var projectile = GameObject.Clone( prefab );
+                if ( projectile != null )
+                {
+                    var offset = GetOffsetPosition( i, targetPosition );
+                    projectile.WorldPosition = offset;
+
+                    var direction = (targetPosition - offset).Normal;
+                    var speed = BulletSpeed * 400f;
+                    MoveProjectileToCenter( projectile, targetPosition, direction, speed, shooter );
+                }
+            }
+        }
+    }
+
+    private Vector3 GetOffsetPosition( int index, Vector3 center )
+    {
+        float angle = MathF.PI / 2 * index;
+        float radius = 500f; // Abstand vom Zentrum
+        return center + new Vector3( MathF.Cos( angle ) * radius, MathF.Sin( angle ) * radius, 0 );
+    }
+
+    private async void MoveProjectileToCenter( GameObject projectile, Vector3 center, Vector3 direction, float speed, Player shooter )
+    {
+        while ( (projectile.WorldPosition - center).Length > 1.0f )
+        {
+            projectile.WorldPosition += direction * speed * Time.Delta;
+
+            // Überprüfen, ob das Projektil etwas trifft
+            var trace = Scene.Trace.Ray( projectile.WorldPosition, projectile.WorldPosition + direction * 100f )
+                .IgnoreGameObjectHierarchy( GameObject.Root )
+                .WithoutTags( "player" )
+                .UseHitboxes( true )
+                .Run();
+
+            if ( trace.Hit )
+            {
+                var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+                if ( damageable != null )
+                {
+                    ApplyEarthAspectDamage( damageable, shooter );
+                }
+                projectile.Destroy();
+                return;
+            }
+
+            await Task.Delay( 10 );
+        }
+
+        projectile.Destroy();
+    }
+
+    private void ApplyEarthAspectDamage( IHealthComponent damageable, Player shooter )
+    {
+        if ( damageable is Npc npc )
+        {
+            
+            
+                var freezeEffect = new StunEffect( 5 ); // Dauer in Sekunden
+                npc.ApplyStatusEffect( freezeEffect );
+            
+            // Füge dem NPC Schaden zu
+            npc.TakeDamage( DamageType.Bullet, 50f, npc.WorldPosition, Vector3.Zero, shooter.Id, shooter.Id );
+        }
+    }
+
+
+
+
     private void FireBulletWithShadowAspect( Player shooter )
     {
         if ( Owner.MoveSpeed > 150f ) return;
@@ -677,7 +868,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
         if ( Trail != null )
         {
-            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_shadow.prefab" ); // Verwende das neue Prefab
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_shadow.prefab" );
             if ( trailInstance != null )
             {
                 var trailobject = GameObject.Clone( trailInstance );
@@ -698,17 +889,91 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
+        if ( trace.Hit )
+        {
+            var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+            if ( damageable != null )
+            {
+                Random random = new Random();
+                if ( random.Next( 0, 100 ) < 20 ) // 20% Chance
+                {
+                    SpawnShadowProjectiles( trace.Component.GameObject, shooter );
+                }
+            }
+        }
 
         SendAttackMessage( startPos, endPos, trace.Distance, trace );
+    }
 
-        return;
+    private void SpawnShadowProjectiles( GameObject target, Player shooter )
+    {
+        var prefab = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_shadow.prefab" );
+        if ( prefab != null )
+        {
+            for ( int i = 0; i < 3; i++ )
+            {
+                var projectile = GameObject.Clone( prefab );
+                if ( projectile != null )
+                {
+                    var offset = GetOffsetPositionShadow( i, target.WorldPosition ) + Vector3.Up * 50f; // Versetze die Position um 50 Einheiten nach oben
+                    projectile.WorldPosition = offset; // Setze die Startposition um den NPC
+                    MoveProjectileToTarget( projectile, target, shooter );
+                }
+            }
+        }
+    }
+    private Vector3 GetOffsetPositionShadow( int index, Vector3 center )
+    {
+        float angle = MathF.PI / 1.5f * index;
+        float radius = 500f; // Abstand vom Zentrum
+        return center + new Vector3( MathF.Cos( angle ) * radius, MathF.Sin( angle ) * radius, 0 );
+    }
+
+    private async void MoveProjectileToTarget( GameObject projectile, GameObject target, Player shooter )
+    {
+        var speed = 500f; // Geschwindigkeit des Projektils
+        var targetPosition = target.WorldPosition + Vector3.Up * 50f; // Zielposition um 50 Einheiten nach oben versetzen
+
+        while ( projectile.IsValid() && target.IsValid() && (projectile.WorldPosition - targetPosition).Length > 1.0f )
+        {
+            var direction = (targetPosition - projectile.WorldPosition).Normal;
+            projectile.WorldPosition += direction * speed * Time.Delta;
+
+            // Überprüfen, ob das Projektil etwas trifft
+            var trace = Scene.Trace.Ray( projectile.WorldPosition, projectile.WorldPosition + direction * 100f )
+                .IgnoreGameObjectHierarchy( GameObject.Root )
+                .WithoutTags( "player" )
+                .UseHitboxes( true )
+                .Run();
+
+            if ( trace.Hit )
+            {
+                var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+                if ( damageable != null )
+                {
+                    ApplyShadowAspectDamage( damageable, shooter );
+                }
+                projectile.Destroy();
+                return;
+            }
+
+            await Task.Delay( 10 );
+        }
+
+        projectile.Destroy();
+    }
+
+    private void ApplyShadowAspectDamage( IHealthComponent damageable, Player shooter )
+    {
+        if ( damageable is Npc npc )
+        {
+            npc.TakeDamage( DamageType.Bullet, 50f, npc.GameObject.WorldPosition, Vector3.Zero, shooter.Id, shooter.Id );
+        }
     }
 
 
 
 
-
-  
     private void FireBulletWithLightningAspect( Player shooter )
     {
         if ( Owner.MoveSpeed > 150f ) return;

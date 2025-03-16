@@ -72,7 +72,7 @@ public partial class Npc : Component, IHealthComponent
 		0.025f // 2.5% Wahrscheinlichkeit für eine Truhe
 	};
 
-
+	public bool IsFrozen = false;
 	// Methode zum Spawnen eines zufälligen Prefabs
 	private void SpawnRandomPrefab( Vector3 position )
 	{
@@ -272,7 +272,7 @@ public partial class Npc : Component, IHealthComponent
 	[Category( "Triggers" )]
 	[ShowIf( "Idle", true )]
 	public Action OnIdle { get; set; }
-	private Player player;
+	private Player player { get; set; }
 	[Property] public GameObject Body { get; set; }
 	[Property] public GameObject Eye { get; set; }
 	[Sync] public int NpcId { get; set; }
@@ -335,7 +335,7 @@ public partial class Npc : Component, IHealthComponent
 	[Property] public bool isSlime = false;
 	[Property]public bool isPrometheus = false;
 
-	public NavMeshAgent NavMeshAgent { get; set; }
+	public NavMeshAgent NavMeshAgent { get; set; } 
 
 
 	[Property]
@@ -382,10 +382,16 @@ public partial class Npc : Component, IHealthComponent
 		/* player = Scene.GetAllComponents<Player>().FirstOrDefault(); */
 		agent = Components.Get<NavMeshAgent>();
 
+		if ( agent == null )
+		{
+			agent = GameObject.AddComponent<NavMeshAgent>();
+		}
+
 		// Setze die Geschwindigkeit des NavMeshAgent
 		agent.MaxSpeed = RunSpeed;
 
 		SpawnPosition = spawnTrace.Hit ? spawnTrace.HitPosition : WorldPosition;
+		NavMeshAgent = agent;
 	}
 
 	public void MoveToTargetPosition()
@@ -484,12 +490,18 @@ public partial class Npc : Component, IHealthComponent
 				if ( closestDistance < maxProximityDistance )
 				{
 					CurrentState = NpcState.Walking;
-					
-					AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
-					
-					agent.Stop();
+
+					if ( AnimationHelper != null )
+					{
+						AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
+					}
+
+					if ( agent != null )
+					{
+						agent.Stop();
+					}
+
 					NormalTrace();
-					
 				}
 				else
 				{
@@ -1505,7 +1517,7 @@ public partial class Npc : Component, IHealthComponent
 		p.PlayUntilFinished( Task ); */
 	}
 
-
+	[Property] public bool IsFloating { get; set; } = false;
 
 
 	public event Action<int> VyndaliumAdded; // Declare the event "VyndaliumAdded"
@@ -1681,33 +1693,109 @@ public class BleedEffect : StatusEffect
 
 		npc.IsBleeding = false;
 	}
+	
 }
 
 public class SlowEffect : StatusEffect
 {
+	private float originalSpeed;
 
+	public SlowEffect( float duration )
+	{
+		Duration = duration;
+	}
 
-	public override void Apply( Npc npc , Player attacker)
+	public override async void Apply( Npc npc, Player attacker )
 	{
 		// Setze das IsSlowed-Flag auf true
 		npc.IsSlowed = true;
 
-		// Implementiere die Logik für den Verlangsamungseffekt
-		//npc.MoveSpeed *= 0.5f; // Beispiel: Reduziere die Bewegungsgeschwindigkeit um 50%
-		
+		// Speichere die ursprüngliche Geschwindigkeit
+		originalSpeed = npc.MoveSpeed;
 
-		// Setze einen Timer, um den Effekt nach der Dauer zu entfernen
-		Task.Delay( (int)(Duration * 1000) ).ContinueWith( _ =>
-		{
-			// Setze die Bewegungsgeschwindigkeit zurück
-			npc.MoveSpeed /= 0.5f;
-			// Setze das IsSlowed-Flag auf false
-			npc.IsSlowed = false;
-		} );
+		// Reduziere die Geschwindigkeit des NPCs
+		npc.MoveSpeed *= 0.5f;
+
+		// Warte für die Dauer des Effekts
+		await Task.Delay( (int)(Duration * 1000) );
+
+		// Setze die Geschwindigkeit des NPCs zurück
+		npc.MoveSpeed = originalSpeed;
+
+		// Setze das IsSlowed-Flag auf false
+		npc.IsSlowed = false;
+	}
+}
+public class FreezeEffectNpc : StatusEffect
+{
+	private float originalSpeed;
+	private float originalMaxSpeed;
+	private GameObject iceEffectInstance;
+	private static DateTime lastFreezeTime = DateTime.MinValue;
+	private static readonly TimeSpan cooldown = TimeSpan.FromSeconds( 20 );
+
+	public FreezeEffectNpc( float duration )
+	{
+		Duration = duration;
 	}
 
+	public override async void Apply( Npc npc, Player attacker )
+	{
+		// Überprüfe, ob der Cooldown abgelaufen ist
+		if ( DateTime.Now - lastFreezeTime < cooldown )
+		{
+			return; // Cooldown ist noch aktiv, Effekt nicht anwenden
+		}
 
+		// Setze die Zeit des letzten Effekts auf jetzt
+		lastFreezeTime = DateTime.Now;
+
+		// Setze die Bewegungsgeschwindigkeit des NPCs auf 0
+		originalSpeed = npc.MoveSpeed;
+		originalMaxSpeed = npc.NavMeshAgent.MaxSpeed;
+		npc.MoveSpeed = 0;
+		npc.NavMeshAgent.MaxSpeed = 0;
+
+		// Erstelle das Eis-Prefab und setze es auf die Position des NPCs
+		var icePrefab = ResourceLibrary.Get<PrefabFile>( "prefabs/hit/skeleton/ice_game_extrea.prefab" );
+		if ( icePrefab != null )
+		{
+			iceEffectInstance = GameObject.Clone( icePrefab );
+			if ( iceEffectInstance != null )
+			{
+				Random random = new Random();
+				float offsetX = (float)(random.NextDouble() * 10 - 5); // Zufälliger Versatz zwischen -5 und 5
+				float offsetY = (float)(random.NextDouble() * 10 - 5); // Zufälliger Versatz zwischen -5 und 5
+				float offsetZ = (float)(random.NextDouble() * 10 - 5); // Zufälliger Versatz zwischen -5 und 5
+
+				iceEffectInstance.LocalPosition = npc.LocalPosition + new Vector3( offsetX, offsetY, offsetZ ); // Zufälliger Versatz
+			}
+		}
+
+		// Warte für die Dauer des Effekts
+		await Task.Delay( (int)(Duration * 1000) );
+
+		// Entferne den Freeze-Effekt
+		Remove( npc );
+	}
+
+	private void Remove( Npc npc )
+	{
+		// Setze die Bewegungsgeschwindigkeit des NPCs zurück
+		npc.MoveSpeed = originalSpeed;
+		npc.NavMeshAgent.MaxSpeed = originalMaxSpeed;
+
+		// Entferne das Eis-Prefab, wenn der Freeze-Effekt endet
+		if ( iceEffectInstance != null )
+		{
+			iceEffectInstance.Destroy();
+		}
+
+		// Entferne den Effekt aus der Liste der aktiven Effekte
+		npc.RemoveStatusEffect( this );
+	}
 }
+
 public class KnockbackEffect : StatusEffect
 {
 	public Vector3 KnockbackDirection { get; set; }
@@ -1762,14 +1850,83 @@ public class KnockbackEffect : StatusEffect
 		isKnockedBack = false;
 	}
 }
+
 public class StunEffect : StatusEffect
 {
+	private float originalSpeed;
+	private float originalMaxSpeed;
+	private static DateTime lastStunTime = DateTime.MinValue;
+	private static readonly TimeSpan cooldown = TimeSpan.FromSeconds( 20 );
+
 	public StunEffect( float duration )
 	{
 		Duration = duration;
 	}
-	public override void Apply( Npc npc , Player attacker)
+
+	public override async void Apply( Npc npc, Player attacker )
 	{
-		
+		// Überprüfe, ob der Cooldown abgelaufen ist
+		if ( DateTime.Now - lastStunTime < cooldown )
+		{
+			return; // Cooldown ist noch aktiv, Effekt nicht anwenden
+		}
+
+		// Setze die Zeit des letzten Effekts auf jetzt
+		lastStunTime = DateTime.Now;
+
+		// Setze die Bewegungsgeschwindigkeit des NPCs auf 0
+		originalSpeed = npc.MoveSpeed;
+		originalMaxSpeed = npc.NavMeshAgent.MaxSpeed;
+		npc.MoveSpeed = 0;
+		npc.NavMeshAgent.MaxSpeed = 0;
+
+		// Warte für die Dauer des Effekts
+		await Task.Delay( (int)(Duration * 1000) );
+
+		// Entferne den Stun-Effekt
+		Remove( npc );
+	}
+
+	private void Remove( Npc npc )
+	{
+		// Setze die Bewegungsgeschwindigkeit des NPCs zurück
+		npc.MoveSpeed = originalSpeed;
+		npc.NavMeshAgent.MaxSpeed = originalMaxSpeed;
+
+		// Entferne den Effekt aus der Liste der aktiven Effekte
+		npc.RemoveStatusEffect( this );
+	}
+}
+public class FloatEffect : StatusEffect
+{
+	public FloatEffect( float duration )
+	{
+		Duration = duration;
+	}
+
+	public override async void Apply( Npc npc, Player attacker )
+	{
+		// Setze das IsFloating-Flag auf true
+		npc.IsFloating = true;
+
+		// Hebe den NPC in die Luft
+		npc.WorldPosition += Vector3.Up * 10.0f;
+
+		// Warte für die Dauer des Effekts
+		await Task.Delay( (int)(Duration * 1000) );
+
+		// Setze das IsFloating-Flag auf false
+		npc.IsFloating = false;
+
+		// Setze die NPC-Position auf den Boden zurück
+		var groundTrace = npc.Scene.Trace.Ray( npc.WorldPosition, npc.WorldPosition - Vector3.Up * 200f )
+			.IgnoreGameObjectHierarchy( npc.GameObject )
+			.WithoutTags( "player", "npc", "trigger" )
+			.Run();
+
+		if ( groundTrace.Hit )
+		{
+			npc.WorldPosition = groundTrace.EndPosition;
+		}
 	}
 }
