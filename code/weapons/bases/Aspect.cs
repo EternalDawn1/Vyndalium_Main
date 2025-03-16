@@ -345,7 +345,11 @@ public partial class BaseGun : WeaponComponent, IUse
                 }
             }
         }
-
+        var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+        if ( damageable != null )
+        {
+            ApplyAirAspectPassive( damageable );
+        }
 
         SendAttackMessage( startPos, endPos, trace.Distance, trace );
 
@@ -527,7 +531,7 @@ public partial class BaseGun : WeaponComponent, IUse
             var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
             if ( damageable != null )
             {
-                ApplyLightningAspectPassive( damageable );
+                //ApplyAirAspectPassive( damageable );
             }
         }
 
@@ -570,11 +574,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
                 if ( trace.Hit )
                 {
-                    var damageable = trace.Component?.Components.GetInAncestorsOrSelf<IHealthComponent>();
-                    if ( damageable != null )
-                    {
-                        ApplyLightningAspectPassive( damageable ); // Blitz-Aspekt anwenden
-                    }
+                    
 
                     if ( ImpactArea != null )
                     {
@@ -690,7 +690,7 @@ public partial class BaseGun : WeaponComponent, IUse
     {
         return Scene.GetAllComponents<Npc>().Where( npc => (npc.WorldPosition - position).Length < radius );
     }
-    private void ApplyLightningAspectPassive( IHealthComponent damageable )
+    private void ApplyAirAspectPassive( IHealthComponent damageable )
     {
         // Implementiere die Logik für den Blitz-Aspekt
         if ( damageable is Npc npc )
