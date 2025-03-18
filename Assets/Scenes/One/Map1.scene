@@ -177,8 +177,8 @@
           "__guid": "19487e25-24c9-437a-8332-17ed4a81294b",
           "Flags": 0,
           "Name": "Spawnpoint",
-          "Position": "1086.538,-241.5509,607.7886",
-          "Rotation": "0,0,0.7021527,0.7120265",
+          "Position": "4066.926,326.0642,1.783688",
+          "Rotation": "0,0,0.9999757,0.00698185",
           "Enabled": true,
           "Components": [
             {
@@ -844,63 +844,6 @@
           ]
         },
         {
-          "__guid": "bdc1a879-79b2-4e47-94d6-6731764c928f",
-          "Flags": 0,
-          "Name": "Soundscape",
-          "Position": "1125.452,292.0042,-21.79116",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.SoundPointComponent",
-              "__guid": "94ad8be1-521a-4e2e-ad13-51bb855d6db4",
-              "Distance": 512,
-              "DistanceAttenuation": false,
-              "DistanceAttenuationOverride": false,
-              "Falloff": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 3.1415927,
-                  "out": -3.1415927,
-                  "mode": "Mirrored"
-                },
-                {
-                  "x": 1,
-                  "y": 0,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Force2d": true,
-              "MaxRepeatTime": 1,
-              "MinRepeatTime": 1,
-              "Occlusion": false,
-              "OcclusionOverride": false,
-              "OcclusionRadius": 32,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Pitch": 1,
-              "PlayOnStart": true,
-              "ReflectionOverride": false,
-              "Reflections": false,
-              "Repeat": false,
-              "SoundEvent": "sounds/soundscape/cave2.sound",
-              "SoundOverride": true,
-              "StopOnNew": false,
-              "TargetMixer": {
-                "Name": "unknown",
-                "Id": "00000000-0000-0000-0000-000000000000"
-              },
-              "Volume": 0.12
-            }
-          ]
-        },
-        {
           "__guid": "d77f38f4-19d7-4b90-8842-93b3bee7b314",
           "Flags": 0,
           "Name": "Gradient Fog",
@@ -922,490 +865,6 @@
               "OnComponentUpdate": null,
               "StartDistance": 49.99998,
               "VerticalFalloffExponent": 1
-            }
-          ]
-        },
-        {
-          "__guid": "e734fbff-7c5f-4edf-8b32-1b2380b02543",
-          "Flags": 0,
-          "Name": "uspb",
-          "Position": "1077.948,62.29028,-0.6072807",
-          "Rotation": "0.04155844,-0.0000001657754,-0.999136,-0.00000008940697",
-          "Scale": "2.832896,2.832896,2.832896",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "GeneralGame.BaseGun",
-              "__guid": "465933cd-41f8-455f-8d59-803095dd9090",
-              "AimPos": "-2.1,4.62,1.5",
-              "AimRotation": "0,0,0,0",
-              "AimRotationOffset": "0,0,0,0",
-              "AmmoInClip": 0,
-              "AmmoType": "Pistol",
-              "BulletSpeed": 1,
-              "ClipSize": 15,
-              "CurRot": "0,0,0,0",
-              "Damage": 25,
-              "DamageForce": 50,
-              "DamageType": "Bullet",
-              "DefaultAmmo": 145,
-              "DeploySound": "sounds/weapons/weapon_deploy1.sound",
-              "DeployTime": 0.5,
-              "DisplayName": "M4A1",
-              "EmptyClipSound": "sounds/weapons/empty_submachineguns.sound",
-              "EmptyReloadSoundSequence": "sounds/weapons/usp/usp.sndseq",
-              "EmptyReloadTime": 2,
-              "FireRate": 9,
-              "FireSound": "sounds/guns/m1911/pistol_shoot.sound",
-              "HitForce": 300,
-              "HoldType": "Pistol",
-              "HolsterSound": "sounds/weapons/weapon_holster3.sound",
-              "IdlePos": "-3,0,0",
-              "ImpactArea": null,
-              "ImpactEffect": "particles/impact.generic.vpcf",
-              "IsAuto": false,
-              "IsDeployed": false,
-              "IsMagicWeapon": false,
-              "IsMelee": false,
-              "IsShotgun": false,
-              "lineRenderer": null,
-              "MeleeCooldown": 1,
-              "MeleeDamage": 10,
-              "MeleeRange": 1.5,
-              "MuzzleFlash": null,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Ragdoll": null,
-              "Recoil": "-5,0,0",
-              "ReloadSoundSequence": "sounds/weapons/usp/usp.sndseq",
-              "ReloadTime": 2,
-              "RunRotation": "-0.01738057,-0.001581756,0.09061877,0.9957328",
-              "Spread": 0.01,
-              "Trail": null,
-              "Type": "Ranged",
-              "ViewModelPrefab": {
-                "_type": "gameobject",
-                "prefab": "models/facepunch/usp/vm_usp.prefab"
-              }
-            },
-            {
-              "__type": "Sandbox.ModelCollider",
-              "__guid": "d8961fa8-3c4d-4ec7-b2e0-2774925893d0",
-              "Friction": null,
-              "IsTrigger": false,
-              "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnObjectTriggerEnter": null,
-              "OnObjectTriggerExit": null,
-              "OnTriggerEnter": null,
-              "OnTriggerExit": null,
-              "Static": false,
-              "Surface": null,
-              "SurfaceVelocity": "0,0,0"
-            },
-            {
-              "__type": "Sandbox.Rigidbody",
-              "__guid": "22422715-c318-4bf7-9fed-62aec272be30",
-              "AngularDamping": 0,
-              "Gravity": true,
-              "LinearDamping": 0,
-              "Locking": {
-                "X": true,
-                "Y": true,
-                "Z": true,
-                "Pitch": false,
-                "Yaw": false,
-                "Roll": false
-              },
-              "MassCenterOverride": "0,0,0",
-              "MassOverride": 0,
-              "MotionEnabled": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OverrideMassCenter": false,
-              "RigidbodyFlags": "DisableCollisionSounds",
-              "StartAsleep": false
-            },
-            {
-              "__type": "GeneralGame.ItemEquipment",
-              "__guid": "3803ec57-0587-4f74-a8b6-de6f094345a5",
-              "AbilityHaste": 0,
-              "Armor": 0,
-              "ArmorPenetration": 0.93,
-              "Aspect": "None",
-              "Attachment": "hand_R",
-              "AttachmentTransform": {
-                "Position": "0,0,0",
-                "Scale": "1,1,1",
-                "Rotation": "0,0,0,1"
-              },
-              "AttackPower": 0,
-              "AttackRange": 50,
-              "AttackSpeed": 0,
-              "BleedElementalDamage": 0,
-              "BleedResist": 0,
-              "BleedResistance": 0,
-              "BlindResist": 0,
-              "BlindResistance": 0,
-              "BonusEXP": 0,
-              "BonusScore": 0,
-              "BonusVyndalium": 0,
-              "BulletSpeed": 1,
-              "BulletSpread": 0,
-              "BuyPrice": 20,
-              "Clipsize": 0,
-              "Count": 0,
-              "Cover": 0,
-              "CritHitChance": 5,
-              "CritHitDamage": 0,
-              "DamageBalance": 0,
-              "Description": "USP",
-              "DEX": 0,
-              "DMG": 0,
-              "Durability": 0,
-              "EarthElementalDamage": 0,
-              "EnableHolding": false,
-              "Evasion": 0,
-              "FireElementalDamage": 0,
-              "FireRate": 9,
-              "FireResist": 0,
-              "FireResistence": 0,
-              "FreezeElementalDamage": 0,
-              "FreezeResist": 0,
-              "HE": 0,
-              "Health": 0,
-              "HealthRegen": 0,
-              "HideBodygroups": "None",
-              "HoldType": "Rifle",
-              "HolyElementalDamage": 0,
-              "HolyResist": 0,
-              "HolyResistence": 0,
-              "IceElementalDamage": 0,
-              "IceResist": 0,
-              "IceResistence": 0,
-              "Icon": {
-                "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
-                "MaterialGroup": "",
-                "MaterialOverride": null,
-                "Colour": "1,1,1,1",
-                "Position": "9.75,2.1,2.25",
-                "Rotation": "0.5,-0.5,0.5,0.5",
-                "Guid": "7bb50aab-009e-4c1c-9057-698c6422504b"
-              },
-              "INT": 0,
-              "IsAccessory": false,
-              "IsArmor": false,
-              "IsAspect": false,
-              "IsBackable": false,
-              "IsBackpack": false,
-              "IsChest": false,
-              "IsConsumable": false,
-              "IsEquipment": false,
-              "IsItem": false,
-              "IsMaterial": false,
-              "IsMelee": false,
-              "IsPotion": false,
-              "IsWeapon": true,
-              "IsWorld": false,
-              "ItemLevel": 0,
-              "LastOwner": null,
-              "LightElementalDamage": 0,
-              "LightningElementalDamage": 0,
-              "LightningResist": 0,
-              "LightningResistence": 0,
-              "LightResist": 0,
-              "MagicDefense": 0,
-              "MagicPenetration": 0,
-              "MagicPower": 0,
-              "Mana": 0,
-              "ManaRegen": 0,
-              "MaxArmorValue": 0,
-              "MaxAttackValue": 45.74,
-              "MaxHealthDMG": 0,
-              "MaxStack": 0,
-              "MinArmorValue": 0,
-              "MinAttackValue": 5,
-              "MoveSpeed": 0,
-              "Name": "USP",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PER": 0,
-              "PoisonElementalDamage": 0,
-              "PoisonResist": 0,
-              "PoisonResistence": 0,
-              "RequiredLevel": 0,
-              "RunSpeed": 0,
-              "SellPrice": 25,
-              "ShadowElementalDamage": 0,
-              "ShadowResist": 0,
-              "ShadowResistence": 0,
-              "Slot": "Hand",
-              "SlowResist": 0,
-              "SlowResistence": 0,
-              "Stamina": 0,
-              "StaminaSecond": 0,
-              "STG": 0,
-              "StunResist": 0,
-              "StunResistance": 0,
-              "Tenacity": 0,
-              "Tier": "C",
-              "UpdatePosition": false,
-              "UseSkinTint": false,
-              "WalkSpeed": 0,
-              "WaterElementalDamage": 0,
-              "WindElementalDamage": 0
-            },
-            {
-              "__type": "GeneralGame.Interactable",
-              "__guid": "b56ba9e0-f413-42f5-9916-f19c457a5cd0",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnInteraction": null
-            },
-            {
-              "__type": "Sandbox.SkinnedModelRenderer",
-              "__guid": "2a24c906-25bd-4762-823a-72bba41c99ec",
-              "AnimationGraph": "models/weapons/sbox_pistol_usp/v_usp.vanmgrph",
-              "BodyGroups": 9493,
-              "BoneMergeTarget": null,
-              "CreateAttachments": false,
-              "CreateBoneObjects": false,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
-              "Morphs": {},
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Parameters": {
-                "bools": {},
-                "ints": {},
-                "floats": {},
-                "vectors": {},
-                "rotations": {}
-              },
-              "PlaybackRate": 1,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
-              "Sequence": {
-                "Name": null
-              },
-              "Tint": "1,1,1,1",
-              "UseAnimGraph": true
-            }
-          ]
-        },
-        {
-          "__guid": "60dce182-cb67-4f7b-9e72-e11e91af8d0c",
-          "Flags": 0,
-          "Name": "Object (1)",
-          "Position": "1078.463,58.78503,5.329159",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "abfdaef3-a408-4fda-bb59-5188dc2b990f",
-              "Attenuation": 0,
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "0,1,0.16667,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 46.80009,
-              "Shadows": true
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "693566ea-9fe2-42e7-8451-afbe2b72e7d9",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.7104492,3.50527,39.07465",
-              "Rotation": "0.04155844,-0.0000001657754,-0.999136,-0.00000008940697",
-              "Scale": "2.832896,2.832896,2.832896",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.SpriteRenderer",
-                  "__guid": "46f015a3-f5b4-48fa-afe8-27d9ea01d64b",
-                  "Additive": false,
-                  "CastShadows": true,
-                  "Color": "1,1,1,1",
-                  "DepthFeather": 0,
-                  "FlipHorizontal": false,
-                  "FlipVertical": false,
-                  "FogStrength": 1,
-                  "Lighting": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "Opaque": false,
-                  "Pivot": "0.5,0.5",
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": true
-                  },
-                  "Size": "10,10",
-                  "Texture": {
-                    "$compiler": "texture",
-                    "$source": "imagefile",
-                    "data": {
-                      "FilePath": "ui/hud/clothes_back.png",
-                      "MaxSize": 4096,
-                      "ConvertHeightToNormals": false,
-                      "NormalScale": 1,
-                      "Rotate": 0,
-                      "FlipVertical": false,
-                      "FlipHorizontal": false,
-                      "Padding": {
-                        "Size": "0,0",
-                        "EdgeSize": "0,0"
-                      },
-                      "Sharpen": 0,
-                      "Blur": 0,
-                      "Brightness": 1,
-                      "Contrast": 1,
-                      "Saturation": 1,
-                      "Hue": 0,
-                      "Colorize": false,
-                      "TargetColor": "0,1,0,1",
-                      "CacheToDisk": true
-                    },
-                    "compiled": "textures/generated/imagefile/3a76295b11f57c75.vtex"
-                  }
-                }
-              ]
-            },
-            {
-              "__guid": "8c5c65a1-5f0b-4d54-8405-d0409a6478c1",
-              "Flags": 0,
-              "Name": "Object (2)",
-              "Position": "52.14844,3.50527,39.07465",
-              "Rotation": "0.04155844,-0.0000001657754,-0.999136,-0.00000008940697",
-              "Scale": "2.832896,2.832896,2.832896",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.SpriteRenderer",
-                  "__guid": "f3fc68b6-1d4d-40b2-baa0-d466ec51ed2a",
-                  "Additive": false,
-                  "CastShadows": true,
-                  "Color": "1,1,1,1",
-                  "DepthFeather": 0,
-                  "FlipHorizontal": false,
-                  "FlipVertical": false,
-                  "FogStrength": 1,
-                  "Lighting": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "Opaque": false,
-                  "Pivot": "0.5,0.5",
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": true
-                  },
-                  "Size": "10,10",
-                  "Texture": {
-                    "$compiler": "texture",
-                    "$source": "imagefile",
-                    "data": {
-                      "FilePath": "ui/hud/bullet.png",
-                      "MaxSize": 4096,
-                      "ConvertHeightToNormals": false,
-                      "NormalScale": 1,
-                      "Rotate": 0,
-                      "FlipVertical": false,
-                      "FlipHorizontal": false,
-                      "Padding": {
-                        "Size": "0,0",
-                        "EdgeSize": "0,0"
-                      },
-                      "Sharpen": 0,
-                      "Blur": 0,
-                      "Brightness": 1,
-                      "Contrast": 1,
-                      "Saturation": 1,
-                      "Hue": 0,
-                      "Colorize": false,
-                      "TargetColor": "0,1,0,1",
-                      "CacheToDisk": true
-                    },
-                    "compiled": "textures/generated/imagefile/ef128495d500289b.vtex"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "79da7a5e-235b-4481-9b54-b30cbee91da2",
-          "Flags": 0,
-          "Name": "Object (2)",
-          "Position": "1136.783,64.09439,-25.30095",
-          "Scale": "0.7860006,0.7860006,0.7860006",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "2c7f9080-35c5-46d0-8393-5585929bcc14",
-              "Attenuation": 0,
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "1,0,0,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 29.5002,
-              "Shadows": true
             }
           ]
         },
@@ -1466,42 +925,6 @@
               "OnComponentStart": null,
               "OnComponentUpdate": null,
               "TriggerSoundPath": null
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "d684338f-eb70-4ec5-bdbb-5ddd294f8663",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "0.5878319,0.00002158813,62.25617",
-              "Scale": "0.9,0.3999999,0.5999999",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "8b517b4a-fdda-41fb-924b-d8213b07eeea",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/props/ammo_box/ammobox.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "0.51666,1,0,1"
-                }
-              ]
             }
           ]
         },
@@ -3673,64 +3096,6 @@
       "Enabled": true,
       "Children": [
         {
-          "__guid": "d56edc18-89bb-4f32-a0a1-dd07ffac2f28",
-          "Flags": 0,
-          "Name": "building01_stone_trim_crn_16 (6)",
-          "Position": "2962.501,235.108,-1329.914",
-          "Scale": "3.337054,3.337054,3.337054",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.Prop",
-              "__guid": "5fa66521-ead3-4309-98f2-d5c6c27b5664",
-              "BodyGroups": 18446744073709551615,
-              "Health": 0,
-              "IsStatic": true,
-              "MaterialGroup": null,
-              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnPropBreak": null,
-              "OnPropTakeDamage": null,
-              "StartAsleep": false,
-              "Tint": "1,1,1,1"
-            }
-          ]
-        },
-        {
-          "__guid": "80352eb0-5c84-4088-86e1-561122a0e82c",
-          "Flags": 0,
-          "Name": "building01_stone_trim_crn_16 (6)",
-          "Position": "2878.326,235.108,-1329.914",
-          "Scale": "3.337054,3.337054,3.337054",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.Prop",
-              "__guid": "7207cbb8-cd86-4c01-99d0-a256e818852e",
-              "BodyGroups": 18446744073709551615,
-              "Health": 0,
-              "IsStatic": true,
-              "MaterialGroup": null,
-              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnPropBreak": null,
-              "OnPropTakeDamage": null,
-              "StartAsleep": false,
-              "Tint": "1,1,1,1"
-            }
-          ]
-        },
-        {
           "__guid": "37a807c1-9107-4d97-a889-314870ca3969",
           "Flags": 0,
           "Name": "building01_stone_trim_crn_16 (6)",
@@ -3876,156 +3241,11 @@
           ]
         },
         {
-          "__guid": "e3f2663d-537b-4522-a2ba-b44ed65c07e1",
-          "Flags": 0,
-          "Name": "building01_stone_trim_crn_16 (5)",
-          "Position": "3074.979,235.108,-1319.575",
-          "Scale": "3.337054,3.337054,3.337054",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.Prop",
-              "__guid": "521139e1-97e6-46df-ae01-021c0d56011d",
-              "BodyGroups": 18446744073709551615,
-              "Health": 0,
-              "IsStatic": true,
-              "MaterialGroup": null,
-              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnPropBreak": null,
-              "OnPropTakeDamage": null,
-              "StartAsleep": false,
-              "Tint": "1,1,1,1"
-            }
-          ]
-        },
-        {
-          "__guid": "b0cd1ac1-60ce-4101-8877-413912653447",
-          "Flags": 0,
-          "Name": "building01_stone_trim_crn_16 (4)",
-          "Position": "3075.389,235.108,-1319.575",
-          "Scale": "3.337054,3.337054,3.337054",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.Prop",
-              "__guid": "0980117f-b515-40c4-bbaf-2a5762dcb66a",
-              "BodyGroups": 18446744073709551615,
-              "Health": 0,
-              "IsStatic": true,
-              "MaterialGroup": null,
-              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnPropBreak": null,
-              "OnPropTakeDamage": null,
-              "StartAsleep": false,
-              "Tint": "1,1,1,1"
-            }
-          ]
-        },
-        {
-          "__guid": "890bd62d-2673-43cb-bd0d-9ea75aaf0adf",
-          "Flags": 0,
-          "Name": "building01_stone_trim_crn_16 (3)",
-          "Position": "3173.323,235.108,-1319.575",
-          "Scale": "3.337054,3.337054,3.337054",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.Prop",
-              "__guid": "dd38e8ab-6c86-46a8-8f51-2783e5044dc3",
-              "BodyGroups": 18446744073709551615,
-              "Health": 0,
-              "IsStatic": true,
-              "MaterialGroup": null,
-              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnPropBreak": null,
-              "OnPropTakeDamage": null,
-              "StartAsleep": false,
-              "Tint": "1,1,1,1"
-            }
-          ]
-        },
-        {
-          "__guid": "b545a07b-1401-4cc5-8469-a9edc8bf90c1",
-          "Flags": 0,
-          "Name": "building01_stone_trim_crn_16 (2)",
-          "Position": "3292.376,235.108,-1318.78",
-          "Scale": "3.337054,3.337054,3.337054",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.Prop",
-              "__guid": "ca7523a3-26a2-46f6-99e8-a33d722c2d91",
-              "BodyGroups": 18446744073709551615,
-              "Health": 0,
-              "IsStatic": true,
-              "MaterialGroup": null,
-              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnPropBreak": null,
-              "OnPropTakeDamage": null,
-              "StartAsleep": false,
-              "Tint": "1,1,1,1"
-            }
-          ]
-        },
-        {
-          "__guid": "479d7f53-4e0c-4608-a4b2-816474b8adeb",
-          "Flags": 0,
-          "Name": "building01_stone_trim_crn_16 (1)",
-          "Position": "3404.912,215.7434,-1318.78",
-          "Scale": "3.337054,3.337054,3.337054",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.Prop",
-              "__guid": "44c7fe40-d67f-466b-b91b-cc0752c7f631",
-              "BodyGroups": 18446744073709551615,
-              "Health": 0,
-              "IsStatic": true,
-              "MaterialGroup": null,
-              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnPropBreak": null,
-              "OnPropTakeDamage": null,
-              "StartAsleep": false,
-              "Tint": "1,1,1,1"
-            }
-          ]
-        },
-        {
           "__guid": "a51b9866-b49a-4a9c-8a5c-ae96c9bc9431",
           "Flags": 0,
           "Name": "building01_stone_trim_crn_16 (7)",
-          "Position": "3579.325,28.47088,-1318.78",
-          "Scale": "3.337054,3.337054,3.337054",
+          "Position": "3607.91,50.0688,-1278.039",
+          "Scale": "3.337054,3.337054,1.437055",
           "Enabled": true,
           "Components": [
             {
@@ -4050,16 +3270,274 @@
           ]
         },
         {
-          "__guid": "4ce347f8-2e6a-4653-a216-245cb641f96b",
+          "__guid": "a5696f9c-0670-426c-8fc7-6e4f2e509bf3",
           "Flags": 0,
-          "Name": "building01_stone_trim_crn_16",
-          "Position": "3504.194,147.9628,-1318.78",
-          "Scale": "3.337054,3.337054,3.337054",
+          "Name": "building01_stone_trim_crn_16 (7)",
+          "Position": "3537.362,128.6427,-1278.039",
+          "Scale": "3.337054,3.337054,1.437055",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.Prop",
-              "__guid": "6a643186-bbf7-4d90-b3e4-ff03d1779801",
+              "__guid": "e60995ce-6a68-44bc-ae57-f9dffbb4db64",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "e19ede3c-4afa-4fa5-9109-9b2db9bad3cc",
+          "Flags": 0,
+          "Name": "building01_stone_trim_crn_16 (7)",
+          "Position": "3467.99,187.7163,-1278.039",
+          "Scale": "3.337054,3.337054,1.437055",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "3a43e7f6-19b1-4165-b432-42b1f1adee5e",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "3336e401-1253-40be-9c94-03ad2ea0161d",
+          "Flags": 0,
+          "Name": "building01_stone_trim_crn_16 (7)",
+          "Position": "3385.778,218.4177,-1278.039",
+          "Scale": "3.337054,3.337054,1.437055",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "364352b0-833d-4cfc-b745-cafde3f4e9be",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "6448b316-3c3f-44e8-b491-fd12c3d372e1",
+          "Flags": 0,
+          "Name": "building01_stone_trim_crn_16 (7)",
+          "Position": "3296.276,228.7504,-1278.039",
+          "Scale": "3.337054,3.337054,1.437055",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "dc61478e-3269-4f30-8e32-37121ca9e944",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "GeneralGame.RotationObject",
+              "__guid": "b673bd79-b8d0-4f8c-aeaf-fa656f462e16",
+              "ChangeDirection": false,
+              "MoveForward": false,
+              "MoveRange": 5,
+              "MoveSpeed": 1,
+              "MoveUp": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RotateAroundX": false,
+              "RotateAroundY": true,
+              "RotateAroundZ": false,
+              "RotateClockwise": true,
+              "RotationCenter": "0,0,0",
+              "RotationDuration": 1000,
+              "RotationSpeed": 100,
+              "TargetObject": {
+                "_type": "gameobject",
+                "go": "6448b316-3c3f-44e8-b491-fd12c3d372e1"
+              }
+            }
+          ]
+        },
+        {
+          "__guid": "e7293045-d3d8-4c3c-bda1-e5f794034e20",
+          "Flags": 0,
+          "Name": "building01_stone_trim_crn_16 (7)",
+          "Position": "3209.662,254.4343,-1278.039",
+          "Scale": "3.337054,3.337054,1.437055",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "b5ad06d0-608a-47ff-99db-37fac5dd384d",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "6b296f6d-bbcf-4d29-bb06-2010639a87e2",
+          "Flags": 0,
+          "Name": "building01_stone_trim_crn_16 (7)",
+          "Position": "3120.142,274.7075,-1278.039",
+          "Scale": "3.337054,3.337054,1.437055",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "ee34c5a5-ebc4-413f-ac28-ee50332f6ab6",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "c4a5f95f-0b50-4e95-ba9c-52dfe5ad6893",
+          "Flags": 0,
+          "Name": "building01_stone_trim_crn_16 (7)",
+          "Position": "3022.516,275.2901,-1278.039",
+          "Scale": "3.337054,3.337054,1.437055",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "2c83a313-67a9-4676-9c15-f9325353d707",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "85da152b-90e3-4501-b0b0-9f916a010dc7",
+          "Flags": 0,
+          "Name": "building01_stone_trim_crn_16 (7)",
+          "Position": "2933.761,260.89,-1278.039",
+          "Scale": "3.337054,3.337054,1.437055",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "fa2d2500-93e8-45ff-a05d-abaaa4522a1b",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "e6b8514f-4292-4237-a9b2-8a6773b409d9",
+          "Flags": 0,
+          "Name": "building01_stone_trim_crn_16 (7)",
+          "Position": "2863.046,230.1086,-1278.039",
+          "Scale": "3.337054,3.337054,1.437055",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "ec5a922b-3530-4fe0-8479-4a8dd7e74a77",
               "BodyGroups": 18446744073709551615,
               "Health": 0,
               "IsStatic": true,
@@ -4202,7 +3680,7 @@
           "__guid": "96ccea8b-0745-4b76-bfc5-81203c467cdb",
           "Flags": 0,
           "Name": "industrial_stair_step_a (2)",
-          "Position": "3627.041,210.5593,-1200.648",
+          "Position": "3690.845,210.5593,-1200.648",
           "Rotation": "0.5000001,0.5,0.5,0.5000001",
           "Scale": "4.047679,7.547678,1.547682",
           "Enabled": true,
@@ -5317,38 +4795,10 @@
           ]
         },
         {
-          "__guid": "8bd3fe29-bb8a-46e6-8c0d-260d61afe764",
-          "Flags": 0,
-          "Name": "metal_fence_panel (2)",
-          "Position": "2040.958,8.035023,-1257.261",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.Prop",
-              "__guid": "bf4ab831-c51a-458e-b23e-ccb1b3c34479",
-              "BodyGroups": 18446744073709551615,
-              "Health": 0,
-              "IsStatic": true,
-              "MaterialGroup": null,
-              "Model": "models/sbox_props/metal_fences/metal_fence_panel/metal_fence_panel.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnPropBreak": null,
-              "OnPropTakeDamage": null,
-              "StartAsleep": false,
-              "Tint": "1,1,1,1"
-            }
-          ]
-        },
-        {
           "__guid": "8dc656c0-349c-4626-8171-8eeeac90e88d",
           "Flags": 0,
           "Name": "metal_fence_panel (1)",
-          "Position": "2866.728,109.7162,-1257.261",
+          "Position": "2851.476,109.7162,-1257.261",
           "Rotation": "0,0,-0.7071067,0.7071068",
           "Enabled": true,
           "Components": [
@@ -5385,6 +4835,36 @@
             {
               "__type": "Sandbox.Prop",
               "__guid": "9fc9f813-2721-461a-ba8b-c8409c21913c",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/sbox_props/metal_fences/metal_fence_panel/metal_fence_panel.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "688b791b-05a2-4794-a6ca-1ba0adf00915",
+          "Flags": 0,
+          "Name": "metal_fence_panel (3)",
+          "Position": "1959.471,-11.31101,-1262.092",
+          "Rotation": "0,0,-0.9999999,0.0000001490116",
+          "Scale": "2.3,1,3.199999",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "e4e182f5-7149-48b8-8e4f-4f7407e0f101",
               "BodyGroups": 18446744073709551615,
               "Health": 0,
               "IsStatic": true,
@@ -5525,7 +5005,7 @@
           "__guid": "c8be58c2-6d93-4b08-abd2-3e18f8e57249",
           "Flags": 0,
           "Name": "metal_fence_panel",
-          "Position": "2866.728,302.2839,-1257.261",
+          "Position": "2853.106,302.2839,-1257.261",
           "Rotation": "0,0,-0.7071067,0.7071068",
           "Enabled": true,
           "Components": [
@@ -5701,70 +5181,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": true
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "f18e9d19-4cae-4123-a522-a1c56d8fe0d6",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "d7ca674f-d926-4933-b3c0-cf210b1037b1",
-                "go": "6c984ef9-76eb-49fb-a9f7-47c79e1c791c",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
-            }
-          ]
-        },
-        {
-          "__guid": "10ae95c9-53a0-42bf-97a4-6c5065deb0a3",
-          "Flags": 0,
-          "Name": "Object (3)",
-          "Position": "-59.03638,-555.397,77.3275",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "47487fd7-1c5b-4ebf-ab86-6041e67814d7",
-              "Attenuation": 0.62,
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "0.26512,0.18275,0.05919,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 604.0001,
-              "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "82a107d4-7c4c-41ba-9646-f9d07d34b838",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "47487fd7-1c5b-4ebf-ab86-6041e67814d7",
-                "go": "10ae95c9-53a0-42bf-97a4-6c5065deb0a3",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -5791,25 +5207,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": true
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "1c4d6578-e22d-4c86-863f-7f74ee29df4d",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "df215626-6899-400b-bb6c-bc2d5a5f940d",
-                "go": "8c6f2ca5-65b2-477a-ac67-617d7c8a00e3",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -5836,25 +5233,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": true
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "315dbe01-7fdf-4c4e-8e22-ffc8f9696260",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "9fa963e9-fc3e-41c9-8901-879427f368a0",
-                "go": "1869ef68-1e62-4d23-a805-14010c55e39b",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -5881,25 +5259,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": true
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "0cd537d1-26a7-45d2-a849-bfd73b1710aa",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "f1019cdb-4905-4417-95c3-63c3e2a29c13",
-                "go": "eae93b75-0a04-4612-9b45-42205f001ea0",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -5926,25 +5285,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "311a4191-a508-49cd-b308-e717a4d641a6",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "ed4a1d0f-7b95-4fc7-8e11-b85e12686004",
-                "go": "d2b043f5-cf04-4045-93af-9d86480771bf",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -5971,25 +5311,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "9bc214a8-6632-46d9-adef-d91e52d6f8ff",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "317a88e3-745d-419a-a2b6-d2f453b46121",
-                "go": "3ea2034b-90c1-406d-8395-f854dc7280a1",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6016,25 +5337,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": true
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "8537d066-59a5-4edc-9ada-f27bb1b44494",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "bebdaf22-bcfd-4379-bdce-65034bedd230",
-                "go": "c0e70353-1f0d-46ca-bdab-42d926a3506d",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6061,25 +5363,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "e4579c4c-e019-4c61-9484-f538adcffd3d",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "5622ec57-2e45-4f88-a7f5-0da2feb01911",
-                "go": "accfc386-deb9-4048-bfcc-09d9f2d0f738",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6106,25 +5389,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "2a54fc0f-05f5-4ed5-a3c1-cd8a1fb1c835",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "77835518-f904-465a-9ca0-8f377a08f493",
-                "go": "66e3ec11-816d-4a82-ada1-1cc5de634095",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6151,25 +5415,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "143d18e2-873f-461f-ac28-0cc4941c32cb",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "b1e10507-4a4c-4184-bbbc-8e08c11a7ebc",
-                "go": "544538a4-e3d5-4522-8a70-1a9878fab6d0",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6196,25 +5441,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "ac23a5fb-6817-4a6b-93b4-c02525776e28",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "29ed8a4a-8502-42e8-8185-aca95c0861cc",
-                "go": "d623e958-3960-44b5-956d-135701984828",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6241,25 +5467,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": true
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "c0d11ecd-fb62-44ca-b8a1-7174055d6b09",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "c8fcd198-e55d-47a9-959a-7ec100dcfdbe",
-                "go": "37873ab4-7c7a-464a-b59b-13c60b869e5f",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6286,25 +5493,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "6f2a5cd4-2fe1-4ca1-af8e-82193fed72cb",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "a3caee79-bb51-4435-aea6-9c14280f5f8f",
-                "go": "490d132a-2319-4492-ade5-2a9844d99d9b",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6331,25 +5519,6 @@
               "OnComponentUpdate": null,
               "Radius": 819.19995,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "533f0d84-e99e-441d-9e84-d2117174cb6a",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "58edb20f-8cc9-431f-8e02-907ee85f02b9",
-                "go": "ff49362b-f6d5-4069-b7b2-d2decc4c4ca9",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6376,25 +5545,6 @@
               "OnComponentUpdate": null,
               "Radius": 819.19995,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "f78e37b1-00b0-48a6-af02-2f8a84745bc9",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "1b2218ea-ec34-4dbb-9042-0fd207a9e406",
-                "go": "d4cf0b04-1479-49d1-b97d-0d59b45a46bf",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6421,25 +5571,6 @@
               "OnComponentUpdate": null,
               "Radius": 819.19995,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "d9b98347-8791-428d-9dd0-6727374228c3",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "6974c518-38a7-4464-8c52-eca697eb8779",
-                "go": "529ae61f-cc0a-4988-b8e7-ced4e8144d16",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6466,25 +5597,6 @@
               "OnComponentUpdate": null,
               "Radius": 819.19995,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "713bd3e2-663e-487b-ad21-9fa0f3362537",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "97ddc41c-a0a8-4182-aa0a-2f0423830359",
-                "go": "a2808e02-02ec-429c-947a-96695715abae",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6511,25 +5623,6 @@
               "OnComponentUpdate": null,
               "Radius": 819.19995,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "de2efe86-fe0e-423a-93e1-42f533ece92a",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "86b1834d-48aa-478a-bb1d-b1aea1fa0cd1",
-                "go": "6a348eff-4590-4456-b994-7ba8985817be",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6556,25 +5649,6 @@
               "OnComponentUpdate": null,
               "Radius": 819.19995,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "f6b745c3-03cc-4c2b-9c8b-ec9374271af5",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "7d66c853-969a-40e8-b1a1-d437fe00fa07",
-                "go": "8fa90f58-b2ed-4158-bcdc-c936ff8e8c19",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6601,25 +5675,6 @@
               "OnComponentUpdate": null,
               "Radius": 819.19995,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "4ec9bfd8-b5e7-4a95-be2a-5f60d01e5b5a",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "03ad0ab8-81c6-4dac-9f42-c3b5b9e44cba",
-                "go": "e4634466-db30-40ce-8b8c-2482aa7473bd",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6646,25 +5701,6 @@
               "OnComponentUpdate": null,
               "Radius": 604.0001,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "be33a947-e0bc-4258-9fa1-5779d0e6222f",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": false,
-              "Light": {
-                "_type": "component",
-                "component_id": "98035df2-b818-4825-8acf-f9cb0583c5da",
-                "go": "1d5f90c0-2104-4c26-8823-e7454732cfdc",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6691,25 +5727,6 @@
               "OnComponentUpdate": null,
               "Radius": 673.5005,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "7e541d01-c852-460c-9865-b577773bbb00",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": true,
-              "Light": {
-                "_type": "component",
-                "component_id": "479af4ce-dbee-42f9-9f12-d310b6b059cc",
-                "go": "53d2c274-0e7b-420f-8753-4ead723eb149",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6736,25 +5753,6 @@
               "OnComponentUpdate": null,
               "Radius": 673.5005,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "d59a75dc-85c6-4e5b-8fe1-cf74dcf5cd3c",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": true,
-              "Light": {
-                "_type": "component",
-                "component_id": "f04a1e03-1165-41d2-9cd8-a9a3382854aa",
-                "go": "2dc1ed4f-df39-4ed1-bc16-260b38b0378c",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6781,25 +5779,6 @@
               "OnComponentUpdate": null,
               "Radius": 673.5005,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "fe2778b4-d8dc-4a86-804a-dd165a81b2ba",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": true,
-              "Light": {
-                "_type": "component",
-                "component_id": "0cd4f643-0855-4a9f-9176-40e067b5e9bd",
-                "go": "c13040c5-d23c-4f17-8fd0-b153dc378822",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6826,25 +5805,6 @@
               "OnComponentUpdate": null,
               "Radius": 515.9992,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "0653daf9-bda3-4ef7-a04a-578ad40c8d12",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": true,
-              "Light": {
-                "_type": "component",
-                "component_id": "d558b094-df4c-4d7a-949c-591fa1ab9d19",
-                "go": "7a1bc9c7-bcc8-40e8-853a-bfe96ebb353f",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6871,25 +5831,6 @@
               "OnComponentUpdate": null,
               "Radius": 673.5005,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "94797862-8789-4c7d-bab8-c0d4fd870cce",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": true,
-              "Light": {
-                "_type": "component",
-                "component_id": "e750a310-fc84-4fbb-b7ad-52ce02659cc0",
-                "go": "aa49e70f-4953-40b4-ad9a-e3e49d712bdf",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6916,25 +5857,6 @@
               "OnComponentUpdate": null,
               "Radius": 673.5005,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "5420e426-52a5-49b4-a42d-2223dde644c0",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": true,
-              "Light": {
-                "_type": "component",
-                "component_id": "ca5b870d-cc15-4f3c-a305-559c78e339de",
-                "go": "88c4fbb9-6f0a-4444-ad21-b446daa35650",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -6961,25 +5883,6 @@
               "OnComponentUpdate": null,
               "Radius": 673.5005,
               "Shadows": false
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "da1257df-e965-46ad-8579-0a859f50d185",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": true,
-              "Light": {
-                "_type": "component",
-                "component_id": "ef66cf80-1545-4506-9786-d3c418fbd637",
-                "go": "02f2bf54-a9fd-450f-967c-eabfac116fa7",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
             }
           ]
         },
@@ -7005,41 +5908,22 @@
               "OnComponentStart": null,
               "OnComponentUpdate": null,
               "Radius": 673.5005,
-              "Shadows": true
-            },
-            {
-              "__type": "GeneralGame.Switch",
-              "__guid": "0f3b387e-2190-4cf2-a466-d928260651d0",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": true,
-              "Light": {
-                "_type": "component",
-                "component_id": "4a34e2f2-65e5-42f0-a697-32a2499648e0",
-                "go": "78481c8c-543e-499d-b614-3b61e7983ac6",
-                "component_type": "PointLight"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
+              "Shadows": false
             }
           ]
         },
         {
-          "__guid": "81be9f3a-8330-4346-bdc5-4e443585c253",
+          "__guid": "21f293d8-90e5-49cb-b066-3bf2c9f898a2",
           "Flags": 0,
-          "Name": "Object (1)",
-          "Position": "1597.399,2.937073,195.1093",
+          "Name": "Object (2)",
+          "Position": "594.3336,23.14307,50.0101",
           "Tags": "light_point,light",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.PointLight",
-              "__guid": "6a03e722-7d57-4ef8-b8d3-8c2d05ae5acb",
-              "Attenuation": 0.43999985,
+              "__guid": "00f0d1a7-98f0-46df-ab1d-c019650a6137",
+              "Attenuation": 0.65,
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.91373,0.98039,1,1",
@@ -7049,27 +5933,86 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "Radius": 630.5006,
+              "Radius": 673.5005,
               "Shadows": true
-            },
+            }
+          ]
+        },
+        {
+          "__guid": "81be9f3a-8330-4346-bdc5-4e443585c253",
+          "Flags": 0,
+          "Name": "Object (1)",
+          "Position": "1597.399,2.937073,39.49066",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
             {
-              "__type": "GeneralGame.Switch",
-              "__guid": "6a6d9b68-6968-4525-a14c-77bf7b77336e",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": true,
-              "Light": {
-                "_type": "component",
-                "component_id": "6a03e722-7d57-4ef8-b8d3-8c2d05ae5acb",
-                "go": "81be9f3a-8330-4346-bdc5-4e443585c253",
-                "component_type": "PointLight"
-              },
+              "__type": "Sandbox.PointLight",
+              "__guid": "6a03e722-7d57-4ef8-b8d3-8c2d05ae5acb",
+              "Attenuation": 0.43999985,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.93488,0.04783,0.04783,1",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1919.6997
+              "Radius": 630.5006,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "e35951da-4b58-47df-b777-6aafd5817129",
+          "Flags": 0,
+          "Name": "Object (1)",
+          "Position": "936.8192,2.937073,54.69087",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "7d980cdd-cb62-4253-9405-7ac3cf960abe",
+              "Attenuation": 0.43999985,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.93488,0.04783,0.04783,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 630.5006,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "1146f250-47b0-4cde-a2ba-3b71206c8974",
+          "Flags": 0,
+          "Name": "Object (1)",
+          "Position": "1214.134,2.937073,54.69087",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "d2fa0952-bf9e-4c85-b89c-1bde4a95a1b1",
+              "Attenuation": 0.43999985,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.93488,0.04783,0.04783,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 630.5006,
+              "Shadows": true
             }
           ]
         },
@@ -7096,25 +6039,84 @@
               "OnComponentUpdate": null,
               "Radius": 673.5005,
               "Shadows": false
-            },
+            }
+          ]
+        },
+        {
+          "__guid": "d019bd5e-6048-403f-81cb-6c9b28ea4a18",
+          "Flags": 0,
+          "Name": "Object (2)",
+          "Position": "1880.622,14.29826,73.41859",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
             {
-              "__type": "GeneralGame.Switch",
-              "__guid": "61720864-00f5-450d-bfff-437ec5e9f759",
-              "CheckInterval": 1,
-              "DrawProximityRangeGizmo": true,
-              "Light": {
-                "_type": "component",
-                "component_id": "1850c681-a076-41a0-8720-00e41dd8b421",
-                "go": "7fa731dc-a053-4a41-b0e2-1c9c160e8d5b",
-                "component_type": "PointLight"
-              },
+              "__type": "Sandbox.PointLight",
+              "__guid": "535a138a-e331-418d-88fb-d70bc8e872af",
+              "Attenuation": 0.9399996,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.91373,0.98039,1,1",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "PlayerProximityDistance": 1173.0992
+              "Radius": 673.5005,
+              "Shadows": false
+            }
+          ]
+        },
+        {
+          "__guid": "8376abe5-7bc8-465e-9260-be76b713c6a8",
+          "Flags": 0,
+          "Name": "Object (2)",
+          "Position": "1638.458,553.0894,73.41859",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "5665ded7-ca92-4074-b3ed-f4fa7d92ac39",
+              "Attenuation": 0.34,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.91373,0.98039,1,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 673.5005,
+              "Shadows": false
+            }
+          ]
+        },
+        {
+          "__guid": "7ebac188-d453-4ba3-a931-70f3001806e4",
+          "Flags": 0,
+          "Name": "Object (1)",
+          "Position": "2787.8,14.29826,85.34492",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "a75db7ca-a20f-4b61-98c9-80c29862cc92",
+              "Attenuation": 0.9399996,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.91373,0.98039,1,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 673.5005,
+              "Shadows": false
             }
           ]
         }
@@ -7159,7 +6161,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7361,7 +6363,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7563,7 +6565,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7765,7 +6767,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7967,7 +6969,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8169,7 +7171,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8371,7 +7373,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8573,7 +7575,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8775,7 +7777,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8977,7 +7979,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9179,7 +8181,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9353,7 +8355,7 @@
           "__guid": "6f09570d-e30e-44a5-96f4-07161b8ca883",
           "Flags": 0,
           "Name": "Spawner (1)",
-          "Position": "12.7384,-855.0121,-54.42498",
+          "Position": "-63.40869,-879.6171,-54.42498",
           "Enabled": true,
           "Components": [
             {
@@ -9381,7 +8383,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9542,7 +8544,7 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "PlayerProximityDistance": "494.9999,392.3,261.7998",
+              "PlayerProximityDistance": "386.3,392.3,261.7998",
               "PositionOffset": "0,0,0",
               "Radius": "237.3998,0,0",
               "SpawnAreaGizmoColor": "0,0,1,1",
@@ -9583,7 +8585,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9785,7 +8787,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9987,7 +8989,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10189,7 +9191,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10391,7 +9393,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10680,7 +9682,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [
                 {
@@ -11032,7 +10034,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 101168370
+                "Relative": 101283896
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -11528,17 +10530,551 @@
       ]
     },
     {
-      "__guid": "13e4fba8-39df-498d-ac6e-13b0425752c7",
+      "__guid": "faa68741-b99e-4d65-a37d-1047680d1e7b",
       "Flags": 0,
-      "Name": "exit (1)",
-      "Position": "3983.489,265.2666,43.80873",
-      "Rotation": "0,0,-1,0.0000001947072",
+      "Name": "metal_fence_panel (2)",
+      "Position": "2039.733,12.89343,-726.5871",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "2203167b-0f03-4705-bdab-8935a5c82dfb",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": null,
+          "Model": "models/sbox_props/metal_fences/metal_fence_panel/metal_fence_panel.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "fef3ad22-df12-4951-857f-9c343ba52772",
+      "Flags": 0,
+      "Name": "Object (4)",
+      "Position": "3671.441,366.5523,19.14511",
+      "Scale": "0.7860006,0.7860006,0.7860006",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "2b2d8b2a-5e26-4c0f-840d-18be6a2360ba",
+          "Attenuation": 2.16,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "1,0,0,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 37.700146,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "4939dea1-39f8-4e3e-85c0-d7b83a3b637e",
+      "Flags": 0,
+      "Name": "Object (6)",
+      "Position": "3667.671,154.0743,21.49494",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "ec6108e6-83e7-4e80-a437-1feee5600386",
+          "Attenuation": 2.22,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0,1,0.16667,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 46.80009,
+          "Shadows": true
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "4e5c6bdc-13d0-4dd0-803c-2bed698085bd",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-0.7104492,3.50527,39.07465",
+          "Rotation": "0.04155844,-0.0000001657754,-0.999136,-0.00000008940697",
+          "Scale": "2.832896,2.832896,2.832896",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpriteRenderer",
+              "__guid": "7702baea-e8c4-41e0-8e00-c7cbafd9999c",
+              "Additive": false,
+              "CastShadows": true,
+              "Color": "1,1,1,1",
+              "DepthFeather": 0,
+              "FlipHorizontal": false,
+              "FlipVertical": false,
+              "FogStrength": 1,
+              "Lighting": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opaque": false,
+              "Pivot": "0.5,0.5",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": true
+              },
+              "Size": "10,10",
+              "Texture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/hud/clothes_back.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Padding": {
+                    "Size": "0,0",
+                    "EdgeSize": "0,0"
+                  },
+                  "Sharpen": 0,
+                  "Blur": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "0,1,0,1",
+                  "CacheToDisk": true
+                },
+                "compiled": "textures/generated/imagefile/3a76295b11f57c75.vtex"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "0bfde521-561e-4996-bc60-4425af04c40d",
+      "Flags": 0,
+      "Name": "Soundscape (1)",
+      "Position": "2787.806,221.9084,22.65557",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SoundPointComponent",
+          "__guid": "c5d4e582-9b0d-44dc-9fd0-2109ae093d30",
+          "Distance": 512,
+          "DistanceAttenuation": false,
+          "DistanceAttenuationOverride": false,
+          "Falloff": [
+            {
+              "x": 0,
+              "y": 1,
+              "in": 3.1415927,
+              "out": -3.1415927,
+              "mode": "Mirrored"
+            },
+            {
+              "x": 1,
+              "y": 0,
+              "in": 0,
+              "out": 0,
+              "mode": "Mirrored"
+            }
+          ],
+          "Force2d": true,
+          "MaxRepeatTime": 1,
+          "MinRepeatTime": 1,
+          "Occlusion": false,
+          "OcclusionOverride": false,
+          "OcclusionRadius": 32,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Pitch": 1,
+          "PlayOnStart": true,
+          "ReflectionOverride": false,
+          "Reflections": false,
+          "Repeat": false,
+          "SoundEvent": "sounds/soundscape/cave2.sound",
+          "SoundOverride": true,
+          "StopOnNew": false,
+          "TargetMixer": {
+            "Name": "music",
+            "Id": "3603a26d-6666-44f7-b6d0-7c3b3334d441"
+          },
+          "Volume": 0.12
+        }
+      ]
+    },
+    {
+      "__guid": "58da00b6-513f-40a9-95e3-93ba204af611",
+      "Flags": 0,
+      "Name": "uspb (1)",
+      "Position": "3665.469,151.6329,23.94588",
+      "Rotation": "0.02938637,0.02938613,-0.7064958,-0.7064958",
+      "Scale": "2.832896,2.832896,2.832896",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.BaseGun",
+          "__guid": "300b6666-d3c9-44a3-822a-e9e18938551e",
+          "AimPos": "-2.1,4.62,1.5",
+          "AimRotation": "0,0,0,0",
+          "AimRotationOffset": "0,0,0,0",
+          "AmmoInClip": 0,
+          "AmmoType": "Pistol",
+          "BulletSpeed": 1,
+          "ClipSize": 15,
+          "CurRot": "0,0,0,0",
+          "Damage": 25,
+          "DamageForce": 50,
+          "DamageType": "Bullet",
+          "DefaultAmmo": 145,
+          "DeploySound": "sounds/weapons/weapon_deploy1.sound",
+          "DeployTime": 0.5,
+          "DisplayName": "USP",
+          "EmptyClipSound": "sounds/weapons/empty_submachineguns.sound",
+          "EmptyReloadSoundSequence": "sounds/weapons/usp/usp.sndseq",
+          "EmptyReloadTime": 2,
+          "FireRate": 9,
+          "FireSound": "sounds/guns/m1911/pistol_shoot.sound",
+          "HitForce": 300,
+          "HoldType": "Pistol",
+          "HolsterSound": "sounds/weapons/weapon_holster3.sound",
+          "IdlePos": "-3,0,0",
+          "ImpactArea": null,
+          "ImpactEffect": "particles/impact.generic.vpcf",
+          "IsAuto": false,
+          "IsDeployed": false,
+          "IsMagicWeapon": false,
+          "IsMelee": false,
+          "IsShotgun": false,
+          "lineRenderer": null,
+          "MeleeCooldown": 1,
+          "MeleeDamage": 10,
+          "MeleeRange": 1.5,
+          "MuzzleFlash": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Ragdoll": null,
+          "Recoil": "-5,0,0",
+          "ReloadSoundSequence": "sounds/weapons/usp/usp.sndseq",
+          "ReloadTime": 2,
+          "RunRotation": "-0.01738057,-0.001581756,0.09061877,0.9957328",
+          "Spread": 0.01,
+          "Trail": null,
+          "Type": "Ranged",
+          "ViewModelPrefab": {
+            "_type": "gameobject",
+            "prefab": "models/facepunch/usp/vm_usp.prefab"
+          }
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "70c44613-f405-49bb-815a-1b2109aa9d1b",
+          "Friction": null,
+          "IsTrigger": false,
+          "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "Static": false,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "4a90eb79-b0a4-4f77-9da6-0ba0dcd9271d",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "X": true,
+            "Y": true,
+            "Z": true,
+            "Pitch": false,
+            "Yaw": false,
+            "Roll": false
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": "DisableCollisionSounds",
+          "StartAsleep": false
+        },
+        {
+          "__type": "GeneralGame.ItemEquipment",
+          "__guid": "4415f163-b84d-489c-8faa-7b266eb0c4ea",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "ArmorPenetration": 0.93,
+          "Aspect": "None",
+          "Attachment": "hand_R",
+          "AttachmentTransform": {
+            "Position": "0,0,0",
+            "Scale": "1,1,1",
+            "Rotation": "0,0,0,1"
+          },
+          "AttackPower": 0,
+          "AttackRange": 50,
+          "AttackSpeed": 0,
+          "BleedElementalDamage": 0,
+          "BleedResist": 0,
+          "BleedResistance": 0,
+          "BlindResist": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BulletSpeed": 1,
+          "BulletSpread": 0,
+          "BuyPrice": 20,
+          "Clipsize": 0,
+          "Count": 0,
+          "Cover": 0,
+          "CritHitChance": 5,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": "USP",
+          "DEX": 0,
+          "DMG": 0,
+          "Durability": 0,
+          "EarthElementalDamage": 0,
+          "EnableHolding": false,
+          "Evasion": 0,
+          "FireElementalDamage": 0,
+          "FireRate": 9,
+          "FireResist": 0,
+          "FireResistence": 0,
+          "FreezeElementalDamage": 0,
+          "FreezeResist": 0,
+          "HE": 0,
+          "Health": 0,
+          "HealthRegen": 0,
+          "HideBodygroups": "None",
+          "HoldType": "Rifle",
+          "HolyElementalDamage": 0,
+          "HolyResist": 0,
+          "HolyResistence": 0,
+          "IceElementalDamage": 0,
+          "IceResist": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+            "MaterialGroup": "",
+            "MaterialOverride": null,
+            "Colour": "1,1,1,1",
+            "Position": "9.75,2.1,2.25",
+            "Rotation": "0.5,-0.5,0.5,0.5",
+            "Guid": "7bb50aab-009e-4c1c-9057-698c6422504b"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackable": false,
+          "IsBackpack": false,
+          "IsChest": false,
+          "IsConsumable": false,
+          "IsEquipment": false,
+          "IsItem": false,
+          "IsMaterial": false,
+          "IsMelee": false,
+          "IsPotion": false,
+          "IsWeapon": true,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LastOwner": null,
+          "LightElementalDamage": 0,
+          "LightningElementalDamage": 0,
+          "LightningResist": 0,
+          "LightningResistence": 0,
+          "LightResist": 0,
+          "MagicDefense": 0,
+          "MagicPenetration": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "ManaRegen": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 45.74,
+          "MaxHealthDMG": 0,
+          "MaxStack": 0,
+          "MinArmorValue": 0,
+          "MinAttackValue": 5,
+          "MoveSpeed": 0,
+          "Name": "USP",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PER": 0,
+          "PoisonElementalDamage": 0,
+          "PoisonResist": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "RunSpeed": 0,
+          "SellPrice": 25,
+          "ShadowElementalDamage": 0,
+          "ShadowResist": 0,
+          "ShadowResistence": 0,
+          "Slot": "Hand",
+          "SlowResist": 0,
+          "SlowResistence": 0,
+          "Stamina": 0,
+          "StaminaSecond": 0,
+          "STG": 0,
+          "StunResist": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "UpdatePosition": false,
+          "UseSkinTint": false,
+          "WalkSpeed": 0,
+          "WaterElementalDamage": 0,
+          "WindElementalDamage": 0
+        },
+        {
+          "__type": "GeneralGame.Interactable",
+          "__guid": "da9606b8-a199-4ccd-b2c8-7b842861d4dc",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnInteraction": null
+        },
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "817d9793-c5cd-42ce-9367-184b02b2cb4f",
+          "AnimationGraph": "models/weapons/sbox_pistol_usp/v_usp.vanmgrph",
+          "BodyGroups": 9493,
+          "BoneMergeTarget": null,
+          "CreateAttachments": false,
+          "CreateBoneObjects": false,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+          "Morphs": {},
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "PlaybackRate": 1,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Sequence": {
+            "Name": null
+          },
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        }
+      ]
+    },
+    {
+      "__guid": "5794e98d-0bef-407a-8cc6-aeedfef6a4a7",
+      "Flags": 0,
+      "Name": "metal_fence_panel (1)",
+      "Position": "3570.683,249.3746,-5.587097",
+      "Rotation": "0.4304593,-0.4304593,-0.5609856,0.5609857",
+      "Scale": "2.1,1,0.8",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "3b01be6c-7f49-4ff9-b72a-b1a2541b1db2",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "MaterialGroup": null,
+          "Model": "models/sbox_props/metal_fences/metal_fence_panel/metal_fence_panel.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "703f54b3-bf62-47ec-9721-78e0d5c5f347",
+      "Flags": 0,
+      "Name": "pickupammo",
+      "Position": "3670.459,350.4397,20.58869",
       "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.BoxCollider",
-          "__guid": "49e57bc4-ec4e-4fc4-80ea-63acafc9b95b",
-          "Center": "8.333557,14.3643,32.02301",
+          "__guid": "14de14c6-a593-4ed0-8a9f-f591de7604b8",
+          "Center": "0,0,0",
           "Friction": null,
           "IsTrigger": true,
           "OnComponentDestroy": null,
@@ -11551,104 +11087,244 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
-          "Scale": "184.7462,222.7071,114.046",
-          "Static": false,
+          "Scale": "17.59999,14.79994,28.49998",
+          "Static": true,
           "Surface": null,
           "SurfaceVelocity": "0,0,0"
         },
         {
-          "__type": "GeneralGame.SceneChangeTrigger",
-          "__guid": "0e9ed094-aec3-47e3-af7a-67b2335138eb",
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "a38a2298-9359-4150-9a6d-fe768c3075c9",
+          "AmmoTypen": "Rifle",
+          "MaxCount": 100,
+          "MinCount": 100,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "SceneToLoad": "One2"
+          "TriggerSoundPath": "sounds/item.pickup.sound"
+        },
+        {
+          "__type": "GeneralGame.AmmoPickup",
+          "__guid": "5e134600-4d84-43e0-bd88-bb212c8acf01",
+          "AmmoTypen": "Pistol",
+          "MaxCount": 100,
+          "MinCount": 100,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "TriggerSoundPath": null
+        },
+        {
+          "__type": "GeneralGame.ItemComponent",
+          "__guid": "e2162e79-55a3-4e73-9ce2-2752d0dcd188",
+          "AbilityHaste": 0,
+          "Armor": 0,
+          "ArmorPenetration": 0,
+          "Aspect": "None",
+          "AttackPower": 0,
+          "AttackRange": 0,
+          "AttackSpeed": 0,
+          "BleedElementalDamage": 0,
+          "BleedResist": 0,
+          "BleedResistance": 0,
+          "BlindResist": 0,
+          "BlindResistance": 0,
+          "BonusEXP": 0,
+          "BonusScore": 0,
+          "BonusVyndalium": 0,
+          "BulletSpeed": 0,
+          "BulletSpread": 0,
+          "BuyPrice": 50,
+          "Clipsize": 0,
+          "Count": 1,
+          "Cover": 0,
+          "CritHitChance": 0,
+          "CritHitDamage": 0,
+          "DamageBalance": 0,
+          "Description": null,
+          "DEX": 0,
+          "DMG": 20,
+          "Durability": 0,
+          "EarthElementalDamage": 0,
+          "Evasion": 0,
+          "FireElementalDamage": 0,
+          "FireRate": 0,
+          "FireResist": 0,
+          "FireResistence": 0,
+          "FreezeElementalDamage": 0,
+          "FreezeResist": 0,
+          "HE": 0,
+          "Health": 0,
+          "HealthRegen": 0,
+          "HolyElementalDamage": 0,
+          "HolyResist": 0,
+          "HolyResistence": 0,
+          "IceElementalDamage": 0,
+          "IceResist": 0,
+          "IceResistence": 0,
+          "Icon": {
+            "Model": "models/props/ammo_box/ammobox.vmdl",
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Colour": "1,1,1,1",
+            "Position": "-10,0,0",
+            "Rotation": "0.2799371,-0.6488727,0.6500059,0.2794491",
+            "Guid": "ef862ac9-ce9d-c5ab-bf5e-c6eb9bfd1318"
+          },
+          "INT": 0,
+          "IsAccessory": false,
+          "IsArmor": false,
+          "IsAspect": false,
+          "IsBackpack": false,
+          "IsChest": false,
+          "IsConsumable": true,
+          "IsEquipment": false,
+          "IsItem": false,
+          "IsMaterial": false,
+          "IsMelee": false,
+          "IsPotion": false,
+          "IsWeapon": false,
+          "IsWorld": false,
+          "ItemLevel": 0,
+          "LastOwner": null,
+          "LightElementalDamage": 0,
+          "LightningElementalDamage": 0,
+          "LightningResist": 0,
+          "LightningResistence": 0,
+          "LightResist": 0,
+          "MagicDefense": 0,
+          "MagicPenetration": 0,
+          "MagicPower": 0,
+          "Mana": 0,
+          "ManaRegen": 0,
+          "MaxArmorValue": 0,
+          "MaxAttackValue": 0,
+          "MaxHealthDMG": 0,
+          "MaxStack": 1,
+          "MinArmorValue": 0,
+          "MinAttackValue": 0,
+          "MoveSpeed": 0,
+          "Name": "Ammo",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PER": 0,
+          "PoisonElementalDamage": 0,
+          "PoisonResist": 0,
+          "PoisonResistence": 0,
+          "RequiredLevel": 0,
+          "RunSpeed": 0,
+          "SellPrice": 0,
+          "ShadowElementalDamage": 0,
+          "ShadowResist": 0,
+          "ShadowResistence": 0,
+          "SlowResist": 0,
+          "SlowResistence": 0,
+          "Stamina": 0,
+          "StaminaSecond": 0,
+          "STG": 0,
+          "StunResist": 0,
+          "StunResistance": 0,
+          "Tenacity": 0,
+          "Tier": "C",
+          "WalkSpeed": 0,
+          "WaterElementalDamage": 0,
+          "WindElementalDamage": 0
         }
       ],
       "Children": [
         {
-          "__guid": "bbf10364-c0b6-4de9-8f83-de933c2a8abb",
+          "__guid": "42bc0c7c-d0e4-4ec0-8112-36d250c1df6b",
           "Flags": 0,
           "Name": "Object",
-          "Position": "-21.88525,2.939926,-21.008",
-          "Rotation": "0,0.0000001439342,0.9999999,0.0000000385671",
+          "Position": "0.2121582,1.536781,33.8373",
+          "Scale": "4,4,4",
+          "Tags": "light,light_point",
           "Enabled": true,
+          "NetworkMode": 1,
           "Components": [
             {
-              "__type": "Sandbox.TextRenderer",
-              "__guid": "93acd635-69d6-436a-9168-6e8919e405e7",
-              "__version": 1,
-              "BlendMode": "Normal",
+              "__type": "Sandbox.SpriteRenderer",
+              "__guid": "66fe8c44-6b20-4027-a99f-1637eb7b7dd0",
+              "Additive": false,
+              "CastShadows": false,
+              "Color": "1,1,1,1",
+              "DepthFeather": 0,
+              "FlipHorizontal": false,
+              "FlipVertical": false,
+              "FogStrength": 1,
+              "Lighting": false,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
+              "Opaque": false,
+              "Pivot": "0.5,0.5",
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
                 "BloomLayer": false,
                 "AfterUILayer": true
               },
-              "Scale": 0.06200001,
-              "TextAlignment": "Center",
-              "TextScope": {
-                "Text": "next               level",
-                "TextColor": "0.01667,0,1,1",
-                "FontName": "Poppins",
-                "FontSize": 512,
-                "FontWeight": 800,
-                "FontItalic": false,
-                "LineHeight": 1,
-                "LetterSpacing": 0,
-                "WordSpacing": 0,
-                "Outline": {
-                  "Enabled": false,
-                  "Size": 4,
-                  "Color": "0,0,1,1"
+              "Size": "5,5",
+              "Texture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/hud/bullet.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Padding": {
+                    "Size": "0,0",
+                    "EdgeSize": "0,0"
+                  },
+                  "Sharpen": 0,
+                  "Blur": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "0,1,0,1",
+                  "CacheToDisk": true
                 },
-                "Shadow": {
-                  "Enabled": true,
-                  "Size": 4,
-                  "Color": "0,0,0,1",
-                  "Offset": "4,4"
-                },
-                "OutlineUnder": {
-                  "Enabled": true,
-                  "Size": 33.299995,
-                  "Color": "0,1,0,1"
-                },
-                "ShadowUnder": {
-                  "Enabled": false,
-                  "Size": 4,
-                  "Color": "0,0,0,1",
-                  "Offset": "4,4"
-                }
+                "compiled": "textures/generated/imagefile/ef128495d500289b.vtex"
               }
             }
           ]
         },
         {
-          "__guid": "3a84ee20-f8c3-4dfc-9217-119a4f55365b",
+          "__guid": "d862ca85-c470-44ea-a32c-694a2cf9fee2",
           "Flags": 0,
           "Name": "Object",
-          "Position": "-6.091064,1.998611,-58.91241",
-          "Rotation": "-0.00000000000001421085,0.7071067,0,0.7071068",
-          "Scale": "-8.999979,-6.599988,6.99998",
+          "Position": "0.002441407,2.268586,2.470253",
+          "Scale": "0.72098,0.2209798,0.4209797",
           "Enabled": true,
+          "NetworkMode": 1,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
-              "__guid": "4b98e491-3908-44e2-9b02-b6e1f0b9b90b",
+              "__guid": "f741c734-02b0-43e4-ae53-e4941b5e7b76",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "MaterialGroup": null,
               "MaterialOverride": null,
-              "Model": "models/editor/axis_helper.vmdl",
+              "Model": "models/props/ammo_box/ammobox.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -11662,712 +11338,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0,0,1"
-            },
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "dd29c9f8-59fc-424b-b029-fc2b5a8b3b62",
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/editor/cone_helper.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
-              "Tint": "0.23151,0.39535,0.03126,1"
-            }
-          ]
-        },
-        {
-          "__guid": "9f4e43d3-cbd2-4c27-bc64-004d2b32d53a",
-          "Flags": 0,
-          "Name": "Object (1)",
-          "Position": "-6.090358,1.9986,131.972",
-          "Rotation": "-0.01234071,0.7069991,-0.01234071,-0.7069991",
-          "Scale": "-8.999979,-6.599988,6.99998",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "25fc8d88-5967-42fe-9682-83c92f70a291",
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/editor/axis_helper.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
-              "Tint": "1,0,0,1"
-            },
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "585c818a-a700-4729-a6c7-c4bd82b3107d",
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/editor/cone_helper.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
-              "Tint": "0.23151,0.39535,0.03126,1"
-            }
-          ]
-        },
-        {
-          "__guid": "34d81faf-dc9c-490d-a5fb-b1aa939d4e7b",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "-5.990479,0.7663422,176.2145",
-          "Rotation": "0,-0.7071068,0,0.7071068",
-          "Tags": "light_spot,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.SpotLight",
-              "__guid": "b2820c4e-2c20-4040-8ef0-3d642d058915",
-              "Attenuation": 7.34,
-              "ConeInner": 52.55,
-              "ConeOuter": 79.55,
-              "Cookie": "materials/particle/particle_flares/particle_flare_006.vtex",
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "47.1391,50.57843,51.59,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 500,
-              "Shadows": true
-            }
-          ]
-        },
-        {
-          "__guid": "669a46ef-6eb2-4dbd-9737-7e0b2128b771",
-          "Flags": 0,
-          "Name": "Object (1)",
-          "Position": "-5.990967,0.7663727,235.0428",
-          "Rotation": "0,0.7071068,0,0.7071068",
-          "Tags": "light_spot,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.SpotLight",
-              "__guid": "b24bd0e5-51bf-4c4b-a2cd-9bdfa198c70f",
-              "Attenuation": 1.59,
-              "ConeInner": 90,
-              "ConeOuter": 57.7,
-              "Cookie": "materials/particle/particle_flares/particle_flare_006.vtex",
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "47.1391,50.57843,51.59,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 500,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "2c6ee0ce-062f-4ddf-9d41-f6b382b9448c",
-          "Flags": 0,
-          "Name": "Line",
-          "Position": "-7.297852,2.708221,-31.84317",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.LineRenderer",
-              "__guid": "f2bebfb9-623f-490a-b1c8-fd7ccf8ba7e2",
-              "Additive": false,
-              "CastShadows": true,
-              "Color": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0,
-                    "c": "1,0.27059,0,1"
-                  },
-                  {
-                    "t": 0.5,
-                    "c": "1,0.84314,0,1"
-                  },
-                  {
-                    "t": 1,
-                    "c": "0,0,0.5451,1"
-                  }
-                ],
-                "alpha": [
-                  {
-                    "t": 0,
-                    "a": 1
-                  },
-                  {
-                    "t": 1,
-                    "a": 1
-                  }
-                ]
-              },
-              "DepthFeather": 0,
-              "EndCap": "Rounded",
-              "Face": "Camera",
-              "FogStrength": 1,
-              "Lighting": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Points": [
-                null,
-                null,
-                {
-                  "_type": "gameobject",
-                  "go": "ebf7f6b9-3517-423f-be46-a659c3fd9e52"
-                },
-                {
-                  "_type": "gameobject",
-                  "go": "9475e040-6952-4438-8821-5900ffddde26"
-                }
-              ],
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "SplineBias": 0,
-              "SplineContinuity": 0,
-              "SplineInterpolation": 8,
-              "SplineTension": 0,
-              "StartCap": "Rounded",
-              "Texturing": {
-                "Texture": "sprites/vidya/shapes/doublearrow.vtex",
-                "WorldSpace": true,
-                "UnitsPerTexture": 21.099901,
-                "Scale": 1,
-                "Offset": 123.19995,
-                "Scroll": 2.3000484
-              },
-              "UseVectorPoints": false,
-              "VectorPoints": [],
-              "Width": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Wireframe": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "ebf7f6b9-3517-423f-be46-a659c3fd9e52",
-              "Flags": 0,
-              "Name": "Point 3",
-              "Position": "1.42041,-0.5207214,84.93457",
-              "Enabled": true
-            },
-            {
-              "__guid": "9475e040-6952-4438-8821-5900ffddde26",
-              "Flags": 0,
-              "Name": "Point 4",
-              "Position": "0.7485352,-0.6124573,51.20224",
-              "Enabled": true
-            }
-          ]
-        },
-        {
-          "__guid": "303547c8-f410-4d51-a097-037eece567de",
-          "Flags": 0,
-          "Name": "Line (1)",
-          "Position": "-7.298096,-4.200211,-31.8432",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.LineRenderer",
-              "__guid": "9a4c8c86-2756-4c30-a523-5765795332df",
-              "Additive": false,
-              "CastShadows": true,
-              "Color": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0,
-                    "c": "1,0.27059,0,1"
-                  },
-                  {
-                    "t": 0.5,
-                    "c": "1,0.84314,0,1"
-                  },
-                  {
-                    "t": 1,
-                    "c": "0,0,0.5451,1"
-                  }
-                ],
-                "alpha": [
-                  {
-                    "t": 0,
-                    "a": 1
-                  },
-                  {
-                    "t": 1,
-                    "a": 1
-                  }
-                ]
-              },
-              "DepthFeather": 0,
-              "EndCap": "Rounded",
-              "Face": "Camera",
-              "FogStrength": 1,
-              "Lighting": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Points": [
-                null,
-                null,
-                {
-                  "_type": "gameobject",
-                  "go": "79eafb82-94fb-4e60-aee5-ea1cbf1b7e6d"
-                },
-                {
-                  "_type": "gameobject",
-                  "go": "7fabcbb6-a995-4498-a23e-1b6ca62e0e62"
-                }
-              ],
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "SplineBias": 0,
-              "SplineContinuity": 0,
-              "SplineInterpolation": 8,
-              "SplineTension": 0,
-              "StartCap": "Rounded",
-              "Texturing": {
-                "Texture": "sprites/vidya/shapes/doublearrow.vtex",
-                "WorldSpace": true,
-                "UnitsPerTexture": 21.099901,
-                "Scale": 1,
-                "Offset": 123.19995,
-                "Scroll": 2.3000484
-              },
-              "UseVectorPoints": false,
-              "VectorPoints": [],
-              "Width": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Wireframe": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "79eafb82-94fb-4e60-aee5-ea1cbf1b7e6d",
-              "Flags": 0,
-              "Name": "Point 3",
-              "Position": "1.42041,-26.27374,162.9606",
-              "Enabled": true
-            },
-            {
-              "__guid": "7fabcbb6-a995-4498-a23e-1b6ca62e0e62",
-              "Flags": 0,
-              "Name": "Point 4",
-              "Position": "0.7485352,-0.6124573,51.20224",
-              "Enabled": true
-            }
-          ]
-        },
-        {
-          "__guid": "65ed62c4-7abd-4647-b320-77105f53abb8",
-          "Flags": 0,
-          "Name": "Line (2)",
-          "Position": "-7.298096,9.335373,-31.8432",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.LineRenderer",
-              "__guid": "c7289299-18ae-4ea4-9727-120725bb3140",
-              "Additive": false,
-              "CastShadows": true,
-              "Color": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0,
-                    "c": "1,0.27059,0,1"
-                  },
-                  {
-                    "t": 0.5,
-                    "c": "1,0.84314,0,1"
-                  },
-                  {
-                    "t": 1,
-                    "c": "0,0,0.5451,1"
-                  }
-                ],
-                "alpha": [
-                  {
-                    "t": 0,
-                    "a": 1
-                  },
-                  {
-                    "t": 1,
-                    "a": 1
-                  }
-                ]
-              },
-              "DepthFeather": 0,
-              "EndCap": "Rounded",
-              "Face": "Camera",
-              "FogStrength": 1,
-              "Lighting": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Points": [
-                null,
-                null,
-                {
-                  "_type": "gameobject",
-                  "go": "ca3b73d8-1b5f-41cb-a894-c29ef91f9158"
-                },
-                {
-                  "_type": "gameobject",
-                  "go": "050aff29-9b5b-498d-b7fc-f8a528e41608"
-                }
-              ],
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "SplineBias": 0,
-              "SplineContinuity": 0,
-              "SplineInterpolation": 8,
-              "SplineTension": 0,
-              "StartCap": "Rounded",
-              "Texturing": {
-                "Texture": "sprites/vidya/shapes/doublearrow.vtex",
-                "WorldSpace": true,
-                "UnitsPerTexture": 21.099901,
-                "Scale": 1,
-                "Offset": 123.19995,
-                "Scroll": 2.3000484
-              },
-              "UseVectorPoints": false,
-              "VectorPoints": [],
-              "Width": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Wireframe": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "ca3b73d8-1b5f-41cb-a894-c29ef91f9158",
-              "Flags": 0,
-              "Name": "Point 3",
-              "Position": "1.42041,20.03836,164.4934",
-              "Enabled": true
-            },
-            {
-              "__guid": "050aff29-9b5b-498d-b7fc-f8a528e41608",
-              "Flags": 0,
-              "Name": "Point 4",
-              "Position": "0.7485352,-0.6124573,51.20224",
-              "Enabled": true
-            }
-          ]
-        },
-        {
-          "__guid": "a0129c1f-56d0-4533-bbab-dfccd4c80d93",
-          "Flags": 0,
-          "Name": "Line (3)",
-          "Position": "-7.298096,15.92595,-31.8432",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.LineRenderer",
-              "__guid": "9767f7e4-0f61-4aa9-a3b1-bd34401da2d9",
-              "Additive": false,
-              "CastShadows": true,
-              "Color": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0,
-                    "c": "1,0.27059,0,1"
-                  },
-                  {
-                    "t": 0.5,
-                    "c": "1,0.84314,0,1"
-                  },
-                  {
-                    "t": 1,
-                    "c": "0,0,0.5451,1"
-                  }
-                ],
-                "alpha": [
-                  {
-                    "t": 0,
-                    "a": 1
-                  },
-                  {
-                    "t": 1,
-                    "a": 1
-                  }
-                ]
-              },
-              "DepthFeather": 0,
-              "EndCap": "Rounded",
-              "Face": "Camera",
-              "FogStrength": 1,
-              "Lighting": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Points": [
-                null,
-                null,
-                {
-                  "_type": "gameobject",
-                  "go": "f10183f3-9f65-46f9-aca6-f6025b077cfa"
-                },
-                {
-                  "_type": "gameobject",
-                  "go": "9f698cff-8c0d-4b73-b190-b41110705337"
-                }
-              ],
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "SplineBias": 0,
-              "SplineContinuity": 0,
-              "SplineInterpolation": 8,
-              "SplineTension": 0,
-              "StartCap": "Rounded",
-              "Texturing": {
-                "Texture": "sprites/vidya/shapes/doublearrow.vtex",
-                "WorldSpace": true,
-                "UnitsPerTexture": 21.099901,
-                "Scale": 1,
-                "Offset": 123.19995,
-                "Scroll": 2.3000484
-              },
-              "UseVectorPoints": false,
-              "VectorPoints": [],
-              "Width": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Wireframe": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "f10183f3-9f65-46f9-aca6-f6025b077cfa",
-              "Flags": 0,
-              "Name": "Point 3",
-              "Position": "1.42041,44.45877,168.0125",
-              "Enabled": true
-            },
-            {
-              "__guid": "9f698cff-8c0d-4b73-b190-b41110705337",
-              "Flags": 0,
-              "Name": "Point 4",
-              "Position": "0.7485352,-0.6124573,51.20224",
-              "Enabled": true
-            }
-          ]
-        },
-        {
-          "__guid": "bc9ce109-93c7-4129-8a1a-0227a5d87f13",
-          "Flags": 0,
-          "Name": "Line (4)",
-          "Position": "-7.298096,-12.34621,-31.8432",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.LineRenderer",
-              "__guid": "04ecebb2-f277-4c39-8aab-92b7cf20efee",
-              "Additive": false,
-              "CastShadows": true,
-              "Color": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0,
-                    "c": "1,0.27059,0,1"
-                  },
-                  {
-                    "t": 0.5,
-                    "c": "1,0.84314,0,1"
-                  },
-                  {
-                    "t": 1,
-                    "c": "0,0,0.5451,1"
-                  }
-                ],
-                "alpha": [
-                  {
-                    "t": 0,
-                    "a": 1
-                  },
-                  {
-                    "t": 1,
-                    "a": 1
-                  }
-                ]
-              },
-              "DepthFeather": 0,
-              "EndCap": "Rounded",
-              "Face": "Camera",
-              "FogStrength": 1,
-              "Lighting": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Points": [
-                null,
-                null,
-                {
-                  "_type": "gameobject",
-                  "go": "28bf3fe2-b829-4022-93d4-c2d1411b7fb3"
-                },
-                {
-                  "_type": "gameobject",
-                  "go": "45218fe8-8ecf-4dd3-b607-cc325e0c1682"
-                }
-              ],
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "SplineBias": 0,
-              "SplineContinuity": 0,
-              "SplineInterpolation": 8,
-              "SplineTension": 0,
-              "StartCap": "Rounded",
-              "Texturing": {
-                "Texture": "sprites/vidya/shapes/doublearrow.vtex",
-                "WorldSpace": true,
-                "UnitsPerTexture": 21.099901,
-                "Scale": 1,
-                "Offset": 123.19995,
-                "Scroll": 2.3000484
-              },
-              "UseVectorPoints": false,
-              "VectorPoints": [],
-              "Width": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Wireframe": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "28bf3fe2-b829-4022-93d4-c2d1411b7fb3",
-              "Flags": 0,
-              "Name": "Point 3",
-              "Position": "1.42041,-42.46272,166.8872",
-              "Enabled": true
-            },
-            {
-              "__guid": "45218fe8-8ecf-4dd3-b607-cc325e0c1682",
-              "Flags": 0,
-              "Name": "Point 4",
-              "Position": "0.7485352,-0.6124573,51.20224",
-              "Enabled": true
+              "Tint": "1,1,1,1"
             }
           ]
         }

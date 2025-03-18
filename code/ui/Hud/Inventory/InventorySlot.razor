@@ -496,114 +496,114 @@
 
 	
 	protected override void OnMouseDown(MousePanelEvent e)
-	{
-		base.OnMouseDown(e);
+{
+    base.OnMouseDown(e);
 
-		if (ShopSlotIndex != null)
-		{
-			// Drag-and-Drop für Shop-Slots deaktivieren
-			return;
-		}
-		if (UpgradeSlotIndex != null)
-		{
-			// Drag-and-Drop für Upgrade-Slots deaktivieren
-			return;
-		}
-		if (IndependentSlotIndex != null)
-		{
-			if (sinceClick < 0.4f)
-			{
-				AddItemToPlayerInventory(Item);
-				PlaySound("drop");
-				Inventory.Instance.OnChanged();
-				sinceClick = 0;
-				return;
-			}
-		}
+    if (ShopSlotIndex != null)
+    {
+        // Drag-and-Drop für Shop-Slots deaktivieren
+        return;
+    }
+    if (UpgradeSlotIndex != null)
+    {
+        // Drag-and-Drop für Upgrade-Slots deaktivieren
+        return;
+    }
+    if (IndependentSlotIndex != null)
+    {
+        if (sinceClick < 0.4f)
+        {
+            AddItemToPlayerInventory(Item);
+            PlaySound("drop");
+            Inventory.Instance.OnChanged();
+            sinceClick = 0;
+            return;
+        }
+    }
 
-		if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
-		&&
-		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
-		{
-			if (Item == null)
-				return;
-			if (e.Button != "mouseleft")
-				return;
-			ToggleSelection();
+    if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
+    &&
+    ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
+    {
+        if (Item == null)
+            return;
+        if (e.Button != "mouseleft")
+            return;
+        ToggleSelection();
 
-			return;
-		}
+        return;
+    }
 
-		if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
-		&&
-		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
-			return;
-		if ( FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
-		&&
-		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Weapons)
-			return;
+    if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
+    &&
+    ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Inventory)
+        return;
+    if ( FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
+    &&
+    ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Weapons)
+        return;
 
-		if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
-		&&
-		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Armor)
-			return;
+    if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
+    &&
+    ShopPanel.Instance.currentPanel == ShopPanel.PanelType.Armor)
+        return;
 
-		if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
-		&&
-		ShopPanel.Instance.currentPanel == ShopPanel.PanelType.StoreItems)
-			return;
+    if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
+    &&
+    ShopPanel.Instance.currentPanel == ShopPanel.PanelType.StoreItems)
+        return;
 
-		if (e.Button != "mouseleft")
-			return;
+    if (e.Button != "mouseleft")
+        return;
 
-		if (sinceClick < 0.4f && Item is ItemEquipment equipment)
-		{
-			if (equipment.IsWeapon || equipment.IsArmor)
-			{
-				if (equipment.Equipped)
-					Player.Local.Inventory.UnequipItem(equipment);
-				else
-					Player.Local.Inventory.EquipItemFromBackpack(equipment);
+    if (sinceClick < 0.4f && Item is ItemEquipment equipment)
+    {
+        if (equipment.IsWeapon || equipment.IsArmor)
+        {
+            if (equipment.Equipped)
+                Player.Local.Inventory.UnequipItem(equipment);
+            else
+                Player.Local.Inventory.EquipItemFromBackpack(equipment);
 
-				PlaySound("drop");
-				Inventory.Instance.OnChanged();
-				sinceClick = 0;
-				return;
-			}
-		}
+            PlaySound("drop");
+            Inventory.Instance.OnChanged();
+            sinceClick = 0;
+            return;
+        }
+    }
 
-		isMouseDown = true;
-		sinceClick = 0;
-		OnDragStart();
+    isMouseDown = true;
+    sinceClick = 0;
+    OnDragStart();
 
-		if (ChildDraggable != null)
-			return;
+    if (ChildDraggable != null)
+        return;
 
-		if (Item == null)
-			return; 
+    if (Item == null)
+        return; 
 
-		if (Player.Local == null)
-		{
-			Log.Error("Player.Local ist null.");
-			return;
-		}
+    if (Player.Local == null)
+    {
+        Log.Error("Player.Local ist null.");
+        return;
+    }
 
-		if (Player.Local.Inventory == null)
-		{
-			Log.Error("Player.Local.Inventory ist null.");
-			return;
-		}
+    if (Player.Local.Inventory == null)
+    {
+        Log.Error("Player.Local.Inventory ist null.");
+        return;
+    }
 
-		ChildDraggable = new DraggableItem(this, holdPoint: Mouse.Position - Box.Rect.TopLeft);
-		ChildDraggable.SetPositionInScreenPixels(Mouse.Position);
+    ChildDraggable = new DraggableItem(this, holdPoint: Mouse.Position - Box.Rect.TopLeft);
+    ChildDraggable.SetPositionInScreenPixels(Mouse.Position);
 
-		var fraction = (Mouse.Position - Box.Rect.Size / 2f) / Screen.Size;
-		ChildDraggable.Style.Left = Length.Fraction(fraction.x);
-		ChildDraggable.Style.Top = Length.Fraction(fraction.y);
+    var fraction = (Mouse.Position - Box.Rect.Size / 2f) / Screen.Size;
+    ChildDraggable.Style.Left = Length.Fraction(fraction.x);
+    ChildDraggable.Style.Top = Length.Fraction(fraction.y);
 
-		Hudmaster.Instance.Panel.AddChild(ChildDraggable);
-		CurrentDraggable = ChildDraggable;
-	}
+    Hudmaster.Instance.Panel.AddChild(ChildDraggable);
+    CurrentDraggable = ChildDraggable;
+}
 
 	private void MoveItemTo(InventorySlot targetSlot)
 	{

@@ -495,6 +495,10 @@ public partial class Npc : Component, IHealthComponent
 					{
 						AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 					}
+					else
+					{
+						
+					}
 
 					if ( agent != null )
 					{
@@ -511,31 +515,58 @@ public partial class Npc : Component, IHealthComponent
 					switch ( CurrentHoldType )
 					{
 						case HoldTypes.None:
-							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+							if ( AnimationHelper != null )
+							{
+								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+							}
 							break;
 						case HoldTypes.Pistol:
-							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
+							if ( AnimationHelper != null )
+							{
+								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
+							}
 							break;
 						case HoldTypes.Rifle:
-							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Rifle;
+							if ( AnimationHelper != null )
+							{
+								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Rifle;
+							}
 							break;
 						case HoldTypes.Shotgun:
-							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Shotgun;
+							if ( AnimationHelper != null )
+							{
+								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Shotgun;
+							}
 							break;
 						case HoldTypes.HoldItem:
-							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.HoldItem;
+							if ( AnimationHelper != null )
+							{
+								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.HoldItem;
+							}
 							break;
 						case HoldTypes.Punch:
-							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
+							if ( AnimationHelper != null )
+							{
+								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
+							}
 							break;
 						case HoldTypes.Swing:
-							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
+							if ( AnimationHelper != null )
+							{
+								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
+							}
 							break;
 						case HoldTypes.RPG:
-							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.RPG;
+							if ( AnimationHelper != null )
+							{
+								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.RPG;
+							}
 							break;
 						default:
-							AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+							if ( AnimationHelper != null )
+							{
+								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+							}
 							break;
 					}
 

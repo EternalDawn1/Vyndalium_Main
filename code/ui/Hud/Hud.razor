@@ -15,7 +15,11 @@
 
 	<div class="level-up-panel @levelUpClass">
 		<div class="level-up-content">
-			<p class="txt">Lvl.@player.Level</p>
+			@if (player != null)
+			{
+				<p class="txt">Lvl.@player.Level</p>
+			}
+			
 		</div>
 	</div>
 	@if (FullScreenManager.Instance?.ActivePanel != FullScreenManager.FullScreenPanel.InGameHud)
