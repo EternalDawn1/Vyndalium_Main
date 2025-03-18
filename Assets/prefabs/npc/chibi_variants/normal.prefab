@@ -11,8 +11,15 @@
         "__type": "Sandbox.NavMeshAgent",
         "__guid": "641036c0-c520-466f-922d-dd552a380f06",
         "Acceleration": 500,
+        "AutoTraverseLinks": true,
         "Height": 66.19999,
-        "MaxSpeed": 170,
+        "MaxSpeed": 120,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Radius": 14.699992,
         "Separation": 1,
         "UpdatePosition": true,
@@ -53,8 +60,13 @@
         "GroundFriction": 33.7,
         "IgnoreTags": "",
         "MaxUnstuckTries": 20,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
         "OnComponentUpdate": {
-          "__version": 8,
+          "__version": 9,
           "__guid": "6cb2d893-42ac-41f5-b48b-55be52a90f72",
           "__changeId": 0,
           "UserData": {
@@ -109,6 +121,13 @@
         "Health": 100,
         "Immortal": false,
         "MaxHealth": 9,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnDamaged": null,
         "RegenerationCooldown": 2,
         "RegenerationTimer": 5,
         "StunnedBy": "Bullet",
@@ -118,13 +137,6 @@
         "__type": "Npc",
         "__guid": "c1b3310c-6b5e-4247-8f92-64cae837a5f3",
         "activeStatusEffects": [],
-        "CurrentHoldType": "Punch",
-        "isChibi": true,
-        "prefabPaths": [
-          "prefabs/pickupammo.prefab",
-          "prefabs/potions/potion.prefab",
-          "prefabs/items/wood_log.prefab"
-        ],
         "AlertOthers": false,
         "AnimationHelper": {
           "_type": "component",
@@ -138,9 +150,10 @@
           "_type": "gameobject",
           "go": "2fe8f844-48a1-44f0-b9c1-51b233116daa"
         },
+        "CurrentHoldType": "Punch",
         "CurrentState": "Idle",
         "DeathSounds": "sounds/deathsounds/deathsounds.sound",
-        "DetectRange": 176,
+        "DetectRange": 80,
         "EnemyTags": "player",
         "Eye": {
           "_type": "gameobject",
@@ -164,10 +177,15 @@
         "HitSounds": "sounds/chibi.sound",
         "Idle": true,
         "IsBleeding": false,
+        "isChibi": true,
+        "IsFloating": false,
+        "isPrometheus": false,
+        "isSlime": false,
+        "IsSlowed": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
-        "MaxRunAnimationSpeed": 250,
+        "MaxRunAnimationSpeed": 39.1,
         "MinimumIdleCooldown": 4,
         "Model": {
           "_type": "component",
@@ -183,193 +201,37 @@
         },
         "MoveSpeed": 0,
         "Name": "Terror",
-        "OnAttack": {
-          "__version": 8,
-          "__guid": "af137a52-0cf6-473a-b865-8ff82b470c4e",
-          "__changeId": 0,
-          "UserData": {
-            "Title": "On Attack",
-            "ReferencedComponentTypes": [
-              "package.viwi.new_game_two/HealthComponent"
-            ]
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input",
-              "UserData": {
-                "Position": "-64,32"
-              }
-            },
-            {
-              "Id": 2,
-              "Type": "scene.get",
-              "Properties": {
-                "T": "HealthComponent"
-              },
-              "UserData": {
-                "Position": "96,64"
-              }
-            },
-            {
-              "Id": 3,
-              "Type": "call",
-              "Properties": {
-                "_isStatic": false,
-                "_name": "Damage",
-                "_type": "HealthComponent"
-              },
-              "UserData": {
-                "Position": "512,64"
-              }
-            },
-            {
-              "Id": 5,
-              "Type": "scene.ref",
-              "UserData": {
-                "Position": "96,256"
-              }
-            },
-            {
-              "Id": 6,
-              "Type": "property",
-              "ParentId": 5,
-              "Properties": {
-                "_name": "Transform",
-                "_type": "Sandbox.GameObject"
-              }
-            },
-            {
-              "Id": 7,
-              "Type": "property",
-              "ParentId": 6,
-              "Properties": {
-                "_name": "Position",
-                "_type": "Sandbox.GameTransform"
-              }
-            }
-          ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "enemy",
-              "DstId": 2,
-              "DstName": "_this"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 3,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 2,
-              "SrcName": "_result",
-              "DstId": 3,
-              "DstName": "_target"
-            },
-            {
-              "Id": 11,
-              "Value": 40,
-              "DstId": 3,
-              "DstName": "amount"
-            },
-            {
-              "SrcId": 5,
-              "SrcName": "_result",
-              "DstId": 3,
-              "DstName": "attacker"
-            },
-            {
-              "Id": 12,
-              "Value": 400,
-              "DstId": 3,
-              "DstName": "force"
-            },
-            {
-              "Id": 13,
-              "Value": "Serious",
-              "DstId": 3,
-              "DstName": "type"
-            },
-            {
-              "SrcId": 7,
-              "SrcName": "_result",
-              "DstId": 3,
-              "DstName": "worldHurtPosition"
-            },
-            {
-              "SrcId": 5,
-              "SrcName": "_result",
-              "DstId": 6,
-              "DstName": "_target"
-            },
-            {
-              "SrcId": 6,
-              "SrcName": "_result",
-              "DstId": 7,
-              "DstName": "_target"
-            }
-          ],
-          "Defaults": {
-            "$5.gameobject": {
-              "_type": "gameobject",
-              "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81"
-            }
-          }
-        },
-        "OnDetect": {
-          "__version": 8,
-          "__guid": "8d3c2497-0678-4c8c-b986-1b268ff1b74e",
-          "__changeId": 2,
-          "UserData": {
-            "Title": "On Detect",
-            "ReferencedComponentTypes": []
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input",
-              "UserData": {
-                "Position": "-64,0"
-              }
-            }
-          ],
-          "Links": []
-        },
-        "OnEnemyEscaped": {
-          "__version": 8,
-          "__guid": "e1eb3753-6b11-46f9-b912-757d64dce89b",
-          "__changeId": 2,
-          "UserData": {
-            "Title": "On Enemy Escaped",
-            "ReferencedComponentTypes": []
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input"
-            }
-          ],
-          "Links": []
-        },
+        "OnAttack": null,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnDetect": null,
+        "OnEnemyEscaped": null,
+        "OnIdle": null,
+        "OnKilled": null,
+        "OnSpawn": null,
         "PlayerProximityDistance": 80,
         "PogMode": false,
         "Position": "0,0,0",
+        "prefabPaths": [
+          "prefabs/pickupammo.prefab",
+          "prefabs/potions/potion.prefab",
+          "prefabs/items/wood_log.prefab"
+        ],
         "RunningType": "Smart",
-        "RunSpeed": 350,
+        "RunSpeed": 125,
         "ScaleStats": true,
-        "VisionRange": 912,
+        "VisionRange": 576,
         "WalkingType": "Dumb",
-        "WalkSpeed": 310,
+        "WalkSpeed": 100,
         "WindAbilityChance": 0.5,
         "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
-          "prefab": "models/npcs/chibi/chibi_ragdoll.prefab"
+          "prefab": "models/npcs/slime/terror_burst.prefab"
         }
       },
       {
@@ -382,7 +244,19 @@
         },
         "EyesWeight": 1,
         "HeadWeight": 1,
+        "Height": null,
+        "IkLeftFoot": null,
+        "IkLeftHand": null,
+        "IkRightFoot": null,
+        "IkRightHand": null,
+        "LookAt": null,
         "LookAtEnabled": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Target": {
           "_type": "component",
           "component_id": "44abc567-108c-4783-ae12-05ca44d2a8e0",
@@ -404,11 +278,19 @@
             "__guid": "44abc567-108c-4783-ae12-05ca44d2a8e0",
             "AnimationGraph": "models/npcs/chibi/chibi.vanmgrph",
             "BodyGroups": 18446744073709551615,
+            "BoneMergeTarget": null,
             "CreateAttachments": false,
             "CreateBoneObjects": false,
             "MaterialGroup": "default",
+            "MaterialOverride": null,
             "Model": "models/npcs/chibi/chibi_standard.vmdl",
             "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Parameters": {
               "bools": {},
               "ints": {},
@@ -416,6 +298,7 @@
               "vectors": {},
               "rotations": {}
             },
+            "PlaybackRate": 1,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -433,10 +316,22 @@
             "__type": "Sandbox.Citizen.CitizenAnimationHelper",
             "__guid": "bc6e5718-9ece-4b85-89fa-63acb72f5c57",
             "BodyWeight": 1,
+            "EyeSource": null,
             "EyesWeight": 1,
             "HeadWeight": 1,
             "Height": 1.04,
+            "IkLeftFoot": null,
+            "IkLeftHand": null,
+            "IkRightFoot": null,
+            "IkRightHand": null,
+            "LookAt": null,
             "LookAtEnabled": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Target": {
               "_type": "component",
               "component_id": "44abc567-108c-4783-ae12-05ca44d2a8e0",
@@ -447,14 +342,32 @@
           {
             "__type": "Sandbox.ModelCollider",
             "__guid": "d75db4bf-8aa6-4f08-b5f7-12246ac8f7ae",
+            "Friction": null,
             "IsTrigger": false,
             "Model": "models/npcs/chibi/chibi_standard.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnObjectTriggerEnter": null,
+            "OnObjectTriggerExit": null,
+            "OnTriggerEnter": null,
+            "OnTriggerExit": null,
             "Static": false,
+            "Surface": null,
             "SurfaceVelocity": "0,0,0"
           },
           {
             "__type": "Sandbox.ModelHitboxes",
             "__guid": "c0990385-b1b8-4d8a-81a3-adb80eafd636",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Renderer": {
               "_type": "component",
               "component_id": "44abc567-108c-4783-ae12-05ca44d2a8e0",
@@ -490,6 +403,12 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PanelSize": "2000,1000",
             "RenderOptions": {
               "GameLayer": true,
@@ -508,7 +427,13 @@
               "component_id": "c1b3310c-6b5e-4247-8f92-64cae837a5f3",
               "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81",
               "component_type": "Npc"
-            }
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
           }
         ]
       }

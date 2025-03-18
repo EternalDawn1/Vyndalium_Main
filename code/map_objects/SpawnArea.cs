@@ -52,7 +52,7 @@ public sealed class NpcSpawnArea : Component
 		[JsonInclude]
 		public SpawnCountRange SpawnCountRange { get; set; } = new();
 
-	
+		[Property] public PrefabFile SpawnEffect { get; set; }
 
 		[Property]
 		[JsonInclude]
@@ -104,6 +104,8 @@ public sealed class NpcSpawnArea : Component
 		public float SpawnInterval { get; set; } = 1f;
 
 		public NpcChance() { }
+
+		
 	}
 	public struct SubNpcChance
 	{
@@ -123,7 +125,7 @@ public sealed class NpcSpawnArea : Component
 		[Property]
 		[JsonInclude]
 		public float SubNpcSpawnDelayPerNpc { get; set; }
-
+		[Property] public PrefabFile SpawnEffect { get; set; }
 		[Property]
 		[JsonInclude]
 		[Range(0f, 1f)]
@@ -209,7 +211,7 @@ public sealed class NpcSpawnArea : Component
 	[Property, Group("SpawnRange")]
 	public bool DrawSpawnAreaGizmo { get; set; }
 
-	
+	[Property] public PrefabFile SpawnEffect { get; set; }
 
 	[Property, Group("SpawnRange")]
 	public Color SpawnAreaGizmoColor { get; set; } = Color.Blue.WithAlpha(0.3f);
@@ -492,7 +494,7 @@ public sealed class NpcSpawnArea : Component
 							}
 						}
 
-						CreateSpawnParticle( npc.WorldPosition );
+						CreateSpawnParticle( npc.WorldPosition, npcChance.SpawnEffect );
 						SpawnedNpcs.Add( npc );
 
 						if ( npcChance.SequentialSpawn )
@@ -539,8 +541,9 @@ public sealed class NpcSpawnArea : Component
 							npcComponent.HasFireAbility = bossChance.FireAbilityChance >= 1.0 || new Random().NextDouble() <= bossChance.FireAbilityChance;
 						}
 						SpawnedNpcs.Add( boss );
+							CreateSpawnParticle( boss.WorldPosition, bossChance.SpawnEffect );
 
-						foreach ( var light in Lights )
+							foreach ( var light in Lights )
 						{
 							_ = LerpLightColor( light, BaseColor, FadingToColor, ColorChangeDuration );
 						}
@@ -607,6 +610,7 @@ public sealed class NpcSpawnArea : Component
 								npcComponent.HasFireAbility = npcChance.FireAbilityChance >= 1.0 || new Random().NextDouble() <= npcChance.FireAbilityChance;
 							}
 							SpawnedNpcs.Add( npc );
+							CreateSpawnParticle( npc.WorldPosition, npcChance.SpawnEffect );
 
 							if ( npcChance.EnableDestroyAfterTime )
 							{
@@ -673,6 +677,7 @@ public sealed class NpcSpawnArea : Component
 
 					clone.NetworkMode = NetworkMode.Object;
 					clone.NetworkSpawn();
+					
 
 					return clone;
 				}
@@ -744,14 +749,17 @@ public sealed class NpcSpawnArea : Component
 
 		return false;
 	}
-	private void CreateSpawnParticle(Vector3 position)
+	private void CreateSpawnParticle( Vector3 position, PrefabFile spawnEffect )
 	{
-		// Erstelle und spiele ein Partikelsystem beim Spawnen
-		/* var p = new SceneParticles(Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf");
-		p.SetControlPoint(0, position);
-		p.SetControlPoint(0, -1f);
-		p.SetControlPoint(1, new Vector3(5.5f, 0.1f, 0.1f));
-		p.PlayUntilFinished(Task); */
+		if ( spawnEffect != null )
+		{
+			var particleInstance = GameObject.Clone( spawnEffect );
+			if ( particleInstance != null )
+			{
+				particleInstance.WorldPosition = position;
+				particleInstance.NetworkSpawn();
+			}
+		}
 	}
 	private async Task LerpLightColor( Light light, Color startColor, Color endColor, float duration )
 	{

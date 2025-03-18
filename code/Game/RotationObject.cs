@@ -1,108 +1,57 @@
 namespace GeneralGame;
 
-public sealed class RotationObject : Component
+public sealed class MoveObject : Component
 {
-	[Property] public float RotationSpeed { get; set; } = 1.0f; // Geschwindigkeit der Rotation
-	[Property] public bool RotateClockwise { get; set; } = true; // Richtung der Rotation
-	[Property] public float RotationDuration { get; set; } = 10.0f; // Dauer der Rotation in Sekunden
-	[Property] public GameObject TargetObject { get; set; } // Das zu rotierende GameObject
-	[Property] public Vector3 RotationCenter { get; set; } = Vector3.Zero; // Mittelpunkt der Rotation
-	[Property] public bool ChangeDirection { get; set; } = false; // Richtung nach einer gewissen Zeit ändern
-	[Property] public float MoveSpeed { get; set; } = 1.0f; // Bewegungsgeschwindigkeit
-	[Property] public bool MoveForward { get; set; } = true; // Bewegung nach vorne oder hinten
-	[Property] public float MoveRange { get; set; } = 5.0f; // Reichweite der Bewegung
-	[Property] public bool MoveUp { get; set; } = false; // Bewegung nach oben oder unten
-	[Property] public bool RotateAroundX { get; set; } = true; // Rotation um die X-Achse
-	[Property] public bool RotateAroundY { get; set; } = true; // Rotation um die Y-Achse
-	[Property] public bool RotateAroundZ { get; set; } = true; // Rotation um die Z-Achse
+	private Vector3 direction;
+	private Vector3 counterDirection;
 
-	private float elapsedTime = 0.0f;
-	private bool directionChanged = false;
-	private Vector3 originalPosition;
-	private bool movingForward = true;
+	[Property,Feature("Move")] public GameObject Target { get; set; }
+	[Property, Feature( "Move" )]
+	public Vector3 Direction
+	{
+		get => direction;
+		set
+		{
+			direction = value;
+			CounterDirection = -value; // Setze das Gegenteil
+		}
+	}
+	[Property, Feature( "Move" )]
+	public Vector3 CounterDirection
+	{
+		get => counterDirection;
+		private set => counterDirection = value;
+	} // Neuer Vektor
+	[Property, Feature( "Move" )] public float Speed { get; set; }
+	[Property, Feature( "Move" )] public bool IsMove { get; set; }
+	[Property, Feature( "Move" )] public bool IsReturning { get; set; } // Neue Eigenschaft
+	[Property, Feature( "Move" )] private bool movingToCounterDirection = false; // Neue Eigenschaft
+	[Property, Feature( "Move" )] private float distanceTraveled = 0f; // Neue Eigenschaft
+	[Property, Feature( "Move" )] private float totalDistance; // Neue Eigenschaft
+
+	[Property, FeatureEnabled( "Move" )] public bool IsMoveEnabled { get; set; }
 
 	protected override void OnStart()
 	{
-		originalPosition = TargetObject.LocalPosition;
+		IsMove = true;
+		totalDistance = Vector3.DistanceBetween( Direction, CounterDirection ); // Gesamtdistanz berechnen
 	}
 
 	protected override void OnUpdate()
 	{
-		if ( TargetObject == null ) return;
-
-		if ( elapsedTime < RotationDuration )
+		if ( IsMove )
 		{
-			float rotationAmount = RotationSpeed * Time.Delta * (RotateClockwise ? 1 : -1);
+			Vector3 currentDirection = movingToCounterDirection ? CounterDirection : Direction;
+			float distanceThisFrame = Speed * Time.Delta;
+			Target.LocalPosition += currentDirection * distanceThisFrame;
+			distanceTraveled += distanceThisFrame;
 
-			// Verschieben zum Rotationszentrum
-			TargetObject.LocalPosition -= RotationCenter;
-
-			if ( RotateAroundY )
+			// Check if the target has reached the total distance
+			if ( distanceTraveled >= totalDistance )
 			{
-				TargetObject.WorldRotation *= Rotation.FromAxis( Vector3.Up, rotationAmount ); // Rotation um die Y-Achse
-			}
-			if ( RotateAroundX )
-			{
-				TargetObject.WorldRotation *= Rotation.FromAxis( Vector3.Right, rotationAmount ); // Rotation um die X-Achse
-			}
-			if ( RotateAroundZ )
-			{
-				TargetObject.WorldRotation *= Rotation.FromAxis( Vector3.Forward, rotationAmount ); // Rotation um die Z-Achse
-			}
-
-			// Zurückverschieben vom Rotationszentrum
-			TargetObject.LocalPosition += RotationCenter;
-
-			elapsedTime += Time.Delta;
-
-			if ( ChangeDirection && !directionChanged && elapsedTime >= RotationDuration / 2 )
-			{
-				RotateClockwise = !RotateClockwise;
-				directionChanged = true;
+				movingToCounterDirection = !movingToCounterDirection; // Richtung wechseln
+				distanceTraveled = 0f; // Zurückgelegte Distanz zurücksetzen
 			}
 		}
-
-		Vector3 moveDirection = Vector3.Zero;
-		if ( MoveForward )
-		{
-			if ( movingForward )
-			{
-				moveDirection += TargetObject.WorldRotation.Forward * MoveSpeed * Time.Delta;
-				if ( (TargetObject.LocalPosition - originalPosition).Length >= MoveRange )
-				{
-					movingForward = false;
-				}
-			}
-			else
-			{
-				moveDirection -= TargetObject.WorldRotation.Forward * MoveSpeed * Time.Delta;
-				if ( (TargetObject.LocalPosition - originalPosition).Length <= 0.1f )
-				{
-					movingForward = true;
-				}
-			}
-		}
-
-		if ( MoveUp )
-		{
-			if ( movingForward )
-			{
-				moveDirection += Vector3.Up * MoveSpeed * Time.Delta;
-				if ( (TargetObject.LocalPosition - originalPosition).Length >= MoveRange )
-				{
-					movingForward = false;
-				}
-			}
-			else
-			{
-				moveDirection -= Vector3.Up * MoveSpeed * Time.Delta;
-				if ( (TargetObject.LocalPosition - originalPosition).Length <= 0.1f )
-				{
-					movingForward = true;
-				}
-			}
-		}
-
-		TargetObject.LocalPosition += moveDirection;
 	}
 }

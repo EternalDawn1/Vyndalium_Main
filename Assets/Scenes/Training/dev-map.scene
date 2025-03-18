@@ -457,9 +457,68 @@
       "Name": "z4_dummy (1)",
       "Position": "-700.7734,-834.944,16",
       "Tags": "bad,npc",
-      "Enabled": true,
       "__Prefab": "prefabs/npc/zombie variants/z4_dummy.prefab",
       "__PrefabVariables": {}
+    },
+    {
+      "__guid": "272382de-5c01-428b-b9a1-79879e6ba17d",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "-107.6429,259.8452,39.99443",
+      "Scale": "3,3,1",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "47089bee-0182-4dc6-bc60-36b2a3f6da5b",
+          "Flags": 0,
+          "Name": "building01_stone_trim_crn_16 (7)",
+          "Position": "2.780454,-6.774673,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "ee9cb333-b297-4706-ab98-0da5ca7efc4c",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/architecture/building01_stone_trim_crn_16.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "GeneralGame.MoveObject",
+              "__guid": "6b50967d-f345-4ba4-85ac-ba0ed6b9fb7e",
+              "CounterDirection": "0,0,0",
+              "Direction": "0,0,0",
+              "distanceTraveled": 0,
+              "IsMove": false,
+              "IsReturning": true,
+              "movingToCounterDirection": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Speed": 10,
+              "Target": {
+                "_type": "gameobject",
+                "go": "47089bee-0182-4dc6-bc60-36b2a3f6da5b"
+              },
+              "totalDistance": 5
+            }
+          ]
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -488,6 +547,8 @@
   "ResourceVersion": 2,
   "Title": null,
   "Description": null,
-  "__references": [],
+  "__references": [
+    "facepunch.building01_stone_crn_16#54615"
+  ],
   "__version": 2
 }
