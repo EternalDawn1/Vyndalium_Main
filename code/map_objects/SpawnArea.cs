@@ -541,7 +541,7 @@ public sealed class NpcSpawnArea : Component
 							npcComponent.HasFireAbility = bossChance.FireAbilityChance >= 1.0 || new Random().NextDouble() <= bossChance.FireAbilityChance;
 						}
 						SpawnedNpcs.Add( boss );
-							CreateSpawnParticle( boss.WorldPosition, bossChance.SpawnEffect );
+						CreateSpawnParticle( boss.WorldPosition, bossChance.SpawnEffect );
 
 							foreach ( var light in Lights )
 						{
@@ -575,7 +575,7 @@ public sealed class NpcSpawnArea : Component
 		}
 		
 	}
-	
+
 
 	private async Task SpawnSubNpcsWithDelay( List<SubNpcChance> subNpcPool, float delay )
 	{
@@ -684,7 +684,7 @@ public sealed class NpcSpawnArea : Component
 			}
 			tries++;
 		}
-		Log.Warning( "Failed to spawn NPC after 20 tries." );
+		
 		return null;
 	}
 

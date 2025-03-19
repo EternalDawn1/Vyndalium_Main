@@ -110,7 +110,7 @@ public class Abilities : Component
             ExecuteFireRingAttack();
             FireRingAttackTime = 0.0f;
         }
-        if ( FireCannonEnabled &&!IsPlayerTooClose(targetPlayer) && FireCannonAttackTime > FireCannonCooldown )
+        if ( FireCannonEnabled && IsPlayerInProximity() && !IsPlayerTooClose( targetPlayer ) && FireCannonAttackTime > FireCannonCooldown )
         {
             FireCannonAttack( targetPlayer );
             FireCannonAttackTime = 0.0f;

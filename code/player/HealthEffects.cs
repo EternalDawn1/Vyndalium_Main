@@ -9,11 +9,15 @@ public sealed partial class HealthEffects : Component
 {
 	[Property] public ColorAdjustments Adjustments { get; set; }
 	[Property] public ColorAdjustments FreezeAdjustments { get; set; }
+	[Property] public ColorAdjustments PoisonAdjustments { get; set; }
+	[Property] public ColorAdjustments ShadowAdjustments { get; set; }
 
 	private Player LocalPlayer { get; set; }
 	[Property] private Vignette Vignette { get; set; }
 	[Property] private Vignette Freeze { get; set; }
 	[Property] private Vignette Poison { get; set; }
+
+	[Property] public Vignette Shadow { get; set; }
 
 	public HealthEffects()
 	{
@@ -29,6 +33,7 @@ public sealed partial class HealthEffects : Component
 			Vignette = vignettes.ElementAt( 1 );
 			Freeze = vignettes.ElementAt( 2 );
 			Poison = vignettes.ElementAt( 3 );
+			Shadow = vignettes.ElementAt( 4 );
 
 		}
 		else
@@ -124,6 +129,40 @@ public sealed partial class HealthEffects : Component
 			return;
 		}
 
+		if ( !Poison.IsValid() )
+		{
+		
+			return;
+		}
+
+		
+
+		PoisonAdjustments.Saturation = 0.1f;
+		Poison.Intensity = 1.1f;
+		Poison.Color = Color.Lerp( Color.White, Color.Green, 1f );
+
+		// Aktivieren Sie die Vignette
+		Poison.Enabled = true;
+
+		
+	}
+	public void ShadowEffect()
+	{
+		
+
+		if ( !LocalPlayer.IsValid() )
+		{
+			
+			LocalPlayer = Scene.GetAllComponents<Player>()
+				.FirstOrDefault( p => p.Network.IsOwner );
+		}
+
+		if ( !LocalPlayer.IsValid() )
+		{
+			
+			return;
+		}
+
 		if ( !Freeze.IsValid() )
 		{
 		
@@ -132,16 +171,24 @@ public sealed partial class HealthEffects : Component
 
 		
 
-		FreezeAdjustments.Saturation = 0.1f;
-		Freeze.Intensity = 1.1f;
-		Freeze.Color = Color.Lerp( Color.White, Color.Green, 1f );
+		ShadowAdjustments.Saturation = 0.1f;
+		Shadow.Intensity = 1.1f;
+		Shadow.Color = Color.Lerp( Color.White, Color.Black, 1f );
 
 		// Aktivieren Sie die Vignette
-		Freeze.Enabled = true;
+		Shadow.Enabled = true;
 
 		
 	}
 
+	public void DestroyShadow()
+	{
+		if ( Shadow != null )
+		{
+			// Starte eine Coroutine, um den Freeze-Effekt langsam zu entfernen
+			_ = FadeOutShadowEffect();
+		}
+	}
 	public void DestroyFreeze()
 	{
 		if ( Freeze != null )
@@ -153,7 +200,7 @@ public sealed partial class HealthEffects : Component
 
 	public void DestroyPoison()
 	{
-		if ( Freeze != null )
+		if ( Poison != null )
 		{
 			// Starte eine Coroutine, um den Freeze-Effekt langsam zu entfernen
 			_ = FadeutPoisonEffect();
@@ -207,6 +254,30 @@ public sealed partial class HealthEffects : Component
 
 		// Deaktiviere die Vignette nach dem Fade-Out
 		Freeze.Enabled = false;
+	}
+	private async Task FadeOutShadowEffect()
+	{
+		float duration = 2.0f; // Dauer des Fade-Out-Effekts in Sekunden
+		float elapsed = 0.0f;
+
+		Color initialColor = Shadow.Color;
+		float initialIntensity = Shadow.Intensity;
+		float initialSaturation = ShadowAdjustments.Saturation;
+
+		while ( elapsed < duration )
+		{
+			float t = elapsed / duration;
+
+			Shadow.Color = Color.Lerp( initialColor, Color.White, t );
+			Shadow.Intensity = MathHelper.Lerp( initialIntensity, 0.0f, t );
+			ShadowAdjustments.Saturation = MathHelper.Lerp( initialSaturation, 1.0f, t );
+
+			elapsed += Time.Delta;
+			await Task.Delay( (int)(Time.Delta * 1000) );
+		}
+
+		// Deaktiviere die Vignette nach dem Fade-Out
+		Shadow.Enabled = false;
 	}
 }
 public static class MathHelper

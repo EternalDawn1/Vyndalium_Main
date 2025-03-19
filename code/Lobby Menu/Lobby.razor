@@ -55,7 +55,7 @@
             ImagePath="ui/hud/item/attack.png" 
             title="Bonus" 
             TitleStyle="font-size:26px; position: relative; left: 100px; top: 50px; color:green; width:100%;"
-        
+        />
     </div>
     <button class="exit-button" @onclick="@(() => CloseMission())"></button>
 
@@ -87,30 +87,15 @@
                     />
                     
                 </div>
-                <div class="box">
-                    <div class="title"> Level.35</div>
-                    <SideButton 
-                        Title="Dungeon 2-1 Extra" 
-                        TitleStyle=@GetTitleStyle(playerLevel, GeneralScene2.Forest2.GetRequiredLevel2())
-                        Subtitle="min. lvl. 25 " 
-                        OnClick=@(() => ChangeScene2(GeneralScene2.Forest3)) 
-                        ImagePath=@GetImagePath(playerLevel, GeneralScene2.Forest2.GetRequiredLevel2(), "ui/hud/sword.png", "ui/hud/exit.gif") 
-                        style="margin-left: 20px;"
-                    />
-                    <SideButton 
-                            Title="Labyrinth"
-                            TitleStyle=@GetTitleStyle(playerLevel, GeneralScene2.Starting.GetRequiredLevel2())
-                            Subtitle="min. lvl. 45" 
-                            ImagePath=@GetImagePath(playerLevel, GeneralScene2.Starting.GetRequiredLevel2(), "ui/hud/tree.png", "ui/hud/exit.gif")
-                            OnClick=@(() => ChangeScene2(GeneralScene2.Starting)) 
-                            style="margin-left: 20px;"
-                        />
+                
                     
-            </div>>
+                    
+            </div>
             </div>
         </div>
     </div>
-    </div>
+    
+    
 
     <div class="panel-content" style="opacity: @(currentPanel == PanelType.BTier ? 1 : 0)">
         <div class="panel-content-text">

@@ -6,6 +6,8 @@ public enum EffectFlags
     None = 0,
     ApplyFreeze = 1 << 0,
     ApplyPoison = 1 << 1,
+
+    ApplyShadow = 1 << 2,
     // Weitere Effekte hier hinzufügen
 }
 
@@ -232,10 +234,6 @@ public class SkeletonAbilities : Abilities
     }
     private async void IcePillarAttack()
     {
-        
-
-  
-
         if ( IcePillarAttackSound != null )
         {
             Sound.Play( IcePillarAttackSound, this.WorldPosition );
@@ -249,17 +247,27 @@ public class SkeletonAbilities : Abilities
             var prefab = ResourceLibrary.Get<PrefabFile>( IcePillarPrefab.ResourcePath );
             if ( prefab == null )
             {
-            
+                Log.Error( "IcePillarPrefab is null" );
                 continue;
             }
 
             var icePillarObject = GameObject.Clone( prefab );
+            if ( icePillarObject == null )
+            {
+                Log.Error( "Failed to clone IcePillarPrefab" );
+                continue;
+            }
+
             icePillarObject.WorldPosition = position;
 
             var boxCollider = icePillarObject.Components?.Get<BoxCollider>();
-           
+            if ( boxCollider == null )
+            {
+                Log.Error( "BoxCollider is null" );
+                continue;
+            }
+
             boxCollider.IsTrigger = true; // Als Trigger festlegen
-          
 
             boxCollider.OnTriggerEnter += ( Collider other ) =>
             {
@@ -275,13 +283,14 @@ public class SkeletonAbilities : Abilities
                     {
                         player.ApplyPoison( poisonDuration );
                     }
+                    if ( Effects.HasFlag( EffectFlags.ApplyShadow ) )
+                    {
+                        player.ApplyShadowBurn( 5.0f );
+                    }
 
                     // Weitere Effekte hier hinzufügen
                 }
             };
-           
-
-            //_ = CheckPlayerProximityAndFreeze( icePillarObject, freezeDistance, freezeDuration );
 
             // Zerstören Sie das IcePillar-Objekt nach 5 Sekunden
             _ = DestroyIcePillarAfterDelay( icePillarObject, 5000 );
@@ -289,8 +298,6 @@ public class SkeletonAbilities : Abilities
             // Verzögerung zwischen den Spawns
             await Task.Delay( spawnDelay );
         }
-
-   
     }
     private async Task CheckPlayerProximityAndFreeze( GameObject icePillarObject, float freezeDistance, float freezeDuration )
     {

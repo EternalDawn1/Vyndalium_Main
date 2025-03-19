@@ -160,6 +160,26 @@ public partial class Player
             activeStatusEffects.Remove( poisonEffect );
         } );
     }
+    public void ApplyShadowBurn( float durationInSeconds )
+    {
+        // Überprüfen, ob der Spieler bereits brennt
+        if ( activeStatusEffects.OfType<BurnEffect>().Any() )
+        {
+            return; // Effekt nicht erneut anwenden
+        }
+
+        var healthEffects = GameObject.Components.GetOrCreate<HealthEffects>();
+        healthEffects.ShadowEffect();
+
+        var burnEffect = new BurnEffect( durationInSeconds );
+        activeStatusEffects.Add( burnEffect );
+
+        Task.DelaySeconds( durationInSeconds ).ContinueWith( _ =>
+        {
+            healthEffects.ShadowEffect();
+            activeStatusEffects.Remove( burnEffect );
+        } );
+    }
 
 
 

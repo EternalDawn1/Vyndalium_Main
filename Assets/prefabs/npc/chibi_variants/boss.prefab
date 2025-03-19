@@ -13,7 +13,7 @@
         "Acceleration": 200,
         "AutoTraverseLinks": true,
         "Height": 129.29994,
-        "MaxSpeed": 170,
+        "MaxSpeed": 100,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -150,10 +150,10 @@
           "_type": "gameobject",
           "go": "2fe8f844-48a1-44f0-b9c1-51b233116daa"
         },
-        "CurrentHoldType": "Punch",
+        "CurrentHoldType": "None",
         "CurrentState": "Idle",
         "DeathSounds": "sounds/deathsounds/deathsounds.sound",
-        "DetectRange": 176,
+        "DetectRange": 464,
         "EnemyTags": "player",
         "Eye": {
           "_type": "gameobject",
@@ -200,186 +200,16 @@
           "component_type": "MoveHelper"
         },
         "MoveSpeed": 0,
-        "Name": "Terror Boss",
-        "OnAttack": {
-          "__version": 9,
-          "__guid": "af137a52-0cf6-473a-b865-8ff82b470c4e",
-          "__changeId": 0,
-          "UserData": {
-            "Title": "On Attack",
-            "ReferencedComponentTypes": [
-              "package.viwi.new_game_two/HealthComponent"
-            ]
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input",
-              "UserData": {
-                "Position": "-64,32"
-              }
-            },
-            {
-              "Id": 2,
-              "Type": "scene.get",
-              "Properties": {
-                "T": "HealthComponent"
-              },
-              "UserData": {
-                "Position": "96,64"
-              }
-            },
-            {
-              "Id": 3,
-              "Type": "call",
-              "Properties": {
-                "_isStatic": false,
-                "_name": "Damage",
-                "_type": "HealthComponent"
-              },
-              "UserData": {
-                "Position": "512,64"
-              }
-            },
-            {
-              "Id": 5,
-              "Type": "scene.ref",
-              "UserData": {
-                "Position": "96,256"
-              }
-            },
-            {
-              "Id": 6,
-              "Type": "property",
-              "ParentId": 5,
-              "Properties": {
-                "_name": "Transform",
-                "_type": "Sandbox.GameObject"
-              }
-            },
-            {
-              "Id": 7,
-              "Type": "property",
-              "ParentId": 6,
-              "Properties": {
-                "_name": "Position",
-                "_type": "Sandbox.GameTransform"
-              }
-            }
-          ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "enemy",
-              "DstId": 2,
-              "DstName": "_this"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 3,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 2,
-              "SrcName": "_result",
-              "DstId": 3,
-              "DstName": "_target"
-            },
-            {
-              "Id": 11,
-              "Value": 40,
-              "DstId": 3,
-              "DstName": "amount"
-            },
-            {
-              "SrcId": 5,
-              "SrcName": "_result",
-              "DstId": 3,
-              "DstName": "attacker"
-            },
-            {
-              "Id": 12,
-              "Value": 400,
-              "DstId": 3,
-              "DstName": "force"
-            },
-            {
-              "Id": 13,
-              "Value": "Serious",
-              "DstId": 3,
-              "DstName": "type"
-            },
-            {
-              "SrcId": 7,
-              "SrcName": "_result",
-              "DstId": 3,
-              "DstName": "worldHurtPosition"
-            },
-            {
-              "SrcId": 5,
-              "SrcName": "_result",
-              "DstId": 6,
-              "DstName": "_target"
-            },
-            {
-              "SrcId": 6,
-              "SrcName": "_result",
-              "DstId": 7,
-              "DstName": "_target"
-            }
-          ],
-          "Defaults": {
-            "$5.gameobject": {
-              "_type": "gameobject",
-              "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81"
-            }
-          }
-        },
+        "Name": "Terror King  No.7",
+        "OnAttack": null,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
-        "OnDetect": {
-          "__version": 9,
-          "__guid": "8d3c2497-0678-4c8c-b986-1b268ff1b74e",
-          "__changeId": 2,
-          "UserData": {
-            "Title": "On Detect",
-            "ReferencedComponentTypes": []
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input",
-              "UserData": {
-                "Position": "-64,0"
-              }
-            }
-          ],
-          "Links": []
-        },
-        "OnEnemyEscaped": {
-          "__version": 9,
-          "__guid": "e1eb3753-6b11-46f9-b912-757d64dce89b",
-          "__changeId": 2,
-          "UserData": {
-            "Title": "On Enemy Escaped",
-            "ReferencedComponentTypes": []
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input"
-            }
-          ],
-          "Links": []
-        },
+        "OnDetect": null,
+        "OnEnemyEscaped": null,
         "OnIdle": null,
         "OnKilled": null,
         "OnSpawn": null,
@@ -392,11 +222,11 @@
           "prefabs/items/wood_log.prefab"
         ],
         "RunningType": "Smart",
-        "RunSpeed": 350,
+        "RunSpeed": 130,
         "ScaleStats": true,
-        "VisionRange": 912,
+        "VisionRange": 2016,
         "WalkingType": "Dumb",
-        "WalkSpeed": 310,
+        "WalkSpeed": 80,
         "WindAbilityChance": 0.5,
         "WindAbilityCooldown": 10,
         "ZombieRagedol": {
@@ -433,6 +263,97 @@
           "go": "2fe8f844-48a1-44f0-b9c1-51b233116daa",
           "component_type": "SkinnedModelRenderer"
         }
+      },
+      {
+        "__type": "GeneralGame.Abilities",
+        "__guid": "c44f9930-d831-42ac-9191-353b6aaafbed",
+        "FireAbility": true,
+        "FireAttackEnabled": true,
+        "FireBallAttackSound": null,
+        "FireBallAttackTime": {
+          "Absolute": 0,
+          "Relative": 101331256
+        },
+        "FireBallChargeSound": null,
+        "FireBallCooldown": 15,
+        "FireBallPrefab": "prefabs/shadow.prefab",
+        "FireCannonAttackSound": null,
+        "FireCannonAttackTime": {
+          "Absolute": 0,
+          "Relative": 101331256
+        },
+        "FireCannonChargeSound": null,
+        "FireCannonCooldown": 5,
+        "FireCannonEnabled": true,
+        "FireCannonPrefab": "prefabs/shadow.prefab",
+        "FireRingAttackTime": {
+          "Absolute": 0,
+          "Relative": 101331256
+        },
+        "FireRingCooldown": 10,
+        "FireRingEnabled": true,
+        "FireRingPrefab": "prefabs/shadow.prefab",
+        "FireRingSound": null,
+        "FireUltimateEnabled": true,
+        "FireWallEnabled": true,
+        "FireWallPrefab": "prefabs/shadow.prefab",
+        "FireWallSound": null,
+        "FlameWallAttackTime": {
+          "Absolute": 0,
+          "Relative": 101331256
+        },
+        "FlameWallCooldown": 20,
+        "HasSpecialAbility": true,
+        "HoverDuration": 2,
+        "MidPointOffset": "0,0,300",
+        "npc": null,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "PlayerProximityDistance": "500,500,500",
+        "UltimateJumpAttackCooldown": 30,
+        "UltimateJumpAttackTime": {
+          "Absolute": 0,
+          "Relative": 101331256
+        }
+      },
+      {
+        "__type": "GeneralGame.SkeletonAbilities",
+        "__guid": "dbf25176-cc06-45cc-945d-c0d696c21007",
+        "CanUseIceBallAttack": true,
+        "CanUseIceGround": true,
+        "CanUseIcePillar": true,
+        "CanUseIceWormhole": false,
+        "Effects": "ApplyShadow",
+        "freezeDuration": 2,
+        "HasIceAbility": true,
+        "IceBallAttackCooldown": 10,
+        "IceBallAttackSound": null,
+        "IceBallPrefab": "prefabs/shadow.prefab",
+        "IceGroundAttackSound": null,
+        "IceGroundCooldown": 15,
+        "IceGroundPrefab": "prefabs/shadow.prefab",
+        "IcePillarAttackSound": null,
+        "IcePillarCooldown": 20,
+        "IcePillarPrefab": "prefabs/shadow.prefab",
+        "IceUnfreezeSound": null,
+        "IceWormholeCooldown": 60,
+        "IceWormholePrefab": null,
+        "IceWormholeSound": null,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "pillarCount": 5,
+        "PlayerProximityDistance": "500,500,500",
+        "poisonDuration": 5,
+        "radius": 150,
+        "spawnDelay": 1000
       }
     ],
     "Children": [
@@ -451,9 +372,9 @@
             "BodyGroups": 18446744073709551615,
             "BoneMergeTarget": null,
             "CreateAttachments": false,
-            "CreateBoneObjects": false,
+            "CreateBoneObjects": true,
             "MaterialGroup": "default",
-            "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
+            "MaterialOverride": "models/citizen_props/hotdog01.vmat",
             "Model": "models/npcs/chibi/chibi_standard.vmdl",
             "Morphs": {},
             "OnComponentDestroy": null,
@@ -480,7 +401,7 @@
             "Sequence": {
               "Name": null
             },
-            "Tint": "1,0,0,0.86",
+            "Tint": "0.63721,0,0,0.86",
             "UseAnimGraph": true
           },
           {
@@ -550,6 +471,278 @@
               "go": "3a54138c-5f07-4c5f-be58-8f1650e25d81"
             }
           }
+        ],
+        "Children": [
+          {
+            "__guid": "d5461803-a38b-4c39-9001-247946993018",
+            "Flags": 4,
+            "Name": "Head",
+            "Position": "-0.9145203,1.000664,50.91758",
+            "Rotation": "0.4990504,0.5006043,0.4995252,0.500818",
+            "Enabled": true
+          },
+          {
+            "__guid": "358a9485-b2e3-41f5-a33d-a65fb304d998",
+            "Flags": 4,
+            "Name": "QuickRigCharacter_Hips",
+            "Position": "-0.4068387,0.5428357,18.8309",
+            "Rotation": "-0.5286542,-0.4722462,-0.4704765,0.5255094",
+            "Enabled": true,
+            "Children": [
+              {
+                "__guid": "c176a78c-2550-4894-ae14-a011ab423536",
+                "Flags": 4,
+                "Name": "QuickRigCharacter_LeftUpLeg",
+                "Position": "-5.674617,0.382972,4.884351",
+                "Rotation": "-0.0009495857,-0.001165401,0.9888688,0.1487828",
+                "Enabled": true,
+                "Children": [
+                  {
+                    "__guid": "daa9581a-d52e-4660-affa-669086e9702a",
+                    "Flags": 4,
+                    "Name": "QuickRigCharacter_LeftLeg",
+                    "Position": "5.175781,0.00001788139,0",
+                    "Rotation": "-0.0001726519,0,-0.1992403,-0.9799506",
+                    "Enabled": true,
+                    "Children": [
+                      {
+                        "__guid": "1495b82c-452c-4e4f-8964-f4685e5b8d25",
+                        "Flags": 4,
+                        "Name": "QuickRigCharacter_LeftFoot",
+                        "Position": "5.374277,0.00001966953,0.000001430511",
+                        "Rotation": "0.003496202,-0.000129489,-0.9996912,-0.0246029",
+                        "Enabled": true,
+                        "Children": [
+                          {
+                            "__guid": "f65967db-f78e-48ba-9035-9dd9dffffca1",
+                            "Flags": 4,
+                            "Name": "QuickRigCharacter_LeftToeBase",
+                            "Position": "8.041222,-0.000002649667,0.000001741651",
+                            "Rotation": "0,0,0,-1",
+                            "Enabled": true
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "__guid": "02bf3a26-b6b6-4697-b026-43e4a0cdb67c",
+                "Flags": 4,
+                "Name": "QuickRigCharacter_RightUpLeg",
+                "Position": "-5.674618,0.3829684,-4.884346",
+                "Rotation": "-0.00008632597,0.0009495857,0.1748533,-0.984594",
+                "Enabled": true,
+                "Children": [
+                  {
+                    "__guid": "83aff7ec-e747-4bcc-929b-536c9c39b0bf",
+                    "Flags": 4,
+                    "Name": "QuickRigCharacter_RightLeg",
+                    "Position": "-5.175781,-0.00001335144,-0.00000667572",
+                    "Rotation": "-0.0003884669,-0.00004316299,-0.1888381,-0.9820082",
+                    "Enabled": true,
+                    "Children": [
+                      {
+                        "__guid": "9b038a1a-6db9-43a7-9f82-795641c32d82",
+                        "Flags": 4,
+                        "Name": "QuickRigCharacter_RightFoot",
+                        "Position": "-5.37428,-0.00002336502,-0.000002861023",
+                        "Rotation": "0.003280387,-0.0005179558,0.9999171,-0.01243094",
+                        "Enabled": true,
+                        "Children": [
+                          {
+                            "__guid": "fa644a97-31d6-449d-ae75-684eb1f516a4",
+                            "Flags": 4,
+                            "Name": "QuickRigCharacter_RightToeBase",
+                            "Position": "-8.041226,0.000002211681,-0.000001897221",
+                            "Rotation": "0,0,0,-1",
+                            "Enabled": true
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "__guid": "63b35129-345a-47ba-a659-7c0f0dc343b4",
+                "Flags": 4,
+                "Name": "QuickRigCharacter_Spine",
+                "Position": "5.358934,0.0000004768372,0.000003814697",
+                "Rotation": "-0.0005179557,0.003496201,0.101692,-0.9948096",
+                "Enabled": true,
+                "Children": [
+                  {
+                    "__guid": "03c91c14-6ff9-40d3-ae31-dea119978af9",
+                    "Flags": 4,
+                    "Name": "QuickRigCharacter_Spine1",
+                    "Position": "9.285187,-0.000001907349,0.000001907349",
+                    "Rotation": "-0.00008632597,0,0.9997442,0.0226174",
+                    "Enabled": true,
+                    "Children": [
+                      {
+                        "__guid": "6b78d407-3c2c-4a02-868b-20c563b02ee1",
+                        "Flags": 4,
+                        "Name": "QuickRigCharacter_Spine2",
+                        "Position": "5.445312,0.000004768372,0.00001907349",
+                        "Rotation": "-0.00008632597,0,-0.9998826,-0.01532286",
+                        "Enabled": true,
+                        "Children": [
+                          {
+                            "__guid": "6850941a-b51f-4b62-8b36-baa0c172c14e",
+                            "Flags": 4,
+                            "Name": "QuickRigCharacter_LeftShoulder",
+                            "Position": "3.376328,0.4161283,2.173682",
+                            "Rotation": "0.3235066,0.6639884,0.5602124,-0.375",
+                            "Enabled": true,
+                            "Children": [
+                              {
+                                "__guid": "4646bbc0-3d1f-48bf-b50d-ac361cb9629e",
+                                "Flags": 4,
+                                "Name": "QuickRigCharacter_LeftArm",
+                                "Position": "3.662109,-0.00001525879,0.00001144409",
+                                "Rotation": "-0.5075535,0.09694406,0.35726,-0.7780467",
+                                "Enabled": true,
+                                "Children": [
+                                  {
+                                    "__guid": "943ba9d5-0bcb-4ef3-9e6d-a8b27a9f44b8",
+                                    "Flags": 4,
+                                    "Name": "QuickRigCharacter_LeftForeArm",
+                                    "Position": "5.292459,0.0001945496,-0.0001716614",
+                                    "Rotation": "0.04359461,0.05779523,-0.1566385,-0.9849992",
+                                    "Enabled": true,
+                                    "Children": [
+                                      {
+                                        "__guid": "1911899f-3410-43bd-bccd-ed909a191b2f",
+                                        "Flags": 4,
+                                        "Name": "QuickRigCharacter_LeftHand",
+                                        "Position": "5.787064,-0.00002098083,-0.00002098083",
+                                        "Rotation": "-0.0768301,0.3406422,0.1791695,-0.9197598",
+                                        "Enabled": true
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "__guid": "682935dc-05fe-4e1a-b99f-1f49c74953cb",
+                            "Flags": 4,
+                            "Name": "QuickRigCharacter_RightShoulder",
+                            "Position": "3.376329,0.4161282,-2.173664",
+                            "Rotation": "-0.6639883,0.3235065,-0.375,-0.5602123",
+                            "Enabled": true,
+                            "Children": [
+                              {
+                                "__guid": "6b1056a6-c20b-4a77-8ad3-c410c034a19d",
+                                "Flags": 4,
+                                "Name": "QuickRigCharacter_RightArm",
+                                "Position": "-3.662109,0.00001525879,0.00001335144",
+                                "Rotation": "-0.6596167,0.2419285,0.2332528,-0.6722867",
+                                "Enabled": true,
+                                "Children": [
+                                  {
+                                    "__guid": "805312b2-c9b2-44ee-a4fa-6608a39bc07f",
+                                    "Flags": 4,
+                                    "Name": "QuickRigCharacter_RightForeArm",
+                                    "Position": "-5.292467,-0.0002031326,0.0002975464",
+                                    "Rotation": "0,-0.001467541,-0.07920408,-0.9968573",
+                                    "Enabled": true,
+                                    "Children": [
+                                      {
+                                        "__guid": "cc49bd5c-21b1-4f50-bf89-83edcd14488e",
+                                        "Flags": 4,
+                                        "Name": "QuickRigCharacter_RightHand",
+                                        "Position": "-5.787068,0.0000128746,0.000003814697",
+                                        "Rotation": "-0.00578384,0.2251381,-0.05870166,-0.9725397",
+                                        "Enabled": true
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "__guid": "b287c403-1a19-4edd-aec4-b2d47c78b396",
+                            "Flags": 4,
+                            "Name": "QuickRigCharacter_Neck",
+                            "Position": "8.294668,-0.000009536743,0.00001335144",
+                            "Rotation": "-0.001251726,0.009366367,-0.1381647,-0.9903641",
+                            "Enabled": true,
+                            "Children": [
+                              {
+                                "__guid": "9ff2bae5-5183-4462-abbf-988e592b4f01",
+                                "Flags": 4,
+                                "Name": "QuickRigCharacter_Head",
+                                "Position": "14.71374,-0.000003814697,0.000007629395",
+                                "Rotation": "0,0,0,-0.9999999",
+                                "Enabled": true,
+                                "Children": [
+                                  {
+                                    "__guid": "5811b9ce-7c05-4386-ac8b-1a8633fb1557",
+                                    "Flags": 0,
+                                    "Name": "Object",
+                                    "Position": "10.87716,-2.584643,0.8169682",
+                                    "Rotation": "-0.00000006519258,0.6087614,-0.00000005960464,0.7933534",
+                                    "Scale": "15,15,15",
+                                    "Enabled": true,
+                                    "Components": [
+                                      {
+                                        "__type": "Sandbox.SkinnedModelRenderer",
+                                        "__guid": "13b38ab6-acec-4547-8635-c30b9f531951",
+                                        "AnimationGraph": null,
+                                        "BodyGroups": 18446744073709551615,
+                                        "BoneMergeTarget": null,
+                                        "CreateAttachments": false,
+                                        "CreateBoneObjects": false,
+                                        "MaterialGroup": null,
+                                        "MaterialOverride": null,
+                                        "Model": "models/props/crown/crown.vmdl",
+                                        "Morphs": {},
+                                        "OnComponentDestroy": null,
+                                        "OnComponentDisabled": null,
+                                        "OnComponentEnabled": null,
+                                        "OnComponentFixedUpdate": null,
+                                        "OnComponentStart": null,
+                                        "OnComponentUpdate": null,
+                                        "Parameters": {
+                                          "bools": {},
+                                          "ints": {},
+                                          "floats": {},
+                                          "vectors": {},
+                                          "rotations": {}
+                                        },
+                                        "PlaybackRate": 1,
+                                        "RenderOptions": {
+                                          "GameLayer": true,
+                                          "OverlayLayer": false,
+                                          "BloomLayer": false,
+                                          "AfterUILayer": false
+                                        },
+                                        "RenderType": "On",
+                                        "Sequence": {
+                                          "Name": null
+                                        },
+                                        "Tint": "1,1,1,1",
+                                        "UseAnimGraph": true
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
         ]
       },
       {
@@ -559,6 +752,401 @@
         "Position": "0,0,64",
         "Enabled": true,
         "NetworkMode": 1
+      },
+      {
+        "__guid": "112a2c24-81d9-4a95-8f01-7afa7ac7767f",
+        "Flags": 0,
+        "Name": "Object (4)",
+        "Position": "-10.1642,-67.70743,128.965",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "49968bf6-f11b-4572-ae29-3942a71c65e2",
+            "AnimationGraph": null,
+            "BodyGroups": 18446744073709551615,
+            "BoneMergeTarget": null,
+            "CreateAttachments": false,
+            "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/editor/info_target.vmdl",
+            "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "PlaybackRate": 1,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
+            "Tint": "0,0,0,1",
+            "UseAnimGraph": true
+          },
+          {
+            "__type": "GeneralGame.MoveObject",
+            "__guid": "438c6b9c-48ce-4670-9ff4-f1a20bfc88e0",
+            "CounterDirection": "-0,-0,-0",
+            "Direction": "0,0,0",
+            "distanceTraveled": 0,
+            "IsMove": false,
+            "IsMoveEnabled": false,
+            "IsReturning": false,
+            "IsRotateEnabled": true,
+            "movingToCounterDirection": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RotateAroundX": false,
+            "RotateAroundY": true,
+            "RotateAroundZ": false,
+            "RotationCenter": "0,24.20004,0",
+            "RotationDirection": "0,42.09997,0",
+            "RotationObject": {
+              "_type": "gameobject",
+              "go": "112a2c24-81d9-4a95-8f01-7afa7ac7767f"
+            },
+            "RotationSpeed": 6.100013,
+            "Speed": 0,
+            "Target": null,
+            "totalDistance": 0
+          }
+        ]
+      },
+      {
+        "__guid": "4a9c9a28-27f9-4cda-b07e-3cbaaac2832c",
+        "Flags": 0,
+        "Name": "Object (3)",
+        "Position": "-3.581024,64.64447,123.0642",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "b9ded9c8-57a9-4649-a5d6-eed979d6172b",
+            "AnimationGraph": null,
+            "BodyGroups": 18446744073709551615,
+            "BoneMergeTarget": null,
+            "CreateAttachments": false,
+            "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/editor/info_target.vmdl",
+            "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "PlaybackRate": 1,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
+            "Tint": "0,0,0,1",
+            "UseAnimGraph": true
+          },
+          {
+            "__type": "GeneralGame.MoveObject",
+            "__guid": "b8108df7-43d0-4310-a4c6-94c9c1218f35",
+            "CounterDirection": "-0,-0,-0",
+            "Direction": "0,0,0",
+            "distanceTraveled": 0,
+            "IsMove": false,
+            "IsMoveEnabled": false,
+            "IsReturning": false,
+            "IsRotateEnabled": true,
+            "movingToCounterDirection": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RotateAroundX": false,
+            "RotateAroundY": true,
+            "RotateAroundZ": false,
+            "RotationCenter": "0,24.20004,0",
+            "RotationDirection": "0,42.09997,0",
+            "RotationObject": {
+              "_type": "gameobject",
+              "go": "4a9c9a28-27f9-4cda-b07e-3cbaaac2832c"
+            },
+            "RotationSpeed": 6.100013,
+            "Speed": 0,
+            "Target": null,
+            "totalDistance": 0
+          }
+        ]
+      },
+      {
+        "__guid": "552ea6e0-94b3-4014-b155-e5f29ce043db",
+        "Flags": 0,
+        "Name": "Object (2)",
+        "Position": "-35.29716,5.231579,171.9687",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "0bcfbea9-5bf3-4422-abc3-2f919d67d896",
+            "AnimationGraph": null,
+            "BodyGroups": 18446744073709551615,
+            "BoneMergeTarget": null,
+            "CreateAttachments": false,
+            "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/editor/info_target.vmdl",
+            "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "PlaybackRate": 1,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
+            "Tint": "0,0,0,1",
+            "UseAnimGraph": true
+          },
+          {
+            "__type": "GeneralGame.MoveObject",
+            "__guid": "a90870ad-92c0-4203-bae2-b67dd6dbbaa3",
+            "CounterDirection": "-0,-0,-0",
+            "Direction": "0,0,0",
+            "distanceTraveled": 0,
+            "IsMove": false,
+            "IsMoveEnabled": false,
+            "IsReturning": false,
+            "IsRotateEnabled": true,
+            "movingToCounterDirection": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RotateAroundX": false,
+            "RotateAroundY": true,
+            "RotateAroundZ": false,
+            "RotationCenter": "0,24.20004,0",
+            "RotationDirection": "0,42.09997,0",
+            "RotationObject": {
+              "_type": "gameobject",
+              "go": "552ea6e0-94b3-4014-b155-e5f29ce043db"
+            },
+            "RotationSpeed": 6.100013,
+            "Speed": 0,
+            "Target": null,
+            "totalDistance": 0
+          }
+        ]
+      },
+      {
+        "__guid": "3d11890c-dee6-43b3-b38f-2f88546814bf",
+        "Flags": 0,
+        "Name": "Object (1)",
+        "Position": "63.35068,-64,125.9269",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "9459833e-09d0-4b33-9e4f-f73485b579b4",
+            "AnimationGraph": null,
+            "BodyGroups": 18446744073709551615,
+            "BoneMergeTarget": null,
+            "CreateAttachments": false,
+            "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/editor/info_target.vmdl",
+            "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "PlaybackRate": 1,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
+            "Tint": "0,0,0,1",
+            "UseAnimGraph": true
+          },
+          {
+            "__type": "GeneralGame.MoveObject",
+            "__guid": "e29da80f-7ea1-4480-b6fc-9c5b0b1413ce",
+            "CounterDirection": "-0,-0,-0",
+            "Direction": "0,0,0",
+            "distanceTraveled": 0,
+            "IsMove": false,
+            "IsMoveEnabled": false,
+            "IsReturning": false,
+            "IsRotateEnabled": true,
+            "movingToCounterDirection": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RotateAroundX": false,
+            "RotateAroundY": true,
+            "RotateAroundZ": false,
+            "RotationCenter": "0,24.20004,0",
+            "RotationDirection": "0,42.09997,0",
+            "RotationObject": {
+              "_type": "gameobject",
+              "go": "3d11890c-dee6-43b3-b38f-2f88546814bf"
+            },
+            "RotationSpeed": 6.100013,
+            "Speed": 0,
+            "Target": null,
+            "totalDistance": 0
+          }
+        ]
+      },
+      {
+        "__guid": "77f09178-21d3-498d-9e87-08b9cf048097",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "60.94329,62.89812,127.6856",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "cfc2cc33-de52-4b7e-95ec-181ff62ad15a",
+            "AnimationGraph": null,
+            "BodyGroups": 18446744073709551615,
+            "BoneMergeTarget": null,
+            "CreateAttachments": false,
+            "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/editor/info_target.vmdl",
+            "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "PlaybackRate": 1,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
+            "Tint": "0,0,0,1",
+            "UseAnimGraph": true
+          },
+          {
+            "__type": "GeneralGame.MoveObject",
+            "__guid": "5a8eb679-d1f3-4b1e-a6bd-0470aed15e27",
+            "CounterDirection": "-0,-0,-0",
+            "Direction": "0,0,0",
+            "distanceTraveled": 0,
+            "IsMove": false,
+            "IsMoveEnabled": false,
+            "IsReturning": false,
+            "IsRotateEnabled": true,
+            "movingToCounterDirection": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RotateAroundX": false,
+            "RotateAroundY": true,
+            "RotateAroundZ": false,
+            "RotationCenter": "0,24.20004,0",
+            "RotationDirection": "0,42.09997,0",
+            "RotationObject": {
+              "_type": "gameobject",
+              "go": "77f09178-21d3-498d-9e87-08b9cf048097"
+            },
+            "RotationSpeed": 6.100013,
+            "Speed": 0,
+            "Target": null,
+            "totalDistance": 0
+          }
+        ]
       },
       {
         "__guid": "4d785a24-7cf3-42df-af6e-19e66b31d356",
