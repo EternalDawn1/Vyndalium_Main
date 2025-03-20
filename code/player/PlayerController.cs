@@ -1011,6 +1011,7 @@ public partial class Player : Component, IHealthComponent
 		{
 			weapon.SeccondaryActionRelease();
 		}
+		
 	}
 
 

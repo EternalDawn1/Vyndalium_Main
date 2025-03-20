@@ -82,52 +82,58 @@
         ActivePanel = panel;
         
     }
+    public void ClosePanel()
+    {
+        ActivePanel = FullScreenPanel.InGameHud;
+    }
 
     public override void Tick()
+{
+    if ( Input.EscapePressed )// Stellen Sie sicher, dass "Input" korrekt referenziert wird.
     {
-        
-
-        if (Input.EscapePressed == true) // Stellen Sie sicher, dass "Input" korrekt referenziert wird.
+         Input.EscapePressed = false;
+        if (ActivePanel == FullScreenPanel.Inventory)
         {
-            if (ActivePanel == FullScreenPanel.InGameHud)
-            
-                Toggle(FullScreenPanel.PauseMenu);
-                
-
-            else
-                Toggle(FullScreenPanel.InGameHud);
+            Display(FullScreenPanel.InGameHud);
         }
-
-        if (Input.Pressed(InputAction.Inventory))
-
+        else if (ActivePanel == FullScreenPanel.InGameHud)
         {
-                    if (ActivePanel == FullScreenPanel.Inventory)
-                    {
-                        ActivePanel = FullScreenPanel.InGameHud;
-                    }
-                    else
-                    {
-                        ActivePanel = FullScreenPanel.Inventory;
-                    }
+            Toggle(FullScreenPanel.PauseMenu);
         }
-            //Toggle(FullScreenPanel.Inventory);
-
-        
-
-        if (Input.Pressed(InputAction.Abilities))
+        else if (ActivePanel == FullScreenPanel.StorageBox)
         {
-            if (ActivePanel == FullScreenPanel.Abilities)
-            {
-                ActivePanel = FullScreenPanel.InGameHud;
-            }
-            else
-            {
-                ActivePanel = FullScreenPanel.Abilities;
-            }
+            Toggle(FullScreenPanel.InGameHud);
         }
-
-        
+        else
+        {
+            Toggle(FullScreenPanel.InGameHud);
+        }
     }
+
+    if (Input.Pressed(InputAction.Inventory))
+    {
+        if (ActivePanel == FullScreenPanel.Inventory)
+        {
+            ActivePanel = FullScreenPanel.InGameHud;
+        }
+        else
+        {
+            ActivePanel = FullScreenPanel.Inventory;
+        }
+    }
+
+    if (Input.Pressed(InputAction.Abilities))
+    {
+        if (ActivePanel == FullScreenPanel.Abilities)
+        {
+            ActivePanel = FullScreenPanel.InGameHud;
+        }
+        else
+        {
+            ActivePanel = FullScreenPanel.Abilities;
+        }
+    }
+}
 
     private void Toggle(FullScreenPanel panel)
     {

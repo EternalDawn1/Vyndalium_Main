@@ -35,8 +35,9 @@ namespace GeneralGame.HUD
 			
 		}
 
-		public void OnUpdate()
+		protected  void OnUpdate()
 		{
+			
 			if ( !isInitialized )
 			{
 				itemStorage.IsOpened = false;
@@ -75,11 +76,15 @@ namespace GeneralGame.HUD
 		private void TakeAllItems()
 		{
 			var playerInventory = Player.Local.Inventory;
+			var itemsToRemove = new List<ItemComponent>();
+
 			foreach ( var item in itemStorage.Items.ToList() )
 			{
 				if ( playerInventory.GiveItem( item ) )
 				{
+					Player.Local.PlaySuccessSoundFromPath( "sounds/item.pickup.sound", 0.125f );
 					itemStorage.Items.Remove( item );
+					itemsToRemove.Add( item );
 				}
 				else
 				{
@@ -87,6 +92,13 @@ namespace GeneralGame.HUD
 					break;
 				}
 			}
+			foreach ( var item in itemsToRemove )
+			{
+				itemStorage.Items.Remove( item );
+			}
+
+			// Fügen Sie leere Inventarslots hinzu
+			AddEmptySlots( itemsToRemove.Count );
 			Inventory.Instance?.OnChanged();
 		}
 		private void TakeSelectedItems()
@@ -98,7 +110,7 @@ namespace GeneralGame.HUD
 			{
 				if ( playerInventory.GiveItem( item ) )
 				{
-					Player.Local.PlaySuccessSoundFromPath( "sounds/item.pickup.sound",0.8f );
+					Player.Local.PlaySuccessSoundFromPath( "sounds/item.pickup.sound",0.125f );
 					itemStorage.Items.Remove( item );
 					itemsToRemove.Add( item );
 				}

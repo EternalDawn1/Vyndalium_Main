@@ -241,7 +241,7 @@ namespace GeneralGame.HUD
                 return;
             }
             
-            if ( Input.EscapePressed )
+            if ( Input.EscapePressed && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.InGameHud )
             {
                 Input.EscapePressed = false;
                
@@ -250,6 +250,32 @@ namespace GeneralGame.HUD
 
                 StateHasChanged();
             }
+            if ( Input.EscapePressed && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.Inventory )
+            {
+                Input.EscapePressed = false;
+                FullScreenManager.Instance.ClosePanel();
+                StateHasChanged();
+            }
+            if ( Input.EscapePressed && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
+            {
+                Input.EscapePressed = false;
+                FullScreenManager.Instance.ClosePanel();
+                StateHasChanged();
+            }
+            if ( Input.EscapePressed && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel )
+            {
+                Input.EscapePressed = false;
+                FullScreenManager.Instance.ClosePanel();
+                StateHasChanged();
+            }
+            if ( Input.EscapePressed && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.Abilities )
+            {
+                Input.EscapePressed = false;
+                FullScreenManager.Instance.ClosePanel();
+                StateHasChanged();
+            }
+
+
         }
        
         /// <summary>

@@ -58,7 +58,10 @@
         if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
         {
             StorageBox.Instance.selectedItems.Add(Item);
+			
         }
+		Player.Local.PlaySuccessSoundFromPath("sounds/ui/light_click/ui/minimal/minimal-pop-click-ui (2).sound", 0.0525f);
+		
     }
     else
     {
@@ -67,6 +70,8 @@
         {
             StorageBox.Instance.selectedItems.Remove(Item);
         }
+		Player.Local.PlaySuccessSoundFromPath("sounds/ui/light_click/ui/minimal/minimal-pop-click-ui (1).sound", 0.0525f);
+
     }
     StateHasChanged();
 }
