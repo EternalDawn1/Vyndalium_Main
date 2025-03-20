@@ -50,18 +50,26 @@
 	public bool IsSelected { get; set; } = false;
 	public bool IsProxy { get; set; } = false;
 	public void ToggleSelection()
-	{
-		IsSelected = !IsSelected;
-		if (IsSelected)
-		{
-			ShopPanel.Instance.selectedItems.Add(Item);
-		}
-		else
-		{
-			ShopPanel.Instance.selectedItems.Remove(Item);
-		}
-		StateHasChanged();
-	}
+{
+    IsSelected = !IsSelected;
+    if (IsSelected)
+    {
+        ShopPanel.Instance.selectedItems.Add(Item);
+        if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
+        {
+            StorageBox.Instance.selectedItems.Add(Item);
+        }
+    }
+    else
+    {
+        ShopPanel.Instance.selectedItems.Remove(Item);
+        if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
+        {
+            StorageBox.Instance.selectedItems.Remove(Item);
+        }
+    }
+    StateHasChanged();
+}
 	
 	public enum SlotType
 	{
@@ -533,6 +541,18 @@
 
         return;
     }
+	if(IndependentSlotIndex != null && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
+	{
+		
+        if (Item == null)
+            return;
+        if (e.Button != "mouseleft")
+            return;
+        ToggleSelection();
+
+        return;
+    
+	}
 
     if (BackpackSlotIndex != null && FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel
     &&
@@ -555,6 +575,8 @@
 
     if (e.Button != "mouseleft")
         return;
+	if (Item == null)
+            return;
 
     if (sinceClick < 0.4f && Item is ItemEquipment equipment)
     {

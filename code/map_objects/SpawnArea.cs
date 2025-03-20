@@ -323,6 +323,10 @@ public sealed class NpcSpawnArea : Component
 	private float playerProximityTimer = 0.0f;
 	protected override void OnFixedUpdate()
 	{
+		if ( Network.IsProxy )
+		{
+			return;
+		}
 		if ( !IsPlayerInRoom() )
 		{
 			playerProximityTimer = 0.0f; // Timer zurücksetzen, wenn der Spieler nicht im Raum ist
@@ -430,8 +434,8 @@ public sealed class NpcSpawnArea : Component
 		return false;
 	}
 	
-
-	public async void SpawnNPCs()
+	[Rpc.Broadcast]
+	public void SpawnNPCs()
 	{
 		
 		// Spawne die normalen NPCs
@@ -499,7 +503,7 @@ public sealed class NpcSpawnArea : Component
 
 						if ( npcChance.SequentialSpawn )
 						{
-							await Task.Delay( (int)(npcChance.SpawnInterval * 1000) );
+							Task.Delay( (int)(npcChance.SpawnInterval * 1000) );
 						}
 					}
 				}
@@ -512,7 +516,7 @@ public sealed class NpcSpawnArea : Component
 		}
 	}
 
-
+	[Rpc.Broadcast]
 	private void SpawnBossNPCs()
 	{
 		// Spawne die Boss-NPCs
@@ -643,9 +647,11 @@ public sealed class NpcSpawnArea : Component
 		npc?.Destroy();
 	}
 
-
+	
 	private GameObject SpawnNpc( GameObject npcPrefab )
 	{
+		if ( IsProxy ) return null;
+
 		if ( npcPrefab == null )
 		{
 			
@@ -676,6 +682,7 @@ public sealed class NpcSpawnArea : Component
 					}
 
 					clone.NetworkMode = NetworkMode.Object;
+					clone.Network.TakeOwnership();
 					clone.NetworkSpawn();
 					
 
@@ -749,6 +756,7 @@ public sealed class NpcSpawnArea : Component
 
 		return false;
 	}
+	
 	private void CreateSpawnParticle( Vector3 position, PrefabFile spawnEffect )
 	{
 		if ( spawnEffect != null )

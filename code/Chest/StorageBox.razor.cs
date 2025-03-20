@@ -11,7 +11,8 @@ namespace GeneralGame.HUD
 		private bool isInitialized = false;
 		private static bool IsDragging { get; set; }
 		public static StorageBox Instance { get; private set; }
-		
+
+		public List<ItemComponent> selectedItems = new List<ItemComponent>();
 
 		public StorageBox()
 		{
@@ -87,6 +88,54 @@ namespace GeneralGame.HUD
 				}
 			}
 			Inventory.Instance?.OnChanged();
+		}
+		private void TakeSelectedItems()
+		{
+			var playerInventory = Player.Local.Inventory;
+			var itemsToRemove = new List<ItemComponent>();
+
+			foreach ( var item in selectedItems.ToList() )
+			{
+				if ( playerInventory.GiveItem( item ) )
+				{
+					Player.Local.PlaySuccessSoundFromPath( "sounds/item.pickup.sound",0.8f );
+					itemStorage.Items.Remove( item );
+					itemsToRemove.Add( item );
+				}
+				else
+				{
+					// Handle case where player inventory is full or item cannot be added
+					break;
+				}
+			}
+
+			foreach ( var item in itemsToRemove )
+			{
+				selectedItems.Remove( item );
+			}
+
+			// Fügen Sie leere Inventarslots hinzu
+			AddEmptySlots( itemsToRemove.Count );
+
+			Inventory.Instance?.OnChanged();
+		}
+
+		private void AddEmptySlots( int count )
+		{
+			for ( int i = 0; i < count; i++ )
+			{
+				itemStorage.Items.Add( null ); // Fügen Sie einen leeren Slot hinzu
+			}
+		}
+		public void SellSelectedItems()
+		{
+			foreach ( var item in selectedItems )
+			{
+				Player.Local.Inventory.RemoveItem( item );
+				Player.Local.Vyndalium += item.SellPrice;
+			}
+			Player.Save();
+			selectedItems.Clear();
 		}
 
 

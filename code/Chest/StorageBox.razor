@@ -36,15 +36,34 @@
                 <div class="title2">Chest</div>
                 <button class="exit-button" @onclick="@(() => @itemStorage.CloseInventory())"></button>
                 <button class="take-all-button" @onclick="@TakeAllItems">Take All</button>
+                <button class="selecteditems" @onclick="@TakeSelectedItems">Take Selected</button>
+                  
+                
                
                 <div class="items2 @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
                     @for (var index = 0; index < itemStorage.Items.Count; index++) // Zeige alle Items an
                     {
                         var item = itemStorage.Items[index];
-                        <InventorySlot Item=@item IndependentSlotIndex=@index />
+                        <InventorySlot Item=@item IndependentSlotIndex=@index IsSelected=@selectedItems.Contains(item) />
                     }
                 </div>
                 <div style="align-items: center; margin: 20px 5px;"></div>
+            </div>
+            
+            <div class="box-information-main">
+                <div class="box-information">
+
+                    <div class="box-description">
+                        <div class="icon"></div>
+                        <div class="text1">to Select Items</div>
+                    </div>
+                    <div class="box-description">
+                        <div class="icon2"></div>
+                        <div class="text2">to Take</div>
+                    </div>
+
+
+                </div>
             </div>
         </div>
     </div>

@@ -541,8 +541,12 @@ public sealed class Inventory : Component
 	// wenn der spieler etwas aufhebt		
 	public bool GiveItem( ItemComponent item )
 	{
-		
-		
+
+		if ( item == null )
+		{
+			
+			return false;
+		}
 
 		var firstFreeSlot = _backpackItems.IndexOf( null );
 		if ( firstFreeSlot == -1 )
@@ -1584,6 +1588,11 @@ public sealed class Inventory : Component
 
 	private void SetOwner( ItemComponent item )
 	{
+		if ( item == null )
+		{
+			Log.Error( "Item is null in SetOwner." );
+			return;
+		}
 		if ( item.GameObject != null )
 		{
 			item.GameObject.SetupNetworking();
