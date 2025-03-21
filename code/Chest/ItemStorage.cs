@@ -360,7 +360,7 @@ namespace GeneralGame
             "prefabs/weapons/facepunch/shotgun/shotgunsss.prefab",
             "prefabs/weapons/facepunch/mp5/mp5sss.prefab",
             "prefabs/weapons/m4a1/m4a1-sss.prefab",
- "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
+            "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
             "prefabs/clothes/armor/armor-sss.prefab",
             "prefabs/clothes/helmet/helmet-sss.prefab",
             "prefabs/clothes/legarmor/legarmor-sss.prefab",
@@ -383,7 +383,7 @@ namespace GeneralGame
             "prefabs/clothes/legarmor/legarmor-sss.prefab",
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-        "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
+             "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
 
         };
         
