@@ -382,10 +382,7 @@ public partial class Npc : Component, IHealthComponent
 		/* player = Scene.GetAllComponents<Player>().FirstOrDefault(); */
 		agent = Components.Get<NavMeshAgent>();
 
-		if ( agent == null )
-		{
-			agent = GameObject.AddComponent<NavMeshAgent>();
-		}
+		
 
 		// Setze die Geschwindigkeit des NavMeshAgent
 		agent.MaxSpeed = RunSpeed;

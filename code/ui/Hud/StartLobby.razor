@@ -26,8 +26,11 @@
 			</div>
 			<div class="button-list">
 
+				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => FirstMap() )>
+					Play 1-1
+				</div>
 				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => CreateServer() )>
-					Play
+					Home Town
 				</div>
 				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1)" onclick=@( () => ToggleMainMenu() )>
 					Browse Servers
@@ -37,7 +40,7 @@
 					Options
 				</div>
 
-				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1); top:70%;" onclick=@( () => Quit() )>
+				<div class="button" style="opacity: @(ShowCoopMenu ? 0 : 1); top:30%;" onclick=@( () => Quit() )>
 					Quit
 				</div>
 			</div>
@@ -150,6 +153,12 @@
 
 		Game.ActiveScene.LoadFromFile("/scenes/startlobbynew.scene");
 		SceneHandler2.CurrentScene = GeneralScene2.StartBase;
+	}
+	private void FirstMap()
+	{
+
+		Game.ActiveScene.LoadFromFile("/scenes/one/map1.scene");
+		SceneHandler2.CurrentScene = GeneralScene2.One;
 	}
 	private void CreateServer()
 	{

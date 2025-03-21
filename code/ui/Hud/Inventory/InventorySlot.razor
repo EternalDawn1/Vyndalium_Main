@@ -50,31 +50,52 @@
 	public bool IsSelected { get; set; } = false;
 	public bool IsProxy { get; set; } = false;
 	public void ToggleSelection()
-{
-    IsSelected = !IsSelected;
-    if (IsSelected)
-    {
-        ShopPanel.Instance.selectedItems.Add(Item);
-        if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
-        {
-            StorageBox.Instance.selectedItems.Add(Item);
-			
-        }
-		Player.Local.PlaySuccessSoundFromPath("sounds/ui/light_click/ui/minimal/minimal-pop-click-ui (2).sound", 0.0525f);
-		
-    }
-    else
-    {
-        ShopPanel.Instance.selectedItems.Remove(Item);
-        if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
-        {
-            StorageBox.Instance.selectedItems.Remove(Item);
-        }
-		Player.Local.PlaySuccessSoundFromPath("sounds/ui/light_click/ui/minimal/minimal-pop-click-ui (1).sound", 0.0525f);
+	{
+		if (Item == null || FullScreenManager.Instance == null || Player.Local == null)
+		{
+			Log.Error("Ein erforderliches Objekt ist null.");
+			return;
+		}
 
-    }
-    StateHasChanged();
-}
+		IsSelected = !IsSelected;
+		if (IsSelected)
+		{
+			if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel)
+			{
+				if (ShopPanel.Instance != null)
+				{
+					ShopPanel.Instance.selectedItems.Add(Item);
+				}
+			}
+			if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
+			{
+				if (StorageBox.Instance != null)
+				{
+					StorageBox.Instance.selectedItems.Add(Item);
+				}
+			}
+			Player.Local.PlaySuccessSoundFromPath("sounds/ui/light_click/ui/minimal/minimal-pop-click-ui (2).sound", 0.0525f);
+		}
+		else
+		{
+			if(FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.ShopPanel)
+			{
+				if (ShopPanel.Instance != null)
+				{
+					ShopPanel.Instance.selectedItems.Remove(Item);
+				}
+			}
+			if (FullScreenManager.Instance.ActivePanel == FullScreenManager.FullScreenPanel.StorageBox)
+			{
+				if (StorageBox.Instance != null)
+				{
+					StorageBox.Instance.selectedItems.Remove(Item);
+				}
+			}
+			Player.Local.PlaySuccessSoundFromPath("sounds/ui/light_click/ui/minimal/minimal-pop-click-ui (1).sound", 0.0525f);
+		}
+		StateHasChanged();
+	}
 	
 	public enum SlotType
 	{

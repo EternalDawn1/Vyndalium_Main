@@ -84,7 +84,7 @@ namespace GeneralGame
             "prefabs/weapons/facepunch/shotgun/shotgunc.prefab",
             "prefabs/weapons/facepunch/mp5/mp5c.prefab",
             "prefabs/weapons/m4a1/m4a1-c.prefab",
-          
+            "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
             "prefabs/clothes/armor/armor-c.prefab",
             "prefabs/clothes/helmet/helmet-c.prefab",
             "prefabs/clothes/legarmor/legarmor-c.prefab",
@@ -213,7 +213,7 @@ namespace GeneralGame
             "prefabs/items/bags/backpack_small2.prefab",
             "prefabs/entitys/rings/ringsv1.prefab",
             "prefabs/entitys/rings/ringsv2.prefab",
-
+            "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
             "prefabs/clothes/clothes/sbase1.prefab",
         
             "prefabs/clothes/clothes/sbase3.prefab",
@@ -253,19 +253,7 @@ namespace GeneralGame
             "prefabs/potions/potion_mid.prefab",
             "prefabs/potions/potion_big.prefab",
          
-            "prefabs/weapons/facepunch/usp/uspc.prefab",
-            "prefabs/weapons/facepunch/shotgun/shotgunc.prefab",
-            "prefabs/weapons/facepunch/mp5/mp5c.prefab",
-            "prefabs/weapons/m4a1/m4a1-c.prefab",
-        
-            "prefabs/clothes/armor/armor-c.prefab",
-            "prefabs/clothes/helmet/helmet-c.prefab",
-            "prefabs/clothes/legarmor/legarmor-c.prefab",
-            "prefabs/items/wood_log.prefab",
-            "prefabs/weapons/new/hands.prefab",
-            "prefabs/weapons/new/knife.prefab",
-       
-            // Fügen Sie hier weitere Items hinzu, die keine zufälligen Statistiken erhalten sollen
+         
         };
 
       
@@ -284,7 +272,7 @@ namespace GeneralGame
             "prefabs/items/wood_log.prefab",
             "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-      
+      "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
     
  
             // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
@@ -304,7 +292,7 @@ namespace GeneralGame
             "prefabs/items/wood_log.prefab",
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-    
+    "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
      
 
             // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
@@ -323,7 +311,7 @@ namespace GeneralGame
             "prefabs/clothes/legarmor/legarmor-a.prefab",
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-        
+        "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
           
             // Fügen Sie hier weitere A-Tier-Prefab-Dateien hinzu
         };
@@ -341,7 +329,7 @@ namespace GeneralGame
             "prefabs/clothes/legarmor/legarmor-s.prefab",
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-          
+          "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
         
             // Fügen Sie hier weitere S-Tier-Prefab-Dateien hinzu
         };
@@ -359,8 +347,8 @@ namespace GeneralGame
             "prefabs/clothes/legarmor/legarmor-ss.prefab",
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-           
-     
+
+     "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
           
             // Fügen Sie hier weitere SS-Tier-Prefab-Dateien hinzu
         };
@@ -372,7 +360,7 @@ namespace GeneralGame
             "prefabs/weapons/facepunch/shotgun/shotgunsss.prefab",
             "prefabs/weapons/facepunch/mp5/mp5sss.prefab",
             "prefabs/weapons/m4a1/m4a1-sss.prefab",
- 
+ "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
             "prefabs/clothes/armor/armor-sss.prefab",
             "prefabs/clothes/helmet/helmet-sss.prefab",
             "prefabs/clothes/legarmor/legarmor-sss.prefab",
@@ -395,8 +383,8 @@ namespace GeneralGame
             "prefabs/clothes/legarmor/legarmor-sss.prefab",
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-        
-          
+        "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
+
         };
         
       

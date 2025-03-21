@@ -681,6 +681,10 @@ public partial class  BaseGun : WeaponComponent, IUse
 		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
 		EffectRenderer?.Set( "b_attack", true );
 		EffectRenderer?.Set( "b_reload", false );
+		var childEffectRenderer = EffectRenderer?.Components.GetInChildrenOrSelf<SkinnedModelRenderer>();
+		childEffectRenderer?.Set( "deage_shoot", true );
+
+
 		NextAttackTime = 1f / FireRate;
 		AmmoInClip--;
 
@@ -1312,23 +1316,27 @@ public partial class  BaseGun : WeaponComponent, IUse
 		
 		if ( MuzzleFlash != null )
 		{
+			
 			if ( EffectRenderer.SceneModel != null )
 			{
 				var transform = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
 
 				if ( transform.HasValue )
 				{
+					
 					var muzzleFlashInstance = ResourceLibrary.Get<PrefabFile>( MuzzleFlash.ResourcePath );
 					if ( muzzleFlashInstance != null )
 					{
+						
 						var muzzleFlash = GameObject.Clone( muzzleFlashInstance );
 						if ( muzzleFlash != null )
 						{
 							muzzleFlash.WorldPosition = transform.Value.Position;
 							muzzleFlash.WorldRotation = Rotation.LookAt( trace.Direction );
 						}
-						muzzleFlash.Destroy();
-						
+						_ = DestroyMuzzleFlashAfterDelay( muzzleFlash, 1.0f );
+
+
 					}
 					
 				}
@@ -1465,6 +1473,15 @@ public partial class  BaseGun : WeaponComponent, IUse
 			}
 		}
 
+		
+	}
+	private async Task DestroyMuzzleFlashAfterDelay( GameObject muzzleFlash, float delay )
+	{
+		await Task.Delay(1000);
+		if ( muzzleFlash != null )
+		{
+			muzzleFlash.Destroy();
+		}
 		
 	}
 	public class DamageText : Panel
