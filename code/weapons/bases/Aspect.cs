@@ -1041,12 +1041,140 @@ public partial class BaseGun : WeaponComponent, IUse
 
     private void FireBulletWithHolyAspect( Player shooter )
     {
-        // Implementiere die Logik für das Abfeuern eines Heilig-Aspekt-Geschosses
+        if ( Owner.MoveSpeed > 150f ) return;
+        Owner.ApplyRecoil( Recoil );
+        EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+        EffectRenderer?.Set( "b_attack", true );
+        EffectRenderer?.Set( "b_reload", false );
+        NextAttackTime = 1f / FireRate;
+        AmmoInClip--;
 
-        // Beispiel: Erzeuge ein Heiligprojektil
+        var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+        var direction = Owner.PlyCamera.WorldRotation.Forward;
+        direction += Vector3.Random * Spread;
+        var endPos = startPos + direction * 5000f;
+
+        var trace = Scene.Trace.Ray( startPos, endPos )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        // Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+        if ( trace.Hit )
+        {
+            endPos = trace.EndPosition;
+        }
+
+        if ( Trail != null )
+        {
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_holy.prefab" ); // Verwende das neue Prefab
+            if ( trailInstance != null )
+            {
+                var trailobject = GameObject.Clone( trailInstance );
+                if ( trailobject != null )
+                {
+                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+                    var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+                    if ( trailobjectRenderer != null )
+                    {
+                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                    }
+
+                    var speed = BulletSpeed * 400f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                }
+            }
+        }
+        if ( trace.Hit )
+        {
+            var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+            if ( damageable != null )
+            {
+                ApplyHolyAspectPassive( damageable );
+            }
+        }
+
+        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+        return;
+    }
+    private void ApplyHolyAspectPassive( IHealthComponent damageable )
+    {
+        if ( damageable is Npc npc )
+        {
+            Random random = new Random();
+            if ( random.Next( 0, 100 ) < 20 ) // 20% Chance
+            {
+                var stunEffect = new HolyEffect( 3 ); // Dauer in Sekunden
+                npc.ApplyStatusEffect( stunEffect );
+
+                // Erzeuge das Licht und bewege es von oben nach unten
+                CreateHolyLightEffect( npc );
+            }
+        }
     }
 
-       private void FireBulletWithPoisonAspect( Player shooter )
+    private  void CreateHolyLightEffect( Npc npc )
+    {
+        var lightPrefab = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/holy.prefab" );
+        if ( lightPrefab != null )
+        {
+            var startPositionOffsets = new Vector3[]
+            {
+            new Vector3(500f, 0f, 500f),
+            new Vector3(-500f, 0f, 500f),
+            new Vector3(0f, 500f, 500f)
+            };
+
+            foreach ( var offset in startPositionOffsets )
+            {
+                var lightObject = GameObject.Clone( lightPrefab );
+                if ( lightObject != null )
+                {
+                    lightObject.WorldPosition = npc.WorldPosition + offset; // Startposition um den NPC
+
+                    var startTime = Time.Now;
+                    var duration = 2.0f; // Dauer der Bewegung in Sekunden
+                    var speed = 550f; // Geschwindigkeit des Lichts
+
+                    _ = MoveLightToNpc( lightObject, npc, startTime, duration, speed );
+                }
+            }
+        }
+    }
+
+    private async Task MoveLightToNpc( GameObject lightObject, Npc npc, float startTime, float duration, float speed )
+    {
+        while ( Time.Now - startTime < duration )
+        {
+            var direction = (npc.WorldPosition - lightObject.WorldPosition).Normal;
+            lightObject.WorldPosition += direction * speed * Time.Delta;
+
+            // Überprüfen, ob das Licht den NPC erreicht hat
+            if ( (lightObject.WorldPosition - npc.WorldPosition).Length < 1.0f )
+            {
+                // Füge dem NPC Schaden zu, basierend auf seinem aktuellen Gesundheitszustand
+                float damagePercentage = 0.1f; // 10% des aktuellen Gesundheitszustands
+                float damage = npc.Health * damagePercentage;
+                npc.TakeDamage( DamageType.holy, damage, npc.WorldPosition, Vector3.Zero, Guid.Empty, Guid.Empty );
+
+                // Zerstöre das Licht
+                lightObject.Destroy();
+                return;
+            }
+
+            await Task.Delay( 10 ); // Aktualisiere die Position alle 10 Millisekunden
+        }
+
+        // Zerstöre das Licht nach Ablauf der Dauer
+        lightObject.Destroy();
+    }
+
+    private void FireBulletWithPoisonAspect( Player shooter )
     {
         // Implementiere die Logik für das Abfeuern eines Gift-Aspekt-Geschosses
 

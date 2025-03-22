@@ -1,0 +1,1176 @@
+{
+  "__guid": "15efcf08-ead2-43dd-b8da-f8116c960651",
+  "GameObjects": [
+    {
+      "__guid": "91d35f2e-d26d-420d-8524-63ff3f135831",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "28d46116-e67e-487c-8e64-11fc814d6709",
+          "Author": null,
+          "Changes": null,
+          "Description": "",
+          "Group": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SceneTags": "",
+          "Title": "forest",
+          "Version": null
+        }
+      ]
+    },
+    {
+      "__guid": "32ec3114-479c-43d1-95f5-7d6677648e2f",
+      "Flags": 0,
+      "Name": "Map",
+      "Position": "521.83,-2708.633,1587.644",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MapInstance",
+          "__guid": "defb8bdc-1059-4d11-87aa-69efc3da0289",
+          "__version": 1,
+          "EnableCollision": true,
+          "MapName": "maps/two/3-1.vmap",
+          "NoOrigin": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
+          "UseMapFromLaunch": false
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "34a1611a-478c-4762-80cf-9f2808da1a39",
+      "Flags": 0,
+      "Name": "Objects",
+      "Position": "-3617.945,-3543.915,3327.257",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "c79327de-30cd-4c6e-8472-c55fc952b6be",
+          "Flags": 0,
+          "Name": "sun",
+          "Position": "4380.194,2147.291,-2553.127",
+          "Rotation": "0,0.7071067,0,0.7071068",
+          "Scale": "5.735146,5.735146,5.735146",
+          "Tags": "light_directional,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DirectionalLight",
+              "__guid": "ed15e33d-30c2-4565-839b-f49e4bf6e3c6",
+              "FogMode": "WithoutShadows",
+              "FogStrength": 1,
+              "LightColor": "0.10233,0.10233,0.10233,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Shadows": false,
+              "SkyColor": "0.13023,0.13023,0.13023,1"
+            }
+          ]
+        },
+        {
+          "__guid": "cb0921a8-254f-479c-b0e6-83afa549bdc2",
+          "Flags": 0,
+          "Name": "networkmanager",
+          "Position": "2929.985,1278.895,-1973.424",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "GeneralGame.NetworkManager",
+              "__guid": "d138bbe0-b9b5-498a-830c-3a48aa160e54",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Prefab": {
+                "_type": "gameobject",
+                "prefab": "prefabs/player.prefab"
+              },
+              "SpawnPoints": [
+                null
+              ],
+              "StartServer": true
+            }
+          ]
+        },
+        {
+          "__guid": "d784c8aa-d5da-482f-8d06-c2abe071758a",
+          "Flags": 0,
+          "Name": "spawnpoint",
+          "Position": "3076,2348.619,-3226.824",
+          "Rotation": "0,0,-0.0157077,0.9998766",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "b0c44e98-3cb6-4a48-910c-15f4819c51b3",
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ]
+        },
+        {
+          "__guid": "0c180452-ed47-4127-83c8-c88fd177d574",
+          "Flags": 0,
+          "Name": "HUD",
+          "Position": "-2277.891,-4061.719,-21.7404",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ScreenPanel",
+              "__guid": "9ae2a2f7-37ae-4803-a22a-6b2da95d461f",
+              "AutoScreenScale": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Opacity": 1,
+              "Scale": 1,
+              "ScaleStrategy": "ConsistentHeight",
+              "TargetCamera": null,
+              "ZIndex": 100
+            },
+            {
+              "__type": "GeneralGame.HUD.Hudmaster",
+              "__guid": "eaf1d173-ea85-48ef-8007-6c280109ddb0",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "7d07177d-c29e-41eb-82b3-aeb1166ec044",
+      "Flags": 0,
+      "Name": "Trees",
+      "Position": "-4361.71,-3529.826,1585.51",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "ec43e707-c860-47d5-b72f-79aaa1563794",
+          "Flags": 0,
+          "Name": "tree_oak_small_a",
+          "Position": "2235.183,-145.6152,-1526.291",
+          "Rotation": "-0.00000002878683,0.000000007713408,0.7558453,0.65475",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "839041d4-4f1d-434f-b55b-0de6481cb1c7",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": true,
+              "MaterialGroup": null,
+              "Model": "models/sbox_props/trees/oak/tree_oak_medium_a.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "93e265de-760a-46f6-895d-48bdce4e9940",
+      "Flags": 0,
+      "Name": "Gradient Fog",
+      "Position": "-1276.771,-5178.966,552.3766",
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "4f5738ef-6540-4135-8520-c031645880df",
+          "Color": "0.0093,0.0093,0.0093,1",
+          "EndDistance": 1138.0997,
+          "FalloffExponent": 0.80002165,
+          "Height": 128,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "StartDistance": 106.699684,
+          "VerticalFalloffExponent": 2
+        }
+      ]
+    },
+    {
+      "__guid": "f57afa51-8968-4ba3-9327-d8e20318be53",
+      "Flags": 0,
+      "Name": "lightup",
+      "Position": "-1763.496,-10057.13,1020.175",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Children": [
+        {
+          "__guid": "37f18615-1160-483b-ae83-6dd9d88d5a75",
+          "Flags": 0,
+          "Name": "Point Light (16)",
+          "Position": "3009.973,4637.71,-747.2687",
+          "Tags": "light_point,light",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.PointLight",
+              "__guid": "6dd1e831-2ee7-4805-9285-f8ece6a8fee5",
+              "Attenuation": 0.86,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,0.68333,0,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Radius": 633.3998,
+              "Shadows": true
+            },
+            {
+              "__type": "GeneralGame.Switch",
+              "__guid": "c41618d5-3b88-41f4-97fb-cf058909d6a6",
+              "CheckInterval": 1,
+              "DrawProximityRangeGizmo": false,
+              "Light": {
+                "_type": "component",
+                "component_id": "6dd1e831-2ee7-4805-9285-f8ece6a8fee5",
+                "go": "37f18615-1160-483b-ae83-6dd9d88d5a75",
+                "component_type": "PointLight"
+              },
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerProximityDistance": 1000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "022a1313-8b22-44d4-b8ac-f1e108037682",
+      "Flags": 0,
+      "Name": "2objectarea (27)",
+      "Position": "687.4547,-5038.732,-558.8676",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "661a9472-158b-43ae-8a82-9ac128c748d8",
+          "ActiveArena": null,
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": null,
+          "BossNpcPool": [],
+          "BossSpawnDelay": 10,
+          "ChallengeDoor": null,
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "1,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 151.90329,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 101683530
+          },
+          "Lights": [],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/chibi_variants/normal_va1_knight_v3.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 1
+              },
+              "SpawnEffect": "models/npcs/slime/storm.prefab",
+              "SpawnCount": 2,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/chibi_variants/normal_va1_knight_v3.prefab"
+                  },
+                  "SpawnChance": 0.4,
+                  "SpawnCount": 4,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "SpawnEffect": null,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0.05,
+                  "FireAbilityChance": 0.13,
+                  "MinLevel": 15,
+                  "MaxLevel": 20,
+                  "SequentialSpawn": true,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 2,
+              "MinLevel": 15,
+              "MaxLevel": 20,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0.11,
+              "FireAbilityChance": 0.14,
+              "SequentialSpawn": true,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/chestsystem/example 1.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.2
+              },
+              "SpawnEffect": null,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 10,
+                "SpawnChance": 0.2
+              },
+              "SpawnEffect": null,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/itemobjects/itemobject2prefab.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 10,
+                "SpawnChance": 0.2
+              },
+              "SpawnEffect": null,
+              "SpawnCount": 2,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 2,
+                "SpawnChance": 0.43
+              },
+              "SpawnEffect": "models/npcs/slime/legendary.prefab",
+              "SpawnCount": 2,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "1089.798,354.3999,138.4997",
+          "PositionOffset": "0,0,0",
+          "Radius": "380.1005,154.7,129.8",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "SpawnEffect": null,
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 20
+        }
+      ]
+    },
+    {
+      "__guid": "02b6d225-116b-4c0c-b065-20499eac9900",
+      "Flags": 0,
+      "Name": "boss spawner",
+      "Position": "1367.953,-3535.915,-1275.893",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "c3504036-64e9-4b42-a897-5bbf4c939d27",
+          "ActiveArena": {
+            "_type": "component",
+            "component_id": "64dd3101-61f6-45b2-91ac-eddf8b76c64d",
+            "go": "1638c4c7-1f5c-4bb3-b9d6-c71a31115772",
+            "component_type": "ActiveArea"
+          },
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": "sounds/battle-music/battlemusic3.sound",
+          "BossNpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/chibi_variants/boss.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 1
+              },
+              "SpawnEffect": "models/npcs/slime/legendary.prefab",
+              "SpawnCount": 1,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/hit/terror/terror_v2.prefab"
+                  },
+                  "SpawnChance": 1,
+                  "SpawnCount": 25,
+                  "SubNpcSpawnDelayPerNpc": 0,
+                  "SpawnEffect": null,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 3,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": true,
+                  "DestroyAfterTime": 100
+                },
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/chibi_variants/normal_va1_knight_v3.prefab"
+                  },
+                  "SpawnChance": 1,
+                  "SpawnCount": 25,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "SpawnEffect": "models/npcs/slime/storm.prefab",
+                  "IceAbilityChance": 0.09,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.09,
+                  "MinLevel": 5,
+                  "MaxLevel": 10,
+                  "SequentialSpawn": true,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 120
+                },
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/entitys/box_legendary_boss.prefab"
+                  },
+                  "SpawnChance": 1,
+                  "SpawnCount": 1,
+                  "SubNpcSpawnDelayPerNpc": 0,
+                  "SpawnEffect": null,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 100,
+                  "SequentialSpawn": false,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 10
+                }
+              ],
+              "SubNpcSpawnDelay": 1,
+              "MinLevel": 15,
+              "MaxLevel": 21,
+              "IceAbilityChance": 0.12,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0.19,
+              "SequentialSpawn": true,
+              "SpawnInterval": 1
+            }
+          ],
+          "BossSpawnDelay": 1,
+          "ChallengeDoor": {
+            "_type": "component",
+            "component_id": "7c917c09-c82e-4795-b45d-7e9e6d1bd8ae",
+            "go": "6b35e624-96dd-47a0-81bf-b24edde12464",
+            "component_type": "ChallengeDoor"
+          },
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "0.64186,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 180.40016,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 101683530
+          },
+          "Lights": [
+            null
+          ],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 0.21
+              },
+              "SpawnEffect": null,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/vyndalium.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 0
+              },
+              "SpawnEffect": null,
+              "SpawnCount": 3,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "994.601,414.9005,358.6001",
+          "PositionOffset": "0,0,0",
+          "Radius": "870.0005,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "SpawnEffect": null,
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 500
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "29330df1-5cd3-446b-a6f5-b4297c267eba",
+          "Flags": 0,
+          "Name": "Timer",
+          "Position": "-98.78003,96.75513,360.8318",
+          "Rotation": "0.00000002012445,-0.000000005223284,-0.7071068,0.7071068",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.WorldPanel",
+              "__guid": "4a4c66ab-5216-4149-8af0-0c2d1242f40a",
+              "HorizontalAlign": "Center",
+              "InteractionRange": 1000,
+              "LookAtCamera": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PanelSize": "1551.7,1278.2",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderScale": 1,
+              "VerticalAlign": "Center"
+            },
+            {
+              "__type": "GeneralGame.HUD.ChallengeDoorPanel",
+              "__guid": "aa9f2133-07b9-400b-95e9-dbc0cdbf0b08",
+              "__enabled": false,
+              "ChallengeDoorInstance": {
+                "_type": "component",
+                "component_id": "7c917c09-c82e-4795-b45d-7e9e6d1bd8ae",
+                "go": "6b35e624-96dd-47a0-81bf-b24edde12464",
+                "component_type": "ChallengeDoor"
+              },
+              "ChallengeDoorPanelInstance": {
+                "_type": "component",
+                "component_id": "aa9f2133-07b9-400b-95e9-dbc0cdbf0b08",
+                "go": "29330df1-5cd3-446b-a6f5-b4297c267eba",
+                "component_type": "ChallengeDoorPanel"
+              },
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "6b35e624-96dd-47a0-81bf-b24edde12464",
+              "Flags": 0,
+              "Name": "ChallengeDoor2",
+              "Position": "931.6836,33.50729,-11.15684",
+              "Scale": "4.299999,15.50002,18.60003",
+              "Components": [
+                {
+                  "__type": "GeneralGame.ChallengeDoor",
+                  "__guid": "7c917c09-c82e-4795-b45d-7e9e6d1bd8ae",
+                  "boxCollider": {
+                    "_type": "component",
+                    "component_id": "030f207b-14b0-45e3-9fe0-28be6e85cd6d",
+                    "go": "6b35e624-96dd-47a0-81bf-b24edde12464",
+                    "component_type": "BoxCollider"
+                  },
+                  "ChallengeDoorPanel": {
+                    "_type": "component",
+                    "component_id": "aa9f2133-07b9-400b-95e9-dbc0cdbf0b08",
+                    "go": "29330df1-5cd3-446b-a6f5-b4297c267eba",
+                    "component_type": "ChallengeDoorPanel"
+                  },
+                  "CloseDuration": 60,
+                  "isTimerActive": false,
+                  "modelRenderer": {
+                    "_type": "component",
+                    "component_id": "456c0385-8c31-44b1-aac2-786a02eeb907",
+                    "go": "6b35e624-96dd-47a0-81bf-b24edde12464",
+                    "component_type": "ModelRenderer"
+                  },
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "SpawnArea": {
+                    "_type": "component",
+                    "component_id": "c3504036-64e9-4b42-a897-5bbf4c939d27",
+                    "go": "02b6d225-116b-4c0c-b065-20499eac9900",
+                    "component_type": "NpcSpawnArea"
+                  },
+                  "timer": 0
+                },
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "456c0385-8c31-44b1-aac2-786a02eeb907",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/lake_water.vmat",
+                  "Model": null,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,0,0,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "030f207b-14b0-45e3-9fe0-28be6e85cd6d",
+                  "Center": "-3.187195,0,2.272102",
+                  "Friction": null,
+                  "IsTrigger": false,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnObjectTriggerEnter": null,
+                  "OnObjectTriggerExit": null,
+                  "OnTriggerEnter": null,
+                  "OnTriggerExit": null,
+                  "Scale": "56.29253,50,54.54421",
+                  "Static": false,
+                  "Surface": null,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "0ba27a68-3609-49a1-a7a5-45f23f52ca25",
+              "Flags": 0,
+              "Name": "Object",
+              "Position": "-0.273243,59.50758,-1.517669",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpriteRenderer",
+                  "__guid": "9adee58b-1f44-47ab-8903-3d14b86a8fbd",
+                  "Additive": false,
+                  "CastShadows": false,
+                  "Color": "0.01667,1,0,1",
+                  "DepthFeather": 0,
+                  "FlipHorizontal": false,
+                  "FlipVertical": false,
+                  "FogStrength": 1,
+                  "Lighting": false,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "Opaque": false,
+                  "Pivot": "0.5,0.5",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "Size": "70,70",
+                  "Texture": "sprites/vidya/shapes/exclamation.vtex"
+                }
+              ]
+            },
+            {
+              "__guid": "0b779966-a59f-4187-baba-e78292f5b427",
+              "Flags": 0,
+              "Name": "Object (3)",
+              "Position": "-0.2732582,-54.64008,-1.517637",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpriteRenderer",
+                  "__guid": "9b6ac06f-80ca-4f3c-8f62-927c1bd43131",
+                  "Additive": false,
+                  "CastShadows": false,
+                  "Color": "0.01667,1,0,1",
+                  "DepthFeather": 0,
+                  "FlipHorizontal": false,
+                  "FlipVertical": false,
+                  "FogStrength": 1,
+                  "Lighting": false,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "Opaque": false,
+                  "Pivot": "0.5,0.5",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "Size": "70,70",
+                  "Texture": "sprites/vidya/shapes/exclamation.vtex"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "1638c4c7-1f5c-4bb3-b9d6-c71a31115772",
+      "Flags": 0,
+      "Name": "active area",
+      "Position": "1270.171,-3446.457,-1363.311",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.ActiveArea",
+          "__guid": "64dd3101-61f6-45b2-91ac-eddf8b76c64d",
+          "__enabled": false,
+          "attackCooldown": 2,
+          "AttackPrefab": "prefabs/hit/terror/terror_v2.prefab",
+          "BoxPosition": "101.5002,0,385.0997",
+          "BoxSize": "1820.902,1954.609,773.8015",
+          "ObjectLifetime": 50,
+          "ObjectSpeed": 800,
+          "ObjectsPerSide": 5,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "patternChangeInterval": 10,
+          "SelectedAttackPattern": "Box",
+          "SpawnInterval": 0.1,
+          "timeSinceLastAttack": 0
+        }
+      ]
+    },
+    {
+      "__guid": "ba2909cb-6d35-44fb-a73a-aff9f23cf1bf",
+      "Flags": 0,
+      "Name": "teleportarea",
+      "Position": "1342.468,-4788.208,-764.6251",
+      "Rotation": "0,0,-0.1305262,0.9914449",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GeneralGame.TeleportArea",
+          "__guid": "1c85999f-4702-4729-907c-5e9bde655af2",
+          "DetectionRadius": 396.8002,
+          "DrawProximityRangeGizmo": true,
+          "hasTeleported": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "ResetHasTeleported": false,
+          "TeleportDirection": "North",
+          "TeleportPositionPoint": {
+            "_type": "component",
+            "component_id": "0c1acaba-0847-4f56-90d2-340865c3b8eb",
+            "go": "d5e0d9d1-2f07-439f-94ff-edd3d4aec77e",
+            "component_type": "TeleportPositionPoint"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "d5e0d9d1-2f07-439f-94ff-edd3d4aec77e",
+      "Flags": 0,
+      "Name": "teleport point",
+      "Position": "1129.75,-3364.001,-549.581",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "TeleportPositionPoint",
+          "__guid": "0c1acaba-0847-4f56-90d2-340865c3b8eb",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Position": "0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "623b5015-4038-48bf-b446-4c14b4fbc0d0",
+      "Flags": 0,
+      "Name": "exit (1)",
+      "Position": "-703.2231,-6741.817,-653.1948",
+      "Rotation": "-0.002531976,0.002684981,0.685523,0.7280415",
+      "Enabled": true,
+      "__Prefab": "prefabs/exit.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "c5610664-d4e8-4d92-9eab-82018a614795",
+      "Flags": 0,
+      "Name": "Box",
+      "Position": "-1145.078,-1139.583,-77.48373",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "273cf779-953f-4da1-bd76-0157f2c87577",
+          "Collision": "Mesh",
+          "Color": "1,1,1,1",
+          "Friction": null,
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "-1145.078,-1139.583,-77.48373",
+            "Rotation": "0,0,0,1",
+            "Positions": [
+              "-1171.59,-1162.044,76.83044",
+              "1154.004,-1162.044,76.83044",
+              "1154.004,1175.346,76.83044",
+              "-1171.59,1175.346,76.83044",
+              "-1171.59,1175.346,-121.0607",
+              "1154.004,1175.346,-121.0607",
+              "1154.004,-1162.044,-121.0607",
+              "-1171.59,-1162.044,-121.0607"
+            ],
+            "TextureCoord": [
+              "1.031315,36.15694",
+              "-35.3061,0.7995244",
+              "1.031315,-0.3647881",
+              "-35.15694,0.7995244",
+              "-35.3061,-0.3647881",
+              "-0.03131485,0.7995244",
+              "-35.3061,36.15694",
+              "-0.3647881,0.7995244",
+              "1.031317,-0.3647881",
+              "36.3061,3.891573",
+              "1.031317,36.15694",
+              "1.364788,3.891573",
+              "-35.3061,36.15694",
+              "1.031317,3.891573",
+              "-35.3061,-0.3647881",
+              "36.15694,3.891573",
+              "36.15694,0.7995244",
+              "-35.3061,3.891573",
+              "-0.3647881,3.891573",
+              "36.3061,0.7995244",
+              "-35.15694,3.891573",
+              "1.031315,0.7995244",
+              "1.364788,0.7995244",
+              "-0.03131676,3.891573"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "1,0,-0",
+              "0,-1,0",
+              "0,1,0",
+              "-1,0,0",
+              "1,-0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,-1",
+              "-0,0,-1",
+              "0,0,-1",
+              "-0,0,-1"
+            ],
+            "TextureScale": [
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25"
+            ],
+            "TextureOffset": [
+              "228.3115,49.66797",
+              "228.3115,49.66797",
+              "49.66797,202.0651",
+              "206.332,202.0651",
+              "27.68848,202.0651",
+              "228.3115,202.0651"
+            ],
+            "MaterialIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/glass_industrial_b/glass_industrial_b.vmat"
+            ]
+          },
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RenderType": "On",
+          "SmoothingAngle": 40,
+          "Static": true,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "forest"
+    },
+    "NavMesh": {
+      "Enabled": true,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 13.499983,
+      "AgentStepSize": 28.500008,
+      "AgentMaxSlope": 32,
+      "ExcludedBodies": "npc",
+      "IncludedBodies": ""
+    }
+  },
+  "ResourceVersion": 2,
+  "Title": "forest",
+  "Description": null,
+  "__references": [
+    "facepunch.tree_oak_medium_a#33692",
+    "nolankicks.lake_water#65330",
+    "rustextended.glass_industrial_b#43277",
+    "vidya.shape-exclamation#45509"
+  ],
+  "__version": 2
+}

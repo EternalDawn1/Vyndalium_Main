@@ -30,6 +30,8 @@ public enum DamageType
 
 	 air = 10,
 
+	 holy = 11,
+
 }
 
 

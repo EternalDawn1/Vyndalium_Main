@@ -44,7 +44,10 @@ public sealed class Switch : Component
 			timeSinceLastCheck = 0f;
 		}
 
-		Light.Enabled = isPlayerNearby;
+		//Light.Enabled = isPlayerNearby;
+		Light.Shadows = isPlayerNearby;
+		Light.Attenuation = isPlayerNearby ? 1f : 10f;
+		Light.Radius = isPlayerNearby ? 1000f : 100f;
 	}
 
 	private bool IsPlayerNearby()

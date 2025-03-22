@@ -771,6 +771,12 @@ public sealed class NpcSpawnArea : Component
 	}
 	private async Task LerpLightColor( Light light, Color startColor, Color endColor, float duration )
 	{
+		if ( light == null )
+		{
+			
+			return;
+		}
+
 		float time = 0;
 		while ( time < duration )
 		{

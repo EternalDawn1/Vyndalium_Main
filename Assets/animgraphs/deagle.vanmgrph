@@ -15,7 +15,7 @@
 				{
 					_class = "CRootAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ 48.0, 16.0 ]
+					m_vecPosition = [ 112.0, -80.0 ]
 					m_nNodeID = 
 					{
 						m_id = 82265100
@@ -43,7 +43,7 @@
 				{
 					_class = "CStateMachineAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -112.0, -112.0 ]
+					m_vecPosition = [ -112.0, -128.0 ]
 					m_nNodeID = 
 					{
 						m_id = 337728173
@@ -112,7 +112,7 @@
 							{
 								m_id = 505168079
 							}
-							m_position = [ -64.0, -144.0 ]
+							m_position = [ -64.0, -176.0 ]
 							m_bIsStartState = true
 							m_bIsEndtState = false
 							m_bIsPassthrough = false
@@ -132,6 +132,44 @@
 											m_comparisonOp = 0
 											m_option = "FinishedConditionOption_OnFinished"
 											m_bIsFinished = true
+										},
+									]
+									m_blendDuration = 0.2
+									m_destState = 
+									{
+										m_id = 505168079
+									}
+									m_bReset = true
+									m_resetCycleOption = "Beginning"
+									m_flFixedCycleValue = 0.0
+									m_bBlendCycle = false
+									m_blendCurve = 
+									{
+										m_vControlPoint1 = [ 0.5, 0.0 ]
+										m_vControlPoint2 = [ 0.5, 1.0 ]
+									}
+									m_bForceFootPlant = false
+									m_bDisabled = false
+									m_bRandomTimeBetween = false
+									m_flRandomTimeStart = 0.0
+									m_flRandomTimeEnd = 0.0
+								},
+								{
+									_class = "CAnimStateTransition"
+									m_conditions = 
+									[
+										{
+											_class = "CParameterAnimCondition"
+											m_comparisonOp = 0
+											m_paramID = 
+											{
+												m_id = 2114945598
+											}
+											m_comparisonValue = 
+											{
+												m_nType = 1
+												m_data = true
+											}
 										},
 									]
 									m_blendDuration = 0.2
@@ -188,13 +226,34 @@
 			{
 				key = 
 				{
+					m_id = 1641473727
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "b_empty"
+					m_vecPosition = [ -384.0, 32.0 ]
+					m_nNodeID = 
+					{
+						m_id = 1641473727
+					}
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "b_empty"
+					m_playbackSpeed = 1.0
+					m_bLoop = false
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 1830848262
 				}
 				value = 
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "deage_shoot"
-					m_vecPosition = [ -368.0, -32.0 ]
+					m_vecPosition = [ -384.0, -48.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1830848262
@@ -236,14 +295,14 @@
 		[
 			{
 				_class = "CBoolAnimParameter"
-				m_name = "deage_shoot"
+				m_name = "b_attack"
 				m_id = 
 				{
 					m_id = 2114945598
 				}
 				m_previewButton = "ANIMPARAM_BUTTON_NONE"
 				m_bUseMostRecentValue = false
-				m_bAutoReset = false
+				m_bAutoReset = true
 				m_bDefaultValue = false
 			},
 			{
@@ -252,6 +311,18 @@
 				m_id = 
 				{
 					m_id = 1213205246
+				}
+				m_previewButton = "ANIMPARAM_BUTTON_NONE"
+				m_bUseMostRecentValue = false
+				m_bAutoReset = false
+				m_bDefaultValue = false
+			},
+			{
+				_class = "CBoolAnimParameter"
+				m_name = "b_empty"
+				m_id = 
+				{
+					m_id = 1142170032
 				}
 				m_previewButton = "ANIMPARAM_BUTTON_NONE"
 				m_bUseMostRecentValue = false
@@ -279,6 +350,14 @@
 				m_tagID = 
 				{
 					m_id = 1942461818
+				}
+			},
+			{
+				_class = "CStringAnimTag"
+				m_name = "b_empty"
+				m_tagID = 
+				{
+					m_id = 662922527
 				}
 			},
 		]

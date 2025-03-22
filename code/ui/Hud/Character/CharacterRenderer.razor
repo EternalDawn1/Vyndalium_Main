@@ -135,7 +135,6 @@
 		var headPos = _scenePanel.Camera.ToScreen((_character.GetAttachment("eyes") ?? Transform.Zero).Position);
 		var localPos = mousePos - headPos;
 
-
 		_character.SetAnimParameter("lookat", new Vector3(1000f, localPos.x, -localPos.y) * _character.Rotation.Inverse);
 
 		_character.Update(RealTime.Delta);
@@ -149,19 +148,14 @@
 				_clothes[(int)EquipSlot.Hand].Transform = (_character.GetAttachment(hand.Attachment, true) ?? global::Transform.Zero)
 				.ToWorld(hand.AttachmentTransform)
 				.WithScale(1);
-
-				
 			}
-
-			
 
 			foreach (var clothing in _clothes)
 			{
-				if (clothing.IsValid())
-					clothing?.Update(RealTime.Delta);
+				if (clothing != null && clothing.IsValid())
+					clothing.Update(RealTime.Delta);
 			}
 		}
-
 
 		var isDropTarget = IsHoveredByMouse() && InventorySlot.CurrentDraggable != null &&
 		InventorySlot.CurrentDraggable.HasClass("can-drop");

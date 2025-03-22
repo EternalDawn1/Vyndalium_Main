@@ -1170,87 +1170,87 @@ public partial class Npc : Component, IHealthComponent
 	{
 		if ( npcLevel <= 10 )
 		{
-			return new Random().Next( 5, 8 ); // 5-15 Vyndalium für Level 1-10
+			return new Random().Next( 50, 80 ); // 5-15 Vyndalium für Level 1-10
 		}
 		else if ( npcLevel <= 20 )
 		{
-			return new Random().Next( 10, 150 ); // 15-30 Vyndalium für Level 11-20
+			return new Random().Next( 100, 1500 ); // 15-30 Vyndalium für Level 11-20
 		}
 		else if ( npcLevel <= 30 )
 		{
-			return new Random().Next( 150, 300 ); // 30-50 Vyndalium für Level 21-30
+			return new Random().Next( 1500, 3000 ); // 30-50 Vyndalium für Level 21-30
 		}
 		else if ( npcLevel <= 40 )
 		{
-			return new Random().Next( 250, 510 ); // 50-70 Vyndalium für Level 31-40
+			return new Random().Next( 2500, 5100 ); // 50-70 Vyndalium für Level 31-40
 		}
 		else if ( npcLevel <= 50 )
 		{
-			return new Random().Next( 700, 910 ); // 70-90 Vyndalium für Level 41-50
+			return new Random().Next( 7000, 9100 ); // 70-90 Vyndalium für Level 41-50
 		}
 		else if ( npcLevel <= 60 )
 		{
-			return new Random().Next( 900, 1110 ); // 90-110 Vyndalium für Level 51-60
+			return new Random().Next( 9000, 11100 ); // 90-110 Vyndalium für Level 51-60
 		}
 		else if ( npcLevel <= 70 )
 		{
-			return new Random().Next( 1100, 1310 ); // 110-130 Vyndalium für Level 61-70
+			return new Random().Next( 11000, 13100 ); // 110-130 Vyndalium für Level 61-70
 		}
 		else if ( npcLevel <= 80 )
 		{
-			return new Random().Next( 1300, 1510 ); // 130-150 Vyndalium für Level 71-80
+			return new Random().Next( 13000, 15100 ); // 130-150 Vyndalium für Level 71-80
 		}
 		else if ( npcLevel <= 90 )
 		{
-			return new Random().Next( 1500, 1710 ); // 150-170 Vyndalium für Level 81-90
+			return new Random().Next( 15000, 17100 ); // 150-170 Vyndalium für Level 81-90
 		}
 		else if ( npcLevel <= 100 )
 		{
-			return new Random().Next( 1700, 2010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 17000, 20100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else if (npcLevel <= 110)
 		{
-			return new Random().Next( 2000, 2510 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 20000, 25100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else if (npcLevel <= 120)
 		{
-			return new Random().Next( 2700, 3010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 27000, 30100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else if (npcLevel <= 130)
 		{
-			return new Random().Next( 3700, 4010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 37000, 40100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else if (npcLevel <= 140)
 		{
-			return new Random().Next( 5700, 7010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 57000, 70100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else if (npcLevel <= 150)
 		{
-			return new Random().Next( 7700, 10010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 77000, 100100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else if (npcLevel <= 160)
 		{
-			return new Random().Next( 11700, 15010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 117000, 150100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else if (npcLevel <= 170)
 		{
-			return new Random().Next( 16700, 22010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 167000, 220100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else if (npcLevel <= 180)
 		{
-			return new Random().Next( 21700, 25010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 217000, 250100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else if (npcLevel <= 190)
 		{
-			return new Random().Next( 21700, 32010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 217000, 320100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else if (npcLevel <= 200)
 		{
-			return new Random().Next( 31700, 42010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 317000, 420100 ); // 170-200 Vyndalium für Level 91-100
 		}
 		else
 		{
-			return new Random().Next( 41710, 52010 ); // 170-200 Vyndalium für Level 91-100
+			return new Random().Next( 417100, 520100 ); // 170-200 Vyndalium für Level 91-100
 		}
 	}
 	private int CalculateXpReward( int npcLevel )
@@ -1876,6 +1876,17 @@ public class KnockbackEffect : StatusEffect
 
 		// Markiere den NPC als "grounded"
 		isKnockedBack = false;
+	}
+}
+public class HolyEffect : StatusEffect
+{
+	public HolyEffect( float duration )
+	{
+		Duration = duration;
+	}
+	public override void Apply( Npc npc, Player attacker )
+	{
+	 
 	}
 }
 

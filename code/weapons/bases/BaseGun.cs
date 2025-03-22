@@ -681,8 +681,21 @@ public partial class  BaseGun : WeaponComponent, IUse
 		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
 		EffectRenderer?.Set( "b_attack", true );
 		EffectRenderer?.Set( "b_reload", false );
-		var childEffectRenderer = EffectRenderer?.Components.GetInChildrenOrSelf<SkinnedModelRenderer>();
-		childEffectRenderer?.Set( "deage_shoot", true );
+		
+		var gunrenderer = EffectRenderer?.Components.GetAll<SkinnedModelRenderer>();
+		if ( gunrenderer != null )
+		{
+			foreach ( var renderer in gunrenderer )
+			{
+				renderer.Set( "b_attack", true );
+				renderer.Set( "b_empty", AmmoInClip == 0 );
+				renderer.Set( "b_reload", false );
+
+			}
+		}
+		
+
+
 
 
 		NextAttackTime = 1f / FireRate;
@@ -816,27 +829,34 @@ public partial class  BaseGun : WeaponComponent, IUse
 				// Feueraspekt implementieren
 					FireBulletWithFireAspect( shooter );
 					return; 
+				// Water
 				case AspectType.Water:
 					FireBulletWithWaterAspect( shooter );
 					return;
+				//ICE
 				case AspectType.Ice:
 					FireBulletWithIceAspect( shooter );
 					return;
+				//AIR
 				case AspectType.Air:
 					FireBulletWithAirAspect( shooter );
 					return;
+				//EARTH
 				case AspectType.Earth:
 					FireBulletWithEarthAspect( shooter );
 					return;
+				//LIGHTNING
 				case AspectType.Lightning:
 					FireBulletWithLightningAspect( shooter );
 					return;
+				//SHADOW
 				case AspectType.Shadow:
 					FireBulletWithShadowAspect( shooter );
 					return;
 				case AspectType.Holy:
 					FireBulletWithHolyAspect( shooter );
 					return;
+				//BLEED
 				case AspectType.Bleed:
 					FireBulletWithBleedAspect( shooter );
 					return;
@@ -1007,6 +1027,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 		ReloadSound?.Stop();
 		EffectRenderer?.Set("b_reload", false);
 		EffectRenderer?.Set("b_attack", false);
+		EffectRenderer?.Set( "deage_shoot", false );
 	}
 	private bool hasPlayedChargedSound = false;
 	protected override void OnUpdate()
@@ -1424,7 +1445,18 @@ public partial class  BaseGun : WeaponComponent, IUse
 					
 					return;
 				case AspectType.Holy:
-					Sound.Play( "sounds/fireaspect.sound", startPos );
+					var transformholy = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
+					{
+						if ( transformholy.HasValue )
+						{
+							Sound.Play( FireSound, transformholy.Value.Position );
+							Task.Delay( 5000 );
+							Sound.Play( "sounds/aspects/shadow.sound", transformholy.Value.Position );
+
+
+						}
+
+					}
 					return;
 				case AspectType.Bleed:
 					var transformbleed = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
