@@ -165,6 +165,7 @@ namespace GeneralGame
             return Transform.World;
         }
 
+        [Rpc.Broadcast( NetFlags.SendImmediate )]
         void AssignComponentsToAllPlayers( Player playerComponent )
         {
             foreach ( var player in Player.All )

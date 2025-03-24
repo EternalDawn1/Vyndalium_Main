@@ -23,6 +23,7 @@ public static class SceneHandler
 {
 	public static GeneralScene CurrentScene { get; private set; }
 
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	public static void ChangeScene( GeneralScene scene, ulong? lobby = null, bool stopSound = true )
 	{
 		if ( !HasRequiredLevel( scene ) )
@@ -91,6 +92,7 @@ public static class SceneHandler
 
 	}
 
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	public static void DeleteCurrentScene()
 	{
 		// Logik zum Löschen der aktuellen Szene

@@ -199,6 +199,7 @@ public class MoveHelper : Component
 		}
 	}
 
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	private void Move( bool step )
 	{
 		if ( step && IsOnGround )
@@ -266,6 +267,7 @@ public class MoveHelper : Component
 	//
 	// Summary:
 	//     Move a character, with this velocity
+	[Rpc.Broadcast( NetFlags.SendImmediate )]
 	public void Move()
 	{
 		var wishSpeed = WishVelocity.Length;

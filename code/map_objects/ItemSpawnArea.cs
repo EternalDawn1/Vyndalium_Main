@@ -67,7 +67,7 @@ public sealed class ItemSpawnArea : Component
     {
         SpawnItems();
     }
-
+    [Rpc.Broadcast( NetFlags.SendImmediate )]
     public void SpawnItems()
     {
         RemoveItems();
@@ -127,6 +127,7 @@ public sealed class ItemSpawnArea : Component
         }
     }
 
+    [Rpc.Broadcast( NetFlags.SendImmediate )]
     public void RemoveItems()
     {
         foreach (var item in SpawnedItems)

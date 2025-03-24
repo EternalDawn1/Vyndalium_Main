@@ -9,6 +9,7 @@ namespace GeneralGame
         [Property] public GeneralScene SceneToLoad { get;private set; } = GeneralScene.Game;
         private bool canChangeScene = true;
 
+        [Rpc.Broadcast( NetFlags.SendImmediate )]
         public void OnTriggerEnter(Collider other)
         {
             if( other == null)
@@ -32,17 +33,19 @@ namespace GeneralGame
             }
         }
 
+        [Rpc.Broadcast( NetFlags.SendImmediate )]
         public void OnTriggerExit(Collider other)
         {
             // Optional: Code hier hinzufügen, der ausgeführt wird, wenn der Spieler den Triggerbereich verlässt
         }
 
-		private async void LoadSaveAndChangeScene( Player player )
+        [Rpc.Broadcast( NetFlags.SendImmediate )]
+        private  void LoadSaveAndChangeScene( Player player )
         {
             
             
           
-            await Task.DelaySeconds(.01f);
+         
             SceneHandler.ChangeScene(GeneralScene.Game);
         }
     }

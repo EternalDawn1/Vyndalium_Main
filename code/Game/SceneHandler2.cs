@@ -25,6 +25,7 @@ public static class SceneHandler2
 {
     public static GeneralScene2 CurrentScene { get; set; }
 
+    [Rpc.Broadcast( NetFlags.SendImmediate )]
     public static void ChangeScene2( GeneralScene2 scene, ulong? lobby = null, bool stopSound = true )
     {
         if ( !HasRequiredLevel2( scene ) )
@@ -96,7 +97,8 @@ public static class SceneHandler2
         
 
     }
-    
+
+    [Rpc.Broadcast( NetFlags.SendImmediate )]
     public static void LoadNewScene( GameResource resource, GeneralScene2 scene )
     {
         // Logik zum Laden der neuen Szene
@@ -104,6 +106,7 @@ public static class SceneHandler2
         CurrentScene = scene; // Aktualisieren der aktuellen Szene
     }
 
+    [Rpc.Broadcast( NetFlags.SendImmediate )]
     public static void DeleteCurrentScene()
     {
         // Logik zum Löschen der aktuellen Szene

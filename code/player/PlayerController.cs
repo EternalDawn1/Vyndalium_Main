@@ -288,7 +288,7 @@ public partial class Player : Component, IHealthComponent
 
 		Recoil += recoil;
 	}
-	[Rpc.Broadcast]
+	
 	public void ResetViewAngles()
 	{
 		if ( IsProxy ) return;

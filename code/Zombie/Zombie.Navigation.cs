@@ -67,7 +67,7 @@ public partial class Npc
         }
     }
 
-
+    [Rpc.Broadcast]
     public virtual void ComputeNavigation()
     {
         if ( MoveHelper == null ) return;

@@ -727,7 +727,8 @@ public partial class  BaseGun : WeaponComponent, IUse
 				var trailobject = GameObject.Clone( trailInstance );
 				if ( trailobject != null )
 				{
-					trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+					trailobject.WorldPosition = startPos;
+					trailobject.NetworkSpawn(); // Setze die Startposition auf die Mündung
 
 					var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
 					{
