@@ -9,7 +9,7 @@ namespace GeneralGame
         public const int MAX_PLAYERS = 16;
         [Property] public GameObject Prefab { get; set; }
         [Sync( SyncFlags.FromHost )] public static Guid HostId { get; set; }
-        [Property] public bool StartServer { get; set; } = true;
+       
         [Property] public List<GameObject> SpawnPoints { get; set; }
 
 
@@ -18,31 +18,13 @@ namespace GeneralGame
         {
 
 
-            if (!Networking.IsActive && !IsProxy && StartServer)
+            if (!Networking.IsActive && !IsProxy)
             {
                 await Task.DelayRealtimeSeconds(0.1f);
-
-                // Erstelle eine neue Lobby-Konfiguration
-                var lobbyConfig = new LobbyConfig
-                {
-                    MaxPlayers = MAX_PLAYERS,
-                    Privacy = LobbyPrivacy.Public,
-                    // Füge hier weitere Konfigurationen hinzu, falls erforderlich
-                };
-
-                // Verwende die neue Methode mit der Lobby-Konfiguration
-                Networking.CreateLobby(lobbyConfig);
-                
-
-                
-
+                ToggleLobby();
                 return;
             }
-            if ( Player.All == null )
-            {
-                
-            }
-
+          
             if ( Player.All == null || Player.All.Count >= MAX_PLAYERS )
             {
                 SceneHandler.ChangeScene( GeneralScene.MainMenu );
@@ -69,7 +51,6 @@ namespace GeneralGame
 
             if ( Prefab == null )
             {
-                Log.Error( "Prefab is not set." );
                 return;
             }
 
@@ -79,7 +60,6 @@ namespace GeneralGame
             var playerComponent = playerObject.Components.Get<Player>( FindMode.EverythingInSelfAndDescendants );
             if ( playerComponent == null )
             {
-                Log.Error( "Player component not found in the cloned object." );
                 return;
             }
 
@@ -89,7 +69,6 @@ namespace GeneralGame
 
             if ( Player._InternalPlayers == null )
             {
-                Log.Error( "Player._InternalPlayers is not initialized." );
                 return;
             }
             Player._InternalPlayers?.Clear();
@@ -103,7 +82,7 @@ namespace GeneralGame
 
             if ( !Player.Setup( playerComponent ) )
             {
-                Log.Error( "Player setup failed." );
+
             }
         }
         void INetworkListener.OnDisconnected( Connection connection )
@@ -151,18 +130,10 @@ namespace GeneralGame
             }
 
             // Close lobby.
-            ServerClose(true);
-            Networking.Disconnect();
+            //ServerClose(true);
+            //Networking.Disconnect();
 
-            for (int i = 0; i < Player.All.Count; i++)
-            {
-                var p = Player.All.ElementAtOrDefault(i);
-                if (p is null || p == Player.Local)
-                    continue;
-
-                Player._InternalPlayers.Remove(p);
-                p.Destroy();
-            }
+            
         }
         void INetworkListener.OnBecameHost( Connection previousHost )
         {

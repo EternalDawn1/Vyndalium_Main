@@ -1029,14 +1029,14 @@ public sealed class Inventory : Component
 
 		return true;
 	}
+
 	
 
 
-
-
-	public bool DropItem( ItemComponent item )
+	[Rpc.Broadcast]
+	public void DropItem( ItemComponent item )
 	{
-		if(IsProxy) return true;
+		if ( IsProxy ) return;
 
 		if ( item is ItemEquipment equipment && equipment.Equipped )
 			RemoveEquipmentItem( equipment );
@@ -1046,12 +1046,6 @@ public sealed class Inventory : Component
 
 		else if ( item.State == ItemState.Storage )
 			RemoveStorageItem( item, _storageItems.IndexOf( item ) );
-
-
-		
-		
-
-
 
 		item.State = ItemState.None;
 		item.GameObject.Enabled = true;
@@ -1066,10 +1060,6 @@ public sealed class Inventory : Component
 		{
 			ModelColider.Enabled = true;
 		}
-		
-		
-		
-		
 
 		item.GameObject.Parent = null;
 
@@ -1099,16 +1089,14 @@ public sealed class Inventory : Component
 		{
 			physicsBody.Velocity = velocity;
 		}
-		else if(item.GameObject.Components.TryGet<ModelRenderer>(out var modelRenderer, FindMode.EverythingInSelf))
+		else if ( item.GameObject.Components.TryGet<ModelRenderer>( out var modelRenderer, FindMode.EverythingInSelf ) )
 		{
 			modelRenderer.Enabled = true;
 		}
-		
-		
 
-		return true;
+		return;
 	}
-	
+
 	public bool SwapBackpackPackItems( int fromIndex, int toIndex )
 	{
 		var fromItem = _backpackBagItems.ElementAtOrDefault( fromIndex );

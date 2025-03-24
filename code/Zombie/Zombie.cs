@@ -684,6 +684,11 @@ public partial class Npc : Component, IHealthComponent
 		{
 			return;
 		}
+		// Überprüfen, ob MoveHelper oder Model.WorldRotation null sind
+		if ( MoveHelper == null  )
+		{
+			return;
+		}
 		// Holen Sie die Geschwindigkeit des NPCs
 		var oldX = Model.GetFloat( "move_x" );
 		var oldY = Model.GetFloat( "move_y" );

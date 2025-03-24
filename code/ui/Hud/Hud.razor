@@ -159,7 +159,7 @@
 
 		<div class="hud-container">
 			<div class="about">
-				@if (player.Connection.SteamId > 0)
+				@if (player?.Connection != null && player?.Connection.SteamId > 0)
 				{
 					<div class="avatar" style="background-image: url( avatar:@player.Connection.SteamId )"></div>
 					<div class="a">@player.Connection.DisplayName</div>
