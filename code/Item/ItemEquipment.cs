@@ -27,7 +27,7 @@ public enum HoldType : byte
 
 public class ItemEquipment : ItemComponent
 {
-    public static Model Parcel = Model.Load("models/props/parcel/clothing_parcel.vmdl");
+    public static Model Parcel = Model.Load( "models/props/parcel/clothing_parcel.vmdl" );
 
     [Property, Category("Equipment")] public bool IsBackable { get; set; }
     [Property, Category("Equipment")] public EquipSlot Slot { get; set; } = EquipSlot.Hand;
@@ -107,6 +107,7 @@ public class ItemEquipment : ItemComponent
             Renderer.Enabled = value;
     }
 
+    [Rpc.Broadcast]
     private void UpdateParcel(bool value)
     {
         ToggleRenderer(!value);

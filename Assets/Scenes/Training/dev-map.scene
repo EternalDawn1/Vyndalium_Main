@@ -60,8 +60,7 @@
           },
           "SpawnPoints": [
             null
-          ],
-          "StartServer": true
+          ]
         },
         {
           "__type": "GeneralGame.HUD.Hudmaster",
@@ -603,6 +602,427 @@
       "Enabled": true,
       "__Prefab": "prefabs/entitys/box_legendary.prefab",
       "__PrefabVariables": {}
+    },
+    {
+      "__guid": "60e13073-9e2a-4899-824d-8478350d0751",
+      "Flags": 0,
+      "Name": "boss spawner",
+      "Position": "-1274.105,3046.466,14.60544",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NpcSpawnArea",
+          "__guid": "89ab56f3-80c5-418d-948d-0c8b17877705",
+          "ActiveArena": null,
+          "allSubNpcsKilled": false,
+          "BaseColor": "1,1,1,1",
+          "BattleMusic": "sounds/battle-music/battlemusic1.sound",
+          "BossNpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/npc/slime_variants/va7-boss.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 1,
+                "SpawnChance": 1
+              },
+              "SpawnEffect": null,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": true,
+              "SubNpcPool": [
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/hit/fire-spawn.prefab"
+                  },
+                  "SpawnChance": 1,
+                  "SpawnCount": 1,
+                  "SubNpcSpawnDelayPerNpc": 0.1,
+                  "SpawnEffect": null,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0,
+                  "MinLevel": 1,
+                  "MaxLevel": 1,
+                  "SequentialSpawn": true,
+                  "SpawnInterval": 0.1,
+                  "EnableDestroyAfterTime": true,
+                  "DestroyAfterTime": 120
+                },
+                {
+                  "Npc": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/npc/slime_variants/va7-boss-mini.prefab"
+                  },
+                  "SpawnChance": 1,
+                  "SpawnCount": 1,
+                  "SubNpcSpawnDelayPerNpc": 1,
+                  "SpawnEffect": null,
+                  "IceAbilityChance": 0,
+                  "WindAbilityChance": 0,
+                  "FireAbilityChance": 0.3,
+                  "MinLevel": 1,
+                  "MaxLevel": 5,
+                  "SequentialSpawn": true,
+                  "SpawnInterval": 1,
+                  "EnableDestroyAfterTime": false,
+                  "DestroyAfterTime": 0
+                }
+              ],
+              "SubNpcSpawnDelay": 1,
+              "MinLevel": 5,
+              "MaxLevel": 15,
+              "IceAbilityChance": 0.12,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0.19,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/bosschest-slime.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 0,
+                "MaxCount": 0,
+                "SpawnChance": 0
+              },
+              "SpawnEffect": null,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 4,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "BossSpawnDelay": 1,
+          "ChallengeDoor": {
+            "_type": "component",
+            "component_id": "e2bb90c2-b9f3-45d2-90c5-18e4b71e6175",
+            "go": "141d221a-f40a-40ff-b04e-a4694b8cc606",
+            "component_type": "ChallengeDoor"
+          },
+          "Checkpoint": null,
+          "ColorChangeDuration": 2,
+          "DestroyAfterSpawning": true,
+          "DrawProximityRangeGizmo": true,
+          "DrawSpawnAreaGizmo": true,
+          "FadingToColor": "0.64186,0,0,1",
+          "FillGizmo": false,
+          "GizmoColor": "1,0.83333,0,1",
+          "GizmoShape": "Cylinder",
+          "hasSpawnedBoss": false,
+          "hasSpawnedNPCs": false,
+          "Height": 180.40016,
+          "InfiniteLoops": false,
+          "lastSpawnTime": {
+            "Absolute": 0,
+            "Relative": 101837670
+          },
+          "Lights": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "LoopSpawning": false,
+          "LoopSpawnInterval": 300,
+          "NpcPool": [
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/entitys/box_legendary.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 0.21
+              },
+              "SpawnEffect": null,
+              "SpawnCount": 1,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            },
+            {
+              "Npc": {
+                "_type": "gameobject",
+                "prefab": "prefabs/vyndalium.prefab"
+              },
+              "SpawnCountRange": {
+                "MinCount": 1,
+                "MaxCount": 3,
+                "SpawnChance": 0
+              },
+              "SpawnEffect": null,
+              "SpawnCount": 3,
+              "EnableSubNpcPool": false,
+              "SubNpcPool": [],
+              "SubNpcSpawnDelay": 5,
+              "MinLevel": 1,
+              "MaxLevel": 1,
+              "IceAbilityChance": 0,
+              "WindAbilityChance": 0,
+              "FireAbilityChance": 0,
+              "SequentialSpawn": false,
+              "SpawnInterval": 1
+            }
+          ],
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerProximityDistance": "994.601,414.9005,358.6001",
+          "PositionOffset": "0,0,0",
+          "Radius": "586.4009,0,0",
+          "SpawnAreaGizmoColor": "0,0,1,1",
+          "SpawnEffect": null,
+          "StopDrawingDistance": 8000,
+          "StopLogicDistance": 500
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "83c50aae-bc41-4a89-a3c8-6609a880df00",
+          "Flags": 0,
+          "Name": "Timer",
+          "Position": "-16.50159,-280.27,196.4059",
+          "Rotation": "0.09229596,0.09229594,-0.7010573,0.7010574",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.WorldPanel",
+              "__guid": "ad1288e2-c1c6-4bea-a20a-c3b69719f6f7",
+              "HorizontalAlign": "Center",
+              "InteractionRange": 1000,
+              "LookAtCamera": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PanelSize": "1551.7,1278.2",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderScale": 1,
+              "VerticalAlign": "Center"
+            },
+            {
+              "__type": "GeneralGame.HUD.ChallengeDoorPanel",
+              "__guid": "77dbf5b4-33b1-4d56-b358-143ee7cd5d02",
+              "__enabled": false,
+              "ChallengeDoorInstance": {
+                "_type": "component",
+                "component_id": "e2bb90c2-b9f3-45d2-90c5-18e4b71e6175",
+                "go": "141d221a-f40a-40ff-b04e-a4694b8cc606",
+                "component_type": "ChallengeDoor"
+              },
+              "ChallengeDoorPanelInstance": {
+                "_type": "component",
+                "component_id": "77dbf5b4-33b1-4d56-b358-143ee7cd5d02",
+                "go": "83c50aae-bc41-4a89-a3c8-6609a880df00",
+                "component_type": "ChallengeDoorPanel"
+              },
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "141d221a-f40a-40ff-b04e-a4694b8cc606",
+              "Flags": 0,
+              "Name": "ChallengeDoor2",
+              "Position": "542.9585,-0.441803,-11.04131",
+              "Rotation": "0,0,0.7071067,0.7071068",
+              "Scale": "4.430486,0.2204069,4.916048",
+              "Components": [
+                {
+                  "__type": "GeneralGame.ChallengeDoor",
+                  "__guid": "e2bb90c2-b9f3-45d2-90c5-18e4b71e6175",
+                  "boxCollider": {
+                    "_type": "component",
+                    "component_id": "7c9938a3-5bb0-4d18-9a8a-060a11f15b0d",
+                    "go": "141d221a-f40a-40ff-b04e-a4694b8cc606",
+                    "component_type": "BoxCollider"
+                  },
+                  "ChallengeDoorPanel": {
+                    "_type": "component",
+                    "component_id": "77dbf5b4-33b1-4d56-b358-143ee7cd5d02",
+                    "go": "83c50aae-bc41-4a89-a3c8-6609a880df00",
+                    "component_type": "ChallengeDoorPanel"
+                  },
+                  "CloseDuration": 60,
+                  "isTimerActive": false,
+                  "modelRenderer": {
+                    "_type": "component",
+                    "component_id": "73219148-ec64-4cb4-bfc8-4993099956ba",
+                    "go": "141d221a-f40a-40ff-b04e-a4694b8cc606",
+                    "component_type": "ModelRenderer"
+                  },
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "SpawnArea": {
+                    "_type": "component",
+                    "component_id": "89ab56f3-80c5-418d-948d-0c8b17877705",
+                    "go": "60e13073-9e2a-4899-824d-8478350d0751",
+                    "component_type": "NpcSpawnArea"
+                  },
+                  "timer": 0
+                },
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "73219148-ec64-4cb4-bfc8-4993099956ba",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/lake_water.vmat",
+                  "Model": null,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,0,0,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "7c9938a3-5bb0-4d18-9a8a-060a11f15b0d",
+                  "Center": "0.0295372,0,0",
+                  "Friction": null,
+                  "IsTrigger": false,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnObjectTriggerEnter": null,
+                  "OnObjectTriggerExit": null,
+                  "OnTriggerEnter": null,
+                  "OnTriggerExit": null,
+                  "Scale": "49.85906,50,50",
+                  "Static": false,
+                  "Surface": null,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "e0de150a-fe08-4368-ae53-79f3bc077518",
+              "Flags": 0,
+              "Name": "Object",
+              "Position": "-0.273243,59.50758,-1.517669",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpriteRenderer",
+                  "__guid": "5ce046df-9cf2-42e1-a160-ae78f9e938c0",
+                  "Additive": false,
+                  "CastShadows": false,
+                  "Color": "0.01667,1,0,1",
+                  "DepthFeather": 0,
+                  "FlipHorizontal": false,
+                  "FlipVertical": false,
+                  "FogStrength": 1,
+                  "Lighting": false,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "Opaque": false,
+                  "Pivot": "0.5,0.5",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "Size": "70,70",
+                  "Texture": "sprites/vidya/shapes/exclamation.vtex"
+                }
+              ]
+            },
+            {
+              "__guid": "64f567ea-a778-4a98-8dbc-56da2e32b30f",
+              "Flags": 0,
+              "Name": "Object (3)",
+              "Position": "-0.2732582,-54.64008,-1.517637",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpriteRenderer",
+                  "__guid": "332ec0d5-6663-4596-9717-94059da08b59",
+                  "Additive": false,
+                  "CastShadows": false,
+                  "Color": "0.01667,1,0,1",
+                  "DepthFeather": 0,
+                  "FlipHorizontal": false,
+                  "FlipVertical": false,
+                  "FogStrength": 1,
+                  "Lighting": false,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "Opaque": false,
+                  "Pivot": "0.5,0.5",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "Size": "70,70",
+                  "Texture": "sprites/vidya/shapes/exclamation.vtex"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -624,13 +1044,16 @@
       "AgentRadius": 3.13,
       "AgentStepSize": 83.000015,
       "AgentMaxSlope": 69.40001,
-      "ExcludedBodies": "npc",
+      "ExcludedBodies": "",
       "IncludedBodies": ""
     }
   },
   "ResourceVersion": 2,
   "Title": null,
   "Description": null,
-  "__references": [],
+  "__references": [
+    "nolankicks.lake_water#65330",
+    "vidya.shape-exclamation#45509"
+  ],
   "__version": 2
 }

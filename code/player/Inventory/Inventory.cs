@@ -556,7 +556,7 @@ public sealed class Inventory : Component
 		GiveBackpackItem( item, firstFreeSlot );
 		item.State = ItemState.Backpack;
 		item.GameObject.Enabled = false;
-		
+		Player.Save();
 		
 
 		return true;

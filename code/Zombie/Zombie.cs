@@ -431,18 +431,33 @@ public partial class Npc : Component, IHealthComponent
 	{
 		// Überprüfe auf Vorbedingungen, um eine ungültige Ausführung zu vermeiden
 		if ( Model == null || (Healthone != null && !Healthone.Alive) )
-			
-
-		UpdateFootAnimations();
+			return;
 
 		bool isPlayerNearby = IsPlayerNearby();
-
-		
 
 		// Suchen Sie nach allen Spielern in der Szene
 		var players = Scene.GetAllComponents<Player>();
 
 		// Finden Sie den Spieler, der dem NPC am nächsten ist
+		Player closestPlayer = FindClosestPlayer( players );
+
+		if ( closestPlayer != null )
+		{
+			HandlePlayerDetection( closestPlayer, isPlayerNearby );
+		}
+		else
+		{
+			HandleNoPlayerDetected();
+		}
+
+		if ( RecentlyDamaged && Time.Now - LastDamageTime > DamageCooldown )
+		{
+			RecentlyDamaged = false;
+		}
+	}
+
+	private Player FindClosestPlayer( IEnumerable<Player> players )
+	{
 		Player closestPlayer = players.FirstOrDefault();
 		var closestDistanceSquared = float.MaxValue;
 
@@ -457,192 +472,194 @@ public partial class Npc : Component, IHealthComponent
 				closestPlayer = player;
 			}
 		}
-
-		
-
 		if ( closestPlayer != null )
 		{
-			var closestDistance = MathF.Sqrt( closestDistanceSquared );
-
-			// Überprüfen, ob der Spieler innerhalb der Reichweite ist
-			if ( closestDistance <= VisionRange || IsWithinRange( closestPlayer.GameObject, DetectRange ) )
+			if ( !string.IsNullOrEmpty( closestPlayer.Name ) )
 			{
-				
-				SetTarget( closestPlayer.GameObject );
-
-				// Richte den NPC auf die Bewegungsrichtung aus, falls erforderlich
-				if ( Ragdoll == null && FaceTowardsVelocity )
-				{
-					if ( !MoveHelper.Velocity.IsNearlyZero( 1f ) )
-					{
-						WorldRotation = Rotation.Lerp( WorldRotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * 5.0f );
-					}
-				}
-				
-
-				//UpdateAnimations( closestPlayer );
-				float maxProximityDistance = 80f;
-
-				// Überprüfe die Entfernung zum nächsten Spieler und passe die Bewegungsart entsprechend an
-				if ( closestDistance < maxProximityDistance )
-				{
-					CurrentState = NpcState.Walking;
-
-					if ( AnimationHelper != null )
-					{
-						AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
-					}
-					else
-					{
-						
-					}
-
-					if ( agent != null )
-					{
-						agent.Stop();
-					}
-
-					NormalTrace();
-				}
-				else
-				{
-					CurrentState = NpcState.Attacking;
-
-					// Setze den HoldType basierend auf dem aktuellen HoldType
-					switch ( CurrentHoldType )
-					{
-						case HoldTypes.None:
-							if ( AnimationHelper != null )
-							{
-								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
-							}
-							break;
-						case HoldTypes.Pistol:
-							if ( AnimationHelper != null )
-							{
-								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
-							}
-							break;
-						case HoldTypes.Rifle:
-							if ( AnimationHelper != null )
-							{
-								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Rifle;
-							}
-							break;
-						case HoldTypes.Shotgun:
-							if ( AnimationHelper != null )
-							{
-								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Shotgun;
-							}
-							break;
-						case HoldTypes.HoldItem:
-							if ( AnimationHelper != null )
-							{
-								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.HoldItem;
-							}
-							break;
-						case HoldTypes.Punch:
-							if ( AnimationHelper != null )
-							{
-								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
-							}
-							break;
-						case HoldTypes.Swing:
-							if ( AnimationHelper != null )
-							{
-								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
-							}
-							break;
-						case HoldTypes.RPG:
-							if ( AnimationHelper != null )
-							{
-								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.RPG;
-							}
-							break;
-						default:
-							if ( AnimationHelper != null )
-							{
-								AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
-							}
-							break;
-					}
-
-					agent.MoveTo( closestPlayer.WorldPosition );
-					if ( !isPlayerNearby )
-					{
-						CurrentState = NpcState.Running;
-
-						AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
-						if ( isChibi && Model != null )
-						{
-							
-						
-							Model.Set( "chibi_run", true );
-							
-						}
-							
-					}
-					
-				}
-				// Füge die Logik für den Chibi-Zombie hinzu
-				
-			}
-			else
-			{
-				// Spieler ist außerhalb der Reichweite, NPC sollte aufhören, ihn zu verfolgen
-				Undetected();
-				
-				MoveToTargetPosition();
-			
+				Log.Info( $"Closest player: {closestPlayer.Name}, Distance: {MathF.Sqrt( closestDistanceSquared )}" );
 			}
 		}
 		else
 		{
-			CurrentState = NpcState.Idle;
-			if(isChibi && Model != null)
-			{
-				Model.Set( "chibi_idle", true );
-				Log.Info( "Chibi Idle" );
-			}
-			if (isPrometheus && Model != null)
-			{
-				Model.Set( "prometheus_idle", true );
-			}
-			if ( TargetObject != null )
-			{
-				// Überprüfen, ob das Ziel immer noch gültig ist, oder es außerhalb der Reichweite ist
-				if ( !IsWithinRange( TargetObject ) )
-				{
-					// Ziel außerhalb der Reichweite, verfolge weiterhin das letzte Ziel
-					agent.MoveTo( TargetObject.WorldPosition );
+			Log.Info( "No players found." );
+		}
+		
+		return closestPlayer;
+	}
 
-				}
-				else
+	private void HandlePlayerDetection( Player closestPlayer, bool isPlayerNearby )
+	{
+		var closestDistance = MathF.Sqrt( (closestPlayer.WorldPosition - WorldPosition).LengthSquared );
+
+		// Überprüfen, ob der Spieler innerhalb der Reichweite ist
+		if ( closestDistance <= VisionRange || IsWithinRange( closestPlayer.GameObject, DetectRange ) )
+		{
+			// Nur das Ziel wechseln, wenn das aktuelle Ziel nicht mehr gültig ist oder tot ist
+			if ( TargetObject == null || !IsWithinRange( TargetObject, VisionRange ) || TargetObject.Components.Get<IHealthComponent>()?.LifeState == LifeState.Dead )
+			{
+				SetTarget( closestPlayer.GameObject );
+			}
+
+			// Richte den NPC auf die Bewegungsrichtung aus, falls erforderlich
+			if ( Ragdoll == null && FaceTowardsVelocity )
+			{
+				if ( !MoveHelper.Velocity.IsNearlyZero( 1f ) )
 				{
-					DetectAround();
-					
+					WorldRotation = Rotation.Lerp( WorldRotation, Rotation.LookAt( MoveHelper.Velocity.WithZ( 0f ), Vector3.Up ), Time.Delta * 5.0f );
 				}
+			}
+
+			//UpdateAnimations(closestPlayer);
+			float maxProximityDistance = 80f;
+
+			// Überprüfe die Entfernung zum nächsten Spieler und passe die Bewegungsart entsprechend an
+			if ( closestDistance < maxProximityDistance )
+			{
+				HandleWalkingState();
 			}
 			else
 			{
-				// Wenn kein Zielobjekt vorhanden ist, bewege den NPC zu einer zufälligen Position
-				MoveToTargetPosition();
-			
-				DetectAround();
-				
+				HandleAttackingState( closestPlayer, isPlayerNearby );
 			}
 		}
-		if ( RecentlyDamaged && Time.Now - LastDamageTime > DamageCooldown )
+		else
 		{
-			RecentlyDamaged = false;
+			// Spieler ist außerhalb der Reichweite, NPC sollte aufhören, ihn zu verfolgen
+			Undetected();
+			MoveToTargetPosition();
+		}
+	}
+
+	private void HandleWalkingState()
+	{
+		CurrentState = NpcState.Walking;
+
+		if ( AnimationHelper != null )
+		{
+			AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 		}
 
-		// Wenn kein Zielobjekt vorhanden ist, bewege den NPC zur letzten bekannten Position des Spielers
-		UpdateFootAnimations();
+		if ( agent != null )
+		{
+			agent.Stop();
+		}
 
-		
+		NormalTrace();
 	}
-	
+
+	private void HandleAttackingState( Player closestPlayer, bool isPlayerNearby )
+	{
+		CurrentState = NpcState.Attacking;
+
+		// Setze den HoldType basierend auf dem aktuellen HoldType
+		SetHoldType();
+
+		agent.MoveTo( closestPlayer.WorldPosition );
+		if ( !isPlayerNearby )
+		{
+			CurrentState = NpcState.Running;
+
+			AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
+			if ( isChibi && Model != null )
+			{
+				Model.Set( "chibi_run", true );
+			}
+		}
+	}
+
+	private void SetHoldType()
+	{
+		switch ( CurrentHoldType )
+		{
+			case HoldTypes.None:
+				if ( AnimationHelper != null )
+				{
+					AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+				}
+				break;
+			case HoldTypes.Pistol:
+				if ( AnimationHelper != null )
+				{
+					AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
+				}
+				break;
+			case HoldTypes.Rifle:
+				if ( AnimationHelper != null )
+				{
+					AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Rifle;
+				}
+				break;
+			case HoldTypes.Shotgun:
+				if ( AnimationHelper != null )
+				{
+					AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Shotgun;
+				}
+				break;
+			case HoldTypes.HoldItem:
+				if ( AnimationHelper != null )
+				{
+					AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.HoldItem;
+				}
+				break;
+			case HoldTypes.Punch:
+				if ( AnimationHelper != null )
+				{
+					AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
+				}
+				break;
+			case HoldTypes.Swing:
+				if ( AnimationHelper != null )
+				{
+					AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Swing;
+				}
+				break;
+			case HoldTypes.RPG:
+				if ( AnimationHelper != null )
+				{
+					AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.RPG;
+				}
+				break;
+			default:
+				if ( AnimationHelper != null )
+				{
+					AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+				}
+				break;
+		}
+	}
+
+	private void HandleNoPlayerDetected()
+	{
+		CurrentState = NpcState.Idle;
+		if ( isChibi && Model != null )
+		{
+			Model.Set( "chibi_idle", true );
+			Log.Info( "Chibi Idle" );
+		}
+		if ( isPrometheus && Model != null )
+		{
+			Model.Set( "prometheus_idle", true );
+		}
+		if ( TargetObject != null )
+		{
+			// Überprüfen, ob das Ziel immer noch gültig ist, oder es außerhalb der Reichweite ist
+			if ( !IsWithinRange( TargetObject ) )
+			{
+				// Ziel außerhalb der Reichweite, verfolge weiterhin das letzte Ziel
+				agent.MoveTo( TargetObject.WorldPosition );
+			}
+			else
+			{
+				DetectAround();
+			}
+		}
+		else
+		{
+			// Wenn kein Zielobjekt vorhanden ist, bewege den NPC zu einer zufälligen Position
+			MoveToTargetPosition();
+			DetectAround();
+		}
+	}
 
 	void UpdateAnimations( Player player )
 	{

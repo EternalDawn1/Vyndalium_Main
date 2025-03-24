@@ -580,7 +580,7 @@ public sealed class NpcSpawnArea : Component
 		
 	}
 
-
+	
 	private async Task SpawnSubNpcsWithDelay( List<SubNpcChance> subNpcPool, float delay )
 	{
 		do

@@ -153,6 +153,7 @@ public partial class Player : Component, IHealthComponent
 			}
 		}
 	}
+	[Rpc.Broadcast]
 	private void SetPlayerMovement( Vector3 movement )
 	{
 		BuildWishVelocity();
@@ -175,6 +176,7 @@ public partial class Player : Component, IHealthComponent
 		// Normale Bewegungslogik hier...
 	}
 
+	[Rpc.Broadcast]
 	private void StopMovement()
 	{
 		// Setze die Eingaben des Spielers zurück
@@ -277,22 +279,23 @@ public partial class Player : Component, IHealthComponent
 	{
 		Mana += amount;
 	}
-	
 
 
+	[Rpc.Broadcast]
 	public void ApplyRecoil( Angles recoil )
 	{
 		if ( IsProxy ) return;
 
 		Recoil += recoil;
 	}
-
+	[Rpc.Broadcast]
 	public void ResetViewAngles()
 	{
 		var rotation = Rotation.Identity;
 		EyeAngles = rotation.Angles().WithRoll( 0f );
 	}
 
+	
 	public async void RespawnAsync( float seconds )
 	{
 		if ( IsProxy ) return;
@@ -304,6 +307,7 @@ public partial class Player : Component, IHealthComponent
 	public Transform GetAttachment( string attachment, bool world = true )
 	=> ModelRenderer.GetAttachment( attachment, world ) ?? global::Transform.Zero;
 
+[Rpc.Broadcast]
 	public void Respawn()
 	{
 		if ( IsProxy )
@@ -400,6 +404,7 @@ public partial class Player : Component, IHealthComponent
 		}
 	}
 
+	
 	protected virtual bool CanUncrouch()
 	{
 		if ( IsProxy )
@@ -410,7 +415,7 @@ public partial class Player : Component, IHealthComponent
 		var tr = CharacterController.TraceDirection( Vector3.Up * DuckHeight );
 		return !tr.Hit;
 	}
-
+	[Rpc.Broadcast]
 	protected virtual void OnKilled(GameObject attacker)
 	{
 		if (IsProxy)
@@ -480,6 +485,7 @@ public partial class Player : Component, IHealthComponent
 	private TimeSince lastStepped;
 	private bool isLeftFoot = true;
 
+	[Rpc.Broadcast]
 	private void OnFootstep( SceneModel.FootstepEvent e )
 	{
 		
@@ -571,7 +577,7 @@ public partial class Player : Component, IHealthComponent
 	}
 
 
-
+	[Rpc.Broadcast]
 	private void UpdateWeaponModelVisibility()
 	{
 		if(!IsProxy) 
@@ -613,7 +619,7 @@ public partial class Player : Component, IHealthComponent
 	}
 
 
-
+	[Rpc.Broadcast]
 	private void UpdateModelVisibility()
 	{
 		if ( !ModelRenderer.IsValid() )
@@ -877,7 +883,7 @@ public partial class Player : Component, IHealthComponent
 			animator.MoveStyle = (IsRunning && !IsCrouching) ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
 		}
 	}
-
+	[Rpc.Broadcast]
 	protected virtual void DoCrouchingInput()
 	{
 		if ( IsProxy )
@@ -908,7 +914,7 @@ public partial class Player : Component, IHealthComponent
 	{
 		return a + (b - a) * t;
 	}
-
+	[Rpc.Broadcast]
 	protected virtual void DoMovementInput()
 	{
 		if ( IsProxy )
@@ -1014,7 +1020,7 @@ public partial class Player : Component, IHealthComponent
 		
 	}
 
-
+	[Rpc.Broadcast]
 	public void MoveToSpawnPoint()
 	{
 		if ( IsProxy )
@@ -1033,7 +1039,7 @@ public partial class Player : Component, IHealthComponent
 		WorldRotation = Rotation.FromYaw( randomSpawnpoint.WorldRotation.Yaw() );
 		EyeAngles = WorldRotation;
 	}
-
+	[Rpc.Broadcast]
 	private void BuildWishVelocity()
 	{
 		if ( IsProxy )

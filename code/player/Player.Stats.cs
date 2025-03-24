@@ -253,7 +253,7 @@ public class BurnEffect : StatusEffect
                 {
                     // Fügen Sie dem Spieler Schaden zu
                     player.TakeDamage( DamageType.fire, damagePerSecond, player.Position, Vector3.Zero, Guid.Empty, player.Id );
-                    Log.Info( $"Burn effect applied to {player.Name}: {damagePerSecond} damage." );
+                    
                 }
             } );
         }
