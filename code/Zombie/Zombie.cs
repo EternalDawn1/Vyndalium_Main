@@ -486,7 +486,7 @@ public partial class Npc : Component, IHealthComponent
 		
 		return closestPlayer;
 	}
-
+	[Rpc.Broadcast]
 	private void HandlePlayerDetection( Player closestPlayer, bool isPlayerNearby )
 	{
 		var closestDistance = MathF.Sqrt( (closestPlayer.WorldPosition - WorldPosition).LengthSquared );
@@ -529,7 +529,7 @@ public partial class Npc : Component, IHealthComponent
 			MoveToTargetPosition();
 		}
 	}
-
+	[Rpc.Broadcast]
 	private void HandleWalkingState()
 	{
 		CurrentState = NpcState.Walking;
@@ -546,7 +546,7 @@ public partial class Npc : Component, IHealthComponent
 
 		NormalTrace();
 	}
-
+	[Rpc.Broadcast]
 	private void HandleAttackingState( Player closestPlayer, bool isPlayerNearby )
 	{
 		CurrentState = NpcState.Attacking;
@@ -566,7 +566,7 @@ public partial class Npc : Component, IHealthComponent
 			}
 		}
 	}
-
+	[Rpc.Broadcast]
 	private void SetHoldType()
 	{
 		switch ( CurrentHoldType )
@@ -627,7 +627,7 @@ public partial class Npc : Component, IHealthComponent
 				break;
 		}
 	}
-
+	[Rpc.Broadcast]
 	private void HandleNoPlayerDetected()
 	{
 		CurrentState = NpcState.Idle;
@@ -800,6 +800,7 @@ public partial class Npc : Component, IHealthComponent
 		
 		
 	}
+	[Rpc.Broadcast]
 	private void ApplyBurn( Player player, int duration )
 	{
 		if ( player == null )
@@ -851,7 +852,7 @@ public partial class Npc : Component, IHealthComponent
 	/// Get all provokers inside of its detect area
 	/// </summary>
 	public IEnumerable<GameObject> ProvokersInArea { get; set; }
-
+	[Rpc.Broadcast]
 	public void DetectAround()
 	{
 		if ( TargetObject != null )
@@ -897,7 +898,7 @@ public partial class Npc : Component, IHealthComponent
 		if ( TargetObject != null )
 			OnAttack?.Invoke( TargetObject );
 	}
-
+	[Rpc.Broadcast]
 	public void Detected( GameObject target, bool alertOthers = false )
 	{
 		if ( target == null ) return;
@@ -932,13 +933,13 @@ public partial class Npc : Component, IHealthComponent
 		if ( TargetObject is not null )
 			OnDetect?.Invoke( TargetObject );
 	}
-
+	[Rpc.Broadcast]
 	public void Damaged( GameObject target )
 	{
 		if ( TargetObject == null && TargetObject != target )
 			Detected( target, true );
 	}
-
+	[Rpc.Broadcast]
 	public void Undetected()
 	{
 		BroadcastOnEscape();
@@ -965,6 +966,8 @@ public partial class Npc : Component, IHealthComponent
 	/// </summary>
 	/// <param name="target"></param>
 	/// <param name="escapeFrom"></param>
+	/// 
+	[Rpc.Broadcast]
 	public void SetTarget( GameObject target, bool escapeFrom = false )
 	{
 		if ( target == null )
@@ -1043,7 +1046,7 @@ public partial class Npc : Component, IHealthComponent
 			}
 		}
 	}
-	
+	[Rpc.Broadcast]
 	private void CreateFireDamageArea()
 	{
 		// Finde alle Spieler im Schadensbereich
@@ -1106,12 +1109,14 @@ public partial class Npc : Component, IHealthComponent
 
 		return target.WorldPosition.Distance( WorldPosition ) <= range;
 	}
+	[Rpc.Broadcast]
 	public void SetHealthBasedOnLevel()
 	{
 		// Berechne das MaxHealth und Health basierend auf dem Level
 		MaxHealth = (float)(100 * Math.Pow( 1.09, Level ));
 		Health = MaxHealth;
 	}
+	[Rpc.Broadcast]
 	public void SetHealthBasedOnLevelBoss( float baseHealth )
 	{
 		// Berechne das MaxHealth und Health basierend auf dem Level und dem Basiswert des Prefabs
@@ -1529,7 +1534,7 @@ public partial class Npc : Component, IHealthComponent
 		};
 
 	}
-
+	[Rpc.Broadcast]
 	public void Kill()
 	{
 		if ( LifeState == LifeState.Dead )
@@ -1550,10 +1555,12 @@ public partial class Npc : Component, IHealthComponent
 		// Trigger the OnKilled event
 		OnKilled?.Invoke( null );
 	}
+	[Rpc.Broadcast]
 	public void SpawnItemAtPosition( Vector3 position )
 	{
 		SpawnRandomPrefab( position );
 	}
+	[Rpc.Broadcast]
 	public void CreateXpOrbEffect( Vector3 npcPosition, Vector3 playerPosition )
 	{
 		// Erhöhe die z-Koordinate der Positionen, um den Partikeleffekt nach oben zu verschieben
@@ -1593,32 +1600,8 @@ public partial class Npc : Component, IHealthComponent
 	}
 	public SceneWorld SceneWorld { get; set; }
 
-	public void CreateParticleEffect( Vector3 position, Rotation rotation )
-	{
-		// Erhöhe die z-Koordinate der Position, um den Partikeleffekt nach oben zu verschieben
-		Vector3 adjustedPosition = new Vector3( position.x, position.y, position.z + 100.0f ); // Erhöhe die z-Koordinate um 20.0f
-
-
-		/* var p = new SceneParticles( Scene.SceneWorld, "particles/fire.vpcf" );
-		p.SetControlPoint( 0, adjustedPosition );
-		p.SetControlPoint( 1, rotation.Forward * -5f );
-		p.SetControlPoint( 2, new Vector3( 0f, 0f, 0f ) );
-		p.PlayUntilFinished( Task ); */
-
 	
-	}
-	public void CreateParticleEffectBleed( Vector3 npcPosition, Vector3 playerPosition, Rotation rotation )
-	{
-		// Erhöhe die z-Koordinate der Positionen, um den Partikeleffekt nach oben zu verschieben
-		Vector3 adjustedNpcPosition = new Vector3( npcPosition.x, npcPosition.y, npcPosition.z + 100.0f );
-		Vector3 adjustedPlayerPosition = new Vector3( playerPosition.x, playerPosition.y, playerPosition.z + 100.0f );
-
-		/* var p = new SceneParticles( Scene.SceneWorld, "particles/bleed.vpcf" );
-		p.SetControlPoint( 0, adjustedNpcPosition );
-		p.SetControlPoint( 1, adjustedPlayerPosition ); // Endposition des Strahls
-		p.SetControlPoint( 2, (adjustedPlayerPosition - adjustedNpcPosition).Length ); // Distanz zwischen NPC und Spieler
-		p.PlayUntilFinished( Task ); */
-	}
+	
 	public void RemoveStatusEffect( StatusEffect effect )
 	{
 		activeStatusEffects.Remove( effect );

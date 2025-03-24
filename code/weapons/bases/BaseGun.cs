@@ -1063,6 +1063,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 				SoundDuration = 0;
 			}
 		}
+		
 
 		ReloadSound?.Update( WorldPosition );
 

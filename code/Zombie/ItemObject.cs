@@ -46,6 +46,7 @@ namespace GeneralGame
 
 
         // Methode zum Spawnen eines zufälligen Prefabs
+        [Rpc.Broadcast]
         private void SpawnRandomPrefab( Vector3 position )
         {
             float totalProbability = 0f;

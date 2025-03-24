@@ -291,6 +291,7 @@ public partial class Player : Component, IHealthComponent
 	[Rpc.Broadcast]
 	public void ResetViewAngles()
 	{
+		if ( IsProxy ) return;
 		var rotation = Rotation.Identity;
 		EyeAngles = rotation.Angles().WithRoll( 0f );
 	}

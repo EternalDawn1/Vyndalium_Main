@@ -389,6 +389,7 @@ namespace GeneralGame
         
       
         private bool itemsLoaded = false;
+       
         public void LoadPrefabs()
         {
             if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
@@ -419,6 +420,7 @@ namespace GeneralGame
             itemsLoaded = true; // Setzen der Variable, um anzuzeigen, dass die Items geladen wurden
          
         }
+    
         public void LoadBossTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
             if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
@@ -553,6 +555,7 @@ namespace GeneralGame
      
             itemsLoaded = true;
         }
+       
         public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
             if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
@@ -651,6 +654,7 @@ namespace GeneralGame
 
             itemsLoaded = true;
         }
+      
         private void LoadNonRandomStatItem( string prefabPath, int minLevel, int maxLevel )
         {
            
@@ -671,6 +675,7 @@ namespace GeneralGame
             }
         }
 
+    
         public void LoadTierPrefab( string prefabPath, string tier, int minLevel, int maxLevel )
         {
          
@@ -1127,7 +1132,7 @@ namespace GeneralGame
                 CloseInventory();
             }
         }
-
+      
         public void CloseInventory()
         {
             if ( FullScreenManager.Instance != null )
@@ -1165,18 +1170,21 @@ namespace GeneralGame
 
             // Setzen der Variable, um anzuzeigen, dass die Kiste geschlossen ist
         }
+        [Rpc.Broadcast]
         public void DestroyAfterOpen()
         {
             // Logik zum Zerstören des GameObjects
             GameObject?.Destroy( );
         }
+      
         private void DropRemainingItems()
         {
             if ( GameObject == null )
             {
-                
+                Log.Error( "GameObject is null in DropRemainingItems." );
                 return;
             }
+
             var chestPosition = GameObject.LocalPosition; // Position der Kiste
             foreach ( var item in Items )
             {
@@ -1186,6 +1194,8 @@ namespace GeneralGame
                     var itemPosition = chestPosition;
                     itemPosition.z += 50.5f; // Erhöhe die Z-Achse um 0.5 Einheiten
                     item.GameObject.LocalPosition = itemPosition;
+                    item.GameObject.NetworkMode = NetworkMode.Object;
+                    item.GameObject.NetworkSpawn();
                     item.GameObject.Enabled = true;
 
                     var itemRigidbody = item.GameObject.Components.Get<Rigidbody>();
