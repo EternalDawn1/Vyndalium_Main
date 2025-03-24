@@ -6,11 +6,12 @@ namespace GeneralGame
 {
     public sealed class NetworkManager : Component, Component.INetworkListener
     {
-        public const int MAX_PLAYERS = 4;
+        public const int MAX_PLAYERS = 16;
         [Property] public GameObject Prefab { get; set; }
-        [Sync] public static Guid HostId { get; set; }
+        [Sync( SyncFlags.FromHost )] public static Guid HostId { get; set; }
         [Property] public bool StartServer { get; set; } = true;
         [Property] public List<GameObject> SpawnPoints { get; set; }
+
 
         
         protected override async Task OnLoad()
@@ -25,11 +26,15 @@ namespace GeneralGame
                 var lobbyConfig = new LobbyConfig
                 {
                     MaxPlayers = MAX_PLAYERS,
+                    Privacy = LobbyPrivacy.Public,
                     // Füge hier weitere Konfigurationen hinzu, falls erforderlich
                 };
 
                 // Verwende die neue Methode mit der Lobby-Konfiguration
                 Networking.CreateLobby(lobbyConfig);
+                
+
+                
 
                 return;
             }
@@ -135,12 +140,13 @@ namespace GeneralGame
                 // Erstelle eine neue Lobby-Konfiguration
                 var lobbyConfig = new LobbyConfig
                 {
-                    // Füge hier die gewünschten Konfigurationseinstellungen hinzu
-                    MaxPlayers = 10,
+                    Privacy = LobbyPrivacy.Public,
+                    MaxPlayers = 16,
                    
                 };
 
                 Networking.CreateLobby(lobbyConfig);
+               
                 return;
             }
 
