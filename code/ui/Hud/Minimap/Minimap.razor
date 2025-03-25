@@ -15,7 +15,8 @@
 
                     @foreach ( var volume in Game.ActiveScene.GetAllComponents<IMinimapVolume>() )
                     {
-                        
+                        if (!volume.IsValid() || (Player.Local is Player player && !volume.IsVisible( player )))
+                            continue;
                             
                         <div class="volume" style="@GetBox( volume ) @GetBoxStyles( volume )" >
                             <div class="bg" style="@GetLineStyles( volume )" />
@@ -28,7 +29,8 @@
         <div class="markers">
             @foreach ( var element in Game.ActiveScene.GetAllComponents<IMinimapElement>() )
             {
-                
+                @if ( !element.IsValid() || ( Player.Local is Player player && !element.IsVisible( player ) ) )
+                    continue;
 
                 @if ( element is IMinimapIcon icon && !string.IsNullOrEmpty( icon.IconPath ) )
                 {
@@ -36,7 +38,8 @@
 
                     if ( icon is IDirectionalMinimapIcon { EnableDirectional: true } dir )
                         style += RotationToMap( dir.Direction );
-                  
+                    else
+                        style += RotationToMap( FixedMode ? 0 : Player.Local?.EyeAngles.yaw ?? 0 );
 
                     if (icon is ICustomMinimapIcon custom)
                         style += custom.CustomStyle;
@@ -52,7 +55,11 @@
                 }
             }
 
-           
+            <!-- POV Marker -->
+           @if ( Player.Local != null &&  (Player.Local as IHealthComponent)?.LifeState == LifeState.Alive) 
+            {
+                <div class="marker" style="@WorldToMap( ViewPos ) @RotationToMap( ViewYaw ) background-tint: @ViewerColor.Hex" />
+            }
 
         </div>
     }
@@ -62,10 +69,10 @@
 {
     public MinimapRenderer Renderer => Game.ActiveScene.GetAllComponents<MinimapRenderer>().FirstOrDefault();
 
-    public Color TeamColor ;
+    public Color TeamColor => Color.Green;
     private Player Player => Player.Local;
 
-    public Color ViewerColor ;
+    public Color ViewerColor => Color.Green;
 
     public Vector3 ViewPos => Player.Local?.WorldPosition ?? Vector3.Zero;
     public float ViewYaw => Player.Local?.EyeAngles.yaw ?? 0;
