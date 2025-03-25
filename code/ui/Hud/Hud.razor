@@ -49,7 +49,9 @@
 			@{
 				var totalAmmo = player.Ammo.Get(bsGun.AmmoType);
 			}
+			<div class="ammo-icon"></div>
 			<label class="clip">@bsGun.AmmoInClip</label>/<label class="total">@totalAmmo</label>
+			
 			
 		</div>
 
@@ -65,9 +67,7 @@
 			</div>
 		</div>
 	}
-	<div class="tips @tipClass">
-		<label>@currentTip</label>
-	</div>
+	
 	
 
 
@@ -120,9 +120,9 @@
 			<div class="vyndalium1">
 				
 				<div class="P">
-					@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))
 					<div class="icon1"></div>
-					
+					<div class="number">$@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</div>
+
 				</div>
 			</div>
 
@@ -141,7 +141,7 @@
 						
 					</div>
 				</div>
-				<p style="color: @GetTextColor();"> HP: @Math.Round(player.Health) / @Math.Round(player.MaxHealth)</p>
+				<p style="color: @GetTextColor();"> <div class="icon-hp"></div> @Math.Round(player.Health) / @Math.Round(player.MaxHealth)</p>
 			</div>
 		</div>
 
@@ -193,28 +193,10 @@
 	
 
 	[Property] public Gradient HealthGradient { get; set; }
-	private string tipClass = "hidden";
-	private Player player { get; set; }
-	private string currentTip;
-	private static readonly string[] tips = new[]
-	{
-	"! Press Tab to open the Inventory",
-	"! Press F to interact with objects",
-	"! Pick up Ammo to reload your weapon",
-	"! Press R to reload your weapon",
-	"! Kill enemies to gain experience & Vyndalium",
-	"! Press Shift to sprint",
-	"! Press CTRL to crouch",
-	"! Press Space to jump",
-	"! Press E to open the shop from the Merchant",
-	"! You can upgrade your Items at the Merchant",
-	"! you can sell your Items at the Merchant",
-	"! you can get Aspect from Boss Chests & Upgrade your Items",
-	"! you can purchase Items from the Merchant",
-	"! Status points can be used to upgrade your Stats",
 	
-
-	};
+	private Player player { get; set; }
+	
+	
 	private TimeSpan playTime = TimeSpan.Zero;
 
 	private DateTime lastUpdateTime = DateTime.Now;
@@ -234,7 +216,7 @@
 	}
 
 	
-	private double nextUpdateInterval;
+	
 	protected override void OnFixedUpdate()
 	{
 		if (player == null || !player.IsValid())
@@ -247,25 +229,15 @@
 			player.OnLevelUp += OnPlayerLevelUp;
 		}
 
-		var currentTime = DateTime.Now;
-		playTime += currentTime - lastUpdateTime;
+		
 
-		if ((currentTime - lastUpdateTime).TotalMinutes >= nextUpdateInterval)
-		{
-			UpdateTip();
-			SetNextUpdateInterval();
-			lastUpdateTime = currentTime; // Aktualisiere lastUpdateTime nur hier
-		}
+		
 	
 		
 
 		StateHasChanged();
 	}
-	private void SetNextUpdateInterval()
-	{
-		var random = new Random();
-		nextUpdateInterval = random.Next(1, 2); // Zufälliges Intervall zwischen 5 und 10 Minuten
-	}
+	
 	protected override void OnAwake()
 	{
 		if (player != null)
@@ -273,23 +245,9 @@
 			player.OnLevelUp += (level) => ShowLevelUpPanel();
 			StateHasChanged();
 		}
-		UpdateTip();
+		
 	}
-	private async void UpdateTip()
-	{
-		tipClass = "hidden";
-		StateHasChanged();
-		await Task.Delay(1000); // Warte, bis die Ausblendung abgeschlossen ist
-
-		var random = new Random();
-		currentTip = tips[random.Next(tips.Length)];
-		tipClass = "visible";
-		StateHasChanged();
-
-		await Task.Delay(10000); // Warte 5 Sekunden, bevor der Tipp wieder ausgeblendet wird
-		tipClass = "hidden";
-		StateHasChanged();
-	}
+	
 	private string GetHealthBarColor()
 	{
 		var healthPercentage = player.Health / player.MaxHealth;

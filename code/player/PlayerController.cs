@@ -841,7 +841,7 @@ public partial class Player : Component, IHealthComponent
 		switch ( healthRange )
 		{
 			case 0: // Gesundheit <= 25%
-				if ( !isLowHealthSoundPlaying && HurtLowHP is not null )
+				if ( !isLowHealthSoundPlaying && HurtLowHP is not null && Player.Local?.Head != null )
 				{
 					Sound.Play( HurtLowHP, Player.Local.Head.WorldPosition );
 					isLowHealthSoundPlaying = true;
@@ -853,7 +853,7 @@ public partial class Player : Component, IHealthComponent
 					Sound.StopAll( float.MaxValue );
 					isLowHealthSoundPlaying = false;
 				}
-				if ( !isMidHealthSoundPlaying && HurtMidHP is not null )
+				if ( !isMidHealthSoundPlaying && HurtMidHP is not null && Player.Local != null )
 				{
 					Sound.Play( HurtMidHP, Player.Local.WorldPosition );
 					isMidHealthSoundPlaying = true;
@@ -870,7 +870,6 @@ public partial class Player : Component, IHealthComponent
 		//UpdateModelVisibility();
 
 
-		
 
 		foreach ( var animator in Animators )
 		{

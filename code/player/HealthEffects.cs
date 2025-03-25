@@ -70,7 +70,7 @@ public sealed partial class HealthEffects : Component
 
 		var health = LocalPlayer.Health / LocalPlayer.MaxHealth;
 
-		Adjustments.Saturation = 1f - (1f - health) * 0.9f;
+		Adjustments.Saturation = 1.125f - (1f - health) * 0.9f;
 		Vignette.Intensity = 0.6f * (1f - health);
 		Vignette.Color = Color.Lerp( Color.White, Color.Red, 1f - health );
 
