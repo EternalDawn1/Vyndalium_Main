@@ -83,6 +83,8 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
         Camera.Flags = ComponentFlags.NotSaved;
         Camera.Orthographic = true;
         Camera.OrthographicHeight = Size;
+        Camera.ZFar = 100000;
+        Camera.ZNear = 0.1f;
         Camera.BackgroundColor = Color.Transparent;
     }
 
