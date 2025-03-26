@@ -840,8 +840,13 @@ namespace GeneralGame.HUD
             shopStorage = new ShopStorage();
             shopInteractable = new ShopInteractable();
             IsVisible = false;
-            shopStorage.LoadPrefabs();
-          
+
+            if ( !shopStorage.PrefabsLoaded )
+            {
+                shopStorage.LoadPrefabs();
+                shopStorage.PrefabsLoaded = true;
+            }
+
             // Prefabs beim Erstellen des Panels laden
         }
 

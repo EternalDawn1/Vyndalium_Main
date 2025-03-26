@@ -19,7 +19,7 @@ namespace GeneralGame
 
  
  
-     
+     public bool PrefabsLoaded { get; set; } = false;
        
         public static ShopStorage Instance
         {
@@ -37,11 +37,7 @@ namespace GeneralGame
         {
             shopInteractable = this.Components.Get<ShopInteractable>();
             base.OnAwake();
-            if ( shopPanel == null )
-            {
-                shopPanel = new ShopPanel();
-                
-            }
+            
            
             
         }
@@ -149,7 +145,7 @@ namespace GeneralGame
         {
             var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
             obj.NetworkMode = NetworkMode.Object;
-            obj.NetworkSpawn();
+            //obj.NetworkSpawn();
 
             var itemComponent = obj.Components.Get<ItemComponent>();
             if ( itemComponent == null )
