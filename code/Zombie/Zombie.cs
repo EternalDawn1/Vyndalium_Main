@@ -45,8 +45,15 @@ public enum WeightType
 
 
 
-public partial class Npc : Component, IHealthComponent
+public partial class Npc : Component, IHealthComponent ,IMinimapElement
 {
+	public Vector3 WorldPositionmarker => this.Position;
+
+	public bool IsVisible( Player viewer )
+	{
+		// Logik, um zu bestimmen, ob der NPC für den Spieler sichtbar ist
+		return true;
+	}
 	[Property]
 	public string Name { get; set; }
 	[Property,Sync]public int Level { get; set; }

@@ -4,9 +4,13 @@ using Sandbox;
 
 
 
-public class ItemInteractable : BaseInteraction
+public class ItemInteractable : BaseInteraction , IMinimapElement
 {
-
+    public bool IsVisible( Player viewer )
+    {
+        // Logik, um zu bestimmen, ob der NPC für den Spieler sichtbar ist
+        return true;
+    }
     public ItemStorage Storage { get; set; }
     [Property] public string RagdollPrefabPath { get; set; } = "models/npcs/slime/chest.prefab";
     [Property] public bool IsDoor { get; set; }

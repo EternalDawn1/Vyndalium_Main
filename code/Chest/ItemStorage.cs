@@ -215,7 +215,7 @@ namespace GeneralGame
             "prefabs/entitys/rings/ringsv2.prefab",
             "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
             "prefabs/clothes/clothes/sbase1.prefab",
-        
+            "prefabs/weapons/custom_weapons/minigun/minigun.prefab",
             "prefabs/clothes/clothes/sbase3.prefab",
             "prefabs/clothes/clothes/sbase4.prefab",
             "prefabs/clothes/clothes/sbase5.prefab",
@@ -265,14 +265,13 @@ namespace GeneralGame
             "prefabs/weapons/facepunch/shotgun/shotgunc.prefab",
             "prefabs/weapons/facepunch/mp5/mp5c.prefab",
             "prefabs/weapons/m4a1/m4a1-c.prefab",
-          
             "prefabs/clothes/armor/armor-c.prefab",
             "prefabs/clothes/helmet/helmet-c.prefab",
             "prefabs/clothes/legarmor/legarmor-c.prefab",
             "prefabs/items/wood_log.prefab",
             "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-      "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
+            "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
     
  
             // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
@@ -280,7 +279,7 @@ namespace GeneralGame
 
         private List<string> tierBPrefabs = new List<string>
         {
-     
+       "prefabs/weapons/custom_weapons/minigun/minigun.prefab",
             "prefabs/weapons/facepunch/usp/uspb.prefab",
             "prefabs/weapons/facepunch/shotgun/shotgunb.prefab",
             "prefabs/weapons/facepunch/mp5/mp5b.prefab",
@@ -292,7 +291,7 @@ namespace GeneralGame
             "prefabs/items/wood_log.prefab",
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-    "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
+            "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
      
 
             // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
@@ -305,7 +304,7 @@ namespace GeneralGame
             "prefabs/weapons/facepunch/shotgun/shotguna.prefab",
             "prefabs/weapons/facepunch/mp5/mp5a.prefab",
             "prefabs/weapons/m4a1/m4a1-a.prefab",
-      
+  
             "prefabs/clothes/armor/armor-a.prefab",
             "prefabs/clothes/helmet/helmet-a.prefab",
             "prefabs/clothes/legarmor/legarmor-a.prefab",
@@ -323,7 +322,7 @@ namespace GeneralGame
             "prefabs/weapons/facepunch/shotgun/shotguns.prefab",
             "prefabs/weapons/facepunch/mp5/mp5s.prefab",
             "prefabs/weapons/m4a1/m4a1-s.prefab",
-   
+     "prefabs/weapons/custom_weapons/minigun/minigun.prefab",
             "prefabs/clothes/armor/armor-s.prefab",
             "prefabs/clothes/helmet/helmet-s.prefab",
             "prefabs/clothes/legarmor/legarmor-s.prefab",
@@ -341,7 +340,7 @@ namespace GeneralGame
             "prefabs/weapons/facepunch/shotgun/shotgunss.prefab",
             "prefabs/weapons/facepunch/mp5/mp5ss.prefab",
             "prefabs/weapons/m4a1/m4a1-ss.prefab",
-    
+      "prefabs/weapons/custom_weapons/minigun/minigun.prefab",
             "prefabs/clothes/armor/armor-ss.prefab",
             "prefabs/clothes/helmet/helmet-ss.prefab",
             "prefabs/clothes/legarmor/legarmor-ss.prefab",
@@ -355,7 +354,7 @@ namespace GeneralGame
 
         private List<string> tierSSSPrefabs = new List<string>
         {
-     
+       "prefabs/weapons/custom_weapons/minigun/minigun.prefab",
             "prefabs/weapons/facepunch/usp/uspsss.prefab",
             "prefabs/weapons/facepunch/shotgun/shotgunsss.prefab",
             "prefabs/weapons/facepunch/mp5/mp5sss.prefab",
@@ -384,7 +383,7 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
              "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
-
+  "prefabs/weapons/custom_weapons/minigun/minigun.prefab",
         };
         
       
@@ -1170,10 +1169,10 @@ namespace GeneralGame
 
             // Setzen der Variable, um anzuzeigen, dass die Kiste geschlossen ist
         }
-        [Rpc.Broadcast]
+       
         public void DestroyAfterOpen()
         {
-            // Logik zum Zerstören des GameObjects
+          
             GameObject?.Destroy( );
         }
       

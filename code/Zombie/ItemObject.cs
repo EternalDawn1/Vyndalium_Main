@@ -5,8 +5,13 @@ using System;
 
 namespace GeneralGame
 {
-    public partial class ItemObject : Component, IHealthComponent
+    public partial class ItemObject : Component, IHealthComponent, IMinimapElement
     {
+        public bool IsVisible( Player viewer )
+        {
+            // Logik, um zu bestimmen, ob der NPC für den Spieler sichtbar ist
+            return true;
+        }
         [Property]public float Health {get; set;} = 100f;
         
         [Property] public float MaxHealth { get; set; } = 100f;

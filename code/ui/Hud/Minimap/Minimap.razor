@@ -1,4 +1,5 @@
 @namespace GeneralGame.HUD
+@using GeneralGame
 @attribute [StyleSheet]
 @inherits Panel
 
@@ -52,6 +53,22 @@
                     <div class="label" style="@WorldToMap( label.WorldPosition ) @LabelStyles( label )">
                         @label.Label
                     </div>
+                }
+
+                @if (element is Npc npc)
+                {
+                    string style = WorldToMap(npc.WorldPosition);
+                    <div class="marker npc-marker" style="background-image: url('/ui/hud/skull.png'); @style z-index: 10;" />
+                }
+                @if(element is ItemObject item)
+                {
+                    string style = WorldToMap(item.WorldPosition);
+                    <div class="marker item-marker" style="background-image: url('/ui/hud/storage.png'); @style z-index: 10;background-size: cover;" />
+                }
+                @if(element is ItemInteractable itemInteractable)
+                {
+                    string style = WorldToMap(itemInteractable.WorldPosition);
+                    <div class="marker item-marker" style="background-image: url('/ui/hud/treasure-chest.png'); @style z-index: 10;background-size: cover;" />
                 }
             }
 

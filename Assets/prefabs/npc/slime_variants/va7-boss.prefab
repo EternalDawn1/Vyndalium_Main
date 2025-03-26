@@ -11,6 +11,7 @@
         "__type": "Sandbox.NavMeshAgent",
         "__guid": "0a5633c9-027b-4e69-902f-6cc6a5982a2e",
         "Acceleration": 237.39967,
+        "AutoTraverseLinks": true,
         "Height": 31.700174,
         "MaxSpeed": 70,
         "OnComponentDestroy": null,
@@ -162,6 +163,7 @@
       {
         "__type": "Slime",
         "__guid": "0f5ae04d-e230-47a9-bfa5-822d998bb258",
+        "activeStatusEffects": [],
         "AlertOthers": true,
         "AnimationHelper": {
           "_type": "component",
@@ -202,6 +204,7 @@
         "Idle": true,
         "IsBleeding": false,
         "isChibi": false,
+        "IsFloating": false,
         "isPrometheus": false,
         "isSlime": false,
         "IsSlowed": false,
@@ -248,7 +251,7 @@
         "WindAbilityCooldown": 10,
         "ZombieRagedol": {
           "_type": "gameobject",
-          "prefab": "prefabs/bosschest-slime.prefab"
+          "prefab": "prefabs/entitys/box_legendary_boss.prefab"
         }
       },
       {
@@ -259,7 +262,7 @@
         "FireBallAttackSound": "prefabs/hit/fire-sounds/avatarattack.sound",
         "FireBallAttackTime": {
           "Absolute": 0,
-          "Relative": 100092210
+          "Relative": 101950840
         },
         "FireBallChargeSound": "prefabs/hit/fire-sounds/avatarcharge.sound",
         "FireBallCooldown": 15,
@@ -267,7 +270,7 @@
         "FireCannonAttackSound": "prefabs/hit/fire-sounds/whoosh-fire.sound",
         "FireCannonAttackTime": {
           "Absolute": 0,
-          "Relative": 100092210
+          "Relative": 101950840
         },
         "FireCannonChargeSound": "prefabs/hit/fire-sounds/avatarcharge.sound",
         "FireCannonCooldown": 5,
@@ -275,7 +278,7 @@
         "FireCannonPrefab": "prefabs/hit/fire-spawn-cannon.prefab",
         "FireRingAttackTime": {
           "Absolute": 0,
-          "Relative": 100092210
+          "Relative": 101950840
         },
         "FireRingCooldown": 10,
         "FireRingEnabled": true,
@@ -287,7 +290,7 @@
         "FireWallSound": "prefabs/hit/fire-sounds/balls.sound",
         "FlameWallAttackTime": {
           "Absolute": 0,
-          "Relative": 100092210
+          "Relative": 101950840
         },
         "FlameWallCooldown": 20,
         "HasSpecialAbility": true,
@@ -300,10 +303,11 @@
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
+        "PlayerProximityDistance": "500,500,500",
         "UltimateJumpAttackCooldown": 30,
         "UltimateJumpAttackTime": {
           "Absolute": 0,
-          "Relative": 100092210
+          "Relative": 101950840
         }
       }
     ],
