@@ -1349,18 +1349,7 @@ public class ItemComponent : Component
 		var aimTransform = Scene.Camera.WorldTransform;
 		GrabBody.Position = aimTransform.PointToWorld( GrabbedAimLocal );
 	}
-	protected override void OnEnabled()
-	{
-		base.OnEnabled();
-
-		Clear();
-
-		GrabBody = new PhysicsBody( Scene.PhysicsWorld )
-		{
-			BodyType = PhysicsBodyType.Keyframed
-		};
-	}
-
+	
 	protected override void OnDisabled()
 	{
 		base.OnDisabled();

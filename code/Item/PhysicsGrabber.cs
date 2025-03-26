@@ -12,17 +12,7 @@ public class PhysicsGraber : Component
 	private PhysicsBody GrabBody;
 	private Sandbox.Physics.FixedJoint GrabJoint;
 
-	protected override void OnEnabled()
-	{
-		base.OnEnabled();
-
-		Clear();
-
-		GrabBody = new PhysicsBody( Scene.PhysicsWorld )
-		{
-			BodyType = PhysicsBodyType.Keyframed
-		};
-	}
+	
 
 	protected override void OnDisabled()
 	{

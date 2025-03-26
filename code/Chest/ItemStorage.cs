@@ -1201,7 +1201,7 @@ namespace GeneralGame
                     if ( itemRigidbody != null )
                     {
                         itemRigidbody.Enabled = true;
-                        itemRigidbody.MotionEnabled = true;
+                        itemRigidbody.MotionEnabled = false;
                         itemRigidbody.RigidbodyFlags = RigidbodyFlags.DisableCollisionSounds;
                     }
 
