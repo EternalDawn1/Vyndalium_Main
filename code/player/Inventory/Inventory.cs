@@ -896,7 +896,7 @@ public sealed class Inventory : Component
 		var player = Player.Local;
 		if ( player == null )
 		{
-			//Log.Error( "Player.Local is null." );
+			// Log.Error("Player.Local is null.");
 			return false;
 		}
 		if ( item == null )
@@ -924,7 +924,6 @@ public sealed class Inventory : Component
 		{
 			GiveEquipmentItem( equipment );
 			equipment.State = ItemState.Equipped;
-			
 
 			var weaponContainer = Player?.Components?.Get<WeaponContainer>();
 			if ( weaponContainer != null )

@@ -171,9 +171,12 @@
 			fraction = 1 - _hoverEffectDeactivation.Fraction;
 		}
 
-		var multiplier = 4 + Easing.EaseIn(fraction) * 55;
-		var sceneDirectionalLightColor = Color.White * multiplier;
-		_sceneDirectionalLight.LightColor = sceneDirectionalLightColor;
+		if (_sceneDirectionalLight != null)
+		{
+			var multiplier = 4 + Easing.EaseIn(fraction) * 55;
+			var sceneDirectionalLightColor = Color.White * multiplier;
+			_sceneDirectionalLight.LightColor = sceneDirectionalLightColor;
+		}
 	}
 
 	public override void OnButtonEvent( ButtonEvent e )
