@@ -160,10 +160,12 @@ public sealed class ZombieSpawner : Component
 				ragdoll.WorldRotation = WorldRotation;
 				ragdoll.WorldPosition = WorldPosition;
 				ragdoll.NetworkSpawn();
+				ragdoll.Network.DropOwnership();
 			}
 		}
 		Sound.Play( "sounds/levelup/levelup.sound", zombie.WorldPosition );
 		zombie.NetworkSpawn();
+		zombie.Network.DropOwnership();
 
 
 		// Setze das Level des Zombies basierend auf den Properties
@@ -190,6 +192,7 @@ public sealed class ZombieSpawner : Component
 						fireInstance.Parent = GameObject; // Explizite Konvertierung zu GameObject
 						fireInstance.WorldPosition = npcComponent.WorldPosition; // Setzen Sie die Position relativ zum NPC
 						fireInstance.NetworkSpawn();
+						fireInstance.Network.DropOwnership();
 
 						var fireNpcComponent = fireInstance.GetComponent<Npc>();
 						if ( fireNpcComponent != null )

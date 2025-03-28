@@ -1082,7 +1082,8 @@ namespace GeneralGame
         {
             var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
             obj.NetworkMode = NetworkMode.Object;
-            //obj.NetworkSpawn();
+            obj.NetworkSpawn();
+            obj.Network.DropOwnership();
             
 
             var itemComponent = obj.Components.Get<ItemComponent>();
@@ -1195,6 +1196,7 @@ namespace GeneralGame
                     item.GameObject.LocalPosition = itemPosition;
                     item.GameObject.NetworkMode = NetworkMode.Object;
                     item.GameObject.NetworkSpawn();
+                    item.GameObject.Network.DropOwnership();
                     item.GameObject.Enabled = true;
 
                     var itemRigidbody = item.GameObject.Components.Get<Rigidbody>();

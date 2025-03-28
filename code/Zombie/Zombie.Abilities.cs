@@ -199,6 +199,7 @@ public class Abilities : Component
         foreach ( var fireBallObject in fireBallObjects )
         {
             fireBallObject.NetworkSpawn();
+            fireBallObject.Network.DropOwnership();
         }
 
 
@@ -301,6 +302,7 @@ public class Abilities : Component
                 fireObject.WorldPosition = WorldPosition;
                 fireObject.WorldRotation = Rotation.Identity;
                 fireObject.NetworkSpawn();
+                fireObject.Network.DropOwnership();
 
                 activeFireRingObjects.Add( fireObject );
                 if ( FireRingSound != null )
@@ -353,6 +355,7 @@ public class Abilities : Component
         foreach ( var fireCannonObject in fireCannonObjects )
         {
             fireCannonObject.NetworkSpawn();
+            fireCannonObject.Network.DropOwnership();
         }
 
         if ( FireCannonAttackSound != null )
@@ -536,6 +539,7 @@ public class Abilities : Component
         foreach ( var flameWallObject in flameWallObjects )
         {
             flameWallObject.NetworkSpawn();
+            flameWallObject.Network.DropOwnership();
         }
 
         var direction = (targetPlayer.WorldPosition - WorldPosition).Normal;

@@ -58,6 +58,7 @@ public class PickupSpawner : Component
 		go.WorldPosition = WorldPosition;
 		go.WorldRotation = WorldRotation;
 		go.NetworkSpawn();
+		go.Network.DropOwnership();
 
 		TimeUntilRespawn = null;
 	}

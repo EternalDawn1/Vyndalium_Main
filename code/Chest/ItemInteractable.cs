@@ -77,6 +77,7 @@ public class ItemInteractable : BaseInteraction , IMinimapElement
                                     ragdoll.WorldPosition = WorldPosition;
                                     ragdoll.WorldRotation = WorldRotation;
                                     ragdoll.NetworkSpawn();
+                                    ragdoll.Network.DropOwnership();
                                 }
                                 else
                                 {

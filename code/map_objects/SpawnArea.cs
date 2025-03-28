@@ -321,9 +321,10 @@ public sealed class NpcSpawnArea : Component
 	}
 	private float playerProximityDuration = 3.0f; // Zeit in Sekunden, die der Spieler in der Nähe sein muss
 	private float playerProximityTimer = 0.0f;
-	protected override void OnFixedUpdate()
+	protected override void OnUpdate()
 	{
-		if ( Network.IsProxy )
+		if (Network.IsProxy || !Player.Local.IsHost()) return;
+		if ( NpcPool == null )
 		{
 			return;
 		}
@@ -437,7 +438,7 @@ public sealed class NpcSpawnArea : Component
 	[Rpc.Broadcast]
 	public void SpawnNPCs()
 	{
-		
+		if(Network.IsProxy) return;
 		// Spawne die normalen NPCs
 		foreach ( var npcChance in NpcPool )
 		{
@@ -456,37 +457,11 @@ public sealed class NpcSpawnArea : Component
 						{
 							npcComponent.Level = new Random().Next( npcChance.MinLevel, npcChance.MaxLevel + 1 );
 							npcComponent.SetHealthBasedOnLevel();
-							var abilityRandom = new Random();
+							
 							npcComponent.HasIceAbility = npcChance.IceAbilityChance >= 1.0 || new Random().NextDouble() <= npcChance.IceAbilityChance;
 							npcComponent.HasWindAbility = npcChance.WindAbilityChance >= 1.0 || new Random().NextDouble() <= npcChance.WindAbilityChance;
 							npcComponent.HasFireAbility = npcChance.FireAbilityChance >= 1.0 || new Random().NextDouble() <= npcChance.FireAbilityChance;
-							if ( npcComponent.HasFireAbility )
-							{
-								// Laden Sie das Prefab über die ResourceLibrary
-								var firePrefab = ResourceLibrary.Get<PrefabFile>( "prefabs/npc/slime_variants/fire.prefab" );
-
-								if ( firePrefab != null )
-								{
-									// Erstellen Sie eine Instanz des Prefabs auf dem NPC-GameObject
-									var fireInstance = GameObject.Clone( firePrefab );
-									if ( fireInstance != null )
-									{
-										fireInstance.Parent = GameObject; // Explizite Konvertierung zu GameObject
-										fireInstance.WorldPosition = npcComponent.WorldPosition; // Setzen Sie die Position relativ zum NPC
-										fireInstance.NetworkSpawn();
-
-										var fireNpcComponent = fireInstance.GetComponent<Npc>();
-										if ( fireNpcComponent != null )
-										{
-											fireNpcComponent.SetHealthBasedOnLevel();
-										}
-									}
-								}
-								else
-								{
-									Log.Error( "Fire prefab could not be loaded." );
-								}
-							}
+							
 
 							if ( npcComponent is Slime )
 							{
@@ -519,6 +494,7 @@ public sealed class NpcSpawnArea : Component
 	[Rpc.Broadcast]
 	private void SpawnBossNPCs()
 	{
+		if ( Network.IsProxy ) return;
 		// Spawne die Boss-NPCs
 		foreach ( var bossChance in BossNpcPool )
 		{
@@ -583,6 +559,7 @@ public sealed class NpcSpawnArea : Component
 	
 	private async Task SpawnSubNpcsWithDelay( List<SubNpcChance> subNpcPool, float delay )
 	{
+		if ( Network.IsProxy ) return;
 		do
 		{
 			await Task.Delay( (int)(delay * 1000) );
@@ -659,7 +636,7 @@ public sealed class NpcSpawnArea : Component
 		}
 
 		var tries = 0;
-		while ( tries <= 20 )
+		while ( tries <= 20)
 		{
 			var randomDirection = Rotation.FromYaw( Game.Random.Float( 360f ) ).Forward;
 			var randomPosition = WorldPosition + PositionOffset + randomDirection * Game.Random.Float( Radius.x ); // Verwenden Sie die X-Komponente des Radius
@@ -681,9 +658,10 @@ public sealed class NpcSpawnArea : Component
 						return null;
 					}
 
-					clone.NetworkMode = NetworkMode.Object;
+					clone.NetworkMode = NetworkMode.Never;
 					clone.Network.TakeOwnership();
 					clone.NetworkSpawn();
+					clone.Network.DropOwnership();
 					
 
 					return clone;
@@ -766,6 +744,7 @@ public sealed class NpcSpawnArea : Component
 			{
 				particleInstance.WorldPosition = position;
 				particleInstance.NetworkSpawn();
+				particleInstance.Network.DropOwnership();
 			}
 		}
 	}

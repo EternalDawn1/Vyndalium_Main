@@ -77,6 +77,7 @@ namespace GeneralGame
                             // Spawnen des Items in der Luft
                             gameObject.WorldPosition = position + new Vector3( 0, 0, 50 );
                             gameObject.NetworkSpawn();
+                            gameObject.Network.DropOwnership();
 
                             
                            
@@ -197,6 +198,7 @@ namespace GeneralGame
                     ragdoll.WorldRotation = WorldRotation;
                     ragdoll.WorldPosition = WorldPosition;
                     ragdoll.NetworkSpawn();
+                    ragdoll.Network.DropOwnership();
                 }
                
                 GameObject.Destroy();

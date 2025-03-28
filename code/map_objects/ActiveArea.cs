@@ -248,6 +248,7 @@ public sealed class ActiveArea : Component
 		attackObject.LocalPosition = spawnPosition;
 		attackObject.WorldRotation = Rotation.Identity;
 		attackObject.NetworkSpawn();
+		attackObject.Network.DropOwnership();
 
 		activeAttackObjects.Add( attackObject );
 		_ = MoveAttackObject( attackObject, direction );

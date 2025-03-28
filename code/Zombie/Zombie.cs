@@ -102,6 +102,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 						{
 							gameObject.WorldPosition = position + new Vector3( 0, 0, 25 );
 							gameObject.NetworkSpawn();
+							gameObject.Network.DropOwnership();
 						}
 					}
 				}
@@ -411,29 +412,17 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 		}
 	}
 
-	
-	
+
 
 
 	private bool IsPlayerNearby()
 	{
-		
-			
 		if ( Network.IsProxy )
 			return false;
 
 		var players = Scene.GetAllComponents<Player>();
-		foreach ( var player in players )
-		{
-			// Überprüfe, ob der Spieler in der Nähe ist
-			if ( (player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance )
-				return true;
-		}
-		return false;
-
-		
+		return players.Any( player => (player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance );
 	}
-
 	protected override void OnUpdate()
 	{
 		// Überprüfe auf Vorbedingungen, um eine ungültige Ausführung zu vermeiden
@@ -462,41 +451,55 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 			RecentlyDamaged = false;
 		}
 	}
-
-	private Player FindClosestPlayer( IEnumerable<Player> players )
+	protected override void OnFixedUpdate()
 	{
-		Player closestPlayer = players.FirstOrDefault();
-		var closestDistanceSquared = float.MaxValue;
+		if ( Healthone == null || !Healthone.Alive )
+		{
+			MoveHelper.WishVelocity = 0;
+			return;
+		}
 
-		foreach ( var player in players )
+		if ( Ragdoll != null || !IsPlayerNearby() )
 		{
-			Vector3 direction = player.WorldPosition - WorldPosition;
-			var distanceSquared = direction.LengthSquared;
+			return;
+		}
 
-			if ( distanceSquared < closestDistanceSquared )
-			{
-				closestDistanceSquared = distanceSquared;
-				closestPlayer = player;
-			}
-		}
-		if ( closestPlayer != null )
+		if ( TargetObject == null && Idle && NextIdle )
 		{
-			if ( !string.IsNullOrEmpty( closestPlayer.Name ) )
-			{
-				Log.Info( $"Closest player: {closestPlayer.Name}, Distance: {MathF.Sqrt( closestDistanceSquared )}" );
-			}
+			BroadcastOnIdle();
+			NextIdle = Game.Random.Float( MinimumIdleCooldown, MaximumIdleCooldown );
 		}
-		else
+
+		if ( MoveHelper == null )
 		{
-			Log.Info( "No players found." );
+			return;
 		}
-		
-		return closestPlayer;
+
+		// Weitere Logik hier einfügen, falls erforderlich
 	}
-	[Rpc.Broadcast]
+
+	private Player FindClosestPlayer(IEnumerable<Player> players)
+{
+    Player closestPlayer = null;
+    float closestDistanceSquared = float.MaxValue;
+
+    foreach (var player in players)
+    {
+        float distanceSquared = (player.WorldPosition - WorldPosition).LengthSquared;
+        if (distanceSquared < closestDistanceSquared)
+        {
+            closestDistanceSquared = distanceSquared;
+            closestPlayer = player;
+        }
+    }
+
+    return closestPlayer;
+}
+
+
 	private void HandlePlayerDetection( Player closestPlayer, bool isPlayerNearby )
 	{
-		var closestDistance = MathF.Sqrt( (closestPlayer.WorldPosition - WorldPosition).LengthSquared );
+		float closestDistance = (closestPlayer.WorldPosition - WorldPosition).Length;
 
 		// Überprüfen, ob der Spieler innerhalb der Reichweite ist
 		if ( closestDistance <= VisionRange || IsWithinRange( closestPlayer.GameObject, DetectRange ) )
@@ -516,11 +519,8 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 				}
 			}
 
-			//UpdateAnimations(closestPlayer);
-			float maxProximityDistance = 80f;
-
 			// Überprüfe die Entfernung zum nächsten Spieler und passe die Bewegungsart entsprechend an
-			if ( closestDistance < maxProximityDistance )
+			if ( closestDistance < PlayerProximityDistance )
 			{
 				HandleWalkingState();
 			}
@@ -536,7 +536,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 			MoveToTargetPosition();
 		}
 	}
-	[Rpc.Broadcast]
+
 	private void HandleWalkingState()
 	{
 		CurrentState = NpcState.Walking;
@@ -553,7 +553,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 
 		NormalTrace();
 	}
-	[Rpc.Broadcast]
+
 	private void HandleAttackingState( Player closestPlayer, bool isPlayerNearby )
 	{
 		CurrentState = NpcState.Attacking;
@@ -573,7 +573,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 			}
 		}
 	}
-	[Rpc.Broadcast]
+
 	private void SetHoldType()
 	{
 		switch ( CurrentHoldType )
@@ -641,7 +641,6 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 		if ( isChibi && Model != null )
 		{
 			Model.Set( "chibi_idle", true );
-			Log.Info( "Chibi Idle" );
 		}
 		if ( isPrometheus && Model != null )
 		{
@@ -821,38 +820,13 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	}
 
 
-	protected override void OnFixedUpdate()
-	{
-		if ( Healthone == null || !Healthone.Alive )
-		{
-			MoveHelper.WishVelocity = 0;
-			return;
-		}
 
-		if ( Ragdoll != null || !IsPlayerNearby() )
-		{
-			return;
-		}
-
-		if ( TargetObject == null && Idle && NextIdle )
-		{
-			BroadcastOnIdle();
-			NextIdle = Game.Random.Float( MinimumIdleCooldown, MaximumIdleCooldown );
-		}
-
-		if ( MoveHelper == null )
-		{
-			return;
-		}
-
-		// Weitere Logik hier einfügen, falls erforderlich
-	}
 	[Rpc.Broadcast]
 	private void BroadcastOnIdle()
 	{
+		Log.Info( "Broadcasting OnIdle" );
 		OnIdle?.Invoke();
 	}
-
 
 
 	/// <summary>
@@ -1424,6 +1398,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 			
 			var zombie = ZombieRagedol.Clone( this.GameObject.WorldPosition, this.GameObject.WorldRotation );
 			zombie.NetworkSpawn();
+			zombie.Network.DropOwnership();
 			
 			SpawnItemAtPosition( this.GameObject.WorldPosition );
 			
@@ -1552,6 +1527,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 		// Erstellen Sie ein Ragdoll oder führen Sie andere Todesanimationen aus
 		var zombie = ZombieRagedol.Clone( this.GameObject.WorldPosition, this.GameObject.WorldRotation );
 		zombie.NetworkSpawn();
+		zombie.Network.DropOwnership();
 
 		// Spawn a random item at the NPC's position
 		SpawnItemAtPosition( this.GameObject.WorldPosition );

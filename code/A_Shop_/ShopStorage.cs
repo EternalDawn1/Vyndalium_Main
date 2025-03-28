@@ -121,7 +121,7 @@ namespace GeneralGame
                 var prefab = ResourceLibrary.Get<PrefabFile>( prefabPath );
                 if ( prefab != null )
                 {
-                    var itemComponent = ConvertPrefabToItemComponent( prefab );
+                    var itemComponent = ConvertPrefabToItemComponent( prefab, this.GameObject );
                     if ( itemComponent != null && !targetList.Contains( itemComponent ) )
                     {
                         itemComponent.GameObject.Enabled = false;
@@ -141,11 +141,11 @@ namespace GeneralGame
 
         }
 
-        private ItemComponent ConvertPrefabToItemComponent( PrefabFile prefab )
+        private ItemComponent ConvertPrefabToItemComponent( PrefabFile prefab, GameObject parent )
         {
             var obj = SceneUtility.GetPrefabScene( prefab ).Clone();
-            obj.NetworkMode = NetworkMode.Object;
-            //obj.NetworkSpawn();
+            obj.NetworkMode = NetworkMode.Never;
+            obj.Parent = parent; // Setze das Parent-GameObject
 
             var itemComponent = obj.Components.Get<ItemComponent>();
             if ( itemComponent == null )

@@ -127,7 +127,7 @@ public class ItemEquipment : ItemComponent
             parcelBody ??= Components.Create<Rigidbody>();
             parcelBody.Enabled = false;
 
-            CreateIconWorldPanel();
+            //CreateIconWorldPanel();
             iconWorldObject.Enabled = false;
 
             return;
