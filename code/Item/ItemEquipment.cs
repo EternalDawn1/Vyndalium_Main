@@ -52,7 +52,7 @@ public class ItemEquipment : ItemComponent
     private ModelRenderer parcelRenderer;
     private BoxCollider parcelCollider;
     private Rigidbody parcelBody;
-    private GameObject iconWorldObject;
+ 
     public ModelRenderer Renderer { get; private set; }
     public WeaponComponent Weapon { get; private set; }
 
@@ -62,7 +62,7 @@ public class ItemEquipment : ItemComponent
     public bool Equipped => State == ItemState.Equipped;
 
 
-
+  
     public void UpdateEquipped()
     {
         if (Equipped)
@@ -128,32 +128,21 @@ public class ItemEquipment : ItemComponent
             parcelBody.Enabled = false;
 
             //CreateIconWorldPanel();
-            iconWorldObject.Enabled = false;
+            
 
             return;
         }
 
         // Remove
-        if (parcelRenderer == null || iconWorldObject == null || parcelCollider == null || parcelBody == null)
+        if (parcelRenderer == null  || parcelCollider == null || parcelBody == null)
             return;
 
         parcelRenderer.Enabled = false;
-        iconWorldObject.Enabled = false;
+      
         parcelCollider.Enabled = false;
         parcelBody.Enabled = false;
     }
 
-    private void CreateIconWorldPanel()
-    {
-        if (iconWorldObject is not null)
-            return;
-
-        iconWorldObject = new GameObject { Parent = GameObject };
-        iconWorldObject.WorldPosition = new Vector3(0, 0, 5);
-        iconWorldObject.WorldRotation = Rotation.FromPitch(90);
-        iconWorldObject.Components.GetOrCreate<Sandbox.WorldPanel>();
-        iconWorldObject.Components.GetOrCreate<IconWorldPanel>().Icon = IconTexture;
-    }
   
 
     protected override void OnStart()

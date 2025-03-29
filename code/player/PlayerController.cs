@@ -345,7 +345,7 @@ public partial class Player : Component, IHealthComponent
 
 
 	}
-	[AdminAttribute]
+	
 	public async void StartHealthRegen( float regenAmount, float duration )
 	{
 		if ( IsProxy )

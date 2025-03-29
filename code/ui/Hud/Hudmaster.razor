@@ -6,7 +6,7 @@
 <root>
     <FullScreenManager />
     <NotificationPanel @ref="notificationPanel" />
-    <QuestPanel @ref="questPanel" />
+  
     @if (showCustomDialog)
     {
         <div class="custom-dialog">
@@ -24,7 +24,7 @@
 {
     public static Hudmaster Instance { get; private set; }
     private NotificationPanel notificationPanel;
-    private QuestPanel questPanel;
+
     private bool showCustomDialog { get; set; }
     private string customDialogMessage { get; set; }
     private string customDialogInput { get; set; }
@@ -38,11 +38,7 @@
     {
        
     }
-    public void QuestPanelStateHasChanged()
-    {
-        questPanel?.StateHasChanged();
-    }
-
+  
     public void ShowCustomDialog(string message, Action<string> confirmAction)
     {
         
