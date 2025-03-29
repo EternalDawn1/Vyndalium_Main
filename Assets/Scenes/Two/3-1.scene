@@ -168,6 +168,19 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null
+            },
+            {
+              "__type": "GeneralGame.Blackscreen",
+              "__guid": "70a93e4c-c364-4620-9114-d786994e8d91",
+              "BlackTransition": 2,
+              "EndingTransition": 3,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "StartingTransition": 0
             }
           ]
         }
@@ -502,7 +515,7 @@
           "InfiniteLoops": false,
           "lastSpawnTime": {
             "Absolute": 0,
-            "Relative": 102013870
+            "Relative": 102246216
           },
           "Lights": [
             null
@@ -1041,7 +1054,6 @@
       "Flags": 0,
       "Name": "Spawner (11)",
       "Position": "-1673.597,-576.7028,89.6951",
-      "Enabled": true,
       "Components": [
         {
           "__type": "NpcSpawnArea",
@@ -1068,7 +1080,7 @@
           "InfiniteLoops": true,
           "lastSpawnTime": {
             "Absolute": 0,
-            "Relative": 102013870
+            "Relative": 102246216
           },
           "Lights": [],
           "LoopSpawning": true,
@@ -1111,6 +1123,41 @@
           "SpawnEffect": null,
           "StopDrawingDistance": 8000,
           "StopLogicDistance": 200
+        }
+      ]
+    },
+    {
+      "__guid": "7120c20d-8cd0-4d1f-9305-32b832d8688e",
+      "Flags": 0,
+      "Name": "Camera",
+      "Position": "-57.24403,-912.9827,1689.188",
+      "Tags": "maincamera",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "0ecaae13-7639-4ee3-a97d-8603dbc6efd5",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "FovAxis": "Horizontal",
+          "IsMainCamera": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
         }
       ]
     }
