@@ -34,9 +34,9 @@
 		base.OnAfterTreeRender(firstTime);
 
 		_sceneWorld ??= new SceneWorld();
-		_sceneLight ??= new SceneLight(_sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 4f);
-		_sceneDirectionalLight ??= new SceneDirectionalLight(_sceneWorld, global::Rotation.From(45, -45, 45), Color.White *
-		10f);
+		_sceneLight ??= new SceneLight(_sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 0.4f); // Erhöhe den Wert
+		_sceneDirectionalLight ??= new SceneDirectionalLight(_sceneWorld, global::Rotation.From(-45, -45, 45), Color.White *
+		0.5f);
 		_character ??= new SceneModel(_sceneWorld, "models/citizen/citizen.vmdl", new Transform(Vector3.Zero,
 		Rotation.From(0,
 		_yaw, 0)));
@@ -52,6 +52,11 @@
 			_scenePanel.Camera.FitModel(_character);
 
 			_sceneLight.Position = _scenePanel.Camera.Position + _scenePanel.Camera.Rotation.Forward * 500f;
+			_sceneDirectionalLight.Position = _scenePanel.Camera.Position + _scenePanel.Camera.Rotation.Forward * 500f + _scenePanel.Camera.Rotation.Up * 500f;
+			_sceneDirectionalLight.Rotation = _scenePanel.Camera.Rotation * Rotation.From(0, -25, 25);
+
+			_sceneDirectionalLight.LightColor = Color.White * 0.4f; 
+			_sceneDirectionalLight.ColorTint = Color.White * 0.4f;
 		}
 	}
 
@@ -127,57 +132,61 @@
 	
 	
 	private void Update()
-	{
-		if (_scenePanel == null || _character == null || Player.Local == null || Player.Local.Inventory == null)
-			return;
+{
+    if (_scenePanel == null || _character == null || Player.Local == null || Player.Local.Inventory == null)
+        return;
 
-		var mousePos = Mouse.Position;
-		var headPos = _scenePanel.Camera.ToScreen((_character.GetAttachment("eyes") ?? Transform.Zero).Position);
-		var localPos = mousePos - headPos;
+    var mousePos = Mouse.Position;
+    var headPos = _scenePanel.Camera.ToScreen((_character.GetAttachment("eyes") ?? Transform.Zero).Position);
+    var localPos = mousePos - headPos;
 
-		_character.SetAnimParameter("lookat", new Vector3(1000f, localPos.x, -localPos.y) * _character.Rotation.Inverse);
+    _character.SetAnimParameter("lookat", new Vector3(1000f, localPos.x, -localPos.y) * _character.Rotation.Inverse);
 
-		_character.Update(RealTime.Delta);
+    _character.Update(RealTime.Delta);
 
-		_character.Rotation = Rotation.From(0, _yaw, 0);
+    _character.Rotation = Rotation.From(0, _yaw, 0);
 
-		if (_clothes != null)
-		{
-			if (Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] is ItemEquipment hand && hand.UpdatePosition)
-			{
-				_clothes[(int)EquipSlot.Hand].Transform = (_character.GetAttachment(hand.Attachment, true) ?? global::Transform.Zero)
-				.ToWorld(hand.AttachmentTransform)
-				.WithScale(1);
-			}
+    if (_clothes != null)
+    {
+        if (Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] is ItemEquipment hand && hand.UpdatePosition)
+        {
+            var handCloth = _clothes.ElementAtOrDefault((int)EquipSlot.Hand);
+            if (handCloth != null)
+            {
+                handCloth.Transform = (_character.GetAttachment(hand.Attachment, true) ?? global::Transform.Zero)
+                    .ToWorld(hand.AttachmentTransform)
+                    .WithScale(1);
+            }
+        }
 
-			foreach (var clothing in _clothes)
-			{
-				if (clothing != null && clothing.IsValid())
-					clothing.Update(RealTime.Delta);
-			}
-		}
+        foreach (var clothing in _clothes)
+        {
+            if (clothing != null && clothing.IsValid())
+                clothing.Update(RealTime.Delta);
+        }
+    }
 
-		var isDropTarget = IsHoveredByMouse() && InventorySlot.CurrentDraggable != null &&
-		InventorySlot.CurrentDraggable.HasClass("can-drop");
-		float fraction;
-		if (isDropTarget)
-		{
-			_hoverEffectDeactivation = HoverEffectDuration;
-			fraction = _hoverEffectActivation.Fraction;
-		}
-		else
-		{
-			_hoverEffectActivation = HoverEffectDuration;
-			fraction = 1 - _hoverEffectDeactivation.Fraction;
-		}
+    var isDropTarget = IsHoveredByMouse() && InventorySlot.CurrentDraggable != null &&
+                       InventorySlot.CurrentDraggable.HasClass("can-drop");
+    float fraction;
+    if (isDropTarget)
+    {
+        _hoverEffectDeactivation = HoverEffectDuration;
+        fraction = _hoverEffectActivation.Fraction;
+    }
+    else
+    {
+        _hoverEffectActivation = HoverEffectDuration;
+        fraction = 1 - _hoverEffectDeactivation.Fraction;
+    }
 
-		if (_sceneDirectionalLight != null)
-		{
-			var multiplier = 4 + Easing.EaseIn(fraction) * 55;
-			var sceneDirectionalLightColor = Color.White * multiplier;
-			_sceneDirectionalLight.LightColor = sceneDirectionalLightColor;
-		}
-	}
+    if (_sceneDirectionalLight != null)
+    {
+        var multiplier = 1 + Easing.EaseIn(fraction) * 55;
+        var sceneDirectionalLightColor = Color.White * multiplier;
+        _sceneDirectionalLight.LightColor = sceneDirectionalLightColor;
+    }
+}
 
 	public override void OnButtonEvent( ButtonEvent e )
 	{
@@ -189,6 +198,7 @@
 	
 	public override void Tick()
 	{
+		
 		if ( _character is null )
 			return;
 
