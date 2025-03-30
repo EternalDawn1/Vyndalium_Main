@@ -78,7 +78,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float DefaultFov { get; set; } = 90f;
 
 	[Property] public bool ThirdPersonEnabled { get; set; }
-	protected BoxCollider Collider;
+
 
 	HiddenBodyGroup _hideBodygroups;
 
@@ -459,7 +459,7 @@ public partial class Player : Component, IHealthComponent
 		
 		
 
-		Collider = Components.Get<BoxCollider>( FindMode.EverythingInSelfAndDescendants );
+		
 
 		if(CharacterController == null)
 		{
@@ -631,7 +631,7 @@ public partial class Player : Component, IHealthComponent
 		if ( !IsProxy )
 			PlyCamera.Enabled = true;
 
-		UpdateWeaponModelVisibility(); // Neue Methode aufrufen
+		//UpdateWeaponModelVisibility(); // Neue Methode aufrufen
 
 		var shadowRenderer = ShadowAnimator.Components.Get<SkinnedModelRenderer>( true );
 		var skinnedModelRenderer = ModelRenderer.Components.Get<SkinnedModelRenderer>( true );
@@ -650,6 +650,7 @@ public partial class Player : Component, IHealthComponent
 			if ( skinnedModelRenderer != null )
 			{
 				skinnedModelRenderer.Enabled = false;
+				
 			}
 
 			return;
@@ -711,6 +712,7 @@ public partial class Player : Component, IHealthComponent
 	private Vector3 targetCrouchPosition;
 	private float crouchDuration = 5f; // Dauer des Crouchens in Sekunden
 	private float crouchTimer = 0.0f;
+
 	protected override void OnUpdate()
 	{
 		
@@ -730,11 +732,12 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		}
+	
 		//UpdateModelVisibility();
 		//UpdateWeaponModelVisibility();
 
-		
-		
+
+
 		for ( int i = activeStatusEffects.Count - 1; i >= 0; i-- ) 
 		{
 			var effect = activeStatusEffects[i];

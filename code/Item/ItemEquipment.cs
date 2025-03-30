@@ -22,7 +22,9 @@ public enum HoldType : byte
 	FishingRod,
 	Item,
 	Flashlight,
-	Melee
+	Melee,
+    Pistol,
+    Shotgun,
 }
 
 public class ItemEquipment : ItemComponent
@@ -62,7 +64,7 @@ public class ItemEquipment : ItemComponent
     public bool Equipped => State == ItemState.Equipped;
 
 
-  
+    [Rpc.Broadcast]
     public void UpdateEquipped()
     {
         if (Equipped)
