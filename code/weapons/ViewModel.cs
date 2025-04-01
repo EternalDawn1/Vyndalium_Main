@@ -11,30 +11,30 @@ public sealed class ViewModel : Component
 	[Property, Group( "Components" )] public SkinnedModelRenderer Arms { get; set; }
 	[Property] public bool UseSprintAnimation { get; set; }
 
-	private Rotation CurRotation { get; set; }
-	private Vector3 CurPos { get; set; }
+	[Property] private Rotation CurRotation { get; set; }
+	[Property] private Vector3 CurPos { get; set; }
 
-	private float InertiaDamping => 0f;
+	[Property] private float InertiaDamping => 0f;
 
 	//private Vector3 SieatOffset => new Vector3( 0f, 0f, -5f );
 
-	private Vector3 swingOffset;
-	private float lastPitch;
-	private float lastYaw;
-	private float bobAnim;
-	private float bobSpeed;
+	[Property] private Vector3 swingOffset;
+	[Property] private float lastPitch;
+	[Property] private float lastYaw;
+	[Property] private float bobAnim;
+	[Property] private float bobSpeed;
 
-	private float SwingInfluence => 0f;
-	private float ReturnSpeed => 0f;
-	private float MaxOffsetLength => 0.125f;
-	private float BobCycleTime => 1;
+	[Property] private float SwingInfluence => 0f;
+	[Property] private float ReturnSpeed => 0f;
+	[Property] private float MaxOffsetLength => 0.125f;
+	[Property] private float BobCycleTime => 1;
 
-	private static Vector3 BobDirection => new( 0.0f, 0.125f, 0.125f );
-	private Rotation CurSmoothRotate { get; set; }
-	private Rotation LastCameraCalc { get; set; }
+	[Property] private static Vector3 BobDirection => new( 0.0f, 0.125f, 0.125f );
+	[Property] private Rotation CurSmoothRotate { get; set; }
+	[Property] private Rotation LastCameraCalc { get; set; }
 
-	public float YawInertia { get; private set; }
-	public float PitchInertia { get; private set; }
+	[Property] public float YawInertia { get; private set; }
+	[Property] public float PitchInertia { get; private set; }
 
 	public event Action<SceneModel.FootstepEvent> OnFootstepEvent;
 
@@ -61,10 +61,10 @@ public sealed class ViewModel : Component
 
 		}
 	}
-	private CameraComponent Camera { get; set; }
-	private WeaponComponent Weapon { get; set; }
-	private Rotation targetRotation; // Zielrotation, die erreicht werden soll
-	private float rotationDamping = 0.1f;
+	[Property] private CameraComponent Camera { get; set; }
+	[Property] private WeaponComponent Weapon { get; set; }
+	[Property] private Rotation targetRotation; // Zielrotation, die erreicht werden soll
+	[Property] private float rotationDamping = 0.1f;
 
 	public void SetWeaponComponent( WeaponComponent weapon )
 	{
@@ -122,67 +122,64 @@ public sealed class ViewModel : Component
 		return PlayerController.MoveSpeed > 0;
 	}
 	protected override void OnUpdate()
-	{
-		
-		if (PlayerController == null || ModelRenderer == null || Weapon == null)
-		{
-			return;
-		}
+{
+    if (PlayerController == null || ModelRenderer == null || Weapon == null)
+    {
+        return;
+    }
 
-		if (IsMoving())
-		{
-			float volume = PlayerController.MoveSpeed > 150f ? 1.0f : 0.5f; // Lautstärke basierend auf der Geschwindigkeit
-			TriggerFootstepEvent(0, volume); // Linker Fuß
-			TriggerFootstepEvent(1, volume); // Rechter Fuß
+    bool isMoving = PlayerController.MoveSpeed > 0;
+    bool isCrouching = PlayerController.IsCrouching;
+    bool isAiming = PlayerController.IsAiming;
+    float moveSpeed = PlayerController.MoveSpeed;
 
-			if (PlayerController.IsCrouching)
-			{
-				ModelRenderer.Set("move_bob", 0.25f); // Setze die Eigenschaft "move_bob" auf 0.25, wenn der Spieler duckt
-			}
-			else
-			{
-				ModelRenderer.Set("move_bob", PlayerController.MoveSpeed > 150f ? 1 : 0.5f); // Setze die Eigenschaft "move_bob" basierend auf der Geschwindigkeit
-			}
-		}
-		else
-		{
-			ModelRenderer.Set("move_bob", 0); // Setze die Eigenschaft "move_bob" auf 0, wenn der Spieler nicht läuft
-		}
+    // Optimierung: Berechnungen nur einmal durchführen
+    float volume = moveSpeed > 150f ? 1.0f : 0.5f;
 
-		Vector3 plusPos = Vector3.Zero + Weapon.IdlePos;
+    if (isMoving)
+    {
+        TriggerFootstepEvent(0, volume); // Linker Fuß
+        TriggerFootstepEvent(1, volume); // Rechter Fuß
 
-		if (PlayerController.IsAiming)
-		{
-			CurPos = CurPos.LerpTo(plusPos + Weapon.AimPos, Time.Delta * 10f);
-			//Camera.FieldOfView = Screen.CreateVerticalFieldOfView(20f);
-		}
-		else
-		{
-			CurPos = CurPos.LerpTo(plusPos, Time.Delta * 10f);
-			//Camera.FieldOfView = Screen.CreateVerticalFieldOfView(Game.Preferences.FieldOfView);
-		}
-		ModelRenderer.Set("b_aiming", PlayerController.IsAiming);
+        ModelRenderer.Set("move_bob", isCrouching ? 0.25f : (moveSpeed > 150f ? 1 : 0.5f));
+    }
+    else
+    {
+        ModelRenderer.Set("move_bob", 0);
+    }
 
-		if (PlayerController.MoveSpeed > 150f && Input.Down( "Run" ) )
-		{
-			Log.Info( "Sprint" );
-			ModelRenderer.Set("b_sprint", true);
-			CurRotation = Rotation.Lerp(CurRotation, Rotation.Identity * Weapon.RunRotation, Time.Delta * 5f);
-		}
-		else
-		{
-			CurRotation = Rotation.Lerp(CurRotation, Rotation.Identity, Time.Delta * 5f);
-			ModelRenderer.Set("b_sprint", false);
-		}
+    Vector3 plusPos = Vector3.Zero + Weapon.IdlePos;
+    Vector3 targetPos = isAiming ? plusPos + Weapon.AimPos : plusPos;
 
-		CalcRotateSmooth();
+    // Optimierung: Lerp nur bei Positionsänderung
+    if (CurPos != targetPos)
+    {
+        CurPos = CurPos.LerpTo(targetPos, Time.Delta * 10f);
+    }
 
-		LocalRotation = CurRotation;
-		LocalPosition = CurPos;
-		LocalScale = Vector3.One;
-		base.OnUpdate();
-	}
+    ModelRenderer.Set("b_aiming", isAiming);
 
+    if (moveSpeed > 150f && Input.Down("Run"))
+    {
+        Log.Info("Sprint");
+        ModelRenderer.Set("b_sprint", true);
+        CurRotation = Rotation.Lerp(CurRotation, Rotation.Identity * Weapon.RunRotation, Time.Delta * 5f);
+    }
+    else
+    {
+        CurRotation = Rotation.Lerp(CurRotation, Rotation.Identity, Time.Delta * 5f);
+        ModelRenderer.Set("b_sprint", false);
+    }
+
+    CalcRotateSmooth();
+
+    // Optimierung: Direkte Zuweisung ohne unnötige Berechnungen
+    LocalRotation = CurRotation;
+    LocalPosition = CurPos;
+    LocalScale = Vector3.One;
+
+    base.OnUpdate();
+}
 	private void CalcRotateSmooth()
 	{
 		float CurX;
@@ -295,18 +292,7 @@ public sealed class ViewModel : Component
 	{
 		ModelRenderer.Set( "b_jump", true );
 	}
-	private void ApplyRecoil()
-	{
-		// Beispielwerte f�r R�cksto�effekte
-		float recoilAmount = 5.0f; // St�rke des R�cksto�es
-		float recoilRecoverySpeed = 1.5f; // Geschwindigkeit der R�ckkehr
-
-		// Anwendung des R�cksto�es auf die Rotation
-		CurRotation *= Rotation.FromPitch( -recoilAmount );
-
-		// Gl�tten der R�ckkehr zur urspr�nglichen Rotation
-		CurRotation = Rotation.Slerp( CurRotation, Rotation.Identity, Time.Delta * recoilRecoverySpeed );
-	}
+	
 
 
 }
