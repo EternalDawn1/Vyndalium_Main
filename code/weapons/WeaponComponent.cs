@@ -51,20 +51,18 @@ public class WeaponComponent : Component
 	public bool IsInitialized { get; private set; }
 
 	// Methode zum Initialisieren der Waffe, die auch IsInitialized setzt
-	
+
 
 
 	protected override void OnStart()
 	{
-		if(Player.Local == null)
+		if ( Player.Local?.LifeState == LifeState.Dead )
 		{
 			return;
 		}
-		if(Player.Local.LifeState == LifeState.Dead)
-		{
-			return;
-		}
-		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>( true );
+
+		// Cache ModelRenderer nur einmal
+		ModelRenderer ??= Components.GetInDescendantsOrSelf<SkinnedModelRenderer>( true );
 
 		if ( !Owner.IsValid() ) return;
 
@@ -81,13 +79,11 @@ public class WeaponComponent : Component
 		base.OnStart();
 	}
 
-
 	protected override void OnAwake()
 	{
-		ModelRenderer = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>( true );
-
-		Owner = Components.GetInAncestors<Player>();
-		
+		// Cache ModelRenderer und Owner nur einmal
+		ModelRenderer ??= Components.GetInDescendantsOrSelf<SkinnedModelRenderer>(true);
+		Owner ??= Components.GetInAncestors<Player>();
 
 		base.OnAwake();
 	}
@@ -182,36 +178,19 @@ public class WeaponComponent : Component
 
 	protected virtual void OnDeployed()
 	{
-		if ( ModelRenderer == null )
+		if ( ModelRenderer == null || Owner == null )
 		{
-			Log.Error( "ModelRenderer is null in OnDeployed" );
+			Log.Error( "ModelRenderer or Owner is null in OnDeployed" );
 			return;
 		}
 
-		if ( Owner == null )
-		{
-			Log.Error( "Player is null in OnDeployed" );
-			return;
-		}
+		Owner.Components.Get<PlayerDresser>()?.RemoveClothing();
 
-		var playerDresser = Owner.Components.Get<PlayerDresser>();
-		if ( playerDresser != null )
+		 if (Owner.IsValid() && Owner.Animators != null)
 		{
-			playerDresser.RemoveClothing();
-		}
-
-		if ( Owner.IsValid() )
-		{
-			if ( Owner.Animators != null )
+			foreach (var animator in Owner.Animators)
 			{
-				foreach ( var animator in Owner.Animators )
-				{
-					animator.TriggerDeploy();
-				}
-			}
-			else
-			{
-				Log.Error( "Player animators are null in OnDeployed" );
+				animator.TriggerDeploy();
 			}
 		}
 
@@ -234,33 +213,18 @@ public class WeaponComponent : Component
 
 	protected virtual void OnHolstered()
 	{
-		
-		
-		
-
 		ModelRenderer.Enabled = false;
+
 		var player = Components.GetInAncestors<Player>();
-		if ( player != null )
-		{
-			var playerDresser = player.Components.Get<PlayerDresser>();
-			if ( playerDresser != null )
-			{
-				playerDresser.RemoveClothing();
-			}
-		}
-		else
-		{
-			
-		}
+		player?.Components.Get<PlayerDresser>()?.RemoveClothing();
 
 		DestroyViewModel();
 	}
 
 	public void DestroyViewModel()
 	{
-		if (ViewModel != null && ViewModel.GameObject != null && ViewModel.IsValid())
+		if ( ViewModel?.GameObject != null && ViewModel.IsValid() )
 		{
-			
 			ViewModel.GameObject.Destroy();
 			ViewModel = null;
 		}
@@ -268,36 +232,16 @@ public class WeaponComponent : Component
 
 	public void CreateViewModel()
 	{
-		if ( IsProxy )
-		{
-			return;
-		}
-		if ( !ViewModelPrefab.IsValid() )
+		if ( IsProxy || !ViewModelPrefab.IsValid() )
 		{
 			Log.Error( "ViewModelPrefab is not valid in CreateViewModel" );
 			return;
 		}
 
 		var player = Components.GetInAncestors<Player>();
-		if ( player == null )
-		{
-			
-			return;
-		}
+		if ( player == null ) return;
 
-		var character = player.Components.Get<Character>();
-		if ( character != null )
-		{
-			character.CreatePreviewClothing( null );
-		}
-
-		var playerDresser = player.Components.Get<PlayerDresser>();
-		if ( playerDresser != null )
-		{
-			//playerDresser.RemoveClothing();
-			//playerDresser.Destroy();
-		}
-		
+		player.Components.Get<Character>()?.CreatePreviewClothing( null );
 
 		var viewModelGameObject = ViewModelPrefab.Clone();
 		if ( viewModelGameObject == null )
