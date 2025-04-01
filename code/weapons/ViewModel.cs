@@ -163,8 +163,9 @@ public sealed class ViewModel : Component
 		}
 		ModelRenderer.Set("b_aiming", PlayerController.IsAiming);
 
-		if (PlayerController.MoveSpeed > 150f)
+		if (PlayerController.MoveSpeed > 150f && Input.Down( "Run" ) )
 		{
+			Log.Info( "Sprint" );
 			ModelRenderer.Set("b_sprint", true);
 			CurRotation = Rotation.Lerp(CurRotation, Rotation.Identity * Weapon.RunRotation, Time.Delta * 5f);
 		}
