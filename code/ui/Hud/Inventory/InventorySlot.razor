@@ -10,7 +10,7 @@
 
 <root @onrightclick=@( () => @OpenContextMenu() ) class="@CurrentDropTargetClassSelectors">
 	
-    <div class="border" />
+    <div class="border @($"border-tier-{Item?.Tier.ToString().ToLower()}")" />
     <div class="@($"background {@GetBackgroundClass()}")" style="@($"opacity: {GetOpacityBasedOnLevel()}")" />
     @if (Item is not null)
     {

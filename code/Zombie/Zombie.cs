@@ -1261,98 +1261,31 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 			return new Random().Next( 417100, 520100 ); // 170-200 Vyndalium für Level 91-100
 		}
 	}
-	private int CalculateXpReward( int npcLevel )
+	private int CalculateXpReward( int npcLevel, int playerLevel )
 	{
-		int halfNpcLevel = npcLevel / 2;
+		if ( npcLevel <= 0 )
+		{
+			Log.Warning( "Ungültiges NPC-Level: " + npcLevel );
+			return 10; // Mindestwert für XP
+		}
 
-		if ( npcLevel <= 10 )
-		{
-			return new Random().Next( 2, 16) * halfNpcLevel; // 5-15 XP pro halbes Level für Level 1-10
-		}
-		else if ( npcLevel <= 20 )
-		{
-			return new Random().Next( 16, 32) * halfNpcLevel; // 15-30 XP pro halbes Level für Level 11-20
-		}
-		else if ( npcLevel <= 30 )
-		{
-			return new Random().Next( 32, 450 ) * halfNpcLevel; // 30-50 XP pro halbes Level für Level 21-30
-		}
-		else if ( npcLevel <= 40 )
-		{
-			return new Random().Next( 45, 7000 ) * halfNpcLevel; // 50-70 XP pro halbes Level für Level 31-40
-		}
-		else if ( npcLevel <= 50 )
-		{
-			return new Random().Next( 48, 16500 ) * halfNpcLevel; // 70-90 XP pro halbes Level für Level 41-50
-		}
-		else if ( npcLevel <= 60 )
-		{
-			return new Random().Next( 65, 35000 ) * halfNpcLevel; // 90-110 XP pro halbes Level für Level 51-60
-		}
-		else if ( npcLevel <= 70 )
-		{
-			return new Random().Next( 81, 45000) * halfNpcLevel; // 110-130 XP pro halbes Level für Level 61-70
-		}
-		else if ( npcLevel <= 80 )
-		{
-			return new Random().Next( 100, 56151 ) * halfNpcLevel; // 130-150 XP pro halbes Level für Level 71-80
-		}
-		else if ( npcLevel <= 90 )
-		{
-			return new Random().Next( 150, 86171 ) * halfNpcLevel; // 150-170 XP pro halbes Level für Level 81-90
-		}
-		else if ( npcLevel <= 100 )
-		{
-			return new Random().Next( 170, 101201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
-		}
-		else if (npcLevel <= 110)
-		{
-			return new Random().Next( 170, 201201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
-		}
-		else if (npcLevel <= 120)
-		{
-			return new Random().Next( 170, 301201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
-		}
-		else if (npcLevel <= 130)
-		{
-			return new Random().Next( 170, 401201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
-		}
-		else if (npcLevel <= 140)
-		{
-			return new Random().Next( 170, 501201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
-		}
-		else if (npcLevel <= 150)
-		{
-			return new Random().Next( 170, 601201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
-		}
-		else if (npcLevel <= 160)
-		{
-			return new Random().Next( 170, 701201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
-		}
-		else if (npcLevel <= 170)
-		{
-			return new Random().Next( 170, 801201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
-		}
-		else if (npcLevel <= 180)
-		{
-			return new Random().Next( 170, 901201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
-		}
-		else if (npcLevel <= 190)
-		{
-			return new Random().Next(170, 1001201) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
-		}
-		else if (npcLevel <= 200)
-		{
-			return new Random().Next(170, 111201) * halfNpcLevel; // 170-
+		// Basis-XP-Belohnung pro NPC-Level
+		int baseXp = 10 + (npcLevel * 2);
 
-		
-		}
-		else
+		// Skalierung basierend auf dem Spieler-Level
+		float levelDifferenceMultiplier = 1.0f;
+		if ( playerLevel > npcLevel )
 		{
-			return new Random().Next( 170, 101201 ) * halfNpcLevel; // 170-200 XP pro halbes Level für Level 91-100
+			levelDifferenceMultiplier = Math.Max( 0.5f, 1.0f - ((playerLevel - npcLevel) * 0.05f) );
 		}
+
+		// Berechnung der endgültigen XP-Belohnung
+		int xpReward = (int)(baseXp * levelDifferenceMultiplier);
+
+		// Mindest-XP-Belohnung
+		return Math.Max( xpReward, 10 );
 	}
-	
+
 	[Rpc.Broadcast]
 	public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
 	{
@@ -1430,7 +1363,8 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 
 			// Skalieren der Punkte basierend auf dem Level des NPC
 			int vyndaliumPointsToAdd = CalculateVyndaliumReward( npcLevel );
-			int xpPointsToAdd = CalculateXpReward( npcLevel );
+			int xpPointsToAdd = CalculateXpReward( npcLevel, killerPlayer.Level );
+			Log.Info( $"Vyndalium Points: {vyndaliumPointsToAdd}, XP Points: {xpPointsToAdd}" );
 
 
 			if ( DeathSounds != null )

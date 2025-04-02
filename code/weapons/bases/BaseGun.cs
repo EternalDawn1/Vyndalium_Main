@@ -676,7 +676,10 @@ public partial class  BaseGun : WeaponComponent, IUse
 			NextAttackTime = 1f / FireRate;
 			return;
 		}
-		if ( Owner.MoveSpeed > 150f ) return;
+		if(Input.Pressed("Run"))
+		{
+			return;
+		}
 		Owner.ApplyRecoil( Recoil );
 		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
 		EffectRenderer?.Set( "b_attack", true );

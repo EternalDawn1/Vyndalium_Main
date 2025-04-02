@@ -53,7 +53,9 @@ namespace GeneralGame.HUD
             var player = Player.Local;
             if ( player != null )
             {
-                StoryMaster.DeleteSave();
+                player.ResetRankUp();
+                player.Vyndalium = 0;
+                player.AmmoContainer.ResetAmmo();
                 Player.Save();
                 Hudmaster.Instance.ShowNotification("Spielerstatistiken zurückgesetzt!", "/ui/hud/inventory.png");
             }

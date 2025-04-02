@@ -8,7 +8,7 @@ Inventory {
     backdrop-filter: $fullscreen-blur;
     pointer-events: all;
     opacity: 1;
-    background-color: rgba(0, 0, 0, 0.79);
+    background-color: rgba(0, 0, 0, 0);
     transition: opacity 0.2s ease;
 
     &:intro {
@@ -17,15 +17,14 @@ Inventory {
 
     .sidehud {
         position: absolute;
-            right: 88%;
-            top: 1%;
+        
             height: 100%;
-            width: 7%;
+            width: 100%;
             z-index: 10;
             padding: 10px;
-            background-color: rgba(51, 51, 51, 0.452);
+            background-color: rgba(51, 51, 51, 0);
             margin-top: 50px;
-            flex-direction: column;
+            
             justify-content: flex-start;
             border-radius: 10px;
             margin-top: 10px;
@@ -75,34 +74,35 @@ Inventory {
                 overflow-x: hidden;
                 overflow-y: scroll;
                 position: absolute;
+                
                 width: 100%;
                 height: 100%;
-                                
-                left: 15%;
+                background-color: rgba(131, 131, 131, 0);
+               
                 z-index: -100;
 
                 .box {
                 
                         gap: 10px;
                         position: absolute;
-                        left: 2.7%;
+                        left: 5%;
                         top: 7.5%;
-                        width: 90%;
-                
+                        width: 32%;
+                        
                         height: 3%;
                         z-index: 100;
                         
                         align-items: center;
                 
                         .sort {
-                             flex-direction: row;
+                            
                             position: relative;
                             font-size: 20%;
                         
                             font-weight: bold;
                         
                             color: rgb(255, 255, 255);
-                            width: 5%;
+                            width: 20%;
                             height: 70%;
                             background-color: rgb(0, 0, 0);
                             border-color: rgba(255, 255, 255, 0.034);
@@ -177,7 +177,7 @@ Inventory {
                     
                     gap: 10px;
                     position: absolute;
-                    left: 2.7%;
+                    left: 5%;
                     top: 44.5%;
                     width: 90%;
                    
@@ -261,77 +261,48 @@ Inventory {
         
                 }
         
-                                .Hello {
-                                    position: relative;
+                                
+                                .Hello2 {
+                                    position: absolute;
                                     width: 9%;
                                     height: 4%;
-                                    top: 1.5%;
-                                    left: 20.5%;
+                                    top:16%;
+                                    left: -0.6%;
                                     font-size: 26px;
                                     font-family: 'Geneva', sans-serif;
                                     color: white;
-                                    z-index: -100;
-                
+                                    z-index: 100;
+                                    transform: rotate(270deg);
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
-                                    background-color: rgba(124, 0, 0, 0);
-                                   
-                                    mask-size: 100%;
-                                    mask-mode: alpha;
                                     background-position: center;
                                     background-size: 100%;
-                                    border-radius: 15px;
-                                    border-width: 1px;
-                                 
-                                    border-color: rgba(255, 255, 255, 0.267);    
                                     opacity: 1;
                                     text-align: center;
-                                    text-shadow: 1px 1px 0px rgb(210, 21, 21);
+                                    text-shadow: 2px 2px 0px rgb(0, 0, 0);
                                     font-style: italic;
-                                    background: linear-gradient(90deg, rgb(82, 74, 74) 0%, rgb(3, 110, 35) 50%, rgb(10, 211, 53) 100%);
+                                    background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(3, 110, 35) 50%, rgb(0, 116, 25) 100%);
                                    
-                                    animation: glow 1.5s infinite alternate;
-                
-                                    @keyframes glow {
-                                        from {
-                                            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 0, 0, 0.4);
-                                        }
-                
-                                        to {
-                                            text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.6);
-                                        }
-                                    }
                                 }
         
                 .items {
                     position: relative;
                     
                     flex-wrap: wrap;
-                    width: 700px;
-                    top:70px;
+                    width: 700px;   
+                    left: 5%;
+                    top:110px;
                     gap: 1px;
-        
-        
-        
-        
-        
-        
-                }
-                .items2 {
-                    position: relative;
+                   
                     
-                    flex-wrap: wrap;
-                    width: 700px;
-                    top:140px;
-                    gap: 1px;
-        
         
         
         
         
         
                 }
+              
         
         
         
@@ -350,23 +321,25 @@ Inventory {
                     top: 10%;
                     z-index: -10;
                 
-                background-color: rgba(10, 64, 146, 0);
+              
+              
+               
 
                 .character
                 {
-                    position: relative;
+                   
                     justify-content: space-between;
                     
-                    background-color: rgba(255, 255, 255, 0);
+                   
 
                         .char
                         {
                             position: relative;
-                                top: 1%;
+                               
                                 z-index: -100;
                                 width: 100%;
                                 height: 100%;
-                                    background-color: rgba(255, 255, 255, 0);
+                                    
                                 
                                    
                                     
@@ -378,7 +351,7 @@ Inventory {
                     
                     {
                         
-                background-color: rgb(4, 255, 50);
+              
                    
             
                     .Equippeditems

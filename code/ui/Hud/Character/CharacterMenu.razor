@@ -21,9 +21,7 @@
 	<SideButton Title="Abilities" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Abilities)) IsInverted=@(true)
 		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 270px; right: 0px; " style="z-index: 100;" />
-	<SideButton Title="Quests" OnClick=@(() =>
-		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Quests)) IsInverted=@(true)
-		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 390px; right: 0px;" style="z-index: 100;" />
+	
 	<SideButton Title="Leaderboard" OnClick=@(() =>
 		FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.Leaderboard)) IsInverted=@(true)
 		ImagePath="ui/hud/muscles.png" style="position: absolute; top: 510px; right: 0px;" style="z-index: 100;" />
@@ -34,6 +32,7 @@
 		<div class="top2"></div>
 		<div class="top3"></div>
 	</div>
+	
 	<div class="section" style="opacity : @(currentpanel == PanelType.Attribute ? 1 : 1 )">
 	
 		<h2 class="header2">

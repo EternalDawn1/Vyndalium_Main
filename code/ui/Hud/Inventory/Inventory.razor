@@ -7,15 +7,7 @@
         FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud)) IsInverted=@(true)
         ImagePath="ui/hud/exit.gif" style="position: absolute; top: 30px; right: 0px;" style="z-index: 100;" />
     
-    <div class="sidehud">
-        <SideButton OnClick=@(() => ShowPanel(PanelType.Inventory)) IsInverted=@(true)
-            ImagePath="ui/hud/inventory.png" title="Inventory" TitleStyle="font-size: 16px;transform: rotate(-45deg); left:5%; position:absolute;"  />
-
-        <SideButton OnClick=@(() => ShowPanel(PanelType.Food)) IsInverted=@(true) ImagePath="ui/hud/food.png" title="Player" TitleStyle="font-size: 16px;transform: rotate(-45deg); left:5%; position:absolute;"   />
-
-        
-        
-    </div>
+   
     <div class="list" CanDragScroll="false" >
         @switch (ActivePanel)
         {
@@ -72,7 +64,8 @@
                                 <div class="tooltip">Favorite</div>
                                 ⭐️</button>
                         </div>
-                        <div class="Hello">Inventory</div>
+                        
+                        <div class="Hello2" @onclick="@(() => ShowPanel(PanelType.Food))">Player</div>
                         <div class="items ">
                             @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
                             {
@@ -106,14 +99,7 @@
                                 style="top:4.5%;background: linear-gradient(90deg, rgb(82, 74, 74) 0%, rgb(3, 110, 35) 50%, rgb(10, 211, 53) 100%);">
                                 Bag Pack</div>
                         }
-                        <div class="items2 @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
-                            @for (var index = 0; index < backpackBagItems.Count; index++)
-                            {
-                                var item = backpackBagItems[index];
-                                <InventorySlot Item=@item BackpackPackSlotIndex=@index />
-                            }
-                        </div>
-                        <div style="align-items: center; margin: 20px 5px;"></div>
+                        
                     </div>
                 </div>
                 break;

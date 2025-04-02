@@ -47,12 +47,7 @@
         "AirAcceleration": 400,
         "AirFriction": 6.5,
         "Bounce": 0.5,
-        "Collider": {
-          "_type": "component",
-          "component_id": "53c308fe-eb85-409f-8451-f409ee23146c",
-          "go": "19ac60d8-0e63-45a8-a0c2-8f486421171c",
-          "component_type": "ModelCollider"
-        },
+        "Collider": null,
         "EnableUnstuck": false,
         "Gravity": "0,0,850",
         "GroundAcceleration": 2065,
@@ -325,11 +320,11 @@
             }
           },
           {
-            "__type": "Sandbox.ModelCollider",
-            "__guid": "53c308fe-eb85-409f-8451-f409ee23146c",
+            "__type": "Sandbox.CapsuleCollider",
+            "__guid": "5dcc014b-eced-4f90-827c-9b3941c744fe",
+            "End": "0,0,10",
             "Friction": null,
             "IsTrigger": false,
-            "Model": "models/npcs/slime/slime.vmdl",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -340,6 +335,8 @@
             "OnObjectTriggerExit": null,
             "OnTriggerEnter": null,
             "OnTriggerExit": null,
+            "Radius": 20.500017,
+            "Start": "0,0,0",
             "Static": false,
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
@@ -357,7 +354,6 @@
           {
             "__type": "Sandbox.WorldPanel",
             "__guid": "cc3d6595-ac4c-4892-85a0-edb589fe07de",
-            "__enabled": false,
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
@@ -380,7 +376,6 @@
           {
             "__type": "GeneralGame.HUD.UI",
             "__guid": "d4ea641d-00d1-47e8-958b-53cf7ee7649e",
-            "__enabled": false,
             "npc": {
               "_type": "component",
               "component_id": "0f5ae04d-e230-47a9-bfa5-822d998bb258",

@@ -23,6 +23,7 @@ public sealed class DungeonEnter : Component, Component.ITriggerListener
 		var player = other.GetComponent<Player>();
 		if ( player != null && player == Player.Local )
 		{
+		
 			// Überprüfe, ob der Spieler in der Nähe ist
 			if ( (player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance )
 			{

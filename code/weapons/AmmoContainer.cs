@@ -19,6 +19,13 @@ public class AmmoContainer : Component
 		}
 		return 0;
 	}
+	public void ResetAmmo()
+	{
+		foreach ( var ammoType in AmmoCount.Keys.ToList() )
+		{
+			AmmoCount[ammoType] = 0;
+		}
+	}
 	public void RemoveAmmo( AmmoType ammoType, int count )
 	{
 		if ( AmmoCount.ContainsKey( ammoType ) )

@@ -173,12 +173,14 @@ public partial class Player
 		
 		
 		
-			MaxHealth = 50;
+			MaxHealth = 100;
+			Level = 1;
+			Experience = 0;
 			MinArmorValue = 0;
 			MaxArmorValue = 0;
 			MinAttackValue = 0;
 			MaxAttackValue = 0;
-			Health = 50;
+			Health = 100;
 			MaxMana = 50;
 			Mana = 50;
 			StatsPoints = 0;
@@ -199,12 +201,12 @@ public partial class Player
 			DEX = 0;
 			Evasion = 0;
 			AbilityHaste = 0;
-			PlayerWalkSpeed = 125;
-			PlayerRunSpeed = 190;
+			PlayerWalkSpeed = 190;
+			PlayerRunSpeed = 340;
 			INT = 0;
 			MagicPower = 0;
 			MagicPenetration = 0;
-
+			
 
 
 			IntelligenceCost = 1;
