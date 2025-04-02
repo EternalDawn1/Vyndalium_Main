@@ -554,49 +554,25 @@ namespace GeneralGame
      
             itemsLoaded = true;
         }
-       
+
         public void LoadRandomTierPrefabs( int playerLevel, int minLevel, int maxLevel )
         {
             if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
-         
+
             var random = new Random();
+            var tierProbabilities = GetTierProbabilities( playerLevel ); // Verwende die Methode hier
             var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
-            {
-                
-                (basePrefabs, "SS", 0.01),
-                (basePrefabs, "SSS", 0.01),
-                (basePrefabs, "Ultimate", 0.001),
-                (tierCPrefabs, "C", 0.4),  // 30%
-                (tierBPrefabs, "B", 0.2),  // 20%
-                (tierAPrefabs, "A", 0.2),  // 15%
-                (tierSPrefabs, "S", 0.1),  // 10%
-                (tierSSPrefabs, "SS", 0.04), // 4%
-                (tierSSSPrefabs, "SSS", 0.01), // 0.9%
-                (tierUltimatePrefabs, "Ultimate", 0.001) // 0.1%
+    {
+        (tierCPrefabs, "C", tierProbabilities["C"]),
+        (tierBPrefabs, "B", tierProbabilities["B"]),
+        (tierAPrefabs, "A", tierProbabilities["A"]),
+        (tierSPrefabs, "S", tierProbabilities["S"]),
+        (tierSSPrefabs, "SS", tierProbabilities["SS"]),
+        (tierSSSPrefabs, "SSS", tierProbabilities["SSS"]),
+        (tierUltimatePrefabs, "Ultimate", tierProbabilities["Ultimate"])
+    };
 
-
-            };
-            // Verwenden Sie 100, um Dezimalstellen zu ermöglichen
-
-            int itemsToSpawn;
-            int chance = random.Next( 100 ); // Verwenden Sie 100, um Dezimalstellen zu ermöglichen
-
-            if ( chance < 10 ) // 10%
-            {
-                itemsToSpawn = 2;
-            }
-            else if ( chance < 30 ) // 20%
-            {
-                itemsToSpawn = 3;
-            }
-            else if ( chance < 60 ) // 30%
-            {
-                itemsToSpawn = 4;
-            }
-            else // Rest (40%)
-            {
-                itemsToSpawn = 5;
-            }
+            int itemsToSpawn = DetermineItemsToSpawn( playerLevel );
             Items.Clear();
 
             var selectedPrefabs = new List<(string prefab, string tier)>();
@@ -621,39 +597,83 @@ namespace GeneralGame
                 }
             }
 
-       
             Items.Clear();
             int totalAdded = 0;
 
-            // Begrenze die Anzahl der hinzugefügten Items auf die Anzahl der ausgewählten Prefabs
             foreach ( var (prefabPath, tier) in selectedPrefabs )
             {
-                if ( totalAdded >= itemsToSpawn ) break; // Begrenze die Anzahl der hinzugefügten Items
+                if ( totalAdded >= itemsToSpawn ) break;
 
                 if ( !addedPrefabPaths.Contains( prefabPath ) )
                 {
                     LoadTierPrefab( prefabPath, tier, minLevel, maxLevel );
                     addedPrefabPaths.Add( prefabPath );
                     totalAdded++;
-                  
-
-                    // Zu 80% ein zufälliges Item aus nonRandomStatItems hinzufügen
-                    if ( random.NextDouble() <= 0.30 )
-                    {
-                        var randomNonRandomStatItem = nonRandomStatItems[random.Next( nonRandomStatItems.Count )];
-                        LoadNonRandomStatItem( randomNonRandomStatItem, minLevel, maxLevel );
-                        addedPrefabPaths.Add( randomNonRandomStatItem );
-                        totalAdded++;
-                     
-                    }
                 }
             }
 
-          
-
             itemsLoaded = true;
         }
-      
+        private Dictionary<string, double> GetTierProbabilities( int playerLevel )
+        {
+            // Basiswahrscheinlichkeiten für jedes Tier
+            double cProbability = Math.Max( 50 - (playerLevel * 0.5), 5 ); // C sinkt mit steigendem Level, min. 5%
+            double bProbability = Math.Max( 30 - (playerLevel * 0.3), 10 ); // B sinkt, min. 10%
+            double aProbability = Math.Min( 15 + (playerLevel * 0.2), 25 ); // A steigt, max. 25%
+            double sProbability = Math.Min( 4 + (playerLevel * 0.1), 15 ); // S steigt, max. 15%
+            double ssProbability = Math.Min( 0.9 + (playerLevel * 0.05), 10 ); // SS steigt, max. 10%
+            double sssProbability = Math.Min( 0.09 + (playerLevel * 0.01), 5 ); // SSS steigt, max. 5%
+            double ultimateProbability = Math.Min( 0.01 + (playerLevel * 0.005), 2 ); // Ultimate steigt, max. 2%
+
+            // Normalisierung der Wahrscheinlichkeiten
+            double total = cProbability + bProbability + aProbability + sProbability + ssProbability + sssProbability + ultimateProbability;
+
+            return new Dictionary<string, double>
+        {
+            { "C", cProbability / total },
+            { "B", bProbability / total },
+            { "A", aProbability / total },
+            { "S", sProbability / total },
+            { "SS", ssProbability / total },
+            { "SSS", sssProbability / total },
+            { "Ultimate", ultimateProbability / total }
+        };
+        }
+
+        private double CalculateProbabilityForLevel( int playerLevel, int itemLevel )
+        {
+            int levelDifference = itemLevel - playerLevel;
+
+            if ( levelDifference < 0 ) return 0; // Keine Items unter dem Spielerlevel
+
+            // Dynamische Anpassung der maximalen Leveldifferenz basierend auf dem Spielerlevel
+            int maxLevelDifference = playerLevel >= 100 ? 50 : 20 + (playerLevel / 2); // Erhöhe die Differenz dynamisch
+
+            if ( levelDifference > maxLevelDifference ) return 0; // Keine Items mehr als maxLevelDifference über dem Spielerlevel
+
+            // Basiswahrscheinlichkeiten für jedes Tier
+            double baseProbability = 0;
+            if ( levelDifference <= 5 ) baseProbability = 0.5; // 50% für Items innerhalb von 5 Leveln
+            else if ( levelDifference <= 10 ) baseProbability = 0.25; // 25% für Items innerhalb von 10 Leveln
+            else if ( levelDifference <= 15 ) baseProbability = 0.1; // 10% für Items innerhalb von 15 Leveln
+            else if ( levelDifference <= maxLevelDifference ) baseProbability = 0.05; // 5% für Items innerhalb der maximalen Leveldifferenz
+
+            // Skalierung der Wahrscheinlichkeit basierend auf dem Spielerlevel
+            double levelScalingFactor = 1 + (playerLevel / 100.0); // Erhöhe die Wahrscheinlichkeit proportional zum Spielerlevel
+            return baseProbability * levelScalingFactor;
+        }
+
+        private int DetermineItemsToSpawn( int playerLevel )
+        {
+            // Dynamische Anzahl der zu spawnenden Items basierend auf dem Spielerlevel
+            if ( playerLevel <= 10 ) return 2;
+            if ( playerLevel <= 20 ) return 3;
+            if ( playerLevel <= 30 ) return 4;
+            if ( playerLevel <= 40 ) return 5;
+            if ( playerLevel <= 50 ) return 6;
+            return 7; // Maximal 7 Items für Spielerlevel über 50
+        }
+
         private void LoadNonRandomStatItem( string prefabPath, int minLevel, int maxLevel )
         {
            

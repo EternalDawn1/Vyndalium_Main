@@ -1364,7 +1364,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 			// Skalieren der Punkte basierend auf dem Level des NPC
 			int vyndaliumPointsToAdd = CalculateVyndaliumReward( npcLevel );
 			int xpPointsToAdd = CalculateXpReward( npcLevel, killerPlayer.Level );
-			Log.Info( $"Vyndalium Points: {vyndaliumPointsToAdd}, XP Points: {xpPointsToAdd}" );
+			
 
 
 			if ( DeathSounds != null )
