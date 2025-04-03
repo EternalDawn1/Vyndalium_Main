@@ -34,7 +34,7 @@
 		base.OnAfterTreeRender(firstTime);
 
 		_sceneWorld ??= new SceneWorld();
-		_sceneLight ??= new SceneLight(_sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 0.4f); // Erhöhe den Wert
+		_sceneLight ??= new SceneLight(_sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 0.4f); 
 		_sceneDirectionalLight ??= new SceneDirectionalLight(_sceneWorld, global::Rotation.From(-45, -45, 45), Color.White *
 		0.5f);
 		_character ??= new SceneModel(_sceneWorld, "models/citizen/citizen.vmdl", new Transform(Vector3.Zero,
@@ -132,7 +132,7 @@
 	
 	
 	private void Update()
-{
+	{
     if (_scenePanel == null || _character == null || Player.Local == null || Player.Local.Inventory == null)
         return;
 
@@ -198,16 +198,27 @@
 	
 	public override void Tick()
 	{
-		
-		if ( _character is null )
+		if (_character is null)
 			return;
 
-		if ( _isDragging )
-			_yaw += Mouse.Delta.x * 0.20f;
+		bool needsUpdate = false;
 
-		Update();
-		
-		
+		if (_isDragging)
+		{
+			_yaw += Mouse.Delta.x * 0.20f;
+			needsUpdate = true; // Nur aktualisieren, wenn die Maus gezogen wird
+		}
+
+		if (needsUpdate)
+		{
+			Update();
+		}
+
+		// Refresh nur aufrufen, wenn es Änderungen im Inventar oder an der Kleidung gibt
+		if (Player.Local?.Inventory?.HasChanged == true) // Beispiel: HasChanged muss implementiert werden
+		{
+			Refresh();
+		}
 	}
 	
 	

@@ -103,7 +103,7 @@
           "__guid": "0346d42d-fd25-4b59-bde4-ab4a5f14b3fa",
           "Flags": 0,
           "Name": "shop",
-          "Position": "-5168.208,-3775.811,3.498199",
+          "Position": "-5137.995,-3978.177,2.393967",
           "Rotation": "0,0,-0.7071069,-0.7071065",
           "Enabled": true,
           "Children": [
@@ -2026,8 +2026,8 @@
               "__guid": "92636048-74c1-4df9-bd08-f06ece867d3c",
               "Flags": 0,
               "Name": "Text",
-              "Position": "-11.19776,0.9319494,72.69716",
-              "Rotation": "0,0,-0.7071067,0.7071068",
+              "Position": "59.70118,-4.679726,34.84902",
+              "Rotation": "0.00000001030778,-0.00000001030779,-0.7071066,0.7071068",
               "Scale": "1.465346,1.465346,1.465346",
               "Enabled": true,
               "Components": [
@@ -2051,10 +2051,10 @@
                   "Scale": 0.03,
                   "TextAlignment": "Center",
                   "TextScope": {
-                    "Text": "Shopkeeper",
-                    "TextColor": "1,1,1,1",
+                    "Text": "Shop",
+                    "TextColor": "0.76744,0.76744,0.76744,1",
                     "FontName": "Poppins",
-                    "FontSize": 183.03,
+                    "FontSize": 512,
                     "FontWeight": 800,
                     "FontItalic": false,
                     "LineHeight": 1,
@@ -2090,7 +2090,7 @@
               "__guid": "559875b6-e853-4b43-95ce-5938dcf55bbf",
               "Flags": 0,
               "Name": "Text",
-              "Position": "-11.11084,0.9315832,84.96196",
+              "Position": "-16.19751,0.9316502,70.13506",
               "Rotation": "0,0,-0.7071067,0.7071068",
               "Scale": "1.465346,1.465346,1.465346",
               "Enabled": true,
@@ -2116,7 +2116,7 @@
                   "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "Ella",
-                    "TextColor": "1,1,1,1",
+                    "TextColor": "0.8,0.8,0.8,1",
                     "FontName": "Poppins",
                     "FontSize": 512,
                     "FontWeight": 800,
@@ -2125,23 +2125,23 @@
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
                     "Outline": {
-                      "Enabled": false,
+                      "Enabled": true,
                       "Size": 4,
                       "Color": "0,0,1,1"
                     },
                     "Shadow": {
-                      "Enabled": false,
-                      "Size": 4,
+                      "Enabled": true,
+                      "Size": 58.499977,
                       "Color": "0,0,0,1",
-                      "Offset": "4,4"
+                      "Offset": "45.3,4"
                     },
                     "OutlineUnder": {
-                      "Enabled": false,
+                      "Enabled": true,
                       "Size": 4,
                       "Color": "0,1,0,1"
                     },
                     "ShadowUnder": {
-                      "Enabled": false,
+                      "Enabled": true,
                       "Size": 4,
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
@@ -2197,7 +2197,7 @@
               "__guid": "2754d4f4-4724-4e3c-bb59-0856af1ad4a3",
               "Flags": 0,
               "Name": "dungeon enter",
-              "Position": "2283.83,-1941.301,-76.36234",
+              "Position": "2484.058,-1941.301,-76.36232",
               "Enabled": true,
               "Components": [
                 {
@@ -4419,7 +4419,7 @@
           "__guid": "f1067586-e09d-41f5-b5fe-2435b1e24461",
           "Flags": 0,
           "Name": "Point Light (5)",
-          "Position": "-2062.88,-2781.035,127.3535",
+          "Position": "-2142.17,-2781.035,127.3535",
           "Rotation": "-0.4999999,0.5,0.4999999,0.5",
           "Tags": "light,light_point,light_spot",
           "Enabled": true,
@@ -4428,7 +4428,7 @@
             {
               "__type": "Sandbox.PointLight",
               "__guid": "c5403908-7540-4471-864e-20418ddde273",
-              "Attenuation": 0.050000094,
+              "Attenuation": 0.32,
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.65116,0.5288,0.34527,1",
@@ -6108,7 +6108,7 @@
       "__guid": "519b2729-f4e9-4ba2-8857-c7c6cfb660b2",
       "Flags": 0,
       "Name": "shop",
-      "Position": "-5595.375,-3822.123,399.9638",
+      "Position": "-5744.464,-3878.063,227.0608",
       "Rotation": "0,0,0.7071068,0.7071068",
       "Enabled": true,
       "NetworkMode": 1,
@@ -6191,6 +6191,175 @@
           "OnComponentUpdate": null,
           "StartDistance": 449.49966,
           "VerticalFalloffExponent": 2
+        }
+      ]
+    },
+    {
+      "__guid": "7ff53978-1231-44ba-8ecd-c6ccdfb6bc47",
+      "Flags": 0,
+      "Name": "Box",
+      "Position": "-5584.331,-3854.294,108.2357",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "13a8a889-4932-422a-ab97-da5d07b6b9ba",
+          "Collision": "Mesh",
+          "Color": "1,1,1,1",
+          "Friction": null,
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "-5584.331,-3854.294,108.2357",
+            "Rotation": "0,0,0,1",
+            "Positions": [
+              "-240.3306,-303.5637,18.17243",
+              "240.3306,-303.5637,18.17243",
+              "240.3306,303.5637,18.17243",
+              "-240.3306,303.5637,18.17243",
+              "-240.3306,303.5637,-18.17243",
+              "240.3306,303.5637,-18.17243",
+              "240.3306,-303.5637,-18.17243",
+              "-240.3306,-303.5637,-18.17243"
+            ],
+            "TextureCoord": [
+              "3.755165,4.743183",
+              "-3.755165,-0.2839442",
+              "3.755165,-4.743183",
+              "-4.743183,-0.2839442",
+              "-3.755165,-4.743183",
+              "-3.755165,-0.2839442",
+              "-3.755165,4.743183",
+              "-4.743183,-0.2839442",
+              "3.755165,-4.743183",
+              "3.755165,0.2839442",
+              "3.755165,4.743183",
+              "4.743183,0.2839442",
+              "-3.755165,4.743183",
+              "3.755165,0.2839442",
+              "-3.755165,-4.743183",
+              "4.743183,0.2839442",
+              "4.743183,-0.2839442",
+              "-3.755165,0.2839442",
+              "-4.743183,0.2839442",
+              "3.755165,-0.2839442",
+              "-4.743183,0.2839442",
+              "3.755165,-0.2839442",
+              "4.743183,-0.2839442",
+              "-3.755165,0.2839442"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "1,0,-0",
+              "0,-1,0",
+              "0,1,0",
+              "-1,0,0",
+              "1,-0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,-1",
+              "-0,0,-1",
+              "0,0,-1",
+              "-0,0,-1"
+            ],
+            "TextureScale": [
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25"
+            ],
+            "TextureOffset": [
+              "65.32227,198.8232",
+              "65.32227,198.8232",
+              "198.8232,176.9427",
+              "57.17676,176.9427",
+              "190.6777,176.9427",
+              "65.32227,176.9427"
+            ],
+            "MaterialIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/dev/dev_grating.vmat"
+            ]
+          },
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RenderType": "On",
+          "SmoothingAngle": 40,
+          "Static": true,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "74e764b2-6e29-43e3-8365-4b8077f575c8",
+      "Flags": 0,
+      "Name": "Point Light",
+      "Position": "-5170.222,-4024.64,264.949",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "e08213b0-01e5-46f4-8fa0-450cb7a1a0fe",
+          "Attenuation": 3.41,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0,0.6093,0.07109,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 400,
+          "Shadows": true
         }
       ]
     }

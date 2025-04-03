@@ -161,6 +161,7 @@ public partial class WeaponContainer : Component
 			rigidBody.Destroy();
 		}
 		
+		
 
 		var weaponGo = prefab.Clone();
 		var weapon = weaponGo.Components?.GetInDescendantsOrSelf<WeaponComponent>( true );

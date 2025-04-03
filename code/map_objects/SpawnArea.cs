@@ -323,11 +323,13 @@ public sealed class NpcSpawnArea : Component
 	private float playerProximityTimer = 0.0f;
 	protected override void OnUpdate()
 	{
-		if (Network.IsProxy || !Player.Local.IsHost()) return;
+		if ( Network.IsProxy || Player.Local == null || !Player.Local.IsHost() ) return;
+
 		if ( NpcPool == null )
 		{
 			return;
 		}
+
 		if ( !IsPlayerInRoom() )
 		{
 			playerProximityTimer = 0.0f; // Timer zurücksetzen, wenn der Spieler nicht im Raum ist
@@ -350,14 +352,12 @@ public sealed class NpcSpawnArea : Component
 			hasSpawnedNPCs = SpawnedNpcs.Count > 0; // Setze auf true, wenn NPCs erfolgreich gespawnt wurden
 		}
 
-		// Überprüfen, ob alle NPCs aus dem NpcPool tot sind
 		if ( !hasSpawnedBoss && (TimeUntilBossSpawn == null || TimeUntilBossSpawn <= 0) )
 		{
 			SpawnBossNPCs();
 			hasSpawnedBoss = SpawnedNpcs.Count > 0; // Setze auf true, wenn Boss-NPCs erfolgreich gespawnt wurden
 		}
 
-		// Loop-Spawning-Logik
 		if ( LoopSpawning && lastSpawnTime >= LoopSpawnInterval )
 		{
 			SpawnNPCs();
@@ -368,7 +368,6 @@ public sealed class NpcSpawnArea : Component
 			}
 		}
 
-		// Setze LoopSpawning nach Ablauf des Intervalls wieder auf true, wenn InfiniteLoops aktiviert ist
 		if ( InfiniteLoops && !LoopSpawning && lastSpawnTime >= LoopSpawnInterval )
 		{
 			LoopSpawning = true;
@@ -376,13 +375,31 @@ public sealed class NpcSpawnArea : Component
 	}
 	private bool IsPlayerInDoor( Player player )
 	{
-		if ( ChallengeDoor == null || ChallengeDoor.GameObject == null )
+		if ( ChallengeDoor == null )
 		{
+			
 			return false;
 		}
 
-		// Implementieren Sie die Logik, um zu überprüfen, ob der Spieler sich in der Tür befindet
-		// Beispiel: Überprüfen Sie die Position des Spielers relativ zur Tür
+		if ( ChallengeDoor.GameObject == null )
+		{
+			
+			return false;
+		}
+
+		if ( player == null )
+		{
+			
+			return false;
+		}
+
+		if ( player.WorldPosition == null )
+		{
+		
+			return false;
+		}
+
+		// Überprüfen Sie die Position des Spielers relativ zur Tür
 		var doorPosition = ChallengeDoor.GameObject.WorldPosition;
 		var playerPosition = player.WorldPosition;
 		var distanceToDoor = (playerPosition - doorPosition).Length;
@@ -398,17 +415,26 @@ public sealed class NpcSpawnArea : Component
 		if ( Network.IsProxy || NpcPool == null || NpcPool.Count == 0 )
 			return false;
 
+		if ( Scene == null )
+		{
+			Log.Error( "Scene is null." );
+			return false;
+		}
+
 		var players = Scene.GetAllComponents<Player>();
 		if ( players == null )
 		{
+			Log.Error( "No players found in the scene." );
 			return false;
 		}
 
 		foreach ( var player in players )
 		{
+			if ( player == null )
+				continue;
+
 			if ( (player.WorldPosition - this.WorldPosition).Length < PlayerProximityDistance.Length )
 			{
-				// Überprüfen, ob der Spieler sich nicht in der Tür befindet
 				if ( !IsPlayerInDoor( player ) )
 				{
 					return true;

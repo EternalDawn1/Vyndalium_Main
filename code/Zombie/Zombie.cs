@@ -1296,6 +1296,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 		
 		if ( Model != null && isSlime )
 		{
+			
 			Model.Set( "slime_damage", true );
 		} 
 		else if ( Model != null && isChibi )

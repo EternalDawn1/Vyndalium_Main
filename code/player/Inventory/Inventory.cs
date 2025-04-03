@@ -46,7 +46,12 @@ public sealed class Inventory : Component
 	public const int MAX_UPGRADE_SLOTS = 1;
 	public const int MAX_ASPECT_SLOTS = 1;
 	public static int MAX_BACKPACKBAG_SLOTS = 0;
-
+	private bool _hasChanged;
+	public bool HasChanged
+	{
+		get => _hasChanged;
+		set => _hasChanged = value;
+	}
 
 	[Property]public IReadOnlyList<ItemComponent> BackpackItems => _backpackItems;
 	[Property] public IReadOnlyList<ItemComponent> EquippedItems => _equippedItems;
@@ -827,8 +832,8 @@ public sealed class Inventory : Component
 			
 			GiveEquipmentItem( equipment );
 			equipment.State = ItemState.Equipped;
-		
-			
+			HasChanged = true;
+
 
 			var weaponContainer = Player.Components.Get<WeaponContainer>();
 			if ( weaponContainer != null )
@@ -924,6 +929,7 @@ public sealed class Inventory : Component
 		{
 			GiveEquipmentItem( equipment );
 			equipment.State = ItemState.Equipped;
+			HasChanged = true; // Inventar wurde geändert
 
 			var weaponContainer = Player?.Components?.Get<WeaponContainer>();
 			if ( weaponContainer != null )
@@ -1023,8 +1029,8 @@ public sealed class Inventory : Component
 		item.GameObject.Enabled = false;
 		GiveBackpackItem( equipment, firstFreeSlot );
 		equipment.State = ItemState.Backpack;
+		HasChanged = true; // Inventar wurde geändert
 
-		
 
 		return true;
 	}

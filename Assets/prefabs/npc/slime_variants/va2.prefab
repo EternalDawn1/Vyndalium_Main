@@ -11,8 +11,15 @@
         "__type": "Sandbox.NavMeshAgent",
         "__guid": "0a5633c9-027b-4e69-902f-6cc6a5982a2e",
         "Acceleration": 237.39967,
+        "AutoTraverseLinks": true,
         "Height": 31.700174,
         "MaxSpeed": 71.49985,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Radius": 19.400007,
         "Separation": 1,
         "UpdatePosition": true,
@@ -23,11 +30,18 @@
         "__guid": "04f1cf23-b4b4-4c99-a368-8d72b64db161",
         "AccelerationCurve": [
           {
-            "y": 0.38297874
+            "x": 0,
+            "y": 0.38297874,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
           },
           {
             "x": 0.89285713,
-            "y": 1
+            "y": 1,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
           }
         ],
         "AirAcceleration": 400,
@@ -46,8 +60,13 @@
         "GroundFriction": 33.7,
         "IgnoreTags": "",
         "MaxUnstuckTries": 20,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
         "OnComponentUpdate": {
-          "__version": 8,
+          "__version": 9,
           "__guid": "c3992a35-2e68-459f-be3b-ea158f7ceeef",
           "__changeId": 0,
           "UserData": {
@@ -99,6 +118,13 @@
         "Health": 100,
         "Immortal": false,
         "MaxHealth": 9,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnDamaged": null,
         "RegenerationCooldown": 2,
         "RegenerationTimer": 5,
         "StunnedBy": "Bullet",
@@ -114,7 +140,19 @@
         },
         "EyesWeight": 1,
         "HeadWeight": 1,
+        "Height": null,
+        "IkLeftFoot": null,
+        "IkLeftHand": null,
+        "IkRightFoot": null,
+        "IkRightHand": null,
+        "LookAt": null,
         "LookAtEnabled": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Target": {
           "_type": "component",
           "component_id": "f53866ac-309f-4aba-9683-e45b9b2f8c78",
@@ -125,7 +163,7 @@
       {
         "__type": "Slime",
         "__guid": "0f5ae04d-e230-47a9-bfa5-822d998bb258",
-        "isChibi": false,
+        "activeStatusEffects": [],
         "AlertOthers": true,
         "AnimationHelper": {
           "_type": "component",
@@ -142,6 +180,7 @@
         "CurrentState": "Idle",
         "DeathSounds": "sounds/deathsounds/deathsounds.sound",
         "DetectRange": 352,
+        "EnemyTags": null,
         "Eye": {
           "_type": "gameobject",
           "go": "1160931a-c772-4e03-93e0-f7e3e815c003"
@@ -164,6 +203,11 @@
         "HitSounds": "sounds/slimeattack/slimeattackone.sound",
         "Idle": true,
         "IsBleeding": false,
+        "isChibi": false,
+        "IsFloating": false,
+        "isPrometheus": false,
+        "isSlime": false,
+        "IsSlowed": false,
         "Level": 0,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
@@ -183,6 +227,18 @@
         },
         "MoveSpeed": 0,
         "Name": "Slime",
+        "OnAttack": null,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnDetect": null,
+        "OnEnemyEscaped": null,
+        "OnIdle": null,
+        "OnKilled": null,
+        "OnSpawn": null,
         "PogMode": false,
         "Position": "0,0,0",
         "RunningType": "Smart",
@@ -212,10 +268,19 @@
             "__guid": "f53866ac-309f-4aba-9683-e45b9b2f8c78",
             "AnimationGraph": "models/npcs/slime/slime.vanmgrph",
             "BodyGroups": 18446744073709551615,
+            "BoneMergeTarget": null,
             "CreateAttachments": false,
             "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
             "Model": "models/npcs/slime/slime.vmdl",
             "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Parameters": {
               "bools": {},
               "ints": {},
@@ -223,6 +288,7 @@
               "vectors": {},
               "rotations": {}
             },
+            "PlaybackRate": 1,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -240,10 +306,22 @@
             "__type": "Sandbox.Citizen.CitizenAnimationHelper",
             "__guid": "61dccdf6-b549-42c2-aeb3-8910e52f0840",
             "BodyWeight": 1,
+            "EyeSource": null,
             "EyesWeight": 1,
             "HeadWeight": 1,
             "Height": 0.96,
+            "IkLeftFoot": null,
+            "IkLeftHand": null,
+            "IkRightFoot": null,
+            "IkRightHand": null,
+            "LookAt": null,
             "LookAtEnabled": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Target": {
               "_type": "component",
               "component_id": "f53866ac-309f-4aba-9683-e45b9b2f8c78",
@@ -254,9 +332,21 @@
           {
             "__type": "Sandbox.ModelCollider",
             "__guid": "53c308fe-eb85-409f-8451-f409ee23146c",
+            "Friction": null,
             "IsTrigger": false,
             "Model": "models/dev/error.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnObjectTriggerEnter": null,
+            "OnObjectTriggerExit": null,
+            "OnTriggerEnter": null,
+            "OnTriggerExit": null,
             "Static": false,
+            "Surface": null,
             "SurfaceVelocity": "0,0,0"
           }
         ]
@@ -283,6 +373,12 @@
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PanelSize": "2000,1000",
             "RenderOptions": {
               "GameLayer": true,
@@ -301,7 +397,13 @@
               "component_id": "0f5ae04d-e230-47a9-bfa5-822d998bb258",
               "go": "53dcb476-3c97-441e-b482-1d2b8faeb291",
               "component_type": "Slime"
-            }
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
           }
         ]
       }
@@ -337,6 +439,5 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "HasUnsavedChanges": false,
   "__version": 1
 }

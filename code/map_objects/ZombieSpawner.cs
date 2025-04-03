@@ -112,7 +112,11 @@ public sealed class ZombieSpawner : Component
 
 		if ( !TimeUntilRespawn.Value )
 			return;
-		
+		if ( ZombiePrefab == null )
+		{
+			
+			return;
+		}
 
 
 		var zombie = ZombiePrefab.Clone( this.Transform.World );
