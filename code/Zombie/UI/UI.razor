@@ -3,10 +3,10 @@
 
 
 
-<root>
+<root >
     @if (npc != null)
     {
-        <div class="npc">
+        <div class="npc @(isTakingDamage ? "show" : "")">
           
             <div class="npc-level @GetLevelClass(npc.Level)">Lvl.@npc.Level</div>
             <div class="npc-name">@npc.Name</div>
@@ -79,13 +79,16 @@
         if (level >= 5) return "level-5";
         return "level-1";
     }
-    private bool isEventHandlerAdded = false;
+    [Property] private float _damageTimer = 0f;
+    private bool isEventRegistered = false;
+
     protected override void OnUpdate()
     {
-        if (npc != null && !isEventHandlerAdded)
+        if (npc != null && !isEventRegistered)
         {
-            npc.OnTakeDamage += HandleTakeDamage;
-            isEventHandlerAdded = true;
+            npc.OnTakeDamage -= HandleTakeDamage; // Entferne vorherige Registrierung
+            npc.OnTakeDamage += HandleTakeDamage; // Registriere das Event
+            isEventRegistered = true; // Setze das Flag
         }
 
         if (npc != null && npc.Health <= 0)
@@ -93,27 +96,40 @@
             // Entferne das UI
             this.Destroy();
         }
+
+        if (isTakingDamage)
+        {
+            _damageTimer -= RealTime.Delta;
+
+            if (_damageTimer <= 0f)
+            {
+                isTakingDamage = false;
+                StateHasChanged();
+            }
+        }
     }
-    private bool isTakingDamage = false;
+    [Property] private bool isTakingDamage = false;
     [Property] private Npc npc { get; set; } = new Npc();
 
-    protected override int BuildHash() => HashCode.Combine(RealTime.Now);
+    protected override int BuildHash() => HashCode.Combine(RealTime.Now, isTakingDamage );
 
     [Rpc.Broadcast]
-    public  void HandleTakeDamage()
+   
+    public void HandleTakeDamage()
     {
         if (npc == null)
         {
-            Log.Error("Npc is null in HandleTakeDamage");
+           
             return;
         }
-        isTakingDamage = true;
-        StateHasChanged();
 
+        isTakingDamage = true;
         
-        
+        StateHasChanged(); // UI aktualisieren
+
+        _damageTimer = 10f; // Timer zurücksetzen
     }
-    
+
     
 
     

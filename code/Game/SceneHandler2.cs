@@ -97,6 +97,7 @@ public static class SceneHandler2
         
 
     }
+    
 
     [Rpc.Broadcast( NetFlags.SendImmediate )]
     public static void LoadNewScene( GameResource resource, GeneralScene2 scene )

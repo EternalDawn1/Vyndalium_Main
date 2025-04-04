@@ -1285,6 +1285,8 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 		// Mindest-XP-Belohnung
 		return Math.Max( xpReward, 10 );
 	}
+	private float lastDamageEventTime = 0f; // Letzter Zeitpunkt, an dem das Event ausgelöst wurde
+	private const float damageEventCooldown = 0.1f;
 
 	[Rpc.Broadcast]
 	public void TakeDamage( DamageType type, float amount, Vector3 hitPosition, Vector3 hitDirection, Guid attackerId, Guid playerId )
@@ -1318,9 +1320,13 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 
 		Health = Math.Clamp( Health - amount, 0f, MaxHealth );
 
-		
 
-		OnTakeDamage?.Invoke();
+
+		if ( Time.Now - lastDamageEventTime >= damageEventCooldown )
+		{
+			OnTakeDamage?.Invoke();
+			lastDamageEventTime = Time.Now; // Aktualisiere den letzten Zeitpunkt
+		}
 
 		RecentlyDamaged = true;
 		LastDamageTime = Time.Now;
