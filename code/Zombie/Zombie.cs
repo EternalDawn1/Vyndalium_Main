@@ -122,7 +122,8 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 
 	[Property]private HoldTypes CurrentHoldType = HoldTypes.None;
 
-
+	[Sync, Property]
+	public float PreviousHealth { get; set; }
 
 	/// <summary>
 	/// For animations. How many units per second the run animation is tuned to (This is automatically scaled by the scale)
@@ -344,8 +345,8 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Property] public bool isSlime = false;
 	[Property]public bool isPrometheus = false;
 
-	public NavMeshAgent NavMeshAgent { get; set; } 
-
+	public NavMeshAgent NavMeshAgent { get; set; }
+	private float previousHealth;
 
 	[Property]
 	public float MoveSpeed { get; set; }
@@ -429,6 +430,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 		// Überprüfe auf Vorbedingungen, um eine ungültige Ausführung zu vermeiden
 		if ( Model == null || (Healthone != null && !Healthone.Alive) )
 			return;
+			
 
 		bool isPlayerNearby = IsPlayerNearby();
 
@@ -1295,8 +1297,8 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 		if ( LifeState == LifeState.Dead )
 			return;
 
-		
-		
+		PreviousHealth = Health;
+
 		if ( Model != null && isSlime )
 		{
 			

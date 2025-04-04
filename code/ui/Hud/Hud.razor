@@ -35,8 +35,13 @@
 			<div class="boss-healthbar-container @(npc.Health > 0 ? "show" : "")">
 				<div class="boss-healthbar">
 					<div class="inner">
+						
+						<div class="backbar"
+							style="width: @(npc.PreviousHealth / npc.MaxHealth * 100f)%; position: absolute; top: 0; left: 0; height: 90%; background-color: rgba(255, 255, 0, 0.5); z-index: 1;">
+						</div>
+						<!-- Fill -->
 						<div class="fill"
-							style="width: @(npc.Health / npc.MaxHealth * 100f)%; background-color: @GetHealthBarColor2();">
+							style="width: @(npc.Health / npc.MaxHealth * 100f)%; position: absolute; top: 0; left: 0; height: 90%; background-color: @GetHealthBarColor2(); z-index: 2;">
 						</div>
 					</div>
 				</div>
@@ -280,8 +285,25 @@
 		}
 		
 	}
+	private float previousHealth;
+
 	protected override void OnUpdate()
 	{
+		if (npc != null)
+		{
+			// Aktualisiere die Backbar, wenn Schaden genommen wurde
+			if (npc.Health < previousHealth)
+			{
+				npc.PreviousHealth = previousHealth; // Speichere den vorherigen Zustand
+				StateHasChanged();
+
+				
+				
+			}
+
+			previousHealth = npc.Health; // Aktualisiere den vorherigen Gesundheitswert
+		}
+
 		if (npc != null && npc.Health <= 0)
 		{
 			this.Destroy();

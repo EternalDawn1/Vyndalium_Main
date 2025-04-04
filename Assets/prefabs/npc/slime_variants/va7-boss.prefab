@@ -242,6 +242,7 @@
         "OnSpawn": null,
         "PogMode": false,
         "Position": "0,0,0",
+        "PreviousHealth": 0,
         "RunningType": "Smart",
         "RunSpeed": 40,
         "ScaleStats": true,
@@ -263,7 +264,7 @@
         "FireBallAttackSound": "prefabs/hit/fire-sounds/avatarattack.sound",
         "FireBallAttackTime": {
           "Absolute": 0,
-          "Relative": 102761110
+          "Relative": 102763530
         },
         "FireBallChargeSound": "prefabs/hit/fire-sounds/avatarcharge.sound",
         "FireBallCooldown": 15,
@@ -271,7 +272,7 @@
         "FireCannonAttackSound": "prefabs/hit/fire-sounds/whoosh-fire.sound",
         "FireCannonAttackTime": {
           "Absolute": 0,
-          "Relative": 102761110
+          "Relative": 102763530
         },
         "FireCannonChargeSound": "prefabs/hit/fire-sounds/avatarcharge.sound",
         "FireCannonCooldown": 5,
@@ -279,7 +280,7 @@
         "FireCannonPrefab": "prefabs/hit/fire-spawn-cannon.prefab",
         "FireRingAttackTime": {
           "Absolute": 0,
-          "Relative": 102761110
+          "Relative": 102763530
         },
         "FireRingCooldown": 10,
         "FireRingEnabled": true,
@@ -291,7 +292,7 @@
         "FireWallSound": "prefabs/hit/fire-sounds/balls.sound",
         "FlameWallAttackTime": {
           "Absolute": 0,
-          "Relative": 102761110
+          "Relative": 102763530
         },
         "FlameWallCooldown": 20,
         "HasSpecialAbility": true,
@@ -308,7 +309,7 @@
         "UltimateJumpAttackCooldown": 30,
         "UltimateJumpAttackTime": {
           "Absolute": 0,
-          "Relative": 102761110
+          "Relative": 102763530
         }
       }
     ],
@@ -422,12 +423,12 @@
         "Flags": 0,
         "Name": "World",
         "Position": "67.57625,0,173.7309",
-        "Enabled": true,
         "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.WorldPanel",
             "__guid": "cc3d6595-ac4c-4892-85a0-edb589fe07de",
+            "__enabled": false,
             "HorizontalAlign": "Center",
             "InteractionRange": 1000,
             "LookAtCamera": false,
@@ -450,6 +451,7 @@
           {
             "__type": "GeneralGame.HUD.UI",
             "__guid": "d4ea641d-00d1-47e8-958b-53cf7ee7649e",
+            "__enabled": false,
             "_damageTimer": 0,
             "isTakingDamage": false,
             "npc": {
@@ -464,6 +466,61 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null
+          },
+          {
+            "__type": "Sandbox.SpriteRenderer",
+            "__guid": "ad6d303f-056f-4ddc-8eae-ec4ab9b877e8",
+            "Additive": false,
+            "CastShadows": false,
+            "Color": "1,1,1,1",
+            "DepthFeather": 0,
+            "FlipHorizontal": false,
+            "FlipVertical": false,
+            "FogStrength": 1,
+            "Lighting": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Opaque": false,
+            "Pivot": "0.5,0.5",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "Size": "10,10",
+            "Texture": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "tools/images/model_editor/animflag_deleted.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Padding": {
+                  "Size": "0,0",
+                  "EdgeSize": "0,0"
+                },
+                "Sharpen": 0,
+                "InvertColor": false,
+                "Blur": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "0,1,0,1",
+                "CacheToDisk": true
+              },
+              "compiled": "textures/generated/imagefile/269a901595268ada.vtex"
+            }
           }
         ]
       },
@@ -473,6 +530,7 @@
         "Name": "Object",
         "Position": "81.09531,-0.1478936,36.98873",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
