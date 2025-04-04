@@ -58,7 +58,7 @@ public partial class BaseGun : WeaponComponent, IUse
     }
     private void FireBulletWithBleedAspect( Player shooter )
     {
-        if ( Owner.MoveSpeed > 150f ) return;
+      
         Owner.ApplyRecoil( Recoil );
         EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
         EffectRenderer?.Set( "b_attack", true );
@@ -131,7 +131,7 @@ public partial class BaseGun : WeaponComponent, IUse
     /// <param name="shooter"></param>
     private void FireBulletWithAirAspect( Player shooter )
     {
-        if ( Owner.MoveSpeed > 150f ) return;
+      
         Owner.ApplyRecoil( Recoil );
 
         if ( EffectRenderer == null )
@@ -405,7 +405,7 @@ public partial class BaseGun : WeaponComponent, IUse
 /// <param name="shooter"></param>
     private void FireBulletWithFireAspect( Player shooter )
     {
-        if ( Owner.MoveSpeed > 150f ) return;
+      
         Owner.ApplyRecoil( Recoil );
         EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
         EffectRenderer?.Set( "b_attack", true );
@@ -495,7 +495,7 @@ public partial class BaseGun : WeaponComponent, IUse
     {
 
 
-        if ( Owner.MoveSpeed > 150f ) return;
+     
         Owner.ApplyRecoil( Recoil );
         EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
         EffectRenderer?.Set( "b_attack", true );
@@ -606,7 +606,7 @@ public partial class BaseGun : WeaponComponent, IUse
 /// <param name="shooter"></param>
     private void FireBulletWithIceAspect( Player shooter )
     {
-        if ( Owner.MoveSpeed > 150f ) return;
+       
         Owner.ApplyRecoil( Recoil );
         EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
         EffectRenderer?.Set( "b_attack", true );
@@ -694,7 +694,7 @@ public partial class BaseGun : WeaponComponent, IUse
 /// <param name="shooter"></param>
     private void FireBulletWithEarthAspect( Player shooter )
     {
-        if ( Owner.MoveSpeed > 150f ) return;
+       
         Owner.ApplyRecoil( Recoil );
         EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
         EffectRenderer?.Set( "b_attack", true );
@@ -840,7 +840,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
     private void FireBulletWithShadowAspect( Player shooter )
     {
-        if ( Owner.MoveSpeed > 150f ) return;
+       
         Owner.ApplyRecoil( Recoil );
         EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
         EffectRenderer?.Set( "b_attack", true );
@@ -976,7 +976,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
     private void FireBulletWithLightningAspect( Player shooter )
     {
-        if ( Owner.MoveSpeed > 150f ) return;
+      
         Owner.ApplyRecoil( Recoil );
         EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
         EffectRenderer?.Set( "b_attack", true );
@@ -1041,7 +1041,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
     private void FireBulletWithHolyAspect( Player shooter )
     {
-        if ( Owner.MoveSpeed > 150f ) return;
+      
         Owner.ApplyRecoil( Recoil );
         EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
         EffectRenderer?.Set( "b_attack", true );
@@ -1149,6 +1149,10 @@ public partial class BaseGun : WeaponComponent, IUse
 
     private async Task MoveLightToNpc( GameObject lightObject, Npc npc, float startTime, float duration, float speed )
     {
+        if ( lightObject == null || npc == null )
+        {
+            return;
+        }
         while ( Time.Now - startTime < duration )
         {
             var direction = (npc.WorldPosition - lightObject.WorldPosition).Normal;
@@ -1176,9 +1180,59 @@ public partial class BaseGun : WeaponComponent, IUse
 
     private void FireBulletWithPoisonAspect( Player shooter )
     {
-        // Implementiere die Logik für das Abfeuern eines Gift-Aspekt-Geschosses
+        
+        Owner.ApplyRecoil( Recoil );
+        EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
+        EffectRenderer?.Set( "b_attack", true );
+        EffectRenderer?.Set( "b_reload", false );
+        NextAttackTime = 1f / FireRate;
+        AmmoInClip--;
 
-        // Beispiel: Erzeuge ein Giftprojektil
+        var attachment = EffectRenderer.GetAttachment( "muzzle" );
+        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+        var direction = Owner.PlyCamera.WorldRotation.Forward;
+        direction += Vector3.Random * Spread;
+        var endPos = startPos + direction * 5000f;
+
+        var trace = Scene.Trace.Ray( startPos, endPos )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        // Setze endPos auf die Trefferposition, wenn etwas getroffen wird
+        if ( trace.Hit )
+        {
+            endPos = trace.EndPosition;
+        }
+
+        if ( Trail != null )
+        {
+            var trailInstance = ResourceLibrary.Get<PrefabFile>( "particles/prefabs/aspects/firebullet_poison.prefab" ); // Verwende das neue Prefab
+            if ( trailInstance != null )
+            {
+                var trailobject = GameObject.Clone( trailInstance );
+                if ( trailobject != null )
+                {
+                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+
+                    var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
+                    if ( trailobjectRenderer != null )
+                    {
+                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                    }
+
+                    var speed = BulletSpeed * 400f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
+                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                }
+            }
+        }
+        
+
+        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+        return;
     }
     
     private async void MovePrefabToPlayer( GameObject prefabObject, Player shooter )

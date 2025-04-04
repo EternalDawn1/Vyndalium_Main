@@ -561,23 +561,36 @@ namespace GeneralGame
 
             var random = new Random();
             var tierProbabilities = GetTierProbabilities( playerLevel ); // Verwende die Methode hier
-            var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
-        {
-        (basePrefabs, "C", tierProbabilities["C"]),
-        (basePrefabs, "B", tierProbabilities["B"]),
-        (basePrefabs, "A", tierProbabilities["A"]),
-        (basePrefabs, "S", tierProbabilities["S"]),
-        (basePrefabs, "SS", tierProbabilities["SS"]),
-        (basePrefabs, "SSS", tierProbabilities["SSS"]),
-        (basePrefabs, "Ultimate", tierProbabilities["Ultimate"]),
-        (tierCPrefabs, "C", tierProbabilities["C"]),
-        (tierBPrefabs, "B", tierProbabilities["B"]),
-        (tierAPrefabs, "A", tierProbabilities["A"]),
-        (tierSPrefabs, "S", tierProbabilities["S"]),
-        (tierSSPrefabs, "SS", tierProbabilities["SS"]),
-        (tierSSSPrefabs, "SSS", tierProbabilities["SSS"]),
-        (tierUltimatePrefabs, "Ultimate", tierProbabilities["Ultimate"])
-    };
+            var baseProbabilities = GetTierBaseProbabilities( playerLevel ); // Verwende die Methode hier
+
+            // Wenn baseProbabilities null ist, logge eine Warnung, aber fahre mit tierProbabilities fort
+            if ( baseProbabilities == null )
+            {
+                
+            }
+
+            var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>();
+            var baseTierPrefabs = new List<(List<string> prefabs, string tier, double probability)>();
+            // Füge basePrefabs nur hinzu, wenn baseProbabilities nicht null ist
+            if ( baseProbabilities != null )
+            {
+                baseTierPrefabs.Add( (basePrefabs, "C", baseProbabilities["C"]) );
+                baseTierPrefabs.Add( (basePrefabs, "B", baseProbabilities["B"]) );
+                baseTierPrefabs.Add( (basePrefabs, "A", baseProbabilities["A"]) );
+                baseTierPrefabs.Add( (basePrefabs, "S", baseProbabilities["S"]) );
+                baseTierPrefabs.Add( (basePrefabs, "SS", baseProbabilities["SS"]) );
+                baseTierPrefabs.Add( (basePrefabs, "SSS", baseProbabilities["SSS"]) );
+                baseTierPrefabs.Add( (basePrefabs, "Ultimate", baseProbabilities["Ultimate"]) );
+            }
+
+            // Füge tierPrefabs immer hinzu
+            tierPrefabs.Add( (tierCPrefabs, "C", tierProbabilities["C"]) );
+            tierPrefabs.Add( (tierBPrefabs, "B", tierProbabilities["B"]) );
+            tierPrefabs.Add( (tierAPrefabs, "A", tierProbabilities["A"]) );
+            tierPrefabs.Add( (tierSPrefabs, "S", tierProbabilities["S"]) );
+            tierPrefabs.Add( (tierSSPrefabs, "SS", tierProbabilities["SS"]) );
+            tierPrefabs.Add( (tierSSSPrefabs, "SSS", tierProbabilities["SSS"]) );
+            tierPrefabs.Add( (tierUltimatePrefabs, "Ultimate", tierProbabilities["Ultimate"]) );
 
             int itemsToSpawn = DetermineItemsToSpawn( playerLevel );
             Items.Clear();
@@ -592,6 +605,17 @@ namespace GeneralGame
                 double cumulative = 0.0;
 
                 foreach ( var (prefabs, tier, probability) in tierPrefabs )
+                {
+                    cumulative += probability;
+                    if ( roll < cumulative )
+                    {
+                        var selectedPrefab = prefabs[random.Next( prefabs.Count )];
+                        selectedPrefabs.Add( (selectedPrefab, tier) );
+                        totalGenerated++;
+                        break;
+                    }
+                }
+                foreach ( var (prefabs, tier, probability) in baseTierPrefabs )
                 {
                     cumulative += probability;
                     if ( roll < cumulative )
@@ -645,6 +669,36 @@ namespace GeneralGame
             { "SSS", sssProbability / total },
             { "Ultimate", ultimateProbability / total }
         };
+        }
+        private Dictionary<string,double> GetTierBaseProbabilities( int playerLevel )
+        {
+            var random = new Random();
+            if ( random.NextDouble() <= 0.4 ) // 40% Wahrscheinlichkeit, null zurückzugeben
+            {
+                return null;
+            }
+
+            // Basiswahrscheinlichkeiten für jedes Tier
+            double cProbability = Math.Max( 50 - (playerLevel * 0.5), 5 ); // C sinkt mit steigendem Level, min. 5%
+            double bProbability = Math.Max( 30 - (playerLevel * 0.3), 10 ); // B sinkt, min. 10%
+            double aProbability = Math.Min( 15 + (playerLevel * 0.2), 25 ); // A steigt, max. 25%
+            double sProbability = Math.Min( 4 + (playerLevel * 0.1), 15 ); // S steigt, max. 15%
+            double ssProbability = Math.Min( 0.9 + (playerLevel * 0.05), 10 ); // SS steigt, max. 10%
+            double sssProbability = Math.Min( 0.09 + (playerLevel * 0.01), 5 ); // SSS steigt, max. 5%
+            double ultimateProbability = Math.Min( 0.01 + (playerLevel * 0.005), 2 ); // Ultimate steigt, max. 2%
+
+            double total = cProbability + bProbability + aProbability + sProbability + ssProbability + sssProbability + ultimateProbability;
+            return new Dictionary<string, double>
+            {
+                { "C", cProbability /total },
+                { "B", bProbability / total },
+                { "A", aProbability / total },
+                { "S", sProbability / total },
+                { "SS", ssProbability / total },
+                { "SSS", sssProbability / total },
+                { "Ultimate", ultimateProbability / total }
+            
+            };
         }
 
         private double CalculateProbabilityForLevel( int playerLevel, int itemLevel )

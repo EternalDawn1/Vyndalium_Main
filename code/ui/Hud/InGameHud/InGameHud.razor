@@ -7,14 +7,52 @@
 
 <root>
     <InteractionHint />
+
+    <div class="lobby" style="opacity: @(ShowRespawnOption ? 1 : 0);">
+        @if (ShowReturnToLobby)
+        {
+            <div class="return-to-lobby">
+                <p>No players left. Returning to lobby...</p>
+                <button @onclick="@ReturnToLobby">Return to Lobby</button>
+            </div>
+        }
+        else if (ShowRespawnOption)
+        {
+            <div class="respawn-options">
+                <p>You have @player.RespawnAttempts respawn attempts left.</p>
+                <button @onclick="@Respawn">Respawn</button>
+                <button @onclick="@ReturnToLobby">Return to Lobby</button>
+            </div>
+        }
+    </div>
 </root>
 
 @code
 {
     public static InGameHud Instance { get; private set; }
-
+    Player player {get => player as Player; }
     public InGameHud()
     {
-        Instance = this;
+        Instance = this; 
     }
+
+    [Property] public bool ShowReturnToLobby { get; set; } = false;
+    [Property] public bool ShowRespawnOption { get; set; } = false;
+
+    private void Respawn()
+    {
+        this.ShowRespawnOption = false; // Zugriff auf die Eigenschaft der aktuellen Klasse
+        player.Respawn();
+    }
+
+    private void ReturnToLobby()
+    {
+        ShowReturnToLobby = false;
+        SceneHandler2.ChangeScene2(GeneralScene2.StartBase);
+    }
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(ShowReturnToLobby, ShowRespawnOption);
+    }
+
 }

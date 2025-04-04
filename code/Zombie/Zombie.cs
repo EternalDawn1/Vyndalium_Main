@@ -824,7 +824,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Rpc.Broadcast]
 	private void BroadcastOnIdle()
 	{
-		Log.Info( "Broadcasting OnIdle" );
+		
 		OnIdle?.Invoke();
 	}
 
@@ -1265,7 +1265,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	{
 		if ( npcLevel <= 0 )
 		{
-			Log.Warning( "Ungültiges NPC-Level: " + npcLevel );
+			
 			return 10; // Mindestwert für XP
 		}
 

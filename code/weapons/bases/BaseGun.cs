@@ -1478,7 +1478,18 @@ public partial class  BaseGun : WeaponComponent, IUse
 					}
 					return;
 				case AspectType.Poison:
-					Sound.Play( "sounds/fireaspect.sound", startPos );
+					var transformpoin = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
+					{
+						if ( transformpoin.HasValue )
+						{
+							Sound.Play( "prefabs/hit/fire-sounds/breath.sound", transformpoin.Value.Position );
+							Sound.Play( FireSound, transformpoin.Value.Position );
+
+
+
+						}
+
+					}
 					return;
 				default:
 					if ( FireSound != null )
@@ -1494,7 +1505,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 							}
 							else
 							{
-								Log.Warning( "Muzzle attachment not found." );
+								
 							}
 						}
 						else

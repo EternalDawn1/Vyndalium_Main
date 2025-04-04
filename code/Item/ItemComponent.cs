@@ -751,6 +751,7 @@ public class ItemComponent : Component
 		var aspects = new List<AspectType>
 	{
 		AspectType.Fire,
+		AspectType.None,
 		AspectType.Water,
 		AspectType.Ice,
 		AspectType.Air,

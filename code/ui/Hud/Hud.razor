@@ -20,6 +20,7 @@
 			
 		</div>
 	</div>
+	
 	@if (FullScreenManager.Instance?.ActivePanel != FullScreenManager.FullScreenPanel.InGameHud)
 	{
 		return; // Exit early if FullScreenManager is active
@@ -188,13 +189,12 @@
 @code
 {
 	public Hud hud;
-	
+
 
 	[Property] public Gradient HealthGradient { get; set; }
 	
 	private Player player { get; set; }
-	
-	
+
 	private TimeSpan playTime = TimeSpan.Zero;
 
 	private DateTime lastUpdateTime = DateTime.Now;
@@ -242,6 +242,7 @@
 		{
 			player.OnLevelUp += (level) => ShowLevelUpPanel();
 			StateHasChanged();
+			
 		}
 		
 	}

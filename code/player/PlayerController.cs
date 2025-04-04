@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Security.Permissions;
+using GeneralGame.HUD;
 using Sandbox;
 using Sandbox.Citizen;
 
@@ -51,7 +52,9 @@ public partial class Player : Component, IHealthComponent
 	[Sync] public int Deaths { get; private set; }
 	[Sync] public int Kills { get; private set; }
 	public string DisplayName { get; set; }
-	
+	// Add a property to track respawn attempts
+	[Sync]
+	public int RespawnAttempts { get; private set; } = 3;
 	public TimeSpan Playtime { get; set; }
 	
 
@@ -417,23 +420,42 @@ public partial class Player : Component, IHealthComponent
 		return !tr.Hit;
 	}
 	[Rpc.Broadcast]
-	protected virtual void OnKilled(GameObject attacker)
+
+	protected virtual void OnKilled( GameObject attacker )
 	{
-		if (IsProxy)
+		if ( IsProxy )
 			return;
 
 		// Stop all sounds and reset states
-		
-
-		if (Weapons.Deployed != null && Weapons.Deployed.IsValid())
+		if ( Weapons.Deployed != null && Weapons.Deployed.IsValid() )
 		{
 			Weapons.Deployed.Holster();
 		}
 
-		//RespawnAsync(3f);
 		Deaths++;
+
+		// Check if there are other players alive
+		var alivePlayers = Scene.GetAllComponents<Player>().Where( p => p.LifeState == LifeState.Alive ).ToList();
+
+		if ( alivePlayers.Count == 0 )
+		{
+			// Logik, wenn keine Spieler mehr am Leben sind
+			InGameHud.Instance.ShowReturnToLobby = true;
+			InGameHud.Instance.ShowRespawnOption = true; // Beispiel: Rückkehr zur Lobby anzeigen
+		}
+		else
+		{
+			var currentPlayer = Player.Local;
+			if ( currentPlayer != null && currentPlayer.LifeState == LifeState.Dead )
+			{
+				// Logik für den aktuellen Spieler, der tot ist
+				InGameHud.Instance.ShowRespawnOption = true;
+				InGameHud.Instance.ShowReturnToLobby = true; // Beispiel: Respawn-Option anzeigen
+			}
+		}
+
 	}
-	
+
 
 	protected override void OnAwake()
 	{
