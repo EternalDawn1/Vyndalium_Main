@@ -9,6 +9,14 @@
 
 <root>
 	
+	
+
+	
+	
+	@if (FullScreenManager.Instance?.ActivePanel != FullScreenManager.FullScreenPanel.InGameHud)
+	{
+		return; // Exit early if FullScreenManager is active
+	}
 	<div class="scene-name">@SceneHandler2.GetSceneName(SceneHandler2.CurrentScene)</div>
 
 	<div class="level-up-panel @levelUpClass">
@@ -17,13 +25,24 @@
 			{
 				<p class="txt">Lvl.@player.Level</p>
 			}
-			
+
 		</div>
 	</div>
-	
-	@if (FullScreenManager.Instance?.ActivePanel != FullScreenManager.FullScreenPanel.InGameHud)
+	@if (npc != null && npc.IsBoss)
 	{
-		return; // Exit early if FullScreenManager is active
+		<div class="boss-ui">
+			<div class="npc-level @GetLevelClass(npc.Level)">Lvl.@npc.Level</div>
+			<div class="boss-healthbar-container @(npc.Health > 0 ? "show" : "")">
+				<div class="boss-healthbar">
+					<div class="inner">
+						<div class="fill"
+							style="width: @(npc.Health / npc.MaxHealth * 100f)%; background-color: @GetHealthBarColor2();">
+						</div>
+					</div>
+				</div>
+				<p class="boss-name">@npc.Name</p>
+			</div>
+		</div>
 	}
 	</Minimap>
 
@@ -190,7 +209,15 @@
 {
 	public Hud hud;
 
+	[Property] private Npc npc { get; set; } = new Npc();
+	
 
+	private string GetLevelClass(int level)
+	{
+		if (level >= 100) return "level-100";
+		if (level >= 90) return "level-90";
+		return "level-1";
+	}
 	[Property] public Gradient HealthGradient { get; set; }
 	
 	private Player player { get; set; }
@@ -226,6 +253,13 @@
 			}
 			player.OnLevelUp += OnPlayerLevelUp;
 		}
+		if (npc == null || !npc.IsValid())
+		{
+			npc = Scene.GetAllComponents<Npc>().FirstOrDefault(n => n.IsBoss);
+		}
+		
+
+	
 
 		
 
@@ -246,10 +280,21 @@
 		}
 		
 	}
-	
+	protected override void OnUpdate()
+	{
+		if (npc != null && npc.Health <= 0)
+		{
+			this.Destroy();
+		}
+	}
 	private string GetHealthBarColor()
 	{
 		var healthPercentage = player.Health / player.MaxHealth;
+		return HealthGradient.Evaluate(healthPercentage).ToString();
+	}
+	private string GetHealthBarColor2()
+	{
+		var healthPercentage = npc.Health / npc.MaxHealth;
 		return HealthGradient.Evaluate(healthPercentage).ToString();
 	}
 
