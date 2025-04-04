@@ -562,7 +562,14 @@ namespace GeneralGame
             var random = new Random();
             var tierProbabilities = GetTierProbabilities( playerLevel ); // Verwende die Methode hier
             var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>
-    {
+        {
+        (basePrefabs, "C", tierProbabilities["C"]),
+        (basePrefabs, "B", tierProbabilities["B"]),
+        (basePrefabs, "A", tierProbabilities["A"]),
+        (basePrefabs, "S", tierProbabilities["S"]),
+        (basePrefabs, "SS", tierProbabilities["SS"]),
+        (basePrefabs, "SSS", tierProbabilities["SSS"]),
+        (basePrefabs, "Ultimate", tierProbabilities["Ultimate"]),
         (tierCPrefabs, "C", tierProbabilities["C"]),
         (tierBPrefabs, "B", tierProbabilities["B"]),
         (tierAPrefabs, "A", tierProbabilities["A"]),
@@ -720,6 +727,7 @@ namespace GeneralGame
                                 itemComponent.MaxAttackValue = attackValues.MaxAttack;
                                 itemComponent.Tier = Enum.Parse<Tier>( tier );
                                 itemComponent.GenerateRandomStats();
+                                
                                 Items.Add( itemComponent );
                             }
                             else if ( itemComponent.IsArmor )

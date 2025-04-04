@@ -430,7 +430,7 @@ public partial class Player : Component, IHealthComponent
 			Weapons.Deployed.Holster();
 		}
 
-		RespawnAsync(3f);
+		//RespawnAsync(3f);
 		Deaths++;
 	}
 	

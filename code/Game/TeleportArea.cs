@@ -125,7 +125,7 @@ namespace GeneralGame
 
 
 
-
+			player.BlackScreen( 0f,0.1f, 1f );
 			// Setze hasTeleported auf true
 			hasTeleported = true;
 

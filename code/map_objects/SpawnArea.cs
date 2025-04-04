@@ -261,7 +261,33 @@ public sealed class NpcSpawnArea : Component
 		CheckAllNpcsKilled();
 	}
 
-	
+	protected override void OnFixedUpdate()
+	{
+		foreach ( var npc in SpawnedNpcs )
+		{
+			if ( npc == null || !npc.IsValid )
+				continue;
+
+			if ( npc.Components.TryGet<Npc>( out var component, FindMode.EverythingInSelf ) )
+			{
+				var currentTick = (int)(Time.Now / Time.Delta);
+
+				if ( currentTick % 30 == component.NpcId % 30 )
+				{
+					var anyNearby = Player.All?.Any( x => x?.WorldPosition.Distance( npc.WorldPosition ) <= StopLogicDistance ) ?? false;
+					component.Enabled = anyNearby;
+				}
+
+				if ( currentTick % 60 == component.NpcId % 60 )
+				{
+					var anyNearby = Player.All?.Any( x => x?.WorldPosition.Distance( npc.WorldPosition ) <= StopDrawingDistance ) ?? false;
+					component.Model.Enabled = anyNearby;
+
+					
+				}
+			}
+		}
+	}
 
 	protected override void DrawGizmos()
 	{

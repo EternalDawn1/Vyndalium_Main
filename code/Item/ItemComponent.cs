@@ -746,12 +746,42 @@ public class ItemComponent : Component
 				break;
 		}
 	}
+	private AspectType GetRandomAspect()
+	{
+		var aspects = new List<AspectType>
+	{
+		AspectType.Fire,
+		AspectType.Water,
+		AspectType.Ice,
+		AspectType.Air,
+		AspectType.Earth,
+		AspectType.Shadow,
+		AspectType.Holy,
+		AspectType.Bleed,
+		AspectType.Poison,
+		AspectType.Lightning,
+		AspectType.Glitch
+	};
+
+		var random = new Random();
+		return aspects[random.Next( aspects.Count )];
+	}
 	public void GenerateRandomStats()
 	{
 		if ( IsWeapon )
 		{
 			GenerateWeaponStats();
 			SetDefaultStats();
+			if ( Tier >= Tier.S )
+			{
+				var random = new Random();
+				double aspectChance = 0.2; // 20% Wahrscheinlichkeit
+				if ( random.NextDouble() <= aspectChance )
+				{
+					Aspect = GetRandomAspect();
+					Log.Info( $"Assigned random aspect {Aspect} to weapon {Name}" );
+				}
+			}
 		}
 		else if ( IsArmor )
 		{

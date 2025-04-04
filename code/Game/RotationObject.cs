@@ -48,7 +48,7 @@ namespace GeneralGame
 			{
 				if ( Target == null )
 				{
-					Log.Error( "Target is null" );
+					
 					return;
 				}
 				IsMove = true;
