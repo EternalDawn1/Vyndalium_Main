@@ -51,6 +51,8 @@
 	}
 	</Minimap>
 
+	
+
 	@{
 		if (player is null)
 			return;
@@ -135,6 +137,10 @@
 
 	@if (player != null)
 	{
+		<div class="Life">
+			<div class="icon"></div>
+			@Player.Local.RespawnAttempts
+		</div>
 		<div class="expbar">
 			<ExperienceBar IsInventoryScreen=@true style="opacity: 1;" />
 		</div>

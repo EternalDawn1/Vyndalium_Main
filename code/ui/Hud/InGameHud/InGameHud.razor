@@ -12,18 +12,12 @@
         @if (ShowReturnToLobby)
         {
             <div class="return-to-lobby">
-                <p>No players left. Returning to lobby...</p>
-                <button @onclick="@ReturnToLobby">Return to Lobby</button>
+                <h1 class="h1">Game Over</h1>
+                <p2 class="h2">No Hearts left</p2>
+                <button class="button" @onclick="@ReturnToLobby">Restart</button>
             </div>
         }
-        else if (ShowRespawnOption)
-        {
-            <div class="respawn-options">
-                <p>You have @player.RespawnAttempts respawn attempts left.</p>
-                <button @onclick="@Respawn">Respawn</button>
-                <button @onclick="@ReturnToLobby">Return to Lobby</button>
-            </div>
-        }
+        
     </div>
 </root>
 
@@ -47,6 +41,14 @@
 
     private void ReturnToLobby()
     {
+        var player = Player.Local;
+        if (!player.IsHost())
+        {
+            Log.Error("you are not the host.");
+            return;
+        }
+        Player.Save();
+        SceneHandler2.DeleteCurrentScene();
         ShowReturnToLobby = false;
         SceneHandler2.ChangeScene2(GeneralScene2.StartBase);
     }

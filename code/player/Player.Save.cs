@@ -10,7 +10,7 @@ public struct ItemSave
 	[JsonInclude] public bool IsWeapon{ get; set; }
 	[JsonInclude] public bool IsPotion{ get; set; }
 	[JsonInclude] public bool IsAccessory{ get; set; }
-
+	
 
 	[JsonInclude] public Dictionary<string, string> Data;
 	[JsonInclude] public string Description;
@@ -84,6 +84,7 @@ public struct PlayerSave
 	[JsonInclude] public int MAX_BACKPACK_SLOTS;
 	[JsonInclude] public Dictionary<AmmoType, int> AmmoCount { get; set; }
 	[JsonInclude] public float DefaultFOV;
+	[JsonInclude] public float Life;
 	[JsonInclude] public int DefaultAmmo;
 	[JsonInclude] public int Vyndalium;
 	[JsonInclude] public int Experience;
@@ -374,6 +375,7 @@ partial class Player
 			PlayerWalkSpeed = player.PlayerWalkSpeed,
 			PlayerRunSpeed = player.PlayerRunSpeed,
 			DefaultAmmo = player.DefaultAmmo,
+			Life  = player.RespawnAttempts,
 			MouseSensitivity = player.MouseSensitivity,
 			MinArmorValue = player.MinArmorValue,
 			MaxArmorValue = player.MaxArmorValue,
@@ -542,6 +544,7 @@ partial class Player
 		player.MinAttackValue = save.MinAttackValue;
 		player.MaxAttackValue = save.MaxAttackValue;
 		player.DefaultAmmo = save.DefaultAmmo;
+		player.RespawnAttempts = save.Life;
 		player.MaxHealth = save.MaxHealth;
 		player.MaxMana = save.MaxMana;
 		player.MaxStamina = save.MaxStamina;

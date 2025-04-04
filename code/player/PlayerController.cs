@@ -53,8 +53,8 @@ public partial class Player : Component, IHealthComponent
 	[Sync] public int Kills { get; private set; }
 	public string DisplayName { get; set; }
 	// Add a property to track respawn attempts
-	[Sync]
-	public int RespawnAttempts { get; private set; } = 3;
+	[Sync,Property]
+	public float RespawnAttempts { get;  set; } = 4;
 	public TimeSpan Playtime { get; set; }
 	
 
@@ -311,20 +311,41 @@ public partial class Player : Component, IHealthComponent
 	public Transform GetAttachment( string attachment, bool world = true )
 	=> ModelRenderer.GetAttachment( attachment, world ) ?? global::Transform.Zero;
 
-[Rpc.Broadcast]
+
+
+	[Rpc.Broadcast]
 	public void Respawn()
 	{
 		if ( IsProxy )
 			return;
 
+		// Überprüfe, ob die aktuelle Szene "Starting" ist
+		if ( SceneHandler2.CurrentScene == GeneralScene2.Starting )
+		{
+			RespawnAttempts = 4; // Füge 4 Respawn-Versuche hinzu
+		}
+		else
+		{
+			// Überprüfe, ob Respawn-Versuche verfügbar sind
+			if ( RespawnAttempts > 0 )
+			{
+				RespawnAttempts--; // Reduziert die Anzahl der Respawn-Versuche
+			}
+			else
+			{
+				// Keine Respawn-Versuche mehr übrig, zeige Rückkehr-zur-Lobby-Option
+				InGameHud.Instance.ShowReturnToLobby = true;
+				InGameHud.Instance.ShowRespawnOption = true;
+				return;
+			}
+		}
+
+		// Respawn-Logik
 		Weapons.GiveDefault();
 		Ragdoll.Unragdoll();
 		MoveToSpawnPoint();
-		
-		
 
 		LifeState = LifeState.Alive;
-
 
 		if ( isFirstSpawn )
 		{
@@ -334,21 +355,18 @@ public partial class Player : Component, IHealthComponent
 			MaxMana = 100f;
 			PlayerRunSpeed = 190f;
 			PlayerWalkSpeed = 120f;
-			
+
 			isFirstSpawn = false; // Markiere den ersten Spawn als abgeschlossen
 		}
+
 		Health = MaxHealth;
-		// Setze die Gesundheit auf die maximale Gesundheit und die Ausdauer auf die maximale Ausdauer
 		MaxHealth = Health;
 		Stamina = MaxStamina;
 		Mana = MaxMana;
 
-		// Starte die Gesundheitsregeneration
 		StartHealthRegen( 500f, 5f );
-
-
 	}
-	
+
 	public async void StartHealthRegen( float regenAmount, float duration )
 	{
 		if ( IsProxy )
@@ -431,28 +449,10 @@ public partial class Player : Component, IHealthComponent
 		{
 			Weapons.Deployed.Holster();
 		}
-
+		RespawnAsync( 3f );
 		Deaths++;
 
-		// Check if there are other players alive
-		var alivePlayers = Scene.GetAllComponents<Player>().Where( p => p.LifeState == LifeState.Alive ).ToList();
-
-		if ( alivePlayers.Count == 0 )
-		{
-			// Logik, wenn keine Spieler mehr am Leben sind
-			InGameHud.Instance.ShowReturnToLobby = true;
-			InGameHud.Instance.ShowRespawnOption = true; // Beispiel: Rückkehr zur Lobby anzeigen
-		}
-		else
-		{
-			var currentPlayer = Player.Local;
-			if ( currentPlayer != null && currentPlayer.LifeState == LifeState.Dead )
-			{
-				// Logik für den aktuellen Spieler, der tot ist
-				InGameHud.Instance.ShowRespawnOption = true;
-				InGameHud.Instance.ShowReturnToLobby = true; // Beispiel: Respawn-Option anzeigen
-			}
-		}
+		
 
 	}
 

@@ -77,6 +77,10 @@
 
     public void Display(FullScreenPanel panel)
     {
+        if (InGameHud.Instance?.ShowReturnToLobby == true)
+        {
+            return;
+        }
         ActivePanel = panel;
         
     }
@@ -86,7 +90,12 @@
     }
 
     public override void Tick()
-{
+    {
+        if (InGameHud.Instance?.ShowReturnToLobby == true)
+        {
+            return;
+        }
+        
     if ( Input.EscapePressed )// Stellen Sie sicher, dass "Input" korrekt referenziert wird.
     {
          Input.EscapePressed = false;

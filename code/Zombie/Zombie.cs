@@ -346,7 +346,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Property]public bool isPrometheus = false;
 
 	public NavMeshAgent NavMeshAgent { get; set; }
-	private float previousHealth;
+	
 
 	[Property]
 	public float MoveSpeed { get; set; }

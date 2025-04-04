@@ -56,6 +56,10 @@ public static class SceneHandler2
 
             _ => null
         };
+        if ( scene == GeneralScene2.StartBase && Player.Local != null )
+        {
+            Player.Local.RespawnAttempts = 4;
+        }
 
         if ( string.IsNullOrEmpty( path ) )
             return;
