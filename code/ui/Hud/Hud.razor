@@ -10,14 +10,14 @@
 <root>
 	
 	
-
+<div class="scene-name">@SceneHandler2.GetSceneName(SceneHandler2.CurrentScene)</div>
 	
 	
 	@if (FullScreenManager.Instance?.ActivePanel != FullScreenManager.FullScreenPanel.InGameHud)
 	{
 		return; // Exit early if FullScreenManager is active
 	}
-	<div class="scene-name">@SceneHandler2.GetSceneName(SceneHandler2.CurrentScene)</div>
+	
 
 	<div class="level-up-panel @levelUpClass">
 		<div class="level-up-content">
@@ -35,13 +35,12 @@
 			<div class="boss-healthbar-container @(npc.Health > 0 ? "show" : "")">
 				<div class="boss-healthbar">
 					<div class="inner">
-						
 						<div class="backbar"
 							style="width: @(npc.PreviousHealth / npc.MaxHealth * 100f)%; position: absolute; top: 3; left: 0; height: 80%; background-color: rgba(255, 255, 0, 0.5); z-index: 1;">
 						</div>
 						<!-- Fill -->
 						<div class="fill"
-							style="width: @(npc.Health / npc.MaxHealth * 100f)%; position: absolute; top: 3; left: 0; height: 80%; background-color: @GetHealthBarColor2(); z-index: 2;">
+							style="width: @(npc.Health / npc.MaxHealth * 100f)%; position: absolute; top: 3; left: 0; height: 80%; background: @GetHealthBarColor2(); z-index: 2;">
 						</div>
 					</div>
 				</div>
@@ -264,6 +263,8 @@
 			}
 			player.OnLevelUp += OnPlayerLevelUp;
 		}
+		
+		
 		if (npc == null || !npc.IsValid())
 		{
 			npc = Scene.GetAllComponents<Npc>().FirstOrDefault(n => n.IsBoss);
@@ -287,6 +288,8 @@
 		{
 			player.OnLevelUp += (level) => ShowLevelUpPanel();
 			StateHasChanged();
+
+			
 			
 		}
 		
@@ -323,7 +326,9 @@
 	private string GetHealthBarColor2()
 	{
 		var healthPercentage = npc.Health / npc.MaxHealth;
-		return HealthGradient.Evaluate(healthPercentage).ToString();
+		var red = (int)(255 * (1 - healthPercentage)); // Rot nimmt zu, wenn die Gesundheit sinkt
+		var blue = (int)(255 * healthPercentage); // Blau nimmt ab, wenn die Gesundheit sinkt
+		return $"linear-gradient(to right, rgb(128, 0, 128), rgb({red}, 0, {blue}))"; // Von Lila zu Rot
 	}
 
 	private string GetTextColor()
@@ -362,7 +367,7 @@
 	(
 	RealTime.Now,
 	player?.Experience,
-
+	player?.RespawnAttempts,
 	player?.Level,
 	player?.GetRankName()
 	);

@@ -544,7 +544,7 @@ partial class Player
 		player.MinAttackValue = save.MinAttackValue;
 		player.MaxAttackValue = save.MaxAttackValue;
 		player.DefaultAmmo = save.DefaultAmmo;
-		player.RespawnAttempts = save.Life;
+		player.RespawnAttempts = (int)save.Life;
 		player.MaxHealth = save.MaxHealth;
 		player.MaxMana = save.MaxMana;
 		player.MaxStamina = save.MaxStamina;

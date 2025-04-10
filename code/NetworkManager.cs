@@ -53,6 +53,7 @@ namespace GeneralGame
             {
                 return;
             }
+           
 
             var startLocation = FindSpawnLocation().WithScale( 1 );
             var playerObject = Prefab.Clone( startLocation, name: $"Player - {channel.DisplayName}" );
@@ -62,7 +63,7 @@ namespace GeneralGame
             {
                 return;
             }
-
+           
             AssignComponentsToAllPlayers( playerComponent );
 
             playerComponent.SetupConnection( channel );

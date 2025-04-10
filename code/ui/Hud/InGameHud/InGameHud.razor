@@ -1,6 +1,7 @@
 @namespace GeneralGame.HUD
 @inherits Panel
 @using GeneralGame.HUD
+@using GeneralGame
 @using Sandbox;
 @using Sandbox.UI;
 
@@ -15,6 +16,7 @@
                 <h1 class="h1">Game Over</h1>
                 <p2 class="h2">No Hearts left</p2>
                 <button class="button" @onclick="@ReturnToLobby">Restart</button>
+                <button class="button" @onclick="@(() => @Player.Local.Respawn)">Respawn</button>
             </div>
         }
         
@@ -24,33 +26,25 @@
 @code
 {
     public static InGameHud Instance { get; private set; }
-    Player player {get => player as Player; }
+  
     public InGameHud()
     {
-        Instance = this; 
+        Instance = this;
+    
     }
-
+    [Property]
+    public GeneralScene2 SceneToLoad { get; set; } = GeneralScene2.StartBase;
     [Property] public bool ShowReturnToLobby { get; set; } = false;
     [Property] public bool ShowRespawnOption { get; set; } = false;
 
-    private void Respawn()
-    {
-        this.ShowRespawnOption = false; // Zugriff auf die Eigenschaft der aktuellen Klasse
-        player.Respawn();
-    }
+  
+  
 
     private void ReturnToLobby()
     {
-        var player = Player.Local;
-        if (!player.IsHost())
-        {
-            Log.Error("you are not the host.");
-            return;
-        }
-        Player.Save();
-        SceneHandler2.DeleteCurrentScene();
-        ShowReturnToLobby = false;
-        SceneHandler2.ChangeScene2(GeneralScene2.StartBase);
+        this.ShowReturnToLobby = false; // Zugriff auf die Eigenschaft der aktuellen Klasse
+        this.ShowRespawnOption = false; // Zugriff auf die Eigenschaft der aktuellen Klasse
+         SceneHandler2.ChangeScene2( SceneToLoad );
     }
     protected override int BuildHash()
     {

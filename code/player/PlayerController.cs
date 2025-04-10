@@ -319,26 +319,8 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy )
 			return;
 
-		// Überprüfe, ob die aktuelle Szene "Starting" ist
-		if ( SceneHandler2.CurrentScene == GeneralScene2.Starting )
-		{
-			RespawnAttempts = 4; // Füge 4 Respawn-Versuche hinzu
-		}
-		else
-		{
-			// Überprüfe, ob Respawn-Versuche verfügbar sind
-			if ( RespawnAttempts > 0 )
-			{
-				RespawnAttempts--; // Reduziert die Anzahl der Respawn-Versuche
-			}
-			else
-			{
-				// Keine Respawn-Versuche mehr übrig, zeige Rückkehr-zur-Lobby-Option
-				InGameHud.Instance.ShowReturnToLobby = true;
-				InGameHud.Instance.ShowRespawnOption = true;
-				return;
-			}
-		}
+		
+
 
 		// Respawn-Logik
 		Weapons.GiveDefault();
@@ -355,10 +337,11 @@ public partial class Player : Component, IHealthComponent
 			MaxMana = 100f;
 			PlayerRunSpeed = 190f;
 			PlayerWalkSpeed = 120f;
+			
 
 			isFirstSpawn = false; // Markiere den ersten Spawn als abgeschlossen
 		}
-
+		
 		Health = MaxHealth;
 		MaxHealth = Health;
 		Stamina = MaxStamina;
@@ -449,8 +432,20 @@ public partial class Player : Component, IHealthComponent
 		{
 			Weapons.Deployed.Holster();
 		}
-		RespawnAsync( 3f );
+		if ( RespawnAttempts > 0 )
+		{
+			RespawnAttempts--; // Reduziert die Anzahl der Respawn-Versuche
+			RespawnAsync( 3f ); // Spieler wird nach 3 Sekunden respawnt
+		}
+		else
+		{
+			// Keine Respawn-Versuche mehr übrig, zeige Rückkehr-zur-Lobby-Option
+			InGameHud.Instance.ShowReturnToLobby = true;
+			InGameHud.Instance.ShowRespawnOption = true;
+			return;
+		}
 		Deaths++;
+		
 
 		
 
@@ -564,6 +559,8 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy )
 			return;
 
+		
+		
 		
 
 		if ( !IsProxy )
