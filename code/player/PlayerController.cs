@@ -54,7 +54,7 @@ public partial class Player : Component, IHealthComponent
 	public string DisplayName { get; set; }
 	// Add a property to track respawn attempts
 	[Sync,Property]
-	public float RespawnAttempts { get;  set; } = 4;
+	public int RespawnAttempts { get;  set; } = 3;
 	public TimeSpan Playtime { get; set; }
 	
 
@@ -310,7 +310,30 @@ public partial class Player : Component, IHealthComponent
 
 	public Transform GetAttachment( string attachment, bool world = true )
 	=> ModelRenderer.GetAttachment( attachment, world ) ?? global::Transform.Zero;
+	[Rpc.Broadcast]
+	public void InitialSpawn()
+	{
+		if ( IsProxy )
+			return;
 
+		// Initiale Spawn-Logik
+		Weapons.GiveDefault();
+		Ragdoll.Unragdoll();
+		MoveToSpawnPoint();
+
+		LifeState = LifeState.Alive;
+
+		MaxHealth = 50f;
+		Health = MaxHealth;
+		MaxStamina = 100f;
+		MaxMana = 100f;
+		PlayerRunSpeed = 190f;
+		PlayerWalkSpeed = 120f;
+
+		isFirstSpawn = false; // Markiere den ersten Spawn als abgeschlossen
+
+		StartHealthRegen( 500f, 5f );
+	}
 
 
 	[Rpc.Broadcast]
@@ -319,8 +342,15 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy )
 			return;
 
-		
+		if ( RespawnAttempts <= 0 )
+		{
+			// Keine Respawn-Versuche mehr übrig
+			InGameHud.Instance.ShowReturnToLobby = true;
+			InGameHud.Instance.ShowRespawnOption = true;
+			return;
+		}
 
+	
 
 		// Respawn-Logik
 		Weapons.GiveDefault();
@@ -329,27 +359,12 @@ public partial class Player : Component, IHealthComponent
 
 		LifeState = LifeState.Alive;
 
-		if ( isFirstSpawn )
-		{
-			MaxHealth = 50f;
-			Health = MaxHealth;
-			MaxStamina = 100f;
-			MaxMana = 100f;
-			PlayerRunSpeed = 190f;
-			PlayerWalkSpeed = 120f;
-			
-
-			isFirstSpawn = false; // Markiere den ersten Spawn als abgeschlossen
-		}
-		
 		Health = MaxHealth;
-		MaxHealth = Health;
 		Stamina = MaxStamina;
 		Mana = MaxMana;
 
 		StartHealthRegen( 500f, 5f );
 	}
-
 	public async void StartHealthRegen( float regenAmount, float duration )
 	{
 		if ( IsProxy )
@@ -566,7 +581,8 @@ public partial class Player : Component, IHealthComponent
 		if ( !IsProxy )
 		{
 			BlackScreen( 0f, 2f, 3f );
-			Respawn();
+			InitialSpawn();
+			RespawnAttempts = 3; // Setze die Anzahl der Respawn-Versuche auf 4
 
 			Animators.Clear(); // Entfernt alle vorherigen Einträge
 			Animators.Add( ShadowAnimator );

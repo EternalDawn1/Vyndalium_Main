@@ -452,7 +452,7 @@ public class StoryMaster : Component
 		storyMaster.LoadEventPool();
 
 		if ( Player.Local.IsValid() )
-			Player.Local.Respawn();
+			Player.Local.InitialSpawn();
 	}
 
 	[Rpc.Broadcast( NetFlags.HostOnly )]

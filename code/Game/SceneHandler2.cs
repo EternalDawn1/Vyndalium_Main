@@ -56,9 +56,9 @@ public static class SceneHandler2
 
             _ => null
         };
-        if ( scene == GeneralScene2.StartBase && Player.Local != null )
+        if ( scene == GeneralScene2.StartBase )
         {
-            Player.Local.RespawnAttempts = 4;
+            Player.Local.RespawnAttempts = 3;
          
         }
 

@@ -84,7 +84,7 @@ public struct PlayerSave
 	[JsonInclude] public int MAX_BACKPACK_SLOTS;
 	[JsonInclude] public Dictionary<AmmoType, int> AmmoCount { get; set; }
 	[JsonInclude] public float DefaultFOV;
-	[JsonInclude] public float Life;
+	[JsonInclude] public int Life;
 	[JsonInclude] public int DefaultAmmo;
 	[JsonInclude] public int Vyndalium;
 	[JsonInclude] public int Experience;
@@ -544,7 +544,7 @@ partial class Player
 		player.MinAttackValue = save.MinAttackValue;
 		player.MaxAttackValue = save.MaxAttackValue;
 		player.DefaultAmmo = save.DefaultAmmo;
-		player.RespawnAttempts = (int)save.Life;
+		player.RespawnAttempts = save.Life;
 		player.MaxHealth = save.MaxHealth;
 		player.MaxMana = save.MaxMana;
 		player.MaxStamina = save.MaxStamina;
