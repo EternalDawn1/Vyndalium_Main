@@ -41,6 +41,19 @@
 
     private void ReturnToLobby()
     {
+        var player = Player.Local;
+        if (player == null)
+        {
+            Log.Error("Player.Local is null.");
+            return;
+        }
+
+        if (!player.IsHost())
+        {
+            Log.Error("Player is not the host.");
+            return;
+        }
+      
         this.ShowReturnToLobby = false; // Zugriff auf die Eigenschaft der aktuellen Klasse
         this.ShowRespawnOption = false; // Zugriff auf die Eigenschaft der aktuellen Klasse
          SceneHandler2.ChangeScene2( SceneToLoad );
@@ -49,5 +62,6 @@
     {
         return HashCode.Combine(ShowReturnToLobby, ShowRespawnOption);
     }
+    
 
 }

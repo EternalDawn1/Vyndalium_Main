@@ -192,6 +192,7 @@
         "HitSounds": "sounds/slimeattack/slimeattackone.sound",
         "Idle": true,
         "IsBleeding": false,
+        "IsBoss": false,
         "isChibi": false,
         "IsFloating": false,
         "isPrometheus": false,
@@ -230,6 +231,7 @@
         "OnSpawn": null,
         "PogMode": false,
         "Position": "0,0,0",
+        "PreviousHealth": 0,
         "RunningType": "Smart",
         "RunSpeed": 60,
         "ScaleStats": true,
@@ -345,7 +347,7 @@
         "__guid": "4797628e-721e-4f4a-9728-13573bc7d9ec",
         "Flags": 0,
         "Name": "World",
-        "Position": "-1.323636,-0.5550555,59.80241",
+        "Position": "-1.323636,-0.5550555,35.403",
         "Enabled": true,
         "NetworkMode": 1,
         "Components": [
@@ -374,6 +376,8 @@
           {
             "__type": "GeneralGame.HUD.UI",
             "__guid": "d4ea641d-00d1-47e8-958b-53cf7ee7649e",
+            "_damageTimer": 0,
+            "isTakingDamage": false,
             "npc": {
               "_type": "component",
               "component_id": "0f5ae04d-e230-47a9-bfa5-822d998bb258",
