@@ -30,10 +30,18 @@ public class ProceduralRoomGeneration : Component
     public PrefabFile MiddleRoom { get; set; } // Raum, der nach einem Hallway entsteht
 
     [Property]
+    public PrefabFile LeftRoomOpen { get; set; } // Offener Raum links
+
+    [Property]
+    public PrefabFile RightRoomOpen { get; set; } // Offener Raum rechts
+
+    [Property]
     public PrefabFile SidewaysRoom { get; set; } // Seitliche Räume, die an den Middle Room angefügt werden
 
     [Property]
     public bool GenerateSidewaysRooms { get; set; } = true; // Option, ob Seitliche Räume generiert werden sollen
+
+
 
     [Property, Button( "Generate Random" )]
     public void GenerateRandom()
@@ -69,13 +77,24 @@ public class ProceduralRoomGeneration : Component
         }
 
         // Spawn hallways and middle rooms
-        Random random = new Random();
         for ( int i = 0; i < HallwayLength; i++ )
         {
-            // Zufällig entscheiden, ob ein Middle Room oder ein Hallway generiert wird
-            bool spawnMiddleRoom = random.Next( 0, 2 ) == 0; // 50% Chance
+            // Spawn a hallway
+            var hallwayPrefab = ResourceLibrary.Get<PrefabFile>( Hallway.ResourcePath );
+            if ( hallwayPrefab != null )
+            {
+                var hallwayObject = SceneUtility.GetPrefabScene( hallwayPrefab ).Clone();
+                hallwayObject.WorldPosition = currentPosition;
+                hallwayObject.WorldRotation = currentRotation;
+                hallwayObject.NetworkSpawn();
+                spawnedObjects.Add( hallwayObject );
 
-            if ( spawnMiddleRoom && MiddleRoom != null )
+                // Verschiebe die Position entlang der Y-Achse
+                currentPosition += new Vector3( 0, -385.52f, 0 );
+            }
+
+            // Spawn a middle room after the hallway
+            if ( MiddleRoom != null )
             {
                 var middleRoomPrefab = ResourceLibrary.Get<PrefabFile>( MiddleRoom.ResourcePath );
                 if ( middleRoomPrefab != null )
@@ -89,46 +108,59 @@ public class ProceduralRoomGeneration : Component
                     // Optional: Generate sideways rooms
                     if ( GenerateSidewaysRooms && SidewaysRoom != null )
                     {
-                        int sidewaysRoomCount = random.Next( 1, 4 ); // Zufällige Anzahl von Sideways Rooms (1 bis 3)
                         var sidewaysRoomPrefab = ResourceLibrary.Get<PrefabFile>( SidewaysRoom.ResourcePath );
 
-                        for ( int j = 0; j < sidewaysRoomCount; j++ )
+                        // Spawn a room to the left
+                        if ( sidewaysRoomPrefab != null )
                         {
-                            if ( sidewaysRoomPrefab != null )
-                            {
-                                var offset = 305.217f * (j + 1);
-                                var leftRoomObject = SceneUtility.GetPrefabScene( sidewaysRoomPrefab ).Clone();
-                                leftRoomObject.WorldPosition = currentPosition + new Vector3( -offset, 0, 0 ); // Links
-                                leftRoomObject.WorldRotation = currentRotation;
-                                leftRoomObject.NetworkSpawn();
-                                spawnedObjects.Add( leftRoomObject );
+                            // Spawn a room to the left
+                            var leftRoomObject = SceneUtility.GetPrefabScene( sidewaysRoomPrefab ).Clone();
+                            leftRoomObject.WorldPosition = currentPosition + new Vector3( -305.217f, 0, 0 ); // Links
+                            leftRoomObject.WorldRotation = currentRotation;
+                            leftRoomObject.NetworkSpawn();
+                            spawnedObjects.Add( leftRoomObject );
 
-                                var rightRoomObject = SceneUtility.GetPrefabScene( sidewaysRoomPrefab ).Clone();
-                                rightRoomObject.WorldPosition = currentPosition + new Vector3( offset, 0, 0 ); // Rechts
-                                rightRoomObject.WorldRotation = currentRotation;
-                                rightRoomObject.NetworkSpawn();
-                                spawnedObjects.Add( rightRoomObject );
+                            // Spawn a LeftRoomOpen for the left room
+                            if ( LeftRoomOpen != null )
+                            {
+                                var leftRoomOpenPrefab = ResourceLibrary.Get<PrefabFile>( LeftRoomOpen.ResourcePath );
+                                if ( leftRoomOpenPrefab != null )
+                                {
+                                    var leftRoomOpenObject = SceneUtility.GetPrefabScene( leftRoomOpenPrefab ).Clone();
+                                    leftRoomOpenObject.WorldPosition = leftRoomObject.WorldPosition + new Vector3( -305.217f, 0, 0 ); // Korrekte Position für LeftRoomOpen
+                                    leftRoomOpenObject.WorldRotation = currentRotation;
+                                    leftRoomOpenObject.NetworkSpawn();
+                                    spawnedObjects.Add( leftRoomOpenObject );
+                                }
+                            }
+                        }
+
+                        // Spawn a room to the right
+                        if ( sidewaysRoomPrefab != null )
+                        {
+                            var rightRoomObject = SceneUtility.GetPrefabScene( sidewaysRoomPrefab ).Clone();
+                            rightRoomObject.WorldPosition = currentPosition + new Vector3( 305.217f, 0, 0 ); // Rechts
+                            rightRoomObject.WorldRotation = currentRotation;
+                            rightRoomObject.NetworkSpawn();
+                            spawnedObjects.Add( rightRoomObject );
+
+                            // Spawn a RightRoomOpen for the right room
+                            if ( RightRoomOpen != null )
+                            {
+                                var rightRoomOpenPrefab = ResourceLibrary.Get<PrefabFile>( RightRoomOpen.ResourcePath );
+                                if ( rightRoomOpenPrefab != null )
+                                {
+                                    var rightRoomOpenObject = SceneUtility.GetPrefabScene( rightRoomOpenPrefab ).Clone();
+                                    rightRoomOpenObject.WorldPosition = rightRoomObject.WorldPosition + new Vector3( 305.217f, 0, 0 ); // Korrekte Position für RightRoomOpen
+                                    rightRoomOpenObject.WorldRotation = currentRotation;
+                                    rightRoomOpenObject.NetworkSpawn();
+                                    spawnedObjects.Add( rightRoomOpenObject );
+                                }
                             }
                         }
                     }
 
                     // Verschiebe die Position entlang der Y-Achse nach dem Middle Room
-                    currentPosition += new Vector3( 0, -385.52f, 0 );
-                }
-            }
-            else
-            {
-                // Spawn a hallway
-                var hallwayPrefab = ResourceLibrary.Get<PrefabFile>( Hallway.ResourcePath );
-                if ( hallwayPrefab != null )
-                {
-                    var hallwayObject = SceneUtility.GetPrefabScene( hallwayPrefab ).Clone();
-                    hallwayObject.WorldPosition = currentPosition;
-                    hallwayObject.WorldRotation = currentRotation;
-                    hallwayObject.NetworkSpawn();
-                    spawnedObjects.Add( hallwayObject );
-
-                    // Verschiebe die Position entlang der Y-Achse
                     currentPosition += new Vector3( 0, -385.52f, 0 );
                 }
             }
