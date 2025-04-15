@@ -11,11 +11,12 @@
         {
           "__type": "GeneralGame.ProceduralRoomGeneration",
           "__guid": "fee29d1c-77d9-4707-8d08-05f0e2e1c85a",
-          "DungeonRooms": 10,
+          "DungeonRooms": 15,
           "EndpointRoom": "procedualgeneration/rooms/4x4_end.prefab",
           "GenerateSidewaysRooms": true,
           "Hallway": "procedualgeneration/rooms/4x4_hallway.prefab",
-          "LeftRoomOpen": "procedualgeneration/rooms/4x4_behind_left_open.prefab",
+          "HallwayLeft": "procedualgeneration/rooms/4x4_hallway_left.prefab",
+          "HallwayRight": "procedualgeneration/rooms/4x4_hallway_right.prefab",
           "MiddleRoom": "procedualgeneration/rooms/4x4_middle.prefab",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -23,7 +24,6 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "RightRoomOpen": "procedualgeneration/rooms/4x4_behind_right_open.prefab",
           "SidewaysRoom": "procedualgeneration/rooms/4x4_sideways.prefab",
           "StartingRoom": "procedualgeneration/rooms/4x4_starting.prefab"
         }
@@ -34,7 +34,7 @@
       "Flags": 0,
       "Name": "Sun",
       "Position": "160.3007,440.2138,321.6137",
-      "Rotation": "-0.1851662,0.6951888,0.2174863,0.6596407",
+      "Rotation": "-0.3495844,0.7277904,0.03014758,0.5892394",
       "Tags": "light_directional,light",
       "Enabled": true,
       "Components": [
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "__guid": "12fbdb18-0b90-4020-8a08-38008ce868b2",
+      "__guid": "5a05a930-5954-4fec-a77f-cc08e83adc1d",
       "Flags": 0,
       "Name": "4x4_starting (1)",
       "Enabled": true,
@@ -88,231 +88,150 @@
       "__PrefabVariables": {}
     },
     {
-      "__guid": "e38debd8-ea3d-4d3e-b781-6e3639bf54f4",
-      "Flags": 0,
-      "Name": "4x4_sideways",
-      "Position": "0,-385.52,0",
-      "Rotation": "0,0,1,-0.00000004371139",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_sideways.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "1effeb98-32e7-45b4-a4d9-97c8534c02a4",
-      "Flags": 0,
-      "Name": "4x4_ending",
-      "Position": "0,-771.04,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_hallway.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "5e1b774e-2570-4261-af10-e05ecfd2a6a1",
-      "Flags": 0,
-      "Name": "4x4_sideways (1)",
-      "Position": "0,-1156.56,0",
-      "Rotation": "0,0,1,-0.00000004371139",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_sideways.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "5de104e3-2216-4a33-892e-c25c3a4e047d",
-      "Flags": 0,
-      "Name": "4x4_ending (1)",
-      "Position": "0,-1542.08,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_hallway.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "d90b3a02-8f73-4102-a045-c6cf0f23a5cf",
+      "__guid": "b85d6a55-e593-40c9-98e5-dd29a17413ff",
       "Flags": 0,
       "Name": "4x4_middle",
-      "Position": "0,-1927.6,0",
+      "Position": "305.217,0,0",
       "Enabled": true,
       "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
       "__PrefabVariables": {}
     },
     {
-      "__guid": "22d33eda-fd94-481d-8c64-9e6060bf88d0",
-      "Flags": 0,
-      "Name": "4x4_ending (2)",
-      "Position": "0,-2313.12,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_hallway.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "e1179290-c6f8-4631-92f9-6766aac399c7",
+      "__guid": "89f6ccb5-4ecd-4127-82fe-60be238f7a06",
       "Flags": 0,
       "Name": "4x4_middle (3)",
-      "Position": "0,-2698.64,0",
-      "Rotation": "0,0,1,-0.00000004371139",
+      "Position": "610.434,0,0",
       "Enabled": true,
       "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
       "__PrefabVariables": {}
     },
     {
-      "__guid": "2da380c8-49c2-43ac-957b-b504858db704",
+      "__guid": "6e66ee51-e3a3-41ec-a15d-b98375ed8fe6",
       "Flags": 0,
-      "Name": "4x4_ending (4)",
-      "Position": "0,-3084.16,0",
+      "Name": "4x4_middle (4)",
+      "Position": "915.651,0,0",
+      "Rotation": "0,0,0.7071068,0.7071068",
       "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_hallway.prefab",
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
       "__PrefabVariables": {}
     },
     {
-      "__guid": "72abe304-21c2-4830-b107-52b47be1b1f0",
+      "__guid": "3fb72e40-317a-421a-8b70-81ccd7cd9b3c",
+      "Flags": 0,
+      "Name": "4x4_middle (5)",
+      "Position": "610.434,-385.52,0",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "17611e89-7a7d-4e9d-a526-926f128ecfab",
+      "Flags": 0,
+      "Name": "4x4_middle (6)",
+      "Position": "305.217,-385.52,0",
+      "Rotation": "0,0,-0.7071068,0.7071068",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "c1edeaff-82ae-43cd-b23a-c256530acbb0",
+      "Flags": 0,
+      "Name": "4x4_sideways (1)",
+      "Position": "610.434,-771.04,0",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_sideways.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "bbe2dc80-7d2d-481e-b3c2-f6661ec3da7b",
+      "Flags": 0,
+      "Name": "4x4_middle (7)",
+      "Position": "305.217,-771.04,0",
+      "Rotation": "0,0,-0.7071068,0.7071068",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "05bafc5d-11f7-4771-84fd-e480875b7066",
+      "Flags": 0,
+      "Name": "4x4_middle (8)",
+      "Position": "305.217,-1156.56,0",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "7427e883-38ac-4aeb-957d-5af33f8bf414",
+      "Flags": 0,
+      "Name": "4x4_middle (9)",
+      "Position": "0,-771.04,0",
+      "Rotation": "0,0,-0.9999999,0",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "b79a4a8c-1fe6-41ed-b88c-44d405e25f11",
+      "Flags": 0,
+      "Name": "4x4_middle (10)",
+      "Position": "305.217,-771.04,0",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "f8da8613-e598-4301-8619-2502ff9323f2",
+      "Flags": 0,
+      "Name": "4x4_middle (11)",
+      "Position": "915.651,-771.04,0",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "4dd760bd-524b-47fd-bcf9-5715fcfb18af",
+      "Flags": 0,
+      "Name": "4x4_middle (22)",
+      "Position": "610.434,-771.04,0",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "c40efcf6-e2d1-40a6-a585-227b7ef3529f",
+      "Flags": 0,
+      "Name": "4x4_middle (23)",
+      "Position": "610.434,-1156.56,0",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "786fc03c-df5d-4d0f-af1e-2bd149985775",
+      "Flags": 0,
+      "Name": "4x4_middle (24)",
+      "Position": "915.651,-1156.56,0",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "__Prefab": "procedualgeneration/rooms/4x4_middle.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "88ed2f96-cabd-4b54-89ff-a07cba53698a",
       "Flags": 0,
       "Name": "4x4_sideways (2)",
-      "Position": "0,-3469.68,0",
+      "Position": "915.651,-1542.08,0",
       "Enabled": true,
       "__Prefab": "procedualgeneration/rooms/4x4_sideways.prefab",
       "__PrefabVariables": {}
     },
     {
-      "__guid": "3a8c3b41-2947-40c6-8550-afa8e1c30c09",
-      "Flags": 0,
-      "Name": "4x4_ending (5)",
-      "Position": "0,-3855.2,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_hallway.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "980676da-24df-4f67-a0d2-310a4d932c14",
-      "Flags": 0,
-      "Name": "4x4_sideways (10)",
-      "Position": "305.217,-3855.2,0",
-      "Rotation": "0,0,1,-0.00000004371139",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_sideways.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "0eae3542-71ca-4264-a11b-e2df42bd9f7c",
-      "Flags": 0,
-      "Name": "4x4_ending (6)",
-      "Position": "305.217,-4240.72,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_hallway.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "f55a086f-9d45-46b2-b353-718e8dd66912",
-      "Flags": 0,
-      "Name": "4x4_left_open",
-      "Position": "610.434,-4240.72,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_behind_right_open.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "486f980e-8332-47bf-af07-91cb8efd49c5",
-      "Flags": 0,
-      "Name": "4x4_sideways (11)",
-      "Position": "305.217,-4240.72,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_sideways.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "298b68f6-021c-42e5-9b53-6cf592833883",
-      "Flags": 0,
-      "Name": "4x4_ending (11)",
-      "Position": "305.217,-4626.24,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_hallway.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "09459f6a-b3a6-4ced-b31d-8498c6665077",
-      "Flags": 0,
-      "Name": "4x4_right_open",
-      "Position": "0,-4626.24,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_behind_left_open.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "83b6bae5-b32b-4c69-b152-469d194800de",
-      "Flags": 0,
-      "Name": "4x4_sideways (12)",
-      "Position": "0,-5011.76,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_sideways.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "e1e85d65-21a0-450e-a950-7b8b35869a75",
-      "Flags": 0,
-      "Name": "4x4_ending (12)",
-      "Position": "0,-5397.28,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_hallway.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "bec5ffb4-2f86-4d41-b46c-9c73b322ceb1",
-      "Flags": 0,
-      "Name": "4x4_sideways (13)",
-      "Position": "305.217,-5397.28,0",
-      "Rotation": "0,0,1,-0.00000004371139",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_sideways.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "49155115-e035-418c-8d16-aaaff43d1328",
-      "Flags": 0,
-      "Name": "4x4_ending (18)",
-      "Position": "305.217,-5782.8,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_hallway.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "05d0f6d4-41b8-4ccf-8bb6-727c8cd08261",
-      "Flags": 0,
-      "Name": "4x4_left_open (1)",
-      "Position": "610.434,-5782.8,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_behind_right_open.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "de385557-ab09-4d9a-9542-1cdc19a8cd4c",
-      "Flags": 0,
-      "Name": "4x4_sideways (14)",
-      "Position": "915.651,-5782.8,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_sideways.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "8ad960d9-356a-432a-b7b4-b6baa881573b",
-      "Flags": 0,
-      "Name": "4x4_ending (19)",
-      "Position": "915.651,-6168.32,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_hallway.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "0e26727c-898f-4e32-b173-275b3576f7d2",
-      "Flags": 0,
-      "Name": "4x4_left_open (4)",
-      "Position": "1220.868,-6168.32,0",
-      "Enabled": true,
-      "__Prefab": "procedualgeneration/rooms/4x4_behind_right_open.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "c266d469-98ab-401b-9de4-58ea0d9c6a97",
+      "__guid": "d27a603a-f498-4b96-8fba-e7ba69aa4ad4",
       "Flags": 0,
       "Name": "4x4_end",
-      "Position": "1220.868,-6168.32,0",
+      "Position": "594.5211,-1542.08,0",
       "Enabled": true,
       "__Prefab": "procedualgeneration/rooms/4x4_end.prefab",
       "__PrefabVariables": {}
