@@ -63,23 +63,35 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Property] public GameObject ZombieRagedol { get; set; }
 
 	[Property]
-	private readonly List<string> prefabPaths = new List<string>
+	private static readonly List<string> prefabPaths = new List<string>
 	{
-		null, // 90% Wahrscheinlichkeit für nichts
+		null, // 50% Wahrscheinlichkeit für nichts
 		"prefabs/pickupammo.prefab", // 5% Wahrscheinlichkeit
 		"prefabs/potions/potion.prefab", // 2.5% Wahrscheinlichkeit
-		"prefabs/entitys/chestsystem/5.prefab" // 2.5% Wahrscheinlichkeit
+		"prefabs/entitys/chestsystem/5.prefab", // 2.5% Wahrscheinlichkeit
+		
+		"prefabs/entitys/chestsystem/1.prefab",
+		"prefabs/entitys/chestsystem/3.prefab",
+		"prefabs/entitys/chestsystem/2.prefab",
+		"prefabs/entitys/chestsystem/4.prefab",
+		"prefabs/entitys/chestsystem/example 5.prefab",
+		"prefabs/entitys/chestsystem/6.prefab", // 10% Wahrscheinlichkeit
 	};
 
-		private readonly List<float> probabilities = new List<float>
+	private readonly List<float> probabilities = new List<float>
 	{
-		0.50f, // 90% Wahrscheinlichkeit für nichts
+		0.85f, // 85% Wahrscheinlichkeit für nichts
 		0.05f, // 5% Wahrscheinlichkeit für Munition
-		0.025f, // 2.5% Wahrscheinlichkeit für Tränke
-		0.025f // 2.5% Wahrscheinlichkeit für eine Truhe
+		0.03f, // 3% Wahrscheinlichkeit für Tränke
+		0.02f, // 2% Wahrscheinlichkeit für eine Truhe
+		0.0f,  // Keine Wahrscheinlichkeit für example 5.prefab
+		0.02f, // 2% Wahrscheinlichkeit für 6.prefab
+		0.01f, // 1% Wahrscheinlichkeit für 4.prefab
+		0.01f, // 1% Wahrscheinlichkeit für 3.prefab
+		0.005f, // 0.5% Wahrscheinlichkeit für 2.prefab
+		0.005f  // 0.5% Wahrscheinlichkeit für 1.prefab
 	};
 
-	public bool IsFrozen = false;
 	// Methode zum Spawnen eines zufälligen Prefabs
 	private void SpawnRandomPrefab( Vector3 position )
 	{

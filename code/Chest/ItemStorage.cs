@@ -78,8 +78,8 @@ namespace GeneralGame
         }
         private List<string> basePrefabs = new List<string>
         {
-            
-           
+
+            "prefabs/weapons/custom_weapons/glock/glock.prefab",
             "prefabs/weapons/facepunch/usp/uspc.prefab",
             "prefabs/weapons/facepunch/shotgun/shotgunc.prefab",
             "prefabs/weapons/facepunch/mp5/mp5c.prefab",
@@ -272,7 +272,7 @@ namespace GeneralGame
             "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
-    
+            "prefabs/weapons/custom_weapons/glock/glock.prefab",
  
             // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
         };
@@ -292,7 +292,7 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
-     
+     "prefabs/weapons/custom_weapons/glock/glock.prefab",
 
             // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
         };
@@ -311,13 +311,13 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
         "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
-          
+          "prefabs/weapons/custom_weapons/glock/glock.prefab",
             // Fügen Sie hier weitere A-Tier-Prefab-Dateien hinzu
         };
 
         private List<string> tierSPrefabs = new List<string>
         {
-        
+        "prefabs/weapons/custom_weapons/glock/glock.prefab",
             "prefabs/weapons/facepunch/usp/usps.prefab",
             "prefabs/weapons/facepunch/shotgun/shotguns.prefab",
             "prefabs/weapons/facepunch/mp5/mp5s.prefab",
@@ -348,7 +348,7 @@ namespace GeneralGame
             "prefabs/weapons/new/knife.prefab",
 
      "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
-          
+          "prefabs/weapons/custom_weapons/glock/glock.prefab",
             // Fügen Sie hier weitere SS-Tier-Prefab-Dateien hinzu
         };
 
@@ -365,7 +365,7 @@ namespace GeneralGame
             "prefabs/clothes/legarmor/legarmor-sss.prefab",
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-       
+       "prefabs/weapons/custom_weapons/glock/glock.prefab",
    
             // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
         };
@@ -384,6 +384,7 @@ namespace GeneralGame
             "prefabs/weapons/new/knife.prefab",
              "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
   "prefabs/weapons/custom_weapons/minigun/minigun.prefab",
+  "prefabs/weapons/custom_weapons/glock/glock.prefab",
         };
         
       

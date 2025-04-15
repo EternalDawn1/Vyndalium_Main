@@ -2,42 +2,111 @@ using Sandbox;
 using System.Collections.Generic;
 
 namespace GeneralGame;
-[CustomEditor( typeof( ProceduralGeneration ) )]
-public class ProceduralGeneration : Component
+
+[CustomEditor( typeof( ProceduralRoomGeneration ) )]
+public class ProceduralRoomGeneration : Component
 {
-    [Property] public MeshComponent prefabs;
-    [Property] public int numberOfObjects = 10;
-    [Property] public float radius = 5f;
+    [Property]
+    public PrefabFile StartingRoom { get; set; }
 
-    [Property, Button( "Generate Row" )]
-    public void GenerateRowButton()
+    [Property]
+    public PrefabFile Hallway { get; set; }
+
+    [Property]
+    public PrefabFile EndpointRoom { get; set; }
+
+    [Property]
+    public PrefabFile MiddleRoom { get; set; }
+
+    [Property]
+    public List<PrefabFile> RoomPrefabs { get; set; } = new List<PrefabFile>();
+
+    [Property, Button( "Generate Random" )]
+    public void GenerateRandom()
     {
-        GenerateRow();
-    }
-
-    private List<MeshComponent> spawnedObjects = new();
-
-    public void GenerateRow()
-    {
-        ClearObjects();
-
-        for ( int i = 0; i < numberOfObjects; i++ )
+        if ( StartingRoom == null || Hallway == null || EndpointRoom == null )
         {
-            var position = new Vector3( i * radius, 0, 0 ); // Alle 5 in einer Reihe entlang der X-Achse
-            var newGameObject = new GameObject(); // Neues GameObject erstellen
-            var newMeshComponent = newGameObject.AddComponent<MeshComponent>(); // MeshComponent hinzufügen
-            newMeshComponent.LocalPosition = position;
-            newMeshComponent.Mesh = prefabs.Mesh; // Übernimmt das Mesh des Prefabs
-            spawnedObjects.Add( newMeshComponent );
+            Log.Warning( "Please assign all prefab files (StartingRoom, Hallway, EndpointRoom) before generating." );
+            return;
         }
-    }
 
-    private void ClearObjects()
-    {
-        foreach ( var obj in spawnedObjects )
+        Vector3 currentPosition = Vector3.Zero;
+
+        // Spawn the starting room
+        var startingRoomPrefab = ResourceLibrary.Get<PrefabFile>(StartingRoom.ResourcePath);
+        if (startingRoomPrefab != null)
         {
-            obj.GameObject.Destroy();
+            // Klonen des GameObjects aus dem Prefab
+            var startingRoomObject = SceneUtility.GetPrefabScene(startingRoomPrefab).Clone();
+
+            // Setze die Position des Raums
+            startingRoomObject.WorldPosition = currentPosition;
+
+            // Optional: Setze die Rotation des Raums
+            startingRoomObject.WorldRotation = Rotation.Identity;
+
+            // Optional: Füge das GameObject zur Szene hinzu
+            startingRoomObject.NetworkSpawn();
+
+            // Aktualisiere die Position für den nächsten Raum
+            currentPosition += new Vector3(500, 0, 0); // Beispiel: Verschiebe den nächsten Raum um 500 Einheiten
         }
-        spawnedObjects.Clear();
+
+        var hallwayPrefab = ResourceLibrary.Get<PrefabFile>( Hallway.ResourcePath );
+        if ( hallwayPrefab != null )
+        {
+            // Klonen des GameObjects aus dem Prefab
+            var hallwayObject = SceneUtility.GetPrefabScene( hallwayPrefab ).Clone();
+
+            // Setze die Position des Flurs direkt vor den StartingRoom
+            hallwayObject.WorldPosition = currentPosition;
+
+            // Optional: Setze die Rotation des Flurs
+            hallwayObject.WorldRotation = Rotation.Identity;
+
+            // Optional: Füge das GameObject zur Szene hinzu
+            hallwayObject.NetworkSpawn();
+
+            // Aktualisiere die Position für den nächsten Raum
+            currentPosition += new Vector3( 500, 0, 0 ); // Beispiel: Verschiebe den nächsten Raum um 500 Einheiten
+        }
+
+        var endpointRoomPrefab = ResourceLibrary.Get<PrefabFile>( EndpointRoom.ResourcePath );
+        if ( endpointRoomPrefab != null )
+        {
+            // Klonen des GameObjects aus dem Prefab
+            var endpointRoomObject = SceneUtility.GetPrefabScene( endpointRoomPrefab ).Clone();
+
+            // Setze die Position des Endraums
+            endpointRoomObject.WorldPosition = currentPosition;
+
+            // Optional: Setze die Rotation des Endraums
+            endpointRoomObject.WorldRotation = Rotation.Identity;
+
+            // Optional: Füge das GameObject zur Szene hinzu
+            endpointRoomObject.NetworkSpawn();
+
+            currentPosition += new Vector3( 500, 0, 0 );
+        }
+        var middleRoomPrefab = ResourceLibrary.Get<PrefabFile>( MiddleRoom.ResourcePath );
+        if ( middleRoomPrefab != null )
+        {
+            
+            // Klonen des GameObjects aus dem Prefab
+            var middleRoomObject = SceneUtility.GetPrefabScene( middleRoomPrefab ).Clone();
+
+            // Setze die Position des Mittelraums
+            middleRoomObject.WorldPosition = currentPosition;
+
+            // Optional: Setze die Rotation des Mittelraums
+            middleRoomObject.WorldRotation = Rotation.Identity;
+
+            // Optional: Füge das GameObject zur Szene hinzu
+            middleRoomObject.NetworkSpawn();
+
+            currentPosition += new Vector3( 500, 0, 0 );
+        }
+
+        
     }
 }
