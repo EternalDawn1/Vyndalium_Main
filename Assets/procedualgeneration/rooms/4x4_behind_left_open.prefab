@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "ba5b5e2f-37a6-40e0-9c96-c69bdb46d8b1",
     "Flags": 0,
-    "Name": "4x4_right_open",
+    "Name": "4x4_behind_left_open",
     "Enabled": true,
     "Components": [
       {
@@ -140,7 +140,41 @@
         "SurfaceVelocity": "0,0,0"
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "6f208130-971d-401d-b3f7-a2519581c052",
+        "Flags": 0,
+        "Name": "Object",
+        "Rotation": "0,-0,-0.7071068,0.7071068",
+        "Scale": "10,10,10",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "aad91968-d021-463f-b6e1-e94b0de28098",
+            "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/editor/arrow.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Tint": "1,0,0,1"
+          }
+        ]
+      }
+    ],
     "__variables": [],
     "__properties": {
       "FixedUpdateFrequency": 50,

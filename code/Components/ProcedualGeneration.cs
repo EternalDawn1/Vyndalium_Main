@@ -8,15 +8,8 @@ public class ProceduralRoomGeneration : Component
 {
     [Property]
     public PrefabFile StartingRoom { get; set; }
-
     [Property]
     public PrefabFile Hallway { get; set; }
-
-    [Property]
-    public PrefabFile HallwayLeft { get; set; }
-
-    [Property]
-    public PrefabFile HallwayRight { get; set; }
 
     [Property]
     public PrefabFile EndpointRoom { get; set; }
@@ -25,13 +18,12 @@ public class ProceduralRoomGeneration : Component
     public PrefabFile MiddleRoom { get; set; }
 
     [Property]
-    public PrefabFile SidewaysRoom { get; set; }
+    public PrefabFile SideWayRoom { get; set; }
 
-    [Property]
-    public bool GenerateSidewaysRooms { get; set; } = true;
+  
 
-    [Property]
-    public int DungeonRooms { get; set; } = 5; // Anzahl der zufälligen Dungeon-Räume
+    
+
 
     private List<GameObject> spawnedObjects = new List<GameObject>();
 
@@ -60,30 +52,16 @@ public class ProceduralRoomGeneration : Component
         // Hallway nach dem Start
         SpawnRoom( Hallway, ref pos, new Vector3( 0, -385.52f, 0 ) );
 
-        int randomParts = Game.Random.Int( 1, DungeonRooms );
-        int consecutiveMiddleRooms = 0;
+        // ...existing code...
+        SpawnRoom( MiddleRoom, ref pos, new Vector3( 0, -385.52f, 0 ) );
 
-        for ( int i = 0; i < randomParts; i++ )
-        {
-         
+        Vector3 leftPos = pos;
+        Vector3 rightPos = pos;
 
-            bool spawnMiddle = Game.Random.Int( 0, 5 ) == 0;
-
-            if ( spawnMiddle && consecutiveMiddleRooms < 2 )
-            {
-                SpawnRoom( MiddleRoom, ref pos, new Vector3( 0, -385.52f, 0 ) );
-                consecutiveMiddleRooms++;
-
-                
-            }
-            else
-            {
-                SpawnRoom( Hallway, ref pos, new Vector3( 0, -385.52f, 0 ) );
-                consecutiveMiddleRooms = 0;
-            }
-        }
-
-        // Endraum
+        SpawnRoom( SideWayRoom, ref leftPos, new Vector3( -305.3f, 0, 0 ) );
+        SpawnRoom( SideWayRoom, ref rightPos, new Vector3( 305.3f, 0, 0 ) );
+        // Zurück zur alten Position für EndpointRoom
+       
         SpawnRoom( EndpointRoom, ref pos, new Vector3( 0, -385.52f, 0 ) );
     }
     // ...existing code...
