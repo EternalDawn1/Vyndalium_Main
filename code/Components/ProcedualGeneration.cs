@@ -131,6 +131,20 @@ public class ProceduralRoomGeneration : Component
                                     leftRoomOpenObject.WorldRotation = currentRotation;
                                     leftRoomOpenObject.NetworkSpawn();
                                     spawnedObjects.Add( leftRoomOpenObject );
+
+                                    // Spawn a hallway after LeftRoomOpen
+                                    if ( Hallway != null )
+                                    {
+                                        var hallwayPrefabInner = ResourceLibrary.Get<PrefabFile>( Hallway.ResourcePath ); // Umbenennung der Variablen
+                                        if ( hallwayPrefabInner != null )
+                                        {
+                                            var hallwayObject = SceneUtility.GetPrefabScene( hallwayPrefabInner ).Clone();
+                                            hallwayObject.WorldPosition = leftRoomOpenObject.WorldPosition + new Vector3( 0, -385.52f, 0 ); // Position unterhalb von LeftRoomOpen
+                                            hallwayObject.WorldRotation = currentRotation;
+                                            hallwayObject.NetworkSpawn();
+                                            spawnedObjects.Add( hallwayObject );
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -155,6 +169,20 @@ public class ProceduralRoomGeneration : Component
                                     rightRoomOpenObject.WorldRotation = currentRotation;
                                     rightRoomOpenObject.NetworkSpawn();
                                     spawnedObjects.Add( rightRoomOpenObject );
+
+                                    // Spawn a hallway after RightRoomOpen
+                                    if ( Hallway != null )
+                                    {
+                                        var hallwayPrefabInner = ResourceLibrary.Get<PrefabFile>( Hallway.ResourcePath ); // Umbenennung der Variablen
+                                        if ( hallwayPrefabInner != null )
+                                        {
+                                            var hallwayObject = SceneUtility.GetPrefabScene( hallwayPrefabInner ).Clone();
+                                            hallwayObject.WorldPosition = rightRoomOpenObject.WorldPosition + new Vector3( 0, -385.52f, 0 ); // Position unterhalb von RightRoomOpen
+                                            hallwayObject.WorldRotation = currentRotation;
+                                            hallwayObject.NetworkSpawn();
+                                            spawnedObjects.Add( hallwayObject );
+                                        }
+                                    }
                                 }
                             }
                         }
