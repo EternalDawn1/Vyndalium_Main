@@ -54,6 +54,9 @@ public class ProceduralRoomGeneration : Component
             startingRoomObject.WorldRotation = currentRotation;
             startingRoomObject.NetworkSpawn();
             spawnedObjects.Add( startingRoomObject );
+
+            // Aktualisiere die Position nach dem Startraum
+            currentPosition += new Vector3( 0, -385.52f, 0 );
         }
 
         // Spawn hallways
@@ -68,7 +71,7 @@ public class ProceduralRoomGeneration : Component
                 hallwayObject.NetworkSpawn();
                 spawnedObjects.Add( hallwayObject );
 
-                // Verschiebe die Position entlang der Y-Achse (z. B. -385.52)
+                // Verschiebe die Position entlang der Y-Achse
                 currentPosition += new Vector3( 0, -385.52f, 0 );
             }
         }
