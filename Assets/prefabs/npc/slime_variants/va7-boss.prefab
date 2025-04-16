@@ -264,7 +264,7 @@
         "FireBallAttackSound": "prefabs/hit/fire-sounds/avatarattack.sound",
         "FireBallAttackTime": {
           "Absolute": 0,
-          "Relative": 102763976
+          "Relative": 103764984
         },
         "FireBallChargeSound": "prefabs/hit/fire-sounds/avatarcharge.sound",
         "FireBallCooldown": 15,
@@ -272,7 +272,7 @@
         "FireCannonAttackSound": "prefabs/hit/fire-sounds/whoosh-fire.sound",
         "FireCannonAttackTime": {
           "Absolute": 0,
-          "Relative": 102763976
+          "Relative": 103764984
         },
         "FireCannonChargeSound": "prefabs/hit/fire-sounds/avatarcharge.sound",
         "FireCannonCooldown": 5,
@@ -280,7 +280,7 @@
         "FireCannonPrefab": "prefabs/hit/fire-spawn-cannon.prefab",
         "FireRingAttackTime": {
           "Absolute": 0,
-          "Relative": 102763976
+          "Relative": 103764984
         },
         "FireRingCooldown": 10,
         "FireRingEnabled": true,
@@ -292,7 +292,7 @@
         "FireWallSound": "prefabs/hit/fire-sounds/balls.sound",
         "FlameWallAttackTime": {
           "Absolute": 0,
-          "Relative": 102763976
+          "Relative": 103764984
         },
         "FlameWallCooldown": 20,
         "HasSpecialAbility": true,
@@ -309,7 +309,7 @@
         "UltimateJumpAttackCooldown": 30,
         "UltimateJumpAttackTime": {
           "Absolute": 0,
-          "Relative": 102763976
+          "Relative": 103764984
         }
       }
     ],
@@ -329,7 +329,7 @@
             "BodyGroups": 18446744073709551615,
             "BoneMergeTarget": null,
             "CreateAttachments": false,
-            "CreateBoneObjects": false,
+            "CreateBoneObjects": true,
             "MaterialGroup": null,
             "MaterialOverride": "models/npcs/slime/textures/defaultshader_base_color_1001.vmat",
             "Model": "models/npcs/slime/slime.vmdl",
@@ -408,6 +408,68 @@
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
           }
+        ],
+        "Children": [
+          {
+            "__guid": "91e845f9-07dc-4d2e-8e87-4a78b120150d",
+            "Flags": 4,
+            "Name": "root",
+            "Rotation": "0.4999999,0.4999999,0.4999999,0.5000003",
+            "Enabled": true,
+            "Children": [
+              {
+                "__guid": "f031257e-d82d-4947-8068-05d56b7812a6",
+                "Flags": 4,
+                "Name": "back",
+                "Position": "-0.0000002808309,7.988828,-8.774088",
+                "Enabled": true,
+                "Children": [
+                  {
+                    "__guid": "c109373a-12c7-4d3e-84e2-74af41fcd588",
+                    "Flags": 4,
+                    "Name": "front",
+                    "Position": "0.000009492987,5.58995,18.68033",
+                    "Enabled": true
+                  }
+                ]
+              },
+              {
+                "__guid": "50801513-66ea-40eb-9a37-a7212bfff261",
+                "Flags": 0,
+                "Name": "Object",
+                "Position": "-0.02957687,7.397738,16.21907",
+                "Rotation": "-0.4999999,-0.4999999,-0.4999999,0.5000004",
+                "Scale": "0.2,0.2,0.2",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "5cf7b12e-9af5-47be-9c20-0f54c38bad8c",
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Model": "models/eye/eye.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ]
+              }
+            ]
+          }
         ]
       },
       {
@@ -470,7 +532,7 @@
           },
           {
             "__type": "Sandbox.SpriteRenderer",
-            "__guid": "ad6d303f-056f-4ddc-8eae-ec4ab9b877e8",
+            "__guid": "bc5c207c-e28a-4a65-b8ad-f280a0a062d7",
             "Additive": false,
             "CastShadows": false,
             "Color": "1,1,1,1",
@@ -493,12 +555,12 @@
               "BloomLayer": false,
               "AfterUILayer": true
             },
-            "Size": "36.39998,34.19998",
+            "Size": "30,30",
             "Texture": {
               "$compiler": "texture",
               "$source": "imagefile",
               "data": {
-                "FilePath": "ui/hud/sword.png",
+                "FilePath": "ui/hud/skull.png",
                 "MaxSize": 4096,
                 "ConvertHeightToNormals": false,
                 "NormalScale": 1,
@@ -522,39 +584,6 @@
               },
               "compiled": null
             }
-          }
-        ]
-      },
-      {
-        "__guid": "50801513-66ea-40eb-9a37-a7212bfff261",
-        "Flags": 0,
-        "Name": "Object",
-        "Position": "81.09531,-0.1478936,36.98873",
-        "Enabled": true,
-        "NetworkMode": 1,
-        "Components": [
-          {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "5cf7b12e-9af5-47be-9c20-0f54c38bad8c",
-            "BodyGroups": 18446744073709551615,
-            "CreateAttachments": false,
-            "MaterialGroup": null,
-            "MaterialOverride": null,
-            "Model": "models/eye/eye.vmdl",
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
-              "BloomLayer": false,
-              "AfterUILayer": false
-            },
-            "RenderType": "On",
-            "Tint": "1,1,1,1"
           }
         ]
       }

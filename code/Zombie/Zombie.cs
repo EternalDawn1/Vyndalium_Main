@@ -63,7 +63,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Property] public GameObject ZombieRagedol { get; set; }
 
 	[Property]
-	private static readonly List<string> prefabPaths = new List<string>
+	private readonly List<string> prefabPaths = new List<string>
 	{
 		null, // 50% Wahrscheinlichkeit für nichts
 		"prefabs/pickupammo.prefab", // 5% Wahrscheinlichkeit
