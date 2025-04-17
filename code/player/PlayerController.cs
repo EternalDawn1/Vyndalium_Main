@@ -313,6 +313,11 @@ public partial class Player : Component, IHealthComponent
 		}
 	}
 
+	private float cameraShakeMultiplier = 0.0f; // Startwert für den Multiplikator
+	private const float maxCameraShakeMultiplier = 0.8f; // Maximale Verstärkung des Camera Shakes
+	private const float cameraShakeIncreaseRate = 0.6f; // Wie schnell der Multiplikator steigt
+	private const float cameraShakeResetRate = 0.5f; // Wie schnell der Multiplikator zurückgeht
+
 	[Rpc.Broadcast]
 	public void ApplyRecoil( Angles recoil )
 	{
@@ -328,9 +333,17 @@ public partial class Player : Component, IHealthComponent
 		{
 			currentRecoilIndex = 0; // Zurücksetzen, wenn das Muster endet
 		}
-		ApplyCameraShake( 0.14f, 0.225f ); // Intensität und Dauer anpassen
-	}
 
+		// Erhöhe den Camera Shake Multiplikator bis zum Maximum
+		cameraShakeMultiplier = MathF.Min( cameraShakeMultiplier + cameraShakeIncreaseRate, maxCameraShakeMultiplier );
+
+		// Interpoliere die Intensität und Dauer basierend auf dem Multiplikator
+		float intensity = Lerp( 0.0f, 0.14f, cameraShakeMultiplier ); // Von 0 bis 0.14f
+		float duration = Lerp( 0.0f, 0.225f, cameraShakeMultiplier ); // Von 0 bis 0.225f
+
+		// Füge Camera Shake hinzu
+		ApplyCameraShake( intensity, duration );
+	}
 	public void ResetViewAngles()
 	{
 		if ( IsProxy ) return;
@@ -905,6 +918,7 @@ public partial class Player : Component, IHealthComponent
 
 			EyeAngles = angles.WithRoll( 0f );
 			IsRunning = Input.Down( "Run" ) && !IsAiming;
+			cameraShakeMultiplier = MathF.Max( cameraShakeMultiplier - cameraShakeResetRate * Time.Delta, 0.0f );
 			Recoil = Recoil.LerpTo( Angles.Zero, Time.Delta * recoilResetSpeed );
 
 		}
