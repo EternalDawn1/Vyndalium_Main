@@ -12,6 +12,9 @@ public enum WeaponType
 	M4A1,
 	AK,
 	MP5,
+	Shotgun,
+	Pistole,
+	Deagle,
 
 }
 
@@ -20,7 +23,7 @@ public class WeaponComponent : Component
 {
 
 	
-	public WeaponType WeaponType { get; set; }
+	[Property]public WeaponType WeaponType { get; set; }
 	
 	[Property] public string DisplayName { get; set; }
 	[Property, Category( "Weapon Properties" )] public float DeployTime { get; set; } = 0.5f;

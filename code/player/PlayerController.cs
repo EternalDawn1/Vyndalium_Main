@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Security.Permissions;
 using GeneralGame.HUD;
 using Sandbox;
@@ -292,7 +293,25 @@ public partial class Player : Component, IHealthComponent
 
 	private int currentRecoilIndex = 0;
 	private float recoilResetSpeed = 5f; // Geschwindigkeit, mit der das Recoil zurückgesetzt wird
+	private async void ApplyCameraShake( float intensity, float duration )
+	{
+		if ( IsProxy ) return;
 
+		var shakeEndTime = Time.Now + duration;
+
+		while ( Time.Now < shakeEndTime )
+		{
+			var shakeOffset = new Angles(
+				Game.Random.Float( -intensity, intensity ), // Pitch
+				Game.Random.Float( -intensity, intensity ), // Yaw
+				0f // Roll bleibt unverändert
+			);
+
+			PlyCamera.WorldRotation *= Rotation.From( shakeOffset );
+
+			await Task.Delay( 7 ); // ~144 FPS
+		}
+	}
 
 	[Rpc.Broadcast]
 	public void ApplyRecoil( Angles recoil )
@@ -309,6 +328,7 @@ public partial class Player : Component, IHealthComponent
 		{
 			currentRecoilIndex = 0; // Zurücksetzen, wenn das Muster endet
 		}
+		ApplyCameraShake( 0.14f, 0.225f ); // Intensität und Dauer anpassen
 	}
 
 	public void ResetViewAngles()
