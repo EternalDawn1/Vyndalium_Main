@@ -282,6 +282,16 @@ public partial class Player : Component, IHealthComponent
 	{
 		Mana += amount;
 	}
+	[Property] private List<Angles> recoilPattern = new List<Angles>
+	{
+		new Angles(-1f, 0f, 0f),  // Nach oben
+		new Angles(-0.5f, 0.5f, 0f), // Nach oben rechts
+		new Angles(-0.5f, -0.5f, 0f), // Nach oben links
+		// Weitere Muster hinzufügen
+	};
+
+	private int currentRecoilIndex = 0;
+	private float recoilResetSpeed = 5f; // Geschwindigkeit, mit der das Recoil zurückgesetzt wird
 
 
 	[Rpc.Broadcast]
@@ -289,9 +299,18 @@ public partial class Player : Component, IHealthComponent
 	{
 		if ( IsProxy ) return;
 
-		Recoil += recoil;
+		// Wende das Recoil-Muster an
+		if ( currentRecoilIndex < recoilPattern.Count )
+		{
+			Recoil += recoilPattern[currentRecoilIndex];
+			currentRecoilIndex++;
+		}
+		else
+		{
+			currentRecoilIndex = 0; // Zurücksetzen, wenn das Muster endet
+		}
 	}
-	
+
 	public void ResetViewAngles()
 	{
 		if ( IsProxy ) return;
@@ -866,7 +885,7 @@ public partial class Player : Component, IHealthComponent
 
 			EyeAngles = angles.WithRoll( 0f );
 			IsRunning = Input.Down( "Run" ) && !IsAiming;
-			Recoil = Recoil.LerpTo( Angles.Zero, Time.Delta * 8f );
+			Recoil = Recoil.LerpTo( Angles.Zero, Time.Delta * recoilResetSpeed );
 
 		}
 		
