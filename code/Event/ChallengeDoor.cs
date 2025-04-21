@@ -56,6 +56,12 @@ public sealed class ChallengeDoor : Component
 			Log.Error( "ChallengeDoorPanel is null in ActivateDoor" );
 		}
 	}
+	public void MarkAsExpired()
+	{
+		isTimerActive = false; // Deaktiviert den Timer
+		timer = 0; // Setzt den Timer auf 0
+		OpenDoor(); // Öffnet die Tür (falls noch nicht geöffnet)
+	}
 
 	private void CloseDoor()
 	{

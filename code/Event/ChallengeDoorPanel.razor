@@ -15,13 +15,28 @@
 @code {
     [Property] public ChallengeDoorPanel ChallengeDoorPanelInstance;
     [Property] private ChallengeDoor ChallengeDoorInstance;
-
+    [Property] public List<GameObject> PrefabsToEnable { get; set; } = new();
     protected override void OnUpdate()
     {
         ChallengeDoorInstance = ChallengeDoorPanelInstance.ChallengeDoorInstance;
         if (ChallengeDoorInstance.timer <= 0)
         {
+        
             GameObject.Destroy();
+        }
+        ChallengeDoorInstance = ChallengeDoorPanelInstance.ChallengeDoorInstance;
+        if (ChallengeDoorInstance.timer <= 0)
+        {   
+            
+                foreach (var prefab in PrefabsToEnable)
+                {
+                    if (prefab != null)
+                    {
+                      
+                        prefab.Enabled = true; // Aktiviert die Prefabs
+                    }
+                }
+            
         }
         this.StateHasChanged();
     }

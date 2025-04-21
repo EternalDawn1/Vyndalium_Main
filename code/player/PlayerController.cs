@@ -72,7 +72,7 @@ public partial class Player : Component, IHealthComponent
 
 	private static bool isFirstSpawn = true;
 
-
+	private Angles originalEyeAngles; // Speichert die ursprünglichen EyeAngles
 	private bool WantsToCrouch { get; set; }
 	private Angles Recoil { get; set; }
 	[Property] public float GroundControl { get; private set; } = 4.0f;
@@ -283,66 +283,82 @@ public partial class Player : Component, IHealthComponent
 	{
 		Mana += amount;
 	}
-	[Property] private List<Angles> recoilPattern = new List<Angles>
-	{
-		new Angles(-1f, 0f, 0f),  // Nach oben
-		new Angles(-0.5f, 0.5f, 0f), // Nach oben rechts
-		new Angles(-0.5f, -0.5f, 0f), // Nach oben links
-		// Weitere Muster hinzufügen
-	};
+	private List<Angles> recoilPattern = new List<Angles>
+{
+	new Angles(-0.02f, 0f, 0f),  // Weniger nach oben
+    new Angles(-0.05f, 0.25f, 0f), // Weniger nach oben rechts
+    new Angles(-0.05f, -0.25f, 0f), // Weniger nach oben links
+    new Angles(-0.1f, 0.15f, 0f),  // Weniger nach oben leicht rechts
+    new Angles(-0.1f, -0.15f, 0f)  // Weniger nach oben leicht links
+};
 
-	private int currentRecoilIndex = 0;
-	private float recoilResetSpeed = 5f; // Geschwindigkeit, mit der das Recoil zurückgesetzt wird
+
 	private async void ApplyCameraShake( float intensity, float duration )
 	{
 		if ( IsProxy ) return;
 
 		var shakeEndTime = Time.Now + duration;
+		var elapsedTime = 0f;
 
 		while ( Time.Now < shakeEndTime )
 		{
+			// Berechne den Fortschritt der Zeit (0 bis 1)
+			elapsedTime += Time.Delta;
+			float progress = elapsedTime / duration;
+
+			// Verwende eine Sinuskurve für sanftes Wackeln
 			var shakeOffset = new Angles(
-				Game.Random.Float( -intensity, intensity ), // Pitch
-				Game.Random.Float( -intensity, intensity ), // Yaw
-				0f // Roll bleibt unverändert
+				MathF.Sin( progress * MathF.PI * 2 ) * intensity, // Sanftes Wackeln auf der Pitch-Achse
+				Game.Random.Float( -intensity * 0.5f, intensity * 0.5f ), // Leichtes Wackeln auf der Yaw-Achse
+				0f // Kein Wackeln auf der Roll-Achse
 			);
 
+			// Wende die Rotation auf die Kamera an
 			PlyCamera.WorldRotation *= Rotation.From( shakeOffset );
 
-			await Task.Delay( 7 ); // ~144 FPS
+			// Warte für die nächste Iteration (~144 FPS)
+			await Task.Delay( 4 );
 		}
+
+		// Stelle sicher, dass die Kamera am Ende wieder stabil ist
+		PlyCamera.WorldRotation = PlyCamera.WorldRotation.Normal;
 	}
 
-	private float cameraShakeMultiplier = 0.0f; // Startwert für den Multiplikator
-	private const float maxCameraShakeMultiplier = 0.8f; // Maximale Verstärkung des Camera Shakes
-	private const float cameraShakeIncreaseRate = 0.6f; // Wie schnell der Multiplikator steigt
-	private const float cameraShakeResetRate = 0.5f; // Wie schnell der Multiplikator zurückgeht
+
+	private int currentRecoilIndex = 0;
+	private float recoilResetSpeed = 15f; // Geschwindigkeit, mit der das Recoil zurückgesetzt wird
+	private float recoilRecoveryTime = 0.2f; // Zeit, bis das Recoil zurückgesetzt wird
+	private RealTimeSince timeSinceLastShot;
 
 	[Rpc.Broadcast]
 	public void ApplyRecoil( Angles recoil )
 	{
 		if ( IsProxy ) return;
 
+		// Skaliere das Recoil, um die Stärke zu reduzieren
+		float recoilScale = 0.3f; // Reduziert das Recoil auf 50%
+		recoil *= recoilScale;
+
+		// Speichere die ursprünglichen EyeAngles beim ersten Schuss
+		if ( timeSinceLastShot > recoilRecoveryTime )
+		{
+			originalEyeAngles = EyeAngles;
+		}
+
 		// Wende das Recoil-Muster an
 		if ( currentRecoilIndex < recoilPattern.Count )
 		{
-			Recoil += recoilPattern[currentRecoilIndex];
+			Recoil += recoilPattern[currentRecoilIndex] * recoilScale;
 			currentRecoilIndex++;
+			ApplyCameraShake( 0.15f, 0.2f ); // Wende den Kamerawackeleffekt an
 		}
 		else
 		{
 			currentRecoilIndex = 0; // Zurücksetzen, wenn das Muster endet
 		}
 
-		// Erhöhe den Camera Shake Multiplikator bis zum Maximum
-		cameraShakeMultiplier = MathF.Min( cameraShakeMultiplier + cameraShakeIncreaseRate, maxCameraShakeMultiplier );
-
-		// Interpoliere die Intensität und Dauer basierend auf dem Multiplikator
-		float intensity = Lerp( 0.0f, 0.14f, cameraShakeMultiplier ); // Von 0 bis 0.14f
-		float duration = Lerp( 0.0f, 0.225f, cameraShakeMultiplier ); // Von 0 bis 0.225f
-
-		// Füge Camera Shake hinzu
-		ApplyCameraShake( intensity, duration );
+		// Setze die Zeit des letzten Schusses zurück
+		timeSinceLastShot = 0;
 	}
 	public void ResetViewAngles()
 	{
@@ -825,32 +841,7 @@ public partial class Player : Component, IHealthComponent
 
 
 
-		for ( int i = activeStatusEffects.Count - 1; i >= 0; i-- ) 
-		{
-			var effect = activeStatusEffects[i];
-
-			if ( effect is BurnEffect burnEffect )
-			{
-				if ( burnEffect.Duration > 0 )
-				{
-					Health = Math.Max( 0, Health - burnDamagePerSecond * Time.Delta );
-					burnEffect.Duration -= Time.Delta;
-					
-					
-
-					if ( Health <= 0 )
-					{
-						
-						activeStatusEffects.RemoveAt( i );
-					}
-				}
-				else
-				{
-					
-					activeStatusEffects.RemoveAt( i );
-				}
-			}
-		}
+		
 
 
 		
@@ -918,8 +909,19 @@ public partial class Player : Component, IHealthComponent
 
 			EyeAngles = angles.WithRoll( 0f );
 			IsRunning = Input.Down( "Run" ) && !IsAiming;
-			cameraShakeMultiplier = MathF.Max( cameraShakeMultiplier - cameraShakeResetRate * Time.Delta, 0.0f );
-			Recoil = Recoil.LerpTo( Angles.Zero, Time.Delta * recoilResetSpeed );
+
+
+			if ( timeSinceLastShot > recoilRecoveryTime )
+			{
+				Recoil = Recoil.LerpTo( Angles.Zero, Time.Delta * recoilResetSpeed );
+
+				// Setze den Recoil-Index zurück, wenn das Recoil vollständig zurückgesetzt wurde
+				if ( Recoil.IsNearlyZero( 0.01f ) )
+				{
+					currentRecoilIndex = 0;
+					Recoil = Angles.Zero;
+				}
+			}
 
 		}
 		
@@ -958,13 +960,39 @@ public partial class Player : Component, IHealthComponent
 				}
 				break;
 		}
+		for ( int i = activeStatusEffects.Count - 1; i >= 0; i-- )
+		{
+			var effect = activeStatusEffects[i];
+
+			if ( effect is BurnEffect burnEffect )
+			{
+				if ( burnEffect.Duration > 0 )
+				{
+					Health = Math.Max( 0, Health - burnDamagePerSecond * Time.Delta );
+					burnEffect.Duration -= Time.Delta;
+
+
+
+					if ( Health <= 0 )
+					{
+
+						activeStatusEffects.RemoveAt( i );
+					}
+				}
+				else
+				{
+
+					activeStatusEffects.RemoveAt( i );
+				}
+			}
+		}
 		//UpdateModelVisibility();
 
 
 
 		foreach ( var animator in Animators )
 		{
-			
+
 			animator.WithVelocity( CharacterController.Velocity );
 			animator.WithWishVelocity( WishVelocity );
 			animator.IsGrounded = CharacterController.IsOnGround;
@@ -1092,6 +1120,7 @@ public partial class Player : Component, IHealthComponent
 		if ( Input.Pressed( "Attack1" ) )
 		{
 			weapon.PrimaryAction();
+		
 		}
 
 		if ( Input.Released( "Attack1" ) )

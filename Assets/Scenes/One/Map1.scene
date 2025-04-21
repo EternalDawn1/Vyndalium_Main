@@ -2234,13 +2234,13 @@
       "__guid": "802ded10-fa29-48f4-b8ca-1d30d47222de",
       "Flags": 0,
       "Name": "exit",
-      "Position": "-3240.762,244.7361,382.7041",
-      "Enabled": true,
+      "Position": "-874.6818,2275.684,362.3021",
+      "Rotation": "0,0,-0.7071067,0.7071068",
       "Components": [
         {
           "__type": "Sandbox.BoxCollider",
           "__guid": "4243b443-4c78-4691-825a-ee5fe1c2f317",
-          "Center": "8.333557,14.3643,32.02301",
+          "Center": "-14.95159,-1.789337,-47.57155",
           "Friction": null,
           "IsTrigger": true,
           "OnComponentDestroy": null,
@@ -2253,7 +2253,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
-          "Scale": "184.7462,222.7071,114.046",
+          "Scale": "90.02412,134.9451,196.9925",
           "Static": false,
           "Surface": null,
           "SurfaceVelocity": "0,0,0"
@@ -2275,7 +2275,7 @@
           "__guid": "284ab320-a155-40c1-941d-1482f8927d0f",
           "Flags": 0,
           "Name": "Object",
-          "Position": "-21.88525,2.939926,-21.008",
+          "Position": "-21.88525,2.939944,15.62247",
           "Rotation": "0,0.0000001439342,0.9999999,0.0000000385671",
           "Enabled": true,
           "Components": [
@@ -2299,8 +2299,8 @@
               "Scale": 0.06200001,
               "TextAlignment": "Center",
               "TextScope": {
-                "Text": "next               level",
-                "TextColor": "0.01667,0,1,1",
+                "Text": "next   level",
+                "TextColor": "0.14419,0.14419,0.14419,1",
                 "FontName": "Poppins",
                 "FontSize": 512,
                 "FontWeight": 800,
@@ -2335,22 +2335,21 @@
           ]
         },
         {
-          "__guid": "15a6b22a-e732-4194-86cc-3ddb5a922f7f",
+          "__guid": "cfdc75b5-701a-4c07-b072-ebf5589579bf",
           "Flags": 0,
           "Name": "Object",
-          "Position": "-6.091064,1.998611,-58.91241",
-          "Rotation": "-0.00000000000001421085,0.7071067,0,0.7071068",
-          "Scale": "-8.999979,-6.599988,6.99998",
+          "Position": "-15.18017,0.000002384186,-51.47635",
+          "Scale": "5.399989,6.400009,5",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
-              "__guid": "8836f828-71c4-4a89-b277-88e6cd43f4b1",
+              "__guid": "d26135e4-7c93-4993-a615-d46a62277381",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/editor/axis_helper.vmdl",
+              "MaterialOverride": "models/citizen_clothes/full_outfit/scifi_trooper_armour/textures/armour_lights.vmat",
+              "Model": "models/editor/env_cubemap.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -2364,50 +2363,57 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0,0,1"
+              "Tint": "1,1,1,1"
             },
             {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "8d8091f9-0e18-4fa3-9b03-57c67a3ed988",
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/editor/cone_helper.vmdl",
+              "__type": "GeneralGame.MoveObject",
+              "__guid": "9c539516-8c58-4401-866b-dce64f064ce6",
+              "CounterDirection": "-0,-0,-0",
+              "Direction": "0,0,0",
+              "distanceTraveled": 0,
+              "IsMove": false,
+              "IsMoveEnabled": false,
+              "IsReturning": false,
+              "IsRotateEnabled": true,
+              "movingToCounterDirection": false,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
+              "RotateAroundX": false,
+              "RotateAroundY": false,
+              "RotateAroundZ": false,
+              "RotationCenter": "0,0,0",
+              "RotationDirection": "0,0,0",
+              "RotationObject": {
+                "_type": "gameobject",
+                "go": "cfdc75b5-701a-4c07-b072-ebf5589579bf"
               },
-              "RenderType": "On",
-              "Tint": "0.23151,0.39535,0.03126,1"
+              "RotationSpeed": 0,
+              "Speed": 0,
+              "Target": null,
+              "totalDistance": 0
             }
           ]
         },
         {
-          "__guid": "a1ea4e89-803b-4f83-b004-073961315657",
+          "__guid": "0f83468d-f8b5-4d9b-8c75-b4ee37671172",
           "Flags": 0,
           "Name": "Object (1)",
-          "Position": "-6.090358,1.9986,131.972",
-          "Rotation": "-0.01234071,0.7069991,-0.01234071,-0.7069991",
-          "Scale": "-8.999979,-6.599988,6.99998",
+          "Position": "-15.18017,0.000002384186,-56.69506",
+          "Scale": "5.399989,6.400009,5",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
-              "__guid": "32aabdb7-a38c-4e29-a0e1-313f8cd5a6b8",
+              "__guid": "38fbf9b1-59f8-4d91-99c7-c3c5843557d6",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/editor/axis_helper.vmdl",
+              "MaterialOverride": "models/citizen_clothes/full_outfit/scifi_trooper_armour/textures/armour_lights.vmat",
+              "Model": "models/editor/env_cubemap.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -2421,52 +2427,252 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0,0,1"
+              "Tint": "1,1,1,1"
             },
             {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "ed379769-6945-4563-9cfb-f27ce6b7ae7d",
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/editor/cone_helper.vmdl",
+              "__type": "GeneralGame.MoveObject",
+              "__guid": "4f1866ac-18d3-4bcf-be42-c20eabdb8bf2",
+              "CounterDirection": "-0,-0,-0",
+              "Direction": "0,0,0",
+              "distanceTraveled": 0,
+              "IsMove": false,
+              "IsMoveEnabled": false,
+              "IsReturning": false,
+              "IsRotateEnabled": true,
+              "movingToCounterDirection": false,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
+              "RotateAroundX": false,
+              "RotateAroundY": false,
+              "RotateAroundZ": false,
+              "RotationCenter": "0,0,0",
+              "RotationDirection": "0,0,0",
+              "RotationObject": {
+                "_type": "gameobject",
+                "go": "0f83468d-f8b5-4d9b-8c75-b4ee37671172"
               },
-              "RenderType": "On",
-              "Tint": "0.23151,0.39535,0.03126,1"
+              "RotationSpeed": 0,
+              "Speed": 0,
+              "Target": null,
+              "totalDistance": 0
             }
           ]
         },
         {
-          "__guid": "37768698-98ea-4a8d-be15-57fd871bb615",
+          "__guid": "b21c7275-8d2d-411d-b949-62a50b40ec48",
+          "Flags": 0,
+          "Name": "Object (1)",
+          "Position": "-15.18017,0.000002384186,-60.4588",
+          "Scale": "5.399989,6.400009,5",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "5d2c78cc-5673-43b2-983b-1ae86ecd2480",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialGroup": null,
+              "MaterialOverride": "models/citizen_clothes/full_outfit/scifi_trooper_armour/textures/armour_lights.vmat",
+              "Model": "models/editor/env_cubemap.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "GeneralGame.MoveObject",
+              "__guid": "d534b8a2-9d5c-4c3f-9da2-bbce1f92a990",
+              "CounterDirection": "-0,-0,-0",
+              "Direction": "0,0,0",
+              "distanceTraveled": 0,
+              "IsMove": false,
+              "IsMoveEnabled": false,
+              "IsReturning": false,
+              "IsRotateEnabled": true,
+              "movingToCounterDirection": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RotateAroundX": false,
+              "RotateAroundY": false,
+              "RotateAroundZ": false,
+              "RotationCenter": "0,0,0",
+              "RotationDirection": "0,0,0",
+              "RotationObject": {
+                "_type": "gameobject",
+                "go": "b21c7275-8d2d-411d-b949-62a50b40ec48"
+              },
+              "RotationSpeed": 0,
+              "Speed": 0,
+              "Target": null,
+              "totalDistance": 0
+            }
+          ]
+        },
+        {
+          "__guid": "f513db09-8636-4055-af0b-81770b905cff",
+          "Flags": 0,
+          "Name": "Object (1)",
+          "Position": "-15.18017,0.000002384186,-64.22256",
+          "Scale": "5.399989,6.400009,5",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "01cf861c-237c-4fa6-bfa8-81a4c3874659",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialGroup": null,
+              "MaterialOverride": "models/citizen_clothes/full_outfit/scifi_trooper_armour/textures/armour_lights.vmat",
+              "Model": "models/editor/env_cubemap.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "GeneralGame.MoveObject",
+              "__guid": "4bd4247c-7932-4f5b-8a0b-96b3bb70c529",
+              "CounterDirection": "-0,-0,-0",
+              "Direction": "0,0,0",
+              "distanceTraveled": 0,
+              "IsMove": false,
+              "IsMoveEnabled": false,
+              "IsReturning": false,
+              "IsRotateEnabled": true,
+              "movingToCounterDirection": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RotateAroundX": false,
+              "RotateAroundY": false,
+              "RotateAroundZ": false,
+              "RotationCenter": "0,0,0",
+              "RotationDirection": "0,0,0",
+              "RotationObject": {
+                "_type": "gameobject",
+                "go": "f513db09-8636-4055-af0b-81770b905cff"
+              },
+              "RotationSpeed": 0,
+              "Speed": 0,
+              "Target": null,
+              "totalDistance": 0
+            }
+          ]
+        },
+        {
+          "__guid": "9a9f6895-8f7d-4383-b368-9bbf79b85835",
+          "Flags": 0,
+          "Name": "Object (1)",
+          "Position": "-15.18017,0.000002384186,-68.39386",
+          "Scale": "5.399989,6.400009,5",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "43f048c7-b06b-4e6c-b9e4-3754da782fbd",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialGroup": null,
+              "MaterialOverride": "models/citizen_clothes/full_outfit/scifi_trooper_armour/textures/armour_lights.vmat",
+              "Model": "models/editor/env_cubemap.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "GeneralGame.MoveObject",
+              "__guid": "494c8157-e7f1-4a82-893f-c4252a81166b",
+              "CounterDirection": "-0,-0,-0",
+              "Direction": "0,0,0",
+              "distanceTraveled": 0,
+              "IsMove": false,
+              "IsMoveEnabled": false,
+              "IsReturning": false,
+              "IsRotateEnabled": true,
+              "movingToCounterDirection": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RotateAroundX": false,
+              "RotateAroundY": false,
+              "RotateAroundZ": false,
+              "RotationCenter": "0,0,0",
+              "RotationDirection": "0,0,0",
+              "RotationObject": {
+                "_type": "gameobject",
+                "go": "9a9f6895-8f7d-4383-b368-9bbf79b85835"
+              },
+              "RotationSpeed": 0,
+              "Speed": 0,
+              "Target": null,
+              "totalDistance": 0
+            }
+          ]
+        },
+        {
+          "__guid": "bed94ce7-5c0b-4e16-8110-583d797d28f2",
           "Flags": 0,
           "Name": "Object",
-          "Position": "-5.990479,0.7663422,176.2145",
-          "Rotation": "0,-0.7071068,0,0.7071068",
+          "Position": "-9.537842,0.000001907349,46.05508",
+          "Rotation": "0.00000008940697,0.7071067,0,0.7071068",
           "Tags": "light_spot,light",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.SpotLight",
-              "__guid": "689f1b8f-6944-4ac6-b6e4-4b2d4c53c3e5",
-              "Attenuation": 7.34,
-              "ConeInner": 52.55,
-              "ConeOuter": 79.55,
-              "Cookie": "materials/particle/particle_flares/particle_flare_006.vtex",
+              "__guid": "b89ddbb4-c33f-4b5e-9cb6-41a7565c6a14",
+              "Attenuation": 0,
+              "ConeInner": 15,
+              "ConeOuter": 45,
+              "Cookie": null,
               "FogMode": "Enabled",
               "FogStrength": 1,
-              "LightColor": "47.1391,50.57843,51.59,1",
+              "LightColor": "0.31667,1,0,1",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -2475,601 +2681,6 @@
               "OnComponentUpdate": null,
               "Radius": 500,
               "Shadows": true
-            }
-          ]
-        },
-        {
-          "__guid": "7fba30df-535f-4491-a480-c2a308b3882b",
-          "Flags": 0,
-          "Name": "Object (1)",
-          "Position": "-5.990967,0.7663727,235.0428",
-          "Rotation": "0,0.7071068,0,0.7071068",
-          "Tags": "light_spot,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.SpotLight",
-              "__guid": "c5bc4089-889b-4998-9414-abffffff46cf",
-              "Attenuation": 1.59,
-              "ConeInner": 90,
-              "ConeOuter": 57.7,
-              "Cookie": "materials/particle/particle_flares/particle_flare_006.vtex",
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "47.1391,50.57843,51.59,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 500,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "8f3a05be-2d87-4014-96c1-3c53681c2650",
-          "Flags": 0,
-          "Name": "Line",
-          "Position": "-7.297852,2.708221,-31.84317",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.LineRenderer",
-              "__guid": "dc8c188c-7846-47f6-bfeb-e169fcd27226",
-              "Additive": false,
-              "CastShadows": true,
-              "Color": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0,
-                    "c": "1,0.27059,0,1"
-                  },
-                  {
-                    "t": 0.5,
-                    "c": "1,0.84314,0,1"
-                  },
-                  {
-                    "t": 1,
-                    "c": "0,0,0.5451,1"
-                  }
-                ],
-                "alpha": [
-                  {
-                    "t": 0,
-                    "a": 1
-                  },
-                  {
-                    "t": 1,
-                    "a": 1
-                  }
-                ]
-              },
-              "DepthFeather": 0,
-              "EndCap": "Rounded",
-              "Face": "Camera",
-              "FogStrength": 1,
-              "Lighting": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Points": [
-                null,
-                null,
-                {
-                  "_type": "gameobject",
-                  "go": "ae319e11-4cbb-42a9-b024-90986fec0685"
-                },
-                {
-                  "_type": "gameobject",
-                  "go": "bce632a8-4b5c-4cd0-910f-72b9c4068443"
-                }
-              ],
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "SplineBias": 0,
-              "SplineContinuity": 0,
-              "SplineInterpolation": 8,
-              "SplineTension": 0,
-              "StartCap": "Rounded",
-              "Texturing": {
-                "Texture": "sprites/vidya/shapes/doublearrow.vtex",
-                "WorldSpace": true,
-                "UnitsPerTexture": 21.099901,
-                "Scale": 1,
-                "Offset": 123.19995,
-                "Scroll": 2.3000484
-              },
-              "UseVectorPoints": false,
-              "VectorPoints": [],
-              "Width": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Wireframe": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "ae319e11-4cbb-42a9-b024-90986fec0685",
-              "Flags": 0,
-              "Name": "Point 3",
-              "Position": "1.42041,-0.5207214,84.93457",
-              "Enabled": true
-            },
-            {
-              "__guid": "bce632a8-4b5c-4cd0-910f-72b9c4068443",
-              "Flags": 0,
-              "Name": "Point 4",
-              "Position": "0.7485352,-0.6124573,51.20224",
-              "Enabled": true
-            }
-          ]
-        },
-        {
-          "__guid": "da2441aa-7771-4609-8931-a746702faa7a",
-          "Flags": 0,
-          "Name": "Line (1)",
-          "Position": "-7.298096,-4.200211,-31.8432",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.LineRenderer",
-              "__guid": "a3598ad3-ac13-4552-bf5b-7271a90e7388",
-              "Additive": false,
-              "CastShadows": true,
-              "Color": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0,
-                    "c": "1,0.27059,0,1"
-                  },
-                  {
-                    "t": 0.5,
-                    "c": "1,0.84314,0,1"
-                  },
-                  {
-                    "t": 1,
-                    "c": "0,0,0.5451,1"
-                  }
-                ],
-                "alpha": [
-                  {
-                    "t": 0,
-                    "a": 1
-                  },
-                  {
-                    "t": 1,
-                    "a": 1
-                  }
-                ]
-              },
-              "DepthFeather": 0,
-              "EndCap": "Rounded",
-              "Face": "Camera",
-              "FogStrength": 1,
-              "Lighting": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Points": [
-                null,
-                null,
-                {
-                  "_type": "gameobject",
-                  "go": "db54f1c5-cdd4-4db0-93c5-72bddc5f915e"
-                },
-                {
-                  "_type": "gameobject",
-                  "go": "2a06aaea-ddde-417b-8e28-6c800d558080"
-                }
-              ],
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "SplineBias": 0,
-              "SplineContinuity": 0,
-              "SplineInterpolation": 8,
-              "SplineTension": 0,
-              "StartCap": "Rounded",
-              "Texturing": {
-                "Texture": "sprites/vidya/shapes/doublearrow.vtex",
-                "WorldSpace": true,
-                "UnitsPerTexture": 21.099901,
-                "Scale": 1,
-                "Offset": 123.19995,
-                "Scroll": 2.3000484
-              },
-              "UseVectorPoints": false,
-              "VectorPoints": [],
-              "Width": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Wireframe": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "db54f1c5-cdd4-4db0-93c5-72bddc5f915e",
-              "Flags": 0,
-              "Name": "Point 3",
-              "Position": "1.42041,-26.27374,162.9606",
-              "Enabled": true
-            },
-            {
-              "__guid": "2a06aaea-ddde-417b-8e28-6c800d558080",
-              "Flags": 0,
-              "Name": "Point 4",
-              "Position": "0.7485352,-0.6124573,51.20224",
-              "Enabled": true
-            }
-          ]
-        },
-        {
-          "__guid": "42fe337e-7b10-42ff-8c19-73a510efc248",
-          "Flags": 0,
-          "Name": "Line (2)",
-          "Position": "-7.298096,9.335373,-31.8432",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.LineRenderer",
-              "__guid": "87e297e8-68a8-4292-84fb-1fdfa2971a41",
-              "Additive": false,
-              "CastShadows": true,
-              "Color": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0,
-                    "c": "1,0.27059,0,1"
-                  },
-                  {
-                    "t": 0.5,
-                    "c": "1,0.84314,0,1"
-                  },
-                  {
-                    "t": 1,
-                    "c": "0,0,0.5451,1"
-                  }
-                ],
-                "alpha": [
-                  {
-                    "t": 0,
-                    "a": 1
-                  },
-                  {
-                    "t": 1,
-                    "a": 1
-                  }
-                ]
-              },
-              "DepthFeather": 0,
-              "EndCap": "Rounded",
-              "Face": "Camera",
-              "FogStrength": 1,
-              "Lighting": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Points": [
-                null,
-                null,
-                {
-                  "_type": "gameobject",
-                  "go": "776f6325-601b-4a5e-8663-9136be1822f5"
-                },
-                {
-                  "_type": "gameobject",
-                  "go": "e2170907-0805-4230-b5ee-da9025c74b53"
-                }
-              ],
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "SplineBias": 0,
-              "SplineContinuity": 0,
-              "SplineInterpolation": 8,
-              "SplineTension": 0,
-              "StartCap": "Rounded",
-              "Texturing": {
-                "Texture": "sprites/vidya/shapes/doublearrow.vtex",
-                "WorldSpace": true,
-                "UnitsPerTexture": 21.099901,
-                "Scale": 1,
-                "Offset": 123.19995,
-                "Scroll": 2.3000484
-              },
-              "UseVectorPoints": false,
-              "VectorPoints": [],
-              "Width": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Wireframe": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "776f6325-601b-4a5e-8663-9136be1822f5",
-              "Flags": 0,
-              "Name": "Point 3",
-              "Position": "1.42041,20.03836,164.4934",
-              "Enabled": true
-            },
-            {
-              "__guid": "e2170907-0805-4230-b5ee-da9025c74b53",
-              "Flags": 0,
-              "Name": "Point 4",
-              "Position": "0.7485352,-0.6124573,51.20224",
-              "Enabled": true
-            }
-          ]
-        },
-        {
-          "__guid": "d46b9f24-6799-42a6-836d-0e98d0c08e6f",
-          "Flags": 0,
-          "Name": "Line (3)",
-          "Position": "-7.298096,15.92595,-31.8432",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.LineRenderer",
-              "__guid": "b58ace45-104d-417b-9230-491177fa1e50",
-              "Additive": false,
-              "CastShadows": true,
-              "Color": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0,
-                    "c": "1,0.27059,0,1"
-                  },
-                  {
-                    "t": 0.5,
-                    "c": "1,0.84314,0,1"
-                  },
-                  {
-                    "t": 1,
-                    "c": "0,0,0.5451,1"
-                  }
-                ],
-                "alpha": [
-                  {
-                    "t": 0,
-                    "a": 1
-                  },
-                  {
-                    "t": 1,
-                    "a": 1
-                  }
-                ]
-              },
-              "DepthFeather": 0,
-              "EndCap": "Rounded",
-              "Face": "Camera",
-              "FogStrength": 1,
-              "Lighting": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Points": [
-                null,
-                null,
-                {
-                  "_type": "gameobject",
-                  "go": "a1a7dc1f-c0aa-4f8a-8732-82eb30e8e1ef"
-                },
-                {
-                  "_type": "gameobject",
-                  "go": "2a5f53a6-6d20-4002-9d2f-177dc88846df"
-                }
-              ],
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "SplineBias": 0,
-              "SplineContinuity": 0,
-              "SplineInterpolation": 8,
-              "SplineTension": 0,
-              "StartCap": "Rounded",
-              "Texturing": {
-                "Texture": "sprites/vidya/shapes/doublearrow.vtex",
-                "WorldSpace": true,
-                "UnitsPerTexture": 21.099901,
-                "Scale": 1,
-                "Offset": 123.19995,
-                "Scroll": 2.3000484
-              },
-              "UseVectorPoints": false,
-              "VectorPoints": [],
-              "Width": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Wireframe": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "a1a7dc1f-c0aa-4f8a-8732-82eb30e8e1ef",
-              "Flags": 0,
-              "Name": "Point 3",
-              "Position": "1.42041,44.45877,168.0125",
-              "Enabled": true
-            },
-            {
-              "__guid": "2a5f53a6-6d20-4002-9d2f-177dc88846df",
-              "Flags": 0,
-              "Name": "Point 4",
-              "Position": "0.7485352,-0.6124573,51.20224",
-              "Enabled": true
-            }
-          ]
-        },
-        {
-          "__guid": "372870a1-1df4-40fe-8984-35888150e547",
-          "Flags": 0,
-          "Name": "Line (4)",
-          "Position": "-7.298096,-12.34621,-31.8432",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.LineRenderer",
-              "__guid": "98d551e8-403f-426c-9a52-298d8a135b16",
-              "Additive": false,
-              "CastShadows": true,
-              "Color": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0,
-                    "c": "1,0.27059,0,1"
-                  },
-                  {
-                    "t": 0.5,
-                    "c": "1,0.84314,0,1"
-                  },
-                  {
-                    "t": 1,
-                    "c": "0,0,0.5451,1"
-                  }
-                ],
-                "alpha": [
-                  {
-                    "t": 0,
-                    "a": 1
-                  },
-                  {
-                    "t": 1,
-                    "a": 1
-                  }
-                ]
-              },
-              "DepthFeather": 0,
-              "EndCap": "Rounded",
-              "Face": "Camera",
-              "FogStrength": 1,
-              "Lighting": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Points": [
-                null,
-                null,
-                {
-                  "_type": "gameobject",
-                  "go": "4ba3a5e1-8354-469e-989d-e7eb0cc8768e"
-                },
-                {
-                  "_type": "gameobject",
-                  "go": "8238c694-eff4-4f3e-a0c4-04105f10fbda"
-                }
-              ],
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "SplineBias": 0,
-              "SplineContinuity": 0,
-              "SplineInterpolation": 8,
-              "SplineTension": 0,
-              "StartCap": "Rounded",
-              "Texturing": {
-                "Texture": "sprites/vidya/shapes/doublearrow.vtex",
-                "WorldSpace": true,
-                "UnitsPerTexture": 21.099901,
-                "Scale": 1,
-                "Offset": 123.19995,
-                "Scroll": 2.3000484
-              },
-              "UseVectorPoints": false,
-              "VectorPoints": [],
-              "Width": [
-                {
-                  "x": 0,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "Wireframe": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "4ba3a5e1-8354-469e-989d-e7eb0cc8768e",
-              "Flags": 0,
-              "Name": "Point 3",
-              "Position": "1.42041,-42.46272,166.8872",
-              "Enabled": true
-            },
-            {
-              "__guid": "8238c694-eff4-4f3e-a0c4-04105f10fbda",
-              "Flags": 0,
-              "Name": "Point 4",
-              "Position": "0.7485352,-0.6124573,51.20224",
-              "Enabled": true
             }
           ]
         }
@@ -3509,3517 +3120,6 @@
               "Shadows": false
             }
           ]
-        },
-        {
-          "__guid": "7ebac188-d453-4ba3-a931-70f3001806e4",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2936.104,133.247,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "a75db7ca-a20f-4b61-98c9-80c29862cc92",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "0d1e5804-2afd-4959-b3e2-be5973ba3563",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "887d6d84-4a4b-4d8b-9ea4-f93ed907ec23",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "e11888b9-b327-4156-9be9-6c9880c083a1",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2936.104,-87.88753,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "1e576542-62b4-4b78-88f3-0aa6ffcf6be0",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "dd44097f-2787-45dc-9a6a-452f1e68e2a5",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "596c23b0-d025-4e76-b135-9dfa23786df8",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "fa8a8e2b-32a2-4bd0-9240-f2973dc924f2",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2667.124,133.247,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "8b97299a-5d04-4d1b-9f58-eb888673dbbf",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "ad5a7695-9d9e-4b1d-be07-e9b3ba42fbb2",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "4c579ce8-d873-4038-843c-d5bb7afd21b2",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "7f3ef0ec-08d0-4e56-955a-ee0175f493b9",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2667.124,-87.88753,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "2a5f84f3-f0bc-422d-99c4-6e7d7407ba78",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "2b31cb18-9780-43dc-ae25-add865bef3e2",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "3d76ebe1-1faf-46ed-b0fd-336823d00feb",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "0eeae4a2-5912-46bd-bb79-268da6b31712",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2404.428,133.247,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "a1190909-f827-4d4a-aea1-8a0c97b838c1",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "00b540fd-7765-4a2e-8a48-a1c0e95216fb",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "a9c35987-942b-4bde-92a8-8f89fda8027f",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "380d7bd1-03c7-4cf3-b8e6-31d22ae90cce",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2404.428,-87.88753,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "13df8de6-07af-4dc5-89b5-fcaa8ca58887",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "fa01460b-3200-4640-ae74-0e416dc61981",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "6aeb1ea5-d1ae-4a09-938f-a2aee5c67b36",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "284803bb-cb46-4db6-87f6-037d1f8399c1",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2792.579,133.247,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "aa0cf07b-639e-4968-ac8e-fcef5ccde584",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "1ccb2369-7c73-4ba1-9a2a-8412f9deca0d",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "cfaccbe3-a2e9-4953-9796-6837c2da711b",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "ed48cbf0-b982-4e8a-b8fd-6ad44842bba2",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2792.579,-87.88753,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "554ad441-3c8e-454d-b978-37a3ce2fbd32",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "6257f016-81ac-40c6-8190-7b10df991ea7",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "ce34e53e-9bde-4eb4-83e3-b8e11559d355",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "82683671-1e1f-4fe4-8281-ea10a723a563",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2523.598,133.247,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "2119f313-2e3d-4e5e-8e45-fe8738f172dd",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "55dfc4ed-857f-4077-9ec4-b9f4286ee221",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "f9e9d77e-3fad-4c22-943f-62264dbc6d9a",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "d3e223c4-6ad8-4223-a1a1-fbe0ea7a1b37",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2523.598,-87.88753,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "36acb796-96e9-4de6-b17f-8e8ca6b98ea8",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "8b5d35b3-9867-498a-8f49-466c74ef0161",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "79e84978-c209-47f4-9fc3-27d03c5122de",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "dd4813c0-fc74-4d8f-90de-13cf292cd3b8",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2260.902,133.247,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "0fe9473a-9561-4c06-b5c1-b6da7a86d961",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "bc0f0af2-208f-49db-8cd9-7a46af0354bf",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "af2038d8-347b-4ddf-9655-9bb7ac954433",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "7cad7c96-c8b0-40d3-b529-903f71c46929",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1963.888,133.247,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "79b74569-ce55-4cda-8d1f-10735a2b0408",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "0ad61f21-be14-4474-b340-83e68ad0477d",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "12d10148-15fb-47a0-8128-adc151b84687",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "40aa8455-2a13-424c-9447-a73c71a85f1a",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1878.447,431.4768,14.95653",
-          "Rotation": "0,0,0.7071067,0.7071068",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "fea5c8bb-54d4-49a1-b95a-ed425c1824d5",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 346.59982,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "493bfa12-1ddd-4516-9b39-db87b9281671",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "d6f79636-09b1-4877-8f31-e218d53290c5",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "423dc00f-cd2e-4b68-9203-645fd2aa66e3",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1779.298,431.4768,14.95656",
-          "Rotation": "0,0,-0.7071066,0.7071068",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "ed5cbc5e-43c6-4e46-93cb-d60e43e11f59",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 346.59982,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "e2bd6b34-107f-4eae-a74a-c4cbe6363ff9",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "79500712-3690-4bc7-9286-196daecd07ea",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "dc419700-ea8d-459f-a478-2f8e73451893",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1779.298,593.1462,14.95656",
-          "Rotation": "0,0,-0.7071066,0.7071068",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "3eab1784-a45f-493f-8d85-3996c2555b60",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 346.59982,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "72606f62-b188-446e-ab98-b03590cf452a",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "b4f0c8ed-d26c-4a86-86a5-a404abaf4dcd",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "36ec0957-44d2-43ed-bd66-2ea9a06eb779",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1876.615,262.1433,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "e3278628-4cd5-4920-8636-6075464d1f37",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "495bd989-c94b-4d03-a2f2-c1168b427093",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "50aac5d1-6c2b-4098-ac79-577c20d0ee0f",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "815c20b4-ae2a-49b8-a565-0de6c04811c6",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1460.185,262.1433,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "2db5f8b7-a0a4-40fa-aa90-649992bf3321",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "6f6de6e4-4518-43b5-a4bd-159954112197",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "d582e510-5cdc-4427-861d-d860c47ef666",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "c35ae400-5801-4405-985a-37e7b82c9c12",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1582.991,765.6221,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "d970938a-e84d-495a-ac45-446deb274b8f",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "3dfa579f-036b-454c-9a54-d0fc95737298",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "b38be686-2364-43c4-bb9c-489bebb58f8e",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "1a3695ed-4fe5-4864-8ad4-8ab2a03af9b9",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1557.695,559.8053,16.78523",
-          "Rotation": "0,0,0.7071067,0.7071068",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "26f64ef8-1a7a-4c39-8e28-3fa767fc170b",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "35caf2b5-1f5a-45ae-9d00-4faf0a43db4b",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "11968e4c-9788-4000-a390-6e963ec8d4bf",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "0cdadfc6-ba76-4176-ae6e-dd3fae1f6c9c",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1458.146,559.8054,16.78523",
-          "Rotation": "0,0,0.7071069,-0.7071066",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "6d8f0f08-e21b-4d00-9505-addaa5a6e685",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 275.9005,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "bda5b397-02d9-4193-bea3-50dfe8d691d8",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "6b8be443-1950-41ac-8318-71a119b13c3b",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "2e10afe0-8688-4417-812e-0a6bbf91b409",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1458.146,895.7881,16.7852",
-          "Rotation": "0,0,0.7071069,-0.7071066",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "32ce57d3-abf8-4099-8ae2-9a73867a01d3",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 275.9005,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "7fe12a28-fd94-4681-bb81-9b3e4beacfb3",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "1d551764-6155-4741-8452-6731bfb34218",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "4ac7a463-6c49-4b95-826e-1b57795e352a",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "725.3507,863.2625,16.78517",
-          "Rotation": "0,0,0.7071067,0.7071068",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "62df3895-01c7-450f-a90b-8410a596f3f4",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 271.8003,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "ec482bec-62cd-4a2f-bb83-b6c9a48ec057",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "2a8e4b07-ffc2-44cd-9701-9e60bfffba7e",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "eb6fe082-7e41-4012-bbbe-988954b866ff",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "725.3503,602.3893,16.78517",
-          "Rotation": "0,0,0.7071067,0.7071068",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "9cea7886-52d5-4f40-9a9a-64c9d2661039",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 271.8003,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "de19ed75-83e3-461b-96c4-14a851be4cf9",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "165f53fd-1627-499c-93bc-e03ae9cc9588",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "28c1a5ba-daee-455e-b9da-922eeef51fc1",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1084.728,424.344,16.78517",
-          "Rotation": "0,0,0.9999999,0.0000001490116",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "5eca054e-5a44-467c-a30c-a36d831ce616",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 354.2999,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "db4a4fe6-44dc-4304-ada3-94aa6114224b",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "5adcf888-7fad-40a7-8510-e0f937acf117",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "8b4731db-4d0b-43e6-89d1-879b33157bd7",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1084.728,1028.131,16.78517",
-          "Rotation": "0,0,0.0000003437187,-0.9999999",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "6672a6c4-ac2a-4b5e-ae84-15a42d301b5a",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 354.2999,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "957e908c-1689-4652-9853-e8f95e177f6d",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "ce38d46c-7694-4e8c-a177-bbf1b0d1bd30",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "419e81dc-ec69-4719-9f08-9f071f90246e",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1077.641,728.5435,197.5792",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "52be9a30-bdd8-41e8-b2d3-a7743f18f289",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "17b4a1b8-c185-42c9-9f11-e4f1d1a892b3",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2205.753,-451.6798,197.5792",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "3d819219-855c-46c4-b526-324afc4d075c",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "08e06643-8cce-4137-9203-cd1e66fa6013",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1131.438,-529.2113,197.5792",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "4247afbd-37d9-4496-93b3-d9b870a64974",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "c46e7f9f-cf3a-4926-8c22-274ac10efee5",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "388.4646,-616.3358,197.5793",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "06125a39-e00f-4d9c-ba85-b6ff1113c55d",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "08a062a4-26cb-4528-8de0-bc5a64b31b83",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "535.8492,-3.437195,197.5793",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "ee453437-93ea-4a85-a4d7-b212a3ca8d23",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "18815330-91b3-493b-84de-fc49207a232d",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "404.1169,706.1595,197.5793",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "e776a5c1-91bb-43f8-991e-bb31f49c4777",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "3cd9d9ad-469c-4772-8b80-420f14908ed5",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-159.3303,32.13022,181.7936",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "635256d9-72c2-4e2b-9189-8edc397de4ed",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "c9e52aca-7de5-48e4-bc14-13ad99370a76",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-693.478,32.1304,197.5794",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "870f443b-e420-4565-951f-410d995a328b",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "e244f247-2d8b-4879-a747-5595c23a478f",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-1275.771,32.13083,453.5925",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "42a311ed-f87a-48d8-8429-3bb4c688960c",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "6c1003eb-1aa7-4a98-8e60-a3243c5f4e50",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-2111.606,32.13144,453.5925",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "15660f97-f9c4-4ceb-adaf-2a0534ef6d36",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "322531c6-c478-4ee8-9f40-6d09667b183d",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-1914.678,-619.8563,453.5925",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "c18b2d30-4c6b-462d-af9c-bc02db2265a6",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "6e84c329-3ffc-4eaa-8b5e-71268f8ccfb5",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-2595.607,-538.8068,453.5925",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "20924d3c-c68c-4ee2-9ea3-b6f728900b6f",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "c854ec9e-7ad1-43a7-a829-9890a5c324bd",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-2663.95,32.13181,453.5925",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "cc6107a0-6e87-411a-851a-82932fa0cc80",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "686885cb-eff6-43ac-9e96-b3129378ab4a",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-3178.82,32.13235,453.5926",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "22816255-224a-4503-91ea-179c5799b9e0",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "2de02989-3c79-49ea-80c6-a3d7298a5b57",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-3217.707,-518.3407,453.5927",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "66c1e010-d3ac-419c-a1cf-63f27d2cffb6",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "5d67d40e-8239-4b5e-9117-609c82c70a72",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-3234.554,601.5354,453.5927",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "27e56270-e452-4f3e-a78e-f86d0943005d",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "8e0a7799-f58e-41ce-8c68-4e6e944e34e8",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-3694.172,664.4752,453.5927",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "a0b537ff-b77e-4c90-afd4-08875d72931b",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "501a5b2d-6fe7-4d39-96db-fe966e1978e4",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-3745.497,-46.89548,453.5927",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "ccdad4d9-5933-4be6-8e33-ec778b04e3fa",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "6f835a3a-2153-4e95-9c50-d553e06917a7",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-3706.668,-540.1984,453.5928",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "7d954e9c-9b26-4939-b05f-5b179861bb72",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "b0b01c63-86e6-45f7-96f1-4367e57c2cd5",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-2604.998,757.3936,453.5928",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "231a7b02-63f2-48ef-8773-fa21f23e3f88",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "e17faef2-7750-4539-b8ff-64184f4fef66",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "-1906.458,662.5819,453.5929",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "187e40ff-1994-4f88-9072-2dbedc132066",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "8825b779-e3b9-490e-8a69-072fb7893173",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1661.498,-437.2365,197.5794",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "e9b8073e-496d-4374-aecd-d3c5b0c3865d",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "035c7fa6-5784-4c4f-9713-27ff1cb6060c",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1301.873,36.03427,57.35341",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "2c0de6c3-7129-41c6-9992-3856986bc76f",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "2455c9f5-ae04-4376-ac59-ef5177ac95d8",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1009.43,36.0347,57.35344",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "cd7465ee-4952-4670-9a43-2a587af75403",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "ec1d9d55-b5ec-4fe4-8815-bd6d0bebe307",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1695.291,17.64725,282.7757",
-          "Rotation": "-0.5000002,-0.4999998,-0.4999998,-0.5000002",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "e1295003-b46a-4a65-81fc-0298c3868a18",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 494.90015,
-              "Shadows": false
-            }
-          ]
-        },
-        {
-          "__guid": "90fc9329-1253-43d5-a089-53706e307d76",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1755.259,765.6221,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "024df218-92b2-48c3-b51c-6d22d97f24b2",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "038c91b0-7aec-405d-873d-4c98cfc9fd05",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "26468cfe-ee59-4770-b4e9-48a7991bba95",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "3d677d25-3571-4068-9ba1-4f09cb1644b4",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2225.064,524.6663,43.53474",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "14c52278-f5a4-4ec2-9f7e-1d6702a1497c",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 336.6009,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "ec1c38f7-f04e-44af-adac-40cbffbdaad8",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "c41e1d29-15de-42d1-803b-6ab0dfd81a55",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "52878dbf-3bc8-46fd-85ba-98bad5a51576",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2034.388,900.4106,43.53474",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "19c59a9c-363b-4976-be6a-180890ac4fbb",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 336.6009,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "8ef4330a-e987-4312-b7fb-e21b2c624e65",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "44f135ee-af9c-4e40-afc0-fe5b3acb424f",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "09ea3efd-7f0c-42f0-8e08-d9f40a5d61a2",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2381.048,900.4106,43.53474",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "5993686c-6201-435e-9fd7-74a733c226d7",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 336.6009,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "73a893ad-93af-4265-b717-9c5f1e7609e4",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "e6bce4ac-e8ca-4dc7-b725-26159c2183a9",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "391a92d3-f1f7-40a8-99fe-10bffe55b858",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2539.756,538.9672,43.53474",
-          "Rotation": "0,0,-0.7071067,0.7071068",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "860eded8-7559-4309-bdd2-2950909e4b1c",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 336.6009,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "7c6ef326-b312-4faa-8eee-0e0406a25291",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "27d727bb-4792-4396-bc2b-b0cddf00626c",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "dc9d7ec0-5667-4d5a-a24e-7214c5da7ee5",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "734.4557,262.1433,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "69dc9ff0-3491-45ac-84c4-341a519b32e6",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "a7f5f2cf-76f7-4fa6-88d1-137dcf2df057",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "528c0caa-a175-4e63-b90d-4d65717e33f4",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "a6da15f2-6d80-4de8-81a1-581aefc5d2fd",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "372.4569,262.1433,-2.003807",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "3fb20c3a-5e69-4ecb-b19a-686c9c101a2f",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "c1215f85-2864-487a-a8af-510f3a75d499",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "da185f03-ad9c-409d-8c36-5658a17ad53b",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "d23b34aa-6665-4e16-a72b-0f69d010de2f",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2260.902,-87.88753,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "71ec8b77-31d2-4e83-9284-f41902fd3c5f",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "c19b0c80-7a18-4c4d-8ef1-a174eb410843",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "dd004060-d1c9-42df-90d6-cca161e2de43",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "85c23b44-1dd9-4655-b1b9-45ac51aa1262",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1963.888,-87.88756,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "fa5ca4d1-31e2-47ed-ab41-5fece4f9812a",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "07e25c21-e404-447e-a871-e7cc29308337",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "6533c688-3ab6-42c3-b433-1fd02b6dbf59",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "5309a000-7409-4b60-be38-7c06be2c3ad7",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1876.615,-215.1701,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "1a9e723e-e046-4d71-8dd8-27b2cc2fe8b9",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "9f789891-a15c-4959-bc02-565aad01e421",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "5f1f5475-bae9-4264-beb8-53da04e51a39",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "b550be6b-b28f-422a-b786-835121b95bfe",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1762.451,-711.4019,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "8f47b613-ffb8-464c-9dba-1575274dadf7",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "c880f927-9b81-4aed-bb7a-ca6aba6bb33b",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "17123bed-6d2d-4893-a071-09cc75ec5374",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "269ae673-8fbd-4be8-a8a5-6661f5c7dc96",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1965.655,-654.4736,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "e2916d96-057c-49d2-a172-80986689a2cd",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "5a7d712c-8295-4e8d-a634-1ee7e0c20b8a",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "94999870-1278-4442-a53e-f4f5fad7f5c8",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "93f03c00-b21b-4864-a322-206a9ca9f654",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2237.312,-635.4855,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "c6bdf735-1458-4625-a2ce-2dbb4518bfab",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "11c72705-2f46-4a7f-bb91-4f49ac87e57c",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "f2a71cce-ffbc-4d0b-9ef3-1f583aae9178",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "340a2bc2-c276-43c7-92e0-e283d72f54a7",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "2474.417,-618.153,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "2c1b3860-7729-49e4-aa3c-35b5b20af27e",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "dbae5844-f653-4733-bf06-48990701f306",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "da75e965-a2b2-4d12-a8e2-9fd35a0af9e9",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "790b3568-bd0b-4711-aed3-948c47c6b2cc",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1579.794,-711.4019,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "861de2ac-b08e-488a-bc19-eeae148198a5",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "909f9b30-efce-4799-a0d8-d30e1b186169",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "a93d6b6b-06ef-425e-bc01-648c8dedef18",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "ca400a2c-1968-4f78-ba01-9814c7201afe",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1299.186,-727.5696,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "f9500ab5-6912-4f70-a442-6509f436d638",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "c5f7dc3f-79cf-41b9-bb9f-4f6c8fb9ee1a",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "58b88b9b-2f14-4d50-b5ec-7ee0b3f446a3",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "31ba8432-ca76-4d5d-b3b6-af6f3d08097c",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "950.5526,-727.5696,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "1e1d0470-b819-4eb7-84a3-dcbfe31c716c",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "d3fc5780-32d8-4a15-9c74-96434cb6dac1",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "c1fc611c-c9ea-4bbc-b4e8-2802abaf4bb5",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "a5ef02b5-3936-4dc5-aa26-0c90d299ce8f",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "1460.185,-215.1701,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "07800035-bef8-47d0-a3dd-49ca1806a402",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "9d33ffd7-5629-4803-abdc-16d0a93a98ec",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "17c2e539-7377-4a77-98c5-0f0fd51b2bc2",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "e24e0dc2-81e5-4371-9743-27ffa7232193",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "734.4557,-215.1701,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "784bb986-65ff-41bc-8ccf-bd3c0cd1428b",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "457fd35a-0a0c-42f4-8a32-46124d8ee2b0",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "0b9d597f-d729-493b-a2bf-6520cf722347",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "8cd338ed-e70d-4925-a30d-e1acc933fa19",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "372.4569,-215.1701,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "c99261d1-9769-4922-a21a-6e0e83b7fb0b",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "9130c467-b5bd-4b65-8481-b905a11b3851",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "f5f13c7f-1f4d-4703-abf5-5575c10afeb6",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "ebeef028-a070-4aa6-bf48-79acac172db3",
-          "Flags": 0,
-          "Name": "lights",
-          "Position": "404.5695,-919.54,-2.003807",
-          "Rotation": "0,0,1,-0.00000004371139",
-          "Tags": "light_point,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.PointLight",
-              "__guid": "6edd49ae-16a5-4beb-8b64-8194b30e4d34",
-              "Attenuation": 6.23,
-              "FogMode": "WithoutShadows",
-              "FogStrength": 0.44,
-              "LightColor": "0.50233,0.26869,0.03505,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Radius": 197.70016,
-              "Shadows": false
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "d148df7b-dae5-43a2-b909-edc4e51621b3",
-              "Flags": 0,
-              "Name": "Object",
-              "Position": "-0.0004882812,17.06528,19.97583",
-              "Rotation": "0,0,-0.7071067,0.7071068",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "79878d51-a55a-471d-b7cd-60118f5349c9",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialGroup": null,
-                  "MaterialOverride": null,
-                  "Model": "models/reizer_props/srsp/stylized/wall_lamp/wall_lamp_01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
         }
       ]
     },
@@ -7179,34 +3279,6 @@
       ]
     },
     {
-      "__guid": "faa68741-b99e-4d65-a37d-1047680d1e7b",
-      "Flags": 0,
-      "Name": "metal_fence_panel (2)",
-      "Position": "2039.733,12.89343,-726.5871",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "2203167b-0f03-4705-bdab-8935a5c82dfb",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": true,
-          "MaterialGroup": null,
-          "Model": "models/sbox_props/metal_fences/metal_fence_panel/metal_fence_panel.vmdl",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "OnPropBreak": null,
-          "OnPropTakeDamage": null,
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        }
-      ]
-    },
-    {
       "__guid": "fef3ad22-df12-4951-857f-9c343ba52772",
       "Flags": 0,
       "Name": "Object (4)",
@@ -7338,12 +3410,20 @@
                 }
               ],
               "BossSpawnDelay": 1,
-              "ChallengeDoor": {
-                "_type": "component",
-                "component_id": "c9448eac-5fdb-48b5-8b19-c2694b330f52",
-                "go": "951cd36a-c3a8-4afb-907e-a32738de5ad4",
-                "component_type": "ChallengeDoor"
-              },
+              "ChallengeDoors": [
+                {
+                  "_type": "component",
+                  "component_id": "c9448eac-5fdb-48b5-8b19-c2694b330f52",
+                  "go": "951cd36a-c3a8-4afb-907e-a32738de5ad4",
+                  "component_type": "ChallengeDoor"
+                },
+                {
+                  "_type": "component",
+                  "component_id": "4099bcc0-5ecf-4cc8-84d0-33a2a8f1329a",
+                  "go": "c442e10c-c4c3-465a-9d34-4df6e8e33f9b",
+                  "component_type": "ChallengeDoor"
+                }
+              ],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -7359,7 +3439,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [
                 {
@@ -7504,7 +3584,13 @@
                   "OnComponentEnabled": null,
                   "OnComponentFixedUpdate": null,
                   "OnComponentStart": null,
-                  "OnComponentUpdate": null
+                  "OnComponentUpdate": null,
+                  "PrefabsToEnable": [
+                    {
+                      "_type": "gameobject",
+                      "go": "802ded10-fa29-48f4-b8ca-1d30d47222de"
+                    }
+                  ]
                 }
               ],
               "Children": [
@@ -7512,8 +3598,8 @@
                   "__guid": "951cd36a-c3a8-4afb-907e-a32738de5ad4",
                   "Flags": 0,
                   "Name": "ChallengeDoor2",
-                  "Position": "542.9585,-0.441803,-11.04131",
-                  "Rotation": "0,0,0.7071067,0.7071068",
+                  "Position": "391.9961,37.98708,-51.49155",
+                  "Rotation": "-0.09229594,-0.09229594,0.7010573,0.7010574",
                   "Scale": "4.430486,0.2204069,4.916048",
                   "Components": [
                     {
@@ -7559,7 +3645,7 @@
                       "BodyGroups": 18446744073709551615,
                       "CreateAttachments": false,
                       "MaterialGroup": null,
-                      "MaterialOverride": "materials/lake_water.vmat",
+                      "MaterialOverride": "materials/dev/black_grid_8.vmat",
                       "Model": null,
                       "OnComponentDestroy": null,
                       "OnComponentDisabled": null,
@@ -7596,6 +3682,143 @@
                       "Static": false,
                       "Surface": null,
                       "SurfaceVelocity": "0,0,0"
+                    },
+                    {
+                      "__type": "Sandbox.ModelRenderer",
+                      "__guid": "53ad511b-484f-4d91-8d5a-bfd69427c4b4",
+                      "BodyGroups": 18446744073709551615,
+                      "CreateAttachments": false,
+                      "MaterialGroup": null,
+                      "MaterialOverride": "materials/lake_water.vmat",
+                      "Model": null,
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": false
+                      },
+                      "RenderType": "On",
+                      "Tint": "1,0,0,1"
+                    }
+                  ]
+                },
+                {
+                  "__guid": "c442e10c-c4c3-465a-9d34-4df6e8e33f9b",
+                  "Flags": 0,
+                  "Name": "ChallengeDoor2",
+                  "Position": "-1123.005,37.98712,-461.7173",
+                  "Rotation": "-0.09229594,-0.09229594,0.7010573,0.7010574",
+                  "Scale": "20.3305,0.5204066,12.71605",
+                  "Components": [
+                    {
+                      "__type": "GeneralGame.ChallengeDoor",
+                      "__guid": "4099bcc0-5ecf-4cc8-84d0-33a2a8f1329a",
+                      "boxCollider": {
+                        "_type": "component",
+                        "component_id": "93899331-29f6-49f2-9cb2-9feca5fb2b43",
+                        "go": "c442e10c-c4c3-465a-9d34-4df6e8e33f9b",
+                        "component_type": "BoxCollider"
+                      },
+                      "ChallengeDoorPanel": {
+                        "_type": "component",
+                        "component_id": "b028ffe8-b79c-4868-9a51-b8169c7ce07b",
+                        "go": "cf756c2b-902a-48ae-9a60-43952d7603c7",
+                        "component_type": "ChallengeDoorPanel"
+                      },
+                      "CloseDuration": 60,
+                      "isTimerActive": false,
+                      "modelRenderer": {
+                        "_type": "component",
+                        "component_id": "d5390136-966c-4b30-b551-7462cc2d3357",
+                        "go": "c442e10c-c4c3-465a-9d34-4df6e8e33f9b",
+                        "component_type": "ModelRenderer"
+                      },
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
+                      "SpawnArea": {
+                        "_type": "component",
+                        "component_id": "3b0b1894-2119-4974-a05e-35537de298e4",
+                        "go": "28c9412f-4e22-4d1f-bbd8-73327e859a4b",
+                        "component_type": "NpcSpawnArea"
+                      },
+                      "timer": 0
+                    },
+                    {
+                      "__type": "Sandbox.ModelRenderer",
+                      "__guid": "d5390136-966c-4b30-b551-7462cc2d3357",
+                      "BodyGroups": 18446744073709551615,
+                      "CreateAttachments": false,
+                      "MaterialGroup": null,
+                      "MaterialOverride": "materials/dev/black_grid_8.vmat",
+                      "Model": null,
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": false
+                      },
+                      "RenderType": "On",
+                      "Tint": "0.31667,1,0,1"
+                    },
+                    {
+                      "__type": "Sandbox.BoxCollider",
+                      "__guid": "93899331-29f6-49f2-9cb2-9feca5fb2b43",
+                      "Center": "0.0295372,0,0",
+                      "Friction": null,
+                      "IsTrigger": false,
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
+                      "OnObjectTriggerEnter": null,
+                      "OnObjectTriggerExit": null,
+                      "OnTriggerEnter": null,
+                      "OnTriggerExit": null,
+                      "Scale": "49.85906,50,50",
+                      "Static": false,
+                      "Surface": null,
+                      "SurfaceVelocity": "0,0,0"
+                    },
+                    {
+                      "__type": "Sandbox.ModelRenderer",
+                      "__guid": "185b00b6-c3de-41b0-8572-1318fa9a5687",
+                      "BodyGroups": 18446744073709551615,
+                      "CreateAttachments": false,
+                      "MaterialGroup": null,
+                      "MaterialOverride": "materials/lake_water.vmat",
+                      "Model": null,
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": false
+                      },
+                      "RenderType": "On",
+                      "Tint": "1,0,0,1"
                     }
                   ]
                 },
@@ -7693,7 +3916,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -7709,7 +3932,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -7860,7 +4083,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -7876,7 +4099,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8027,7 +4250,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -8043,7 +4266,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8194,7 +4417,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -8210,7 +4433,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8361,7 +4584,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -8377,7 +4600,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8528,7 +4751,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -8544,7 +4767,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8695,7 +4918,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -8711,7 +4934,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -8862,7 +5085,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -8878,7 +5101,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9029,7 +5252,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -9045,7 +5268,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9196,7 +5419,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -9212,7 +5435,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9363,7 +5586,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -9379,7 +5602,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9530,7 +5753,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -9546,7 +5769,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9697,7 +5920,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -9713,7 +5936,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -9864,7 +6087,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -9880,7 +6103,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10031,7 +6254,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -10047,7 +6270,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10198,7 +6421,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -10214,7 +6437,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10365,7 +6588,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -10381,7 +6604,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10532,7 +6755,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -10548,7 +6771,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -10699,7 +6922,7 @@
               "BattleMusic": null,
               "BossNpcPool": [],
               "BossSpawnDelay": 10,
-              "ChallengeDoor": null,
+              "ChallengeDoors": [],
               "Checkpoint": null,
               "ColorChangeDuration": 2,
               "DestroyAfterSpawning": true,
@@ -10715,7 +6938,7 @@
               "InfiniteLoops": false,
               "lastSpawnTime": {
                 "Absolute": 0,
-                "Relative": 103880020
+                "Relative": 104258430
               },
               "Lights": [],
               "LoopSpawning": false,
@@ -11314,7 +7537,6 @@
       "Position": "3271.519,504.0631,621.6265",
       "Rotation": "0,0.7071067,0,0.7071068",
       "Tags": "light_directional,light",
-      "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.DirectionalLight",
@@ -11345,91 +7567,53 @@
       "__PrefabVariables": {}
     },
     {
-      "__guid": "aa659144-89f3-47c9-93a9-cc9e6f3f815c",
+      "__guid": "5994b4a4-297f-4928-840a-40118c7f5e79",
       "Flags": 0,
-      "Name": "Spot Light",
-      "Position": "2351.624,441.6472,1652.192",
+      "Name": "Sun",
+      "Position": "1725.908,-1623.648,5496.798",
       "Rotation": "0,0.7071067,0,0.7071068",
-      "Tags": "light_spot,light",
+      "Tags": "light_directional,light",
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.SpotLight",
-          "__guid": "8f5d7d55-188a-4466-a4e0-7d6c86e80155",
-          "Attenuation": 0.13,
-          "ConeInner": 79.47,
-          "ConeOuter": 52.67,
-          "Cookie": null,
-          "FogMode": "Enabled",
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "a53c40d2-cf63-4cc9-9bbf-2cbe5b8f289c",
+          "FogMode": "Disabled",
           "FogStrength": 1,
-          "LightColor": "1,1,1,1",
+          "LightColor": "0.6093,0.6093,0.6093,1",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Radius": 2500,
-          "Shadows": false
+          "Shadows": false,
+          "SkyColor": "0,0,0,0"
         }
       ]
     },
     {
-      "__guid": "c7d692e3-dd37-45c1-a2b9-49589cf972a9",
+      "__guid": "da4f0839-82de-44f2-9f00-0ef1edba72c3",
       "Flags": 0,
-      "Name": "Spot Light (1)",
-      "Position": "-1551.737,309.5126,1958.705",
-      "Rotation": "0,0.7071067,0,0.7071068",
-      "Tags": "light_spot,light",
+      "Name": "Point Light",
+      "Position": "4026.72,250.2934,247.2974",
+      "Tags": "light_point,light",
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.SpotLight",
-          "__guid": "61f3cc8e-a1aa-4c4c-8583-c88112b229ab",
-          "Attenuation": 0.13,
-          "ConeInner": 79.47,
-          "ConeOuter": 52.67,
-          "Cookie": null,
+          "__type": "Sandbox.PointLight",
+          "__guid": "8bf2c427-b930-445b-8b5d-2485f2319825",
+          "Attenuation": 1,
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "1,1,1,1",
+          "LightColor": "0.91373,0.98039,1,1",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Radius": 2500,
-          "Shadows": false
-        }
-      ]
-    },
-    {
-      "__guid": "d01cbb9c-21cd-4546-97dc-cd0ada056b05",
-      "Flags": 0,
-      "Name": "Spot Light (2)",
-      "Position": "390.3545,251.7982,1221.733",
-      "Rotation": "0,0.7071067,0,0.7071068",
-      "Tags": "light_spot,light",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SpotLight",
-          "__guid": "186cc1bd-b725-4ed3-ad87-f815ebe6df15",
-          "Attenuation": 0.3,
-          "ConeInner": 79.47,
-          "ConeOuter": 52.67,
-          "Cookie": null,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "1,1,1,1",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 1500,
+          "Radius": 400,
           "Shadows": false
         }
       ]

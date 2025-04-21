@@ -5,7 +5,7 @@ using GeneralGame;
 public sealed class NpcSpawnArea : Component
 {
 	[Property] public Checkpoint Checkpoint { get; set; }
-	[Property] public ChallengeDoor ChallengeDoor { get; set; }
+	[Property] public List<ChallengeDoor> ChallengeDoors { get; set; } = new();
 	[Property] public SoundEvent BattleMusic { get; set; }
 
 	[Property] public ActiveArea ActiveArena { get; set; }
@@ -320,6 +320,7 @@ public sealed class NpcSpawnArea : Component
 	}
 	private float playerProximityDuration = 3.0f; // Zeit in Sekunden, die der Spieler in der Nähe sein muss
 	private float playerProximityTimer = 0.0f;
+	private bool allDoorsExpired = false;
 	protected override void OnUpdate()
 	{
 		if ( Network.IsProxy || Player.Local == null || !Player.Local.IsHost() ) return;
@@ -340,10 +341,16 @@ public sealed class NpcSpawnArea : Component
 		if ( playerProximityTimer < playerProximityDuration )
 			return;
 
-		if ( ChallengeDoor?.GameObject != null )
+		foreach ( var challengeDoor in ChallengeDoors )
 		{
-			ChallengeDoor.GameObject.Enabled = true;
+			if ( challengeDoor?.GameObject != null )
+			{
+				challengeDoor.GameObject.Enabled = true;
+			}
 		}
+		
+
+		
 
 		if ( !hasSpawnedNPCs )
 		{
@@ -374,41 +381,31 @@ public sealed class NpcSpawnArea : Component
 	}
 	private bool IsPlayerInDoor( Player player )
 	{
-		if ( ChallengeDoor == null )
+		if ( ChallengeDoors == null || ChallengeDoors.Count == 0 )
 		{
-			
 			return false;
 		}
 
-		if ( ChallengeDoor.GameObject == null )
+		foreach ( var challengeDoor in ChallengeDoors )
 		{
-			
-			return false;
+			if ( challengeDoor?.GameObject == null || player?.WorldPosition == null )
+			{
+				continue;
+			}
+
+			var doorPosition = challengeDoor.GameObject.WorldPosition;
+			var playerPosition = player.WorldPosition;
+			var distanceToDoor = (playerPosition - doorPosition).Length;
+
+			float doorWidth = 2.0f; // Beispielwert für die Türbreite
+			if ( distanceToDoor < doorWidth )
+			{
+				return true;
+			}
 		}
 
-		if ( player == null )
-		{
-			
-			return false;
-		}
-
-		if ( player.WorldPosition == null )
-		{
-		
-			return false;
-		}
-
-		// Überprüfen Sie die Position des Spielers relativ zur Tür
-		var doorPosition = ChallengeDoor.GameObject.WorldPosition;
-		var playerPosition = player.WorldPosition;
-		var distanceToDoor = (playerPosition - doorPosition).Length;
-
-		// Beispielwert für die Türbreite, anpassen nach Bedarf
-		float doorWidth = 2.0f;
-
-		return distanceToDoor < doorWidth;
+		return false;
 	}
-
 	public bool IsPlayerInRoom()
 	{
 		if ( Network.IsProxy || NpcPool == null || NpcPool.Count == 0 )
@@ -581,7 +578,7 @@ public sealed class NpcSpawnArea : Component
 		
 	}
 
-	
+
 	private async Task SpawnSubNpcsWithDelay( List<SubNpcChance> subNpcPool, float delay )
 	{
 		if ( Network.IsProxy ) return;
@@ -636,11 +633,14 @@ public sealed class NpcSpawnArea : Component
 
 		} while ( LoopSpawning && lastSpawnTime >= LoopSpawnInterval );
 
-		if ( DestroyAfterSpawning && ChallengeDoor != null && ChallengeDoor.IsTimerExpired() )
+		if ( DestroyAfterSpawning && ChallengeDoors != null && ChallengeDoors.All( door => door.IsTimerExpired() ) )
 		{
+			
 			GameObject.Destroy();
+
 			
 		}
+		
 	}
 
 	private async Task DestroyAfterTime( GameObject npc, float time )
