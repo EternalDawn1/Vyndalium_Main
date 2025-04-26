@@ -501,11 +501,11 @@ public partial class Player : Component, IHealthComponent
 
 		player.ThirdPersonEnabled = !player.ThirdPersonEnabled;
 
+		player.PlyCamera.Enabled = true; // Stelle sicher, dass die Kamera aktiviert ist
+
 		if ( player.ThirdPersonEnabled )
 		{
-			// Third-Person-Ansicht
-			player.PlyCamera.WorldPosition = player.WorldPosition - player.EyeAngles.Forward * 150f + Vector3.Up * 50f;
-			player.PlyCamera.WorldRotation = player.EyeAngles.ToRotation();
+			
 
 			// Viewmodel deaktivieren
 			if ( player.Weapons.Deployed != null )
@@ -849,7 +849,8 @@ public partial class Player : Component, IHealthComponent
 	private Vector3 targetCrouchPosition;
 	private float crouchDuration = 5f; // Dauer des Crouchens in Sekunden
 	private float crouchTimer = 0.0f;
-
+	[Sync]
+	public int CameraMode { get; set; } = 0;
 	protected override void OnUpdate()
 	{
 		
@@ -857,7 +858,9 @@ public partial class Player : Component, IHealthComponent
 		
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
+
 		
+
 
 		if ( !Eye.IsValid() )
 			return;
@@ -869,66 +872,72 @@ public partial class Player : Component, IHealthComponent
 			return;
 
 		}
-	
+
 		//UpdateModelVisibility();
 		//UpdateWeaponModelVisibility();
 
 
 
-		
 
 
-		
 
-		
+
+
+
 
 
 		if ( !IsProxy )
-
 		{
 			PlyCamera.LocalPosition = Vector3.Zero;
-			var idealEyePos = Eye.WorldPosition;
-			var headPosition = WorldPosition + Vector3.Up * CharacterController.Height;
-			var headTrace = Scene.Trace.Ray( WorldPosition, headPosition )
-				.UsePhysicsWorld()
-				.IgnoreGameObjectHierarchy( GameObject )
-				.WithAnyTags( "solid" )
-				.Run();
 
-			headPosition = headTrace.EndPosition - headTrace.Direction * 2f;
-
-			var trace = Scene.Trace.Ray( headPosition, idealEyePos )
-				.UsePhysicsWorld()
-				.IgnoreGameObjectHierarchy( GameObject )
-				.WithAnyTags( "solid" )
-				.Radius( 2f )
-				.Run();
-
-			var deployedWeapon = Weapons.Deployed;
-			var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
-
-			if ( hasViewModel )
-				PlyCamera.WorldPosition = Head.WorldPosition;
-			else
-				PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
-
-
-			PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
-
-
-
-			if ( IsCrouching && hasViewModel )
+			if ( ThirdPersonEnabled )
 			{
-				targetCrouchPosition = PlyCamera.WorldPosition + SieatOffset;
-				crouchTimer += Time.Delta;
-				PlyCamera.WorldPosition = Vector3.Lerp( PlyCamera.WorldPosition, targetCrouchPosition, crouchTimer / crouchDuration );
+				// Third-Person-Ansicht
+				PlyCamera.WorldPosition = WorldPosition - EyeAngles.Forward * 150f + Vector3.Up * 50f + Vector3.Right * 20f;
+				PlyCamera.WorldRotation = EyeAngles.ToRotation();
 			}
 			else
 			{
-				crouchTimer = 0.0f; // Reset Timer wenn nicht crouching
-				
+				// First-Person-Ansicht
+				var idealEyePos = Eye.WorldPosition;
+				var headPosition = WorldPosition + Vector3.Up * CharacterController.Height;
+
+				var headTrace = Scene.Trace.Ray( WorldPosition, headPosition )
+					.UsePhysicsWorld()
+					.IgnoreGameObjectHierarchy( GameObject )
+					.WithAnyTags( "solid" )
+					.Run();
+
+				headPosition = headTrace.EndPosition - headTrace.Direction * 2f;
+
+				var trace = Scene.Trace.Ray( headPosition, idealEyePos )
+					.UsePhysicsWorld()
+					.IgnoreGameObjectHierarchy( GameObject )
+					.WithAnyTags( "solid" )
+					.Radius( 2f )
+					.Run();
+
+				var deployedWeapon = Weapons.Deployed;
+				var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
+
+				if ( hasViewModel )
+					PlyCamera.WorldPosition = Head.WorldPosition;
+				else
+					PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
+
+				PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
+
+				if ( IsCrouching && hasViewModel )
+				{
+					targetCrouchPosition = PlyCamera.WorldPosition + SieatOffset;
+					crouchTimer += Time.Delta;
+					PlyCamera.WorldPosition = Vector3.Lerp( PlyCamera.WorldPosition, targetCrouchPosition, crouchTimer / crouchDuration );
+				}
+				else
+				{
+					crouchTimer = 0.0f; // Reset Timer wenn nicht crouching
+				}
 			}
-			
 		}
 
 
@@ -1126,6 +1135,12 @@ public partial class Player : Component, IHealthComponent
 	{
 		if ( IsProxy || Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
+
+		if(Input.Pressed("Third"))
+		{
+		
+			ToggleView();
+		}
 
 		UpdateInteractions();
 
