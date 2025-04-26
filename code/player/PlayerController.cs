@@ -472,6 +472,8 @@ public partial class Player : Component, IHealthComponent
 			{
 				Sound.Play( HurtSound, WorldPosition );
 			}
+			
+			
 		}
 
 		if ( IsProxy )
@@ -491,8 +493,40 @@ public partial class Player : Component, IHealthComponent
 
 		}
 	}
+	[ConCmd( "toggle_view" )]
+	public static void ToggleView()
+	{
+		var player = Player.Local;
+		if ( player == null ) return;
 
-	
+		player.ThirdPersonEnabled = !player.ThirdPersonEnabled;
+
+		if ( player.ThirdPersonEnabled )
+		{
+			// Third-Person-Ansicht
+			player.PlyCamera.WorldPosition = player.WorldPosition - player.EyeAngles.Forward * 150f + Vector3.Up * 50f;
+			player.PlyCamera.WorldRotation = player.EyeAngles.ToRotation();
+
+			// Viewmodel deaktivieren
+			if ( player.Weapons.Deployed != null )
+			{
+				player.Weapons.Deployed.DestroyViewModel();
+			}
+		}
+		else
+		{
+			// First-Person-Ansicht
+			player.PlyCamera.WorldPosition = player.Eye.WorldPosition;
+			player.PlyCamera.WorldRotation = player.EyeAngles.ToRotation();
+
+			// Viewmodel aktivieren
+			if ( player.Weapons.Deployed != null )
+			{
+				player.Weapons.Deployed.CreateViewModel();
+			}
+		}
+	}
+
 	protected virtual bool CanUncrouch()
 	{
 		if ( IsProxy )

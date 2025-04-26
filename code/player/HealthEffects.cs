@@ -19,6 +19,9 @@ public sealed partial class HealthEffects : Component
 
 	[Property] public Vignette Shadow { get; set; }
 
+
+
+	
 	public HealthEffects()
 	{
 		Adjustments = new ColorAdjustments();
