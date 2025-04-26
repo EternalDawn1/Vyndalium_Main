@@ -61,7 +61,8 @@
         "ViewModelPrefab": {
           "_type": "gameobject",
           "prefab": "models/facepunch/mp5/vm_mp5.prefab"
-        }
+        },
+        "WeaponType": "Melee"
       },
       {
         "__type": "Sandbox.ModelCollider",
@@ -119,9 +120,9 @@
         "Aspect": "None",
         "Attachment": "hand_R",
         "AttachmentTransform": {
-          "Position": "0,0,0",
+          "Position": "7.599997,-1.299998,-2.3",
           "Scale": "1,1,1",
-          "Rotation": "0,0,0,1"
+          "Rotation": "-0.6642963,-0.09513486,0.1051033,0.7339026"
         },
         "AttackPower": 0,
         "AttackRange": 0,
@@ -148,7 +149,7 @@
         "DMG": 200,
         "Durability": 0,
         "EarthElementalDamage": 0,
-        "EnableHolding": false,
+        "EnableHolding": true,
         "Evasion": 0,
         "FireElementalDamage": 0,
         "FireRate": 0,
@@ -237,7 +238,7 @@
         "StunResistance": 0,
         "Tenacity": 0,
         "Tier": "C",
-        "UpdatePosition": false,
+        "UpdatePosition": true,
         "UseSkinTint": false,
         "WalkSpeed": 0,
         "WaterElementalDamage": 0,
@@ -294,7 +295,58 @@
         "UseAnimGraph": true
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "50df3da2-0dad-4d2b-b212-9039c95bb5d3",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "0.5263907,-0.2647402,-4.281396",
+        "Rotation": "-0.02530452,-0.00000008195639,-0.0000004470348,0.9996818",
+        "Scale": "1.5,1.5,1.5",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "21b3dd33-63be-4b72-9908-36b9543ae7d0",
+            "BodyGroups": 3,
+            "CreateAttachments": true,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "daf8a90f-d8a9-4f84-bb2b-7a0c87dd5bab",
+            "Flags": 8,
+            "Name": "muzzle",
+            "Position": "13.2196,0,8.088171",
+            "Enabled": true
+          },
+          {
+            "__guid": "6c7f5274-8476-46e8-8fc8-39e780edff38",
+            "Flags": 8,
+            "Name": "eject",
+            "Position": "2.455421,-0.647761,8.8746",
+            "Enabled": true
+          }
+        ]
+      }
+    ],
     "__variables": [],
     "__properties": {
       "FixedUpdateFrequency": 50,

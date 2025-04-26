@@ -659,31 +659,39 @@ public partial class  BaseGun : WeaponComponent, IUse
 		AmmoInClip--;
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
-		Vector3 startPos;
-		Vector3 direction;
+		// Initialisiere die Variablen mit Standardwerten
+		Vector3 startPos = this.LocalPosition;
+		Vector3 direction = this.LocalPosition; // Standardwert
+
+
 
 		// Überprüfen, ob der Spieler in der Third-Person-Ansicht ist
 		if ( Owner.CameraMode != 0 ) // 0 = First-Person
 		{
-			// Verwende die Position des WeaponBone in der Third-Person-Ansicht
-			var weaponBone = EffectRenderer.GetAttachment( "WeaponBone" );
-			startPos = weaponBone?.Position ?? Owner.PlyCamera.WorldPosition;
-			Log.Info( $"WeaponBone Position: {weaponBone?.Position}" );
-
-			// Berechne die Richtung basierend auf der Waffe
-			direction = weaponBone?.Rotation.Forward ?? Owner.PlyCamera.WorldRotation.Forward;
-
+			var weaponBone = EffectRenderer?.Components.GetAll<ModelRenderer>();
+			if ( weaponBone != null )
+			{
+				Log.Info( "WeaponBone gefunden" );
+				foreach ( var renderer in weaponBone )
+				{
+					// Nutze die Position und Rotation der Mündung des ModelRenderers
+					var muzzleAttachment = renderer.GetAttachmentObject( "muzzle" );
+					if ( muzzleAttachment != null && muzzleAttachment.IsValid() ) // Überprüfe, ob das GameObject gültig ist
+					{
+						startPos = muzzleAttachment.LocalPosition;
+						direction = muzzleAttachment.LocalRotation.Forward;
+					}
+				}
+			}
 		}
 		else
 		{
-			Log.Info( $"First-Person Position: {Owner.PlyCamera.WorldPosition}" );
-			// Verwende die Kamera-Position und -Richtung in der First-Person-Ansicht
-			startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-			direction = Owner.PlyCamera.WorldRotation.Forward;
+			// Nutze die Position und Rotation der Mündung
+			startPos = attachment?.Position ?? Vector3.Zero; // Fallback auf (0, 0, 0), falls keine Mündung gefunden wird
+			direction = attachment?.Rotation.Forward ?? Vector3.Forward;
 		}
 
 
-		
 		direction += Vector3.Random * Spread;
 		var endPos = startPos + direction * 5000f;
 

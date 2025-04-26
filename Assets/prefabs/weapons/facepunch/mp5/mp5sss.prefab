@@ -61,7 +61,8 @@
         "ViewModelPrefab": {
           "_type": "gameobject",
           "prefab": "models/facepunch/mp5/vm_mp5.prefab"
-        }
+        },
+        "WeaponType": "Melee"
       },
       {
         "__type": "Sandbox.ModelCollider",
@@ -294,7 +295,58 @@
         "UseAnimGraph": true
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "c2c43ce1-a84b-4224-bea0-e4a9c16eea9a",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "0.5263907,-0.2647402,-4.281396",
+        "Rotation": "-0.02530452,-0.00000008195639,-0.0000004470348,0.9996818",
+        "Scale": "1.5,1.5,1.5",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "54962020-6dd1-4b37-be17-60a158e97dc3",
+            "BodyGroups": 3,
+            "CreateAttachments": true,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "b552d8ec-2f16-4d23-8a57-bc4d65bceef2",
+            "Flags": 8,
+            "Name": "muzzle",
+            "Position": "13.2196,0,8.088171",
+            "Enabled": true
+          },
+          {
+            "__guid": "35483999-05b5-4e7b-8055-aaeed15fa8a4",
+            "Flags": 8,
+            "Name": "eject",
+            "Position": "2.455421,-0.647761,8.8746",
+            "Enabled": true
+          }
+        ]
+      }
+    ],
     "__variables": [],
     "__properties": {
       "FixedUpdateFrequency": 50,

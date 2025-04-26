@@ -61,7 +61,8 @@
         "ViewModelPrefab": {
           "_type": "gameobject",
           "prefab": "models/facepunch/mp5/vm_mp5.prefab"
-        }
+        },
+        "WeaponType": "Melee"
       },
       {
         "__type": "Sandbox.ModelCollider",
@@ -119,9 +120,9 @@
         "Aspect": "None",
         "Attachment": "hand_R",
         "AttachmentTransform": {
-          "Position": "0,0,0",
+          "Position": "4.587284,-2.477201,0.02374786",
           "Scale": "1,1,1",
-          "Rotation": "0,0,0,1"
+          "Rotation": "-0.7820228,0.07185777,-0.05664804,0.6164964"
         },
         "AttackPower": 0,
         "AttackRange": 0,
@@ -294,7 +295,58 @@
         "UseAnimGraph": true
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "118c461a-dd5e-4879-8402-72ace7accac4",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "0.5263907,-0.2647402,-4.281396",
+        "Rotation": "-0.02530452,-0.00000008195639,-0.0000004470348,0.9996818",
+        "Scale": "1.5,1.5,1.5",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "67569b9c-413d-4928-acd1-643d54f19a4b",
+            "BodyGroups": 3,
+            "CreateAttachments": true,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "1d6dc2ac-53dd-400a-a594-3ab7a1962b64",
+            "Flags": 8,
+            "Name": "muzzle",
+            "Position": "13.2196,0,8.088171",
+            "Enabled": true
+          },
+          {
+            "__guid": "a532454b-af22-4840-ba25-5cb50a5fcf25",
+            "Flags": 8,
+            "Name": "eject",
+            "Position": "2.455421,-0.647761,8.8746",
+            "Enabled": true
+          }
+        ]
+      }
+    ],
     "__variables": [],
     "__properties": {
       "FixedUpdateFrequency": 50,

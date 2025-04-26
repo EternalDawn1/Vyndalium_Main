@@ -854,16 +854,21 @@ public partial class Player : Component, IHealthComponent
 	private float crouchTimer = 0.0f;
 	[Sync]
 	public int CameraMode { get; set; } = 0;
+	
+	
 	protected override void OnUpdate()
 	{
-		
-		if (!IsProxy)
-		
-		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
-			return;
+
+		if ( !IsProxy )
+
+			if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
+				return;
 
 
 		UpdateWeaponModelVisibility();
+
+		ModelRenderer.Set( "holdtype", 2 );
+		ModelRenderer.Set( "b_attack", true );
 
 		if ( !Eye.IsValid() )
 			return;
@@ -899,6 +904,8 @@ public partial class Player : Component, IHealthComponent
 					PlyCamera.WorldPosition = Eye.WorldPosition;
 					PlyCamera.WorldRotation = EyeAngles.ToRotation();
 
+					
+
 					var deployedWeapon = Weapons.Deployed;
 					var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
 
@@ -927,8 +934,9 @@ public partial class Player : Component, IHealthComponent
 						PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
 
 					PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
-
 					
+
+
 
 					if ( IsCrouching && hasViewModel )
 					{
@@ -978,7 +986,7 @@ public partial class Player : Component, IHealthComponent
 						break;
 					}
 			}
-			
+
 		}
 
 
@@ -1008,8 +1016,8 @@ public partial class Player : Component, IHealthComponent
 			}
 
 		}
-		
-		
+
+
 		// Überprüfen Sie den Gesundheitszustand des Spielers
 		// Check the player's health status
 		float healthPercentage = Health / MaxHealth * 100;
