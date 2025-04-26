@@ -499,23 +499,15 @@ public partial class Player : Component, IHealthComponent
 		var player = Player.Local;
 		if ( player == null ) return;
 
-		player.ThirdPersonEnabled = !player.ThirdPersonEnabled;
+		// Kamera-Modus wechseln: 0 = First-Person, 1 = Third-Person-Left, 2 = Third-Person-Right
+		player.CameraMode = (player.CameraMode + 1) % 3;
 
 		player.PlyCamera.Enabled = true; // Stelle sicher, dass die Kamera aktiviert ist
 
-		if ( player.ThirdPersonEnabled )
-		{
-			
-
-			// Viewmodel deaktivieren
-			if ( player.Weapons.Deployed != null )
-			{
-				player.Weapons.Deployed.DestroyViewModel();
-			}
-		}
-		else
+		if ( player.CameraMode == 0 )
 		{
 			// First-Person-Ansicht
+			player.ThirdPersonEnabled = false;
 			player.PlyCamera.WorldPosition = player.Eye.WorldPosition;
 			player.PlyCamera.WorldRotation = player.EyeAngles.ToRotation();
 
@@ -524,6 +516,31 @@ public partial class Player : Component, IHealthComponent
 			{
 				player.Weapons.Deployed.CreateViewModel();
 			}
+		}
+		else
+		{
+			// Third-Person-Ansicht
+			player.ThirdPersonEnabled = true;
+
+			// Viewmodel deaktivieren
+			if ( player.Weapons.Deployed != null )
+			{
+				player.Weapons.Deployed.DestroyViewModel();
+			}
+
+			// Kamera-Position basierend auf dem Modus setzen
+			if ( player.CameraMode == 1 )
+			{
+				// Third-Person-Left
+				player.PlyCamera.WorldPosition = player.WorldPosition - player.EyeAngles.Forward * 150f + Vector3.Up * 50f + Vector3.Left * 20f;
+			}
+			else if ( player.CameraMode == 2 )
+			{
+				// Third-Person-Right
+				player.PlyCamera.WorldPosition = player.WorldPosition - player.EyeAngles.Forward * 150f + Vector3.Up * 50f + Vector3.Right * 20f;
+			}
+
+			player.PlyCamera.WorldRotation = player.EyeAngles.ToRotation();
 		}
 	}
 
@@ -890,54 +907,66 @@ public partial class Player : Component, IHealthComponent
 		{
 			PlyCamera.LocalPosition = Vector3.Zero;
 
-			if ( ThirdPersonEnabled )
+			switch ( CameraMode )
 			{
-				// Third-Person-Ansicht
-				PlyCamera.WorldPosition = WorldPosition - EyeAngles.Forward * 150f + Vector3.Up * 50f + Vector3.Right * 20f;
-				PlyCamera.WorldRotation = EyeAngles.ToRotation();
+				case 0: // First-Person-Ansicht
+					PlyCamera.WorldPosition = Eye.WorldPosition;
+					PlyCamera.WorldRotation = EyeAngles.ToRotation();
+
+					var deployedWeapon = Weapons.Deployed;
+					var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
+
+					var idealEyePos = Eye.WorldPosition;
+					var headPosition = WorldPosition + Vector3.Up * CharacterController.Height;
+
+					var headTrace = Scene.Trace.Ray( WorldPosition, headPosition )
+						.UsePhysicsWorld()
+						.IgnoreGameObjectHierarchy( GameObject )
+						.WithAnyTags( "solid" )
+						.Run();
+
+					headPosition = headTrace.EndPosition - headTrace.Direction * 2f;
+
+					var trace = Scene.Trace.Ray( headPosition, idealEyePos )
+						.UsePhysicsWorld()
+						.IgnoreGameObjectHierarchy( GameObject )
+						.WithAnyTags( "solid" )
+						.Radius( 2f )
+						.Run();
+
+
+					if ( hasViewModel )
+						PlyCamera.WorldPosition = Head.WorldPosition;
+					else
+						PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
+
+					PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
+
+					
+
+					if ( IsCrouching && hasViewModel )
+					{
+						targetCrouchPosition = PlyCamera.WorldPosition + SieatOffset;
+						crouchTimer += Time.Delta;
+						PlyCamera.WorldPosition = Vector3.Lerp( PlyCamera.WorldPosition, targetCrouchPosition, crouchTimer / crouchDuration );
+					}
+					else
+					{
+						crouchTimer = 0.0f; // Reset Timer wenn nicht crouching
+					}
+					break;
+
+				case 1: // Third-Person-Left
+					PlyCamera.WorldPosition = WorldPosition - EyeAngles.Forward * 150f + Vector3.Up * 50f + Vector3.Left * 30f;
+					PlyCamera.WorldRotation = EyeAngles.ToRotation();
+					break;
+
+				case 2: // Third-Person-Right
+					PlyCamera.WorldPosition = WorldPosition - EyeAngles.Forward * 150f + Vector3.Up * 50f + Vector3.Right * 30f;
+					PlyCamera.WorldRotation = EyeAngles.ToRotation();
+					break;
 			}
-			else
-			{
-				// First-Person-Ansicht
-				var idealEyePos = Eye.WorldPosition;
-				var headPosition = WorldPosition + Vector3.Up * CharacterController.Height;
-
-				var headTrace = Scene.Trace.Ray( WorldPosition, headPosition )
-					.UsePhysicsWorld()
-					.IgnoreGameObjectHierarchy( GameObject )
-					.WithAnyTags( "solid" )
-					.Run();
-
-				headPosition = headTrace.EndPosition - headTrace.Direction * 2f;
-
-				var trace = Scene.Trace.Ray( headPosition, idealEyePos )
-					.UsePhysicsWorld()
-					.IgnoreGameObjectHierarchy( GameObject )
-					.WithAnyTags( "solid" )
-					.Radius( 2f )
-					.Run();
-
-				var deployedWeapon = Weapons.Deployed;
-				var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
-
-				if ( hasViewModel )
-					PlyCamera.WorldPosition = Head.WorldPosition;
-				else
-					PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
-
-				PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
-
-				if ( IsCrouching && hasViewModel )
-				{
-					targetCrouchPosition = PlyCamera.WorldPosition + SieatOffset;
-					crouchTimer += Time.Delta;
-					PlyCamera.WorldPosition = Vector3.Lerp( PlyCamera.WorldPosition, targetCrouchPosition, crouchTimer / crouchDuration );
-				}
-				else
-				{
-					crouchTimer = 0.0f; // Reset Timer wenn nicht crouching
-				}
-			}
+			
 		}
 
 
