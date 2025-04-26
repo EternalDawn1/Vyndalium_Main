@@ -503,6 +503,7 @@ public partial class Player : Component, IHealthComponent
 		player.CameraMode = (player.CameraMode + 1) % 3;
 
 		player.PlyCamera.Enabled = true; // Stelle sicher, dass die Kamera aktiviert ist
+		//player.UpdateWeaponModelVisibility();
 
 		if ( player.CameraMode == 0 )
 		{
@@ -735,42 +736,27 @@ public partial class Player : Component, IHealthComponent
 	[Rpc.Broadcast]
 	private void UpdateWeaponModelVisibility()
 	{
-		if(!IsProxy) 
-		return;
+		if ( !IsProxy )
+			return;
+
 		var deployedWeapon = Weapons.Deployed;
 		foreach ( var weapon in Weapons.All )
 		{
 			var modelRenderer = weapon.Components.Get<ModelRenderer>();
-			var itemComponent = weapon.Components.Get<ItemComponent>();
-			var skinnedmodelRenderer = weapon.Components.Get<SkinnedModelRenderer>();
-			var BoxCollider = weapon.Components.Get<BoxCollider>();
+			var skinnedModelRenderer = weapon.Components.Get<SkinnedModelRenderer>();
 
-			if ( modelRenderer != null && itemComponent != null )
+			if ( modelRenderer != null )
 			{
-				// Überprüfen, ob die Waffe ein Item ist und ob sie die aktuell eingesetzte Waffe ist
-				if ( itemComponent.IsItem )
-				{
-					modelRenderer.Enabled = weapon == deployedWeapon;
-					weapon.GameObject.Enabled = false;
-				}
-				else
-				{
-					modelRenderer.Enabled = false;
-					// Deaktivieren des GameObjects im weaponbone
-					weapon.GameObject.Enabled = false;
-				}
+				// Aktivieren Sie den Renderer in der Third-Person-Ansicht
+				modelRenderer.Enabled = Local.ThirdPersonEnabled || weapon == deployedWeapon;
 			}
-			if ( skinnedmodelRenderer != null )
+
+			if ( skinnedModelRenderer != null )
 			{
-				skinnedmodelRenderer.Enabled = weapon == deployedWeapon;
-			}
-			if ( BoxCollider != null )
-			{
-				BoxCollider.Enabled = weapon == deployedWeapon;
-				BoxCollider.Enabled = false;
+				// Aktivieren Sie den SkinnedModelRenderer in der Third-Person-Ansicht
+				skinnedModelRenderer.Enabled = Local.ThirdPersonEnabled || weapon == deployedWeapon;
 			}
 		}
-		
 	}
 
 
@@ -810,7 +796,7 @@ public partial class Player : Component, IHealthComponent
 			return;
 		}
 
-		ModelRenderer.SetBodyGroup( "head", IsProxy ? 0 : 1 );
+		ModelRenderer.SetBodyGroup( "head", IsProxy ? 1 : 1 );
 		ModelRenderer.Enabled = true;
 
 		if ( Ragdoll.IsRagdolled )

@@ -42,12 +42,25 @@ public class WeaponComponent : Component
 	[Property] public Rotation RunRotation { get; set; }
 	[Property] public Rotation AimRotationOffset { get; set; }
 
-	public bool HasViewModel => ViewModel.IsValid();
+	public bool HasViewModel => ViewModel.IsValid() ;
 	public Player Owner { get; set; }
 	public SkinnedModelRenderer ModelRenderer { get; set; }
 	public ViewModel ViewModel { get; set; }
 	public TimeUntil NextAttackTime { get; set; }
-	public SkinnedModelRenderer EffectRenderer => ViewModel.IsValid() ? ViewModel.ModelRenderer : ModelRenderer;
+	public SkinnedModelRenderer EffectRenderer
+	{
+		get
+		{
+			// Verwende das ViewModel nur in der First-Person-Ansicht
+			if ( Owner?.CameraMode == 0 && ViewModel.IsValid() )
+			{
+				return ViewModel.ModelRenderer;
+			}
+
+			// Fallback auf das ModelRenderer in der Third-Person-Ansicht
+			return ModelRenderer;
+		}
+	}
 	public EquipSlot Slot { get; set; }
 	
 
@@ -243,6 +256,12 @@ public class WeaponComponent : Component
 
 		var player = Components.GetInAncestors<Player>();
 		if ( player == null ) return;
+
+		if ( player.CameraMode != 0 ) // 0 = First-Person
+		{
+			Log.Info( "CreateViewModel wird im Third-Person-Modus nicht ausgeführt." );
+			return;
+		}
 
 		player.Components.Get<Character>()?.CreatePreviewClothing( null );
 

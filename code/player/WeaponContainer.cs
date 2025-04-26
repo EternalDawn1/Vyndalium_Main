@@ -108,9 +108,9 @@ public partial class WeaponContainer : Component
 
 	public async void Give( GameObject prefab, bool shouldDeploy = false )
 	{
-		if(IsProxy)
-		return;
-		
+		if ( IsProxy )
+			return;
+
 		await Task.Delay( 1 );
 
 		if ( Player.Local == null )
@@ -154,20 +154,17 @@ public partial class WeaponContainer : Component
 		{
 			modelCollider.Destroy();
 		}
-		
+
 		var rigidBody = prefab.Components.Get<Rigidbody>();
 		if ( rigidBody != null )
 		{
 			rigidBody.Destroy();
 		}
-		
-		
 
 		var weaponGo = prefab.Clone();
 		var weapon = weaponGo.Components?.GetInDescendantsOrSelf<WeaponComponent>( true );
 		if ( weapon == null || !weapon.IsValid() )
 		{
-			
 			weaponGo.Destroy();
 			return;
 		}
@@ -185,6 +182,19 @@ public partial class WeaponContainer : Component
 		weaponGo.SetParent( WeaponBone );
 		weaponGo.WorldPosition = WeaponBone.WorldPosition;
 		weaponGo.WorldRotation = WeaponBone.WorldRotation;
+
+		// **Aktiviere den ModelRenderer oder SkinnedModelRenderer**
+		var modelRenderer = weaponGo.Components.Get<ModelRenderer>();
+		if ( modelRenderer != null )
+		{
+			modelRenderer.Enabled = true; // Aktivieren des ModelRenderers
+		}
+
+		var skinnedModelRenderer = weaponGo.Components.Get<SkinnedModelRenderer>();
+		if ( skinnedModelRenderer != null )
+		{
+			skinnedModelRenderer.Enabled = true; // Aktivieren des SkinnedModelRenderers
+		}
 
 		var nextWeaponGo = weaponGo.Components.GetInDescendantsOrSelf<BaseGun>( true );
 		if ( nextWeaponGo.IsValid() )
@@ -218,6 +228,7 @@ public partial class WeaponContainer : Component
 
 			nextWeaponGo.IsDeployed = !Deployed.IsValid();
 		}
+
 		var melee = weaponGo.Components.GetInDescendantsOrSelf<BaseMelee>( true );
 		if ( melee.IsValid() )
 		{

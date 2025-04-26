@@ -659,8 +659,31 @@ public partial class  BaseGun : WeaponComponent, IUse
 		AmmoInClip--;
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
-		var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-		var direction = Owner.PlyCamera.WorldRotation.Forward;
+		Vector3 startPos;
+		Vector3 direction;
+
+		// Überprüfen, ob der Spieler in der Third-Person-Ansicht ist
+		if ( Owner.CameraMode != 0 ) // 0 = First-Person
+		{
+			// Verwende die Position des WeaponBone in der Third-Person-Ansicht
+			var weaponBone = EffectRenderer.GetAttachment( "WeaponBone" );
+			startPos = weaponBone?.Position ?? Owner.PlyCamera.WorldPosition;
+			Log.Info( $"WeaponBone Position: {weaponBone?.Position}" );
+
+			// Berechne die Richtung basierend auf der Waffe
+			direction = weaponBone?.Rotation.Forward ?? Owner.PlyCamera.WorldRotation.Forward;
+
+		}
+		else
+		{
+			Log.Info( $"First-Person Position: {Owner.PlyCamera.WorldPosition}" );
+			// Verwende die Kamera-Position und -Richtung in der First-Person-Ansicht
+			startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
+			direction = Owner.PlyCamera.WorldRotation.Forward;
+		}
+
+
+		
 		direction += Vector3.Random * Spread;
 		var endPos = startPos + direction * 5000f;
 
