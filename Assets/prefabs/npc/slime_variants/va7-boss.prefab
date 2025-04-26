@@ -193,7 +193,7 @@
         "HasFireAbility": false,
         "HasIceAbility": false,
         "HasWindAbility": false,
-        "Health": 10000,
+        "Health": 3000,
         "Healthone": {
           "_type": "component",
           "component_id": "4675f5ac-ccda-4617-8403-1efb3bc82c1f",
@@ -210,7 +210,7 @@
         "isSlime": true,
         "IsSlowed": false,
         "Level": 0,
-        "MaxHealth": 10000,
+        "MaxHealth": 3000,
         "MaximumIdleCooldown": 6,
         "MaxRunAnimationSpeed": 150,
         "MinimumIdleCooldown": 4,
@@ -227,7 +227,7 @@
           "component_type": "MoveHelper"
         },
         "MoveSpeed": 0,
-        "Name": "Slimy Queen No.9",
+        "Name": "No.9 Slimey Queen ",
         "OnAttack": null,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -264,15 +264,15 @@
         "FireBallAttackSound": "prefabs/hit/fire-sounds/avatarattack.sound",
         "FireBallAttackTime": {
           "Absolute": 0,
-          "Relative": 103764984
+          "Relative": 104488890
         },
         "FireBallChargeSound": "prefabs/hit/fire-sounds/avatarcharge.sound",
         "FireBallCooldown": 15,
-        "FireBallPrefab": "prefabs/hit/fire-spawn-variant.prefab",
+        "FireBallPrefab": "prefabs/hit/fire-spawn-variant-avatar.prefab",
         "FireCannonAttackSound": "prefabs/hit/fire-sounds/whoosh-fire.sound",
         "FireCannonAttackTime": {
           "Absolute": 0,
-          "Relative": 103764984
+          "Relative": 104488890
         },
         "FireCannonChargeSound": "prefabs/hit/fire-sounds/avatarcharge.sound",
         "FireCannonCooldown": 5,
@@ -280,7 +280,7 @@
         "FireCannonPrefab": "prefabs/hit/fire-spawn-cannon.prefab",
         "FireRingAttackTime": {
           "Absolute": 0,
-          "Relative": 103764984
+          "Relative": 104488890
         },
         "FireRingCooldown": 10,
         "FireRingEnabled": true,
@@ -292,7 +292,7 @@
         "FireWallSound": "prefabs/hit/fire-sounds/balls.sound",
         "FlameWallAttackTime": {
           "Absolute": 0,
-          "Relative": 103764984
+          "Relative": 104488890
         },
         "FlameWallCooldown": 20,
         "HasSpecialAbility": true,
@@ -309,7 +309,7 @@
         "UltimateJumpAttackCooldown": 30,
         "UltimateJumpAttackTime": {
           "Absolute": 0,
-          "Relative": 103764984
+          "Relative": 104488890
         }
       }
     ],
@@ -429,42 +429,79 @@
                     "Flags": 4,
                     "Name": "front",
                     "Position": "0.000009492987,5.58995,18.68033",
-                    "Enabled": true
-                  }
-                ]
-              },
-              {
-                "__guid": "50801513-66ea-40eb-9a37-a7212bfff261",
-                "Flags": 0,
-                "Name": "Object",
-                "Position": "-0.02957687,7.397738,16.21907",
-                "Rotation": "-0.4999999,-0.4999999,-0.4999999,0.5000004",
-                "Scale": "0.2,0.2,0.2",
-                "Enabled": true,
-                "NetworkMode": 1,
-                "Components": [
-                  {
-                    "__type": "Sandbox.ModelRenderer",
-                    "__guid": "5cf7b12e-9af5-47be-9c20-0f54c38bad8c",
-                    "BodyGroups": 18446744073709551615,
-                    "CreateAttachments": false,
-                    "MaterialGroup": null,
-                    "MaterialOverride": null,
-                    "Model": "models/eye/eye.vmdl",
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "RenderOptions": {
-                      "GameLayer": true,
-                      "OverlayLayer": false,
-                      "BloomLayer": false,
-                      "AfterUILayer": false
-                    },
-                    "RenderType": "On",
-                    "Tint": "1,1,1,1"
+                    "Enabled": true,
+                    "Children": [
+                      {
+                        "__guid": "50801513-66ea-40eb-9a37-a7212bfff261",
+                        "Flags": 0,
+                        "Name": "Object",
+                        "Position": "0.5228598,-3.842108,7.061012",
+                        "Rotation": "-0.4999999,-0.4999999,-0.4999999,0.5000004",
+                        "Scale": "0.2,0.2,0.2",
+                        "Enabled": true,
+                        "NetworkMode": 1,
+                        "Components": [
+                          {
+                            "__type": "Sandbox.ModelRenderer",
+                            "__guid": "5cf7b12e-9af5-47be-9c20-0f54c38bad8c",
+                            "BodyGroups": 18446744073709551615,
+                            "CreateAttachments": false,
+                            "MaterialGroup": null,
+                            "MaterialOverride": null,
+                            "Model": "models/eye/eye.vmdl",
+                            "OnComponentDestroy": null,
+                            "OnComponentDisabled": null,
+                            "OnComponentEnabled": null,
+                            "OnComponentFixedUpdate": null,
+                            "OnComponentStart": null,
+                            "OnComponentUpdate": null,
+                            "RenderOptions": {
+                              "GameLayer": true,
+                              "OverlayLayer": false,
+                              "BloomLayer": false,
+                              "AfterUILayer": false
+                            },
+                            "RenderType": "On",
+                            "Tint": "1,1,1,1"
+                          }
+                        ]
+                      },
+                      {
+                        "__guid": "713a01b7-c1ba-44d0-86fd-46aa1c26bf56",
+                        "Flags": 0,
+                        "Name": "Object",
+                        "Position": "-0.0000164032,8.117826,-8.822713",
+                        "Rotation": "-0.7071068,-0.0000003799796,0.0000002682209,0.7071069",
+                        "Scale": "20,20,20",
+                        "Enabled": true,
+                        "NetworkMode": 1,
+                        "Components": [
+                          {
+                            "__type": "Sandbox.ModelRenderer",
+                            "__guid": "ec6f4e3c-8dad-42af-8018-0272962840ea",
+                            "BodyGroups": 18446744073709551615,
+                            "CreateAttachments": false,
+                            "MaterialGroup": null,
+                            "MaterialOverride": null,
+                            "Model": "models/props/crown/crown.vmdl",
+                            "OnComponentDestroy": null,
+                            "OnComponentDisabled": null,
+                            "OnComponentEnabled": null,
+                            "OnComponentFixedUpdate": null,
+                            "OnComponentStart": null,
+                            "OnComponentUpdate": null,
+                            "RenderOptions": {
+                              "GameLayer": true,
+                              "OverlayLayer": false,
+                              "BloomLayer": false,
+                              "AfterUILayer": false
+                            },
+                            "RenderType": "On",
+                            "Tint": "1,1,1,1"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -476,7 +513,7 @@
         "__guid": "1160931a-c772-4e03-93e0-f7e3e815c003",
         "Flags": 0,
         "Name": "eye",
-        "Position": "0,0,64",
+        "Position": "0,0,81.76636",
         "Enabled": true,
         "NetworkMode": 1
       },
@@ -582,7 +619,7 @@
                 "TargetColor": "0,1,0,1",
                 "CacheToDisk": true
               },
-              "compiled": null
+              "compiled": "textures/generated/imagefile/e78dead6c29078a9.vtex"
             }
           }
         ]

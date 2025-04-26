@@ -70,7 +70,7 @@ public partial class Player : Component, IHealthComponent
 	private RealTimeSince TimeSinceDamaged { get; set; }
 	private RealTimeSince TimeSinceManaUsed { get; set; }
 
-	private static bool isFirstSpawn = true;
+	private static bool isFirstSpawn { get; set; } = true;
 
 	private Angles originalEyeAngles; // Speichert die ursprünglichen EyeAngles
 	private bool WantsToCrouch { get; set; }
@@ -284,13 +284,13 @@ public partial class Player : Component, IHealthComponent
 		Mana += amount;
 	}
 	private List<Angles> recoilPattern = new List<Angles>
-{
-	new Angles(-0.02f, 0f, 0f),  // Weniger nach oben
-    new Angles(-0.05f, 0.25f, 0f), // Weniger nach oben rechts
-    new Angles(-0.05f, -0.25f, 0f), // Weniger nach oben links
-    new Angles(-0.1f, 0.15f, 0f),  // Weniger nach oben leicht rechts
-    new Angles(-0.1f, -0.15f, 0f)  // Weniger nach oben leicht links
-};
+	{
+		new Angles(-0.02f, 0f, 0f),  // Weniger nach oben
+		new Angles(-0.05f, 0.25f, 0f), // Weniger nach oben rechts
+		new Angles(-0.05f, -0.25f, 0f), // Weniger nach oben links
+		new Angles(-0.1f, 0.15f, 0f),  // Weniger nach oben leicht rechts
+		new Angles(-0.1f, -0.15f, 0f)  // Weniger nach oben leicht links
+	};
 
 
 	private async void ApplyCameraShake( float intensity, float duration )

@@ -13,7 +13,7 @@
         "Acceleration": 237.39967,
         "AutoTraverseLinks": true,
         "Height": 31.700174,
-        "MaxSpeed": 71.49985,
+        "MaxSpeed": 48.100105,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -193,7 +193,7 @@
         "HasFireAbility": false,
         "HasIceAbility": false,
         "HasWindAbility": false,
-        "Health": 100,
+        "Health": 200,
         "Healthone": {
           "_type": "component",
           "component_id": "4675f5ac-ccda-4617-8403-1efb3bc82c1f",
@@ -210,7 +210,7 @@
         "isSlime": false,
         "IsSlowed": false,
         "Level": 0,
-        "MaxHealth": 100,
+        "MaxHealth": 200,
         "MaximumIdleCooldown": 6,
         "MaxRunAnimationSpeed": 150,
         "MinimumIdleCooldown": 4,
@@ -227,7 +227,7 @@
           "component_type": "MoveHelper"
         },
         "MoveSpeed": 0,
-        "Name": "Slime",
+        "Name": "Green Slime",
         "OnAttack": null,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -244,7 +244,7 @@
         "Position": "0,0,0",
         "PreviousHealth": 0,
         "RunningType": "Smart",
-        "RunSpeed": 0,
+        "RunSpeed": 140,
         "ScaleStats": true,
         "VisionRange": 992,
         "WalkingType": "Dumb",
@@ -262,6 +262,7 @@
         "__guid": "19ac60d8-0e63-45a8-a0c2-8f486421171c",
         "Flags": 0,
         "Name": "body",
+        "Scale": "1.5,1.5,1.5",
         "Enabled": true,
         "NetworkMode": 1,
         "Components": [
@@ -301,7 +302,7 @@
             "Sequence": {
               "Name": null
             },
-            "Tint": "0.11426,0.62326,0,1",
+            "Tint": "0.11426,0.62326,0,0.7",
             "UseAnimGraph": true
           },
           {
@@ -365,7 +366,7 @@
         "__guid": "4797628e-721e-4f4a-9728-13573bc7d9ec",
         "Flags": 0,
         "Name": "World",
-        "Position": "-1.323636,-0.5550555,35.403",
+        "Position": "-1.323636,-0.5550555,76.54521",
         "Enabled": true,
         "NetworkMode": 1,
         "Components": [
@@ -408,6 +409,40 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null
+          }
+        ]
+      },
+      {
+        "__guid": "10bdc11e-f990-4d3a-96e1-e02bf2b8416b",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "0,0,10.84931",
+        "Scale": "0.5,0.5,0.5",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "d794b656-6050-4d9d-80bd-27c2b956ca51",
+            "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/citizen_props/balloonregular01.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
           }
         ]
       }

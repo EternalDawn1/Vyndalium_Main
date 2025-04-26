@@ -2,7 +2,8 @@
   "RootObject": {
     "__guid": "7f42f6eb-f275-4133-a2fe-3c16c2c02189",
     "Flags": 0,
-    "Name": "explosion_v3",
+    "Name": "homing_bleed",
+    "Tags": "particles",
     "Enabled": true,
     "Components": [
       {
@@ -103,9 +104,9 @@
               "mode": "Mirrored"
             }
           ],
-          "Constants": "1,2,0,0"
+          "Constants": "0.5,1,0,0"
         },
-        "MaxParticles": 5000,
+        "MaxParticles": 100,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -159,8 +160,8 @@
               "mode": "Mirrored"
             },
             {
-              "x": 0.18865031,
-              "y": 0.99734044,
+              "x": 0.19785276,
+              "y": 0.27659574,
               "in": 0,
               "out": 0,
               "mode": "Mirrored"
@@ -235,7 +236,7 @@
       {
         "__type": "Sandbox.ParticleSphereEmitter",
         "__guid": "535f6fab-0cf4-44e9-a2a9-ea9005dd2890",
-        "Burst": 279.16,
+        "Burst": 1000,
         "Delay": 0,
         "DestroyOnEnd": false,
         "Duration": 1,
@@ -296,7 +297,7 @@
         "BlurAmount": 0.5,
         "BlurOpacity": 0.91,
         "BlurSpacing": 0.73,
-        "DepthFeather": 0,
+        "DepthFeather": 50,
         "FaceVelocity": true,
         "FogStrength": 1,
         "LeadingTrail": true,
@@ -309,20 +310,72 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "Opaque": false,
-        "Pivot": "0.5,0.5",
+        "Pivot": "0,0",
         "RenderOptions": {
           "GameLayer": true,
           "OverlayLayer": false,
           "BloomLayer": false,
           "AfterUILayer": false
         },
-        "RotationOffset": 57.62,
-        "Scale": 1,
+        "RotationOffset": 0,
+        "Scale": 0.47,
         "Shadows": false,
         "SortMode": "Unsorted",
-        "Texture": "textures/generated/imagefile/3a76295b11f57c75.vtex"
+        "Texture": {
+          "$compiler": "texture",
+          "$source": "imagefile",
+          "data": {
+            "FilePath": "ui/hud/hospital.png",
+            "MaxSize": 4096,
+            "ConvertHeightToNormals": false,
+            "NormalScale": 1,
+            "Rotate": 0,
+            "FlipVertical": false,
+            "FlipHorizontal": false,
+            "Padding": {
+              "Size": "0,0",
+              "EdgeSize": "0,0"
+            },
+            "Sharpen": 0,
+            "InvertColor": false,
+            "Blur": 0,
+            "Brightness": 1,
+            "Contrast": 1,
+            "Saturation": 1,
+            "Hue": 0,
+            "Colorize": false,
+            "TargetColor": "0,1,0,1",
+            "CacheToDisk": true
+          },
+          "compiled": null
+        }
       }
-    ]
+    ],
+    "Children": [],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,

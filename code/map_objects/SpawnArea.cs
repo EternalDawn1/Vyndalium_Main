@@ -320,7 +320,7 @@ public sealed class NpcSpawnArea : Component
 	}
 	private float playerProximityDuration = 3.0f; // Zeit in Sekunden, die der Spieler in der Nähe sein muss
 	private float playerProximityTimer = 0.0f;
-	private bool allDoorsExpired = false;
+	private bool allDoorsExpired { get; set; } = false;
 	protected override void OnUpdate()
 	{
 		if ( Network.IsProxy || Player.Local == null || !Player.Local.IsHost() ) return;
