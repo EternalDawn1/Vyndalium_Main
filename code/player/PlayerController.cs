@@ -957,14 +957,40 @@ public partial class Player : Component, IHealthComponent
 					break;
 
 				case 1: // Third-Person-Left
-					PlyCamera.WorldPosition = WorldPosition - EyeAngles.Forward * 150f + Vector3.Up * 50f + Vector3.Left * 30f;
-					PlyCamera.WorldRotation = EyeAngles.ToRotation();
-					break;
+					{
+						var offset = EyeAngles.ToRotation().Right * -30f; // Kamera links relativ zur Blickrichtung
+						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * 150f + Vector3.Up * 50f + offset;
+
+						// Raycast von der Spielerposition zur gewünschten Kameraposition
+						var leftTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 50f, desiredPosition )
+							.UsePhysicsWorld()
+							.IgnoreGameObjectHierarchy( GameObject )
+							.WithAnyTags( "solid" )
+							.Run();
+
+						// Wenn ein Hindernis erkannt wird, setze die Kamera auf die Trefferposition
+						PlyCamera.WorldPosition = leftTrace.Hit ? leftTrace.EndPosition - leftTrace.Direction * 2f : desiredPosition;
+						PlyCamera.WorldRotation = EyeAngles.ToRotation();
+						break;
+					}
 
 				case 2: // Third-Person-Right
-					PlyCamera.WorldPosition = WorldPosition - EyeAngles.Forward * 150f + Vector3.Up * 50f + Vector3.Right * 30f;
-					PlyCamera.WorldRotation = EyeAngles.ToRotation();
-					break;
+					{
+						var offset = EyeAngles.ToRotation().Right * 30f; // Kamera rechts relativ zur Blickrichtung
+						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * 150f + Vector3.Up * 50f + offset;
+
+						// Raycast von der Spielerposition zur gewünschten Kameraposition
+						var rightTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 50f, desiredPosition )
+							.UsePhysicsWorld()
+							.IgnoreGameObjectHierarchy( GameObject )
+							.WithAnyTags( "solid" )
+							.Run();
+
+						// Wenn ein Hindernis erkannt wird, setze die Kamera auf die Trefferposition
+						PlyCamera.WorldPosition = rightTrace.Hit ? rightTrace.EndPosition - rightTrace.Direction * 2f : desiredPosition;
+						PlyCamera.WorldRotation = EyeAngles.ToRotation();
+						break;
+					}
 			}
 			
 		}
