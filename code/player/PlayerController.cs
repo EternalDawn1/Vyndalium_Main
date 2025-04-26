@@ -99,7 +99,7 @@ public partial class Player : Component, IHealthComponent
 			if ( ModelRenderer == null )
 				return;
 
-			ModelRenderer.SetBodyGroup( "head", _hideBodygroups.HasFlag( HiddenBodyGroup.Head ) ? 0 : 0 );
+			ModelRenderer.SetBodyGroup( "head", _hideBodygroups.HasFlag( HiddenBodyGroup.Head ) ? 1 : 0 );
 			ModelRenderer.SetBodyGroup( "torso", _hideBodygroups.HasFlag( HiddenBodyGroup.Torso ) ? 0 : 0 );
 			ModelRenderer.SetBodyGroup( "hands", _hideBodygroups.HasFlag( HiddenBodyGroup.Hands ) ? 0 : 0 );
 			ModelRenderer.SetBodyGroup( "legs", _hideBodygroups.HasFlag( HiddenBodyGroup.Legs ) ? 0 : 0 );
@@ -503,7 +503,7 @@ public partial class Player : Component, IHealthComponent
 		player.CameraMode = (player.CameraMode + 1) % 3;
 
 		player.PlyCamera.Enabled = true; // Stelle sicher, dass die Kamera aktiviert ist
-		//player.UpdateWeaponModelVisibility();
+		player.UpdateWeaponModelVisibility();
 
 		if ( player.CameraMode == 0 )
 		{
@@ -796,7 +796,7 @@ public partial class Player : Component, IHealthComponent
 			return;
 		}
 
-		ModelRenderer.SetBodyGroup( "head", IsProxy ? 1 : 1 );
+		ModelRenderer.SetBodyGroup( "head", IsProxy ? 1 : 0 );
 		ModelRenderer.Enabled = true;
 
 		if ( Ragdoll.IsRagdolled )
@@ -862,8 +862,8 @@ public partial class Player : Component, IHealthComponent
 		if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
 
-		
 
+		UpdateWeaponModelVisibility();
 
 		if ( !Eye.IsValid() )
 			return;

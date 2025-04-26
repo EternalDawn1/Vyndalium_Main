@@ -187,13 +187,13 @@ public partial class WeaponContainer : Component
 		var modelRenderer = weaponGo.Components.Get<ModelRenderer>();
 		if ( modelRenderer != null )
 		{
-			modelRenderer.Enabled = true; // Aktivieren des ModelRenderers
+			modelRenderer.Enabled = true;
 		}
 
 		var skinnedModelRenderer = weaponGo.Components.Get<SkinnedModelRenderer>();
 		if ( skinnedModelRenderer != null )
 		{
-			skinnedModelRenderer.Enabled = true; // Aktivieren des SkinnedModelRenderers
+			skinnedModelRenderer.Enabled = true;
 		}
 
 		var nextWeaponGo = weaponGo.Components.GetInDescendantsOrSelf<BaseGun>( true );
