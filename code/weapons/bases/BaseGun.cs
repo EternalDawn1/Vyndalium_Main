@@ -578,19 +578,29 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 	public override void ReloadAction()
 	{
-		
 		if ( AmmoInClip >= ClipSize || IsReloading )
 		{
 			EffectRenderer?.Set( "b_reload", false );
-			
+
+			if ( Owner?.CameraMode != 0 ) // Third-Person-Modus
+			{
+				Owner?.ModelRenderer.Set( "b_reload", false );
+			}
+
 			return;
 		}
+
 		var ammoToTake = ClipSize - AmmoInClip;
 		if ( ammoToTake <= 0 )
 		{
-			
 			// Magazin ist bereits voll, Nachladeanimation stoppen
 			EffectRenderer?.Set( "b_reload", false );
+
+			if ( Owner?.CameraMode != 0 ) // Third-Person-Modus
+			{
+				Owner?.ModelRenderer.Set( "b_reload", false );
+			}
+
 			Log.Info( "Magazin ist bereits voll, Nachladeanimation gestoppt." );
 			return;
 		}
@@ -601,22 +611,30 @@ public partial class  BaseGun : WeaponComponent, IUse
 		if ( !Owner.Ammo.CanTake( AmmoType, ammoToTake, out var taken ) )
 			return;
 
+		// Set animations based on camera mode
 		EffectRenderer?.Set( "b_reload", true );
-		Owner?.ModelRenderer.Set("b_reload", true );
+
+		if ( Owner.CameraMode != 0 ) // Third-Person-Modus
+		{
+			Owner.ModelRenderer.Set( "b_reload", true );
+		}
+
 		ReloadFinishTime = AmmoInClip == 0 ? EmptyReloadTime : ReloadTime;
 		IsReloading = true;
-		
+
 		SendReloadMessage();
-		
 
 		if ( AmmoInClip >= ClipSize )
 		{
-			
-			
 			EffectRenderer?.Set( "b_reload", false );
+
+			if ( Owner.CameraMode != 0 ) // Third-Person-Modus
+			{
+				Owner.ModelRenderer.Set( "b_reload", false );
+			}
 		}
 	}
-	
+
 	private void FireDefaultBullet( Player shooter )
 	{
 		
@@ -670,24 +688,36 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 		if ( Owner.CameraMode != 0 ) // 0 = First-Person
 		{
+			// Mündungsposition aus dem Waffenmodell
 			var weaponBone = Owner.ModelRenderer.Components.GetAll<SkinnedModelRenderer>();
-			if ( weaponBone != null )
-			{
-			
+			Vector3? muzzlePosition = null;
 
-				foreach ( var renderer in weaponBone )
+			foreach ( var renderer in weaponBone )
+			{
+				var muzzleAttachment = renderer.GetAttachment( "muzzle" );
+				if ( muzzleAttachment != null )
 				{
-					// Nutze die Position des ModelRenderers, aber die Richtung der Kamera
-					var muzzleAttachment = renderer.GetAttachment( "muzzle" );
-					if ( muzzleAttachment != null ) // Überprüfe, ob das GameObject gültig ist
-					{
-					
-						startPos = muzzleAttachment?.Position ?? Vector3.Zero; // Nur Position vom Attachment
-						direction = Owner.PlyCamera.WorldRotation.Forward; // Richtung von der Kamera
-					}
-					
+					muzzlePosition = muzzleAttachment?.Position;
+					break;
 				}
 			}
+
+			// Führe einen Raycast von der Kamera durch das Fadenkreuz
+			var cameraPos = Owner.PlyCamera.WorldPosition;
+			var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
+
+			var rayResult = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+				.IgnoreGameObjectHierarchy( GameObject.Root )
+				.WithoutTags( "player" )
+				.UseHitboxes( true )
+				.Run();
+
+			// Setze den Zielpunkt - entweder Trefferpunkt oder maximale Distanz
+			var targetPos = rayResult.Hit ? rayResult.EndPosition : cameraPos + cameraDir * 5000f;
+
+			// Startposition ist die Mündung, Richtung geht zum Zielpunkt
+			startPos = muzzlePosition ?? cameraPos;
+			direction = (targetPos - startPos).Normal;
 		}
 		else
 		{
@@ -1004,15 +1034,20 @@ public partial class  BaseGun : WeaponComponent, IUse
 	private bool hasStoppedActions = false;
 	protected virtual void OnReloadEnd()
 	{
-		
 		var ammoToTake = ClipSize - AmmoInClip;
 		Owner.Ammo.TryTake( AmmoType, ammoToTake, out var taken );
 		AmmoInClip += taken;
+
 		EffectRenderer?.Set( "b_empty", false );
 		EffectRenderer?.Set( "b_reload", false ); // Beendet die Nachladeanimation
+
+		// Beende auch die Animation am ModelRenderer in Third-Person
+		if ( Owner?.CameraMode != 0 )
+		{
+			Owner?.ModelRenderer.Set( "b_reload", false );
+		}
+
 		IsReloading = false;
-		// Animation stoppen
-		EffectRenderer?.Set( "b_reload", false );
 	}
 	private void StopAllActions()
 	{
@@ -1309,42 +1344,54 @@ public partial class  BaseGun : WeaponComponent, IUse
 		{
 			throw new InvalidOperationException( "SceneWorld is null." );
 		}
-		if ( EffectRenderer.SceneModel == null )
+
+		// Sound-Position bestimmen - abhängig vom Kamera-Modus
+		Vector3 soundPosition;
+		Transform? muzzleTransform = null;
+
+		if ( Owner.CameraMode == 0 ) // First-Person
 		{
-			return;
-		}
-		
-		if ( MuzzleFlash != null )
-		{
-			
-			if ( EffectRenderer.SceneModel != null )
+			// Versuche, das Mündungs-Attachment vom EffectRenderer zu bekommen
+			if ( EffectRenderer?.SceneModel != null )
 			{
-				var transform = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
-
-				if ( transform.HasValue )
-				{
-					
-					var muzzleFlashInstance = ResourceLibrary.Get<PrefabFile>( MuzzleFlash.ResourcePath );
-					if ( muzzleFlashInstance != null )
-					{
-						
-						var muzzleFlash = GameObject.Clone( muzzleFlashInstance );
-						if ( muzzleFlash != null )
-						{
-							muzzleFlash.WorldPosition = transform.Value.Position;
-							muzzleFlash.WorldRotation = Rotation.LookAt( trace.Direction );
-						}
-						_ = DestroyMuzzleFlashAfterDelay( muzzleFlash, 1.0f );
-
-
-					}
-					
-				}
-				
+				muzzleTransform = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
+				soundPosition = muzzleTransform?.Position ?? startPos;
 			}
 			else
 			{
-				//Log.Warning("EffectRenderer.SceneModel is null.");
+				soundPosition = startPos;
+			}
+		}
+		else // Third-Person
+		{
+			// Versuche, das Mündungs-Attachment vom ModelRenderer des Spielers zu bekommen
+			var weaponBone = Owner.ModelRenderer.Components.GetAll<SkinnedModelRenderer>();
+			soundPosition = startPos; // Fallback
+
+			foreach ( var renderer in weaponBone )
+			{
+				var attachment = renderer.GetAttachment( "muzzle" );
+				if ( attachment != null )
+				{
+					muzzleTransform = attachment;
+					soundPosition = attachment.Value.Position;
+					break;
+				}
+			}
+		}
+		// Muzzle Flash anzeigen (wenn verfügbar)
+		if ( MuzzleFlash != null && muzzleTransform.HasValue )
+		{
+			var muzzleFlashInstance = ResourceLibrary.Get<PrefabFile>( MuzzleFlash.ResourcePath );
+			if ( muzzleFlashInstance != null )
+			{
+				var muzzleFlash = GameObject.Clone( muzzleFlashInstance );
+				if ( muzzleFlash != null )
+				{
+					muzzleFlash.WorldPosition = muzzleTransform.Value.Position;
+					muzzleFlash.WorldRotation = Rotation.LookAt( trace.Direction );
+					_ = DestroyMuzzleFlashAfterDelay( muzzleFlash, 1.0f );
+				}
 			}
 		}
 
@@ -1357,135 +1404,55 @@ public partial class  BaseGun : WeaponComponent, IUse
 			{
 				case AspectType.Fire:
 					// Feueraspekt implementieren
-					var transformfire = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
-					{
-						if ( transformfire.HasValue )
-						{
-							Sound.Play( "prefabs/hit/fire-sounds/breath.sound", transformfire.Value.Position );
-							Sound.Play( FireSound, transformfire.Value.Position );
-							
-
-
-						}
-
-					}
+					Sound.Play( "prefabs/hit/fire-sounds/breath.sound", soundPosition );
+					Sound.Play( FireSound, soundPosition );
 					return;
+
 				case AspectType.Water:
-					Sound.Play( "sounds/aspects/water/water.sound", startPos );
+					Sound.Play( "sounds/aspects/water/water.sound", soundPosition );
 					return;
+
 				case AspectType.Ice:
-					var transformice = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
-					{
-						if ( transformice.HasValue )
-						{
-							Sound.Play( FireSound, transformice.Value.Position );
-							Task.Delay( 5000 );
-							Sound.Play( "sounds/aspects/shadow.sound", transformice.Value.Position );
-
-
-						}
-
-					}
+					Sound.Play( FireSound, soundPosition );
+					_ = PlayDelayedSound( "sounds/aspects/shadow.sound", soundPosition, 0.5f );
 					return;
+
 				case AspectType.Air:
-					var transformair= EffectRenderer.SceneModel.GetAttachment( "muzzle" );
-					{
-						if ( transformair.HasValue )
-						{
-							
-							Sound.Play( FireSound, transformair.Value.Position );
-						
-							
-
-
-						}
-
-					}
+					Sound.Play( FireSound, soundPosition );
 					return;
+
 				case AspectType.Earth:
-					Sound.Play( "sounds/impacts/bullets/impact-bullet-sand.sound", startPos );
+					Sound.Play( "sounds/impacts/bullets/impact-bullet-sand.sound", soundPosition );
 					return;
+
 				case AspectType.Lightning:
-					Sound.Play( "sounds/fireaspect.sound", startPos );
+					Sound.Play( "sounds/fireaspect.sound", soundPosition );
 					return;
+
 				case AspectType.Shadow:
-					var transformshadow = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
-					{
-						if ( transformshadow.HasValue )
-						{
-							Sound.Play( FireSound, transformshadow.Value.Position );
-							Task.Delay( 5000 );
-							Sound.Play( "sounds/aspects/shadow.sound", transformshadow.Value.Position );
-							
-							
-						}
-						
-					}
-					
+					Sound.Play( FireSound, soundPosition );
+					_ = PlayDelayedSound( "sounds/aspects/shadow.sound", soundPosition, 0.5f );
 					return;
+
 				case AspectType.Holy:
-					var transformholy = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
-					{
-						if ( transformholy.HasValue )
-						{
-							Sound.Play( FireSound, transformholy.Value.Position );
-							Task.Delay( 5000 );
-							Sound.Play( "sounds/aspects/shadow.sound", transformholy.Value.Position );
-
-
-						}
-
-					}
+					Sound.Play( FireSound, soundPosition );
+					_ = PlayDelayedSound( "sounds/aspects/shadow.sound", soundPosition, 0.5f );
 					return;
+
 				case AspectType.Bleed:
-					var transformbleed = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
-					{
-						if ( transformbleed.HasValue )
-						{
-							Sound.Play( FireSound, transformbleed.Value.Position );
-							Task.Delay( 5000 );
-							Sound.Play( "sounds/aspects/shadow.sound", transformbleed.Value.Position );
-
-
-						}
-
-					}
+					Sound.Play( FireSound, soundPosition );
+					_ = PlayDelayedSound( "sounds/aspects/shadow.sound", soundPosition, 0.5f );
 					return;
+
 				case AspectType.Poison:
-					var transformpoin = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
-					{
-						if ( transformpoin.HasValue )
-						{
-							Sound.Play( "prefabs/hit/fire-sounds/breath.sound", transformpoin.Value.Position );
-							Sound.Play( FireSound, transformpoin.Value.Position );
-
-
-
-						}
-
-					}
+					Sound.Play( "prefabs/hit/fire-sounds/breath.sound", soundPosition );
+					Sound.Play( FireSound, soundPosition );
 					return;
+
 				default:
 					if ( FireSound != null )
 					{
-						if ( EffectRenderer.SceneModel != null )
-						{
-							var transform = EffectRenderer.SceneModel.GetAttachment( "muzzle" );
-
-							if ( transform.HasValue )
-							{
-								// Spiele den FireSound an der Position der Mündung ab
-								Sound.Play( FireSound, transform.Value.Position );
-							}
-							else
-							{
-								
-							}
-						}
-						else
-						{
-							Log.Warning( "EffectRenderer.SceneModel is null." );
-						}
+						Sound.Play( FireSound, soundPosition );
 					}
 					else
 					{
@@ -1495,16 +1462,21 @@ public partial class  BaseGun : WeaponComponent, IUse
 			}
 		}
 
-		
+
+	}
+	private async Task PlayDelayedSound( string soundPath, Vector3 position, float delayInSeconds )
+	{
+		await Task.Delay( (int)(delayInSeconds * 1000) );
+		Sound.Play( soundPath, position );
 	}
 	private async Task DestroyMuzzleFlashAfterDelay( GameObject muzzleFlash, float delay )
 	{
-		await Task.Delay(1000);
+		await Task.Delay( 1000 );
 		if ( muzzleFlash != null )
 		{
 			muzzleFlash.Destroy();
 		}
-		
+
 	}
 	public class DamageText : Panel
 	{
