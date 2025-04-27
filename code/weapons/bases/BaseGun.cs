@@ -661,40 +661,37 @@ public partial class  BaseGun : WeaponComponent, IUse
 		AmmoInClip--;
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
-		Log.Info( attachment );
+	
 		// Initialisiere die Variablen mit Standardwerten
 		Vector3 startPos = this.LocalPosition;
 		Vector3 direction = this.LocalPosition; // Standardwert
 
 
 
-		// Überprüfen, ob der Spieler in der Third-Person-Ansicht ist
 		if ( Owner.CameraMode != 0 ) // 0 = First-Person
 		{
 			var weaponBone = Owner.ModelRenderer.Components.GetAll<SkinnedModelRenderer>();
 			if ( weaponBone != null )
 			{
-				Log.Info( "Waffe gefunden" );
 			
+
 				foreach ( var renderer in weaponBone )
 				{
-					// Nutze die Position und Rotation der Mündung des ModelRenderers
+					// Nutze die Position des ModelRenderers, aber die Richtung der Kamera
 					var muzzleAttachment = renderer.GetAttachment( "muzzle" );
 					if ( muzzleAttachment != null ) // Überprüfe, ob das GameObject gültig ist
 					{
-						Log.Info( "Mündung gefunden" );
-						startPos = muzzleAttachment?.Position ?? Vector3.Zero; // Fallback auf (0, 0, 0), falls keine Mündung gefunden wird
-						direction = muzzleAttachment?.Rotation.Forward ?? Vector3.Forward;
+					
+						startPos = muzzleAttachment?.Position ?? Vector3.Zero; // Nur Position vom Attachment
+						direction = Owner.PlyCamera.WorldRotation.Forward; // Richtung von der Kamera
 					}
-					else
-					{
-						Log.Info( "Mündung nicht gefunden" );
-					}
+					
 				}
 			}
 		}
 		else
 		{
+			
 			// Nutze die Position und Rotation der Mündung
 			startPos = attachment?.Position ?? Vector3.Zero; // Fallback auf (0, 0, 0), falls keine Mündung gefunden wird
 			direction = attachment?.Rotation.Forward ?? Vector3.Forward;
