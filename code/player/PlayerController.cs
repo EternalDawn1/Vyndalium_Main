@@ -462,16 +462,13 @@ public partial class Player : Component, IHealthComponent
 
 		if ( type == DamageType.Bullet )
 		{
-			// Entfernen der Partikel-Logik
-			// var p = Particles.Create("particles/impact.flesh.bloodpuff.vpcf", hitPosition);
-			// p.SetControlPoint(0, hitPosition);
-			// p.SetControlPoint(0, Rotation.LookAt(hitDirection.Normal * -1f));
-			// p.PlayUntilFinished(Task);
+			
 
 			if ( HurtSound is not null )
 			{
 				Sound.Play( HurtSound, WorldPosition );
 			}
+			Local.ModelRenderer.Set( "hit", true );
 			
 			
 		}

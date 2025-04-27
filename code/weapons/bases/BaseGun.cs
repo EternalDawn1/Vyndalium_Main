@@ -602,6 +602,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 			return;
 
 		EffectRenderer?.Set( "b_reload", true );
+		Owner?.ModelRenderer.Set("b_reload", true );
 		ReloadFinishTime = AmmoInClip == 0 ? EmptyReloadTime : ReloadTime;
 		IsReloading = true;
 		
@@ -637,6 +638,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 		Owner.ApplyRecoil( Recoil );
 		EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
 		EffectRenderer?.Set( "b_attack", true );
+		Owner?.ModelRenderer.Set( "b_attack", true );
 		EffectRenderer?.Set( "b_reload", false );
 		
 		var gunrenderer = EffectRenderer?.Components.GetAll<SkinnedModelRenderer>();
@@ -659,6 +661,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 		AmmoInClip--;
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
+		Log.Info( attachment );
 		// Initialisiere die Variablen mit Standardwerten
 		Vector3 startPos = this.LocalPosition;
 		Vector3 direction = this.LocalPosition; // Standardwert
@@ -668,18 +671,24 @@ public partial class  BaseGun : WeaponComponent, IUse
 		// Überprüfen, ob der Spieler in der Third-Person-Ansicht ist
 		if ( Owner.CameraMode != 0 ) // 0 = First-Person
 		{
-			var weaponBone = EffectRenderer?.Components.GetAll<ModelRenderer>();
+			var weaponBone = Owner.ModelRenderer.Components.GetAll<SkinnedModelRenderer>();
 			if ( weaponBone != null )
 			{
-				Log.Info( "WeaponBone gefunden" );
+				Log.Info( "Waffe gefunden" );
+			
 				foreach ( var renderer in weaponBone )
 				{
 					// Nutze die Position und Rotation der Mündung des ModelRenderers
-					var muzzleAttachment = renderer.GetAttachmentObject( "muzzle" );
-					if ( muzzleAttachment != null && muzzleAttachment.IsValid() ) // Überprüfe, ob das GameObject gültig ist
+					var muzzleAttachment = renderer.GetAttachment( "muzzle" );
+					if ( muzzleAttachment != null ) // Überprüfe, ob das GameObject gültig ist
 					{
-						startPos = muzzleAttachment.LocalPosition;
-						direction = muzzleAttachment.LocalRotation.Forward;
+						Log.Info( "Mündung gefunden" );
+						startPos = muzzleAttachment?.Position ?? Vector3.Zero; // Fallback auf (0, 0, 0), falls keine Mündung gefunden wird
+						direction = muzzleAttachment?.Rotation.Forward ?? Vector3.Forward;
+					}
+					else
+					{
+						Log.Info( "Mündung nicht gefunden" );
 					}
 				}
 			}

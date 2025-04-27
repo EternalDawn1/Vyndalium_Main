@@ -47,20 +47,7 @@ public class WeaponComponent : Component
 	public SkinnedModelRenderer ModelRenderer { get; set; }
 	public ViewModel ViewModel { get; set; }
 	public TimeUntil NextAttackTime { get; set; }
-	public SkinnedModelRenderer EffectRenderer
-	{
-		get
-		{
-			// Verwende das ViewModel nur in der First-Person-Ansicht
-			if ( Owner?.CameraMode == 0 && ViewModel.IsValid() )
-			{
-				return ViewModel.ModelRenderer;
-			}
-
-			// Fallback auf das ModelRenderer in der Third-Person-Ansicht
-			return ModelRenderer;
-		}
-	}
+	public SkinnedModelRenderer EffectRenderer => ViewModel.IsValid() ? ViewModel.ModelRenderer : ModelRenderer;
 	public EquipSlot Slot { get; set; }
 	
 
