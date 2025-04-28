@@ -53,9 +53,15 @@ public class WeaponComponent : Component
 
 	public bool IsInitialized { get; private set; }
 
+	protected override void OnUpdate()
+	{
+		base.OnUpdate();
 
+		if ( !Owner.IsValid() || !ModelRenderer.IsValid() )
+			return;
 
-
+		
+	}
 	protected override void OnStart()
 	{
 		if ( Player.Local?.LifeState == LifeState.Dead )
@@ -240,6 +246,7 @@ public class WeaponComponent : Component
 
 			return;
 		}
+		
 
 		var player = Components.GetInAncestors<Player>();
 		if ( player == null ) return;

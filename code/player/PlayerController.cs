@@ -632,6 +632,7 @@ public partial class Player : Component, IHealthComponent
 
 
 	}
+	
 	private TimeSince lastStepped;
 	private bool isLeftFoot = true;
 
