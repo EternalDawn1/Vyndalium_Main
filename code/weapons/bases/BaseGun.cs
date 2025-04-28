@@ -14,7 +14,7 @@ namespace GeneralGame;
 
 public partial class  BaseGun : WeaponComponent, IUse
 {
-	[Property]public bool IsMelee { get; set; }
+	
 
 	[Property]
 	public PrefabFile Trail { get; set; } 
@@ -22,8 +22,11 @@ public partial class  BaseGun : WeaponComponent, IUse
 	[Property] PrefabFile ImpactArea { get; set; }
 
 	[Property] public bool IsShotgun { get; set; } = false;
+	[Property] public bool IsRifle { get; set; } = false;
+	[Property] public bool IsPistol { get; set; } = false;
+	[Property] public bool IsMelee { get; set; } = false;
 	[Property, Category( "Parameters" )] public DamageType DamageType { get; set; } = DamageType.Serious;
-	[Property, Category( "Parameters" )] public WeaponType Type { get; set; }
+
 	[Property, Category( "Parameters" )] public float ReloadTime { get; set; } = 2f;
 	[Property, Category( "Parameters" )] public float EmptyReloadTime { get; set; } = 2f;
 	[Property, Category( "Parameters" ), Feature( "Weapon Properties" )] public float Spread { get; set; } = 0.01f;
@@ -698,6 +701,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 				var muzzleAttachment = renderer.GetAttachment( "muzzle" );
 				if ( muzzleAttachment != null )
 				{
+					Log.Info( $"Mündung gefunden: {muzzleAttachment}" );
 					muzzlePosition = muzzleAttachment?.Position;
 					break;
 				}
@@ -719,13 +723,16 @@ public partial class  BaseGun : WeaponComponent, IUse
 			// Startposition ist die Mündung, Richtung geht zum Zielpunkt
 			startPos = muzzlePosition ?? cameraPos;
 			direction = (targetPos - startPos).Normal;
+			Log.Info( $"Startposition: {startPos}, Richtung: {direction} HEHEEEE" );
 		}
 		else
 		{
-			
+
 			// Nutze die Position und Rotation der Mündung
 			startPos = attachment?.Position ?? Vector3.Zero; // Fallback auf (0, 0, 0), falls keine Mündung gefunden wird
 			direction = attachment?.Rotation.Forward ?? Vector3.Forward;
+
+			Log.Info( $"Startposition: {startPos}, Richtung: {direction}" );
 		}
 
 

@@ -17,14 +17,14 @@ public enum EquipSlot : byte
 
 public enum HoldType : byte
 {
-	Idle,
-	Rifle,
-	FishingRod,
-	Item,
-	Flashlight,
-	Melee,
+    Idle,
     Pistol,
+    Rifle,
     Shotgun,
+    Item,
+    Melee,
+    Swing,
+
 }
 
 public class ItemEquipment : ItemComponent

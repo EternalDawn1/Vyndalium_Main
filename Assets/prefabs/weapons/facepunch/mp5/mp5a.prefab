@@ -29,7 +29,6 @@
         "FireRate": 9,
         "FireSound": "sounds/guns/mp5/smg1_shoot.sound",
         "HitForce": 300,
-        "HoldType": "Rifle",
         "HolsterSound": "sounds/weapons/weapon_holster3.sound",
         "IdlePos": "-3,0,0",
         "ImpactArea": null,
@@ -38,6 +37,8 @@
         "IsDeployed": false,
         "IsMagicWeapon": false,
         "IsMelee": false,
+        "IsPistol": false,
+        "IsRifle": false,
         "IsShotgun": false,
         "lineRenderer": null,
         "MeleeCooldown": 1,
@@ -57,12 +58,10 @@
         "RunRotation": "-0.01738057,-0.001581756,0.09061877,0.9957328",
         "Spread": 0.01,
         "Trail": null,
-        "Type": "Ranged",
         "ViewModelPrefab": {
           "_type": "gameobject",
           "prefab": "models/facepunch/mp5/vm_mp5.prefab"
-        },
-        "WeaponType": "MP5"
+        }
       },
       {
         "__type": "Sandbox.ModelCollider",
@@ -348,14 +347,14 @@
         "Children": [
           {
             "__guid": "7e2f007a-b8d7-4009-a72f-536ea5f03b2d",
-            "Flags": 0,
+            "Flags": 8,
             "Name": "muzzle",
             "Position": "13.2196,0,8.088171",
             "Enabled": true
           },
           {
             "__guid": "b00dbb0f-80f5-48d9-bfcf-4661daaaa755",
-            "Flags": 0,
+            "Flags": 8,
             "Name": "eject",
             "Position": "2.455421,-0.647761,8.8746",
             "Enabled": true

@@ -730,34 +730,31 @@ public partial class Player : Component, IHealthComponent
 		
 	}
 
+	// Neues Feld zum Speichern des letzten Kameramodus
+	private int _lastCameraMode = -1; // -1 als Initialwert, damit beim ersten Aufruf eine Aktualisierung stattfindet
 
-	[Rpc.Broadcast]
 	private void UpdateWeaponModelVisibility()
 	{
-		if ( !IsProxy )
-			return;
+		if ( IsProxy ) return;
+
+		// Nur aktualisieren, wenn sich der Kameramodus geändert hat
+		if ( _lastCameraMode == CameraMode ) return;
 
 		var deployedWeapon = Weapons.Deployed;
-		foreach ( var weapon in Weapons.All )
-		{
-			var modelRenderer = weapon.Components.Get<ModelRenderer>();
-			var skinnedModelRenderer = weapon.Components.Get<SkinnedModelRenderer>();
+		if ( deployedWeapon == null || !deployedWeapon.IsValid() )
+			return;
 
-			if ( modelRenderer != null )
-			{
-				// Aktivieren Sie den Renderer in der Third-Person-Ansicht
-				modelRenderer.Enabled = Local.ThirdPersonEnabled || weapon == deployedWeapon;
-			}
+		// Setze die Sichtbarkeit basierend auf dem Kameramodus
+		bool shouldBeVisible = CameraMode == 1 || CameraMode == 2;
 
-			if ( skinnedModelRenderer != null )
-			{
-				// Aktivieren Sie den SkinnedModelRenderer in der Third-Person-Ansicht
-				skinnedModelRenderer.Enabled = Local.ThirdPersonEnabled || weapon == deployedWeapon;
-			}
-		}
+		// Alternativer Ansatz für eine einzelne Komponente
+		var renderer = deployedWeapon.Components.GetInDescendants<SkinnedModelRenderer>( true );
+		if ( renderer != null && renderer.Enabled != shouldBeVisible )
+			renderer.Enabled = shouldBeVisible;
+
+		// Aktualisiere den gespeicherten Kameramodus
+		_lastCameraMode = CameraMode;
 	}
-
-
 	[Rpc.Broadcast]
 	private void UpdateModelVisibility()
 	{
@@ -851,9 +848,55 @@ public partial class Player : Component, IHealthComponent
 	private float crouchDuration = 5f; // Dauer des Crouchens in Sekunden
 	private float crouchTimer = 0.0f;
 	[Sync]
-	public int CameraMode { get; set; } = 0;
-	
-	
+	public int CameraMode { get; set; } = 1;
+	// Füge diese Methode nach der bestehenden UpdateWeaponModelVisibility() Methode hinzu
+	private void UpdateHoldTypeAnimation()
+	{
+		if ( IsProxy ) return;
+
+		// Standard-HoldType (keine Waffe)
+		int holdTypeValue = 0; // HoldType.None (0 in der Aufzählung)
+
+		// Prüfen, ob eine Waffe ausgerüstet ist
+		var deployedWeapon = Weapons.Deployed;
+		if ( deployedWeapon != null && deployedWeapon.IsValid() )
+		{
+			// Wenn es ein ItemEquipment ist, hole den HoldType von dort
+			var itemEquipment = deployedWeapon.Components.Get<ItemEquipment>();
+			if ( itemEquipment != null )
+			{
+				holdTypeValue = (int)itemEquipment.HoldType;
+			}
+			else
+			{
+				// Fallback für Waffen ohne ItemEquipment-Komponente
+				// Bestimme den HoldType basierend auf der Waffenart
+				if ( deployedWeapon is BaseGun gun )
+				{
+					// Beispiellogik zur Unterscheidung verschiedener Waffentypen
+					if ( gun.IsRifle )
+						holdTypeValue = (int)HoldType.Rifle;
+					else if ( gun.IsPistol )
+						holdTypeValue = (int)HoldType.Pistol;
+					else if ( gun.IsShotgun )
+						holdTypeValue = (int)HoldType.Shotgun;
+				}
+				else if ( deployedWeapon.IsMelee )
+				{
+					holdTypeValue = (int)HoldType.Melee;
+				}
+			}
+		}
+		else
+		{
+			// Wenn keine Waffe ausgerüstet ist
+			holdTypeValue = 0; // HoldType.None (0 in der Aufzählung)
+		}
+
+		// Animation-Parameter setzen
+		ModelRenderer.Set( "holdtype", holdTypeValue );
+	}
+
 	protected override void OnUpdate()
 	{
 
@@ -864,8 +907,8 @@ public partial class Player : Component, IHealthComponent
 
 
 		UpdateWeaponModelVisibility();
-
-		ModelRenderer.Set( "holdtype", 2 );
+		UpdateHoldTypeAnimation();
+		
 		ModelRenderer.Set( "b_attack", true );
 
 		if ( !Eye.IsValid() )
@@ -948,10 +991,10 @@ public partial class Player : Component, IHealthComponent
 					}
 					break;
 
-				case 1: // Third-Person-Left
+				case 2: // Third-Person-Left
 					{
 						var offset = EyeAngles.ToRotation().Right * -30f; // Kamera links relativ zur Blickrichtung
-						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * 150f + Vector3.Up * 50f + offset;
+						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * 70f + Vector3.Up * 50f + offset;
 
 						// Raycast von der Spielerposition zur gewünschten Kameraposition
 						var leftTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 50f, desiredPosition )
@@ -966,10 +1009,10 @@ public partial class Player : Component, IHealthComponent
 						break;
 					}
 
-				case 2: // Third-Person-Right
+				case 1: // Third-Person-Right
 					{
 						var offset = EyeAngles.ToRotation().Right * 30f; // Kamera rechts relativ zur Blickrichtung
-						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * 150f + Vector3.Up * 50f + offset;
+						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * 70f + Vector3.Up * 50f + offset;
 
 						// Raycast von der Spielerposition zur gewünschten Kameraposition
 						var rightTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 50f, desiredPosition )

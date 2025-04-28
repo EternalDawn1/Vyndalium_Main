@@ -29,7 +29,6 @@
         "FireRate": 9,
         "FireSound": "sounds/guns/mp5/smg1_shoot.sound",
         "HitForce": 300,
-        "HoldType": "Rifle",
         "HolsterSound": "sounds/weapons/weapon_holster3.sound",
         "IdlePos": "-3,0,0",
         "ImpactArea": null,
@@ -38,6 +37,8 @@
         "IsDeployed": false,
         "IsMagicWeapon": false,
         "IsMelee": false,
+        "IsPistol": false,
+        "IsRifle": false,
         "IsShotgun": false,
         "lineRenderer": null,
         "MeleeCooldown": 1,
@@ -57,12 +58,10 @@
         "RunRotation": "-0.01738057,-0.001581756,0.09061877,0.9957328",
         "Spread": 0.1,
         "Trail": null,
-        "Type": "Ranged",
         "ViewModelPrefab": {
           "_type": "gameobject",
           "prefab": "models/facepunch/mp5/vm_mp5.prefab"
-        },
-        "WeaponType": "Melee"
+        }
       },
       {
         "__type": "Sandbox.ModelCollider",
@@ -149,7 +148,7 @@
         "DMG": 200,
         "Durability": 0,
         "EarthElementalDamage": 0,
-        "EnableHolding": true,
+        "EnableHolding": false,
         "Evasion": 0,
         "FireElementalDamage": 0,
         "FireRate": 0,

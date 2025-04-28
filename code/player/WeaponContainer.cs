@@ -192,16 +192,21 @@ public partial class WeaponContainer : Component
 		weaponGo.WorldRotation = WeaponBone.WorldRotation;
 
 		// **Aktiviere den ModelRenderer oder SkinnedModelRenderer**
+		// In der Give-Methode, ersetze den folgenden Code:
+
+		// **Aktiviere den ModelRenderer oder SkinnedModelRenderer**
 		var modelRenderer = weaponGo.Components.Get<ModelRenderer>();
 		if ( modelRenderer != null )
 		{
-			modelRenderer.Enabled = true;
+			// Im Third-Person-Modus deaktivieren
+			modelRenderer.Enabled = Player.Local.CameraMode == 0; // Nur in First-Person aktivieren
 		}
 
 		var skinnedModelRenderer = weaponGo.Components.Get<SkinnedModelRenderer>();
 		if ( skinnedModelRenderer != null )
 		{
-			skinnedModelRenderer.Enabled = true;
+			// Im Third-Person-Modus deaktivieren
+			skinnedModelRenderer.Enabled = Player.Local.CameraMode == 0; // Nur in First-Person aktivieren
 		}
 
 		var nextWeaponGo = weaponGo.Components.GetInDescendantsOrSelf<BaseGun>( true );

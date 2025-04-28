@@ -5,33 +5,23 @@ using System.Numerics;
 namespace GeneralGame;
 
 
-public enum WeaponType
-{
-	Melee,
-	Ranged,
-	M4A1,
-	AK,
-	MP5,
-	Shotgun,
-	Pistole,
-	Deagle,
 
-}
 
 
 public class WeaponComponent : Component
 {
 
 	
-	[Property]public WeaponType WeaponType { get; set; }
+
 	
 	[Property] public string DisplayName { get; set; }
+	[Property] public bool IsMelee { get; set; } = false;
 	[Property, Category( "Weapon Properties" )] public float DeployTime { get; set; } = 0.5f;
 	[Property, Category( "Weapon Properties" )] public float DamageForce { get; set; } = 5f;
 	[Property, Category( "Weapon Properties" ), Feature( "Weapon Properties" )] public int Damage { get; set; } = 5;
 	[Property, Category( "Weapon Properties" ) ,Feature("Weapon Properties")] public float FireRate { get; set; } = 18f;
 	[Property] public GameObject ViewModelPrefab { get; set; }
-	[Property] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.Pistol;
+
 	[Property] public SoundEvent DeploySound { get; set; }
 	[Property] public SoundEvent HolsterSound { get; set; }
 	[Property] public bool IsDeployed { get; set; } = false;
@@ -78,6 +68,10 @@ public class WeaponComponent : Component
 		{
 			OnDeployed();
 			
+		}
+		else
+		{
+			OnHolstered();
 		}
 	
 
