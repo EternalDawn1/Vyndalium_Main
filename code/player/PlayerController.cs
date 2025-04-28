@@ -877,7 +877,10 @@ public partial class Player : Component, IHealthComponent
 					if ( gun.IsRifle )
 						holdTypeValue = (int)HoldType.Rifle;
 					else if ( gun.IsPistol )
+					{
 						holdTypeValue = (int)HoldType.Pistol;
+						ModelRenderer.Set( "holdtype_handedness", 2 );
+					}
 					else if ( gun.IsShotgun )
 						holdTypeValue = (int)HoldType.Shotgun;
 				}
