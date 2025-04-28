@@ -53,7 +53,6 @@ public class WeaponComponent : Component
 
 	public bool IsInitialized { get; private set; }
 
-	// Methode zum Initialisieren der Waffe, die auch IsInitialized setzt
 
 
 
@@ -72,6 +71,7 @@ public class WeaponComponent : Component
 		if ( IsDeployed )
 		{
 			OnDeployed();
+			
 		}
 		else
 		{
@@ -237,7 +237,7 @@ public class WeaponComponent : Component
 	{
 		if ( IsProxy || !ViewModelPrefab.IsValid() )
 		{
-			Log.Error( "ViewModelPrefab is not valid in CreateViewModel" );
+			
 			return;
 		}
 
@@ -246,7 +246,7 @@ public class WeaponComponent : Component
 
 		if ( player.CameraMode != 0 ) // 0 = First-Person
 		{
-			Log.Info( "CreateViewModel wird im Third-Person-Modus nicht ausgeführt." );
+			
 			return;
 		}
 
@@ -255,7 +255,7 @@ public class WeaponComponent : Component
 		var viewModelGameObject = ViewModelPrefab.Clone();
 		if ( viewModelGameObject == null )
 		{
-			Log.Error( "ViewModelPrefab.Clone() returned null in CreateViewModel" );
+			
 			return;
 		}
 
@@ -264,7 +264,6 @@ public class WeaponComponent : Component
 		ViewModel = viewModelGameObject.Components.Get<ViewModel>();
 		if ( ViewModel == null )
 		{
-			Log.Error( "ViewModel is null in CreateViewModel" );
 			return;
 		}
 

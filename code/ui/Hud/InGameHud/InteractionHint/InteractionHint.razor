@@ -209,6 +209,10 @@
 
     private bool IsAccessible(Interaction interaction)
     {
+        if (Player.Local.CameraMode != 0) // Nicht First-Person
+        {
+            return true;
+        }
         if (interaction.Accessibility.HasFlag(AccessibleFrom.World))
             return true;
 

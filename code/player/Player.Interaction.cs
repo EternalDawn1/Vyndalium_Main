@@ -15,9 +15,30 @@ public partial class Player
 	[Rpc.Broadcast]
 	private void UpdateInteractions()
 	{
-		var thinTrace = Scene.Trace.Ray( ViewRay, INTERACTION_DISTANCE )
+		// Angepasste Parameter für Third-Person-Modus
+		float interactionDistance = INTERACTION_DISTANCE;
+		float interactionSize = INTERACTION_SIZE;
+
+		// Wenn im Third-Person-Modus, verwenden wir andere Parameter
+		if ( CameraMode != 0 )
+		{
+			// Erhöhe die Distanz und die Größe im Third-Person-Modus
+			interactionDistance = INTERACTION_DISTANCE * 1.5f;
+			interactionSize = INTERACTION_SIZE * 1.5f;
+		}
+
+		Ray rayToUse = ViewRay;
+
+		// Wenn im Third-Person-Modus, verwenden wir einen Strahl von der Mitte des Spielers nach vorne
+		if ( CameraMode != 0 )
+		{
+			// Ray aus der Spielermitte in Richtung der Kameraorientierung
+			rayToUse = new Ray( WorldPosition + Vector3.Up * 50f, PlyCamera.WorldRotation.Forward );
+		}
+
+		var thinTrace = Scene.Trace.Ray( rayToUse, interactionDistance )
 					.IgnoreGameObject( GameObject )
-					.Size( INTERACTION_SIZE )
+					.Size( interactionSize )
 					.WithoutTags( "world" )
 					.Run();
 
@@ -41,8 +62,9 @@ public partial class Player
 		}
 		else
 		{
-			InteractionTrace = Scene.Trace.Ray( ViewRay, INTERACTION_DISTANCE )
-						.Size( INTERACTION_SIZE )
+			// Zweiter Versuch mit größerem Radius
+			InteractionTrace = Scene.Trace.Ray( rayToUse, interactionDistance )
+						.Size( interactionSize * 2f ) // Doppelte Größe für bessere Erkennung
 						.IgnoreGameObject( GameObject )
 						.WithoutTags( "world" )
 						.Run();
@@ -70,6 +92,8 @@ public partial class Player
 		{
 			InteractionBounds = BBox.FromPositionAndSize( 0, 50f );
 		}
+
+		
 	}
 
 	// A lot of parameters! We should fix this up at a later point.
