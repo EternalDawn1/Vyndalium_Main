@@ -88,6 +88,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 	public virtual void OnEquip( Player player )
 	{
+		
 		if ( player == null || !player.IsValid() || player.AmmoContainer == null )
 		{
 			Log.Info( "Ungültiger Spieler oder AmmoContainer ist null." );

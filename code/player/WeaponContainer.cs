@@ -105,9 +105,16 @@ public partial class WeaponContainer : Component
 			Give( StartingWeapon, true );
 		}
 	}
-
+	private bool _isGiving = false;
 	public async void Give( GameObject prefab, bool shouldDeploy = false )
 	{
+		if ( _isGiving )
+		{
+			
+			return;
+		}
+		
+		_isGiving = true;
 		if ( IsProxy )
 			return;
 
@@ -176,6 +183,7 @@ public partial class WeaponContainer : Component
 			foreach ( var w in All )
 			{
 				w.Holster();
+				_isGiving = false;
 			}
 		}
 
@@ -246,8 +254,9 @@ public partial class WeaponContainer : Component
 		}
 
 		
-			prefab.SetParent( null );
-			ClearWeaponBone();
+		_isGiving = false;
+		prefab.SetParent( null );
+		ClearWeaponBone();
 		
 	}
 
@@ -262,6 +271,8 @@ public partial class WeaponContainer : Component
 		foreach ( var child in WeaponBone.Children.ToList() )
 		{
 			child.Destroy();
+			
+			_isGiving = false;
 		}
 	}
 

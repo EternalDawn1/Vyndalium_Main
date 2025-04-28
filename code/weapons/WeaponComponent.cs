@@ -73,11 +73,7 @@ public class WeaponComponent : Component
 			OnDeployed();
 			
 		}
-		else
-		{
-			OnHolstered();
-			ModelRenderer?.Set( "b_holster", true );
-		}
+	
 
 		base.OnStart();
 	}
@@ -111,6 +107,7 @@ public class WeaponComponent : Component
 	[Rpc.Broadcast]
 	public virtual void Deploy()
 	{
+		
 		if ( !IsDeployed )
 		{
 			IsDeployed = true;
@@ -181,6 +178,7 @@ public class WeaponComponent : Component
 
 	protected virtual void OnDeployed()
 	{
+		
 		if ( ModelRenderer == null || Owner == null )
 		{
 			Log.Error( "ModelRenderer or Owner is null in OnDeployed" );
@@ -191,9 +189,10 @@ public class WeaponComponent : Component
 
 		 if (Owner.IsValid() && Owner.Animators != null)
 		{
-			foreach (var animator in Owner.Animators)
+			foreach ( var animator in Owner.Animators )
 			{
 				animator.TriggerDeploy();
+				
 			}
 		}
 
@@ -235,9 +234,10 @@ public class WeaponComponent : Component
 
 	public void CreateViewModel()
 	{
+		
 		if ( IsProxy || !ViewModelPrefab.IsValid() )
 		{
-			
+
 			return;
 		}
 
