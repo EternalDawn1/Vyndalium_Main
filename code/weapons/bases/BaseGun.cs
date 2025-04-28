@@ -12,12 +12,12 @@ using System.Linq; // Für LINQ-Abfragen
 
 namespace GeneralGame;
 
-public partial class  BaseGun : WeaponComponent, IUse
+public partial class BaseGun : WeaponComponent, IUse
 {
-	
+
 
 	[Property]
-	public PrefabFile Trail { get; set; } 
+	public PrefabFile Trail { get; set; }
 
 	[Property] PrefabFile ImpactArea { get; set; }
 
@@ -32,7 +32,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 	[Property, Category( "Parameters" ), Feature( "Weapon Properties" )] public float Spread { get; set; } = 0.01f;
 	[Property, Category( "Parameters" ), Feature( "Weapon Properties" )] public float HitForce { get; set; } = 300;
 
-	[Property, Category( "Parameters" ),Range(0, 0.1f, 10), Feature( "Weapon Properties" )] public float BulletSpeed { get; set; } = 1f;
+	[Property, Category( "Parameters" ), Range( 0, 0.1f, 10 ), Feature( "Weapon Properties" )] public float BulletSpeed { get; set; } = 1f;
 
 
 	[Property, Category( "Parameters_melee" )] public float MeleeRange { get; set; } = 1.5f;
@@ -54,7 +54,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 	[Property] public int DefaultAmmo { get; set; } = 1;
 	[Property, Feature( "Weapon Properties" )] public int ClipSize { get; set; } = 15;
 	[Sync] public bool IsReloading { get; set; }
-	[Sync,Property] public int AmmoInClip { get; set; }
+	[Sync, Property] public int AmmoInClip { get; set; }
 	public SoundSequence ReloadSound { get; set; }
 	public TimeUntil ReloadFinishTime { get; set; }
 	public bool IsFiering { get; set; } = false;
@@ -70,7 +70,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 	public bool isCriticalHit = false;
 
-	
+
 	[Property, Feature( "Weapon Properties" )] public bool IsMagicWeapon { get; set; }
 
 	public void InitializeAmmo( AmmoContainer ammoContainer )
@@ -78,7 +78,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 		if ( ammoContainer != null )
 		{
 			AmmoCount = ammoContainer.GetAmmoCount( AmmoType );
-	
+
 		}
 	}
 
@@ -91,7 +91,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 	public virtual void OnEquip( Player player )
 	{
-		
+
 		if ( player == null || !player.IsValid() || player.AmmoContainer == null )
 		{
 			Log.Info( "Ungültiger Spieler oder AmmoContainer ist null." );
@@ -101,8 +101,8 @@ public partial class  BaseGun : WeaponComponent, IUse
 		Log.Info( $"AmmoCount vor dem Ausrüsten: {player.AmmoContainer.GetAmmoCount( AmmoType.Rifle )}" );
 
 		// Standardmunition abrufen und setzen
-		
-		
+
+
 
 		var ammoToTake = Math.Min( ClipSize, player.AmmoContainer.GetAmmoCount( AmmoType.Rifle ) );
 		AmmoInClip = ammoToTake;
@@ -196,7 +196,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 		if ( IsMelee )
 		{
-			
+
 		}
 		Components.GetOrCreate<Interactions>();
 
@@ -209,7 +209,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 	[Rpc.Broadcast]
 	public virtual void OnUse( Guid pickerId )
 	{
-		
+
 		var picker = Scene.Directory.FindByGuid( pickerId );
 		if ( !picker.IsValid() ) return;
 
@@ -283,10 +283,10 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 		if ( IsMelee )
 		{
-			
+
 			{
 				// Führen Sie die normale Primäraktion aus
-				if(IsMelee)
+				if ( IsMelee )
 				{
 					PerformMeleeAttack( Player.Local );
 				}
@@ -303,34 +303,34 @@ public partial class  BaseGun : WeaponComponent, IUse
 	{
 		IsFiering = false;
 	}
-	[Property]public GameObject Ragdoll { get; set; }
+	[Property] public GameObject Ragdoll { get; set; }
 	public override void SecondaryAction()
 	{
 		Owner.IsAiming = true;
 
 		if ( IsMelee )
 		{
-			
-			
+
+
 			if ( Player.Local.Mana < 25 )
 			{
 				// Nicht genug Mana, um die magische Waffe abzufeuern
 				return;
 			}
-			
+
 
 			Player.Local.ChangeMana( -25 );
-			
+
 
 			var player = Player.Local;
-			
-			
+
+
 
 			// Berechne die Flugbahn des Messers
 			Vector3 direction = Owner.PlyCamera.WorldRotation.Forward;
 
-			
-			
+
+
 			// Definiere die Start- und Endposition des Traces
 			var startPos = Owner.PlyCamera.WorldPosition;
 			var endPos = startPos + direction * 5000f;
@@ -343,7 +343,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 				.UsePhysicsWorld()
 				.Run();
 
-			
+
 
 			// Wenn das Messer etwas trifft, füge Schaden hinzu
 			if ( trace.Hit )
@@ -353,7 +353,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 				var damage = Damage;
 				var origin = attachment?.Position ?? startPos;
 
-		
+
 
 				if ( trace.Component.IsValid() )
 				{
@@ -433,13 +433,13 @@ public partial class  BaseGun : WeaponComponent, IUse
 					SendImpactMessage( trace.EndPosition, trace.Normal );
 				}
 				EffectRenderer.Set( "b_attack", true );
-				
+
 				NextMeleeAttackTime = MeleeCooldown;
-				
-				
+
+
 			}
-			
-			
+
+
 
 
 		}
@@ -453,12 +453,12 @@ public partial class  BaseGun : WeaponComponent, IUse
 			return;
 		}
 		Owner.IsAiming = false;
-		
-		
-		
+
+
+
 	}
 	[Rpc.Broadcast]
-	
+
 	private void PerformMeleeAttack( Player player )
 	{
 		if ( NextMeleeAttackTime > 0 ) return;
@@ -641,7 +641,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 	private void FireDefaultBullet( Player shooter )
 	{
-		
+
 		if ( shooter == null || Owner == null || EffectRenderer == null || Scene == null )
 		{
 			return;
@@ -653,7 +653,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 			NextAttackTime = 1f / FireRate;
 			return;
 		}
-		if(Input.Pressed("Run"))
+		if ( Input.Pressed( "Run" ) )
 		{
 			return;
 		}
@@ -662,7 +662,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 		EffectRenderer?.Set( "b_attack", true );
 		Owner?.ModelRenderer.Set( "b_attack", true );
 		EffectRenderer?.Set( "b_reload", false );
-		
+
 		var gunrenderer = EffectRenderer?.Components.GetAll<SkinnedModelRenderer>();
 		if ( gunrenderer != null )
 		{
@@ -674,7 +674,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 			}
 		}
-		
+
 
 
 
@@ -683,7 +683,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 		AmmoInClip--;
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
-	
+
 		// Initialisiere die Variablen mit Standardwerten
 		Vector3 startPos = this.LocalPosition;
 		Vector3 direction = this.LocalPosition; // Standardwert
@@ -695,16 +695,35 @@ public partial class  BaseGun : WeaponComponent, IUse
 			// Mündungsposition aus dem Waffenmodell
 			var weaponBone = Owner.ModelRenderer.Components.GetAll<SkinnedModelRenderer>();
 			Vector3? muzzlePosition = null;
+			Rotation? muzzleRotation = null;
+
+			// Zuerst nach einem MuzzlePoint-Komponente suchen
+			var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+			if ( muzzlePoint != null )
+			{
+				
+				muzzlePosition = muzzlePoint.WorldPosition;
+				muzzleRotation = muzzlePoint.WorldRotation;
+			}
 
 			foreach ( var renderer in weaponBone )
 			{
 				var muzzleAttachment = renderer.GetAttachment( "muzzle" );
 				if ( muzzleAttachment != null )
 				{
-					Log.Info( $"Mündung gefunden: {muzzleAttachment}" );
+				
 					muzzlePosition = muzzleAttachment?.Position;
+					muzzleRotation = muzzleAttachment?.Rotation;
 					break;
 				}
+			}
+
+			// Wenn immer noch keine Mündung gefunden wurde, verwenden wir einen Standard-Offset
+			if ( muzzlePosition == null )
+			{
+		
+				muzzlePosition = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20;
+				muzzleRotation = GameObject.Transform.World.Rotation;
 			}
 
 			// Führe einen Raycast von der Kamera durch das Fadenkreuz
@@ -723,7 +742,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 			// Startposition ist die Mündung, Richtung geht zum Zielpunkt
 			startPos = muzzlePosition ?? cameraPos;
 			direction = (targetPos - startPos).Normal;
-			Log.Info( $"Startposition: {startPos}, Richtung: {direction} HEHEEEE" );
+			
 		}
 		else
 		{
@@ -732,7 +751,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 			startPos = attachment?.Position ?? Vector3.Zero; // Fallback auf (0, 0, 0), falls keine Mündung gefunden wird
 			direction = attachment?.Rotation.Forward ?? Vector3.Forward;
 
-			Log.Info( $"Startposition: {startPos}, Richtung: {direction}" );
+			
 		}
 
 
@@ -818,7 +837,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 		}
 		if ( IsShotgun )
 		{
-			
+
 			if ( AmmoInClip <= 0 )
 			{
 				SendEmptyClipMessage();
@@ -826,14 +845,14 @@ public partial class  BaseGun : WeaponComponent, IUse
 				NextAttackTime = 1f / FireRate;
 				return;
 			}
-			
+
 			if ( Owner.MoveSpeed > 150f ) return;
-			
+
 			Owner.ApplyRecoil( Recoil );
 			EffectRenderer?.Set( "b_empty", AmmoInClip == 0 );
 			EffectRenderer?.Set( "b_attack", true );
 			EffectRenderer?.Set( "b_reload", false );
-			
+
 			NextAttackTime = 1f / FireRate;
 			AmmoInClip--;
 
@@ -841,7 +860,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 			return;
 		}
-		
+
 
 		if ( AmmoInClip <= 0 )
 		{
@@ -859,9 +878,9 @@ public partial class  BaseGun : WeaponComponent, IUse
 			switch ( itemComponent.Aspect )
 			{
 				case AspectType.Fire:
-				// Feueraspekt implementieren
+					// Feueraspekt implementieren
 					FireBulletWithFireAspect( shooter );
-					return; 
+					return;
 				// Water
 				case AspectType.Water:
 					FireBulletWithWaterAspect( shooter );
@@ -912,9 +931,9 @@ public partial class  BaseGun : WeaponComponent, IUse
 		NextAttackTime = 1f / FireRate;
 		AmmoInClip--;
 
-		
 
-		
+
+
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
 		var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
@@ -962,16 +981,16 @@ public partial class  BaseGun : WeaponComponent, IUse
 		}
 
 
-		
+
 
 		SendAttackMessage( startPos, endPos, trace.Distance, trace );
 	}
 
 	private void FireShotgun( Player shooter )
 	{
-		
 
-		
+
+
 
 		int pelletCount = 9;
 		float spreadAngle = 15f; // Kegelwinkel in Grad
@@ -1027,7 +1046,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 			SendAttackMessage( startPos, endPos, trace.Distance, trace );
 		}
 
-		
+
 	}
 
 	private Vector3 GetRandomDirectionInCone( Vector3 forward, float angle )
@@ -1059,15 +1078,15 @@ public partial class  BaseGun : WeaponComponent, IUse
 	}
 	private void StopAllActions()
 	{
-	
+
 		IsFiering = false;
 		IsReloading = false;
 		ReloadSound?.Stop();
-		EffectRenderer?.Set("b_reload", false);
-		EffectRenderer?.Set("b_attack", false);
+		EffectRenderer?.Set( "b_reload", false );
+		EffectRenderer?.Set( "b_attack", false );
 		EffectRenderer?.Set( "deage_shoot", false );
 	}
-	
+
 	protected override void OnUpdate()
 	{
 		if ( Player.Local != null && Player.Local.LifeState == LifeState.Dead && !hasStoppedActions )
@@ -1076,18 +1095,18 @@ public partial class  BaseGun : WeaponComponent, IUse
 			hasStoppedActions = true;
 		}
 
-		if (Player.Local != null && Player.Local.LifeState != LifeState.Dead)
+		if ( Player.Local != null && Player.Local.LifeState != LifeState.Dead )
 		{
 			hasStoppedActions = false;
 		}
-		if (NextAttackTime && IsFiering && IsAuto)
+		if ( NextAttackTime && IsFiering && IsAuto )
 		{
-			FireBullet(Player.Local);
+			FireBullet( Player.Local );
 		}
 
 		if ( !IsProxy && ReloadFinishTime && IsReloading )
 		{
-			
+
 			OnReloadEnd();
 		}
 
@@ -1101,12 +1120,12 @@ public partial class  BaseGun : WeaponComponent, IUse
 				SoundDuration = 0;
 			}
 		}
-		
+
 
 		ReloadSound?.Update( WorldPosition );
 
-		
-		
+
+
 		base.OnUpdate();
 	}
 	[Rpc.Broadcast]
@@ -1115,26 +1134,26 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 		if ( Player.Local == null )
 		{
-			
+
 			return;
 		}
-		
+
 		if ( Player.Local.LifeState == LifeState.Dead )
 		{
 			// Spieler ist tot, keine Reload-Nachricht senden
 			return;
 		}
-		
+
 		if ( ReloadSoundSequence == null )
 			return;
 
 		// Stoppe den aktuellen ReloadSound, falls er existiert
 		ReloadSound?.Stop();
-		
-		
+
+
 		// Initialisiere den ReloadSound neu
 		ReloadSound = new( AmmoInClip == 0 ? EmptyReloadSoundSequence : ReloadSoundSequence );
-		
+
 		ReloadSound.Start( WorldPosition );
 	}
 
@@ -1172,17 +1191,17 @@ public partial class  BaseGun : WeaponComponent, IUse
 			throw new InvalidOperationException( "SceneWorld is null." );
 		}
 		if ( ImpactEffect is null ) return;
-		
-		
-/* 
-		var p = new SceneParticles( Scene.SceneWorld, ImpactEffect );
-		p.SetControlPoint( 0, position );
-		p.SetControlPoint( 0, Rotation.LookAt( normal ) );
-		p.PlayUntilFinished( Task ); */
+
+
+		/* 
+				var p = new SceneParticles( Scene.SceneWorld, ImpactEffect );
+				p.SetControlPoint( 0, position );
+				p.SetControlPoint( 0, Rotation.LookAt( normal ) );
+				p.PlayUntilFinished( Task ); */
 	}
 
 	[Rpc.Broadcast]
-	private void SendMeleeAttackMessage(Vector3 startPos , Vector3 endPos, float distance)
+	private void SendMeleeAttackMessage( Vector3 startPos, Vector3 endPos, float distance )
 	{
 		if ( IsMelee ) // Überprüfe, ob der Boolean-Wert wahr ist
 		{
@@ -1203,9 +1222,9 @@ public partial class  BaseGun : WeaponComponent, IUse
 			}
 			else
 			{
-				
+
 			}
-			
+
 		}
 	}
 
@@ -1219,7 +1238,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 			trailobject.WorldPosition += direction * speed * Time.Delta;
 
 			// Logge die aktuelle Position des Trail-Objekts
-			
+
 
 			// Überprüfen, ob das Objekt die Endposition erreicht hat oder etwas trifft
 			var trace = Scene.Trace.Ray( trailobject.WorldPosition, trailobject.WorldPosition + direction * 100f )
@@ -1231,7 +1250,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 			if ( trace.Hit )
 			{
 				// Logge die Trefferinformationen
-				
+
 
 				// Berechne den Schaden
 				var damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
@@ -1243,7 +1262,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 					// Erzeuge ein Treffer-Feedback
 					CreateHitFeedback( trace.EndPosition, damage, shooter );
 
-					
+
 				}
 				if ( ImpactArea != null )
 				{
@@ -1264,12 +1283,12 @@ public partial class  BaseGun : WeaponComponent, IUse
 
 							}
 						}
-						
+
 					}
-					
+
 				}
 
-				
+
 				trailobject.Destroy(); // Zerstöre das Objekt
 				return;
 			}
@@ -1277,7 +1296,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 			if ( (trailobject.WorldPosition - endPos).Length < 1.0f ) // Überprüfen, ob das Objekt die Endposition erreicht hat
 			{
 				// Logge das Erreichen der Endposition
-				
+
 
 				trailobject.Destroy(); // Zerstöre das Objekt
 				return;
@@ -1287,7 +1306,7 @@ public partial class  BaseGun : WeaponComponent, IUse
 		}
 
 		// Logge das Ende der Bewegung
-		
+
 
 		trailobject.Destroy(); // Zerstöre das Objekt nach Ablauf der Dauer
 	}
@@ -1512,5 +1531,29 @@ public partial class  BaseGun : WeaponComponent, IUse
 			damageText.label.Style.Set( "animation-duration", $"{fadeDuration}s" );
 		}
 	}
+}
+[Title( "Mündungspunkt" ), Category( "Waffen" ), Icon( "adjust" )]
+public sealed class MuzzlePoint : Component
+{
+	[Property]
+	public Vector3 LocalOffset { get; set; } = Vector3.Zero;
+
+	[Property]
+	public Angles Rotation { get; set; } = Angles.Zero;
+
+	/// <summary>
+	/// Gibt die Weltposition des Mündungspunkts zurück
+	/// </summary>
+	public Vector3 WorldPosition => Transform.World.PointToWorld( LocalOffset );
+
+	/// <summary>
+	/// Gibt die Weltrotation des Mündungspunkts zurück
+	/// </summary>
+	public Rotation WorldRotation => Transform.World.RotationToWorld( Rotation );
+
+	/// <summary>
+	/// Gibt den Vorwärtsvektor des Mündungspunkts zurück
+	/// </summary>
+	public Vector3 Forward => WorldRotation.Forward;
 }
 

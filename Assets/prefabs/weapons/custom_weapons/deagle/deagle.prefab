@@ -253,48 +253,83 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "OnInteraction": null
-      },
-      {
-        "__type": "Sandbox.SkinnedModelRenderer",
-        "__guid": "739b24a5-f426-411c-a211-8b0daad6b118",
-        "AnimationGraph": "models/weapons/sbox_pistol_usp/v_usp.vanmgrph",
-        "BodyGroups": 18446744073709551615,
-        "BoneMergeTarget": null,
-        "CreateAttachments": false,
-        "CreateBoneObjects": false,
-        "MaterialGroup": null,
-        "MaterialOverride": null,
-        "Model": "prefabs/weapons/custom_weapons/deagle/deagle.vmdl",
-        "Morphs": {},
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null,
-        "Parameters": {
-          "bools": {},
-          "ints": {},
-          "floats": {},
-          "vectors": {},
-          "rotations": {}
-        },
-        "PlaybackRate": 1,
-        "RenderOptions": {
-          "GameLayer": true,
-          "OverlayLayer": false,
-          "BloomLayer": false,
-          "AfterUILayer": false
-        },
-        "RenderType": "On",
-        "Sequence": {
-          "Name": null
-        },
-        "Tint": "1,1,1,1",
-        "UseAnimGraph": true
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "7892e9b5-2948-43d9-a3f9-772cd37ea3a4",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "2.4,-0.2000001,0.3",
+        "Rotation": "0.006787634,0.006787634,0.7070742,0.7070742",
+        "Scale": "1.5,1.5,1.5",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "932e135c-42ea-40f8-967c-6cad6cc7d4cf",
+            "AnimationGraph": null,
+            "BodyGroups": 18446744073709551615,
+            "BoneMergeTarget": null,
+            "CreateAttachments": true,
+            "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "prefabs/weapons/custom_weapons/deagle/deagle.vmdl",
+            "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "PlaybackRate": 1,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "db0f4481-b74c-4abf-b463-6d78473940df",
+            "Flags": 0,
+            "Name": "Object",
+            "Position": "-0.1030455,-6.678761,5.36401",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "GeneralGame.MuzzlePoint",
+                "__guid": "a5d04105-3177-45ff-9580-35962d8fe617",
+                "LocalOffset": "0,0,0",
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "Rotation": "0,0,0"
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "__variables": [],
     "__properties": {
       "FixedUpdateFrequency": 50,
@@ -326,8 +361,7 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
-    "facepunch.pistol_muzzleflash#76089",
-    "facepunch.v_usp#64712"
+    "facepunch.pistol_muzzleflash#76089"
   ],
   "__version": 1
 }
