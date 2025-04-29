@@ -931,6 +931,10 @@ public partial class Player : Component, IHealthComponent
 					else if ( gun.IsShotgun ) holdTypeValue = (int)HoldType.Shotgun;
 				}
 				else if ( deployedWeapon.IsMelee ) holdTypeValue = (int)HoldType.Melee;
+				{
+					ModelRenderer.Set( "b_attack", true );
+					
+				}
 			}
 		}
 
@@ -957,7 +961,7 @@ public partial class Player : Component, IHealthComponent
 		UpdateWeaponModelVisibility();
 		UpdateHoldTypeAnimation();
 
-		ModelRenderer.Set( "b_attack", true );
+	
 
 		if ( !Eye.IsValid() )
 			return;

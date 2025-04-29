@@ -461,7 +461,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
 	private void PerformMeleeAttack( Player player )
 	{
-		Log.Info( "Performing melee attack" );
+		
 		if ( NextMeleeAttackTime > 0 ) return;
 
 		if ( player == null ) return;
@@ -471,19 +471,18 @@ public partial class BaseGun : WeaponComponent, IUse
 		var playerPosition = player.PlyCamera.WorldPosition;
 		var forwardDirection = player.PlyCamera.WorldRotation.Forward;
 
-		// Berechnen Sie die Startposition 50 Einheiten vor dem Spieler und 25 Einheiten nach links
-		var cameraRight = player.PlyCamera.WorldRotation.Right;
-		var startPos = playerPosition + forwardDirection * 50 - cameraRight * 25;
+		
+		var startPos = playerPosition + forwardDirection * 0 ;
 
 		// Berechnen Sie die Endposition 50 Einheiten vor dem Spieler und 25 Einheiten nach rechts
-		var endPos = playerPosition + forwardDirection * 50 + cameraRight * 25;
+		var endPos = playerPosition + forwardDirection * 150;
 
 		// Zeigen Sie den Nahkampfangriff an
 
 
 
 		// Führen Sie den Nahkampfangriff aus (Ihre bestehende Logik)
-		float slashRadius = 1.0f;
+		float slashRadius = 5.0f;
 		var trace = Scene.Trace.Sphere( slashRadius, startPos, endPos )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.WithoutTags( "player" )
@@ -577,6 +576,18 @@ public partial class BaseGun : WeaponComponent, IUse
 			SendImpactMessage( trace.EndPosition, trace.Normal );
 		}
 		EffectRenderer.Set( "b_attack", true );
+		ModelRenderer.Set( "b_attack", true );
+		// Sicherere Version mit Null-Prüfung und Logging
+		if ( Player.Local?.ModelRenderer != null )
+		{
+			Player.Local.ModelRenderer.Set( "b_attack", true );
+			Log.Info( "Animation 'b_attack' auf Player.Local.ModelRenderer gesetzt" );
+		}
+		else
+		{
+			Log.Warning( "Player.Local oder ModelRenderer ist null - Animation konnte nicht gesetzt werden" );
+		}
+		Log.Info( "Performing melee attack" );
 		NextMeleeAttackTime = MeleeCooldown;
 	}
 
