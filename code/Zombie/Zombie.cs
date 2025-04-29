@@ -29,19 +29,6 @@ public enum HoldTypes
 }
 
 
-public enum WeightType
-{
-	[Icon( "🐀" )]
-	Feather,
-	[Icon( "🐇" )]
-	Light,
-	[Icon( "🚶" )]
-	Middle,
-	[Icon( "🦌" )]
-	Heavy,
-	[Icon( "🐘" )]
-	Massive
-}
 
 
 
@@ -49,61 +36,6 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 {
 	
 
-	public bool IsVisible( Player viewer )
-	{
-		// Logik, um zu bestimmen, ob der NPC für den Spieler sichtbar ist
-		return true;
-	}
-	[Property]
-	public string Name { get; set; }
-	[Property,Sync]public int Level { get; set; }
-	
-	[Property]
-	public MoveHelper MoveHelper { get; set; }
-	[Property] public GameObject ZombieRagedol { get; set; }
-
-	[Property]
-	private readonly List<string> prefabPaths = new List<string>
-	{
-		null, // 50% Wahrscheinlichkeit für nichts
-		"prefabs/pickupammo.prefab", // 5% Wahrscheinlichkeit
-		"prefabs/potions/potion.prefab", // 2.5% Wahrscheinlichkeit
-		"prefabs/entitys/chestsystem/5.prefab", // 2.5% Wahrscheinlichkeit
-		
-		"prefabs/entitys/chestsystem/1.prefab",
-		"prefabs/entitys/chestsystem/3.prefab",
-		"prefabs/entitys/chestsystem/2.prefab",
-		"prefabs/entitys/chestsystem/4.prefab",
-		"prefabs/entitys/chestsystem/example 5.prefab",
-		"prefabs/entitys/chestsystem/6.prefab", // 10% Wahrscheinlichkeit
-	};
-
-	private readonly List<float> probabilities = new List<float>
-	{
-		0.85f, // 85% Wahrscheinlichkeit für nichts
-		0.05f, // 5% Wahrscheinlichkeit für Munition
-		0.03f, // 3% Wahrscheinlichkeit für Tränke
-		0.02f, // 2% Wahrscheinlichkeit für eine Truhe
-		0.0f,  // Keine Wahrscheinlichkeit für example 5.prefab
-		0.02f, // 2% Wahrscheinlichkeit für 6.prefab
-		0.01f, // 1% Wahrscheinlichkeit für 4.prefab
-		0.01f, // 1% Wahrscheinlichkeit für 3.prefab
-		0.005f, // 0.5% Wahrscheinlichkeit für 2.prefab
-		0.005f  // 0.5% Wahrscheinlichkeit für 1.prefab
-	};
-
-	// Methode zum Spawnen eines zufälligen Prefabs
-	
-	[Property] public SkinnedModelRenderer Model { get; set; }
-	[Sync, Property] public float MaxHealth { get; set; } = 100f;
-	[Sync, Property] public float Health { get;  set; } = 100f;
-	[Property] public HealthComponent Healthone { get; set; }
-
-	[Property] public SoundEvent DeathSounds { get; set; }
-	
-	public Guid LastAttackerId { get; set; }
-
-	[Property]private HoldTypes CurrentHoldType = HoldTypes.None;
 
 	[Sync, Property]
 	public float PreviousHealth { get; set; }
@@ -264,6 +196,30 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Category( "Triggers" )]
 	[ShowIf( "Idle", true )]
 	public Action OnIdle { get; set; }
+
+
+
+	[Property]
+	public string Name { get; set; }
+	[Property, Sync] public int Level { get; set; }
+
+	[Property]
+	public MoveHelper MoveHelper { get; set; }
+	[Property] public GameObject ZombieRagedol { get; set; }
+
+
+	// Methode zum Spawnen eines zufälligen Prefabs
+
+	[Property] public SkinnedModelRenderer Model { get; set; }
+	[Sync, Property] public float MaxHealth { get; set; } = 100f;
+	[Sync, Property] public float Health { get; set; } = 100f;
+	[Property] public HealthComponent Healthone { get; set; }
+
+	[Property] public SoundEvent DeathSounds { get; set; }
+
+
+
+	[Property] private HoldTypes CurrentHoldType = HoldTypes.None;
 	private Player player { get; set; }
 	[Property] public GameObject Body { get; set; }
 	[Property] public GameObject Eye { get; set; }
@@ -332,16 +288,65 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	
 	[Property]public List<StatusEffect> activeStatusEffects = new List<StatusEffect>();
 
+
+	private Random random2 = new Random();
+	[Property]
+	[Category( "Stats" )]
+	[Range( 0.5f, 3.0f, 0.1f, false )]
+	public float AttackSpeed { get; set; } = 1.0f;
+	[Property] public int MinBaseDamage { get; set; } = 1;
+	[Property] public int MaxBaseDamage { get; set; } = 8;
+	[Property] public float DamageLevelMultiplier { get; set; } = 1.05f;
+	[Property] public float MaxBlockReduction { get; set; } = 0.5f;
+	[Property] public float BlockDivisor { get; set; } = 50.0f;
+
+	private const float DetectionRange = 150.0f;
+	private const float MaxTeleportRange = 70.0f;
+
+	public bool IsVisible( Player viewer )
+	{
+		// Logik, um zu bestimmen, ob der NPC für den Spieler sichtbar ist
+		return true;
+	}
+
+	[Property]
+	private readonly List<string> prefabPaths = new List<string>
+	{
+		null, // 50% Wahrscheinlichkeit für nichts
+		"prefabs/pickupammo.prefab", // 5% Wahrscheinlichkeit
+		"prefabs/potions/potion.prefab", // 2.5% Wahrscheinlichkeit
+		"prefabs/entitys/chestsystem/5.prefab", // 2.5% Wahrscheinlichkeit
+		
+		"prefabs/entitys/chestsystem/1.prefab",
+		"prefabs/entitys/chestsystem/3.prefab",
+		"prefabs/entitys/chestsystem/2.prefab",
+		"prefabs/entitys/chestsystem/4.prefab",
+		"prefabs/entitys/chestsystem/example 5.prefab",
+		"prefabs/entitys/chestsystem/6.prefab", // 10% Wahrscheinlichkeit
+	};
+
+	private readonly List<float> probabilities = new List<float>
+	{
+		0.85f, // 85% Wahrscheinlichkeit für nichts
+		0.05f, // 5% Wahrscheinlichkeit für Munition
+		0.03f, // 3% Wahrscheinlichkeit für Tränke
+		0.02f, // 2% Wahrscheinlichkeit für eine Truhe
+		0.0f,  // Keine Wahrscheinlichkeit für example 5.prefab
+		0.02f, // 2% Wahrscheinlichkeit für 6.prefab
+		0.01f, // 1% Wahrscheinlichkeit für 4.prefab
+		0.01f, // 1% Wahrscheinlichkeit für 3.prefab
+		0.005f, // 0.5% Wahrscheinlichkeit für 2.prefab
+		0.005f  // 0.5% Wahrscheinlichkeit für 1.prefab
+	};
+
 	public void ApplyStatusEffect( StatusEffect effect )
 	{
-		effect.Apply( this , player );
+		effect.Apply( this, player );
 		activeStatusEffects.Add( effect );
 
 		// Setze einen Timer, um den Effekt nach der Dauer zu entfernen
-		
+
 	}
-
-
 
 	protected override void OnStart()
 	{
@@ -736,37 +741,38 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 		Model.Set( "move_x", x );
 		Model.Set( "move_y", y );
 	}
-	private Random random2 = new Random();
+	
 	public void NormalTrace()
 	{
 		var tr = Scene.Trace.Sphere( 50.0f, Body.WorldPosition, Body.WorldPosition + Body.WorldRotation.Forward * AttackRange ).Run();
 
-		if ( tr.Hit && timeSinceHit > 1.5f && GameObject != null )
+		float actualAttackCooldown = 1.5f / AttackSpeed;
+
+		if ( tr.Hit && timeSinceHit > actualAttackCooldown && GameObject != null )
 		{
 			IHealthComponent damageable = tr.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
 
-			if ( damageable != null && (tr.GameObject.Tags.Has( "player" ) || tr.GameObject.Tags.Has( "npc" )) )
+			if ( damageable != null && tr.GameObject != GameObject &&
+			(tr.GameObject.Tags.Has( "player" ) ||
+			(tr.GameObject.Tags.Has( "npc" ) && tr.GameObject.Components.Get<Npc>()?.EnemyTags.HasAny( Tags ) == true)) )
 			{
 				// Annahme: tr.GameObject kann in Player umgewandelt werden
 				var player = tr.GameObject.Components.Get<Player>();
 				if ( player != null )
 				{
-					
-					int baseDamage = random2.Next( 1, 8 );
+
+					int baseDamage = random2.Next( MinBaseDamage, MaxBaseDamage );
 
 					// Berechne den exponentiellen Schaden basierend auf dem Level des NPCs
-					int npcLevel = this.Level; // Angenommen, der NPC hat eine Level-Eigenschaft
-					int exponentialDamage = (int)(baseDamage * Math.Pow( 1.05, npcLevel ));
-
-					// Berücksichtige die Rüstung des Spielers als Prozentsatz
-				
+					int npcLevel = this.Level;
+					int exponentialDamage = (int)(baseDamage * Math.Pow( DamageLevelMultiplier, npcLevel ));
 
 					// Berechne den endgültigen Schaden unter Berücksichtigung der Rüstung
-					int finalDamage = (int)(exponentialDamage);
+					int finalDamage = exponentialDamage;
 
 					if ( player.Block > 0 )
 					{
-						double coverReduction = Math.Min( player.Block / 50.0, 0.5 ); // Maximal 50% Reduktion
+						double coverReduction = Math.Min( player.Block / BlockDivisor, MaxBlockReduction );
 						finalDamage = (int)(finalDamage * (1 - coverReduction));
 					}
 
@@ -814,8 +820,8 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 			}
 		}
 
-		
-		
+
+
 	}
 	[Rpc.Broadcast]
 	private void ApplyBurn( Player player, int duration )
@@ -951,8 +957,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	{
 		return Vector3.DistanceBetween( player.WorldPosition, position ) <= range;
 	}
-	private const float DetectionRange = 150.0f;
-	private const float MaxTeleportRange = 70.0f;
+	
 	/// <summary>
 	/// Who should the NPC follow, set null to go back to manually setting the target position
 	/// </summary>
@@ -1178,8 +1183,8 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 
 		return groundTrace.Hit && !groundTrace.StartedSolid ? groundTrace.HitPosition : (FollowingTargetObject ? targetPosition : targetPosition + offset);
 	}
-	public static Player Host { get; set; }
-	[Property] public bool PogMode { get; private set; }
+
+	
 
 	public event Action OnTakeDamage;
 	private bool RecentlyDamaged { get; set; }
