@@ -461,6 +461,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
 	private void PerformMeleeAttack( Player player )
 	{
+		Log.Info( "Performing melee attack" );
 		if ( NextMeleeAttackTime > 0 ) return;
 
 		if ( player == null ) return;

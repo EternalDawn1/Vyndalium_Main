@@ -253,48 +253,83 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "OnInteraction": null
-      },
-      {
-        "__type": "Sandbox.SkinnedModelRenderer",
-        "__guid": "6a752a22-fca8-4b4f-83a9-2a6b98cc7aa2",
-        "AnimationGraph": "models/weapons/sbox_pistol_usp/v_usp.vanmgrph",
-        "BodyGroups": 3,
-        "BoneMergeTarget": null,
-        "CreateAttachments": false,
-        "CreateBoneObjects": false,
-        "MaterialGroup": null,
-        "MaterialOverride": null,
-        "Model": "models/weapons/sbox_shotgun_spaghellim4/w_spaghellim4.vmdl",
-        "Morphs": {},
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null,
-        "Parameters": {
-          "bools": {},
-          "ints": {},
-          "floats": {},
-          "vectors": {},
-          "rotations": {}
-        },
-        "PlaybackRate": 1,
-        "RenderOptions": {
-          "GameLayer": true,
-          "OverlayLayer": false,
-          "BloomLayer": false,
-          "AfterUILayer": false
-        },
-        "RenderType": "On",
-        "Sequence": {
-          "Name": null
-        },
-        "Tint": "1,1,1,1",
-        "UseAnimGraph": true
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "d04d2e66-3292-4f0d-8779-aba71405a31f",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "4.017274,0.552968,-5.305256",
+        "Rotation": "0.0000004965113,-0.00000004097819,0.00000004842877,1.000004",
+        "Scale": "1.5,1.5,1.5",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "0f0c87ca-db5e-4c20-b3f8-488969d4b003",
+            "AnimationGraph": null,
+            "BodyGroups": 3,
+            "BoneMergeTarget": null,
+            "CreateAttachments": false,
+            "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/weapons/sbox_shotgun_spaghellim4/w_spaghellim4.vmdl",
+            "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "PlaybackRate": 1,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "fa968034-3d46-4fa2-8db3-eb7b335bb051",
+            "Flags": 0,
+            "Name": "Object",
+            "Position": "20.71171,0.260231,4.961952",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "GeneralGame.MuzzlePoint",
+                "__guid": "067be88d-c0dd-4583-a8d9-b8543047d613",
+                "LocalOffset": "0,0,0",
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "Rotation": "0,0,0"
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "__variables": [],
     "__properties": {
       "FixedUpdateFrequency": 50,
@@ -326,7 +361,6 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
-    "facepunch.v_usp#64712",
     "facepunch.w_spaghellim4#58057"
   ],
   "__version": 1

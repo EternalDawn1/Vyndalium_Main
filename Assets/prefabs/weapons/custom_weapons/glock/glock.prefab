@@ -253,48 +253,84 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "OnInteraction": null
-      },
-      {
-        "__type": "Sandbox.SkinnedModelRenderer",
-        "__guid": "f6ed74d2-60f2-4568-a454-1bd8e0b00e65",
-        "AnimationGraph": "animgraphs/glock_shoot.vanmgrph",
-        "BodyGroups": 18446744073709551615,
-        "BoneMergeTarget": null,
-        "CreateAttachments": false,
-        "CreateBoneObjects": false,
-        "MaterialGroup": null,
-        "MaterialOverride": null,
-        "Model": "models/glock/pistol.vmdl",
-        "Morphs": {},
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null,
-        "Parameters": {
-          "bools": {},
-          "ints": {},
-          "floats": {},
-          "vectors": {},
-          "rotations": {}
-        },
-        "PlaybackRate": 1,
-        "RenderOptions": {
-          "GameLayer": true,
-          "OverlayLayer": false,
-          "BloomLayer": false,
-          "AfterUILayer": false
-        },
-        "RenderType": "On",
-        "Sequence": {
-          "Name": null
-        },
-        "Tint": "1,1,1,1",
-        "UseAnimGraph": true
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "ef2f948d-954f-4c6b-b724-d88c243aff32",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "0.3953873,-0.2513744,4.557531",
+        "Rotation": "-0.0000001187436,0.0000003017485,-0.0000005261973,0.9999985",
+        "Scale": "1.5,1.5,1.5",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "c4af78e6-ce74-4948-b107-f9757a431b6b",
+            "AnimationGraph": null,
+            "BodyGroups": 18446744073709551615,
+            "BoneMergeTarget": null,
+            "CreateAttachments": true,
+            "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/glock/pistol.vmdl",
+            "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "PlaybackRate": 1,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "4c97d443-ee98-44b5-9864-8d3f84ee5d48",
+            "Flags": 0,
+            "Name": "Object",
+            "Position": "3.555184,-0.05252924,2.573992",
+            "Rotation": "0.000000291504,0.00000001001172,-0.0000000372529,1.000002",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "GeneralGame.MuzzlePoint",
+                "__guid": "7f65c67e-115b-49c1-92d8-54b8cfd0366c",
+                "LocalOffset": "0,0,0",
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "Rotation": "0,0,0"
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "__variables": [],
     "__properties": {
       "FixedUpdateFrequency": 50,
