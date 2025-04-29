@@ -25,12 +25,12 @@ public partial class Player : Component, IHealthComponent
 	public WeaponComponent DeployedWeapon { get; set; }
 	[Property] public CameraComponent PlyCamera { get; set; }
 	[Property] public GameObject ViewModelRoot { get; set; }
-	[Property]public int DefaultAmmo { get; set; }
+	[Property] public int DefaultAmmo { get; set; }
 	private float crouchProgress = 0f;
 	private const float crouchSpeed = 5f;
 	public ItemEquipment EquippedItem => Inventory?.GetEquippedHandItem();
 	private Vector3 targetCameraPosition;
-	[Property] public AmmoContainer Ammo { get; set; } 
+	[Property] public AmmoContainer Ammo { get; set; }
 	public BaseGun CurrentWeapon { get; set; }
 	[Property] public CharacterController CharacterController { get; set; }
 	[Property] public MoveHelper MoveHelper { get; set; }
@@ -40,7 +40,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public SoundEvent HurtSound { get; set; }
 	[Property] public SoundEvent HurtLowHP { get; set; }
 	[Property] public SoundEvent HurtMidHP { get; set; }
-	
+
 	[Property] public float StandHeight { get; set; } = 64f;
 	[Property] public float DuckHeight { get; set; } = 29f;
 	[Property] public Action OnJump { get; set; }
@@ -54,10 +54,10 @@ public partial class Player : Component, IHealthComponent
 	[Sync] public int Kills { get; private set; }
 	public string DisplayName { get; set; }
 	// Add a property to track respawn attempts
-	[Sync,Property]
-	public int RespawnAttempts { get;  set; } = 3;
+	[Sync, Property]
+	public int RespawnAttempts { get; set; } = 3;
 	public TimeSpan Playtime { get; set; }
-	
+
 
 	public string GuildName { get; set; }
 	public string Location { get; set; }
@@ -82,6 +82,14 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float DefaultFov { get; set; } = 90f;
 
 	[Property] public bool ThirdPersonEnabled { get; set; }
+
+
+	// In der Player-Klasse, füge diese Eigenschaften hinzu
+	[Property] public float MaxCameraDistance { get; set; } = 150f; // Maximale Kameradistanz
+	[Property] public float MinCameraDistance { get; set; } = 20f;  // Minimale Kameradistanz
+	[Property] public float CameraZoomSpeed { get; set; } = 10f;     // Zoom-Geschwindigkeit
+	[Property] public float FirstPersonThreshold { get; set; } = 20f; // Schwellenwert für First-Person
+	private float currentCameraDistance = 70f;                      // Aktuelle Kameradistanz
 
 
 	HiddenBodyGroup _hideBodygroups;
@@ -172,7 +180,7 @@ public partial class Player : Component, IHealthComponent
 			else
 			{
 				// Loggen Sie eine Warnung oder werfen Sie eine Ausnahme, um das Problem zu debuggen
-			
+
 			}
 			return;
 		}
@@ -224,15 +232,15 @@ public partial class Player : Component, IHealthComponent
 	{
 		CritHitChance -= amount;
 	}
-	
-	public void AddVyndalium(int vyndaliumPointsToAdd)
+
+	public void AddVyndalium( int vyndaliumPointsToAdd )
 	{
 		Sandbox.Services.Stats.Increment( "vyndalium_count1", vyndaliumPointsToAdd );
-		
+
 	}
 
 
-	
+
 	public void OnZombieKilled()
 	{
 		Sandbox.Services.Stats.Increment( "npc", 1 );
@@ -241,7 +249,7 @@ public partial class Player : Component, IHealthComponent
 
 	}
 
-	
+
 
 
 
@@ -263,17 +271,17 @@ public partial class Player : Component, IHealthComponent
 			return false;
 
 		Vyndalium -= amount;
-		
+
 		return true;
 	}
 
 	public void GiveVyndalium( int amount )
 	{
 		Vyndalium += amount;
-		
+
 
 	}
-	
+
 	public void GiveXp( int amount )
 	{
 		AddExperience( amount );
@@ -367,7 +375,7 @@ public partial class Player : Component, IHealthComponent
 		EyeAngles = rotation.Angles().WithRoll( 0f );
 	}
 
-	
+
 	public async void RespawnAsync( float seconds )
 	{
 		if ( IsProxy ) return;
@@ -418,7 +426,7 @@ public partial class Player : Component, IHealthComponent
 			return;
 		}
 
-	
+
 
 		// Respawn-Logik
 		Weapons.GiveDefault();
@@ -457,20 +465,20 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy )
 			return;
 		if ( LifeState == LifeState.Dead )
-		
+
 			return;
 
 		if ( type == DamageType.Bullet )
 		{
-			
+
 
 			if ( HurtSound is not null )
 			{
 				Sound.Play( HurtSound, WorldPosition );
 			}
 			Local.ModelRenderer.Set( "hit", true );
-			
-			
+
+
 		}
 
 		if ( IsProxy )
@@ -509,12 +517,7 @@ public partial class Player : Component, IHealthComponent
 		{
 			// Im First-Person-Modus (0) Kleidung ausblenden, sonst anzeigen
 			playerDresser.UpdateClothingVisibility( player.CameraMode != 0 );
-			Log.Info( "Kleidung aktualisiert: " + (player.CameraMode != 0) );
-		}
-		else
-		{
-			// Verwende eine Warnung statt einer Info, um das Problem hervorzuheben
-			Log.Warning( "PlayerDresser nicht gefunden - Kleidungsanpassung wird übersprungen." );
+
 		}
 
 
@@ -593,9 +596,9 @@ public partial class Player : Component, IHealthComponent
 			return;
 		}
 		Deaths++;
-		
 
-		
+
+
 
 	}
 
@@ -605,28 +608,28 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy )
 			return;
 
-		if (AmmoContainer == null)
+		if ( AmmoContainer == null )
 		{
 			AmmoContainer = Components.GetOrCreate<AmmoContainer>();
-		}	
-		if(Inventory == null)
+		}
+		if ( Inventory == null )
 		{
 			Inventory = Components.GetOrCreate<Inventory>( FindMode.EverythingInSelfAndDescendants );
 		}
-		
 
-		
-		if(ModelRenderer == null)
+
+
+		if ( ModelRenderer == null )
 		{
 			ModelRenderer = Components.Get<SkinnedModelRenderer>();
 		}
 		ModelRenderer.OnFootstepEvent += OnFootstep;
-		
-		
 
-		
 
-		if(CharacterController == null)
+
+
+
+		if ( CharacterController == null )
 		{
 			CharacterController = Components.Get<CharacterController>();
 		}
@@ -639,33 +642,33 @@ public partial class Player : Component, IHealthComponent
 		{
 			CharacterController.Height = StandHeight;
 		}
-		
 
-		
+
+
 
 		ResetViewAngles();
-		
+
 
 
 	}
-	
+
 	private TimeSince lastStepped;
 	private bool isLeftFoot = true;
 
 	[Rpc.Broadcast]
 	private void OnFootstep( SceneModel.FootstepEvent e )
 	{
-		
+
 
 		if ( isFrozen )
 		{
-			
+
 			return;
 		}
 
 		if ( lastStepped < (IsRunning ? 0.2f : 0.5f) )
 		{
-	
+
 			return;
 		}
 
@@ -687,12 +690,12 @@ public partial class Player : Component, IHealthComponent
 
 		if ( string.IsNullOrEmpty( path ) )
 		{
-			
+
 			return;
 		}
 		if ( !tr.Hit || tr.Surface == null )
 		{
-		
+
 			return;
 		}
 
@@ -708,9 +711,9 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy )
 			return;
 
-		
-		
-		
+
+
+
 
 		if ( !IsProxy )
 		{
@@ -728,22 +731,22 @@ public partial class Player : Component, IHealthComponent
 
 		if ( !IsProxy ) // Load save.
 		{
-			
+
 			Setup( this );
-			
+
 		}
 
-		
+
 	}
 
-	[ConCmd("kill_player")]
-	public  void KillPlayer()
+	[ConCmd( "kill_player" )]
+	public void KillPlayer()
 	{
 		int Amount = 100;
 		var playerInside = Player.Local;
-		playerInside.TakeDamage(DamageType.Bullet, Amount, new Vector3(), new Vector3(), new Guid(), GameObject.Id);
-		Log.Info("Player has been killed.");
-		
+		playerInside.TakeDamage( DamageType.Bullet, Amount, new Vector3(), new Vector3(), new Guid(), GameObject.Id );
+		Log.Info( "Player has been killed." );
+
 	}
 
 	// Neues Feld zum Speichern des letzten Kameramodus
@@ -801,7 +804,7 @@ public partial class Player : Component, IHealthComponent
 			if ( skinnedModelRenderer != null )
 			{
 				skinnedModelRenderer.Enabled = false;
-				
+
 			}
 
 			return;
@@ -853,13 +856,13 @@ public partial class Player : Component, IHealthComponent
 			return;
 		}
 
-		
+
 	}
 	bool isLowHealthSoundPlaying = false;
 	public bool SicknessMode { get; set; }
 	bool isMidHealthSoundPlaying = false;
 	public bool IsSwinging { get; set; }
-	
+
 	private Vector3 targetCrouchPosition;
 	private float crouchDuration = 5f; // Dauer des Crouchens in Sekunden
 	private float crouchTimer = 0.0f;
@@ -894,7 +897,7 @@ public partial class Player : Component, IHealthComponent
 						if ( animator.Components.TryGet<SkinnedModelRenderer>( out var renderer ) )
 						{
 							renderer.Set( "holdtype_handedness", 0 );
-							
+
 						}
 					}
 
@@ -917,7 +920,7 @@ public partial class Player : Component, IHealthComponent
 							if ( animator.Components.TryGet<SkinnedModelRenderer>( out var renderer ) )
 							{
 								renderer.Set( "holdtype_handedness", 0 );
-								
+
 							}
 						}
 
@@ -950,10 +953,10 @@ public partial class Player : Component, IHealthComponent
 			if ( Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 				return;
 
-
+		UpdateCameraZoom();
 		UpdateWeaponModelVisibility();
 		UpdateHoldTypeAnimation();
-		
+
 		ModelRenderer.Set( "b_attack", true );
 
 		if ( !Eye.IsValid() )
@@ -990,7 +993,7 @@ public partial class Player : Component, IHealthComponent
 					PlyCamera.WorldPosition = Eye.WorldPosition;
 					PlyCamera.WorldRotation = EyeAngles.ToRotation();
 
-					
+
 
 					var deployedWeapon = Weapons.Deployed;
 					var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
@@ -1020,7 +1023,7 @@ public partial class Player : Component, IHealthComponent
 						PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
 
 					PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
-					
+
 
 
 
@@ -1039,7 +1042,7 @@ public partial class Player : Component, IHealthComponent
 				case 2: // Third-Person-Left
 					{
 						var offset = EyeAngles.ToRotation().Right * -30f; // Kamera links relativ zur Blickrichtung
-						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * 70f + Vector3.Up * 50f + offset;
+						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * currentCameraDistance + Vector3.Up * 50f + offset;
 
 						// Raycast von der Spielerposition zur gewünschten Kameraposition
 						var leftTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 50f, desiredPosition )
@@ -1056,18 +1059,23 @@ public partial class Player : Component, IHealthComponent
 
 				case 1: // Third-Person-Right
 					{
-						var offset = EyeAngles.ToRotation().Right * 30f; // Kamera rechts relativ zur Blickrichtung
-						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * 70f + Vector3.Up * 50f + offset;
+						// Der Rest bleibt gleich, nur die Distanz ändern wir:
+						var offset = EyeAngles.ToRotation().Right * (CameraMode == 2 ? -30f : 30f);
+						// Verwende hier currentCameraDistance anstelle der festen Werte
+						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * currentCameraDistance +
+											  Vector3.Up * 50f + offset;
 
-						// Raycast von der Spielerposition zur gewünschten Kameraposition
-						var rightTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 50f, desiredPosition )
+						// Der Rest des Codes bleibt unverändert
+						var cameraTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 50f, desiredPosition )
 							.UsePhysicsWorld()
 							.IgnoreGameObjectHierarchy( GameObject )
 							.WithAnyTags( "solid" )
 							.Run();
 
-						// Wenn ein Hindernis erkannt wird, setze die Kamera auf die Trefferposition
-						PlyCamera.WorldPosition = rightTrace.Hit ? rightTrace.EndPosition - rightTrace.Direction * 2f : desiredPosition;
+						PlyCamera.WorldPosition = cameraTrace.Hit ?
+							cameraTrace.EndPosition - cameraTrace.Direction * 2f :
+							desiredPosition;
+
 						PlyCamera.WorldRotation = EyeAngles.ToRotation();
 						break;
 					}
@@ -1271,9 +1279,9 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy || Ragdoll.IsRagdolled || LifeState == LifeState.Dead )
 			return;
 
-		if(Input.Pressed("Third"))
+		if ( Input.Pressed( "Third" ) )
 		{
-		
+
 			ToggleView();
 		}
 
@@ -1304,7 +1312,7 @@ public partial class Player : Component, IHealthComponent
 		if ( Input.Pressed( "Attack1" ) )
 		{
 			weapon.PrimaryAction();
-		
+
 		}
 
 		if ( Input.Released( "Attack1" ) )
@@ -1321,7 +1329,7 @@ public partial class Player : Component, IHealthComponent
 		{
 			weapon.SeccondaryActionRelease();
 		}
-		
+
 	}
 
 	[Rpc.Broadcast]
@@ -1372,7 +1380,7 @@ public partial class Player : Component, IHealthComponent
 			if ( !WishVelocity.IsNearZeroLength )
 			{
 				WishVelocity = WishVelocity.Normal;
-				
+
 			}
 
 			if ( IsCrouching )
@@ -1410,6 +1418,90 @@ public partial class Player : Component, IHealthComponent
 
 		OnJump?.Invoke();
 		isJumping = false;
+	}
+
+	// Neue Eigenschaft für das Ziel der Kameradistanz und den Übergang
+	private float targetCameraDistance = 70f;
+	private float cameraZoomSmoothness = 10f; // Höherer Wert = schnellere Übergänge
+
+	private void UpdateCameraZoom()
+	{
+		if ( IsProxy )
+			return;
+
+		// Hole den Wert des Mausrads
+		Vector2 scrollDelta = Input.MouseWheel;
+
+		// Wenn Mausradbewegung vorhanden, Zieldistanz anpassen
+		if ( scrollDelta.Length >= 0.01f )
+		{
+			float wheelDelta = scrollDelta.y;
+
+			// Zieldistanz anpassen
+			targetCameraDistance -= wheelDelta * CameraZoomSpeed;
+
+			// Begrenze die Zieldistanz auf Minimum und Maximum
+			targetCameraDistance = targetCameraDistance.Clamp( MinCameraDistance, MaxCameraDistance );
+		}
+
+		// Sanfte Überblendung zur Zieldistanz
+		currentCameraDistance = MathX.Lerp( currentCameraDistance, targetCameraDistance, Time.Delta * cameraZoomSmoothness );
+
+		// Prüfe, ob ein Moduswechsel nötig ist
+		bool switchToFirstPerson = currentCameraDistance < FirstPersonThreshold + 2f && CameraMode != 0; // Kleine Toleranz
+		bool switchToThirdPerson = currentCameraDistance >= FirstPersonThreshold + 5f && CameraMode == 0; // Größere Toleranz beim Zurückwechseln
+
+		if ( switchToFirstPerson )
+		{
+			SwitchToFirstPerson();
+		}
+		else if ( switchToThirdPerson )
+		{
+			SwitchToThirdPerson();
+		}
+	}
+
+	// Neue Hilfsmethoden für bessere Lesbarkeit
+	private void SwitchToFirstPerson()
+	{
+		CameraMode = 0;
+		ThirdPersonEnabled = false;
+
+		// Viewmodel aktivieren
+		if ( Weapons.Deployed != null )
+		{
+			Weapons.Deployed.CreateViewModel();
+		}
+
+		// PlayerDresser aktualisieren
+		var playerDresser = Components.GetInDescendantsOrSelf<PlayerDresser>();
+		if ( playerDresser != null )
+		{
+			playerDresser.UpdateClothingVisibility( false );
+		}
+
+		Log.Info( $"Kameramodus automatisch zu First-Person gewechselt (Distanz: {currentCameraDistance})" );
+	}
+
+	private void SwitchToThirdPerson()
+	{
+		CameraMode = 1; // Third Person Right
+		ThirdPersonEnabled = true;
+
+		// Viewmodel deaktivieren
+		if ( Weapons.Deployed != null )
+		{
+			Weapons.Deployed.DestroyViewModel();
+		}
+
+		// PlayerDresser aktualisieren
+		var playerDresser = Components.GetInDescendantsOrSelf<PlayerDresser>();
+		if ( playerDresser != null )
+		{
+			playerDresser.UpdateClothingVisibility( true );
+		}
+
+		Log.Info( $"Kameramodus automatisch zu Third-Person gewechselt (Distanz: {currentCameraDistance})" );
 	}
 
 
