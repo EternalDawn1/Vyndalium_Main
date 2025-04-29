@@ -24,7 +24,7 @@ public partial class BaseGun : WeaponComponent, IUse
 	[Property] public bool IsShotgun { get; set; } = false;
 	[Property] public bool IsRifle { get; set; } = false;
 	[Property] public bool IsPistol { get; set; } = false;
-	[Property] public bool IsMelee { get; set; } = false;
+	[Property] public new bool IsMelee { get; set; } = false;
 	[Property, Category( "Parameters" )] public DamageType DamageType { get; set; } = DamageType.Serious;
 
 	[Property, Category( "Parameters" )] public float ReloadTime { get; set; } = 2f;
@@ -1544,12 +1544,12 @@ public sealed class MuzzlePoint : Component
 	/// <summary>
 	/// Gibt die Weltposition des Mündungspunkts zurück
 	/// </summary>
-	public Vector3 WorldPosition => Transform.World.PointToWorld( LocalOffset );
+	public new Vector3 WorldPosition => Transform.World.PointToWorld( LocalOffset );
 
 	/// <summary>
 	/// Gibt die Weltrotation des Mündungspunkts zurück
 	/// </summary>
-	public Rotation WorldRotation => Transform.World.RotationToWorld( Rotation );
+	public new Rotation WorldRotation => Transform.World.RotationToWorld( Rotation );
 
 	/// <summary>
 	/// Gibt den Vorwärtsvektor des Mündungspunkts zurück

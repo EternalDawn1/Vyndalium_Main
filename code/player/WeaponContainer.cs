@@ -95,7 +95,7 @@ public partial class WeaponContainer : Component
 		{
 			// Wenn ja, geben Sie das ausgerüstete Item
 			Give( equippedItem.GameObject, true );
-
+			Log.Info( $"Gebe {equippedItem} aus" );
 			// Rüsten Sie das Item automatisch aus
 			Inventory.EquipItemFromBackpack( equippedItem );
 		}
@@ -103,6 +103,7 @@ public partial class WeaponContainer : Component
 		{
 			// Wenn kein Item ausgerüstet ist, geben Sie das StartingWeapon
 			Give( StartingWeapon, true );
+			
 		}
 	}
 	private bool _isGiving = false;
@@ -110,7 +111,6 @@ public partial class WeaponContainer : Component
 	{
 		if ( _isGiving )
 		{
-			
 			return;
 		}
 		

@@ -17,16 +17,19 @@ public partial class PlayerDresser : Component, Component.INetworkSpawn
     {
         if ( owner == null )
         {
-
             return;
         }
 
         var clothing = ClothingContainer.CreateFromLocalUser();
         clothing.Apply( BodyRenderer );
 
-        // Player-Komponente suchen
+        // Initialize playerComponent after applying clothing
         playerComponent = GameObject.Components.Get<Player>();
+
+       
     }
+
+
 
     protected override void OnUpdate()
     {
@@ -49,10 +52,32 @@ public partial class PlayerDresser : Component, Component.INetworkSpawn
 
     public void UpdateClothingVisibility( bool visible )
     {
+        Log.Info( $"UpdateClothingVisibility: {visible}" );
         if ( BodyRenderer == null )
             return;
 
         BodyRenderer.Enabled = visible;
+
+        // Alle Kind-GameObjects und deren Komponenten deaktivieren/aktivieren
+        foreach ( var child in GameObject.Children )
+        {
+            // Überspringe bestimmte Komponenten, die immer aktiviert bleiben sollen
+            // z.B. Kollisionen, Sounds, etc.
+            if ( child.Name.Contains( "Collision" ) || child.Name.Contains( "Sound" ) )
+                continue;
+
+            // Aktiviere/Deaktiviere alle Renderer in den Kind-Objekten
+            foreach ( var renderer in child.Components.GetAll<ModelRenderer>() )
+            {
+                renderer.Enabled = visible;
+            }
+
+            // Aktiviere/Deaktiviere alle anderen visuellen Komponenten
+            foreach ( var renderer in child.Components.GetAll<Renderer>() )
+            {
+                renderer.Enabled = visible;
+            }
+        }
     }
 
     public void RemoveClothing()

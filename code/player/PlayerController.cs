@@ -502,6 +502,19 @@ public partial class Player : Component, IHealthComponent
 		player.PlyCamera.Enabled = true; // Stelle sicher, dass die Kamera aktiviert ist
 		player.UpdateWeaponModelVisibility();
 
+		var playerDresser = player.GameObject.Components.Get<PlayerDresser>();
+		if ( playerDresser != null )
+		{
+			// Im First-Person-Modus (0) Kleidung ausblenden, sonst anzeigen
+			playerDresser.UpdateClothingVisibility( player.CameraMode != 0 );
+			Log.Info( "Kleidung aktualisiert: " + (player.CameraMode != 0) );
+		}
+		else
+		{
+			Log.Info( "PlayerDresser nicht gefunden." );
+		}
+		
+
 		if ( player.CameraMode == 0 )
 		{
 			// First-Person-Ansicht
@@ -850,6 +863,8 @@ public partial class Player : Component, IHealthComponent
 	[Sync]
 	public int CameraMode { get; set; } = 1;
 	// Füge diese Methode nach der bestehenden UpdateWeaponModelVisibility() Methode hinzu
+
+	[Rpc.Broadcast]
 	private void UpdateHoldTypeAnimation()
 	{
 		if ( IsProxy ) return;
@@ -866,38 +881,62 @@ public partial class Player : Component, IHealthComponent
 			if ( itemEquipment != null )
 			{
 				holdTypeValue = (int)itemEquipment.HoldType;
+
+				// Setze den Handedness-Parameter für Pistole
+				if ( itemEquipment.HoldType == HoldType.Pistol )
+				{
+					// Setze für alle Animatoren
+					foreach ( var animator in Animators )
+					{
+						if ( animator.Components.TryGet<SkinnedModelRenderer>( out var renderer ) )
+						{
+							renderer.Set( "holdtype_handedness", 0 );
+							
+						}
+					}
+
+					// Setze auch für das Hauptmodell
+					ModelRenderer.Set( "holdtype_handedness", 0 );
+				}
 			}
 			else
 			{
 				// Fallback für Waffen ohne ItemEquipment-Komponente
-				// Bestimme den HoldType basierend auf der Waffenart
 				if ( deployedWeapon is BaseGun gun )
 				{
-					// Beispiellogik zur Unterscheidung verschiedener Waffentypen
-					if ( gun.IsRifle )
-						holdTypeValue = (int)HoldType.Rifle;
-					else if ( gun.IsPistol )
+					if ( gun.IsPistol )
 					{
 						holdTypeValue = (int)HoldType.Pistol;
-						ModelRenderer.Set( "holdtype_handedness", 2 );
+
+						// Setze für alle Animatoren
+						foreach ( var animator in Animators )
+						{
+							if ( animator.Components.TryGet<SkinnedModelRenderer>( out var renderer ) )
+							{
+								renderer.Set( "holdtype_handedness", 0 );
+								
+							}
+						}
+
+						// Setze auch für das Hauptmodell
+						ModelRenderer.Set( "holdtype_handedness", 0 );
 					}
-					else if ( gun.IsShotgun )
-						holdTypeValue = (int)HoldType.Shotgun;
+					else if ( gun.IsRifle ) holdTypeValue = (int)HoldType.Rifle;
+					else if ( gun.IsShotgun ) holdTypeValue = (int)HoldType.Shotgun;
 				}
-				else if ( deployedWeapon.IsMelee )
-				{
-					holdTypeValue = (int)HoldType.Melee;
-				}
+				else if ( deployedWeapon.IsMelee ) holdTypeValue = (int)HoldType.Melee;
 			}
 		}
-		else
-		{
-			// Wenn keine Waffe ausgerüstet ist
-			holdTypeValue = 0; // HoldType.None (0 in der Aufzählung)
-		}
 
-		// Animation-Parameter setzen
+		// Animation-Parameter setzen für alle Animatoren
 		ModelRenderer.Set( "holdtype", holdTypeValue );
+		foreach ( var animator in Animators )
+		{
+			if ( animator.Components.TryGet<SkinnedModelRenderer>( out var renderer ) )
+			{
+				renderer.Set( "holdtype", holdTypeValue );
+			}
+		}
 	}
 
 	protected override void OnUpdate()

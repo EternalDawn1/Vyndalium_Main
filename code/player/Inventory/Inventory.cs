@@ -842,28 +842,7 @@ public sealed class Inventory : Component
 				
 				Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.025f );
 			}
-			if ( item is Backpack backpack )
-			{
-				MAX_BACKPACKBAG_SLOTS = (int)backpack.SlotAmount;
-
-				if ( _backpackBagItems.Count < MAX_BACKPACKBAG_SLOTS )
-				{
-					for ( int i = _backpackBagItems.Count; i < MAX_BACKPACKBAG_SLOTS; i++ )
-					{
-						_backpackBagItems.Add( null );
-						Log.Info( "Added a new slot to the backpack bag." );
-					}
-				}
-				else if ( _backpackBagItems.Count > MAX_BACKPACKBAG_SLOTS )
-				{
-					_backpackBagItems.RemoveRange( MAX_BACKPACKBAG_SLOTS, _backpackBagItems.Count - MAX_BACKPACKBAG_SLOTS );
-				}
-
-				RestoreBackpackBagItems();
-
-				
-				return true;
-			}
+			
 
 			var modelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
 			if ( modelRenderer != null )
@@ -941,18 +920,7 @@ public sealed class Inventory : Component
 			{
 				Log.Error( "WeaponContainer is null or Player.Components is null." );
 			}
-			if ( item is Backpack backpack )
-			{
-				MAX_BACKPACKBAG_SLOTS = (int)backpack.SlotAmount;
-
-				if ( _backpackBagItems != null && _backpackBagItems.Count < MAX_BACKPACKBAG_SLOTS )
-				{
-					for ( int i = _backpackBagItems.Count; i < MAX_BACKPACKBAG_SLOTS; i++ )
-					{
-						_backpackBagItems.Add( null );
-					}
-				}
-			}
+			
 			return true;
 		}
 		else
