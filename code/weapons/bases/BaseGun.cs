@@ -14,65 +14,58 @@ namespace GeneralGame;
 
 public partial class BaseGun : WeaponComponent, IUse
 {
+	[Property, Category( "Weapon Type" )] public bool IsShotgun { get; set; } = false;
+	[Property, Category( "Weapon Type" )] public bool IsRifle { get; set; } = false;
+	[Property, Category( "Weapon Type" )] public bool IsPistol { get; set; } = false;
+	[Property, Category( "Weapon Type" )] public new bool IsMelee { get; set; } = false;
+	[Property, Category( "Weapon Type" ), Feature( "Weapon Properties" )] public bool IsMagicWeapon { get; set; }
+	[Property, Category( "Weapon Type" )] public bool IsAuto { get; set; } = false;
 
+	[Property, Category( "Damage" )] public DamageType DamageType { get; set; } = DamageType.Serious;
+	[Property, Category( "Damage" ), Feature( "Weapon Properties" )] public float HitForce { get; set; } = 300;
+	public bool isCriticalHit = false;
 
-	[Property]
-	public PrefabFile Trail { get; set; }
+	[Property, Category( "Ammo" )] public AmmoType AmmoType { get; set; } = AmmoType.Pistol;
+	[Property, Category( "Ammo" )] public int DefaultAmmo { get; set; } = 1;
+	[Property, Category( "Ammo" ), Feature( "Weapon Properties" )] public int ClipSize { get; set; } = 15;
+	[Sync, Property, Category( "Ammo" )] public int AmmoInClip { get; set; }
+	[Sync, Category( "Ammo" )] public int MaxAmmo { get; set; }
+	private int AmmoCount;
 
-	[Property] PrefabFile ImpactArea { get; set; }
+	[Property, Category( "Shooting" ), Feature( "Weapon Properties" )] public float Spread { get; set; } = 0.01f;
+	[Property, Category( "Shooting" ), Range( 0, 0.1f, 10 ), Feature( "Weapon Properties" )] public float BulletSpeed { get; set; } = 1f;
+	[Property, Category( "Shooting" )] public Angles Recoil { get; set; }
 
-	[Property] public bool IsShotgun { get; set; } = false;
-	[Property] public bool IsRifle { get; set; } = false;
-	[Property] public bool IsPistol { get; set; } = false;
-	[Property] public new bool IsMelee { get; set; } = false;
-	[Property, Category( "Parameters" )] public DamageType DamageType { get; set; } = DamageType.Serious;
-
-	[Property, Category( "Parameters" )] public float ReloadTime { get; set; } = 2f;
-	[Property, Category( "Parameters" )] public float EmptyReloadTime { get; set; } = 2f;
-	[Property, Category( "Parameters" ), Feature( "Weapon Properties" )] public float Spread { get; set; } = 0.01f;
-	[Property, Category( "Parameters" ), Feature( "Weapon Properties" )] public float HitForce { get; set; } = 300;
-
-	[Property, Category( "Parameters" ), Range( 0, 0.1f, 10 ), Feature( "Weapon Properties" )] public float BulletSpeed { get; set; } = 1f;
-
-
-	[Property, Category( "Parameters_melee" )] public float MeleeRange { get; set; } = 1.5f;
-	[Property, Category( "Parameters_melee" )] public float MeleeDamage { get; set; } = 10f;
-	[Property, Category( "Parameters_melee" )] public float MeleeCooldown { get; set; } = 1f;
-
-
-
+	[Property, Category( "Melee" )] public float MeleeRange { get; set; } = 1.5f;
+	[Property, Category( "Melee" )] public float MeleeDamage { get; set; } = 10f;
+	[Property, Category( "Melee" )] public float MeleeCooldown { get; set; } = 1f;
 	public TimeUntil NextMeleeAttackTime { get; set; }
-	[Property] public Angles Recoil { get; set; }
-	[Property, Feature( "Weapon Properties" )] public SoundEvent FireSound { get; set; }
-	[Property] public bool IsAuto { get; set; } = false;
-	[Property] public SoundEvent EmptyClipSound { get; set; }
-	[Property] public SoundSequenceData ReloadSoundSequence { get; set; }
-	[Property] public SoundSequenceData EmptyReloadSoundSequence { get; set; }
-	[Property] public PrefabFile MuzzleFlash { get; set; }
-	[Property] public ParticleSystem ImpactEffect { get; set; }
-	[Property] public AmmoType AmmoType { get; set; } = AmmoType.Pistol;
-	[Property] public int DefaultAmmo { get; set; } = 1;
-	[Property, Feature( "Weapon Properties" )] public int ClipSize { get; set; } = 15;
-	[Sync] public bool IsReloading { get; set; }
-	[Sync, Property] public int AmmoInClip { get; set; }
-	public SoundSequence ReloadSound { get; set; }
+
+
+	[Property, Category( "Reload" )] public float ReloadTime { get; set; } = 2f;
+	[Property, Category( "Reload" )] public float EmptyReloadTime { get; set; } = 2f;
+	[Sync, Category( "Reload" )] public bool IsReloading { get; set; }
 	public TimeUntil ReloadFinishTime { get; set; }
-	public bool IsFiering { get; set; } = false;
-	public bool IsHeld { get; private set; }
+
+	[Property, Category( "Effects" )] public PrefabFile Trail { get; set; }
+	[Property, Category( "Effects" )] public PrefabFile ImpactArea { get; set; }
+	[Property, Category( "Effects" )] public PrefabFile MuzzleFlash { get; set; }
+	[Property, Category( "Effects" )] public ParticleSystem ImpactEffect { get; set; }
+	[Property, Category( "Effects" )] public LineRenderer lineRenderer { get; set; }
+
+	[Property, Category( "Audio" ), Feature( "Weapon Properties" )] public SoundEvent FireSound { get; set; }
+	[Property, Category( "Audio" )] public SoundEvent EmptyClipSound { get; set; }
+	[Property, Category( "Audio" )] public SoundSequenceData ReloadSoundSequence { get; set; }
+	[Property, Category( "Audio" )] public SoundSequenceData EmptyReloadSoundSequence { get; set; }
+	public SoundSequence ReloadSound { get; set; }
 	private bool IsSoundPlaying { get; set; } = false;
 	private float SoundDuration { get; set; } = 0f;
 	private const float EmptyClipSoundDuration = 1f;
-	public ItemComponent item { get; set; }
-	[Sync] public int MaxAmmo { get; set; }// Add this line
 
-	private int AmmoCount;
+	public bool IsFiering { get; set; } = false;
+	public bool IsHeld { get; private set; }
 	public bool IsEquipped { get; set; }
-
-	public bool isCriticalHit = false;
-
-
-	[Property, Feature( "Weapon Properties" )] public bool IsMagicWeapon { get; set; }
-
+	public ItemComponent item { get; set; }
 	public void InitializeAmmo( AmmoContainer ammoContainer )
 	{
 		if ( ammoContainer != null )
@@ -165,7 +158,7 @@ public partial class BaseGun : WeaponComponent, IUse
 	}
 
 	GameObject Hitprefab;
-	[Property] public LineRenderer lineRenderer { get; set; }
+
 
 	protected override void OnStart()
 	{
