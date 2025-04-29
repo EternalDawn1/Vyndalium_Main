@@ -47,7 +47,7 @@ public enum WeightType
 
 public partial class Npc : Component, IHealthComponent ,IMinimapElement
 {
-	public Vector3 WorldPositionmarker => this.Position;
+	
 
 	public bool IsVisible( Player viewer )
 	{
@@ -93,36 +93,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	};
 
 	// Methode zum Spawnen eines zufälligen Prefabs
-	private void SpawnRandomPrefab( Vector3 position )
-	{
-		float totalProbability = probabilities.Sum();
-		float randomValue = (float)new Random().NextDouble() * totalProbability;
-		float cumulativeProbability = 0f;
-
-		for ( int i = 0; i < prefabPaths.Count; i++ )
-		{
-			cumulativeProbability += probabilities[i];
-			if ( randomValue <= cumulativeProbability )
-			{
-				if ( prefabPaths[i] != null )
-				{
-					var prefab = ResourceLibrary.Get<PrefabFile>( prefabPaths[i] );
-					if ( prefab != null )
-					{
-						var gameObject = GameObject.Clone( prefab );
-						if ( gameObject != null )
-						{
-							gameObject.WorldPosition = position + new Vector3( 0, 0, 25 );
-							gameObject.NetworkSpawn();
-							gameObject.Network.DropOwnership();
-						}
-					}
-				}
-				break;
-			}
-		}
-	}
-
+	
 	[Property] public SkinnedModelRenderer Model { get; set; }
 	[Sync, Property] public float MaxHealth { get; set; } = 100f;
 	[Sync, Property] public float Health { get;  set; } = 100f;
@@ -305,7 +276,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Sync] public LifeState LifeState { get; set; } = LifeState.Alive;
 	[Property] public CitizenAnimationHelper AnimationHelper { get; set; }
 	public GameObject TargetObject { get; private set; } = null;
-	public Collider Collider { get; private set; }
+
 	public NavMeshAgent agent { get; set; }
 	[Property] public SoundEvent HitSounds { get; set; }
 	private TimeSince timeSinceHit = 0;
@@ -313,10 +284,6 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	public int Experience { get; private set; }
 	public event Action<int> VyndaliumPointsChanged;
 	public event Action<int> ExperienceChanged;
-	public ZombieSpawner Spawner { get; set; }
-	public bool IsIdle { get; set; } = false;
-	public bool IsAttacking { get; set; } = false;
-	public bool IsDamaged { get; set; } = false;
 
 	[Property] private float PlayerProximityDistance { get; set; } = 80f;
 	public Guid KillerId { get; set; } // Fügen Sie diese Eigenschaft hinzu
@@ -336,11 +303,11 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Property] public float FireDamageRadius { get; set; } = 5f; // Radius des Schadensbereichs
 	[Property] public float FireDamage { get; set; } = 10f;
 	[Property]public NpcState CurrentState { get; set; } = NpcState.Idle;
-	public static Random random = new Random();
-	public Rotation Rotation { get; set; }
+	
+
 	public GameObject Hitprefab { get; set; }
 
-	public int Armor { get; set; } = 25;
+	
 
 	[Property] public Vector3 Position { get; set; }
 
@@ -426,6 +393,35 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 		}
 	}
 
+	private void SpawnRandomPrefab( Vector3 position )
+	{
+		float totalProbability = probabilities.Sum();
+		float randomValue = (float)new Random().NextDouble() * totalProbability;
+		float cumulativeProbability = 0f;
+
+		for ( int i = 0; i < prefabPaths.Count; i++ )
+		{
+			cumulativeProbability += probabilities[i];
+			if ( randomValue <= cumulativeProbability )
+			{
+				if ( prefabPaths[i] != null )
+				{
+					var prefab = ResourceLibrary.Get<PrefabFile>( prefabPaths[i] );
+					if ( prefab != null )
+					{
+						var gameObject = GameObject.Clone( prefab );
+						if ( gameObject != null )
+						{
+							gameObject.WorldPosition = position + new Vector3( 0, 0, 25 );
+							gameObject.NetworkSpawn();
+							gameObject.Network.DropOwnership();
+						}
+					}
+				}
+				break;
+			}
+		}
+	}
 
 
 
