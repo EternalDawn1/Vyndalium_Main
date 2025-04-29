@@ -5,13 +5,19 @@ namespace GeneralGame;
 
 public partial class PlayerDresser : Component, Component.INetworkSpawn
 {
-    [Property] public SkinnedModelRenderer BodyRenderer { get; set; }
+    [Property] public SkinnedModelRenderer PlayerModel { get; set; }
+    [Property] public List<SkinnedModelRenderer> ClothingRenderers { get; set; } = new();
+
+  
 
     // Referenz zum Player-Objekt, um auf den CameraMode zuzugreifen
     private Player playerComponent;
 
     // Speichert den letzten Kameramodus, um unnötige Updates zu vermeiden
     private int lastCameraMode = -1;
+
+    
+
 
     public void OnNetworkSpawn( Connection owner )
     {
@@ -21,12 +27,33 @@ public partial class PlayerDresser : Component, Component.INetworkSpawn
         }
 
         var clothing = ClothingContainer.CreateFromLocalUser();
-        clothing.Apply( BodyRenderer );
+        clothing.Apply( PlayerModel );
 
-        // Initialize playerComponent after applying clothing
-        playerComponent = GameObject.Components.Get<Player>();
+        // Alternativ zu .Has verwenden wir eine andere Methode, um Komponenten zu finden
+        var clothingObjects = GameObject.Children.Where( go => go.Components.Get<SkinnedModelRenderer>() != null );
 
-       
+        if ( clothingObjects.Any() )
+        {
+            ClothingRenderers.Clear();
+            foreach ( var clothingObject in clothingObjects )
+            {
+                var renderer = clothingObject.Components.Get<SkinnedModelRenderer>();
+                if ( renderer != null && renderer != PlayerModel )
+                {
+                    ClothingRenderers.Add( renderer );
+                }
+            }
+        }
+
+        // Stellt sicher, dass die Kamera den "viewer"-Tag ignoriert
+        if ( Player.Local != null && Player.Local.PlyCamera != null )
+        {
+            var cam = Player.Local.PlyCamera;
+            if ( !cam.RenderExcludeTags.Contains( "viewer" ) )
+            {
+                cam.RenderExcludeTags.Add( "viewer" );
+            }
+        }
     }
 
 
@@ -34,59 +61,73 @@ public partial class PlayerDresser : Component, Component.INetworkSpawn
     protected override void OnUpdate()
     {
         // Nur aktualisieren, wenn wir eine Referenz zum Player haben
-        if ( playerComponent == null || BodyRenderer == null )
+        if ( Player.Local == null || PlayerModel == null )
             return;
 
         // Nur aktualisieren, wenn sich der Kameramodus geändert hat
-        if ( lastCameraMode == playerComponent.CameraMode )
+        if ( lastCameraMode == Player.Local.CameraMode )
             return;
 
-        lastCameraMode = playerComponent.CameraMode;
+        lastCameraMode = Player.Local.CameraMode;
 
         // CameraMode 0 ist typischerweise First-Person
-        bool isFirstPerson = (playerComponent.CameraMode == 0);
+        bool isFirstPerson = (Player.Local.CameraMode == 0);
 
         // Im First-Person-Modus Kleidung ausblenden, sonst anzeigen
         UpdateClothingVisibility( !isFirstPerson );
     }
 
-    public void UpdateClothingVisibility( bool visible )
+    public void UpdateClothingVisibility( bool isVisible )
     {
-        Log.Info( $"UpdateClothingVisibility: {visible}" );
-        if ( BodyRenderer == null )
-            return;
-
-        BodyRenderer.Enabled = visible;
-
-        // Alle Kind-GameObjects und deren Komponenten deaktivieren/aktivieren
-        foreach ( var child in GameObject.Children )
+        if ( Player.Local == null )
         {
-            // Überspringe bestimmte Komponenten, die immer aktiviert bleiben sollen
-            // z.B. Kollisionen, Sounds, etc.
-            if ( child.Name.Contains( "Collision" ) || child.Name.Contains( "Sound" ) )
-                continue;
+            return;
+        }
 
-            // Aktiviere/Deaktiviere alle Renderer in den Kind-Objekten
-            foreach ( var renderer in child.Components.GetAll<ModelRenderer>() )
+       
+
+       
+        bool shouldHide = false;
+
+      
+        if ( Player.Local.CameraMode == 0 && !GameObject.IsProxy )
+        {
+            shouldHide = true; // Verstecke den Körper in First-Person
+          
+        }
+        
+        // Setze den viewer-Tag für das PlayerModel
+        if ( PlayerModel != null && PlayerModel.GameObject.IsValid() )
+        {
+            PlayerModel.GameObject.Tags.Set( "viewer", shouldHide );
+        }
+
+        // Setze den viewer-Tag für alle Kleidungsstücke
+        foreach ( var renderer in ClothingRenderers )
+        {
+            if ( renderer != null && renderer.GameObject.IsValid() )
             {
-                renderer.Enabled = visible;
+                renderer.GameObject.Tags.Set( "viewer", shouldHide );
             }
+        }
 
-            // Aktiviere/Deaktiviere alle anderen visuellen Komponenten
-            foreach ( var renderer in child.Components.GetAll<Renderer>() )
+        // Stelle sicher, dass die Kamera den "viewer"-Tag ignoriert
+        if ( Player.Local.PlyCamera != null )
+        {
+            var cam = Player.Local.PlyCamera;
+            if ( !cam.RenderExcludeTags.Contains( "viewer" ) )
             {
-                renderer.Enabled = visible;
+                cam.RenderExcludeTags.Add( "viewer" );
             }
         }
     }
-
     public void RemoveClothing()
     {
         // Hier müssen Sie den Code hinzufügen, der die Kleidung vom BodyRenderer entfernt
-        if ( BodyRenderer != null )
+        if ( PlayerModel != null )
         {
-            BodyRenderer.Destroy();
-            BodyRenderer = null;
+            PlayerModel.Destroy();
+            PlayerModel = null;
         }
     }
 }

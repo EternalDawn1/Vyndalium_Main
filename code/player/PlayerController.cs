@@ -502,7 +502,9 @@ public partial class Player : Component, IHealthComponent
 		player.PlyCamera.Enabled = true; // Stelle sicher, dass die Kamera aktiviert ist
 		player.UpdateWeaponModelVisibility();
 
-		var playerDresser = player.GameObject.Components.Get<PlayerDresser>();
+
+		// Versuche PlayerDresser zu bekommen, aber fahre auch fort, wenn es fehlschlägt
+		var playerDresser = player.Components.GetInDescendantsOrSelf<PlayerDresser>();
 		if ( playerDresser != null )
 		{
 			// Im First-Person-Modus (0) Kleidung ausblenden, sonst anzeigen
@@ -511,9 +513,10 @@ public partial class Player : Component, IHealthComponent
 		}
 		else
 		{
-			Log.Info( "PlayerDresser nicht gefunden." );
+			// Verwende eine Warnung statt einer Info, um das Problem hervorzuheben
+			Log.Warning( "PlayerDresser nicht gefunden - Kleidungsanpassung wird übersprungen." );
 		}
-		
+
 
 		if ( player.CameraMode == 0 )
 		{
