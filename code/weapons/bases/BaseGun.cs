@@ -458,7 +458,21 @@ public partial class BaseGun : WeaponComponent, IUse
 		if ( NextMeleeAttackTime > 0 ) return;
 
 		if ( player == null ) return;
+		
+		var boneAnimController = GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
 
+		// Falls der Controller nicht an der Waffe ist, schaue beim Spieler nach
+		if ( boneAnimController == null && player?.GameObject != null )
+		{
+			boneAnimController = player.GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
+		}
+
+		// Wenn der Controller gefunden wurde, spiele eine Animation ab
+		if ( boneAnimController != null )
+		{
+			// "SwingArm" wäre der Name einer vordefinierten Animation im BoneAnimationController
+			boneAnimController.PlayAnimation( "SwingArm" );
+		}
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
 		var playerPosition = player.PlyCamera.WorldPosition;
@@ -472,7 +486,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
 		// Zeigen Sie den Nahkampfangriff an
 
-
+		Owner.ApplyRecoil( new Angles( Random.Shared.Float( -2f, -3f ), Random.Shared.Float( -1f, 1f ), 0 ) );
 
 		// Führen Sie den Nahkampfangriff aus (Ihre bestehende Logik)
 		float slashRadius = 5.0f;
