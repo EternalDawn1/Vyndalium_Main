@@ -24,8 +24,12 @@ public sealed class BoneAnimationController : Component
     [Property, Category( "Animationen" )]
     public List<BoneAnimation> Animations { get; set; } = new();
 
+    [Property, Category("Animations-Sequenzen")]
+    public List<AnimationSequence> Sequences { get; set; } = new();
+
     private Dictionary<string, Rotation> originalRotations = new();
     [Property]private Dictionary<string, AnimationState> activeAnimations = new();
+    [Property]private Dictionary<string, AnimationSequence> activeSequences = new();
 
     // Cache der bone-GameObjects
   private Dictionary<string, GameObject> boneObjects = new();
@@ -51,6 +55,81 @@ public sealed class BoneAnimationController : Component
                     originalRotations[anim.BoneName] = boneObject.LocalRotation;
                 }
             }
+        }
+    }
+    public async void PlaySequence(string sequenceName)
+    {
+        var sequence = Sequences.Find(s => s.Name == sequenceName);
+        if (sequence == null)
+        {
+            Log.Warning($"Animationssequenz '{sequenceName}' nicht gefunden");
+            return;
+        }
+        
+        // Sequenz abbrechen, falls bereits aktiv
+        if (activeSequences.TryGetValue(sequenceName, out var activeSequence))
+        {
+            activeSequence.Cancel();
+            activeSequences.Remove(sequenceName);
+        }
+        
+        // Neue Sequenz starten
+        var token = sequence.GetNewCancellationToken();
+        activeSequences[sequenceName] = sequence;
+        
+        try
+        {
+            do
+            {
+                // Jeden Schritt der Sequenz ausführen
+                foreach (var step in sequence.Steps)
+                {
+                    if (token.IsCancellationRequested)
+                        break;
+                    
+                    // Verzögerung vor der Animation abwarten
+                    if (step.Delay > 0)
+                    {
+                        await GameTask.DelaySeconds(step.Delay);
+                    }
+                    
+                    if (token.IsCancellationRequested)
+                        break;
+                    
+                    // Animation starten
+                    var animation = Animations.Find(a => a.Name == step.AnimationName);
+                    if (animation != null)
+                    {
+                        var taskCompletionSource = new TaskCompletionSource<bool>();
+                        
+                        // Starte die Animation
+                        PlayAnimation(step.AnimationName, () => {
+                            taskCompletionSource.SetResult(true);
+                        });
+                        
+                        // Warte optional auf den Abschluss
+                        if (step.WaitForCompletion)
+                        {
+                            await taskCompletionSource.Task;
+                        }
+                    }
+                    else
+                    {
+                        Log.Warning($"Animation '{step.AnimationName}' nicht gefunden");
+                    }
+                }
+                
+                // Pause zwischen den Loops
+                if (sequence.Loop && !token.IsCancellationRequested && sequence.LoopDelay > 0)
+                {
+                    await GameTask.DelaySeconds(sequence.LoopDelay);
+                }
+                
+            } while (sequence.Loop && !token.IsCancellationRequested);
+        }
+        finally
+        {
+            activeSequences.Remove(sequenceName);
         }
     }
 
@@ -113,7 +192,7 @@ public sealed class BoneAnimationController : Component
     }
 
 
-    public async void PlayAnimation( string animationName )
+    public async void PlayAnimation(string animationName, Action onComplete = null)
     {
         var animation = Animations.Find( a => a.Name == animationName );
         if ( animation == null || ModelRenderer == null ) return;

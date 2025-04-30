@@ -471,7 +471,7 @@ public partial class BaseGun : WeaponComponent, IUse
 		if ( boneAnimController != null )
 		{
 			// "SwingArm" wäre der Name einer vordefinierten Animation im BoneAnimationController
-			boneAnimController.PlayAnimation( "SwingArm" );
+			boneAnimController.PlaySequence( "Sequenz" );
 		}
 
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
