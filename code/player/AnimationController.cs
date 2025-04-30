@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Reflection;
+using Editor;
 
 namespace GeneralGame;
 
@@ -109,24 +112,7 @@ public sealed class BoneAnimationController : Component
         return null;
     }
 
-    /// <summary>
-    /// Spielt eine Animation für einen bestimmten Knochen ab
-    /// </summary>
-    /// <param name="animationName">Name der Animation</param>
-    /// 
-    [Button( "Test Animation" )]
-    public void PlayAnimation()
-    {
-        if ( Animations.Count > 0 )
-        {
-            string firstAnimName = Animations[0].Name;
-            PlayAnimation( firstAnimName );
-        }
-        else
-        {
-            Log.Warning( "Keine Animationen verfügbar zum Testen." );
-        }
-    }
+
     public async void PlayAnimation( string animationName )
     {
         var animation = Animations.Find( a => a.Name == animationName );
@@ -160,39 +146,57 @@ public sealed class BoneAnimationController : Component
 
         try
         {
-            // Animation abspielen
-            float elapsed = 0f;
-            float duration = animation.Duration;
-
-            while ( elapsed < duration && !token.IsCancellationRequested )
+            do // Loop-Schleife hinzugefügt
             {
-                float progress = Math.Min( elapsed / duration, 1f );
-                float easedProgress = EaseFunction( progress, animation.EaseType );
+                // Animation abspielen
+                float elapsed = 0f;
+                float duration = animation.Duration;
 
-                // Rotation interpolieren
-                Angles angles = animation.TargetRotation;
-                var targetRotation = Rotation.From( angles );
-                var currentRotation = Rotation.Slerp( originalRotation, targetRotation, easedProgress );
+                while ( elapsed < duration && !token.IsCancellationRequested )
+                {
+                    float progress = Math.Min( elapsed / duration, 1f );
+                    float easedProgress = EaseFunction( progress, animation.EaseType );
 
-                // Rotation anwenden
-                boneObject.LocalRotation = currentRotation;
+                    // Rotation interpolieren
+                    Angles angles = animation.TargetRotation;
+                    var targetRotation = Rotation.From( angles );
+                    var currentRotation = Rotation.Slerp( originalRotation, targetRotation, easedProgress );
 
-                await GameTask.DelaySeconds( Time.Delta );
-                elapsed += Time.Delta;
-            }
+                    // Rotation anwenden
+                    boneObject.LocalRotation = currentRotation;
 
-            // Rückkehr zur normalen Rotation, wenn nicht abgebrochen
-            if ( !token.IsCancellationRequested )
-            {
-                await ReturnToOriginalRotation( animation.BoneName, animation.ReturnDuration );
-            }
+                    await GameTask.DelaySeconds( Time.Delta );
+                    elapsed += Time.Delta;
+                }
+
+                if ( !animation.Loop )
+                {
+                    // Rückkehr zur normalen Rotation nur wenn nicht im Loop-Modus
+                    if ( !token.IsCancellationRequested )
+                    {
+                        await ReturnToOriginalRotation( animation.BoneName, animation.ReturnDuration );
+                    }
+                    break; // Schleife beenden
+                }
+                else if ( !token.IsCancellationRequested )
+                {
+                    // Bei Loop: Kurze Pause an der Zielposition, dann wieder zurück
+                    await GameTask.DelaySeconds( 0.2f );
+
+                    // Zurück zur Ausgangsposition
+                    await ReturnToOriginalRotation( animation.BoneName, animation.ReturnDuration );
+
+                    // Kurze Pause an der Ausgangsposition
+                    await GameTask.DelaySeconds( 0.2f );
+                }
+
+            } while ( animation.Loop && !token.IsCancellationRequested );
         }
         finally
         {
             activeAnimations.Remove( animation.BoneName );
         }
     }
-
     /// <summary>
     /// Setzt die Rotation eines Knochens zurück zur ursprünglichen Position
     /// </summary>
@@ -272,8 +276,48 @@ public class BoneAnimation
     [Property] public float Duration { get; set; } = 0.25f;
     [Property] public float ReturnDuration { get; set; } = 0.5f;
     [Property] public EaseType EaseType { get; set; } = EaseType.EaseInOut;
+    [Property, Title( "Im Loop abspielen" )] public bool Loop { get; set; } = false;
 
-    
+
+    [Button( "Vorschau" )]
+    public void PlayAnimation()
+    {
+        Log.Info( $"Animation '{Name}' abspielen" );
+        var player = Player.Local;
+        if ( player == null )
+        {
+            Log.Warning( "Kein lokaler Spieler gefunden" );
+            return;
+        }
+
+        // Hole den einzelnen BoneAnimationController (nicht eine Liste)
+        var controller = player.GetComponent<BoneAnimationController>();
+
+        if ( controller != null )
+        {
+            // Prüfe, ob dieser Controller unsere Animation enthält
+            if ( controller.Animations.Contains( this ) )
+            {
+                // Animation über den Controller abspielen
+                if ( !string.IsNullOrEmpty( Name ) )
+                {
+                    controller.PlayAnimation( Name );
+                }
+                else
+                {
+                    Log.Warning( "Animation hat keinen Namen" );
+                }
+            }
+            else
+            {
+                Log.Warning( "Diese Animation ist nicht im Controller registriert" );
+            }
+        }
+        else
+        {
+            Log.Warning( "BoneAnimationController nicht gefunden am Spieler" );
+        }
+    }
 }
 
 /// <summary>
