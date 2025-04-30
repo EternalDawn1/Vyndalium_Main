@@ -113,7 +113,20 @@ public sealed class BoneAnimationController : Component
     /// Spielt eine Animation für einen bestimmten Knochen ab
     /// </summary>
     /// <param name="animationName">Name der Animation</param>
-    [Button]
+    /// 
+    [Button( "Test Animation" )]
+    public void PlayAnimation()
+    {
+        if ( Animations.Count > 0 )
+        {
+            string firstAnimName = Animations[0].Name;
+            PlayAnimation( firstAnimName );
+        }
+        else
+        {
+            Log.Warning( "Keine Animationen verfügbar zum Testen." );
+        }
+    }
     public async void PlayAnimation( string animationName )
     {
         var animation = Animations.Find( a => a.Name == animationName );
@@ -259,6 +272,8 @@ public class BoneAnimation
     [Property] public float Duration { get; set; } = 0.25f;
     [Property] public float ReturnDuration { get; set; } = 0.5f;
     [Property] public EaseType EaseType { get; set; } = EaseType.EaseInOut;
+
+    
 }
 
 /// <summary>
