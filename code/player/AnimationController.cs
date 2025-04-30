@@ -80,7 +80,7 @@ public sealed class BoneAnimationController : Component
             originalRotations[boneName] = boneObject.LocalRotation;
         }
 
-        Log.Info( $"Knochen '{boneName}' wird jetzt prozedural gesteuert." );
+       
     }
 
     /// <summary>
@@ -109,7 +109,7 @@ public sealed class BoneAnimationController : Component
         var sequence = Sequences.Find( s => s.Name == sequenceName );
         if ( sequence == null )
         {
-            Log.Warning( $"Animationssequenz '{sequenceName}' nicht gefunden" );
+           
             return;
         }
 
@@ -212,10 +212,10 @@ public sealed class BoneAnimationController : Component
         FindBonesRecursive( GameObject );
 
         // Zur Info ausgeben
-        Log.Info( "Gefundene Knochen im Modell:" );
+       
         foreach ( var pair in boneObjects )
         {
-            Log.Info( $"  {pair.Key}" );
+           
         }
     }
 

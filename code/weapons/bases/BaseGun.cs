@@ -588,13 +588,13 @@ public partial class BaseGun : WeaponComponent, IUse
 		if ( Player.Local?.ModelRenderer != null )
 		{
 			Player.Local.ModelRenderer.Set( "b_attack", true );
-			Log.Info( "Animation 'b_attack' auf Player.Local.ModelRenderer gesetzt" );
+			
 		}
 		else
 		{
 			Log.Warning( "Player.Local oder ModelRenderer ist null - Animation konnte nicht gesetzt werden" );
 		}
-		Log.Info( "Performing melee attack" );
+	
 		NextMeleeAttackTime = MeleeCooldown;
 	}
 
