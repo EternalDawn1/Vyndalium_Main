@@ -22,7 +22,10 @@ public sealed class BoneAnimationController : Component
     public List<BoneAnimation> Animations { get; set; } = new();
 
     private Dictionary<string, Rotation> originalRotations = new();
-    private Dictionary<string, AnimationState> activeAnimations = new();
+    [Property]private Dictionary<string, AnimationState> activeAnimations = new();
+
+    // Cache der bone-GameObjects
+  private Dictionary<string, GameObject> boneObjects = new();
 
     protected override void OnStart()
     {
@@ -31,37 +34,86 @@ public sealed class BoneAnimationController : Component
             ModelRenderer = GameObject.Components.Get<SkinnedModelRenderer>();
         }
 
+        // Alle Bone-GameObjects finden und cachen
+        FindAllBoneObjects();
+
         // Originale Rotationen speichern
-        if ( ModelRenderer?.Model != null )
+        foreach ( var anim in Animations )
         {
-            foreach ( var anim in Animations )
+            if ( !string.IsNullOrEmpty( anim.BoneName ) && !originalRotations.ContainsKey( anim.BoneName ) )
             {
-                if ( !string.IsNullOrEmpty( anim.BoneName ) && !originalRotations.ContainsKey( anim.BoneName ) )
+                var boneObject = GetBoneObject( anim.BoneName );
+                if ( boneObject != null )
                 {
-                    try
-                    {
-                        // Knochen-Index finden
-                        int boneIndex = GetBoneIndex( anim.BoneName );
-                        if ( boneIndex >= 0 )
-                        {
-                            // Aktuelle Rotation speichern
-                            var currentTransform = GetBoneTransform( boneIndex );
-                            originalRotations[anim.BoneName] = currentTransform.Rotation;
-                        }
-                    }
-                    catch ( Exception ex )
-                    {
-                        Log.Warning( $"Fehler beim Abrufen des Knochens '{anim.BoneName}': {ex.Message}" );
-                    }
+                    originalRotations[anim.BoneName] = boneObject.LocalRotation;
                 }
             }
         }
     }
 
     /// <summary>
+    /// Findet alle Bone-GameObjects und speichert sie im Cache
+    /// </summary>
+    private void FindAllBoneObjects()
+    {
+        // Leere den Cache
+        boneObjects.Clear();
+
+        // Suche rekursiv nach allen Bone-GameObjects
+        FindBonesRecursive( GameObject );
+
+        // Zur Info ausgeben
+        Log.Info( "Gefundene Knochen im Modell:" );
+        foreach ( var pair in boneObjects )
+        {
+            Log.Info( $"  {pair.Key}" );
+        }
+    }
+
+    /// <summary>
+    /// Sucht rekursiv nach allen Bone-GameObjects
+    /// </summary>
+    private void FindBonesRecursive( GameObject obj )
+    {
+        // Füge dieses GameObject als möglichen Knochen hinzu
+        if ( !boneObjects.ContainsKey( obj.Name ) )
+        {
+            boneObjects[obj.Name] = obj;
+        }
+
+        // Suche in allen Kindern
+        foreach ( var child in obj.Children )
+        {
+            FindBonesRecursive( child );
+        }
+    }
+
+    /// <summary>
+    /// Liefert das GameObject für einen Knochen anhand seines Namens
+    /// </summary>
+    private GameObject GetBoneObject( string boneName )
+    {
+        if ( boneObjects.TryGetValue( boneName, out var boneObject ) )
+        {
+            return boneObject;
+        }
+
+        // Wenn nicht im Cache, erneut versuchen alle Knochen zu finden
+        FindAllBoneObjects();
+
+        if ( boneObjects.TryGetValue( boneName, out boneObject ) )
+        {
+            return boneObject;
+        }
+
+        return null;
+    }
+
+    /// <summary>
     /// Spielt eine Animation für einen bestimmten Knochen ab
     /// </summary>
     /// <param name="animationName">Name der Animation</param>
+    [Button]
     public async void PlayAnimation( string animationName )
     {
         var animation = Animations.Find( a => a.Name == animationName );
@@ -74,9 +126,9 @@ public sealed class BoneAnimationController : Component
             activeAnimations.Remove( animation.BoneName );
         }
 
-        // Knochen-Index finden
-        int boneIndex = GetBoneIndex( animation.BoneName );
-        if ( boneIndex < 0 )
+        // Bone GameObject finden
+        var boneObject = GetBoneObject( animation.BoneName );
+        if ( boneObject == null )
         {
             Log.Warning( $"Knochen '{animation.BoneName}' nicht gefunden im Modell." );
             return;
@@ -85,8 +137,7 @@ public sealed class BoneAnimationController : Component
         // Original-Rotation abrufen oder speichern
         if ( !originalRotations.TryGetValue( animation.BoneName, out var originalRotation ) )
         {
-            Transform currentTransform = GetBoneTransform( boneIndex );
-            originalRotation = currentTransform.Rotation;
+            originalRotation = boneObject.LocalRotation;
             originalRotations[animation.BoneName] = originalRotation;
         }
 
@@ -111,7 +162,7 @@ public sealed class BoneAnimationController : Component
                 var currentRotation = Rotation.Slerp( originalRotation, targetRotation, easedProgress );
 
                 // Rotation anwenden
-                SetBoneTransform( boneIndex, new Transform( Vector3.Zero, currentRotation ) );
+                boneObject.LocalRotation = currentRotation;
 
                 await GameTask.DelaySeconds( Time.Delta );
                 elapsed += Time.Delta;
@@ -137,17 +188,16 @@ public sealed class BoneAnimationController : Component
         if ( !originalRotations.TryGetValue( boneName, out var originalRotation ) )
             return;
 
-        // Knochen-Index finden
-        int boneIndex = GetBoneIndex( boneName );
-        if ( boneIndex < 0 ) return;
+        // Bone GameObject finden
+        var boneObject = GetBoneObject( boneName );
+        if ( boneObject == null ) return;
 
         var token = new CancellationTokenSource();
         activeAnimations[boneName] = new AnimationState { CancellationToken = token };
 
         try
         {
-            Transform currentTransform = GetBoneTransform( boneIndex );
-            var currentRotation = currentTransform.Rotation;
+            var currentRotation = boneObject.LocalRotation;
             float elapsed = 0f;
 
             while ( elapsed < duration && !token.IsCancellationRequested )
@@ -156,7 +206,7 @@ public sealed class BoneAnimationController : Component
                 float easedProgress = EaseFunction( progress, EaseType.EaseInOut );
 
                 var rotation = Rotation.Slerp( currentRotation, originalRotation, easedProgress );
-                SetBoneTransform( boneIndex, new Transform( Vector3.Zero, rotation ) );
+                boneObject.LocalRotation = rotation;
 
                 await GameTask.DelaySeconds( Time.Delta );
                 elapsed += Time.Delta;
@@ -165,7 +215,7 @@ public sealed class BoneAnimationController : Component
             // Finale Position setzen
             if ( !token.IsCancellationRequested )
             {
-                SetBoneTransform( boneIndex, new Transform( Vector3.Zero, originalRotation ) );
+                boneObject.LocalRotation = originalRotation;
             }
         }
         finally
@@ -174,111 +224,6 @@ public sealed class BoneAnimationController : Component
         }
     }
 
-    /// <summary>
-    /// Ermittelt den Index eines Knochens anhand seines Namens
-    /// </summary>/// <summary>
-    /// Ermittelt den Index eines Knochens anhand seines Namens
-    /// </summary>
-    /// <summary>
-    /// Ermittelt den Index eines Knochens anhand seines Namens
-    /// </summary>
-    /// <summary>
-    /// Ermittelt den Index eines Knochens anhand seines Namens
-    /// </summary>
-    /// <summary>
-    /// Ermittelt den Index eines Knochens anhand seines Namens
-    /// </summary>
-    /// <summary>
-    /// Ermittelt den Index eines Knochens anhand seines Namens
-    /// </summary>
-    private int GetBoneIndex( string boneName )
-    {
-        if ( ModelRenderer?.Model == null ) return -1;
-
-        // DirectlyAccessBones in der ModelRenderer-Klasse verwenden
-        // Hier müssen wir ein anderes Verfahren verwenden, da Count nicht verfügbar ist
-        var model = ModelRenderer.Model;
-        int boneCount = model.BoneCount; // Verwende BoneCount statt Bones.Count
-
-        for ( int i = 0; i < boneCount; i++ )
-        {
-            if ( model.GetBoneName( i ) == boneName )
-                return i;
-        }
-
-        return -1;
-    }
-    /// <summary>
-    /// Ermittelt die aktuelle Transformation eines Knochens
-    /// </summary>
-    /// <summary>
-    /// Ermittelt die aktuelle Transformation eines Knochens
-    /// </summary>
-    /// <summary>
-    /// Ermittelt die aktuelle Transformation eines Knochens
-    /// </summary>
-    private Transform GetBoneTransform( int boneIndex )
-    {
-        if ( boneIndex < 0 || ModelRenderer == null || ModelRenderer.Model == null )
-            return new Transform();
-
-        var model = ModelRenderer.Model;
-        if ( boneIndex < model.BoneCount )
-        {
-            // Bone-Namen aus dem Modell holen
-            string boneName = model.GetBoneName( boneIndex );
-
-            // Alternativ: Mit der korrekten API auf die Bone-Transformation zugreifen
-            // Wenn GetBoneTransform nicht existiert, gibt es wahrscheinlich eine andere Methode
-
-            // Versuchen wir GetAttachment für die Position
-            var transform = new Transform();
-            try
-            {
-                // Versuche ModelRenderer.GetAttachment oder ähnliche Methode
-                transform = ModelRenderer.GetAttachment( boneName ) ?? new Transform();
-            }
-            catch
-            {
-                // Wenn das nicht funktioniert, versuche, die Basis-Transformation zurückzugeben
-                Log.Warning( $"Konnte Transformation für Knochen {boneName} nicht abrufen" );
-            }
-
-            return transform;
-        }
-
-        return new Transform();
-    }
-
-    /// <summary>
-    /// Setzt die Transformation eines Knochens
-    /// </summary>
-    /// <summary>
-    /// Setzt die Transformation eines Knochens
-    /// </summary>
-    private void SetBoneTransform( int boneIndex, Transform transform )
-    {
-        if ( boneIndex < 0 || ModelRenderer == null || ModelRenderer.Model == null )
-            return;
-
-        var model = ModelRenderer.Model;
-        if ( boneIndex < model.BoneCount )
-        {
-            // Bone-Namen aus dem Modell holen
-            string boneName = model.GetBoneName( boneIndex );
-
-            // Versuche über das GameObject-System den Bone zu finden
-            var boneObject = GameObject.Children.FirstOrDefault( x => x.Name == boneName );
-            if ( boneObject != null )
-            {
-                boneObject.WorldRotation = transform.Rotation;
-            }
-            else
-            {
-                Log.Warning( $"Konnte GameObject für Knochen {boneName} nicht finden" );
-            }
-        }
-    }
     /// <summary>
     /// Easing-Funktion für flüssige Animationen
     /// </summary>
