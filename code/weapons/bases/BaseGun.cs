@@ -66,6 +66,11 @@ public partial class BaseGun : WeaponComponent, IUse
 	public bool IsHeld { get; private set; }
 	public bool IsEquipped { get; set; }
 	public ItemComponent item { get; set; }
+	// Neue Eigenschaften für das Aufladen hinzufügen
+	[Property, Category( "Melee" )] public float ChargeTime { get; set; } = 1.0f; // Zeit zum vollständigen Aufladen
+	public bool IsCharging { get; private set; } = false;
+	public TimeUntil ChargeComplete { get; private set; }
+	private bool FullyCharged => ChargeComplete && IsCharging;
 	public void InitializeAmmo( AmmoContainer ammoContainer )
 	{
 		if ( ammoContainer != null )
@@ -276,15 +281,29 @@ public partial class BaseGun : WeaponComponent, IUse
 
 		if ( IsMelee )
 		{
-
+			// Wenn die Waffe aufgeladen wird oder vollständig aufgeladen ist,
+			// nur den Spezialangriff erlauben
+			if ( IsCharging || FullyCharged )
 			{
-				// Führen Sie die normale Primäraktion aus
-				if ( IsMelee )
+				// Wenn vollständig aufgeladen, führe den Spezialangriff durch
+				if ( FullyCharged )
 				{
-					PerformMeleeAttack( Player.Local );
+					PerformMeleeAttack( Player.Local, true );
+					StopCharging();
+				}
+				// Wenn noch am Aufladen, tue nichts (blockiere normalen Angriff)
+				else
+				{
+					// Optional: Feedback geben, dass Waffe noch aufgeladen wird
+					// z.B. kurzes Vibrations-Feedback oder Sound
+					Sound.Play( "sounds/weapon_charging.sound", WorldPosition );
 				}
 			}
-			// Nahkampfangriff ausführen
+			else
+			{
+				// Nur normalen Angriff ausführen, wenn nicht am Aufladen
+				PerformMeleeAttack( Player.Local );
+			}
 		}
 		else
 		{
@@ -292,10 +311,102 @@ public partial class BaseGun : WeaponComponent, IUse
 			FireBullet( Player.Local );
 		}
 	}
+
 	public override void PrimaryActionRelease()
 	{
 		IsFiering = false;
 	}
+	public override void SeccondaryActionRelease()
+	{
+		if ( Owner == null )
+		{
+			return;
+		}
+
+		Owner.IsAiming = false;
+
+		// Beende das Aufladen, wenn die rechte Maustaste losgelassen wird
+		StopCharging();
+	}
+	private void StartCharging()
+	{
+		if ( IsCharging ) return;
+
+		IsCharging = true;
+		ChargeComplete = ChargeTime;
+
+		// Starte die Auflade-Animation
+		var boneAnimController = GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
+		if ( boneAnimController == null && Player.Local?.GameObject != null )
+		{
+			boneAnimController = Player.Local.GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
+		}
+
+		if ( boneAnimController != null )
+		{
+			string chargingSequenceName = "Charge";
+
+			if ( boneAnimController.HasSequence( chargingSequenceName ) )
+			{
+				boneAnimController.PlaySequence( chargingSequenceName );
+			}
+			else
+			{
+				// Erstelle die Charge-Sequenz, falls sie nicht existiert
+				var newSequence = new AnimationSequence
+				{
+					Name = chargingSequenceName,
+					Steps = new List<AnimationStep>()
+				};
+
+				if ( boneAnimController.Animations.Count > 0 )
+				{
+					// Füge eine Animation zum Hochheben der Waffe hinzu
+					newSequence.Steps.Add( new AnimationStep
+					{
+						AnimationName = boneAnimController.Animations[0].Name,
+						WaitForCompletion = false,
+						TimeScale = 0.5f // Langsam abspielen
+					} );
+
+					boneAnimController.Sequences.Add( newSequence );
+					boneAnimController.PlaySequence( chargingSequenceName );
+				}
+			}
+		}
+
+		// Visuellen Effekt hinzufügen
+		EffectRenderer?.Set( "b_charging", true );
+		if ( Player.Local?.ModelRenderer != null )
+		{
+			Player.Local.ModelRenderer.Set( "b_charging", true );
+		}
+
+		// Sound zum Laden abspielen
+		Sound.Play( "sounds/charged.sound", WorldPosition );
+	}
+
+	// Neue Methode zum Beenden des Aufladens
+	private void StopCharging()
+	{
+		if ( !IsCharging ) return;
+
+		IsCharging = false;
+
+		// Beende die Auflade-Animation
+		EffectRenderer?.Set( "b_charging", false );
+		if ( Player.Local?.ModelRenderer != null )
+		{
+			Player.Local.ModelRenderer.Set( "b_charging", false );
+		}
+
+		// Wenn nicht vollständig aufgeladen, beende auch den Sound
+		if ( !FullyCharged )
+		{
+			Sound.Play( "sounds/charging.sound", WorldPosition );
+		}
+	}
+
 	[Property] public GameObject Ragdoll { get; set; }
 	public override void SecondaryAction()
 	{
@@ -303,14 +414,22 @@ public partial class BaseGun : WeaponComponent, IUse
 
 		if ( IsMelee )
 		{
-			PerformMeleeAttack( Player.Local, true );
-
+			// Starte das Aufladen, anstatt sofort den Spezialangriff auszuführen
+			StartCharging();
 		}
 
 	}
 	[Rpc.Broadcast]
 	private void PerformMeleeAttack( Player player, bool isSpecialAttack = false )
 	{
+		if ( isSpecialAttack && !FullyCharged )
+		{
+			isSpecialAttack = false;
+		}
+
+		// Bestehender Code für PerformMeleeAttack...
+		
+
 		if ( NextMeleeAttackTime > 0 && !isSpecialAttack ) return;
 
 		if ( player == null ) return;
@@ -447,10 +566,11 @@ public partial class BaseGun : WeaponComponent, IUse
 		// Spezialangriffs-Animation und Effekte
 		EffectRenderer.Set( "b_attack", true );
 		ModelRenderer.Set( "b_attack", true );
-
+		// Sicherere Version mit Null-Prüfung und Logging
 		if ( Player.Local?.ModelRenderer != null )
 		{
-			Player.Local.ModelRenderer.Set( "b_special_attack", true );
+			Player.Local.ModelRenderer.Set( "b_attack", true );
+
 		}
 	}
 
@@ -529,18 +649,7 @@ public partial class BaseGun : WeaponComponent, IUse
 			SendImpactMessage( trace.EndPosition, trace.Normal );
 		}
 	}
-	public override void SeccondaryActionRelease()
-	{
-
-		if ( Owner == null )
-		{
-			return;
-		}
-		Owner.IsAiming = false;
-
-
-
-	}
+	
 	[Rpc.Broadcast]
 
 	private void PerformMeleeAttack( Player player )
@@ -1228,17 +1337,19 @@ public partial class BaseGun : WeaponComponent, IUse
 	}
 	private void StopAllActions()
 	{
-
 		IsFiering = false;
 		IsReloading = false;
+		StopCharging(); // Beende auch das Aufladen
 		ReloadSound?.Stop();
 		EffectRenderer?.Set( "b_reload", false );
 		EffectRenderer?.Set( "b_attack", false );
 		EffectRenderer?.Set( "deage_shoot", false );
+		EffectRenderer?.Set( "b_charging", false );
+		EffectRenderer?.Set( "b_fully_charged", false );
 	}
-
 	protected override void OnUpdate()
 	{
+		// Bestehenden Code beibehalten
 		if ( Player.Local != null && Player.Local.LifeState == LifeState.Dead && !hasStoppedActions )
 		{
 			StopAllActions();
@@ -1249,6 +1360,28 @@ public partial class BaseGun : WeaponComponent, IUse
 		{
 			hasStoppedActions = false;
 		}
+
+		// Überprüfe den Ladezustand
+		if ( IsCharging )
+		{
+			// Wenn gerade vollständig aufgeladen, spiele Sound ab
+			if ( ChargeComplete && !WasFullyCharged )
+			{
+				Sound.Play( "sounds/fully_charged.sound", WorldPosition );
+
+				// Visuellen Effekt für vollständig aufgeladen hinzufügen
+				EffectRenderer?.Set( "b_fully_charged", true );
+				if ( Player.Local?.ModelRenderer != null )
+				{
+					Player.Local.ModelRenderer.Set( "b_fully_charged", true );
+				}
+			}
+
+			// Speichere den vorherigen Ladezustand
+			WasFullyCharged = ChargeComplete;
+		}
+
+		// Rest des OnUpdate-Codes
 		if ( NextAttackTime && IsFiering && IsAuto )
 		{
 			FireBullet( Player.Local );
@@ -1256,28 +1389,14 @@ public partial class BaseGun : WeaponComponent, IUse
 
 		if ( !IsProxy && ReloadFinishTime && IsReloading )
 		{
-
 			OnReloadEnd();
 		}
 
-		if ( IsSoundPlaying )
-		{
-			SoundDuration -= Time.Delta; // Reduzieren Sie die verbleibende Dauer des Sounds
-
-			if ( SoundDuration <= 0 )
-			{
-				IsSoundPlaying = false;
-				SoundDuration = 0;
-			}
-		}
-
-
-		ReloadSound?.Update( WorldPosition );
-
-
+		// ... (Rest des bestehenden OnUpdate-Codes)
 
 		base.OnUpdate();
 	}
+	private bool WasFullyCharged = false;
 	[Rpc.Broadcast]
 	private void SendReloadMessage()
 	{

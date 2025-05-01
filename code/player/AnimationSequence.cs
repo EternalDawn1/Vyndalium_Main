@@ -95,5 +95,8 @@ namespace GeneralGame
 
         [Property]
         public bool WaitForCompletion { get; set; } = true;
+
+        [Property]
+        public float TimeScale { get; set; } = 1.0f;
     }
 }
