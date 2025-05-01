@@ -341,11 +341,12 @@ public partial class BaseGun : WeaponComponent, IUse
 
 			if ( boneAnimController.HasSequence( chargingSequenceName ) )
 			{
+				// Sequenz abspielen - die existierende Sequenz nutzen
 				boneAnimController.PlaySequence( chargingSequenceName );
 			}
 			else
 			{
-				// Erstelle die Charge-Sequenz, falls sie nicht existiert
+				// Erstelle eine neue Charge-Sequenz mit einem speziellen Aufbau
 				var newSequence = new AnimationSequence
 				{
 					Name = chargingSequenceName,
@@ -354,16 +355,63 @@ public partial class BaseGun : WeaponComponent, IUse
 
 				if ( boneAnimController.Animations.Count > 0 )
 				{
-					// Füge eine Animation zum Hochheben der Waffe hinzu
-					newSequence.Steps.Add( new AnimationStep
-					{
-						AnimationName = boneAnimController.Animations[0].Name,
-						WaitForCompletion = false,
-						TimeScale = 0.5f // Langsam abspielen
-					} );
+					// Finde eine Animation, die wir anpassen können
+					BoneAnimation chargeAnimation = null;
 
-					boneAnimController.Sequences.Add( newSequence );
-					boneAnimController.PlaySequence( chargingSequenceName );
+					// Prüfe, ob wir eine bestehende Animation anpassen können
+					foreach ( var anim in boneAnimController.Animations )
+					{
+						if ( anim.Name.Contains( "Attack" ) || anim.Name.Contains( "Swing" ) )
+						{
+							// Kopiere die Animation und modifiziere sie
+							chargeAnimation = new BoneAnimation
+							{
+								Name = "ChargeAnim",
+								BoneName = anim.BoneName,
+								TargetRotation = anim.TargetRotation,
+								Duration = 0.5f,  // Schnell in Position gehen
+								ReturnDuration = 0.0f,  // Wichtig: Kein automatisches Zurückkehren!
+								EaseType = EaseType.EaseOut,
+								Loop = false
+							};
+
+							// Füge die angepasste Animation zur Liste hinzu
+							boneAnimController.Animations.Add( chargeAnimation );
+							break;
+						}
+					}
+
+					// Falls keine passende Animation gefunden wurde, verwende die erste verfügbare
+					if ( chargeAnimation == null && boneAnimController.Animations.Count > 0 )
+					{
+						var defaultAnim = boneAnimController.Animations[0];
+						chargeAnimation = new BoneAnimation
+						{
+							Name = "ChargeAnim",
+							BoneName = defaultAnim.BoneName,
+							TargetRotation = new Angles( 30, 0, 0 ),  // Eine angehobene Position
+							Duration = 0.5f,
+							ReturnDuration = 0.0f,  // Wichtig: Kein automatisches Zurückkehren!
+							EaseType = EaseType.EaseOut,
+							Loop = false
+						};
+
+						boneAnimController.Animations.Add( chargeAnimation );
+					}
+
+					// Animation zur Sequenz hinzufügen
+					if ( chargeAnimation != null )
+					{
+						newSequence.Steps.Add( new AnimationStep
+						{
+							AnimationName = chargeAnimation.Name,
+							WaitForCompletion = true,  // Warten, bis die Position erreicht ist
+							TimeScale = 1.0f
+						} );
+
+						boneAnimController.Sequences.Add( newSequence );
+						boneAnimController.PlaySequence( chargingSequenceName );
+					}
 				}
 			}
 		}
@@ -379,14 +427,85 @@ public partial class BaseGun : WeaponComponent, IUse
 		Sound.Play( "sounds/charging.sound", WorldPosition );
 	}
 
-	// Neue Methode zum Beenden des Aufladens
+	// Methode zum Beenden des Aufladens mit Animation zurück zur Ausgangsposition
 	private void StopCharging()
 	{
 		if ( !IsCharging ) return;
 
 		IsCharging = false;
 
-		// Beende die Auflade-Animation
+		// Beende die Auflade-Animation mit Rückkehr zur Originalpose
+		var boneAnimController = GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
+		if ( boneAnimController == null && Player.Local?.GameObject != null )
+		{
+			boneAnimController = Player.Local.GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
+		}
+
+		if ( boneAnimController != null )
+		{
+			string returnSequenceName = "ChargeReturn";
+
+			if ( boneAnimController.HasSequence( returnSequenceName ) )
+			{
+				// Verwende eine existierende Rückkehr-Sequenz
+				boneAnimController.PlaySequence( returnSequenceName );
+			}
+			else
+			{
+				// Erstelle eine neue Rückkehr-Sequenz
+				var animation = boneAnimController.Animations.Find( a => a.Name == "ChargeAnim" );
+
+				if ( animation != null )
+				{
+					// Erstelle eine temporäre Animation für die Rückkehr
+					var returnAnimation = new BoneAnimation
+					{
+						Name = "ChargeReturnAnim",
+						BoneName = animation.BoneName,
+						TargetRotation = new Angles( 0, 0, 0 ),  // Zurück zur neutralen Position
+						Duration = 0.3f,  // Schnell zurück
+						ReturnDuration = 0.0f,
+						EaseType = EaseType.EaseIn,
+						Loop = false
+					};
+
+					boneAnimController.Animations.Add( returnAnimation );
+
+					// Erstelle und spiele die Rückkehr-Sequenz
+					var returnSequence = new AnimationSequence
+					{
+						Name = returnSequenceName,
+						Steps = new List<AnimationStep>
+					{
+						new AnimationStep
+						{
+							AnimationName = returnAnimation.Name,
+							WaitForCompletion = true,
+							TimeScale = 1.0f
+						}
+					}
+					};
+
+					boneAnimController.Sequences.Add( returnSequence );
+					boneAnimController.PlaySequence( returnSequenceName );
+				}
+				else
+				{
+					// Falls keine ChargeAnim gefunden wurde, versuche einen anderen Weg
+					// um die Animation zurückzusetzen
+					foreach ( var anim in boneAnimController.Animations )
+					{
+						if ( anim.Name.Contains( "Idle" ) || anim.Name.Contains( "Default" ) )
+						{
+							boneAnimController.PlayAnimation( anim.Name );
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		// Visuelle Effekte deaktivieren
 		EffectRenderer?.Set( "b_charging", false );
 		if ( Player.Local?.ModelRenderer != null )
 		{
@@ -476,6 +595,7 @@ public partial class BaseGun : WeaponComponent, IUse
 		{
 			// Spezialangriff: Kreisförmiger Angriff um den Spieler herum
 			PerformCircularAttack( player );
+			
 		}
 		else
 		{
@@ -555,7 +675,7 @@ public partial class BaseGun : WeaponComponent, IUse
 			PerformCircleTrace( playerPosition + Vector3.Up * upOffset, endPos + Vector3.Up * upOffset, player );
 			PerformCircleTrace( playerPosition - Vector3.Up * downOffset, endPos - Vector3.Up * downOffset, player );
 		}
-
+		Owner.ApplyRecoil( new Angles( Random.Shared.Float( -2f, -3f ), Random.Shared.Float( -1f, 1f ), 0 ) );
 		// Spezialangriffs-Animation und Effekte
 		EffectRenderer.Set( "b_attack", true );
 		ModelRenderer.Set( "b_attack", true );
@@ -668,10 +788,18 @@ public partial class BaseGun : WeaponComponent, IUse
 			
 			return;
 		}
+		var trailrenderer = player.GameObject.Components.GetInDescendantsOrSelf<TrailRenderer>();
+		if ( trailrenderer != null )
+		{
+			trailrenderer.Emitting = true;
+
+			// Schalte den Trail nach einer kurzen Zeit wieder aus
+			_ = DisableTrailAfterDelay( trailrenderer, 0.5f );
+		}
 
 
-		
-		
+
+
 
 		string sequenceName = "Sequenz"; // Hier den Namen deiner Animationssequenz eintragen
 		
@@ -829,6 +957,17 @@ public partial class BaseGun : WeaponComponent, IUse
 		}
 	
 		NextMeleeAttackTime = MeleeCooldown;
+	}
+	private async Task DisableTrailAfterDelay( TrailRenderer trail, float delay )
+	{
+		// Warte die angegebene Zeit
+		await Task.Delay( (int)(delay * 1000) );
+
+		// Überprüfe ob der Trail noch existiert und schalte ihn aus
+		if ( trail != null && trail.IsValid() )
+		{
+			trail.Emitting = false;
+		}
 	}
 
 
