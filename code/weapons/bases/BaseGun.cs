@@ -281,27 +281,20 @@ public partial class BaseGun : WeaponComponent, IUse
 
 		if ( IsMelee )
 		{
-			// Wenn die Waffe aufgeladen wird oder vollständig aufgeladen ist,
-			// nur den Spezialangriff erlauben
-			if ( IsCharging || FullyCharged )
+			// Wenn aufgeladen, führe den Spezialangriff durch
+			if ( FullyCharged )
 			{
-				// Wenn vollständig aufgeladen, führe den Spezialangriff durch
-				if ( FullyCharged )
-				{
-					PerformMeleeAttack( Player.Local, true );
-					StopCharging();
-				}
-				// Wenn noch am Aufladen, tue nichts (blockiere normalen Angriff)
-				else
-				{
-					// Optional: Feedback geben, dass Waffe noch aufgeladen wird
-					// z.B. kurzes Vibrations-Feedback oder Sound
-					Sound.Play( "sounds/weapon_charging.sound", WorldPosition );
-				}
+				PerformMeleeAttack( Player.Local, true );
+				StopCharging();
+			}
+			else if ( IsCharging )
+			{
+				// Während des Aufladens keine normale Angriffsaction ausführen
+				return;
 			}
 			else
 			{
-				// Nur normalen Angriff ausführen, wenn nicht am Aufladen
+				// Normalen Angriff nur ausführen, wenn nicht im Aufladezustand
 				PerformMeleeAttack( Player.Local );
 			}
 		}
@@ -383,7 +376,7 @@ public partial class BaseGun : WeaponComponent, IUse
 		}
 
 		// Sound zum Laden abspielen
-		Sound.Play( "sounds/charged.sound", WorldPosition );
+		Sound.Play( "sounds/charging.sound", WorldPosition );
 	}
 
 	// Neue Methode zum Beenden des Aufladens
@@ -428,11 +421,11 @@ public partial class BaseGun : WeaponComponent, IUse
 		}
 
 		// Bestehender Code für PerformMeleeAttack...
-		
-
 		if ( NextMeleeAttackTime > 0 && !isSpecialAttack ) return;
 
 		if ( player == null ) return;
+		
+		
 
 		var boneAnimController = GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
 
