@@ -1,65 +1,99 @@
-using Sandbox;
-using System;
-using System.Collections.Generic;
 using System.Threading;
+using System;
+using Sandbox;
 
-namespace GeneralGame;
-
-/// <summary>
-/// Sequenz-Ausführungsmodus - bestimmt wie Schritte ausgeführt werden
-/// </summary>
-public enum SequenceExecutionMode
+namespace GeneralGame
 {
-    /// <summary>Führt alle Schritte nacheinander aus</summary>
-    Sequential,
+    [Serializable]
+    public class AnimationSequence
+    {
+        public string Name { get; set; } = "Sequenz";
 
-    /// <summary>Führt alle Schritte gleichzeitig aus</summary>
-    Parallel,
-    /// <summary>Wählt zufällig einen Schritt aus und führt diesen aus</summary>
-    Random
-}
+        [Property]
+        public List<AnimationStep> Steps { get; set; } = new();
 
-/// <summary>
-/// Definiert eine Sequenz von Animationsschritten
-/// </summary>
-[Serializable]
-public class AnimationSequence
-{
-    [Property] public string Name { get; set; } = "Sequenz";
+        [Property]
+        public SequenceExecutionMode ExecutionMode { get; set; } = SequenceExecutionMode.Sequential;
+
+        [Property]
+        public bool Loop { get; set; } = false;
+
+        [Property, ShowIf( "Loop", true )]
+        public float LoopDelay { get; set; } = 0.5f;
+
+        // CancellationTokenSource für diese Sequenz
+        private CancellationTokenSource tokenSource;
+
+        /// <summary>
+        /// Erstellt ein neues CancellationToken für diese Sequenz
+        /// </summary>
+        public CancellationToken GetNewCancellationToken()
+        {
+            // Beende vorheriges Token, falls vorhanden
+            if ( tokenSource != null )
+            {
+                tokenSource.Cancel();
+                tokenSource.Dispose();
+            }
+
+            // Erstelle neues Token
+            tokenSource = new CancellationTokenSource();
+            return tokenSource.Token;
+        }
+
+        /// <summary>
+        /// Gibt das aktuelle CancellationToken zurück
+        /// </summary>
+        public CancellationToken GetCancellationToken()
+        {
+            if ( tokenSource == null )
+            {
+                tokenSource = new CancellationTokenSource();
+            }
+
+            return tokenSource.Token;
+        }
+
+        /// <summary>
+        /// Bricht die Sequenz ab
+        /// </summary>
+        public void Cancel()
+        {
+            if ( tokenSource != null && !tokenSource.IsCancellationRequested )
+            {
+                tokenSource.Cancel();
+            }
+        }
+    }
 
     /// <summary>
-    /// Bestimmt, ob die Schritte nacheinander oder parallel ausgeführt werden
+    /// Ausführungsmodus für Animations-Sequenzen
     /// </summary>
-    [Property] public SequenceExecutionMode ExecutionMode { get; set; } = SequenceExecutionMode.Sequential;
-
-    [Property] public List<AnimationStep> Steps { get; set; } = new();
-
-    [Property] public bool Loop { get; set; } = false;
-    [Property] public float LoopDelay { get; set; } = 0.5f;
-
-    private CancellationTokenSource cancellationToken;
-
-    public void Cancel()
+    public enum SequenceExecutionMode
     {
-    
-        cancellationToken?.Cancel();
+        /// <summary>Führt die Animationen nacheinander aus</summary>
+        Sequential,
+
+        /// <summary>Führt die Animationen parallel aus</summary>
+        Parallel,
+
+        /// <summary>Führt eine zufällige Animation aus</summary>
+        Random
     }
 
-    public CancellationToken GetNewCancellationToken()
+    /// <summary>
+    /// Ein Schritt in einer Animations-Sequenz
+    /// </summary>
+    [Serializable]
+    public class AnimationStep
     {
-        cancellationToken?.Cancel();
-        cancellationToken = new CancellationTokenSource();
-        return cancellationToken.Token;
-    }
-}
+        [Property]
+        public string AnimationName { get; set; }
 
-/// <summary>
-/// Ein einzelner Schritt in einer Animationssequenz
-/// </summary>
-[Serializable]
-public class AnimationStep
-{
-    [Property] public string AnimationName { get; set; } = "";
-    [Property] public float Delay { get; set; } = 0f;
-    [Property] public bool WaitForCompletion { get; set; } = true;
+        [Property]
+        public float Delay { get; set; } = 0;
+
+        [Property]
+        public bool WaitForCompletion { get; set; } = true;
+    }
 }
