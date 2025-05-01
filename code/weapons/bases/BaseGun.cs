@@ -465,35 +465,32 @@ public partial class BaseGun : WeaponComponent, IUse
 		// Falls der Controller nicht an der Waffe ist, schaue beim Spieler nach
 		if ( boneAnimController == null && player?.GameObject != null )
 		{
-			Log.Info( "BoneAnimationController nicht an der Waffe gefunden, suche beim Spieler..." );
+			
 			boneAnimController = player.GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
 		}
 
 		// Prüfe, ob der Controller gefunden wurde
 		if ( boneAnimController == null )
 		{
-			Log.Warning( "Kein BoneAnimationController gefunden!" );
+			
 			return;
 		}
 
 
-		Log.Info( $"BoneAnimationController gefunden mit {boneAnimController.Sequences.Count} Sequenzen:" );
-		foreach ( var seq in boneAnimController.Sequences )
-		{
-			Log.Info( $"  - Sequenz: '{seq.Name}' mit {seq.Steps?.Count ?? 0} Schritten" );
-		}
+		
+		
 
 		string sequenceName = "Sequenz"; // Hier den Namen deiner Animationssequenz eintragen
-		Log.Info( $"Suche nach Sequenz mit Namen: '{sequenceName}'" );
+		
 
 		if ( boneAnimController.HasSequence( sequenceName ) )
 		{
-			Log.Info( $"Sequenz '{sequenceName}' gefunden, spiele ab..." );
+		
 			boneAnimController.PlaySequence( sequenceName );
 		}
 		else
 		{
-			Log.Warning( $"Sequenz '{sequenceName}' nicht im Controller gefunden! Verfügbare Sequenzen: {string.Join( ", ", boneAnimController.Sequences.Select( s => s.Name ) )}" );
+			
 
 			// Optional: Erstelle die Sequenz dynamisch, falls sie nicht existiert
 			// In der PerformMeleeAttack-Methode
@@ -512,7 +509,7 @@ public partial class BaseGun : WeaponComponent, IUse
 					WaitForCompletion = true
 				} );
 
-				Log.Info( $"Dynamisch neue Sequenz '{sequenceName}' erstellt mit Animation: {boneAnimController.Animations[0].Name}" );
+			
 				boneAnimController.Sequences.Add( newSequence );
 				boneAnimController.PlaySequence( sequenceName );
 			}
@@ -625,12 +622,12 @@ public partial class BaseGun : WeaponComponent, IUse
 		{
 			SendImpactMessage( trace.EndPosition, trace.Normal );
 		}
-		//EffectRenderer.Set( "b_attack", true );
-		//ModelRenderer.Set( "b_attack", true );
+		EffectRenderer.Set( "b_attack", true );
+		ModelRenderer.Set( "b_attack", true );
 		// Sicherere Version mit Null-Prüfung und Logging
 		if ( Player.Local?.ModelRenderer != null )
 		{
-			//Player.Local.ModelRenderer.Set( "b_attack", true );
+			Player.Local.ModelRenderer.Set( "b_attack", true );
 			
 		}
 		else

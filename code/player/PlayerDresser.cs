@@ -11,7 +11,7 @@ public partial class PlayerDresser : Component, Component.INetworkSpawn
   
 
     // Referenz zum Player-Objekt, um auf den CameraMode zuzugreifen
-    private Player playerComponent;
+  
 
     // Speichert den letzten Kameramodus, um unnötige Updates zu vermeiden
     private int lastCameraMode = -1;

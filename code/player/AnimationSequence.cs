@@ -14,7 +14,9 @@ public enum SequenceExecutionMode
     Sequential,
 
     /// <summary>Führt alle Schritte gleichzeitig aus</summary>
-    Parallel
+    Parallel,
+    /// <summary>Wählt zufällig einen Schritt aus und führt diesen aus</summary>
+    Random
 }
 
 /// <summary>
@@ -39,7 +41,7 @@ public class AnimationSequence
 
     public void Cancel()
     {
-        Log.Info( $"Abbruch der Sequenz '{Name}'" );
+    
         cancellationToken?.Cancel();
     }
 

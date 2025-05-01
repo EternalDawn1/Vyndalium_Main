@@ -111,19 +111,23 @@ public sealed class BoneAnimationController : Component
         }
     }
     // Diese Methode ersetzt die bestehende PlaySequence-Methode in BoneAnimationController
+
+
+
+
     public async void PlaySequence( string sequenceName )
     {
         var sequence = Sequences.Find( s => s.Name == sequenceName );
         if ( sequence == null )
         {
-            Log.Warning( $"Keine Sequenz mit dem Namen '{sequenceName}' gefunden. Verfügbare Sequenzen: {string.Join( ", ", Sequences.Select( s => s.Name ) )}" );
+          
             return;
         }
 
         // Sequenz abbrechen, falls bereits aktiv
         if ( activeSequences.TryGetValue( sequenceName, out var activeSequence ) )
         {
-            Log.Info( $"Abbruch der bereits laufenden Sequenz: {sequenceName}" );
+           
             activeSequence.Cancel();
             activeSequences.Remove( sequenceName );
         }
@@ -131,7 +135,7 @@ public sealed class BoneAnimationController : Component
         // Neue Sequenz starten
         var token = sequence.GetNewCancellationToken();
         activeSequences[sequenceName] = sequence;
-        Log.Info( $"Neue Sequenz gestartet: {sequenceName}, Anzahl der Schritte: {sequence.Steps?.Count ?? 0}, Ausführungsmodus: {sequence.ExecutionMode}" );
+      
 
         // Liste der verwendeten Knochen für Cleanup
         HashSet<string> usedBones = new HashSet<string>();
@@ -142,7 +146,7 @@ public sealed class BoneAnimationController : Component
             do
             {
                 loopCount++;
-                Log.Info( $"Starte Loop #{loopCount} für Sequenz: {sequenceName}" );
+                
 
                 if ( sequence.ExecutionMode == SequenceExecutionMode.Sequential )
                 {
@@ -151,14 +155,30 @@ public sealed class BoneAnimationController : Component
                     {
                         if ( token.IsCancellationRequested )
                         {
-                            Log.Info( $"Abbruch: Sequenz {sequenceName} wurde abgebrochen" );
+                         
                             break;
                         }
 
                         await ExecuteAnimationStep( step, token, usedBones );
                     }
                 }
-                // ...existing code...
+                else if ( sequence.ExecutionMode == SequenceExecutionMode.Random )
+                {
+                    // Random Modus: Zufällig einen Schritt auswählen und ausführen
+                    if ( sequence.Steps.Count > 0 )
+                    {
+                        var randomIndex = Random.Shared.Int( 0, sequence.Steps.Count - 1 );
+                        var randomStep = sequence.Steps[randomIndex];
+
+                        
+
+                        if ( !token.IsCancellationRequested )
+                        {
+                            await ExecuteAnimationStep( randomStep, token, usedBones );
+                        }
+                    }
+                   
+                }
                 else // Parallel
                 {
                     var tasks = new List<Task>();
@@ -178,44 +198,41 @@ public sealed class BoneAnimationController : Component
                         await Task.WhenAll( tasks );
                     }
                 }
-                // ...existing code...
+
                 // Pause zwischen den Loops
                 if ( sequence.Loop && !token.IsCancellationRequested && sequence.LoopDelay > 0 )
                 {
-                    Log.Info( $"Warte {sequence.LoopDelay} Sekunden zwischen Loops" );
+                   
                     await GameTask.DelaySeconds( sequence.LoopDelay );
                 }
 
             } while ( sequence.Loop && !token.IsCancellationRequested );
 
-            Log.Info( $"Sequenz-Schleife beendet für: {sequenceName}" );
+           
         }
         finally
         {
-            Log.Info( $"Finally-Block erreicht für Sequenz: {sequenceName}" );
+           
             activeSequences.Remove( sequenceName );
-            Log.Info( $"Sequenz aus activeSequences entfernt: {sequenceName}" );
+           
 
             // Stelle sicher, dass alle verwendeten Knochen zurückgesetzt werden
             foreach ( string boneName in usedBones )
             {
-                Log.Info( $"Prüfe Knochen für Cleanup: {boneName}" );
+              
                 if ( !activeAnimations.Any( a =>
                 {
                     var anim = Animations.Find( anim => anim.Name == a.Key );
                     return anim?.BoneName.Equals( boneName, StringComparison.OrdinalIgnoreCase ) == true;
                 } ) )
                 {
-                    Log.Info( $"Setze Knochen zurück: {boneName}" );
+                    
                     RemoveProceduralBone( boneName );
                 }
-                else
-                {
-                    Log.Info( $"Knochen wird noch verwendet, kein Reset: {boneName}" );
-                }
+               
             }
 
-            Log.Info( $"Sequenz vollständig beendet: {sequenceName}" );
+           
         }
     }
 
@@ -223,18 +240,18 @@ public sealed class BoneAnimationController : Component
     // ...existing code...
     private async Task ExecuteAnimationStep( AnimationStep step, CancellationToken token, HashSet<string> usedBones )
     {
-        Log.Info( $"Führe Schritt aus: Animation={step.AnimationName}, Delay={step.Delay}, WaitForCompletion={step.WaitForCompletion}" );
+        
 
         // Verzögerung vor der Animation abwarten
         if ( step.Delay > 0 )
         {
-            Log.Info( $"Warte {step.Delay} Sekunden vor der Animation" );
+          
             await GameTask.DelaySeconds( step.Delay );
         }
 
         if ( token.IsCancellationRequested )
         {
-            Log.Info( $"Abbruch: Sequenzschritt wurde während der Verzögerung abgebrochen" );
+            
             return;
         }
 
@@ -242,7 +259,7 @@ public sealed class BoneAnimationController : Component
         var animation = Animations.Find( a => a.Name == step.AnimationName );
         if ( animation != null )
         {
-            Log.Info( $"Animation gefunden: {step.AnimationName}, Knochen: {animation.BoneName}" );
+            
 
             // Knochen zur Liste der verwendeten Knochen hinzufügen
             if ( !string.IsNullOrEmpty( animation.BoneName ) )
@@ -251,43 +268,35 @@ public sealed class BoneAnimationController : Component
                 {
                     usedBones.Add( animation.BoneName.ToLower() ); // Konsistente Kleinschreibung verwenden
                 }
-                Log.Info( $"Knochen hinzugefügt für Cleanup: {animation.BoneName}" );
+                
             }
 
             var taskCompletionSource = new TaskCompletionSource<bool>();
-            Log.Info( $"TaskCompletionSource erstellt für Animation: {step.AnimationName}" );
+            
 
             // Starte die Animation mit einem expliziten Callback
             PlayAnimation( step.AnimationName, () =>
             {
-                Log.Info( $"Animation Callback ausgeführt für: {step.AnimationName}" );
+               
                 taskCompletionSource.TrySetResult( true ); // Verwende TrySetResult statt SetResult
             } );
 
             // Warte optional auf den Abschluss
             if ( step.WaitForCompletion )
             {
-                Log.Info( $"Warte auf Abschluss der Animation: {step.AnimationName}" );
+                
 
                 try
                 {
                     await taskCompletionSource.Task;
-                    Log.Info( $"Animation abgeschlossen: {step.AnimationName}" );
+                    
                 }
-                catch ( Exception ex )
-                {
-                    Log.Warning( $"Fehler beim Warten auf Animation: {ex.Message}" );
-                }
+                
+                
             }
-            else
-            {
-                Log.Info( $"Keine Wartezeit für Animation: {step.AnimationName}" );
-            }
+            
         }
-        else
-        {
-            Log.Warning( $"Animation '{step.AnimationName}' nicht gefunden" );
-        }
+        
     }
     // ...existing code...
 
@@ -306,7 +315,7 @@ public sealed class BoneAnimationController : Component
             ModelRenderer = GameObject.Components.Get<SkinnedModelRenderer>();
             if ( ModelRenderer == null )
             {
-                Log.Warning( "Kein SkinnedModelRenderer gefunden!" );
+               
                 return;
             }
         }
@@ -316,22 +325,16 @@ public sealed class BoneAnimationController : Component
 
         if ( ModelRenderer.Model != null )
         {
-            Log.Info( $"Modell geladen: {ModelRenderer.Model.ResourcePath}" );
-
+     
             // Rekursiv alle GameObjects durchsuchen, die vermutlich Knochen sein könnten
             FindBonesRecursive( GameObject );
 
             // Zusätzlich: Versuche, über den Transform-Baum die Bones zu finden
             var rootTransform = ModelRenderer.GameObject;
-            Log.Info( $"Suche Knochen im Transform-Baum von: {rootTransform.Name}" );
+          
             FindBonesInTransformHierarchy( rootTransform );
         }
-        else
-        {
-            Log.Warning( "Kein Modell im SkinnedModelRenderer gefunden!" );
-        }
-
-        Log.Info( $"Insgesamt gefunden: {boneObjects.Count} Bones" );
+       
     }
 
     // Neue Methode zum Durchsuchen der Transform-Hierarchie nach Bones
@@ -342,7 +345,7 @@ public sealed class BoneAnimationController : Component
         if ( IsPotentialBoneName( name ) && !boneObjects.ContainsKey( name ) )
         {
             boneObjects[name] = obj;
-            Log.Info( $"Potenziellen Knochen im Transform-Baum gefunden: {name}" );
+           
         }
 
         // Rekursiv alle Kinder durchgehen
@@ -395,16 +398,7 @@ public sealed class BoneAnimationController : Component
         }
     }
 
-    // Füge diese Methode zu BoneAnimationController hinzu:
 
-    public void LogAnimationDetails()
-    {
-        Log.Info( $"Alle Animationen im Controller ({Animations.Count}):" );
-        foreach ( var anim in Animations )
-        {
-            Log.Info( $"  - Animation: {anim.Name}, Knochen: {anim.BoneName}, Dauer: {anim.Duration}s" );
-        }
-    }
 
     /// <summary>
     /// Liefert das GameObject für einen Knochen anhand seines Namens, ignoriert Groß- und Kleinschreibung
@@ -417,13 +411,7 @@ public sealed class BoneAnimationController : Component
         // Verwende eine Case-insensitive Suche von Anfang an
         string normalizedName = boneName.ToLower();
 
-        foreach ( var kvp in boneObjects )
-        {
-            if ( string.Equals( kvp.Key, normalizedName, StringComparison.OrdinalIgnoreCase ) )
-            {
-                return kvp.Value;
-            }
-        }
+
 
         // Wenn nicht im Cache, erneut alle Knochen finden
         FindAllBoneObjects();
@@ -433,13 +421,13 @@ public sealed class BoneAnimationController : Component
         {
             if ( string.Equals( kvp.Key, normalizedName, StringComparison.OrdinalIgnoreCase ) )
             {
-                Log.Info( $"Knochen gefunden nach Aktualisierung: '{kvp.Key}' statt '{boneName}'" );
+
                 return kvp.Value;
             }
         }
+        return null; // Wenn kein passendes GameObject gefunden wurde
 
-        Log.Warning( $"Knochen '{boneName}' nicht gefunden. Verfügbare Knochen: {string.Join( ", ", boneObjects.Keys.Take( 5 ) )}..." );
-        return null;
+        
     }
 
 
@@ -460,7 +448,7 @@ public sealed class BoneAnimationController : Component
         var boneObject = GetBoneObject( animation.BoneName );
         if ( boneObject == null )
         {
-            Log.Warning( $"Knochen '{animation.BoneName}' nicht gefunden im Modell." );
+          
             onComplete?.Invoke(); // Callback aufrufen, wenn Knochen nicht gefunden wird
             return;
         }
@@ -530,7 +518,7 @@ public sealed class BoneAnimationController : Component
             RemoveProceduralBone( animation.BoneName );
 
             // WICHTIG: Callback nach Abschluss der Animation aufrufen
-            Log.Info( $"Animation '{animationName}' abgeschlossen, rufe Callback auf" );
+            
             onComplete?.Invoke();
         }
     }
@@ -620,11 +608,11 @@ public class BoneAnimation
     [Button( "Vorschau" )]
     public void PlayAnimation()
     {
-        Log.Info( $"Animation '{Name}' abspielen" );
+      
         var player = Player.Local;
         if ( player == null )
         {
-            Log.Warning( "Kein lokaler Spieler gefunden" );
+           
             return;
         }
 
@@ -637,7 +625,7 @@ public class BoneAnimation
             {
                 // Animation temporär zum Controller hinzufügen
                 controller.Animations.Add( this );
-                Log.Info( "Animation temporär zum Controller hinzugefügt" );
+                
             }
 
             // Animation über den Controller abspielen
@@ -645,15 +633,9 @@ public class BoneAnimation
             {
                 controller.PlayAnimation( Name );
             }
-            else
-            {
-                Log.Warning( "Animation hat keinen Namen" );
-            }
+           
         }
-        else
-        {
-            Log.Warning( "BoneAnimationController nicht gefunden am Spieler" );
-        }
+       
     }
 }
 
