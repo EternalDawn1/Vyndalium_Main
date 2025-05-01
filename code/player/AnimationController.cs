@@ -112,7 +112,154 @@ public sealed class BoneAnimationController : Component
     }
     // Diese Methode ersetzt die bestehende PlaySequence-Methode in BoneAnimationController
 
+    // ...existing code...
 
+    /// <summary>
+    /// Spielt eine Animation mit ihren Sub-Animationen ab
+    /// </summary>
+    public async void PlayAnimationWithSubs( BoneAnimation animation, Action onComplete = null )
+    {
+        if ( animation == null || ModelRenderer == null ) return;
+
+        // Wenn keine Sub-Animationen, einfach normale Animation abspielen
+        if ( animation.SubAnimations == null || animation.SubAnimations.Count == 0 )
+        {
+            PlayAnimation( animation.Name, onComplete );
+            return;
+        }
+
+        // Liste der aktiven Tasks für Sub-Animationen
+        List<Task> subAnimationTasks = new();
+
+        // Hauptanimation starten
+        var mainAnimationCompleted = new TaskCompletionSource<bool>();
+        var mainAnimationReachedTarget = new TaskCompletionSource<bool>();
+
+        // Spielen wir die Hauptanimation ab
+        PlayAnimation( animation.Name, () =>
+        {
+            mainAnimationCompleted.TrySetResult( true );
+        } );
+
+        // Je nach Timing die Sub-Animationen starten
+        switch ( animation.SubAnimationTiming )
+        {
+            case SubAnimationTiming.WithMainAnimation:
+                // Starte alle Sub-Animationen sofort
+                foreach ( var subAnim in animation.SubAnimations )
+                {
+                    if ( subAnim.Animation != null )
+                    {
+                        var task = StartSubAnimation( subAnim );
+                        if ( subAnim.WaitForCompletion )
+                        {
+                            subAnimationTasks.Add( task );
+                        }
+                    }
+                }
+                break;
+
+            case SubAnimationTiming.AfterDelay:
+                // Warte die angegebene Verzögerung
+                await GameTask.DelaySeconds( animation.SubAnimationDelay );
+
+                // Starte alle Sub-Animationen nach der Verzögerung
+                foreach ( var subAnim in animation.SubAnimations )
+                {
+                    if ( subAnim.Animation != null )
+                    {
+                        var task = StartSubAnimation( subAnim );
+                        if ( subAnim.WaitForCompletion )
+                        {
+                            subAnimationTasks.Add( task );
+                        }
+                    }
+                }
+                break;
+
+            case SubAnimationTiming.AfterMainReachesTarget:
+                // Für diesen Modus müssen wir einen speziellen Task starten, 
+                // der bei Erreichen des Ziels die Sub-Animationen startet
+
+                // Die Hauptanimation überwachen
+                GameTask.RunInThreadAsync( async () =>
+                {
+                    // Wir warten nur Duration, nicht ReturnDuration
+                    await GameTask.DelaySeconds( animation.Duration );
+
+                    // Signal senden, dass die Zielposition erreicht wurde
+                    mainAnimationReachedTarget.TrySetResult( true );
+
+                    // Starte alle Sub-Animationen nach Erreichen des Ziels
+                    foreach ( var subAnim in animation.SubAnimations )
+                    {
+                        if ( subAnim.Animation != null )
+                        {
+                            var task = StartSubAnimation( subAnim );
+                            if ( subAnim.WaitForCompletion )
+                            {
+                                subAnimationTasks.Add( task );
+                            }
+                        }
+                    }
+                } );
+                break;
+
+            case SubAnimationTiming.AfterMainCompletes:
+                // Warten auf den Abschluss der Hauptanimation
+                await mainAnimationCompleted.Task;
+
+                // Starte alle Sub-Animationen nach Abschluss der Hauptanimation
+                foreach ( var subAnim in animation.SubAnimations )
+                {
+                    if ( subAnim.Animation != null )
+                    {
+                        var task = StartSubAnimation( subAnim );
+                        if ( subAnim.WaitForCompletion )
+                        {
+                            subAnimationTasks.Add( task );
+                        }
+                    }
+                }
+                break;
+        }
+
+        // Warten auf alle Sub-Animationen, die auf Abschluss warten müssen
+        if ( subAnimationTasks.Count > 0 )
+        {
+            await Task.WhenAll( subAnimationTasks );
+        }
+
+        // Falls die Hauptanimation noch nicht abgeschlossen ist, darauf warten
+        await mainAnimationCompleted.Task;
+
+        // Callback aufrufen
+        onComplete?.Invoke();
+    }
+
+    /// <summary>
+    /// Startet eine Sub-Animation und gibt einen Task zurück, der bei Abschluss beendet wird
+    /// </summary>
+    private Task StartSubAnimation( SubBoneAnimation subAnim )
+    {
+        var taskCompletionSource = new TaskCompletionSource<bool>();
+
+        if ( subAnim.Animation != null )
+        {
+            PlayAnimation( subAnim.Animation.Name, () =>
+            {
+                taskCompletionSource.TrySetResult( true );
+            } );
+        }
+        else
+        {
+            // Sofort als abgeschlossen markieren, wenn keine Animation vorhanden
+            taskCompletionSource.TrySetResult( true );
+        }
+
+        return taskCompletionSource.Task;
+    }
+    // ...existing code...
 
 
     public async void PlaySequence( string sequenceName )
@@ -240,27 +387,21 @@ public sealed class BoneAnimationController : Component
     // ...existing code...
     private async Task ExecuteAnimationStep( AnimationStep step, CancellationToken token, HashSet<string> usedBones )
     {
-        
-
         // Verzögerung vor der Animation abwarten
         if ( step.Delay > 0 )
         {
-          
             await GameTask.DelaySeconds( step.Delay );
         }
 
         if ( token.IsCancellationRequested )
         {
-            
             return;
         }
 
-        // Animation starten
+        // Animation finden
         var animation = Animations.Find( a => a.Name == step.AnimationName );
         if ( animation != null )
         {
-            
-
             // Knochen zur Liste der verwendeten Knochen hinzufügen
             if ( !string.IsNullOrEmpty( animation.BoneName ) )
             {
@@ -268,35 +409,60 @@ public sealed class BoneAnimationController : Component
                 {
                     usedBones.Add( animation.BoneName.ToLower() ); // Konsistente Kleinschreibung verwenden
                 }
-                
+
+                // Auch Knochen von Sub-Animationen hinzufügen
+                if ( animation.SubAnimations != null )
+                {
+                    foreach ( var subAnim in animation.SubAnimations )
+                    {
+                        if ( subAnim.Animation != null && !string.IsNullOrEmpty( subAnim.Animation.BoneName ) )
+                        {
+                            lock ( usedBones )
+                            {
+                                usedBones.Add( subAnim.Animation.BoneName.ToLower() );
+                            }
+                        }
+                    }
+                }
             }
 
             var taskCompletionSource = new TaskCompletionSource<bool>();
-            
 
-            // Starte die Animation mit einem expliziten Callback
-            PlayAnimation( step.AnimationName, () =>
+            // WICHTIG: Prüfen, ob die Animation Sub-Animationen hat
+            if ( animation.SubAnimations != null && animation.SubAnimations.Count > 0 )
             {
-               
-                taskCompletionSource.TrySetResult( true ); // Verwende TrySetResult statt SetResult
-            } );
+                // Verwende PlayAnimationWithSubs für Animationen mit Sub-Animationen
+                PlayAnimationWithSubs( animation, () =>
+                {
+                    taskCompletionSource.TrySetResult( true );
+                } );
+            }
+            else
+            {
+                // Reguläre Animation ohne Sub-Animationen
+                PlayAnimation( step.AnimationName, () =>
+                {
+                    taskCompletionSource.TrySetResult( true );
+                } );
+            }
 
             // Warte optional auf den Abschluss
             if ( step.WaitForCompletion )
             {
-                
-
                 try
                 {
                     await taskCompletionSource.Task;
-                    
                 }
-                
-                
+                catch ( Exception ex )
+                {
+                    Log.Warning( $"Fehler beim Warten auf Animation: {ex.Message}" );
+                }
             }
-            
         }
-        
+        else
+        {
+            Log.Warning( $"Animation '{step.AnimationName}' nicht gefunden" );
+        }
     }
     // ...existing code...
 
@@ -593,6 +759,9 @@ public sealed class BoneAnimationController : Component
 /// <summary>
 /// Eine Animation für einen bestimmten Knochen
 /// </summary>
+/// <summary>
+/// Eine Animation für einen bestimmten Knochen
+/// </summary>
 [Serializable]
 public class BoneAnimation
 {
@@ -604,15 +773,30 @@ public class BoneAnimation
     [Property] public EaseType EaseType { get; set; } = EaseType.EaseInOut;
     [Property, Title( "Im Loop abspielen" )] public bool Loop { get; set; } = false;
 
+    /// <summary>
+    /// Sub-Animationen, die parallel zur Hauptanimation ausgeführt werden
+    /// </summary>
+    [Property, Category( "Sub-Animationen" )]
+    public List<SubBoneAnimation> SubAnimations { get; set; } = new();
+
+    /// <summary>
+    /// Bestimmt, wann die Sub-Animationen gestartet werden sollen
+    /// </summary>
+    [Property, Category( "Sub-Animationen" )]
+    public SubAnimationTiming SubAnimationTiming { get; set; } = SubAnimationTiming.WithMainAnimation;
+
+    /// <summary>
+    /// Verzögerung vor dem Start der Sub-Animationen (in Sekunden)
+    /// </summary>
+    [Property, Category( "Sub-Animationen" ), ShowIf( "SubAnimationTiming", SubAnimationTiming.AfterDelay )]
+    public float SubAnimationDelay { get; set; } = 0.1f;
 
     [Button( "Vorschau" )]
     public void PlayAnimation()
     {
-      
         var player = Player.Local;
         if ( player == null )
         {
-           
             return;
         }
 
@@ -625,18 +809,59 @@ public class BoneAnimation
             {
                 // Animation temporär zum Controller hinzufügen
                 controller.Animations.Add( this );
-                
+
+                // Sub-Animationen ebenfalls hinzufügen
+                foreach ( var subAnim in SubAnimations )
+                {
+                    if ( subAnim.Animation != null && !controller.Animations.Contains( subAnim.Animation ) )
+                    {
+                        controller.Animations.Add( subAnim.Animation );
+                    }
+                }
             }
 
             // Animation über den Controller abspielen
             if ( !string.IsNullOrEmpty( Name ) )
             {
-                controller.PlayAnimation( Name );
+                controller.PlayAnimationWithSubs( this );
             }
-           
         }
-       
     }
+}
+
+/// <summary>
+/// Timingoptionen für Sub-Animationen
+/// </summary>
+public enum SubAnimationTiming
+{
+    /// <summary>Startet gleichzeitig mit der Hauptanimation</summary>
+    WithMainAnimation,
+
+    /// <summary>Startet erst, wenn die Hauptanimation das Ziel erreicht hat</summary>
+    AfterMainReachesTarget,
+
+    /// <summary>Startet nachdem die Hauptanimation vollständig abgeschlossen ist</summary>
+    AfterMainCompletes,
+
+    /// <summary>Startet nach einer definierten Verzögerung</summary>
+    AfterDelay
+}
+
+/// <summary>
+/// Eine Sub-Animation, die zusammen mit einer Hauptanimation ausgeführt wird
+/// </summary>
+[Serializable]
+public class SubBoneAnimation
+{
+    /// <summary>
+    /// Die auszuführende Animation
+    /// </summary>
+    [Property] public BoneAnimation Animation { get; set; }
+
+    /// <summary>
+    /// Ob auf den Abschluss der Sub-Animation gewartet werden soll
+    /// </summary>
+    [Property] public bool WaitForCompletion { get; set; } = false;
 }
 
 /// <summary>
