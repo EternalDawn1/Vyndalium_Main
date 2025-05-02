@@ -551,19 +551,26 @@ public sealed class BoneAnimationController : Component
     /// </summary>
     private void FindBonesRecursive( GameObject obj )
     {
+        // Prüfe, ob das Objekt null ist
+        if ( obj == null )
+            return;
+
         // Füge dieses GameObject als möglichen Knochen hinzu
         if ( !boneObjects.ContainsKey( obj.Name ) )
         {
             boneObjects[obj.Name] = obj;
         }
 
-        // Suche in allen Kindern
-        foreach ( var child in obj.Children )
+        // Suche in allen Kindern, prüfe ob Children nicht null ist
+        if ( obj.Children != null )
         {
-            FindBonesRecursive( child );
+            foreach ( var child in obj.Children )
+            {
+                // Kind könnte null sein, daher weitergeben und in der Methode prüfen
+                FindBonesRecursive( child );
+            }
         }
     }
-
 
 
     /// <summary>

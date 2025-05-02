@@ -901,6 +901,7 @@ public partial class BaseGun : WeaponComponent, IUse
 		if ( damageable is not null )
 		{
 
+			
 
 
 			Random random = new Random();
@@ -950,6 +951,31 @@ public partial class BaseGun : WeaponComponent, IUse
 		}
 		else if ( trace.Hit )
 		{
+			if ( ImpactArea != null )
+			{
+				Log.Info( "ImpactArea ist null" );
+				var impactInstance = ResourceLibrary.Get<PrefabFile>( ImpactArea.ResourcePath );
+				if ( impactInstance != null )
+				{
+					var impactObject = GameObject.Clone( impactInstance );
+					if ( impactObject != null )
+					{
+						impactObject.WorldPosition = trace.EndPosition;
+						impactObject.WorldRotation = Rotation.LookAt( trace.Normal );
+
+						// Passe die Partikeleffekte an den Nahkampfstil an
+						var impactRenderer = impactObject.Components.Get<ParticleEffect>();
+						if ( impactRenderer != null )
+						{
+							impactRenderer.Scale = 5f; // Kleinere Größe für Nahkampf
+							impactRenderer.Tint = Color.Orange.WithAlpha( 0.7f ); // Angepasste Farbe für Nahkampf
+						}
+
+						// Zerstöre den Effekt nach kurzer Zeit
+						_ = DestroyImpactEffectAfterDelay( impactObject, 1.0f );
+					}
+				}
+			}
 			SendImpactMessage( trace.EndPosition, trace.Normal );
 
 
@@ -990,6 +1016,7 @@ public partial class BaseGun : WeaponComponent, IUse
 			}
 			else if ( trace.Hit )
 			{
+				
 				SendImpactMessage( trace.EndPosition, trace.Normal );
 			}
 			
@@ -999,6 +1026,14 @@ public partial class BaseGun : WeaponComponent, IUse
 			}
 
 			
+		}
+	}
+	private async Task DestroyImpactEffectAfterDelay( GameObject impactEffect, float delay )
+	{
+		await Task.Delay( (int)(delay * 1000) );
+		if ( impactEffect != null && impactEffect.IsValid() )
+		{
+			impactEffect.Destroy();
 		}
 	}
 	private async Task DisableTrailAfterDelay( TrailRenderer trail, float delay )
