@@ -197,7 +197,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[ShowIf( "Idle", true )]
 	public Action OnIdle { get; set; }
 
-
+	public static NPC Local { get; set; }
 
 	[Property]
 	public string Name { get; set; }
@@ -1554,6 +1554,10 @@ public static class NpcExtensions
 	public static bool HasStatusEffect<T>( this Npc npc ) where T : StatusEffect
 	{
 		return npc.activeStatusEffects.OfType<T>().Any();
+	}
+	public static T GetComponent<T>( this Npc npc ) where T : Component
+	{
+		return npc.GameObject.Components.Get<T>();
 	}
 }
 public abstract class StatusEffect

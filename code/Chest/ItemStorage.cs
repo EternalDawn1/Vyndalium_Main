@@ -91,7 +91,7 @@ namespace GeneralGame
             "prefabs/items/wood_log.prefab",
             "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-    
+            "prefabs/weapons/custom_weapons/katana/katana.prefab",
             "prefabs/items/wood_log.prefab",
             "prefabs/potions/potion_small.prefab",
             "prefabs/potions/potion_mid.prefab",
@@ -198,7 +198,7 @@ namespace GeneralGame
 
         private List<string> bossItems = new List<string>
         {
-           
+            "prefabs/weapons/custom_weapons/katana/katana.prefab",
             "prefabs/entitys/aspects/variants/air.prefab",
             "prefabs/entitys/aspects/variants/bleed.prefab",
             "prefabs/entitys/aspects/variants/earth.prefab",
@@ -260,7 +260,7 @@ namespace GeneralGame
 
         private List<string> tierCPrefabs = new List<string>
         {
-           
+
             "prefabs/weapons/facepunch/usp/uspc.prefab",
             "prefabs/weapons/facepunch/shotgun/shotgunc.prefab",
             "prefabs/weapons/facepunch/mp5/mp5c.prefab",
@@ -273,6 +273,7 @@ namespace GeneralGame
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
             "prefabs/weapons/custom_weapons/glock/glock.prefab",
+             "prefabs/weapons/custom_weapons/katana/katana.prefab",
  
             // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
         };
@@ -284,7 +285,7 @@ namespace GeneralGame
             "prefabs/weapons/facepunch/shotgun/shotgunb.prefab",
             "prefabs/weapons/facepunch/mp5/mp5b.prefab",
             "prefabs/weapons/m4a1/m4a1-b.prefab",
-        
+
             "prefabs/clothes/armor/armor-b.prefab",
             "prefabs/clothes/helmet/helmet-b.prefab",
             "prefabs/clothes/legarmor/legarmor-b.prefab",
@@ -293,18 +294,19 @@ namespace GeneralGame
             "prefabs/weapons/new/knife.prefab",
             "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
      "prefabs/weapons/custom_weapons/glock/glock.prefab",
+      "prefabs/weapons/custom_weapons/katana/katana.prefab",
 
             // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
         };
 
         private List<string> tierAPrefabs = new List<string>
         {
-      
+
             "prefabs/weapons/facepunch/usp/uspa.prefab",
             "prefabs/weapons/facepunch/shotgun/shotguna.prefab",
             "prefabs/weapons/facepunch/mp5/mp5a.prefab",
             "prefabs/weapons/m4a1/m4a1-a.prefab",
-  
+
             "prefabs/clothes/armor/armor-a.prefab",
             "prefabs/clothes/helmet/helmet-a.prefab",
             "prefabs/clothes/legarmor/legarmor-a.prefab",
@@ -312,6 +314,7 @@ namespace GeneralGame
             "prefabs/weapons/new/knife.prefab",
         "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
           "prefabs/weapons/custom_weapons/glock/glock.prefab",
+           "prefabs/weapons/custom_weapons/katana/katana.prefab",
             // Fügen Sie hier weitere A-Tier-Prefab-Dateien hinzu
         };
 
@@ -329,13 +332,14 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
           "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
+           "prefabs/weapons/custom_weapons/katana/katana.prefab",
         
             // Fügen Sie hier weitere S-Tier-Prefab-Dateien hinzu
         };
 
         private List<string> tierSSPrefabs = new List<string>
         {
-   
+
             "prefabs/weapons/facepunch/usp/uspss.prefab",
             "prefabs/weapons/facepunch/shotgun/shotgunss.prefab",
             "prefabs/weapons/facepunch/mp5/mp5ss.prefab",
@@ -349,6 +353,7 @@ namespace GeneralGame
 
      "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
           "prefabs/weapons/custom_weapons/glock/glock.prefab",
+           "prefabs/weapons/custom_weapons/katana/katana.prefab",
             // Fügen Sie hier weitere SS-Tier-Prefab-Dateien hinzu
         };
 
@@ -366,17 +371,18 @@ namespace GeneralGame
              "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
        "prefabs/weapons/custom_weapons/glock/glock.prefab",
+        "prefabs/weapons/custom_weapons/katana/katana.prefab",
    
             // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
         };
         private List<string> tierUltimatePrefabs = new List<string>
         {
-      
+
             "prefabs/weapons/facepunch/usp/uspsss.prefab",
             "prefabs/weapons/facepunch/shotgun/shotgunsss.prefab",
             "prefabs/weapons/facepunch/mp5/mp5sss.prefab",
             "prefabs/weapons/m4a1/m4a1-sss.prefab",
-     
+
             "prefabs/clothes/armor/armor-sss.prefab",
             "prefabs/clothes/helmet/helmet-sss.prefab",
             "prefabs/clothes/legarmor/legarmor-sss.prefab",
@@ -385,6 +391,7 @@ namespace GeneralGame
              "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
   "prefabs/weapons/custom_weapons/minigun/minigun.prefab",
   "prefabs/weapons/custom_weapons/glock/glock.prefab",
+   "prefabs/weapons/custom_weapons/katana/katana.prefab",
         };
         
       

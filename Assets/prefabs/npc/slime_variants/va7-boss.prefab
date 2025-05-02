@@ -173,11 +173,14 @@
         },
         "AttackCooldown": 5,
         "AttackRange": 80,
+        "AttackSpeed": 1,
+        "BlockDivisor": 50,
         "Body": {
           "_type": "gameobject",
           "go": "19ac60d8-0e63-45a8-a0c2-8f486421171c"
         },
         "CurrentState": "Idle",
+        "DamageLevelMultiplier": 1.05,
         "DeathSounds": "sounds/deathsounds/deathsounds.sound",
         "DetectRange": 432,
         "EnemyTags": null,
@@ -210,9 +213,12 @@
         "isSlime": true,
         "IsSlowed": false,
         "Level": 0,
+        "MaxBaseDamage": 8,
+        "MaxBlockReduction": 0.5,
         "MaxHealth": 3000,
         "MaximumIdleCooldown": 6,
         "MaxRunAnimationSpeed": 150,
+        "MinBaseDamage": 1,
         "MinimumIdleCooldown": 4,
         "Model": {
           "_type": "component",
@@ -240,7 +246,6 @@
         "OnIdle": null,
         "OnKilled": null,
         "OnSpawn": null,
-        "PogMode": false,
         "Position": "0,0,0",
         "PreviousHealth": 0,
         "RunningType": "Smart",
@@ -264,7 +269,7 @@
         "FireBallAttackSound": "prefabs/hit/fire-sounds/avatarattack.sound",
         "FireBallAttackTime": {
           "Absolute": 0,
-          "Relative": 104488890
+          "Relative": 105139890
         },
         "FireBallChargeSound": "prefabs/hit/fire-sounds/avatarcharge.sound",
         "FireBallCooldown": 15,
@@ -272,7 +277,7 @@
         "FireCannonAttackSound": "prefabs/hit/fire-sounds/whoosh-fire.sound",
         "FireCannonAttackTime": {
           "Absolute": 0,
-          "Relative": 104488890
+          "Relative": 105139890
         },
         "FireCannonChargeSound": "prefabs/hit/fire-sounds/avatarcharge.sound",
         "FireCannonCooldown": 5,
@@ -280,7 +285,7 @@
         "FireCannonPrefab": "prefabs/hit/fire-spawn-cannon.prefab",
         "FireRingAttackTime": {
           "Absolute": 0,
-          "Relative": 104488890
+          "Relative": 105139890
         },
         "FireRingCooldown": 10,
         "FireRingEnabled": true,
@@ -292,7 +297,7 @@
         "FireWallSound": "prefabs/hit/fire-sounds/balls.sound",
         "FlameWallAttackTime": {
           "Absolute": 0,
-          "Relative": 104488890
+          "Relative": 105139890
         },
         "FlameWallCooldown": 20,
         "HasSpecialAbility": true,
@@ -309,8 +314,76 @@
         "UltimateJumpAttackCooldown": 30,
         "UltimateJumpAttackTime": {
           "Absolute": 0,
-          "Relative": 104488890
+          "Relative": 105139890
         }
+      },
+      {
+        "__type": "GeneralGame.BoneAnimationController",
+        "__guid": "0df74ffc-2c99-4763-95a1-09adfc5b24f9",
+        "activeAnimations": {},
+        "activeSequences": {},
+        "Animations": [
+          {
+            "Name": "Damaged",
+            "BoneName": "back",
+            "TargetRotation": "0,87.2999,-15.8",
+            "Duration": 0.25,
+            "ReturnDuration": 0.5,
+            "EaseType": "EaseInOut",
+            "Loop": false,
+            "SubAnimations": [],
+            "SubAnimationTiming": "WithMainAnimation",
+            "SubAnimationDelay": 0.1,
+            "npc": null
+          },
+          {
+            "Name": "Damaged2",
+            "BoneName": "back",
+            "TargetRotation": "59.4,0,-58.3999",
+            "Duration": 0.25,
+            "ReturnDuration": 0.5,
+            "EaseType": "EaseInOut",
+            "Loop": false,
+            "SubAnimations": [],
+            "SubAnimationTiming": "WithMainAnimation",
+            "SubAnimationDelay": 0.1,
+            "npc": null
+          }
+        ],
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "f53866ac-309f-4aba-9683-e45b9b2f8c78",
+          "go": "19ac60d8-0e63-45a8-a0c2-8f486421171c",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Sequences": [
+          {
+            "Name": "Hit",
+            "Steps": [
+              {
+                "AnimationName": "Damaged",
+                "Delay": 0,
+                "WaitForCompletion": true,
+                "TimeScale": 1
+              },
+              {
+                "AnimationName": "Damaged2",
+                "Delay": 0,
+                "WaitForCompletion": true,
+                "TimeScale": 1
+              }
+            ],
+            "ExecutionMode": "Random",
+            "Loop": false,
+            "LoopDelay": 0.5
+          }
+        ]
       }
     ],
     "Children": [
@@ -356,7 +429,8 @@
             },
             "RenderType": "On",
             "Sequence": {
-              "Name": null
+              "Name": null,
+              "Looping": true
             },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -416,6 +490,7 @@
             "Name": "root",
             "Rotation": "0.4999999,0.4999999,0.4999999,0.5000003",
             "Enabled": true,
+            "Components": [],
             "Children": [
               {
                 "__guid": "f031257e-d82d-4947-8068-05d56b7812a6",
@@ -423,6 +498,7 @@
                 "Name": "back",
                 "Position": "-0.0000002808309,7.988828,-8.774088",
                 "Enabled": true,
+                "Components": [],
                 "Children": [
                   {
                     "__guid": "c109373a-12c7-4d3e-84e2-74af41fcd588",
@@ -430,6 +506,7 @@
                     "Name": "front",
                     "Position": "0.000009492987,5.58995,18.68033",
                     "Enabled": true,
+                    "Components": [],
                     "Children": [
                       {
                         "__guid": "50801513-66ea-40eb-9a37-a7212bfff261",
@@ -464,7 +541,8 @@
                             "RenderType": "On",
                             "Tint": "1,1,1,1"
                           }
-                        ]
+                        ],
+                        "Children": []
                       },
                       {
                         "__guid": "713a01b7-c1ba-44d0-86fd-46aa1c26bf56",
@@ -499,7 +577,8 @@
                             "RenderType": "On",
                             "Tint": "1,1,1,1"
                           }
-                        ]
+                        ],
+                        "Children": []
                       }
                     ]
                   }
@@ -515,7 +594,9 @@
         "Name": "eye",
         "Position": "0,0,81.76636",
         "Enabled": true,
-        "NetworkMode": 1
+        "NetworkMode": 1,
+        "Components": [],
+        "Children": []
       },
       {
         "__guid": "4797628e-721e-4f4a-9728-13573bc7d9ec",
@@ -622,19 +703,15 @@
               "compiled": "textures/generated/imagefile/e78dead6c29078a9.vtex"
             }
           }
-        ]
+        ],
+        "Children": []
       }
     ],
     "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,

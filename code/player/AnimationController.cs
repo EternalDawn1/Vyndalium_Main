@@ -182,7 +182,7 @@ public sealed class BoneAnimationController : Component
                 // der bei Erreichen des Ziels die Sub-Animationen startet
 
                 // Die Hauptanimation überwachen
-                GameTask.RunInThreadAsync( async () =>
+                _ =GameTask.RunInThreadAsync( async () =>
                 {
                     // Wir warten nur Duration, nicht ReturnDuration
                     await GameTask.DelaySeconds( animation.Duration );
@@ -827,6 +827,44 @@ public class BoneAnimation
             }
         }
     }
+    [Property] public Npc npc { get; set; } = null;
+
+    [Button( "Vorschau NPC" )]
+    public void PlayAnimationNpc()
+    {
+        if ( npc == null )
+        {
+            return;
+        }
+
+        var controller = npc.GetComponent<BoneAnimationController>();
+
+        if ( controller != null )
+        {
+            // Prüfe, ob dieser Controller unsere Animation enthält
+            if ( !controller.Animations.Contains( this ) )
+            {
+                // Animation temporär zum Controller hinzufügen
+                controller.Animations.Add( this );
+
+                // Sub-Animationen ebenfalls hinzufügen
+                foreach ( var subAnim in SubAnimations )
+                {
+                    if ( subAnim.Animation != null && !controller.Animations.Contains( subAnim.Animation ) )
+                    {
+                        controller.Animations.Add( subAnim.Animation );
+                    }
+                }
+            }
+
+            // Animation über den Controller abspielen
+            if ( !string.IsNullOrEmpty( Name ) )
+            {
+                controller.PlayAnimationWithSubs( this );
+            }
+        }
+    }
+    
 }
 
 /// <summary>

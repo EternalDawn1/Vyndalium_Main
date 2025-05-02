@@ -424,7 +424,7 @@ public partial class BaseGun : WeaponComponent, IUse
 		}
 
 		// Sound zum Laden abspielen
-		Sound.Play( "sounds/charging.sound", WorldPosition );
+		
 	}
 
 	// Methode zum Beenden des Aufladens mit Animation zurück zur Ausgangsposition
@@ -534,6 +534,7 @@ public partial class BaseGun : WeaponComponent, IUse
 	[Rpc.Broadcast]
 	private void PerformMeleeAttack( Player player, bool isSpecialAttack = false )
 	{
+		Log.Info( $"PerformMeleeAttack called with isSpecialAttack: {isSpecialAttack}" );
 		if ( isSpecialAttack && !FullyCharged )
 		{
 			isSpecialAttack = false;
@@ -595,7 +596,7 @@ public partial class BaseGun : WeaponComponent, IUse
 		{
 			// Spezialangriff: Kreisförmiger Angriff um den Spieler herum
 			PerformCircularAttack( player );
-			
+
 		}
 		else
 		{
@@ -617,6 +618,10 @@ public partial class BaseGun : WeaponComponent, IUse
 				.UseHitboxes()
 				.Run();
 
+			DebugOverlay.Sphere( new Sphere( startPos, slashRadius ), Color.Yellow.WithAlpha( 0.3f ), duration: 0.5f, overlay: false );
+			DebugOverlay.Sphere( new Sphere( endPos, slashRadius ), Color.Red.WithAlpha( 0.3f ), duration: 0.5f, overlay: false );
+			DebugOverlay.Line( startPos, endPos, Color.Green, duration: 0.5f );
+
 			// Restliche bestehende Logik für normalen Angriff...
 			// (Der bestehende Code bleibt unverändert)
 		}
@@ -627,64 +632,67 @@ public partial class BaseGun : WeaponComponent, IUse
 	// Neue Methode für den kreisförmigen Angriff
 	private void PerformCircularAttack( Player player )
 	{
-		// Ursprungsposition des Spielers
-		Vector3 playerPosition = player.PlyCamera.WorldPosition;
+		// Kameraposition und -richtung nutzen
+		Vector3 cameraPosition = player.PlyCamera.WorldPosition;
+		Vector3 cameraForward = player.PlyCamera.WorldRotation.Forward;
+
+		// Mittelpunkt des Angriffs vor dem Spieler platzieren (z.B. 100 Einheiten nach vorne)
+		Vector3 attackCenter = cameraPosition + cameraForward * 100.0f;
 
 		// Parameter für den kreisförmigen Angriff
-		float attackRadius = 200.0f; // Radius des Angriffs in Einheiten
-		int numTraces = 12; // Anzahl der Traces um den Spieler herum
-		float upOffset = 50.0f; // Höhenversatz nach oben
-		float downOffset = 10.0f; // Höhenversatz nach unten
+		float attackRadius = 300.0f; // Radius des Angriffs
+		int numTraces = 12; // Anzahl der Traces im Kreis
+		
 
-		// Visuelle Effekte für den Spezialangriff
-		// Visuelle Effekte für den Spezialangriff
-		if ( ImpactArea != null )
-		{
-			var impactInstance = ResourceLibrary.Get<PrefabFile>( ImpactArea.ResourcePath );
-			if ( impactInstance != null )
-			{
-				var impactObject = GameObject.Clone( impactInstance );
-				if ( impactObject != null )
-				{
-					impactObject.WorldPosition = playerPosition;
-					// Verwende Transform.Scale statt direkt Scale auf GameObject
-					impactObject.WorldScale = attackRadius / 100.0f;
-				}
-			}
-		}
 
-		// Sound für Spezialangriff
-		Sound.Play( "sounds/special_attack.sound", playerPosition );
 
-		// Führe Traces in alle Richtungen durch
+
+		// Konstruiere eine Ebene senkrecht zur Blickrichtung
+		Vector3 forward = cameraForward;
+		
+		Vector3 right = Vector3.Cross( Vector3.Up, forward );
+
+		// Traces in einem Kreis vor dem Spieler durchführen
 		for ( int i = 0; i < numTraces; i++ )
 		{
-			// Berechne Richtungen im Kreis
+			// Berechne Punkte im Kreis in der Ebene vor dem Spieler
 			float angle = (360.0f / numTraces) * i;
-			Vector3 direction = new Vector3(
-				MathF.Cos( angle * (MathF.PI / 180.0f) ),
-				MathF.Sin( angle * (MathF.PI / 180.0f) ),
-				0
-			).Normal;
+			float radians = angle * (MathF.PI / 180.0f);
 
-			// Berechne End-Positionen für die Traces
-			Vector3 endPos = playerPosition + direction * attackRadius;
+			// Berechne Richtungsvektor in der Ebene vor dem Spieler
+			Vector3 direction = (right * MathF.Cos( radians ) + Vector3.Up * MathF.Sin( radians )).Normal;
 
-			// Führe mehrere Traces in verschiedenen Höhen durch
-			PerformCircleTrace( playerPosition, endPos, player );
-			PerformCircleTrace( playerPosition + Vector3.Up * upOffset, endPos + Vector3.Up * upOffset, player );
-			PerformCircleTrace( playerPosition - Vector3.Up * downOffset, endPos - Vector3.Up * downOffset, player );
+			// Berechne End-Position für den Trace
+			Vector3 endPos = attackCenter + direction * attackRadius;
+
+			// Führe Traces durch
+			PerformCircleTrace( attackCenter, endPos, player );
+
+			// Zusätzliche Traces in verschiedenen Höhen
+			Vector3 middleDirection = (forward * 0.5f + direction * 0.5f).Normal;
+			Vector3 middleEndPos = attackCenter + middleDirection * attackRadius;
+			PerformCircleTrace( attackCenter, middleEndPos, player );
 		}
+
+		// Rest der Methode bleibt gleich
 		Owner.ApplyRecoil( new Angles( Random.Shared.Float( -2f, -3f ), Random.Shared.Float( -1f, 1f ), 0 ) );
-		// Spezialangriffs-Animation und Effekte
 		EffectRenderer.Set( "b_attack", true );
 		ModelRenderer.Set( "b_attack", true );
-		// Sicherere Version mit Null-Prüfung und Logging
+
 		if ( Player.Local?.ModelRenderer != null )
 		{
 			Player.Local.ModelRenderer.Set( "b_attack", true );
-
 		}
+
+		SendMeleeAttackMessage( cameraPosition, attackCenter, attackRadius );
+
+		var trailrenderer = player.GameObject.Components.GetInDescendantsOrSelf<TrailRenderer>();
+		if ( trailrenderer != null )
+		{
+			trailrenderer.Emitting = true;
+			_ = DisableTrailAfterDelay( trailrenderer, 0.5f );
+		}
+
 	}
 
 	private void PerformCircleTrace( Vector3 startPos, Vector3 endPos, Player player )
@@ -762,30 +770,30 @@ public partial class BaseGun : WeaponComponent, IUse
 			SendImpactMessage( trace.EndPosition, trace.Normal );
 		}
 	}
-	
+
 	[Rpc.Broadcast]
 
 	private void PerformMeleeAttack( Player player )
 	{
-		
+
 		if ( NextMeleeAttackTime > 0 ) return;
 
 		if ( player == null ) return;
 
-		
+
 		var boneAnimController = GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
 
 		// Falls der Controller nicht an der Waffe ist, schaue beim Spieler nach
 		if ( boneAnimController == null && player?.GameObject != null )
 		{
-			
+
 			boneAnimController = player.GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
 		}
 
 		// Prüfe, ob der Controller gefunden wurde
 		if ( boneAnimController == null )
 		{
-			
+
 			return;
 		}
 		var trailrenderer = player.GameObject.Components.GetInDescendantsOrSelf<TrailRenderer>();
@@ -802,16 +810,16 @@ public partial class BaseGun : WeaponComponent, IUse
 
 
 		string sequenceName = "Sequenz"; // Hier den Namen deiner Animationssequenz eintragen
-		
+
 
 		if ( boneAnimController.HasSequence( sequenceName ) )
 		{
-		
+
 			boneAnimController.PlaySequence( sequenceName );
 		}
 		else
 		{
-			
+
 
 			// Optional: Erstelle die Sequenz dynamisch, falls sie nicht existiert
 			// In der PerformMeleeAttack-Methode
@@ -830,7 +838,7 @@ public partial class BaseGun : WeaponComponent, IUse
 					WaitForCompletion = true
 				} );
 
-			
+
 				boneAnimController.Sequences.Add( newSequence );
 				boneAnimController.PlaySequence( sequenceName );
 			}
@@ -838,9 +846,9 @@ public partial class BaseGun : WeaponComponent, IUse
 		var attachment = EffectRenderer.GetAttachment( "muzzle" );
 		var playerPosition = player.PlyCamera.WorldPosition;
 		var forwardDirection = player.PlyCamera.WorldRotation.Forward;
+			
 
-		
-		var startPos = playerPosition + forwardDirection * 0 ;
+		var startPos = playerPosition + forwardDirection * 0;
 
 		// Berechnen Sie die Endposition 50 Einheiten vor dem Spieler und 25 Einheiten nach rechts
 		var endPos = playerPosition + forwardDirection * 150;
@@ -849,7 +857,19 @@ public partial class BaseGun : WeaponComponent, IUse
 
 		Owner.ApplyRecoil( new Angles( Random.Shared.Float( -2f, -3f ), Random.Shared.Float( -1f, 1f ), 0 ) );
 
+		NextMeleeAttackTime = MeleeCooldown;
+
+		EffectRenderer.Set( "b_attack", true );
+		ModelRenderer.Set( "b_attack", true );
+		// Sicherere Version mit Null-Prüfung und Logging
+		if ( Player.Local?.ModelRenderer != null )
+		{
+			Player.Local.ModelRenderer.Set( "b_attack", true );
+
+		}
+
 		// Führen Sie den Nahkampfangriff aus (Ihre bestehende Logik)
+		// ...existing code...
 		float slashRadius = 5.0f;
 		var trace = Scene.Trace.Sphere( slashRadius, startPos, endPos )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
@@ -857,6 +877,11 @@ public partial class BaseGun : WeaponComponent, IUse
 			.Size( slashRadius )
 			.UseHitboxes()
 			.Run();
+
+		
+
+		// Korrigierte DebugOverlay-Aufrufe (Zeilen 885-887)
+		
 
 		var damage = Damage;
 
@@ -866,7 +891,8 @@ public partial class BaseGun : WeaponComponent, IUse
 
 		IHealthComponent damageable = null;
 
-
+		
+		// ...existing code...
 
 		if ( trace.Component.IsValid() )
 			damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
@@ -925,38 +951,55 @@ public partial class BaseGun : WeaponComponent, IUse
 		else if ( trace.Hit )
 		{
 			SendImpactMessage( trace.EndPosition, trace.Normal );
+
+
 		}
 
-
-
-
-		var target = trace.GameObject;
-		if ( target != null )
+		if ( trace.GameObject != null && trace.GameObject.IsValid() )
 		{
-			if ( target.Components.TryGet<Rigidbody>( out var body ) )
-				body.ApplyImpulseAt( trace.HitPosition, trace.Direction * HitForce );
+			// Prüfe, ob das Objekt "World Physics" ist, und überspringe die Animation
+			if ( trace.GameObject.Name == "World Physics" )
+			{
 
-			if ( target.Components.TryGet<HealthComponent>( out var health ) )
-				health.Damage( Damage, DamageType, player.GameObject, trace.HitPosition, trace.Direction, HitForce );
-		}
-		else if ( trace.Hit )
-		{
-			SendImpactMessage( trace.EndPosition, trace.Normal );
-		}
-		EffectRenderer.Set( "b_attack", true );
-		ModelRenderer.Set( "b_attack", true );
-		// Sicherere Version mit Null-Prüfung und Logging
-		if ( Player.Local?.ModelRenderer != null )
-		{
-			Player.Local.ModelRenderer.Set( "b_attack", true );
+			}
+			else
+			{
+				var boneController = trace.GameObject.Components.GetInAncestorsOrSelf<BoneAnimationController>();
+				if ( boneController != null )
+				{
+					if ( boneController.HasSequence( "Hit" ) )
+					{
+
+						boneController.PlaySequence( "Hit" );
+					}
+
+				}
+
+			}
+
+
+
+			var target = trace.GameObject;
+			if ( target != null )
+			{
+				if ( target.Components.TryGet<Rigidbody>( out var body ) )
+					body.ApplyImpulseAt( trace.HitPosition, trace.Direction * HitForce );
+
+				if ( target.Components.TryGet<HealthComponent>( out var health ) )
+					health.Damage( Damage, DamageType, player.GameObject, trace.HitPosition, trace.Direction, HitForce );
+			}
+			else if ( trace.Hit )
+			{
+				SendImpactMessage( trace.EndPosition, trace.Normal );
+			}
+			
+			else
+			{
+				Log.Warning( "Player.Local oder ModelRenderer ist null - Animation konnte nicht gesetzt werden" );
+			}
+
 			
 		}
-		else
-		{
-			Log.Warning( "Player.Local oder ModelRenderer ist null - Animation konnte nicht gesetzt werden" );
-		}
-	
-		NextMeleeAttackTime = MeleeCooldown;
 	}
 	private async Task DisableTrailAfterDelay( TrailRenderer trail, float delay )
 	{
@@ -1476,8 +1519,8 @@ public partial class BaseGun : WeaponComponent, IUse
 		EffectRenderer?.Set( "b_reload", false );
 		EffectRenderer?.Set( "b_attack", false );
 		EffectRenderer?.Set( "deage_shoot", false );
-		EffectRenderer?.Set( "b_charging", false );
-		EffectRenderer?.Set( "b_fully_charged", false );
+	
+		
 	}
 	protected override void OnUpdate()
 	{

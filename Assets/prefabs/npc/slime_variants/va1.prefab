@@ -249,6 +249,74 @@
           "_type": "gameobject",
           "prefab": "models/npcs/slime/terror_burst.prefab"
         }
+      },
+      {
+        "__type": "GeneralGame.BoneAnimationController",
+        "__guid": "f901a7e0-e061-44c2-9066-0ee9491cbba0",
+        "activeAnimations": {},
+        "activeSequences": {},
+        "Animations": [
+          {
+            "Name": "Damaged",
+            "BoneName": "back",
+            "TargetRotation": "0,87.2999,-15.8",
+            "Duration": 0.25,
+            "ReturnDuration": 0.5,
+            "EaseType": "EaseInOut",
+            "Loop": false,
+            "SubAnimations": [],
+            "SubAnimationTiming": "WithMainAnimation",
+            "SubAnimationDelay": 0.1,
+            "npc": null
+          },
+          {
+            "Name": "Damaged2",
+            "BoneName": "back",
+            "TargetRotation": "59.4,0,-58.3999",
+            "Duration": 0.25,
+            "ReturnDuration": 0.5,
+            "EaseType": "EaseInOut",
+            "Loop": false,
+            "SubAnimations": [],
+            "SubAnimationTiming": "WithMainAnimation",
+            "SubAnimationDelay": 0.1,
+            "npc": null
+          }
+        ],
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "f53866ac-309f-4aba-9683-e45b9b2f8c78",
+          "go": "19ac60d8-0e63-45a8-a0c2-8f486421171c",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Sequences": [
+          {
+            "Name": "Hit",
+            "Steps": [
+              {
+                "AnimationName": "Damaged",
+                "Delay": 0,
+                "WaitForCompletion": true,
+                "TimeScale": 1
+              },
+              {
+                "AnimationName": "Damaged2",
+                "Delay": 0,
+                "WaitForCompletion": true,
+                "TimeScale": 1
+              }
+            ],
+            "ExecutionMode": "Random",
+            "Loop": false,
+            "LoopDelay": 0.5
+          }
+        ]
       }
     ],
     "Children": [
@@ -265,8 +333,8 @@
             "AnimationGraph": "models/npcs/slime/slime.vanmgrph",
             "BodyGroups": 18446744073709551615,
             "BoneMergeTarget": null,
-            "CreateAttachments": false,
-            "CreateBoneObjects": false,
+            "CreateAttachments": true,
+            "CreateBoneObjects": true,
             "MaterialGroup": null,
             "MaterialOverride": null,
             "Model": "models/npcs/slime/slime.vmdl",
@@ -293,7 +361,8 @@
             },
             "RenderType": "On",
             "Sequence": {
-              "Name": null
+              "Name": null,
+              "Looping": true
             },
             "Tint": "0.58605,0.58605,0.58605,0.7",
             "UseAnimGraph": true
@@ -346,6 +415,37 @@
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
           }
+        ],
+        "Children": [
+          {
+            "__guid": "1682ce71-6259-4308-b11f-7ed1df0b452f",
+            "Flags": 4,
+            "Name": "root",
+            "Rotation": "0.4999999,0.4999999,0.4999999,0.5000003",
+            "Enabled": true,
+            "Components": [],
+            "Children": [
+              {
+                "__guid": "d390cb1b-7905-4523-ac55-5ae8bfd87b93",
+                "Flags": 4,
+                "Name": "back",
+                "Position": "-0.0000002808309,7.988828,-8.774088",
+                "Enabled": true,
+                "Components": [],
+                "Children": [
+                  {
+                    "__guid": "8f2da1ed-6d7c-468b-80ee-96dbf0c018d0",
+                    "Flags": 4,
+                    "Name": "front",
+                    "Position": "0.000009492987,5.58995,18.68033",
+                    "Enabled": true,
+                    "Components": [],
+                    "Children": []
+                  }
+                ]
+              }
+            ]
+          }
         ]
       },
       {
@@ -396,7 +496,8 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null
           }
-        ]
+        ],
+        "Children": []
       },
       {
         "__guid": "0ef95330-7e11-4c5d-92c4-930141a1a000",
@@ -430,19 +531,15 @@
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
-        ]
+        ],
+        "Children": []
       }
     ],
     "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,

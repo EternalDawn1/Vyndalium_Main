@@ -173,11 +173,14 @@
         },
         "AttackCooldown": 5,
         "AttackRange": 80,
+        "AttackSpeed": 1,
+        "BlockDivisor": 50,
         "Body": {
           "_type": "gameobject",
           "go": "19ac60d8-0e63-45a8-a0c2-8f486421171c"
         },
         "CurrentState": "Idle",
+        "DamageLevelMultiplier": 1.05,
         "DeathSounds": "sounds/deathsounds/deathsounds.sound",
         "DetectRange": 384,
         "EnemyTags": null,
@@ -210,9 +213,12 @@
         "isSlime": true,
         "IsSlowed": false,
         "Level": 0,
+        "MaxBaseDamage": 8,
+        "MaxBlockReduction": 0.5,
         "MaxHealth": 100,
         "MaximumIdleCooldown": 6,
         "MaxRunAnimationSpeed": 150,
+        "MinBaseDamage": 1,
         "MinimumIdleCooldown": 4,
         "Model": {
           "_type": "component",
@@ -240,7 +246,6 @@
         "OnIdle": null,
         "OnKilled": null,
         "OnSpawn": null,
-        "PogMode": false,
         "Position": "0,0,0",
         "PreviousHealth": 0,
         "RunningType": "Smart",
@@ -264,7 +269,7 @@
         "FireBallAttackSound": null,
         "FireBallAttackTime": {
           "Absolute": 0,
-          "Relative": 104409620
+          "Relative": 105139860
         },
         "FireBallChargeSound": null,
         "FireBallCooldown": 15,
@@ -272,7 +277,7 @@
         "FireCannonAttackSound": null,
         "FireCannonAttackTime": {
           "Absolute": 0,
-          "Relative": 104409620
+          "Relative": 105139860
         },
         "FireCannonChargeSound": null,
         "FireCannonCooldown": 5,
@@ -280,7 +285,7 @@
         "FireCannonPrefab": null,
         "FireRingAttackTime": {
           "Absolute": 0,
-          "Relative": 104409620
+          "Relative": 105139860
         },
         "FireRingCooldown": 10,
         "FireRingEnabled": false,
@@ -292,7 +297,7 @@
         "FireWallSound": null,
         "FlameWallAttackTime": {
           "Absolute": 0,
-          "Relative": 104409620
+          "Relative": 105139860
         },
         "FlameWallCooldown": 20,
         "HasSpecialAbility": true,
@@ -309,8 +314,76 @@
         "UltimateJumpAttackCooldown": 30,
         "UltimateJumpAttackTime": {
           "Absolute": 0,
-          "Relative": 104409620
+          "Relative": 105139860
         }
+      },
+      {
+        "__type": "GeneralGame.BoneAnimationController",
+        "__guid": "6f58bf4a-548a-426b-a068-1fffb636a3b0",
+        "activeAnimations": {},
+        "activeSequences": {},
+        "Animations": [
+          {
+            "Name": "Damaged",
+            "BoneName": "back",
+            "TargetRotation": "0,87.2999,-15.8",
+            "Duration": 0.25,
+            "ReturnDuration": 0.5,
+            "EaseType": "EaseInOut",
+            "Loop": false,
+            "SubAnimations": [],
+            "SubAnimationTiming": "WithMainAnimation",
+            "SubAnimationDelay": 0.1,
+            "npc": null
+          },
+          {
+            "Name": "Damaged2",
+            "BoneName": "back",
+            "TargetRotation": "59.4,0,-58.3999",
+            "Duration": 0.25,
+            "ReturnDuration": 0.5,
+            "EaseType": "EaseInOut",
+            "Loop": false,
+            "SubAnimations": [],
+            "SubAnimationTiming": "WithMainAnimation",
+            "SubAnimationDelay": 0.1,
+            "npc": null
+          }
+        ],
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "f53866ac-309f-4aba-9683-e45b9b2f8c78",
+          "go": "19ac60d8-0e63-45a8-a0c2-8f486421171c",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Sequences": [
+          {
+            "Name": "Hit",
+            "Steps": [
+              {
+                "AnimationName": "Damaged",
+                "Delay": 0,
+                "WaitForCompletion": true,
+                "TimeScale": 1
+              },
+              {
+                "AnimationName": "Damaged2",
+                "Delay": 0,
+                "WaitForCompletion": true,
+                "TimeScale": 1
+              }
+            ],
+            "ExecutionMode": "Random",
+            "Loop": false,
+            "LoopDelay": 0.5
+          }
+        ]
       }
     ],
     "Children": [
@@ -327,8 +400,8 @@
             "AnimationGraph": "models/npcs/slime/slime.vanmgrph",
             "BodyGroups": 18446744073709551615,
             "BoneMergeTarget": null,
-            "CreateAttachments": false,
-            "CreateBoneObjects": false,
+            "CreateAttachments": true,
+            "CreateBoneObjects": true,
             "MaterialGroup": null,
             "MaterialOverride": null,
             "Model": "models/npcs/slime/slime.vmdl",
@@ -355,7 +428,8 @@
             },
             "RenderType": "On",
             "Sequence": {
-              "Name": null
+              "Name": null,
+              "Looping": true
             },
             "Tint": "0.99535,0.86264,0,1",
             "UseAnimGraph": true
@@ -407,6 +481,37 @@
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
           }
+        ],
+        "Children": [
+          {
+            "__guid": "35ef5f13-0a5d-4773-9177-c71195f5c09d",
+            "Flags": 4,
+            "Name": "root",
+            "Rotation": "0.4999999,0.4999999,0.4999999,0.5000003",
+            "Enabled": true,
+            "Components": [],
+            "Children": [
+              {
+                "__guid": "a267c724-2a99-4446-92f1-d98df62088b4",
+                "Flags": 4,
+                "Name": "back",
+                "Position": "-0.0000002808309,7.988828,-8.774088",
+                "Enabled": true,
+                "Components": [],
+                "Children": [
+                  {
+                    "__guid": "cbb20067-2910-4bc0-965e-c95fe4a512d9",
+                    "Flags": 4,
+                    "Name": "front",
+                    "Position": "0.000009492987,5.58995,18.68033",
+                    "Enabled": true,
+                    "Components": [],
+                    "Children": []
+                  }
+                ]
+              }
+            ]
+          }
         ]
       },
       {
@@ -415,7 +520,9 @@
         "Name": "eye",
         "Position": "0,0,64",
         "Enabled": true,
-        "NetworkMode": 1
+        "NetworkMode": 1,
+        "Components": [],
+        "Children": []
       },
       {
         "__guid": "4797628e-721e-4f4a-9728-13573bc7d9ec",
@@ -465,19 +572,15 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null
           }
-        ]
+        ],
+        "Children": []
       }
     ],
     "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
