@@ -21,7 +21,7 @@ public sealed class BoneAnimationController : Component
     /// <summary>
     /// Liste von vordefinierten Animationen
     /// </summary>
-    [Property, Category( "Animationen" ), Header( "My Header" )]
+    [Property, Category( "Animationen" ), Header( "My Header" ),InlineEditor, WideMode,Group( "Animationen" ) , ToggleGroup( "Animationen" )]
     public List<BoneAnimation> Animations { get; set; } = new();
 
     [Property, Category("Animations-Sequenzen")]
