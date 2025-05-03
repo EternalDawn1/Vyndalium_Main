@@ -286,6 +286,7 @@ public partial class BaseGun : WeaponComponent, IUse
 			{
 				PerformMeleeAttack( Player.Local, true );
 				StopCharging();
+				NextChargeTime = ChargeCooldown * 0.25f;
 			}
 			else if ( IsCharging )
 			{
@@ -304,6 +305,8 @@ public partial class BaseGun : WeaponComponent, IUse
 			FireBullet( Player.Local );
 		}
 	}
+	[Property, Category( "Melee" )] public float ChargeCooldown { get; set; } = 0.5f;
+	public TimeUntil NextChargeTime { get; set; } = 0f;
 
 	public override void PrimaryActionRelease()
 	{
@@ -323,10 +326,15 @@ public partial class BaseGun : WeaponComponent, IUse
 	}
 	private void StartCharging()
 	{
+		if ( !NextChargeTime )
+		{
+			return;
+		}
 		if ( IsCharging ) return;
 
 		IsCharging = true;
 		ChargeComplete = ChargeTime;
+		NextChargeTime = ChargeCooldown;
 
 		// Starte die Auflade-Animation
 		var boneAnimController = GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
@@ -505,17 +513,12 @@ public partial class BaseGun : WeaponComponent, IUse
 			}
 		}
 
-		// Visuelle Effekte deaktivieren
-		EffectRenderer?.Set( "b_charging", false );
-		if ( Player.Local?.ModelRenderer != null )
-		{
-			Player.Local.ModelRenderer.Set( "b_charging", false );
-		}
+		
 
 		// Wenn nicht vollständig aufgeladen, beende auch den Sound
 		if ( !FullyCharged )
 		{
-			Sound.Play( "sounds/charging.sound", WorldPosition );
+			
 		}
 	}
 
@@ -526,15 +529,18 @@ public partial class BaseGun : WeaponComponent, IUse
 
 		if ( IsMelee )
 		{
-			// Starte das Aufladen, anstatt sofort den Spezialangriff auszuführen
-			StartCharging();
+			if ( NextChargeTime <= 0 )
+			{
+				// Starte das Aufladen, wenn der Cooldown abgelaufen ist
+				StartCharging();
+			}
 		}
 
 	}
 	[Rpc.Broadcast]
 	private void PerformMeleeAttack( Player player, bool isSpecialAttack = false )
 	{
-		Log.Info( $"PerformMeleeAttack called with isSpecialAttack: {isSpecialAttack}" );
+		
 		if ( isSpecialAttack && !FullyCharged )
 		{
 			isSpecialAttack = false;
@@ -870,7 +876,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
 		// Führen Sie den Nahkampfangriff aus (Ihre bestehende Logik)
 		// ...existing code...
-		float slashRadius = 5.0f;
+		float slashRadius = 20.0f;
 		var trace = Scene.Trace.Sphere( slashRadius, startPos, endPos )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.WithoutTags( "player" )
@@ -901,7 +907,21 @@ public partial class BaseGun : WeaponComponent, IUse
 		if ( damageable is not null )
 		{
 
-			
+			// Zuerst prüfen, ob wir einen lebenden NPC/Gegner getroffen haben
+			if ( trace.GameObject != null )
+			{
+				var soundPath = "sounds/impacts/bullets/impact-bullet-generic.sound";
+				// Prüfe auf Gesundheitskomponente - das deutet auf NPCs oder andere Lebewesen hin
+				if ( trace.GameObject.Components.GetInAncestorsOrSelf<IHealthComponent>() != null )
+				{
+					
+					soundPath = "sounds/impacts/bullets/impact-bullet-flesh.sound";
+					Sound.Play( soundPath, trace.EndPosition );
+					// Sofort verlassen, da wir wissen, dass es ein Lebewesen ist
+				}
+
+				
+			}
 
 
 			Random random = new Random();
@@ -951,9 +971,10 @@ public partial class BaseGun : WeaponComponent, IUse
 		}
 		else if ( trace.Hit )
 		{
+			
 			if ( ImpactArea != null )
 			{
-				Log.Info( "ImpactArea ist null" );
+				
 				var impactInstance = ResourceLibrary.Get<PrefabFile>( ImpactArea.ResourcePath );
 				if ( impactInstance != null )
 				{
@@ -970,6 +991,7 @@ public partial class BaseGun : WeaponComponent, IUse
 							impactRenderer.Scale = 5f; // Kleinere Größe für Nahkampf
 							impactRenderer.Tint = Color.Orange.WithAlpha( 0.7f ); // Angepasste Farbe für Nahkampf
 						}
+						PlayImpactSound( trace );
 
 						// Zerstöre den Effekt nach kurzer Zeit
 						_ = DestroyImpactEffectAfterDelay( impactObject, 1.0f );
@@ -1026,6 +1048,90 @@ public partial class BaseGun : WeaponComponent, IUse
 			}
 
 			
+		}
+	}
+	private void PlayImpactSound( SceneTraceResult trace )
+	{
+
+
+		string soundPath = "sounds/impacts/bullets/impact-bullet-generic.sound";
+
+		
+
+
+
+		// Versuche, das Oberflächenmaterial zu bestimmen
+		if ( trace.Surface != null )
+		{
+			// Priorisiere den Surface Tag als Identifikator
+			string surfaceTag = trace.Surface.ResourceName.ToLower();
+
+			if ( surfaceTag.Contains( "wood" ) || trace.GameObject?.Name.ToLower().Contains( "wood" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-wood.sound";
+			}
+			else if ( surfaceTag.Contains( "metal" ) || trace.GameObject?.Name.ToLower().Contains( "metal" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-metal.sound";
+			}
+			else if ( surfaceTag.Contains( "concrete" ) || trace.GameObject?.Name.ToLower().Contains( "concrete" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-concrete.sound";
+			}
+			else if ( surfaceTag.Contains( "dirt" ) || trace.GameObject?.Name.ToLower().Contains( "dirt" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-dirt.sound";
+			}
+			else if ( surfaceTag.Contains( "glass" ) || trace.GameObject?.Name.ToLower().Contains( "glass" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-glass.sound";
+			}
+			else if ( surfaceTag.Contains( "sand" ) || trace.GameObject?.Name.ToLower().Contains( "sand" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-sand.sound";
+			}
+			else if ( surfaceTag.Contains( "water" ) || trace.GameObject?.Name.ToLower().Contains( "water" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-water.sound";
+			}
+			else if ( surfaceTag.Contains( "plastic" ) || trace.GameObject?.Name.ToLower().Contains( "plastic" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-plastic.sound";
+			}
+			else if ( surfaceTag.Contains( "flesh" ) || trace.GameObject?.Name.ToLower().Contains( "flesh" ) == true
+					|| trace.GameObject?.Components.GetInAncestorsOrSelf<IHealthComponent>() != null )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-flesh.sound";
+			}
+			else if ( surfaceTag.Contains( "cloth" ) || trace.GameObject?.Name.ToLower().Contains( "cloth" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-cloth.sound";
+			}
+			else if ( surfaceTag.Contains( "foliage" ) || trace.GameObject?.Name.ToLower().Contains( "foliage" ) == true
+					|| trace.GameObject?.Name.ToLower().Contains( "plant" ) == true
+					|| trace.GameObject?.Name.ToLower().Contains( "tree" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-foliage.sound";
+			}
+			else if ( surfaceTag.Contains( "snow" ) || trace.GameObject?.Name.ToLower().Contains( "snow" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-snow.sound";
+			}
+			else if ( surfaceTag.Contains( "plaster" ) || trace.GameObject?.Name.ToLower().Contains( "plaster" ) == true )
+			{
+				soundPath = "sounds/impacts/bullets/impact-bullet-plaster.sound";
+			}
+		}
+
+		// Spiele den Sound ab
+		Sound.Play( soundPath, trace.EndPosition );
+
+		// Bei Metallobjekten zusätzlich ein Quietschen abspielen
+		if ( soundPath.Contains( "metal" ) )
+		{
+			// Zufällig eines der Ricochet-Sounds abspielen
+			int randomRicochet = Game.Random.Int( 1, 6 );
+			Sound.Play( $"sounds/impacts/bullets/bullet-ricochet-{randomRicochet}.vsnd_c", trace.EndPosition );
 		}
 	}
 	private async Task DestroyImpactEffectAfterDelay( GameObject impactEffect, float delay )
@@ -1574,18 +1680,7 @@ public partial class BaseGun : WeaponComponent, IUse
 		// Überprüfe den Ladezustand
 		if ( IsCharging )
 		{
-			// Wenn gerade vollständig aufgeladen, spiele Sound ab
-			if ( ChargeComplete && !WasFullyCharged )
-			{
-				Sound.Play( "sounds/fully_charged.sound", WorldPosition );
-
-				// Visuellen Effekt für vollständig aufgeladen hinzufügen
-				EffectRenderer?.Set( "b_fully_charged", true );
-				if ( Player.Local?.ModelRenderer != null )
-				{
-					Player.Local.ModelRenderer.Set( "b_fully_charged", true );
-				}
-			}
+			
 
 			// Speichere den vorherigen Ladezustand
 			WasFullyCharged = ChargeComplete;

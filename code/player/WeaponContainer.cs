@@ -95,7 +95,7 @@ public partial class WeaponContainer : Component
 		{
 			// Wenn ja, geben Sie das ausgerüstete Item
 			Give( equippedItem.GameObject, true );
-			Log.Info( $"Gebe {equippedItem} aus" );
+			
 			// Rüsten Sie das Item automatisch aus
 			Inventory.EquipItemFromBackpack( equippedItem );
 		}

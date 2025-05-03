@@ -506,7 +506,8 @@ public sealed class BoneAnimationController : Component
     // Neue Methode zum Durchsuchen der Transform-Hierarchie nach Bones
     private void FindBonesInTransformHierarchy( GameObject obj )
     {
-        // Überprüfe den Namen auf typische Bone-Namen
+        if ( obj == null )
+            return;
         string name = obj.Name;
         if ( IsPotentialBoneName( name ) && !boneObjects.ContainsKey( name ) )
         {

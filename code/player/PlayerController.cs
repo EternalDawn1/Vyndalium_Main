@@ -1484,7 +1484,7 @@ public partial class Player : Component, IHealthComponent
 			playerDresser.UpdateClothingVisibility( false );
 		}
 
-		Log.Info( $"Kameramodus automatisch zu First-Person gewechselt (Distanz: {currentCameraDistance})" );
+		
 	}
 
 	private void SwitchToThirdPerson()
