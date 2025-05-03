@@ -21,7 +21,7 @@ public sealed class BoneAnimationController : Component
     /// <summary>
     /// Liste von vordefinierten Animationen
     /// </summary>
-    [Property, Category( "Animationen" )]
+    [Property, Category( "Animationen" ), Header( "My Header" )]
     public List<BoneAnimation> Animations { get; set; } = new();
 
     [Property, Category("Animations-Sequenzen")]
@@ -784,7 +784,7 @@ public class BoneAnimation
     /// <summary>
     /// Sub-Animationen, die parallel zur Hauptanimation ausgeführt werden
     /// </summary>
-    [Property, Category( "Sub-Animationen" )]
+    [Property, Category( "Sub-Animationen" ) , InlineEditor, WideMode]
     public List<SubBoneAnimation> SubAnimations { get; set; } = new();
 
     /// <summary>
@@ -902,7 +902,7 @@ public class SubBoneAnimation
     /// <summary>
     /// Die auszuführende Animation
     /// </summary>
-    [Property] public BoneAnimation Animation { get; set; }
+    [Property , Feature( "Animation" ) , InlineEditor, WideMode] public BoneAnimation Animation { get; set; }
 
     /// <summary>
     /// Ob auf den Abschluss der Sub-Animation gewartet werden soll

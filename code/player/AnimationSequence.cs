@@ -9,7 +9,7 @@ namespace GeneralGame
     {
         public string Name { get; set; } = "Sequenz";
 
-        [Property]
+        [Property ,Feature( "Animation" ) , InlineEditor, WideMode]
         public List<AnimationStep> Steps { get; set; } = new();
 
         [Property]
@@ -87,8 +87,11 @@ namespace GeneralGame
     [Serializable]
     public class AnimationStep
     {
-        [Property]
+        [Property ]
         public string AnimationName { get; set; }
+
+        [Property , InlineEditor, WideMode, ToggleGroup( "Animations" )]
+        public List<BoneAnimation> Animation { get; set; } = new();
 
         [Property]
         public float Delay { get; set; } = 0;
