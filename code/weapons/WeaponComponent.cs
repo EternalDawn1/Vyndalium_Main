@@ -64,16 +64,20 @@ public class WeaponComponent : Component
 
 		if ( !Owner.IsValid() ) return;
 
-		if ( IsDeployed )
+		// Hier die Änderung - automatisch deployen, wenn die Waffe aktiviert wird
+		if ( GameObject.Active && !IsDeployed )
+		{
+			IsDeployed = true;
+			OnDeployed();
+		}
+		else if ( IsDeployed )
 		{
 			OnDeployed();
-			
 		}
 		else
 		{
 			OnHolstered();
 		}
-	
 
 		base.OnStart();
 	}
@@ -178,6 +182,7 @@ public class WeaponComponent : Component
 
 	protected virtual void OnDeployed()
 	{
+		Log.Info( "OnDeployed called" );
 		
 		if ( ModelRenderer == null || Owner == null )
 		{
