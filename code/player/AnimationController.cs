@@ -13,23 +13,30 @@ namespace GeneralGame;
 /// Steuert temporäre Animationen für bestimmte Knochen eines Skelettmodells
 /// </summary>
 [Title( "Knochen-Animations-Controller" ), Category( "Animation" ), Icon( "skeleton" )]
-public  class BoneAnimationController : Component
+public class BoneAnimationController : Component
 {
     [Property, Category( "Komponenten" )]
     public SkinnedModelRenderer ModelRenderer { get; set; }
+    [Property, Category( "Debug" ), ReadOnly , Order( -500 )]
+    public List<string> ActiveAnimationNames => activeAnimations.Values
+    .Select( x => x.AnimationName )
+    .ToList();
+    
 
     /// <summary>
     /// Liste von vordefinierten Animationen
     /// </summary>
-    [Property, Category( "Animationen" ), Header( "My Header" ),InlineEditor, WideMode,Group( "Animationen" ) , ToggleGroup( "Animationen" )]
+    [Property, Category( "Animationen" ), Header( "My Header" ), InlineEditor, WideMode, Group( "Animationen" ), ToggleGroup( "Animationen" )]
     public List<BoneAnimation> Animations { get; set; } = new();
 
-    [Property, Category("Animations-Sequenzen")]
+    [Property, Category( "Animations-Sequenzen" )]
     public List<AnimationSequence> Sequences { get; set; } = new();
 
     private Dictionary<string, Rotation> originalRotations = new();
-    [Property]private Dictionary<string, AnimationState> activeAnimations = new();
-    [Property]private Dictionary<string, AnimationSequence> activeSequences = new();
+    [Property] private Dictionary<string, AnimationState> activeAnimations = new();
+    [Property] private Dictionary<string, AnimationSequence> activeSequences = new();
+
+    
 
     // Cache der bone-GameObjects
     private Dictionary<string, GameObject> boneObjects = new();
@@ -43,8 +50,8 @@ public  class BoneAnimationController : Component
 
         // Alle Bone-GameObjects finden und cachen
         FindAllBoneObjects();
-        
-        
+
+
         // Originale Rotationen speichern
         foreach ( var anim in Animations )
         {
@@ -67,7 +74,7 @@ public  class BoneAnimationController : Component
     {
         return Sequences.Any( s => s.Name == sequenceName );
     }
-    
+
     /// <summary>
     /// Markiert einen Knochen als prozedural, damit dieser vom Code gesteuert werden kann
     /// </summary>
@@ -186,7 +193,7 @@ public  class BoneAnimationController : Component
                 // der bei Erreichen des Ziels die Sub-Animationen startet
 
                 // Die Hauptanimation überwachen
-                _ =GameTask.RunInThreadAsync( async () =>
+                _ = GameTask.RunInThreadAsync( async () =>
                 {
                     // Wir warten nur Duration, nicht ReturnDuration
                     await GameTask.DelaySeconds( animation.Duration );
@@ -271,14 +278,14 @@ public  class BoneAnimationController : Component
         var sequence = Sequences.Find( s => s.Name == sequenceName );
         if ( sequence == null )
         {
-          
+
             return;
         }
 
         // Sequenz abbrechen, falls bereits aktiv
         if ( activeSequences.TryGetValue( sequenceName, out var activeSequence ) )
         {
-           
+
             activeSequence.Cancel();
             activeSequences.Remove( sequenceName );
         }
@@ -286,7 +293,7 @@ public  class BoneAnimationController : Component
         // Neue Sequenz starten
         var token = sequence.GetNewCancellationToken();
         activeSequences[sequenceName] = sequence;
-      
+
 
         // Liste der verwendeten Knochen für Cleanup
         HashSet<string> usedBones = new HashSet<string>();
@@ -297,7 +304,7 @@ public  class BoneAnimationController : Component
             do
             {
                 loopCount++;
-                
+
 
                 if ( sequence.ExecutionMode == SequenceExecutionMode.Sequential )
                 {
@@ -306,7 +313,7 @@ public  class BoneAnimationController : Component
                     {
                         if ( token.IsCancellationRequested )
                         {
-                         
+
                             break;
                         }
 
@@ -321,14 +328,56 @@ public  class BoneAnimationController : Component
                         var randomIndex = Random.Shared.Int( 0, sequence.Steps.Count - 1 );
                         var randomStep = sequence.Steps[randomIndex];
 
-                        
+
 
                         if ( !token.IsCancellationRequested )
                         {
                             await ExecuteAnimationStep( randomStep, token, usedBones );
                         }
                     }
-                   
+
+                }
+                // Diese Änderung würde in der PlaySequence-Methode des BoneAnimationController erfolgen
+
+                else if ( sequence.ExecutionMode == SequenceExecutionMode.Selected )
+                {
+                    // Liste der aktivierten Animationen auswerten
+                    var activeSteps = new List<AnimationStep>();
+
+                    for ( int i = 0; i < sequence.Steps.Count; i++ )
+                    {
+                        // Überprüfen ob der Index noch in der EnabledAnimations Liste ist
+                        if ( i < sequence.EnabledAnimations.Count && sequence.EnabledAnimations[i] )
+                        {
+                            activeSteps.Add( sequence.Steps[i] );
+                        }
+                    }
+
+                    if ( sequence.ExecutionMode == SequenceExecutionMode.Parallel )
+                    {
+                        // Alle aktivierten Animationen parallel ausführen
+                        var tasks = new List<Task>();
+                        foreach ( var step in activeSteps )
+                        {
+                            if ( !token.IsCancellationRequested )
+                            {
+                                tasks.Add( ExecuteAnimationStep( step, token, usedBones ) );
+                            }
+                        }
+
+                        await Task.WhenAll( tasks );
+                    }
+                    else // Sequential
+                    {
+                        // Alle aktivierten Animationen sequentiell ausführen
+                        foreach ( var step in activeSteps )
+                        {
+                            if ( !token.IsCancellationRequested )
+                            {
+                                await ExecuteAnimationStep( step, token, usedBones );
+                            }
+                        }
+                    }
                 }
                 else // Parallel
                 {
@@ -353,37 +402,37 @@ public  class BoneAnimationController : Component
                 // Pause zwischen den Loops
                 if ( sequence.Loop && !token.IsCancellationRequested && sequence.LoopDelay > 0 )
                 {
-                   
+
                     await GameTask.DelaySeconds( sequence.LoopDelay );
                 }
 
             } while ( sequence.Loop && !token.IsCancellationRequested );
 
-           
+
         }
         finally
         {
-           
+
             activeSequences.Remove( sequenceName );
-           
+
 
             // Stelle sicher, dass alle verwendeten Knochen zurückgesetzt werden
             foreach ( string boneName in usedBones )
             {
-              
+
                 if ( !activeAnimations.Any( a =>
                 {
                     var anim = Animations.Find( anim => anim.Name == a.Key );
                     return anim?.BoneName.Equals( boneName, StringComparison.OrdinalIgnoreCase ) == true;
                 } ) )
                 {
-                    
+
                     RemoveProceduralBone( boneName );
                 }
-               
+
             }
 
-           
+
         }
     }
 
@@ -485,7 +534,7 @@ public  class BoneAnimationController : Component
             ModelRenderer = GameObject.Components.Get<SkinnedModelRenderer>();
             if ( ModelRenderer == null )
             {
-               
+
                 return;
             }
         }
@@ -495,16 +544,16 @@ public  class BoneAnimationController : Component
 
         if ( ModelRenderer.Model != null )
         {
-     
+
             // Rekursiv alle GameObjects durchsuchen, die vermutlich Knochen sein könnten
             FindBonesRecursive( GameObject );
 
             // Zusätzlich: Versuche, über den Transform-Baum die Bones zu finden
             var rootTransform = ModelRenderer.GameObject;
-          
+
             FindBonesInTransformHierarchy( rootTransform );
         }
-       
+
     }
 
     // Neue Methode zum Durchsuchen der Transform-Hierarchie nach Bones
@@ -516,7 +565,7 @@ public  class BoneAnimationController : Component
         if ( IsPotentialBoneName( name ) && !boneObjects.ContainsKey( name ) )
         {
             boneObjects[name] = obj;
-           
+
         }
 
         // Rekursiv alle Kinder durchgehen
@@ -605,7 +654,7 @@ public  class BoneAnimationController : Component
         }
         return null; // Wenn kein passendes GameObject gefunden wurde
 
-        
+
     }
 
 
@@ -626,7 +675,6 @@ public  class BoneAnimationController : Component
         var boneObject = GetBoneObject( animation.BoneName );
         if ( boneObject == null )
         {
-          
             onComplete?.Invoke(); // Callback aufrufen, wenn Knochen nicht gefunden wird
             return;
         }
@@ -638,9 +686,14 @@ public  class BoneAnimationController : Component
             originalRotations[animation.BoneName] = originalRotation;
         }
         MakeBoneProcedural( animation.BoneName );
-        // Neue Animation starten
+
+        // Neue Animation starten mit Name-Information
         var token = new CancellationTokenSource();
-        activeAnimations[animation.BoneName] = new AnimationState { CancellationToken = token };
+        activeAnimations[animation.BoneName] = new AnimationState
+        {
+            CancellationToken = token,
+            AnimationName = animationName
+        };
 
         try
         {
@@ -696,7 +749,7 @@ public  class BoneAnimationController : Component
             RemoveProceduralBone( animation.BoneName );
 
             // WICHTIG: Callback nach Abschluss der Animation aufrufen
-            
+
             onComplete?.Invoke();
         }
     }
@@ -765,7 +818,9 @@ public  class BoneAnimationController : Component
     private class AnimationState
     {
         public CancellationTokenSource CancellationToken { get; set; }
+        public string AnimationName { get; set; } // Speichert den Namen der Animation
     }
+
 }
 
 /// <summary>

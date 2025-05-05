@@ -15,6 +15,27 @@ namespace GeneralGame
         [Property]
         public SequenceExecutionMode ExecutionMode { get; set; } = SequenceExecutionMode.Sequential;
 
+        [Property, ShowIf( "ExecutionMode", SequenceExecutionMode.Selected )]
+        public List<bool> EnabledAnimations
+        {
+            get
+            {
+                // Stellen wir sicher, dass die Liste so groß ist wie die Anzahl der Steps
+                while ( _enabledAnimations.Count < Steps.Count )
+                    _enabledAnimations.Add( true );
+
+                // Kürzen, falls zu viele Einträge
+                if ( _enabledAnimations.Count > Steps.Count )
+                    _enabledAnimations.RemoveRange( Steps.Count, _enabledAnimations.Count - Steps.Count );
+
+                return _enabledAnimations;
+            }
+            set
+            {
+                _enabledAnimations = value;
+            }
+        }
+        private List<bool> _enabledAnimations = new();
         [Property]
         public bool Loop { get; set; } = false;
 
@@ -78,7 +99,8 @@ namespace GeneralGame
         Parallel,
 
         /// <summary>Führt eine zufällige Animation aus</summary>
-        Random
+        Random,
+        Selected
     }
 
     /// <summary>
@@ -87,10 +109,10 @@ namespace GeneralGame
     [Serializable]
     public class AnimationStep
     {
-        [Property ]
+        [Property]
         public string AnimationName { get; set; }
 
-        [Property , InlineEditor, WideMode, ToggleGroup( "Animations" )]
+        [Property, InlineEditor, WideMode, ToggleGroup( "Animations" )]
         public List<BoneAnimation> Animation { get; set; } = new();
 
         [Property]
@@ -101,5 +123,8 @@ namespace GeneralGame
 
         [Property]
         public float TimeScale { get; set; } = 1.0f;
+
+        [Property] public bool Enabled { get; set; } = true;
+ 
     }
 }
