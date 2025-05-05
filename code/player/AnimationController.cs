@@ -13,7 +13,7 @@ namespace GeneralGame;
 /// Steuert temporäre Animationen für bestimmte Knochen eines Skelettmodells
 /// </summary>
 [Title( "Knochen-Animations-Controller" ), Category( "Animation" ), Icon( "skeleton" )]
-public sealed class BoneAnimationController : Component
+public  class BoneAnimationController : Component
 {
     [Property, Category( "Komponenten" )]
     public SkinnedModelRenderer ModelRenderer { get; set; }
@@ -58,7 +58,11 @@ public sealed class BoneAnimationController : Component
             }
         }
     }
-  
+    public void RefreshBoneCache()
+    {
+        FindAllBoneObjects();
+    }
+
     public bool HasSequence( string sequenceName )
     {
         return Sequences.Any( s => s.Name == sequenceName );

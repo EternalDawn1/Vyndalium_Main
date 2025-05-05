@@ -182,7 +182,7 @@ public class WeaponComponent : Component
 
 	protected virtual void OnDeployed()
 	{
-		Log.Info( "OnDeployed called" );
+		
 		
 		if ( ModelRenderer == null || Owner == null )
 		{

@@ -324,24 +324,37 @@ public partial class BaseGun : WeaponComponent, IUse
 		// Beende das Aufladen, wenn die rechte Maustaste losgelassen wird
 		StopCharging();
 	}
+	private async Task ResetAnimationStateAfterDelay( float delay )
+	{
+		await Task.Delay( (int)(delay * 1000) );
+		_isAnimationPlaying = false;
+	}
+	private bool _isAnimationPlaying = false;
 	private void StartCharging()
 	{
 		if ( !NextChargeTime )
 		{
 			return;
 		}
+
+		// Prüfe, ob bereits aufgeladen wird
 		if ( IsCharging ) return;
 
+		// Prüfe, ob eine Animation läuft
+		if ( _isAnimationPlaying ) return;
+
 		IsCharging = true;
+		_isAnimationPlaying = true;
 		ChargeComplete = ChargeTime;
 		NextChargeTime = ChargeCooldown;
 
-		// Starte die Auflade-Animation
 		var boneAnimController = GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
 		if ( boneAnimController == null && Player.Local?.GameObject != null )
 		{
 			boneAnimController = Player.Local.GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
 		}
+
+
 
 		if ( boneAnimController != null )
 		{
@@ -349,8 +362,11 @@ public partial class BaseGun : WeaponComponent, IUse
 
 			if ( boneAnimController.HasSequence( chargingSequenceName ) )
 			{
-				// Sequenz abspielen - die existierende Sequenz nutzen
+				// Sequenz abspielen
 				boneAnimController.PlaySequence( chargingSequenceName );
+
+				// Nach der Dauer der Animation den Zustand zurücksetzen
+				_ = ResetAnimationStateAfterDelay( ChargeTime );
 			}
 			else
 			{
@@ -432,7 +448,7 @@ public partial class BaseGun : WeaponComponent, IUse
 		}
 
 		// Sound zum Laden abspielen
-		
+
 	}
 
 	// Methode zum Beenden des Aufladens mit Animation zurück zur Ausgangsposition
@@ -523,19 +539,27 @@ public partial class BaseGun : WeaponComponent, IUse
 	}
 
 	[Property] public GameObject Ragdoll { get; set; }
+	private TimeUntil _animationCooldown = 0;
 	public override void SecondaryAction()
 	{
 		Owner.IsAiming = true;
 
 		if ( IsMelee )
 		{
-			if ( NextChargeTime <= 0 )
+			// Prüfe, ob eine Animation bereits läuft
+			var boneAnimController = GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
+			if ( boneAnimController == null && Player.Local?.GameObject != null )
 			{
-				// Starte das Aufladen, wenn der Cooldown abgelaufen ist
+				boneAnimController = Player.Local.GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
+			}
+
+			// Nur starten, wenn nicht bereits am Aufladen UND keine Animation via _isAnimationPlaying aktiv ist
+			if ( !IsCharging && NextChargeTime <= 0 && _animationCooldown <= 0 && !_isAnimationPlaying )
+			{
 				StartCharging();
+				_animationCooldown = 0.5f;
 			}
 		}
-
 	}
 	[Rpc.Broadcast]
 	private void PerformMeleeAttack( Player player, bool isSpecialAttack = false )
