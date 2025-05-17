@@ -67,7 +67,7 @@
 			@if (Item.RequiredLevel > 0)
 			{
 				<div class="@(IsLevelSufficient ? "item-description1" : "item-description1 insufficient-level")">
-					From Level: @Item.RequiredLevel
+					Required Level: @Item.RequiredLevel
 				</div>
 			}
 			@if (!string.IsNullOrEmpty(Item.Description))
