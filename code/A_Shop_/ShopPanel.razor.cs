@@ -25,6 +25,22 @@ namespace GeneralGame.HUD
         private bool upgradeDestroyed;
 
         public ItemComponent Item { get; set; }
+        private void UpdateInventorySlotsSelection()
+        {
+            // Alle InventorySlot-Komponenten im Panel finden
+            var inventorySlots = this.Descendants.OfType<InventorySlot>();
+
+            // Für jeden Slot die IsSelected-Eigenschaft aktualisieren
+            foreach ( var slot in inventorySlots )
+            {
+                if ( slot.Item != null )
+                {
+                    // Setze IsSelected basierend darauf, ob das Item in selectedItems enthalten ist
+                    slot.IsSelected = selectedItems.Contains( slot.Item );
+                    slot.StateHasChanged();
+                }
+            }
+        }
 
         private void SelectItemsByTier( Tier tier )
         {
@@ -62,6 +78,9 @@ namespace GeneralGame.HUD
                 }
                 PlaySound( "inventory_pickup" ); // Optional: Feedback-Sound
             }
+
+            // Aktualisiere die InventorySlots, damit sie den Auswahlstatus zeigen
+            UpdateInventorySlotsSelection();
 
             StateHasChanged();
         }
