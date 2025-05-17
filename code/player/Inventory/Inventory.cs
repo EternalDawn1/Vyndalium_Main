@@ -605,6 +605,12 @@ public sealed class Inventory : Component
 	{
 		if ( item == null ) return;
 
+		if ( item.IsChest )
+		{
+			Hudmaster.Instance.ShowNotification( "Chests cannot be stored.", "/ui/hud/exit.gif" );
+			return;
+		}
+
 		if ( _backpackItems.Contains( item ) )
 		{
 			int freeSlot = _upgradeItems.IndexOf( null );
@@ -619,8 +625,8 @@ public sealed class Inventory : Component
 			}
 			else
 			{
-				
-				Hudmaster.Instance.ShowNotification( "Slot occupied.", "/ui/hud/exit.gif"  );
+
+				Hudmaster.Instance.ShowNotification( "Slot occupied.", "/ui/hud/exit.gif" );
 			}
 		}
 	}
@@ -643,6 +649,12 @@ public sealed class Inventory : Component
 	public void MoveItemToStorage( ItemComponent item, int currentPage )
 	{
 		if ( item == null ) return;
+
+		if ( item.IsChest )
+		{
+			Hudmaster.Instance.ShowNotification( "Chests cannot be stored.", "/ui/hud/exit.gif" );
+			return;
+		}
 
 		if ( _backpackItems.Contains( item ) )
 		{
@@ -726,6 +738,12 @@ public sealed class Inventory : Component
 	public void MoveItemFromAspectToBackpack( ItemComponent item )
 	{
 		if ( item == null ) return;
+
+		if ( item.IsChest )
+		{
+			Hudmaster.Instance.ShowNotification( "Chests cannot be stored in aspects.", "/ui/hud/exit.gif" );
+			return;
+		}
 		if ( _backpackItems.Contains( item ) )
 		{
 			int freeSlot = _aspectItems.IndexOf( null );
