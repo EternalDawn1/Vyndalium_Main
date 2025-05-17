@@ -584,17 +584,12 @@ namespace GeneralGame
             if ( itemsLoaded ) return; // Überprüfen, ob die Items bereits geladen wurden
 
             var random = new Random();
-            var tierProbabilities = GetTierProbabilities( playerLevel ); // Verwende die Methode hier
-            var baseProbabilities = GetTierBaseProbabilities( playerLevel ); // Verwende die Methode hier
-
-            // Wenn baseProbabilities null ist, logge eine Warnung, aber fahre mit tierProbabilities fort
-            if ( baseProbabilities == null )
-            {
-                
-            }
+            var tierProbabilities = GetTierProbabilities( playerLevel );
+            var baseProbabilities = GetTierBaseProbabilities( playerLevel );
 
             var tierPrefabs = new List<(List<string> prefabs, string tier, double probability)>();
             var baseTierPrefabs = new List<(List<string> prefabs, string tier, double probability)>();
+
             // Füge basePrefabs nur hinzu, wenn baseProbabilities nicht null ist
             if ( baseProbabilities != null )
             {
@@ -623,6 +618,7 @@ namespace GeneralGame
             var addedPrefabPaths = new HashSet<string>();
             int totalGenerated = 0;
 
+            // Generiere Items basierend auf den Wahrscheinlichkeiten
             for ( int i = 0; i < itemsToSpawn; i++ )
             {
                 double roll = random.NextDouble();
@@ -639,17 +635,32 @@ namespace GeneralGame
                         break;
                     }
                 }
-                foreach ( var (prefabs, tier, probability) in baseTierPrefabs )
+
+                // Füge auch Items aus baseTierPrefabs hinzu
+                if ( baseTierPrefabs.Count > 0 )
                 {
-                    cumulative += probability;
-                    if ( roll < cumulative )
+                    roll = random.NextDouble();
+                    cumulative = 0.0;
+                    foreach ( var (prefabs, tier, probability) in baseTierPrefabs )
                     {
-                        var selectedPrefab = prefabs[random.Next( prefabs.Count )];
-                        selectedPrefabs.Add( (selectedPrefab, tier) );
-                        totalGenerated++;
-                        break;
+                        cumulative += probability;
+                        if ( roll < cumulative )
+                        {
+                            var selectedPrefab = prefabs[random.Next( prefabs.Count )];
+                            selectedPrefabs.Add( (selectedPrefab, tier) );
+                            totalGenerated++;
+                            break;
+                        }
                     }
                 }
+            }
+
+            // Stelle sicher, dass mindestens ein Item erzeugt wird
+            if ( selectedPrefabs.Count == 0 )
+            {
+                // Fallback: Füge mindestens ein C-Tier-Item hinzu
+                var fallbackPrefab = tierCPrefabs[random.Next( tierCPrefabs.Count )];
+                selectedPrefabs.Add( (fallbackPrefab, "C") );
             }
 
             Items.Clear();
@@ -750,15 +761,32 @@ namespace GeneralGame
 
         private int DetermineItemsToSpawn( int playerLevel )
         {
-            // Dynamische Anzahl der zu spawnenden Items basierend auf dem Spielerlevel
-            if ( playerLevel <= 10 ) return 2;
-            if ( playerLevel <= 20 ) return 3;
-            if ( playerLevel <= 30 ) return 4;
-            if ( playerLevel <= 40 ) return 5;
-            if ( playerLevel <= 50 ) return 6;
-            return 7; // Maximal 7 Items für Spielerlevel über 50
-        }
+            // Reduzierte Anzahl von Items basierend auf Spielerlevel
+            var random = new Random();
 
+            // Basiswerte für die Anzahl der Items
+            int baseAmount = 1; // Mindestens 1 Item
+
+            // Wahrscheinlichkeiten für zusätzliche Items
+            if ( random.NextDouble() < 0.60 ) // 60% Chance für 1 Item
+            {
+                return baseAmount;
+            }
+            else if ( random.NextDouble() < 0.25 ) // 25% Chance für 2 Items
+            {
+                return baseAmount + 1;
+            }
+            else if ( random.NextDouble() < 0.10 ) // 10% Chance für 3 Items
+            {
+                return baseAmount + 2;
+            }
+            else // 5% Chance für mehr Items basierend auf Spielerlevel
+            {
+                // Max 4 Items bei Level unter 50, max 5 bei höherem Level
+                int maxExtra = playerLevel >= 50 ? 4 : 3;
+                return baseAmount + random.Next( 1, maxExtra );
+            }
+        }
         private void LoadNonRandomStatItem( string prefabPath, int minLevel, int maxLevel )
         {
            
