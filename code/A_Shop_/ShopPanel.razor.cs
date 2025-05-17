@@ -25,6 +25,52 @@ namespace GeneralGame.HUD
         private bool upgradeDestroyed;
 
         public ItemComponent Item { get; set; }
+
+        private void SelectItemsByTier( Tier tier )
+        {
+            // Prüfen, ob Items dieses Tiers bereits ausgewählt sind
+            var itemsOfTier = Player.Local.Inventory.BackpackItems
+                .Where( item => item != null && item.Tier == tier && !item.IsChest )
+                .ToList();
+
+            // Auch Items im BackpackBag durchsuchen, wenn vorhanden
+            var bagItemsOfTier = Player.Local.Inventory.BackpackBagItems
+                .Where( item => item != null && item.Tier == tier && !item.IsChest )
+                .ToList();
+
+            // Alle Items des Tiers zusammenführen
+            var allItemsOfTier = itemsOfTier.Concat( bagItemsOfTier ).ToList();
+
+            // Prüfen, ob alle Items dieses Tiers bereits ausgewählt sind
+            bool allSelected = allItemsOfTier.Count > 0 && allItemsOfTier.All( item => selectedItems.Contains( item ) );
+
+            if ( allSelected )
+            {
+                // Wenn alle bereits ausgewählt sind, entferne sie aus der Auswahl
+                selectedItems.RemoveAll( item => allItemsOfTier.Contains( item ) );
+                PlaySound( "inventory_drop" ); // Optional: Feedback-Sound
+            }
+            else
+            {
+                // Sonst füge alle hinzu, die noch nicht ausgewählt sind
+                foreach ( var item in allItemsOfTier )
+                {
+                    if ( !selectedItems.Contains( item ) )
+                    {
+                        selectedItems.Add( item );
+                    }
+                }
+                PlaySound( "inventory_pickup" ); // Optional: Feedback-Sound
+            }
+
+            StateHasChanged();
+        }
+
+        // Methode zum Zurücksetzen der Auswahl
+        private void ClearSelection()
+        {
+            selectedItems.Clear();
+        }
         private void ShowUpgradeConfirmation( Action confirmAction )
         {
             var requiredMaterials = GetRequiredMaterials( upgradeItem.ItemLevel, upgradeItem.Tier );
@@ -800,15 +846,27 @@ namespace GeneralGame.HUD
             }
         }
         public List<ItemComponent> selectedItems = new List<ItemComponent>();
-        public void SellSelectedItems()
+        private void SellSelectedItems()
         {
-            foreach ( var item in selectedItems )
+            if ( selectedItems.Count == 0 ) return;
+
+            int totalValue = 0;
+            foreach ( var item in selectedItems.ToList() ) // ToList() um die Originalliste während der Iteration zu ändern
             {
+                totalValue += item.SellPrice;
+
+                // Das Item aus dem Inventar entfernen
                 Player.Local.Inventory.RemoveItem( item );
-                Player.Local.Vyndalium += item.SellPrice;
+
+                // Aus der Auswahl entfernen
+                selectedItems.Remove( item );
             }
-            Player.Save();
-            selectedItems.Clear();
+
+            // Geld dem Spieler gutschreiben
+            Player.Local.Vyndalium += totalValue;
+
+            // Benachrichtigung anzeigen
+            Hudmaster.Instance.ShowNotification( $"Items sold for ${totalValue}", "/ui/hud/money.gif" );
         }
 
         public static bool IsDragging { get; private set; }

@@ -660,6 +660,60 @@ ShopPanel {
                                         border-radius: 10px;
                                         border-width: 1px;
                                         border-color: #000000;
+                                        .tier-selection{
+                                            position: absolute;
+                                            width: 25%;
+                                            right: 32%;
+                                            top: -5%;
+                                            height: 45%;
+                                            flex-direction: column;
+                                            z-index: 100;
+                                            justify-content: center;
+                                            align-items: center;
+                                            transition: ease-in-out 15.5s;
+                                            .tier-title{
+                                                color: white;
+                                                font-size: 18px;
+                                                margin-bottom: 5px;
+                                                font-weight: bold;
+                                                font-style: italic;
+                                                text-shadow: 4px 4px 0px #000000;
+                                                background-color: #1996628c;
+                                                border-width: 1px;
+
+                                            }
+                                            .tier-button{
+                                                position: relative;
+                                                width: 25%;
+                                                height: 20%;
+                                                background-color: #1996628c;
+                                                
+                                                border-width: 1px;
+                                                border-color: #000000;
+                                                color: #ffffff;
+                                                font-size: 25px;
+                                                font-weight: bold;
+                                                font-style: italic;
+                                                padding: 10px;
+                                                border-radius: 10px;
+                                                margin-bottom: 10px;
+                                                justify-content: center;
+                                                align-items: center;
+
+                                                :hover{
+                                                    position: relative;
+                                                    
+                                                    background-color: #0cbd5b;
+                                                    width: 100%;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                    border-radius: 10px;
+                                                    padding: 0px 1px;
+                                                    sound-in: 'hover';
+                                                    color: #000000;
+                                                }
+                                            }
+                                        }
 
                                         .sell-info {
                                             position: absolute;
@@ -846,6 +900,7 @@ ShopPanel {
                                             top: 65%;
                                             right: 5%;
                                             transition: ease-in-out 5.5s;
+                                            
                                       
 
                                             .box-information{

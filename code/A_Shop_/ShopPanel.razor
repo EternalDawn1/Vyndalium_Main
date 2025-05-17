@@ -38,6 +38,18 @@
 
                                 </div>
                             </div>
+                            <div class="tier-selection">
+                            <div class="tier-title">Select by Tier:</div>
+                            <div class="tier-buttons">
+                                <button class="tier-button tier-c" @onclick="@(() => SelectItemsByTier(Tier.C))">C</button>
+                                <button class="tier-button tier-b" @onclick="@(() => SelectItemsByTier(Tier.B))">B</button>
+                                <button class="tier-button tier-a" @onclick="@(() => SelectItemsByTier(Tier.A))">A</button>
+                                <button class="tier-button tier-s" @onclick="@(() => SelectItemsByTier(Tier.S))">S</button>
+                                <button class="tier-button tier-ss" @onclick="@(() => SelectItemsByTier(Tier.SS))">SS</button>
+                                <button class="tier-button tier-sss" @onclick="@(() => SelectItemsByTier(Tier.SSS))">SSS</button>
+                                <button class="tier-button clear" @onclick="@ClearSelection">Clear</button>
+                            </div>
+                        </div>
                             <div class="items0" CanDragScroll="false">
                                 @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
                                 {
