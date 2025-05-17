@@ -27,9 +27,12 @@
                         <div class="section2">
                             
                             <div class="title">Inventory</div>
-                           
+                                <div class="title0">
+                                    <button class="toggle" @onclick="@ToggleInventorySortOptions">Sort</button>
+                                </div>
                             
                             <div class="box-information-main">
+                                
                                 <div class="box-information">
                                  
                                     <div class="box-description"><div class="icon2"></div> to Sell Items</div>
@@ -57,6 +60,21 @@
                                     <InventorySlot Item=@item BackpackSlotIndex=@index />
                                 }
                             </div>
+                            @if (showInventorySortOptions)
+                            {
+                                <div class="box2">
+                                    <button class="sort" @onclick="@(() => @SortBackPackItems(SortOption.Tier))">Tier</button>
+                                        <button class="sort"
+                                            @onclick="@(() => @SortBackPackItems(SortOption.ItemLevel))">Item Level</button>
+                                        <button class="sort"
+                                            @onclick="@(() => @SortBackPackItems(SortOption.RequiredLevel))">Req
+                                            Level</button>
+                                        <button class="sort"
+                                            @onclick="@(() => @SortBackPackItems(SortOption.Material))">Type</button>
+                                        <button class="sort"
+                                            @onclick="@(() => @SortBackPackItems(SortOption.Favorite))">Fav</button>
+                                </div>
+                            }
                             
                             <div class="items2 @((Inventory.IsDragging ? "dragging" : "inventory-scrollable"))">
 
