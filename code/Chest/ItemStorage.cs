@@ -1305,13 +1305,14 @@ namespace GeneralGame
                     item.GameObject.Network.DropOwnership();
                     item.GameObject.Enabled = true;
 
-                    var itemRigidbody = item.GameObject.Components.Get<Rigidbody>();
+                    var itemRigidbody = item.GameObject.Components.GetInDescendantsOrSelf<Rigidbody>();
                     if ( itemRigidbody != null )
                     {
                         itemRigidbody.Enabled = true;
-                        itemRigidbody.MotionEnabled = false;
+                        itemRigidbody.MotionEnabled = true;
                         itemRigidbody.RigidbodyFlags = RigidbodyFlags.DisableCollisionSounds;
                     }
+                    
 
                     // Wenn das Item eine Rüstung ist, erstelle ein Parcel
                     if ( item.IsArmor )
