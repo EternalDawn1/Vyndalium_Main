@@ -20,9 +20,16 @@
         "Bumpiness": 0,
         "Collision": true,
         "CollisionIgnore": "",
+        "CollisionPrefab": null,
+        "CollisionPrefabAlign": false,
+        "CollisionPrefabChance": 1,
+        "CollisionPrefabRotation": 0,
         "CollisionRadius": 0,
         "Damping": 0,
         "DieOnCollisionChance": 0,
+        "FollowerPrefab": null,
+        "FollowerPrefabChance": 1,
+        "FollowerPrefabKill": true,
         "Force": true,
         "ForceDirection": "0,0,0",
         "ForceScale": 0,
@@ -88,21 +95,22 @@
         },
         "OrbitalPull": 0,
         "PerParticleTimeScale": 0,
-        "Pitch": 100.10003,
+        "Pitch": 0,
         "PreWarm": 0,
         "PushStrength": 0,
         "Roll": 0,
-        "Scale": 0.5,
+        "Scale": 1,
         "SequenceId": 1,
         "SequenceSpeed": 1,
         "SequenceTime": 1,
         "SheetSequence": true,
-        "Space": "Local",
+        "Space": "World",
         "StartDelay": 0,
         "StartVelocity": 1,
         "Stretch": 0,
         "TimeScale": 1,
         "Tint": "1,1,1,1",
+        "UsePrefabFeature": false,
         "Yaw": 0
       },
       {
@@ -220,7 +228,33 @@
         },
         "ScaleFromParticle": true,
         "Texturing": {
-          "Texture": "textures/generated/imagefile/5d12b25e661cc019.vtex",
+          "Texture": {
+            "$compiler": "texture",
+            "$source": "imagefile",
+            "data": {
+              "FilePath": "tools/images/postprocessingeditor/add-layer.png",
+              "MaxSize": 4096,
+              "ConvertHeightToNormals": false,
+              "NormalScale": 1,
+              "Rotate": 0,
+              "FlipVertical": false,
+              "FlipHorizontal": false,
+              "Padding": {
+                "Size": "0,0",
+                "EdgeSize": "0,0"
+              },
+              "Sharpen": 0,
+              "Blur": 0,
+              "Brightness": 1,
+              "Contrast": 1,
+              "Saturation": 1,
+              "Hue": 0,
+              "Colorize": false,
+              "TargetColor": "0,1,0,1",
+              "CacheToDisk": true
+            },
+            "compiled": "textures/generated/imagefile/5d12b25e661cc019.vtex"
+          },
           "WorldSpace": true,
           "UnitsPerTexture": 10,
           "Scale": 1,
@@ -255,6 +289,37 @@
           ]
         },
         "Wireframe": false
+      },
+      {
+        "__type": "GeneralGame.MoveObject",
+        "__guid": "2c7cb389-b3a9-457c-aa94-19c8c887b9ac",
+        "CounterDirection": "0,0,0",
+        "Direction": "0,0,0",
+        "distanceTraveled": 0,
+        "IsMove": false,
+        "IsMoveEnabled": false,
+        "IsReturning": false,
+        "IsRotateEnabled": true,
+        "movingToCounterDirection": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RotateAroundX": false,
+        "RotateAroundY": false,
+        "RotateAroundZ": true,
+        "RotationCenter": "0,0,50",
+        "RotationDirection": "0,0,50",
+        "RotationObject": {
+          "_type": "gameobject",
+          "go": "ee20b20a-895d-4833-84f2-628626d7922b"
+        },
+        "RotationSpeed": 30,
+        "Speed": 0,
+        "Target": null,
+        "totalDistance": 0
       }
     ],
     "Children": [
@@ -267,32 +332,16 @@
         "Scale": "0.5,0.5,0.5",
         "Enabled": true,
         "NetworkMode": 1,
-        "Components": [
-          {
-            "__type": "GeneralGame.RotationObject",
-            "__guid": "bbba2599-da3b-48b7-b58c-d9da32b296dc",
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "RotateClockwise": false,
-            "RotationDuration": 100,
-            "RotationSpeed": 400,
-            "TargetObject": {
-              "_type": "gameobject",
-              "go": "d7630f88-0ff5-486c-88d9-1623ea217ff2"
-            }
-          }
-        ],
+        "Components": [],
         "Children": [
           {
             "__guid": "c33dcad5-47f9-4112-a9c1-ba083d966caa",
             "Flags": 0,
             "Name": "Object",
             "Rotation": "0,0.7071067,0,0.7071068",
-            "Enabled": true
+            "Enabled": true,
+            "Components": [],
+            "Children": []
           },
           {
             "__guid": "7f42f6eb-f275-4133-a2fe-3c16c2c02189",
@@ -346,9 +395,16 @@
                 "Bumpiness": 0,
                 "Collision": false,
                 "CollisionIgnore": null,
+                "CollisionPrefab": null,
+                "CollisionPrefabAlign": false,
+                "CollisionPrefabChance": 1,
+                "CollisionPrefabRotation": 0,
                 "CollisionRadius": 1,
                 "Damping": 0,
                 "DieOnCollisionChance": 0,
+                "FollowerPrefab": null,
+                "FollowerPrefabChance": 1,
+                "FollowerPrefabKill": true,
                 "Force": false,
                 "ForceDirection": "0,0,-800",
                 "ForceScale": 1,
@@ -503,6 +559,7 @@
                 "Stretch": 0,
                 "TimeScale": 1,
                 "Tint": "1,1,1,1",
+                "UsePrefabFeature": false,
                 "Yaw": 0
               },
               {
@@ -599,21 +656,17 @@
                 "VelocityMultiplier": 0,
                 "VelocityRandom": 0
               }
-            ]
+            ],
+            "Children": []
           }
         ]
       }
     ],
     "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,

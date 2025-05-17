@@ -107,7 +107,7 @@ public sealed partial class HealthEffects : Component
 		
 
 		FreezeAdjustments.Saturation = 0.1f;
-		Freeze.Intensity = 1.1f;
+		Freeze.Intensity = 0.1f;
 		Freeze.Color = Color.Lerp( Color.White, Color.Blue, 1f );
 
 		// Aktivieren Sie die Vignette
@@ -141,7 +141,7 @@ public sealed partial class HealthEffects : Component
 		
 
 		PoisonAdjustments.Saturation = 0.1f;
-		Poison.Intensity = 1.1f;
+		Poison.Intensity = 0.1f;
 		Poison.Color = Color.Lerp( Color.White, Color.Green, 1f );
 
 		// Aktivieren Sie die Vignette
@@ -175,7 +175,7 @@ public sealed partial class HealthEffects : Component
 		
 
 		ShadowAdjustments.Saturation = 0.1f;
-		Shadow.Intensity = 1.1f;
+		Shadow.Intensity = 0.1f;
 		Shadow.Color = Color.Lerp( Color.White, Color.Black, 1f );
 
 		// Aktivieren Sie die Vignette

@@ -20,9 +20,16 @@
         "Bumpiness": 0,
         "Collision": true,
         "CollisionIgnore": "",
+        "CollisionPrefab": null,
+        "CollisionPrefabAlign": false,
+        "CollisionPrefabChance": 1,
+        "CollisionPrefabRotation": 0,
         "CollisionRadius": 0,
         "Damping": 0,
         "DieOnCollisionChance": 0,
+        "FollowerPrefab": null,
+        "FollowerPrefabChance": 1,
+        "FollowerPrefabKill": true,
         "Force": true,
         "ForceDirection": "0,0,0",
         "ForceScale": 0,
@@ -103,6 +110,7 @@
         "Stretch": 0,
         "TimeScale": 1,
         "Tint": "1,1,1,1",
+        "UsePrefabFeature": false,
         "Yaw": 0
       },
       {
@@ -281,6 +289,37 @@
           ]
         },
         "Wireframe": false
+      },
+      {
+        "__type": "GeneralGame.MoveObject",
+        "__guid": "5f00ee67-73a8-4e3d-8df4-25cd27c7e576",
+        "CounterDirection": "0,0,0",
+        "Direction": "0,0,0",
+        "distanceTraveled": 0,
+        "IsMove": false,
+        "IsMoveEnabled": false,
+        "IsReturning": false,
+        "IsRotateEnabled": true,
+        "movingToCounterDirection": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RotateAroundX": false,
+        "RotateAroundY": true,
+        "RotateAroundZ": false,
+        "RotationCenter": "0,66.99996,0",
+        "RotationDirection": "0,59.30001,0",
+        "RotationObject": {
+          "_type": "gameobject",
+          "go": "ee20b20a-895d-4833-84f2-628626d7922b"
+        },
+        "RotationSpeed": 76.899925,
+        "Speed": 0,
+        "Target": null,
+        "totalDistance": 0
       }
     ],
     "Children": [
@@ -318,7 +357,9 @@
             "Flags": 0,
             "Name": "Object",
             "Rotation": "0,0.7071067,0,0.7071068",
-            "Enabled": true
+            "Enabled": true,
+            "Components": [],
+            "Children": []
           },
           {
             "__guid": "7f42f6eb-f275-4133-a2fe-3c16c2c02189",
@@ -372,9 +413,16 @@
                 "Bumpiness": 0,
                 "Collision": false,
                 "CollisionIgnore": null,
+                "CollisionPrefab": null,
+                "CollisionPrefabAlign": false,
+                "CollisionPrefabChance": 1,
+                "CollisionPrefabRotation": 0,
                 "CollisionRadius": 1,
                 "Damping": 0,
                 "DieOnCollisionChance": 0,
+                "FollowerPrefab": null,
+                "FollowerPrefabChance": 1,
+                "FollowerPrefabKill": true,
                 "Force": false,
                 "ForceDirection": "0,0,-800",
                 "ForceScale": 1,
@@ -529,6 +577,7 @@
                 "Stretch": 0,
                 "TimeScale": 1,
                 "Tint": "1,1,1,1",
+                "UsePrefabFeature": false,
                 "Yaw": 0
               },
               {
@@ -625,21 +674,17 @@
                 "VelocityMultiplier": 0,
                 "VelocityRandom": 0
               }
-            ]
+            ],
+            "Children": []
           }
         ]
       }
     ],
     "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,

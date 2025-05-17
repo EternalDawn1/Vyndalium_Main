@@ -104,7 +104,10 @@ namespace GeneralGame
             "prefabs/clothes/clothes/base5.prefab",
             "prefabs/clothes/clothes/base6.prefab",
             "prefabs/clothes/clothes/base7.prefab",
-          
+            "prefabs/weapons/custom_weapons/aug/aug.prefab",
+            "prefabs/weapons/custom_weapons/aug/aug2.prefab",
+            "prefabs/weapons/custom_weapons/aug/aug3.prefab",
+
             "prefabs/clothes/clothes/base9.prefab",
             "prefabs/clothes/clothes/base10.prefab",
             "prefabs/clothes/clothes/base11.prefab",
@@ -274,6 +277,7 @@ namespace GeneralGame
             "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
             "prefabs/weapons/custom_weapons/glock/glock.prefab",
              "prefabs/weapons/custom_weapons/katana/katana.prefab",
+         
  
             // Fügen Sie hier weitere C-Tier-Prefab-Dateien hinzu
         };
@@ -295,6 +299,7 @@ namespace GeneralGame
             "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
      "prefabs/weapons/custom_weapons/glock/glock.prefab",
       "prefabs/weapons/custom_weapons/katana/katana.prefab",
+     
 
             // Fügen Sie hier weitere B-Tier-Prefab-Dateien hinzu
         };
@@ -315,6 +320,7 @@ namespace GeneralGame
         "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
           "prefabs/weapons/custom_weapons/glock/glock.prefab",
            "prefabs/weapons/custom_weapons/katana/katana.prefab",
+    
             // Fügen Sie hier weitere A-Tier-Prefab-Dateien hinzu
         };
 
@@ -333,6 +339,8 @@ namespace GeneralGame
             "prefabs/weapons/new/knife.prefab",
           "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
            "prefabs/weapons/custom_weapons/katana/katana.prefab",
+           "prefabs/weapons/custom_weapons/aug/aug.prefab",
+      
         
             // Fügen Sie hier weitere S-Tier-Prefab-Dateien hinzu
         };
@@ -354,6 +362,9 @@ namespace GeneralGame
      "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
           "prefabs/weapons/custom_weapons/glock/glock.prefab",
            "prefabs/weapons/custom_weapons/katana/katana.prefab",
+
+            "prefabs/weapons/custom_weapons/aug/aug2.prefab",
+     
             // Fügen Sie hier weitere SS-Tier-Prefab-Dateien hinzu
         };
 
@@ -372,6 +383,8 @@ namespace GeneralGame
             "prefabs/weapons/new/knife.prefab",
        "prefabs/weapons/custom_weapons/glock/glock.prefab",
         "prefabs/weapons/custom_weapons/katana/katana.prefab",
+  
+            "prefabs/weapons/custom_weapons/aug/aug3.prefab",
    
             // Fügen Sie hier weitere SSS-Tier-Prefab-Dateien hinzu
         };
@@ -386,12 +399,15 @@ namespace GeneralGame
             "prefabs/clothes/armor/armor-sss.prefab",
             "prefabs/clothes/helmet/helmet-sss.prefab",
             "prefabs/clothes/legarmor/legarmor-sss.prefab",
-             "prefabs/weapons/new/hands.prefab",
+            "prefabs/weapons/new/hands.prefab",
             "prefabs/weapons/new/knife.prefab",
-             "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
-  "prefabs/weapons/custom_weapons/minigun/minigun.prefab",
-  "prefabs/weapons/custom_weapons/glock/glock.prefab",
-   "prefabs/weapons/custom_weapons/katana/katana.prefab",
+            "prefabs/weapons/custom_weapons/deagle/deagle.prefab",
+            "prefabs/weapons/custom_weapons/minigun/minigun.prefab",
+            "prefabs/weapons/custom_weapons/glock/glock.prefab",
+            "prefabs/weapons/custom_weapons/katana/katana.prefab",
+            "prefabs/weapons/custom_weapons/aug/aug.prefab",
+            "prefabs/weapons/custom_weapons/aug/aug2.prefab",
+            "prefabs/weapons/custom_weapons/aug/aug3.prefab",
         };
         
       

@@ -262,6 +262,8 @@ public sealed class ZombieSpawner : Component
 
 		CreateSpawnParticle( zombie.WorldPosition );
 
+		//DestroyAfterTime( zombie, 5f );
+
 		TimeUntilRespawn = null;
 
 		SpawnCount++;
@@ -281,7 +283,18 @@ public sealed class ZombieSpawner : Component
 		SS = 4,
 		SSS = 5
 	}
-
+	private void DestroyAfterTime( GameObject obj, float time )
+	{
+		_ = DestroyAfterDelay( obj, time );
+	}
+	private async Task DestroyAfterDelay( GameObject obj, float time )
+	{
+		await GameTask.DelaySeconds( time );
+		if ( obj.IsValid() )
+		{
+			obj.Destroy();
+		}
+	}
 
 
 

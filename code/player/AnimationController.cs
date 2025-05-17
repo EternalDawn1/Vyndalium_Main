@@ -10,7 +10,9 @@ using Editor;
 namespace GeneralGame;
 
 /// <summary>
-/// Steuert temporäre Animationen für bestimmte Knochen eines Skelettmodells
+/// Controls temporary animations for specific bones of a skeletal model.
+/// This component allows procedural animation of individual bones with smooth transitions,
+/// supporting complex animation sequences and sub-animations.
 /// </summary>
 [Title( "Knochen-Animations-Controller" ), Category( "Animation" ), Icon( "skeleton" )]
 public class BoneAnimationController : Component

@@ -20,9 +20,16 @@
         "Bumpiness": 0,
         "Collision": true,
         "CollisionIgnore": "",
+        "CollisionPrefab": null,
+        "CollisionPrefabAlign": false,
+        "CollisionPrefabChance": 1,
+        "CollisionPrefabRotation": 0,
         "CollisionRadius": 0,
         "Damping": 0,
         "DieOnCollisionChance": 0,
+        "FollowerPrefab": null,
+        "FollowerPrefabChance": 1,
+        "FollowerPrefabKill": true,
         "Force": true,
         "ForceDirection": "0,0,0",
         "ForceScale": 0,
@@ -103,6 +110,7 @@
         "Stretch": -0.4999999,
         "TimeScale": 1,
         "Tint": "1,1,1,1",
+        "UsePrefabFeature": false,
         "Yaw": 0
       },
       {
@@ -138,32 +146,7 @@
         "CastShadows": false,
         "Choices": [
           {
-            "Model": "models/props/brick_single/brick_broken_single_03.vmdl",
-            "MaterialGroup": null,
-            "BodyGroups": 18446744073709551615
-          },
-          {
-            "Model": "models/props/brick_single/brick_single_02.vmdl",
-            "MaterialGroup": null,
-            "BodyGroups": 18446744073709551615
-          },
-          {
-            "Model": "models/props/brick_single/brick_broken_single_02.vmdl",
-            "MaterialGroup": null,
-            "BodyGroups": 18446744073709551615
-          },
-          {
             "Model": "models/props/brick_single/brick_broken_single_01.vmdl",
-            "MaterialGroup": null,
-            "BodyGroups": 18446744073709551615
-          },
-          {
-            "Model": "models/props/brick_single/brick_broken_single_04.vmdl",
-            "MaterialGroup": null,
-            "BodyGroups": 18446744073709551615
-          },
-          {
-            "Model": "models/props/brick_single/brick_broken_single_05.vmdl",
             "MaterialGroup": null,
             "BodyGroups": 18446744073709551615
           }
@@ -182,36 +165,14 @@
           "AfterUILayer": false
         },
         "Scale": 1
-      },
-      {
-        "__type": "GeneralGame.RotationObject",
-        "__guid": "4c098472-13f7-4f9b-bbe6-2c5540ba8093",
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null,
-        "RotateClockwise": true,
-        "RotationDuration": 10,
-        "RotationSpeed": 1000,
-        "TargetObject": {
-          "_type": "gameobject",
-          "go": "ee20b20a-895d-4833-84f2-628626d7922b"
-        }
       }
     ],
     "Children": [],
     "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
