@@ -30,13 +30,18 @@ public class Abilities : Component
     [Order( 20 ), Feature( "SpecialAbility" ), Property, Group( "FireWall" ), ShowIf( "HasSpecialAbility", true )] PrefabFile FireWallPrefab { get; set; }
     [Order( 20 ), Feature( "SpecialAbility" ), Property, Group( "FireWall" ), ShowIf( "HasSpecialAbility", true )] SoundEvent FireWallSound { get; set; }
 
- 
 
 
 
 
 
+
+    // Bereits existierende Liste
     private List<GameObject> activeFireRingObjects = new();
+    // Neue Listen für andere Angriffe
+    private List<GameObject> activeFireBallObjects = new();
+    private List<GameObject> activeFireCannonObjects = new();
+    private List<GameObject> activeFlameWallObjects = new();
     [Property]private Npc npc { get; set; } = new Npc();
 
     [Property] public Vector3 PlayerProximityDistance { get; set; } = new Vector3( 500f, 500f, 500f );
@@ -78,7 +83,11 @@ public class Abilities : Component
 
     protected override void OnUpdate()
     {
-       
+        if ( GameObject == null || !GameObject.IsValid() || npc == null || !npc.IsValid() )
+        {
+            CleanupAllActiveObjects();
+            return;
+        }
         var players = Scene.GetAllComponents<Player>();
         var targetPlayer = players.FirstOrDefault();
         if ( targetPlayer == null )
@@ -164,15 +173,16 @@ public class Abilities : Component
     /// <param name="fireBallObjects"></param>
     private void CreateFireBallsAsync( List<GameObject> fireBallObjects )
     {
-        
+
 
         for ( int i = 0; i < 4; i++ )
         {
-           
+
             var fireBallObject = GameObject.Clone( FireBallPrefab );
             fireBallObject.WorldPosition = WorldPosition + new Vector3( 0, 0, 150 ); // 50 Einheiten über dem NPC
             fireBallObject.WorldRotation = Rotation.Identity;
             fireBallObjects.Add( fireBallObject );
+            activeFireBallObjects.Add( fireBallObject );
         }
     }
 
@@ -195,11 +205,12 @@ public class Abilities : Component
         }
 
          CreateFireBallsAsync( fireBallObjects );
-        
+
         foreach ( var fireBallObject in fireBallObjects )
         {
             fireBallObject.NetworkSpawn();
             fireBallObject.Network.DropOwnership();
+            activeFireBallObjects.Add( fireBallObject );
         }
 
 
@@ -269,13 +280,61 @@ public class Abilities : Component
 
 
 
+        activeFireBallObjects.Remove( fireBallObject );
         fireBallObject.Destroy();
+    }
+    protected override void OnDestroy()
+    {
+        CleanupAllActiveObjects();
+        base.OnDestroy();
+    }
+    private void CleanupAllActiveObjects()
+    {
+        // Feuerringe bereinigen
+        foreach ( var fireRingObject in activeFireRingObjects.ToList() )
+        {
+            if ( fireRingObject != null && fireRingObject.IsValid() )
+            {
+                fireRingObject.Destroy();
+            }
+        }
+        activeFireRingObjects.Clear();
+
+        // Feuerbälle bereinigen
+        foreach ( var fireBallObject in activeFireBallObjects.ToList() )
+        {
+            if ( fireBallObject != null && fireBallObject.IsValid() )
+            {
+                fireBallObject.Destroy();
+            }
+        }
+        activeFireBallObjects.Clear();
+
+        // Feuerkanonen bereinigen
+        foreach ( var fireCannonObject in activeFireCannonObjects.ToList() )
+        {
+            if ( fireCannonObject != null && fireCannonObject.IsValid() )
+            {
+                fireCannonObject.Destroy();
+            }
+        }
+        activeFireCannonObjects.Clear();
+
+        // Feuerwände bereinigen
+        foreach ( var flameWallObject in activeFlameWallObjects.ToList() )
+        {
+            if ( flameWallObject != null && flameWallObject.IsValid() )
+            {
+                flameWallObject.Destroy();
+            }
+        }
+        activeFlameWallObjects.Clear();
     }
 
 
     private async void ExecuteFireRingAttack()
     {
-        if (  FireRingPrefab == null )
+        if ( FireRingPrefab == null )
         {
             return;
         }
@@ -307,7 +366,7 @@ public class Abilities : Component
                 activeFireRingObjects.Add( fireObject );
                 if ( FireRingSound != null )
                 {
-                    Sound.Play( FireRingSound , WorldPosition );
+                    Sound.Play( FireRingSound, WorldPosition );
                 }
 
                 _ = MoveFireObject( fireObject, direction, objectSpeed, maxDistance );
@@ -568,6 +627,7 @@ public class Abilities : Component
             flameWallObject.WorldPosition = WorldPosition + perpendicularDirection * i * spacing;
             flameWallObject.WorldRotation = Rotation.Identity;
             flameWallObjects.Add( flameWallObject );
+            activeFlameWallObjects.Add( flameWallObject );
         }
     }
     private async Task MoveFlameWallObject( GameObject flameWallObject, Vector3 direction, float speed )
