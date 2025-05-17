@@ -114,8 +114,62 @@ public class ItemComponent : Component
 			_isDMGInitialized = true;
 		}
 	}
-	
-	[Property,]public AspectType Aspect { get; set; }
+	public int StoredAmmoInClip { get; set; }
+	public int StoredReserveAmmo { get; set; }
+
+	// In deinem EquipFromBackpack-Vorgang:
+	private Dictionary<string, Dictionary<string, (int inClip, int reserve)>> _weaponAmmoCache = new();
+
+	public void SaveWeaponAmmoState( BaseGun gun )
+	{
+		if ( gun != null && gun.IsValid() )
+		{
+			string weaponId = gun.DisplayName;
+
+			// Verwende nur die DisplayName als eindeutigen Schlüssel
+			if ( !_weaponAmmoCache.ContainsKey( weaponId ) )
+			{
+				_weaponAmmoCache[weaponId] = new Dictionary<string, (int, int)>();
+			}
+
+			// Speichere unter dem Waffennamen den Munitionsstand
+			_weaponAmmoCache[weaponId][weaponId] = (gun.AmmoInClip, gun.DefaultAmmo);
+			
+		}
+	}
+
+	public void RestoreWeaponAmmoState( BaseGun gun )
+	{
+		if ( gun != null && gun.IsValid() )
+		{
+			string weaponId = gun.DisplayName;
+
+			if ( _weaponAmmoCache.TryGetValue( weaponId, out var typeDictionary ) &&
+				typeDictionary.TryGetValue( weaponId, out var ammoState ) )
+			{
+				// Debug-Ausgabe vor der Wiederherstellung
+				
+
+				gun.AmmoInClip = ammoState.inClip;
+				gun.DefaultAmmo = ammoState.reserve;
+
+				// Debug-Ausgabe nach der Wiederherstellung
+				
+			}
+			else
+			{
+				// Standardwerte für neue Waffen
+				gun.AmmoInClip = gun.ClipSize;
+				gun.DefaultAmmo = Math.Max( 0, gun.MaxAmmo - gun.ClipSize );
+
+				
+
+				// Speichere diesen neuen Zustand
+				SaveWeaponAmmoState( gun );
+			}
+		}
+	}
+	[Property,] public AspectType Aspect { get; set; }
 	/// <summary>
 	/// The name of the item.
 	/// </summary>

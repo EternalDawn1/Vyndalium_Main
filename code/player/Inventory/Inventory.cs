@@ -817,7 +817,7 @@ public sealed class Inventory : Component
 
 		if ( IsProxy )
 			return true;
-		
+
 
 		var index = _backpackItems?.IndexOf( item ) ?? -1;
 		if ( index == -1 )
@@ -835,6 +835,8 @@ public sealed class Inventory : Component
 		if ( IsSlotOccupied( equipment.Slot ) )
 		{
 			var equippedItem = GetItemInSlot( equipment.Slot );
+
+
 			var placedInBackpack = UnequipItem( equippedItem );
 			if ( !placedInBackpack )
 			{
@@ -842,25 +844,28 @@ public sealed class Inventory : Component
 			}
 		}
 
-
-
-
 		if ( item.CanEquip( Player.Level ) )
 		{
-			
 			GiveEquipmentItem( equipment );
 			equipment.State = ItemState.Equipped;
 			HasChanged = true;
-
 
 			var weaponContainer = Player.Components.Get<WeaponContainer>();
 			if ( weaponContainer != null )
 			{
 				weaponContainer.Give( item.GameObject, true );
-				
+
+				// Stelle den gespeicherten Munitionsstand wieder her, falls vorhanden
+				var nextGun = item.GameObject.Components.GetInDescendantsOrSelf<BaseGun>( true );
+				if ( nextGun != null && nextGun.IsValid() )
+				{
+
+					item.RestoreWeaponAmmoState( nextGun );
+					
+				}
+
 				Player.Local?.PlaySuccessSoundFromPath( "sounds/guns/switch/weapon_switch.sound", 0.025f );
 			}
-			
 
 			var modelRenderer = item.GameObject.Components.Get<SkinnedModelRenderer>();
 			if ( modelRenderer != null )
@@ -873,12 +878,10 @@ public sealed class Inventory : Component
 		}
 		else
 		{
-			
 			Hudmaster.Instance.ShowNotification( "player level too low.", "/ui/hud/exit.gif" );
 			Player.Local?.PlaySuccessSoundFromPath( "sounds/upgrade/failing.sound", 0.0125f );
 			return false;
 		}
-		
 	}
 	public int GetFirstFreeBackpackSlot()
 	{
@@ -995,6 +998,12 @@ public sealed class Inventory : Component
 			var weaponContainer = Player.Components.Get<WeaponContainer>();
 			if ( weaponContainer != null )
 			{
+				var equippedGun = weaponContainer.GameObject.Components.GetInDescendantsOrSelf<BaseGun>( true );
+				if ( equippedGun != null && equippedGun.IsValid() )
+				{
+				
+					item.SaveWeaponAmmoState( equippedGun );
+				}
 				weaponContainer.RemoveWeapon( item.GameObject, false );
 			}
 			else

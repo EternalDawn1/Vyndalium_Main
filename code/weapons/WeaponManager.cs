@@ -16,25 +16,33 @@ public class WeaponManager : Component
 
 
 	protected override void OnAwake()
-	{
-		Instance = this;
+{
+    Instance = this;
 
-		var player = Player.Local; // Annahme: Player.Local gibt den lokalen Spieler zurück
-		var ammoContainer = player?.Components.Get<AmmoContainer>();
+    var player = Player.Local;
+    var ammoContainer = player?.Components.Get<AmmoContainer>();
 
-		foreach ( var prefab in Prefabs )
-		{
-			var weapon = prefab.Components.Get<BaseGun>();
-			weapon.InitializeAmmo( ammoContainer );
-			Weapons.Add( weapon );
-			Components.GetOrCreate<Interactions>();
-			var melee = prefab.Components.Get<BaseMelee>();
-			MeleeWeapons.Add( melee );
-			Components.GetOrCreate<Interactions>();
-		}
+    foreach ( var prefab in Prefabs )
+    {
+        var weapon = prefab.Components.Get<BaseGun>();
+        // Munitionszustand nur initialisieren, wenn die Waffe neu ist oder keine Munition hat
+        if (weapon != null && !Weapons.Contains(weapon))
+        {
+            weapon.InitializeAmmo( ammoContainer );
+            Weapons.Add( weapon );
+            Components.GetOrCreate<Interactions>();
+        }
+        
+        var melee = prefab.Components.Get<BaseMelee>();
+        if (melee != null && !MeleeWeapons.Contains(melee))
+        {
+            MeleeWeapons.Add( melee );
+            Components.GetOrCreate<Interactions>();
+        }
+    }
 
-		base.OnAwake();
-	}
+    base.OnAwake();
+}
 
 	protected override void OnDestroy()
 	{

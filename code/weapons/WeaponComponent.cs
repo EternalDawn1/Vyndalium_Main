@@ -114,6 +114,12 @@ public class WeaponComponent : Component
 		
 		if ( !IsDeployed )
 		{
+			var item = GameObject.Components.Get<ItemComponent>();
+			if ( item != null && this is BaseGun gun )
+			{
+				// Munitionsstand wiederherstellen
+				item.RestoreWeaponAmmoState( gun );
+			}
 			IsDeployed = true;
 
 			OnDeployed();
@@ -126,18 +132,20 @@ public class WeaponComponent : Component
 	[Rpc.Broadcast]
 	public virtual void Holster()
 	{
-		
 		if ( IsDeployed )
 		{
-			
+			// Speichere den Munitionsstand beim Holstern
+			var item = GameObject.Components.Get<ItemComponent>();
+			if ( item != null && this is BaseGun gun )
+			{
+				// Munitionsstand speichern
+				item.SaveWeaponAmmoState( gun );
+				Log.Info( $"Saved ammo state when holstering: {gun.DisplayName}, ClipAmmo: {gun.AmmoInClip}, ReserveAmmo: {gun.DefaultAmmo}" );
+			}
+
 			OnHolstered();
-
 			IsDeployed = false;
-			
-
 		}
-
-
 	}
 	public readonly WeaponContainer weaponcontainer;
 	[Rpc.Broadcast]

@@ -215,28 +215,24 @@ public partial class WeaponContainer : Component
 			var player = Player.Local as Player;
 			if ( player != null )
 			{
-				var ammoToGive = player.Ammo.Get( nextWeaponGo.AmmoType );
-				if ( ammoToGive > 0 )
+				// Immer mit vollem Magazin starten
+				if ( nextWeaponGo.AmmoInClip == 0 )
 				{
-					var ammoToAdd = Math.Min( ammoToGive, nextWeaponGo.MaxAmmo - nextWeaponGo.DefaultAmmo );
-					if ( nextWeaponGo.DefaultAmmo < nextWeaponGo.MaxAmmo )
+					// Stelle sicher, dass das Magazin immer voll ist
+					int clipAmmoToAdd = nextWeaponGo.ClipSize;
+					nextWeaponGo.AmmoInClip = clipAmmoToAdd;
+
+					// Ziehe die Magazin-Munition von der Reservemunition ab
+					nextWeaponGo.DefaultAmmo -= clipAmmoToAdd;
+
+					// Wenn die Munition negativ wird, nimm sie vom Player
+					if ( nextWeaponGo.DefaultAmmo < 0 )
 					{
-						nextWeaponGo.DefaultAmmo += ammoToAdd;
-						player.Ammo.TryTake( nextWeaponGo.AmmoType, ammoToAdd, out var taken );
+						int ammoNeeded = Math.Abs( nextWeaponGo.DefaultAmmo );
+						player.Ammo.TryTake( nextWeaponGo.AmmoType, ammoNeeded, out var taken );
+						nextWeaponGo.DefaultAmmo = 0;
 					}
 				}
-
-				// Speichere den aktuellen Wert der AmmoInClip
-				var currentAmmoInClip = nextWeaponGo.AmmoInClip;
-
-				// Setze die AmmoInClip nur, wenn sie kleiner als die aktuelle ClipSize ist
-				if ( nextWeaponGo.AmmoInClip < nextWeaponGo.ClipSize )
-				{
-					nextWeaponGo.AmmoInClip = Math.Min( nextWeaponGo.AmmoInClip + ammoToGive, nextWeaponGo.ClipSize );
-				}
-
-				// Stelle den gespeicherten Wert der AmmoInClip wieder her
-				nextWeaponGo.AmmoInClip = currentAmmoInClip;
 			}
 
 			nextWeaponGo.IsDeployed = !Deployed.IsValid();
@@ -250,6 +246,62 @@ public partial class WeaponContainer : Component
 
 		//weaponGo.NetworkSpawn();
 	}
+	// Füge diese Eigenschaft zur WeaponContainer-Klasse hinzu
+	
+
+	// Füge diese Methoden zur WeaponContainer-Klasse hinzu
+	// Ändern wir die Datenstruktur von Dictionary<string, (int, int)> zu Dictionary<string, Dictionary<string, (int, int)>>
+
+
+	// Ersetze das bestehende _weaponAmmoCache mit diesem:
+	private Dictionary<string, Dictionary<string, (int inClip, int reserve)>> _weaponAmmoCache = new();
+
+	public void SaveWeaponAmmoState( BaseGun gun )
+	{
+		if ( gun != null && gun.IsValid() )
+		{
+			string weaponType = gun.GetType().Name;
+			string weaponId = gun.DisplayName;
+
+			// Erstelle für jeden Waffentyp ein eigenes Dictionary, falls es nicht existiert
+			if ( !_weaponAmmoCache.ContainsKey( weaponType ) )
+			{
+				_weaponAmmoCache[weaponType] = new Dictionary<string, (int, int)>();
+			}
+
+			// Speichere den Munitionsstand für diese spezifische Waffe in ihrem Typ-Dictionary
+			_weaponAmmoCache[weaponType][weaponId] = (gun.AmmoInClip, gun.DefaultAmmo);
+			Log.Info( $"Saving ammo state: {gun}, Type: {weaponType}, ID: {weaponId}, ClipAmmo: {gun.AmmoInClip}" );
+		}
+	}
+
+	public void RestoreWeaponAmmoState( BaseGun gun )
+	{
+		if ( gun != null && gun.IsValid() )
+		{
+			string weaponType = gun.GetType().Name;
+			string weaponId = gun.DisplayName;
+
+			if ( _weaponAmmoCache.TryGetValue( weaponType, out var typeDictionary ) &&
+				typeDictionary.TryGetValue( weaponId, out var ammoState ) )
+			{
+				gun.AmmoInClip = ammoState.inClip;
+				gun.DefaultAmmo = ammoState.reserve;
+				Log.Info( $"Restored ammo state: {gun}, Type: {weaponType}, ID: {weaponId}, ClipAmmo: {gun.AmmoInClip}" );
+			}
+			else
+			{
+				// Standardwerte für neue Waffen festlegen
+				gun.AmmoInClip = gun.ClipSize;  // Volle Magazin-Munition
+				gun.DefaultAmmo = Math.Max( 0, gun.MaxAmmo - gun.ClipSize );  // Rest als Reserve
+
+				Log.Info( $"No saved state found for gun: {gun}, Using defaults: ClipAmmo: {gun.AmmoInClip}, ReserveAmmo: {gun.DefaultAmmo}" );
+
+				// Speichere diesen neuen Zustand
+				SaveWeaponAmmoState( gun );
+			}
+		}
+	}
 	public void RemoveWeapon( GameObject prefab, bool shouldDeploy = false )
 	{
 		if ( WeaponBone == null )
@@ -258,11 +310,11 @@ public partial class WeaponContainer : Component
 			return;
 		}
 
-		
+
 		_isGiving = false;
 		prefab.SetParent( null );
 		ClearWeaponBone();
-		
+
 	}
 
 	private void ClearWeaponBone()
@@ -305,10 +357,15 @@ public partial class WeaponContainer : Component
 		if ( deployed != null )
 		{
 			currentIndex = weapons.IndexOf( deployed );
+
+			// Speichere den Munitionsstand der aktuell ausgerüsteten Waffe
+			if ( deployed is BaseGun deployedGun )
+			{
+				SaveWeaponAmmoState( deployedGun );
+			}
 		}
 		if ( equipped != null )
 		{
-
 			if ( currentIndex != -1 )
 			{
 				// Deploy the equipped item
@@ -330,6 +387,12 @@ public partial class WeaponContainer : Component
 		}
 
 		nextWeapon.Deploy();
+
+		// Stelle den Munitionsstand der neu ausgerüsteten Waffe wieder her
+		if ( nextWeapon is BaseGun nextGun )
+		{
+			RestoreWeaponAmmoState( nextGun );
+		}
 	}
 	public List<WeaponComponent> GetEquippedItems( params EquipSlot[] slots )
 	{

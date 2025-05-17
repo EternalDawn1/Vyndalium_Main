@@ -1672,6 +1672,12 @@ public partial class BaseGun : WeaponComponent, IUse
 		{
 			Owner?.ModelRenderer.Set( "b_reload", false );
 		}
+		var item = GameObject.Components.Get<ItemComponent>();
+		if ( item != null )
+		{
+			item.SaveWeaponAmmoState( this );
+
+		}
 
 		IsReloading = false;
 	}
