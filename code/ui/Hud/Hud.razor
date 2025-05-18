@@ -86,39 +86,37 @@
 
 
 	<div class="center">
-		@if (!weapon.IsValid() && player.IsValid())
-		{
-			<div class="crosshair1">
-				<div class="bar vertical top"></div>
-				<div class="bar vertical bottom"></div>
-				<div class="bar horizontal left"></div>
-				<div class="bar horizontal right"></div>
-			</div>
-		}
-		else
-		{
-			@if (player.IsAiming && player.IsValid())
-			{
-				<div class="crosshair1">
-					<div class="bar vertical top"></div>
-					<div class="bar vertical bottom"></div>
-					<div class="bar horizontal left"></div>
-					<div class="bar horizontal right"></div>
-				</div>
-			}
-			else
-			{
-				<div class="crosshair1">
-					<div class="bar vertical top"></div>
-					<div class="bar vertical bottom"></div>
-					<div class="bar horizontal left"></div>
-					<div class="bar horizontal right"></div>
-				</div>
-			}
-		}
-
-
-	</div>
+    @if (!weapon.IsValid() && player.IsValid())
+    {
+        <div class="crosshair1 @(player.ThirdPersonEnabled ? "third-person" : "")">
+            <div class="bar vertical top"></div>
+            <div class="bar vertical bottom"></div>
+            <div class="bar horizontal left"></div>
+            <div class="bar horizontal right"></div>
+        </div>
+    }
+    else
+    {
+        @if (player.IsAiming && player.IsValid())
+        {
+            <div class="crosshair1 @(player.ThirdPersonEnabled ? "third-person" : "")">
+                <div class="bar vertical top"></div>
+                <div class="bar vertical bottom"></div>
+                <div class="bar horizontal left"></div>
+                <div class="bar horizontal right"></div>
+            </div>
+        }
+        else
+        {
+            <div class="crosshair1 @(player.ThirdPersonEnabled ? "third-person" : "")">
+                <div class="bar vertical top"></div>
+                <div class="bar vertical bottom"></div>
+                <div class="bar horizontal left"></div>
+                <div class="bar horizontal right"></div>
+            </div>
+        }
+    }
+</div>
 
 
 
@@ -208,7 +206,7 @@
 @code
 {
 	public Hud hud;
-
+public bool IsThirdPerson => Player.Local.ThirdPersonEnabled;
 	[Property] private Npc npc { get; set; } = new Npc();
 	
 
