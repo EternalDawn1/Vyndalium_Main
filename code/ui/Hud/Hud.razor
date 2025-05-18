@@ -270,18 +270,19 @@ public bool IsThirdPerson => Player.Local.ThirdPersonEnabled;
 		StateHasChanged();
 	}
 	
-	protected override void OnAwake()
-	{
-		if (player != null)
-		{
-			player.OnLevelUp += (level) => ShowLevelUpPanel();
-			StateHasChanged();
-
-			
-			
-		}
-		
-	}
+protected override void OnAwake()
+{
+    if (player != null)
+    {
+        player.OnLevelUp += (level) => ShowLevelUpPanel();
+        
+        // Stelle sicher, dass das Crosshair den richtigen Modus beim Start anzeigt
+        if (player.ThirdPersonEnabled)
+        {
+            StateHasChanged(); // Aktualisiere die UI basierend auf dem aktuellen Kameramodus
+        }
+    }
+}
 	private float previousHealth;
 
 	protected override void OnUpdate()

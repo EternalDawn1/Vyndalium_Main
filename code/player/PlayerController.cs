@@ -81,7 +81,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float MouseSensitivity { get; set; } = 1.0f;
 	[Property] public float DefaultFov { get; set; } = 90f;
 
-	[Property] public bool ThirdPersonEnabled { get; set; }
+	[Property] public bool ThirdPersonEnabled { get; set; } = true;
 
 
 	// In der Player-Klasse, füge diese Eigenschaften hinzu
