@@ -288,17 +288,36 @@
 		align-items: center;
 	}
 
-								.crosshair1 {
-									position: relative;
-									opacity: 1;
-									transition: transform 2.05s ease-in-out;
-									width: 5px;
-									/* Breite des Fadenkreuzes */
-									height: 50px;
-									/* Höhe des Fadenkreuzes */
-									background-color: transparent;
+							.crosshair1 {
+								position: relative;
+								transform: translate(-50%, -50%);
+								transition: all 2s ease-in-out;
+							
+								/* Standardposition für First Person oder weit entfernte Wände */
+								&.third-person {
+									transform: translate(-50%, -50%) scale(0.8);
+							
+									&.wall-close {
+										transform: translate(-50%, -50%) scale(0.9);
+										left: -6%;
 									
+									}
+							
+									&.wall-closer {
+										transform: translate(-50%, -50%) scale(1.0);
+										left: -8%;
+										
+									}
+							
+									&.wall-closest {
+										position: relative;
+										transform: translate(-50%, -50%) scale(1.2);
+										left: -10%;
+										
+									}
 								}
+							}
+
 								.crosshair1.third-person {
 									left: -3.5%;
 									top: -5%;

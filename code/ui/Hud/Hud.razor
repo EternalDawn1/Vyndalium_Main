@@ -86,9 +86,23 @@
 
 
 	<div class="center">
+    @{
+        string wallDistanceClass = "";
+        if (player.IsValid() && player.ThirdPersonEnabled)
+        {
+            var distance = GetWallDistance();
+            if (distance < 20f)
+                wallDistanceClass = "wall-closest";
+            else if (distance < 50f)
+                wallDistanceClass = "wall-closer";
+            else if (distance < 100f)
+                wallDistanceClass = "wall-close";
+        }
+    }
+    
     @if (!weapon.IsValid() && player.IsValid())
     {
-        <div class="crosshair1 @(player.ThirdPersonEnabled ? "third-person" : "")">
+        <div class="crosshair1 @(player.ThirdPersonEnabled ? "third-person" : "") @wallDistanceClass">
             <div class="bar vertical top"></div>
             <div class="bar vertical bottom"></div>
             <div class="bar horizontal left"></div>
@@ -99,7 +113,7 @@
     {
         @if (player.IsAiming && player.IsValid())
         {
-            <div class="crosshair1 @(player.ThirdPersonEnabled ? "third-person" : "")">
+            <div class="crosshair1 @(player.ThirdPersonEnabled ? "third-person" : "") @wallDistanceClass">
                 <div class="bar vertical top"></div>
                 <div class="bar vertical bottom"></div>
                 <div class="bar horizontal left"></div>
@@ -108,7 +122,7 @@
         }
         else
         {
-            <div class="crosshair1 @(player.ThirdPersonEnabled ? "third-person" : "")">
+            <div class="crosshair1 @(player.ThirdPersonEnabled ? "third-person" : "") @wallDistanceClass">
                 <div class="bar vertical top"></div>
                 <div class="bar vertical bottom"></div>
                 <div class="bar horizontal left"></div>
@@ -258,18 +272,64 @@ public bool IsThirdPerson => Player.Local.ThirdPersonEnabled;
 			npc = Scene.GetAllComponents<Npc>().FirstOrDefault(n => n.IsBoss);
 		}
 		
-
-	
-
-		
-
-		
-	
-		
-
 		StateHasChanged();
 	}
-	
+	private float GetWallDistance()
+{
+    if (player == null || !player.IsValid())
+        return float.MaxValue;
+
+    // Versuche die Position und Rotation auf unterschiedliche Weise zu bekommen
+    Vector3 eyePosition;
+    Rotation eyeRotation;
+    
+    // Methode 1: Über GameObject.Transform
+    if (player.GameObject != null)
+    {
+        eyePosition = player.GameObject.WorldPosition + Vector3.Up * 64; // Augenhöhe schätzen
+        eyeRotation = player.GameObject.WorldRotation;
+    }
+    // Methode 2: Über einen etwaigen Camera Komponenten
+    else if (player.Components?.Get<CameraComponent>() != null)
+    {
+        var camera = player.Components.Get<CameraComponent>();
+        eyePosition = camera.WorldPosition;
+        eyeRotation = camera.WorldRotation;
+    }
+    // Methode 3: Über CharacterController2, falls verfügbar
+    else if (player.Components?.Get<CharacterController>() != null)
+    {
+        var controller = player.Components.Get<CharacterController>();
+        eyePosition = controller.WorldPosition + Vector3.Up * 64; // Augenhöhe schätzen
+        eyeRotation = controller.WorldRotation;
+    }
+    // Fallback zur aktiven Kamera
+    else
+    {
+        // Wenn keine spezifische Position gefunden wurde, verwende die aktive Kamera
+        var camera = Scene.Camera;
+        if (camera != null)
+        {
+            eyePosition = camera.WorldPosition;
+            eyeRotation = camera.WorldRotation;
+        }
+        else
+        {
+            // Absoluter Fallback
+            eyePosition = Vector3.Zero;
+            eyeRotation = Rotation.Identity;
+        }
+    }
+    
+    // Raytrace von der ermittelten Position in Blickrichtung
+    var direction = eyeRotation.Forward;
+    var trace = Scene.Trace.Ray(eyePosition, eyePosition + direction * 200f)
+                    .WithAnyTags("solid")
+                    .Run();
+
+    // Rückgabe der Entfernung zur getroffenen Wand oder Maximum-Wert, wenn keine Wand getroffen wurde
+    return trace.Hit ? trace.Distance : float.MaxValue;
+}
 protected override void OnAwake()
 {
     if (player != null)
@@ -284,10 +344,16 @@ protected override void OnAwake()
         }
     }
 }
+  private float wallDistance = float.MaxValue;
 	private float previousHealth;
 
 	protected override void OnUpdate()
 	{
+		if (player != null && player.IsValid() && player.ThirdPersonEnabled)
+        {
+            wallDistance = GetWallDistance();
+            StateHasChanged();
+        }
 		if (npc != null)
 		{
 			// Aktualisiere die Backbar, wenn Schaden genommen wurde
