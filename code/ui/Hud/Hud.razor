@@ -279,6 +279,7 @@ protected override void OnAwake()
         // Stelle sicher, dass das Crosshair den richtigen Modus beim Start anzeigt
         if (player.ThirdPersonEnabled)
         {
+			Log.Info("Crosshair is in third person mode");
             StateHasChanged(); // Aktualisiere die UI basierend auf dem aktuellen Kameramodus
         }
     }

@@ -1331,7 +1331,7 @@ public partial class BaseGun : WeaponComponent, IUse
 			Vector3 leftVector = -rightVector;
 
 			// Passe die Schussrichtung mit Links-Offset an
-			float leftOffset = 25.0f;
+			float leftOffset = 22.0f;
 
 			// Füge zusätzlich einen Versatz nach oben hinzu
 			float upOffset = 15.0f;
