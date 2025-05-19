@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("BaseGun")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("AdvancedTrail")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da5b305f4e17f9df78d2b25d00178ff218e1a27b")]
-[assembly: System.Reflection.AssemblyProductAttribute("BaseGun")]
-[assembly: System.Reflection.AssemblyTitleAttribute("BaseGun")]
+[assembly: System.Reflection.AssemblyProductAttribute("AdvancedTrail")]
+[assembly: System.Reflection.AssemblyTitleAttribute("AdvancedTrail")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Von der MSBuild WriteCodeFragment-Klasse generiert.
