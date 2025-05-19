@@ -79,7 +79,7 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float Aircontrol { get; private set; } = 0.1f;
 	public static bool DebugCamera { get; set; } = false;
 	[Property] public float MouseSensitivity { get; set; } = 1.0f;
-	[Property] public float DefaultFov { get; set; } = 90f;
+	[Property] public float DefaultFov { get; set; } = 100f;
 
 	[Property] public bool ThirdPersonEnabled { get; set; } = true;
 
@@ -999,7 +999,8 @@ public partial class Player : Component, IHealthComponent
 					PlyCamera.WorldPosition = Eye.WorldPosition;
 					PlyCamera.WorldRotation = EyeAngles.ToRotation();
 
-
+					// Setze FOV für First-Person auf 100
+					PlyCamera.FieldOfView = 100f;
 
 					var deployedWeapon = Weapons.Deployed;
 					var hasViewModel = deployedWeapon.IsValid() && deployedWeapon.HasViewModel;
@@ -1029,8 +1030,6 @@ public partial class Player : Component, IHealthComponent
 						PlyCamera.WorldPosition = trace.Hit ? trace.EndPosition : idealEyePos;
 
 					PlyCamera.WorldRotation = EyeAngles.ToRotation() * Rotation.FromPitch( -10f );
-
-
 
 
 					if ( IsCrouching && hasViewModel )
@@ -1250,7 +1249,7 @@ public partial class Player : Component, IHealthComponent
 		}
 	}
 	
-	public float AimingFov { get; set; } = 60f;  // Zoom-FOV beim Zielen
+	public float AimingFov { get; set; } = 70f;  // Zoom-FOV beim Zielen
 	private bool wasAimingLastFrame = false;
 	private float zoomTransitionTime = 0f;
 	private float zoomTransitionDuration = 0.3f;

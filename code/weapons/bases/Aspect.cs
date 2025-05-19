@@ -1563,29 +1563,51 @@ public partial class BaseGun : WeaponComponent, IUse
         {
             return;
         }
+
         while ( Time.Now - startTime < duration )
         {
-            var direction = (npc.WorldPosition - lightObject.WorldPosition).Normal;
-            lightObject.WorldPosition += direction * speed * Time.Delta;
-
-            // Überprüfen, ob das Licht den NPC erreicht hat
-            if ( (lightObject.WorldPosition - npc.WorldPosition).Length < 1.0f )
+            // Überprüfe, ob das Licht oder der NPC nicht mehr gültig sind
+            if ( !lightObject.IsValid() || !npc.IsValid() )
             {
-                // Füge dem NPC Schaden zu, basierend auf seinem aktuellen Gesundheitszustand
-                float damagePercentage = 0.1f; // 10% des aktuellen Gesundheitszustands
-                float damage = npc.Health * damagePercentage;
-                npc.TakeDamage( DamageType.holy, damage, npc.WorldPosition, Vector3.Zero, Guid.Empty, Guid.Empty );
+                // Objekt wurde in der Zwischenzeit zerstört, also brechen wir ab
+                if ( lightObject.IsValid() )
+                    lightObject.Destroy();
+                return;
+            }
 
-                // Zerstöre das Licht
-                lightObject.Destroy();
+            // Überprüfe, ob die Komponenten noch existieren
+            try
+            {
+                var direction = (npc.WorldPosition - lightObject.WorldPosition).Normal;
+                lightObject.WorldPosition += direction * speed * Time.Delta;
+
+                // Überprüfen, ob das Licht den NPC erreicht hat
+                if ( (lightObject.WorldPosition - npc.WorldPosition).Length < 1.0f )
+                {
+                    // Füge dem NPC Schaden zu, basierend auf seinem aktuellen Gesundheitszustand
+                    float damagePercentage = 0.1f; // 10% des aktuellen Gesundheitszustands
+                    float damage = npc.Health * damagePercentage;
+                    npc.TakeDamage( DamageType.holy, damage, npc.WorldPosition, Vector3.Zero, Guid.Empty, Guid.Empty );
+
+                    // Zerstöre das Licht
+                    lightObject.Destroy();
+                    return;
+                }
+            }
+            catch ( NullReferenceException )
+            {
+                // Falls während der Ausführung ein Objekt zerstört wurde
+                if ( lightObject.IsValid() )
+                    lightObject.Destroy();
                 return;
             }
 
             await Task.Delay( 10 ); // Aktualisiere die Position alle 10 Millisekunden
         }
 
-        // Zerstöre das Licht nach Ablauf der Dauer
-        lightObject.Destroy();
+        // Zerstöre das Licht nach Ablauf der Dauer, falls es noch existiert
+        if ( lightObject.IsValid() )
+            lightObject.Destroy();
     }
 
     private void FireBulletWithPoisonAspect( Player shooter )
