@@ -1327,17 +1327,7 @@ public partial class BaseGun : WeaponComponent, IUse
 		if ( Owner.CameraMode != 0 ) // Third-Person
 		{
 			// Berechne den Vektor, der nach links zeigt (relativ zur Blickrichtung)
-			Vector3 rightVector = Vector3.Cross( shootDirection, Vector3.Up ).Normal;
-			Vector3 leftVector = -rightVector;
-
-			// Passe die Schussrichtung mit Links-Offset an
-			float leftOffset = 22.0f;
-
-			// Füge zusätzlich einen Versatz nach oben hinzu
-			float upOffset = 15.0f;
-
-			// Kombiniere beide Offsets (links und oben)
-			shootDirection = (shootDirection + leftVector * (leftOffset / 200.0f) + Vector3.Up * (upOffset / 200.0f)).Normal;
+			
 		}
 
 		// 4. Jetzt erst den Spread hinzufügen

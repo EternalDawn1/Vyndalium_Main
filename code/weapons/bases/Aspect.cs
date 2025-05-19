@@ -66,13 +66,59 @@ public partial class BaseGun : WeaponComponent, IUse
         NextAttackTime = 1f / FireRate;
         AmmoInClip--;
 
-        var attachment = EffectRenderer.GetAttachment( "muzzle" );
-        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-        var direction = Owner.PlyCamera.WorldRotation.Forward;
-        direction += Vector3.Random * Spread;
-        var endPos = startPos + direction * 5000f;
+        var cameraPos = Owner.PlyCamera.WorldPosition;
+        var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
 
-        var trace = Scene.Trace.Ray( startPos, endPos )
+        // Zielstrahl vom Kamerazentrum durch das Fadenkreuz
+        var targetRay = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        Vector3 targetPoint = targetRay.Hit ? targetRay.EndPosition : cameraPos + cameraDir * 5000f;
+
+        // 2. Mündungsposition abhängig vom Kameramodus bestimmen
+        Vector3 muzzlePos;
+
+        if ( Owner.CameraMode == 0 ) // First-Person
+        {
+            // In Ego-Perspektive: Mündungsposition aus dem Waffen-Attachment
+            var attachment = EffectRenderer.GetAttachment( "muzzle" );
+            muzzlePos = attachment?.Position ?? cameraPos;
+        }
+        else // Third-Person
+        {
+            // In Third-Person: Mündung aus dem sichtbaren Waffen-Model
+            var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+            if ( muzzlePoint != null )
+            {
+                muzzlePos = muzzlePoint.WorldPosition;
+            }
+            else
+            {
+                // Fallback auf die Position der Waffe + Offset in Blickrichtung
+                muzzlePos = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20 + Vector3.Forward * 200;
+            }
+        }
+
+        // 3. Schussrichtung vom Mündungspunkt zum Zielpunkt
+        Vector3 shootDirection = (targetPoint - muzzlePos).Normal;
+
+        // Korrektur für Third-Person: Versatz nach links hinzufügen
+        // Korrektur für Third-Person: Versatz nach links und oben hinzufügen
+        if ( Owner.CameraMode != 0 ) // Third-Person
+        {
+
+        }
+
+        // 4. Jetzt erst den Spread hinzufügen
+        shootDirection += Vector3.Random * Spread;
+
+        // 5. Endpunkt berechnen
+        var endPos = muzzlePos + shootDirection * 5000f;
+
+        var trace = Scene.Trace.Ray( muzzlePos, endPos )
             .IgnoreGameObjectHierarchy( GameObject.Root )
             .WithoutTags( "player" )
             .UseHitboxes( true )
@@ -94,17 +140,17 @@ public partial class BaseGun : WeaponComponent, IUse
                 var trailobject = GameObject.Clone( trailInstance );
                 if ( trailobject != null )
                 {
-                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+                    trailobject.WorldPosition = muzzlePos; // Setze die Startposition auf die Mündung
 
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
-                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
-                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                        trailobjectRenderer.Yaw = Rotation.LookAt( shootDirection ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( shootDirection ).Pitch();
                     }
 
                     var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
-                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                    UpdateTrailObjectPosition( trailobject, shootDirection, speed, endPos, shooter );
                 }
             }
         }
@@ -119,7 +165,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
 
 
-        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+        SendAttackMessage( muzzlePos, endPos, trace.Distance, trace );
 
         return;
     }
@@ -146,19 +192,61 @@ public partial class BaseGun : WeaponComponent, IUse
         NextAttackTime = 1f / FireRate;
         AmmoInClip--;
 
-        var attachment = EffectRenderer.GetAttachment( "muzzle" );
-        if ( attachment == null )
+       
+
+        var cameraPos = Owner.PlyCamera.WorldPosition;
+        var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
+
+        // Zielstrahl vom Kamerazentrum durch das Fadenkreuz
+        var targetRay = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        Vector3 targetPoint = targetRay.Hit ? targetRay.EndPosition : cameraPos + cameraDir * 5000f;
+
+        // 2. Mündungsposition abhängig vom Kameramodus bestimmen
+        Vector3 muzzlePos;
+
+        if ( Owner.CameraMode == 0 ) // First-Person
         {
-            Log.Error( "Attachment is null" );
-            return;
+            // In Ego-Perspektive: Mündungsposition aus dem Waffen-Attachment
+            var attachment = EffectRenderer.GetAttachment( "muzzle" );
+            muzzlePos = attachment?.Position ?? cameraPos;
+        }
+        else // Third-Person
+        {
+            // In Third-Person: Mündung aus dem sichtbaren Waffen-Model
+            var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+            if ( muzzlePoint != null )
+            {
+                muzzlePos = muzzlePoint.WorldPosition;
+            }
+            else
+            {
+                // Fallback auf die Position der Waffe + Offset in Blickrichtung
+                muzzlePos = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20 + Vector3.Forward * 200;
+            }
         }
 
-        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-        var direction = Owner.PlyCamera.WorldRotation.Forward;
-        direction += Vector3.Random * Spread;
-        var endPos = startPos + direction * 5000f;
+        // 3. Schussrichtung vom Mündungspunkt zum Zielpunkt
+        Vector3 shootDirection = (targetPoint - muzzlePos).Normal;
 
-        var trace = Scene.Trace.Ray( startPos, endPos )
+        // Korrektur für Third-Person: Versatz nach links hinzufügen
+        // Korrektur für Third-Person: Versatz nach links und oben hinzufügen
+        if ( Owner.CameraMode != 0 ) // Third-Person
+        {
+
+        }
+
+        // 4. Jetzt erst den Spread hinzufügen
+        shootDirection += Vector3.Random * Spread;
+
+        // 5. Endpunkt berechnen
+        var endPos = muzzlePos + shootDirection * 5000f;
+
+        var trace = Scene.Trace.Ray( muzzlePos, endPos )
             .IgnoreGameObjectHierarchy( GameObject.Root )
             .WithoutTags( "player" )
             .UseHitboxes( true )
@@ -178,17 +266,17 @@ public partial class BaseGun : WeaponComponent, IUse
                 var trailobject = GameObject.Clone( trailInstance );
                 if ( trailobject != null )
                 {
-                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+                    trailobject.WorldPosition = muzzlePos; // Setze die Startposition auf die Mündung
 
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
-                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
-                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                        trailobjectRenderer.Yaw = Rotation.LookAt( shootDirection ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( shootDirection ).Pitch();
                     }
 
                     var speed = BulletSpeed * 750f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
-                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                    UpdateTrailObjectPosition( trailobject, shootDirection, speed, endPos, shooter );
                 }
             }
         }
@@ -202,7 +290,7 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
-        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+        SendAttackMessage( muzzlePos, endPos, trace.Distance, trace );
 
         return;
     }
@@ -413,13 +501,59 @@ public partial class BaseGun : WeaponComponent, IUse
         NextAttackTime = 1f / FireRate;
         AmmoInClip--;
 
-        var attachment = EffectRenderer.GetAttachment( "muzzle" );
-        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-        var direction = Owner.PlyCamera.WorldRotation.Forward;
-        direction += Vector3.Random * Spread;
-        var endPos = startPos + direction * 5000f;
+        var cameraPos = Owner.PlyCamera.WorldPosition;
+        var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
 
-        var trace = Scene.Trace.Ray( startPos, endPos )
+        // Zielstrahl vom Kamerazentrum durch das Fadenkreuz
+        var targetRay = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        Vector3 targetPoint = targetRay.Hit ? targetRay.EndPosition : cameraPos + cameraDir * 5000f;
+
+        // 2. Mündungsposition abhängig vom Kameramodus bestimmen
+        Vector3 muzzlePos;
+
+        if ( Owner.CameraMode == 0 ) // First-Person
+        {
+            // In Ego-Perspektive: Mündungsposition aus dem Waffen-Attachment
+            var attachment = EffectRenderer.GetAttachment( "muzzle" );
+            muzzlePos = attachment?.Position ?? cameraPos;
+        }
+        else // Third-Person
+        {
+            // In Third-Person: Mündung aus dem sichtbaren Waffen-Model
+            var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+            if ( muzzlePoint != null )
+            {
+                muzzlePos = muzzlePoint.WorldPosition;
+            }
+            else
+            {
+                // Fallback auf die Position der Waffe + Offset in Blickrichtung
+                muzzlePos = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20 + Vector3.Forward * 200;
+            }
+        }
+
+        // 3. Schussrichtung vom Mündungspunkt zum Zielpunkt
+        Vector3 shootDirection = (targetPoint - muzzlePos).Normal;
+
+        // Korrektur für Third-Person: Versatz nach links hinzufügen
+        // Korrektur für Third-Person: Versatz nach links und oben hinzufügen
+        if ( Owner.CameraMode != 0 ) // Third-Person
+        {
+
+        }
+
+        // 4. Jetzt erst den Spread hinzufügen
+        shootDirection += Vector3.Random * Spread;
+
+        // 5. Endpunkt berechnen
+        var endPos = muzzlePos + shootDirection * 5000f;
+
+        var trace = Scene.Trace.Ray( muzzlePos, endPos )
             .IgnoreGameObjectHierarchy( GameObject.Root )
             .WithoutTags( "player" )
             .UseHitboxes( true )
@@ -439,17 +573,17 @@ public partial class BaseGun : WeaponComponent, IUse
                 var trailobject = GameObject.Clone( trailInstance );
                 if ( trailobject != null )
                 {
-                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+                    trailobject.WorldPosition = muzzlePos; // Setze die Startposition auf die Mündung
 
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
-                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
-                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                        trailobjectRenderer.Yaw = Rotation.LookAt( shootDirection ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( shootDirection ).Pitch();
                     }
 
                     var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
-                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                    UpdateTrailObjectPosition( trailobject, shootDirection, speed, endPos, shooter );
                 }
             }
         }
@@ -463,7 +597,7 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
-        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+        SendAttackMessage( muzzlePos, endPos, trace.Distance, trace );
     }
     private void ApplyFireAspectPassive( IHealthComponent damageable, Player shooter )
     {
@@ -503,13 +637,59 @@ public partial class BaseGun : WeaponComponent, IUse
         NextAttackTime = 1f / FireRate;
         AmmoInClip--;
 
-        var attachment = EffectRenderer.GetAttachment( "muzzle" );
-        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-        var direction = Owner.PlyCamera.WorldRotation.Forward;
-        direction += Vector3.Random * Spread;
-        var endPos = startPos + direction * 5000f;
+        var cameraPos = Owner.PlyCamera.WorldPosition;
+        var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
 
-        var trace = Scene.Trace.Ray( startPos, endPos )
+        // Zielstrahl vom Kamerazentrum durch das Fadenkreuz
+        var targetRay = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        Vector3 targetPoint = targetRay.Hit ? targetRay.EndPosition : cameraPos + cameraDir * 5000f;
+
+        // 2. Mündungsposition abhängig vom Kameramodus bestimmen
+        Vector3 muzzlePos;
+
+        if ( Owner.CameraMode == 0 ) // First-Person
+        {
+            // In Ego-Perspektive: Mündungsposition aus dem Waffen-Attachment
+            var attachment = EffectRenderer.GetAttachment( "muzzle" );
+            muzzlePos = attachment?.Position ?? cameraPos;
+        }
+        else // Third-Person
+        {
+            // In Third-Person: Mündung aus dem sichtbaren Waffen-Model
+            var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+            if ( muzzlePoint != null )
+            {
+                muzzlePos = muzzlePoint.WorldPosition;
+            }
+            else
+            {
+                // Fallback auf die Position der Waffe + Offset in Blickrichtung
+                muzzlePos = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20 + Vector3.Forward * 200;
+            }
+        }
+
+        // 3. Schussrichtung vom Mündungspunkt zum Zielpunkt
+        Vector3 shootDirection = (targetPoint - muzzlePos).Normal;
+
+        // Korrektur für Third-Person: Versatz nach links hinzufügen
+        // Korrektur für Third-Person: Versatz nach links und oben hinzufügen
+        if ( Owner.CameraMode != 0 ) // Third-Person
+        {
+
+        }
+
+        // 4. Jetzt erst den Spread hinzufügen
+        shootDirection += Vector3.Random * Spread;
+
+        // 5. Endpunkt berechnen
+        var endPos = muzzlePos + shootDirection * 5000f;
+
+        var trace = Scene.Trace.Ray( muzzlePos, endPos )
             .IgnoreGameObjectHierarchy( GameObject.Root )
             .WithoutTags( "player" )
             .UseHitboxes( true )
@@ -529,19 +709,19 @@ public partial class BaseGun : WeaponComponent, IUse
                 var trailobject = GameObject.Clone( trailInstance );
                 if ( trailobject != null )
                 {
-                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+                    trailobject.WorldPosition = muzzlePos; // Setze die Startposition auf die Mündung
 
 
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
-                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
-                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                        trailobjectRenderer.Yaw = Rotation.LookAt( shootDirection ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( shootDirection ).Pitch();
 
                     }
 
                     var speed = BulletSpeed * 750f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
-                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                    UpdateTrailObjectPosition( trailobject, shootDirection, speed, endPos, shooter );
                 }
             }
         }
@@ -554,7 +734,7 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
-        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+        SendAttackMessage( muzzlePos, endPos, trace.Distance, trace );
 
         return;
     }
@@ -614,13 +794,59 @@ public partial class BaseGun : WeaponComponent, IUse
         NextAttackTime = 1f / FireRate;
         AmmoInClip--;
 
-        var attachment = EffectRenderer.GetAttachment( "muzzle" );
-        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-        var direction = Owner.PlyCamera.WorldRotation.Forward;
-        direction += Vector3.Random * Spread;
-        var endPos = startPos + direction * 5000f;
+        var cameraPos = Owner.PlyCamera.WorldPosition;
+        var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
 
-        var trace = Scene.Trace.Ray( startPos, endPos )
+        // Zielstrahl vom Kamerazentrum durch das Fadenkreuz
+        var targetRay = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        Vector3 targetPoint = targetRay.Hit ? targetRay.EndPosition : cameraPos + cameraDir * 5000f;
+
+        // 2. Mündungsposition abhängig vom Kameramodus bestimmen
+        Vector3 muzzlePos;
+
+        if ( Owner.CameraMode == 0 ) // First-Person
+        {
+            // In Ego-Perspektive: Mündungsposition aus dem Waffen-Attachment
+            var attachment = EffectRenderer.GetAttachment( "muzzle" );
+            muzzlePos = attachment?.Position ?? cameraPos;
+        }
+        else // Third-Person
+        {
+            // In Third-Person: Mündung aus dem sichtbaren Waffen-Model
+            var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+            if ( muzzlePoint != null )
+            {
+                muzzlePos = muzzlePoint.WorldPosition;
+            }
+            else
+            {
+                // Fallback auf die Position der Waffe + Offset in Blickrichtung
+                muzzlePos = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20 + Vector3.Forward * 200;
+            }
+        }
+
+        // 3. Schussrichtung vom Mündungspunkt zum Zielpunkt
+        Vector3 shootDirection = (targetPoint - muzzlePos).Normal;
+
+        // Korrektur für Third-Person: Versatz nach links hinzufügen
+        // Korrektur für Third-Person: Versatz nach links und oben hinzufügen
+        if ( Owner.CameraMode != 0 ) // Third-Person
+        {
+
+        }
+
+        // 4. Jetzt erst den Spread hinzufügen
+        shootDirection += Vector3.Random * Spread;
+
+        // 5. Endpunkt berechnen
+        var endPos = muzzlePos + shootDirection * 5000f;
+
+        var trace = Scene.Trace.Ray( muzzlePos, endPos )
             .IgnoreGameObjectHierarchy( GameObject.Root )
             .WithoutTags( "player" )
             .UseHitboxes( true )
@@ -640,17 +866,17 @@ public partial class BaseGun : WeaponComponent, IUse
                 var trailobject = GameObject.Clone( trailInstance );
                 if ( trailobject != null )
                 {
-                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+                    trailobject.WorldPosition = muzzlePos; // Setze die Startposition auf die Mündung
 
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
-                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
-                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                        trailobjectRenderer.Yaw = Rotation.LookAt( shootDirection ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( shootDirection ).Pitch();
                     }
 
                     var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
-                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                    UpdateTrailObjectPosition( trailobject, shootDirection, speed, endPos, shooter );
                 }
             }
         }
@@ -664,7 +890,7 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
-        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+        SendAttackMessage( muzzlePos, endPos, trace.Distance, trace );
     }
     private void ApplyIceAspectPassive( IHealthComponent damageable, Player shooter )
     {
@@ -702,13 +928,59 @@ public partial class BaseGun : WeaponComponent, IUse
         NextAttackTime = 1f / FireRate;
         AmmoInClip--;
 
-        var attachment = EffectRenderer.GetAttachment( "muzzle" );
-        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-        var direction = Owner.PlyCamera.WorldRotation.Forward;
-        direction += Vector3.Random * Spread;
-        var endPos = startPos + direction * 5000f;
+        var cameraPos = Owner.PlyCamera.WorldPosition;
+        var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
 
-        var trace = Scene.Trace.Ray( startPos, endPos )
+        // Zielstrahl vom Kamerazentrum durch das Fadenkreuz
+        var targetRay = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        Vector3 targetPoint = targetRay.Hit ? targetRay.EndPosition : cameraPos + cameraDir * 5000f;
+
+        // 2. Mündungsposition abhängig vom Kameramodus bestimmen
+        Vector3 muzzlePos;
+
+        if ( Owner.CameraMode == 0 ) // First-Person
+        {
+            // In Ego-Perspektive: Mündungsposition aus dem Waffen-Attachment
+            var attachment = EffectRenderer.GetAttachment( "muzzle" );
+            muzzlePos = attachment?.Position ?? cameraPos;
+        }
+        else // Third-Person
+        {
+            // In Third-Person: Mündung aus dem sichtbaren Waffen-Model
+            var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+            if ( muzzlePoint != null )
+            {
+                muzzlePos = muzzlePoint.WorldPosition;
+            }
+            else
+            {
+                // Fallback auf die Position der Waffe + Offset in Blickrichtung
+                muzzlePos = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20 + Vector3.Forward * 200;
+            }
+        }
+
+        // 3. Schussrichtung vom Mündungspunkt zum Zielpunkt
+        Vector3 shootDirection = (targetPoint - muzzlePos).Normal;
+
+        // Korrektur für Third-Person: Versatz nach links hinzufügen
+        // Korrektur für Third-Person: Versatz nach links und oben hinzufügen
+        if ( Owner.CameraMode != 0 ) // Third-Person
+        {
+
+        }
+
+        // 4. Jetzt erst den Spread hinzufügen
+        shootDirection += Vector3.Random * Spread;
+
+        // 5. Endpunkt berechnen
+        var endPos = muzzlePos + shootDirection * 5000f;
+
+        var trace = Scene.Trace.Ray( muzzlePos, endPos )
             .IgnoreGameObjectHierarchy( GameObject.Root )
             .WithoutTags( "player" )
             .UseHitboxes( true )
@@ -728,17 +1000,17 @@ public partial class BaseGun : WeaponComponent, IUse
                 var trailobject = GameObject.Clone( trailInstance );
                 if ( trailobject != null )
                 {
-                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+                    trailobject.WorldPosition = muzzlePos; // Setze die Startposition auf die Mündung
 
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
-                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
-                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                        trailobjectRenderer.Yaw = Rotation.LookAt( shootDirection ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( shootDirection ).Pitch();
                     }
 
                     var speed = BulletSpeed * 400f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
-                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                    UpdateTrailObjectPosition( trailobject, shootDirection, speed, endPos, shooter );
                 }
             }
         }
@@ -760,7 +1032,7 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
-        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+        SendAttackMessage( muzzlePos, endPos, trace.Distance, trace );
     }
 
     private void SpawnEarthProjectilesAroundTarget( Vector3 targetPosition, Player shooter )
@@ -848,13 +1120,59 @@ public partial class BaseGun : WeaponComponent, IUse
         NextAttackTime = 1f / FireRate;
         AmmoInClip--;
 
-        var attachment = EffectRenderer.GetAttachment( "muzzle" );
-        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-        var direction = Owner.PlyCamera.WorldRotation.Forward;
-        direction += Vector3.Random * Spread;
-        var endPos = startPos + direction * 5000f;
+        var cameraPos = Owner.PlyCamera.WorldPosition;
+        var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
 
-        var trace = Scene.Trace.Ray( startPos, endPos )
+        // Zielstrahl vom Kamerazentrum durch das Fadenkreuz
+        var targetRay = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        Vector3 targetPoint = targetRay.Hit ? targetRay.EndPosition : cameraPos + cameraDir * 5000f;
+
+        // 2. Mündungsposition abhängig vom Kameramodus bestimmen
+        Vector3 muzzlePos;
+
+        if ( Owner.CameraMode == 0 ) // First-Person
+        {
+            // In Ego-Perspektive: Mündungsposition aus dem Waffen-Attachment
+            var attachment = EffectRenderer.GetAttachment( "muzzle" );
+            muzzlePos = attachment?.Position ?? cameraPos;
+        }
+        else // Third-Person
+        {
+            // In Third-Person: Mündung aus dem sichtbaren Waffen-Model
+            var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+            if ( muzzlePoint != null )
+            {
+                muzzlePos = muzzlePoint.WorldPosition;
+            }
+            else
+            {
+                // Fallback auf die Position der Waffe + Offset in Blickrichtung
+                muzzlePos = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20 + Vector3.Forward * 200;
+            }
+        }
+
+        // 3. Schussrichtung vom Mündungspunkt zum Zielpunkt
+        Vector3 shootDirection = (targetPoint - muzzlePos).Normal;
+
+        // Korrektur für Third-Person: Versatz nach links hinzufügen
+        // Korrektur für Third-Person: Versatz nach links und oben hinzufügen
+        if ( Owner.CameraMode != 0 ) // Third-Person
+        {
+
+        }
+
+        // 4. Jetzt erst den Spread hinzufügen
+        shootDirection += Vector3.Random * Spread;
+
+        // 5. Endpunkt berechnen
+        var endPos = muzzlePos + shootDirection * 5000f;
+
+        var trace = Scene.Trace.Ray( muzzlePos, endPos )
             .IgnoreGameObjectHierarchy( GameObject.Root )
             .WithoutTags( "player" )
             .UseHitboxes( true )
@@ -874,17 +1192,17 @@ public partial class BaseGun : WeaponComponent, IUse
                 var trailobject = GameObject.Clone( trailInstance );
                 if ( trailobject != null )
                 {
-                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+                    trailobject.WorldPosition = muzzlePos; // Setze die Startposition auf die Mündung
 
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
-                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
-                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                        trailobjectRenderer.Yaw = Rotation.LookAt( shootDirection ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( shootDirection ).Pitch();
                     }
 
                     var speed = BulletSpeed * 1000f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
-                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                    UpdateTrailObjectPosition( trailobject, shootDirection, speed, endPos, shooter );
                 }
             }
         }
@@ -902,7 +1220,7 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
-        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+        SendAttackMessage( muzzlePos, endPos, trace.Distance, trace );
     }
 
     private void SpawnShadowProjectiles( GameObject target, Player shooter )
@@ -984,13 +1302,59 @@ public partial class BaseGun : WeaponComponent, IUse
         NextAttackTime = 1f / FireRate;
         AmmoInClip--;
 
-        var attachment = EffectRenderer.GetAttachment( "muzzle" );
-        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-        var direction = Owner.PlyCamera.WorldRotation.Forward;
-        direction += Vector3.Random * Spread;
-        var endPos = startPos + direction * 5000f;
+        var cameraPos = Owner.PlyCamera.WorldPosition;
+        var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
 
-        var trace = Scene.Trace.Ray( startPos, endPos )
+        // Zielstrahl vom Kamerazentrum durch das Fadenkreuz
+        var targetRay = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        Vector3 targetPoint = targetRay.Hit ? targetRay.EndPosition : cameraPos + cameraDir * 5000f;
+
+        // 2. Mündungsposition abhängig vom Kameramodus bestimmen
+        Vector3 muzzlePos;
+
+        if ( Owner.CameraMode == 0 ) // First-Person
+        {
+            // In Ego-Perspektive: Mündungsposition aus dem Waffen-Attachment
+            var attachment = EffectRenderer.GetAttachment( "muzzle" );
+            muzzlePos = attachment?.Position ?? cameraPos;
+        }
+        else // Third-Person
+        {
+            // In Third-Person: Mündung aus dem sichtbaren Waffen-Model
+            var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+            if ( muzzlePoint != null )
+            {
+                muzzlePos = muzzlePoint.WorldPosition;
+            }
+            else
+            {
+                // Fallback auf die Position der Waffe + Offset in Blickrichtung
+                muzzlePos = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20 + Vector3.Forward * 200;
+            }
+        }
+
+        // 3. Schussrichtung vom Mündungspunkt zum Zielpunkt
+        Vector3 shootDirection = (targetPoint - muzzlePos).Normal;
+
+        // Korrektur für Third-Person: Versatz nach links hinzufügen
+        // Korrektur für Third-Person: Versatz nach links und oben hinzufügen
+        if ( Owner.CameraMode != 0 ) // Third-Person
+        {
+
+        }
+
+        // 4. Jetzt erst den Spread hinzufügen
+        shootDirection += Vector3.Random * Spread;
+
+        // 5. Endpunkt berechnen
+        var endPos = muzzlePos + shootDirection * 5000f;
+
+        var trace = Scene.Trace.Ray( muzzlePos, endPos )
             .IgnoreGameObjectHierarchy( GameObject.Root )
             .WithoutTags( "player" )
             .UseHitboxes( true )
@@ -1010,17 +1374,17 @@ public partial class BaseGun : WeaponComponent, IUse
                 var trailobject = GameObject.Clone( trailInstance );
                 if ( trailobject != null )
                 {
-                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+                    trailobject.WorldPosition = muzzlePos; // Setze die Startposition auf die Mündung
 
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
-                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
-                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                        trailobjectRenderer.Yaw = Rotation.LookAt( shootDirection ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( shootDirection ).Pitch();
                     }
 
                     var speed = BulletSpeed * 400f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
-                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                    UpdateTrailObjectPosition( trailobject, shootDirection, speed, endPos, shooter );
                 }
             }
         }
@@ -1033,7 +1397,7 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
-        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+        SendAttackMessage( muzzlePos, endPos, trace.Distance, trace );
 
         return;
     }
@@ -1049,13 +1413,59 @@ public partial class BaseGun : WeaponComponent, IUse
         NextAttackTime = 1f / FireRate;
         AmmoInClip--;
 
-        var attachment = EffectRenderer.GetAttachment( "muzzle" );
-        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-        var direction = Owner.PlyCamera.WorldRotation.Forward;
-        direction += Vector3.Random * Spread;
-        var endPos = startPos + direction * 5000f;
+        var cameraPos = Owner.PlyCamera.WorldPosition;
+        var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
 
-        var trace = Scene.Trace.Ray( startPos, endPos )
+        // Zielstrahl vom Kamerazentrum durch das Fadenkreuz
+        var targetRay = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        Vector3 targetPoint = targetRay.Hit ? targetRay.EndPosition : cameraPos + cameraDir * 5000f;
+
+        // 2. Mündungsposition abhängig vom Kameramodus bestimmen
+        Vector3 muzzlePos;
+
+        if ( Owner.CameraMode == 0 ) // First-Person
+        {
+            // In Ego-Perspektive: Mündungsposition aus dem Waffen-Attachment
+            var attachment = EffectRenderer.GetAttachment( "muzzle" );
+            muzzlePos = attachment?.Position ?? cameraPos;
+        }
+        else // Third-Person
+        {
+            // In Third-Person: Mündung aus dem sichtbaren Waffen-Model
+            var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+            if ( muzzlePoint != null )
+            {
+                muzzlePos = muzzlePoint.WorldPosition;
+            }
+            else
+            {
+                // Fallback auf die Position der Waffe + Offset in Blickrichtung
+                muzzlePos = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20 + Vector3.Forward * 200;
+            }
+        }
+
+        // 3. Schussrichtung vom Mündungspunkt zum Zielpunkt
+        Vector3 shootDirection = (targetPoint - muzzlePos).Normal;
+
+        // Korrektur für Third-Person: Versatz nach links hinzufügen
+        // Korrektur für Third-Person: Versatz nach links und oben hinzufügen
+        if ( Owner.CameraMode != 0 ) // Third-Person
+        {
+            
+        }
+
+        // 4. Jetzt erst den Spread hinzufügen
+        shootDirection += Vector3.Random * Spread;
+
+        // 5. Endpunkt berechnen
+        var endPos = muzzlePos + shootDirection * 5000f;
+
+        var trace = Scene.Trace.Ray( muzzlePos, endPos )
             .IgnoreGameObjectHierarchy( GameObject.Root )
             .WithoutTags( "player" )
             .UseHitboxes( true )
@@ -1075,17 +1485,17 @@ public partial class BaseGun : WeaponComponent, IUse
                 var trailobject = GameObject.Clone( trailInstance );
                 if ( trailobject != null )
                 {
-                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+                    trailobject.WorldPosition = muzzlePos; // Setze die Startposition auf die Mündung
 
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
-                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
-                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                        trailobjectRenderer.Yaw = Rotation.LookAt( shootDirection ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( shootDirection ).Pitch();
                     }
 
                     var speed = BulletSpeed * 400f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
-                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                    UpdateTrailObjectPosition( trailobject, shootDirection, speed, endPos, shooter );
                 }
             }
         }
@@ -1098,7 +1508,7 @@ public partial class BaseGun : WeaponComponent, IUse
             }
         }
 
-        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+        SendAttackMessage( muzzlePos, endPos, trace.Distance, trace );
 
         return;
     }
@@ -1188,13 +1598,59 @@ public partial class BaseGun : WeaponComponent, IUse
         NextAttackTime = 1f / FireRate;
         AmmoInClip--;
 
-        var attachment = EffectRenderer.GetAttachment( "muzzle" );
-        var startPos = attachment?.Position ?? Owner.PlyCamera.WorldPosition;
-        var direction = Owner.PlyCamera.WorldRotation.Forward;
-        direction += Vector3.Random * Spread;
-        var endPos = startPos + direction * 5000f;
+        var cameraPos = Owner.PlyCamera.WorldPosition;
+        var cameraDir = Owner.PlyCamera.WorldRotation.Forward;
 
-        var trace = Scene.Trace.Ray( startPos, endPos )
+        // Zielstrahl vom Kamerazentrum durch das Fadenkreuz
+        var targetRay = Scene.Trace.Ray( cameraPos, cameraPos + cameraDir * 5000f )
+            .IgnoreGameObjectHierarchy( GameObject.Root )
+            .WithoutTags( "player" )
+            .UseHitboxes( true )
+            .Run();
+
+        Vector3 targetPoint = targetRay.Hit ? targetRay.EndPosition : cameraPos + cameraDir * 5000f;
+
+        // 2. Mündungsposition abhängig vom Kameramodus bestimmen
+        Vector3 muzzlePos;
+
+        if ( Owner.CameraMode == 0 ) // First-Person
+        {
+            // In Ego-Perspektive: Mündungsposition aus dem Waffen-Attachment
+            var attachment = EffectRenderer.GetAttachment( "muzzle" );
+            muzzlePos = attachment?.Position ?? cameraPos;
+        }
+        else // Third-Person
+        {
+            // In Third-Person: Mündung aus dem sichtbaren Waffen-Model
+            var muzzlePoint = GameObject.Components.GetInDescendantsOrSelf<MuzzlePoint>();
+            if ( muzzlePoint != null )
+            {
+                muzzlePos = muzzlePoint.WorldPosition;
+            }
+            else
+            {
+                // Fallback auf die Position der Waffe + Offset in Blickrichtung
+                muzzlePos = GameObject.Transform.World.Position + GameObject.Transform.World.Rotation.Forward * 20 + Vector3.Forward * 200;
+            }
+        }
+
+        // 3. Schussrichtung vom Mündungspunkt zum Zielpunkt
+        Vector3 shootDirection = (targetPoint - muzzlePos).Normal;
+
+        // Korrektur für Third-Person: Versatz nach links hinzufügen
+        // Korrektur für Third-Person: Versatz nach links und oben hinzufügen
+        if ( Owner.CameraMode != 0 ) // Third-Person
+        {
+
+        }
+
+        // 4. Jetzt erst den Spread hinzufügen
+        shootDirection += Vector3.Random * Spread;
+
+        // 5. Endpunkt berechnen
+        var endPos = muzzlePos + shootDirection * 5000f;
+
+        var trace = Scene.Trace.Ray( muzzlePos, endPos )
             .IgnoreGameObjectHierarchy( GameObject.Root )
             .WithoutTags( "player" )
             .UseHitboxes( true )
@@ -1214,23 +1670,23 @@ public partial class BaseGun : WeaponComponent, IUse
                 var trailobject = GameObject.Clone( trailInstance );
                 if ( trailobject != null )
                 {
-                    trailobject.WorldPosition = startPos; // Setze die Startposition auf die Mündung
+                    trailobject.WorldPosition = muzzlePos; // Setze die Startposition auf die Mündung
 
                     var trailobjectRenderer = trailobject.Components.Get<ParticleEffect>();
                     if ( trailobjectRenderer != null )
                     {
-                        trailobjectRenderer.Yaw = Rotation.LookAt( direction ).Yaw();
-                        trailobjectRenderer.Pitch = Rotation.LookAt( direction ).Pitch();
+                        trailobjectRenderer.Yaw = Rotation.LookAt( shootDirection ).Yaw();
+                        trailobjectRenderer.Pitch = Rotation.LookAt( shootDirection ).Pitch();
                     }
 
                     var speed = BulletSpeed * 400f; // Geschwindigkeit des Schusses basierend auf BulletSpeed
-                    UpdateTrailObjectPosition( trailobject, direction, speed, endPos, shooter );
+                    UpdateTrailObjectPosition( trailobject, shootDirection, speed, endPos, shooter );
                 }
             }
         }
-        
 
-        SendAttackMessage( startPos, endPos, trace.Distance, trace );
+
+        SendAttackMessage( muzzlePos, endPos, trace.Distance, trace );
 
         return;
     }
