@@ -7,43 +7,65 @@
 
 
 <root>
-    
-       
-
+    <div class="panel-container">
         @switch (ActivePanel)
         {
-			case FullScreenPanel.InGameHud:
-				<InGameHud/>
-				break;
+            case FullScreenPanel.InGameHud:
+                <div class="panel fade-in">
+                    <InGameHud />
+                </div>
+                break;
             case FullScreenPanel.CharacterMenu:
-                <CharacterMenu/>
+                <div class="panel fade-in">
+                    <CharacterMenu />
+                </div>
                 break;
             case FullScreenPanel.Inventory:
-                <Inventory/>
+                <div class="panel fade-in">
+                    <Inventory />
+                </div>
                 break;
             case FullScreenPanel.Abilities:
-                <Abilities/>
+                <div class="panel fade-in">
+                    <Abilities />
+                </div>
                 break;
-        
             case FullScreenPanel.Confirm:
-                <Confirm/>
+                <div class="panel fade-in">
+                    <Confirm />
+                </div>
                 break;
             case FullScreenPanel.StorageBox:
-                <StorageBox/>
+                <div class="panel fade-in">
+                    <StorageBox />
+                </div>
                 break;
             case FullScreenPanel.ShopPanel:
-                <ShopPanel/>
+                <div class="panel fade-in">
+                    <ShopPanel />
+                </div>
                 break;
             case FullScreenPanel.Leaderboard:
-                <Leaderboard/>
+                <div class="panel fade-in">
+                    <Leaderboard />
+                </div>
                 break;
             case FullScreenPanel.MissonPanel:
-                <Lobby/>
+                <div class="panel fade-in">
+                    <Lobby />
+                </div>
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-    
+
+        @if (PreviousPanel != FullScreenPanel.InGameHud && IsTransitioning)
+        {
+            <div class="panel fade-out">
+                @RenderPreviousPanel()
+            </div>
+        }
+    </div>
 </root>
 
 @code
@@ -68,7 +90,11 @@
     }
 
     public FullScreenPanel ActivePanel { get; private set; } = FullScreenPanel.InGameHud;
+    public FullScreenPanel PreviousPanel { get; private set; } = FullScreenPanel.InGameHud;
     
+    public bool IsTransitioning { get; private set; } = false;
+    private TimeSince TimeSinceTransition { get; set; } = 0f;
+    private const float TransitionDuration = 0.5f;
 
     public FullScreenManager()
     {
@@ -81,8 +107,17 @@
         {
             return;
         }
+
+        // Falls wir bereits im Übergang sind, breche ab
+        if (IsTransitioning && TimeSinceTransition < TransitionDuration)
+            return;
+
+        PreviousPanel = ActivePanel;
         ActivePanel = panel;
-        
+
+        // Starte den Übergang
+        IsTransitioning = true;
+        TimeSinceTransition = 0;
     }
     public void ClosePanel()
     {
@@ -94,6 +129,10 @@
         if (InGameHud.Instance?.ShowReturnToLobby == true)
         {
             return;
+        }
+        if (IsTransitioning && TimeSinceTransition > TransitionDuration)
+        {
+            IsTransitioning = false;
         }
         
     if ( Input.EscapePressed )// Stellen Sie sicher, dass "Input" korrekt referenziert wird.
@@ -146,7 +185,7 @@
     {
         if (ActivePanel == panel)
         {
-            ActivePanel = FullScreenPanel.InGameHud;
+            Display(FullScreenPanel.InGameHud);
         }
         else if (ActivePanel == FullScreenPanel.PauseMenu)
         {
@@ -154,8 +193,7 @@
         }
         else
         {
-            ActivePanel = panel;
-       
+            Display(panel);
         }
 
         if (Player.Local != null)
@@ -163,10 +201,70 @@
             Player.Local.BlockInputs = false;
         }
     }
+    private RenderFragment RenderPreviousPanel() => builder =>
+    {
+        switch (PreviousPanel)
+        {
+            case FullScreenPanel.InGameHud:
+                builder.OpenComponent<InGameHud>(0);
+                builder.CloseComponent();
+                break;
+            case FullScreenPanel.CharacterMenu:
+                builder.OpenComponent<CharacterMenu>(0);
+                builder.CloseComponent();
+                break;
+            case FullScreenPanel.Inventory:
+                builder.OpenComponent<Inventory>(0);
+                builder.CloseComponent();
+                break;
+            case FullScreenPanel.Abilities:
+                builder.OpenComponent<Abilities>(0);
+                builder.CloseComponent();
+                break;
+            case FullScreenPanel.Confirm:
+                builder.OpenComponent<Confirm>(0);
+                builder.CloseComponent();
+                break;
+            case FullScreenPanel.StorageBox:
+                builder.OpenComponent<StorageBox>(0);
+                builder.CloseComponent();
+                break;
+            case FullScreenPanel.ShopPanel:
+                builder.OpenComponent<ShopPanel>(0);
+                builder.CloseComponent();
+                break;
+            case FullScreenPanel.Leaderboard:
+                builder.OpenComponent<Leaderboard>(0);
+                builder.CloseComponent();
+                break;
+            case FullScreenPanel.MissonPanel:
+                builder.OpenComponent<Lobby>(0);
+                builder.CloseComponent();
+                break;
+        }
+    };
+
+    // Hilfsmethode zur Bestimmung des Komponententyps
+    private Type GetPanelType(FullScreenPanel panel)
+    {
+        return panel switch
+        {
+            FullScreenPanel.InGameHud => typeof(InGameHud),
+            FullScreenPanel.CharacterMenu => typeof(CharacterMenu),
+            FullScreenPanel.Inventory => typeof(Inventory),
+            FullScreenPanel.Abilities => typeof(Abilities),
+            FullScreenPanel.Confirm => typeof(Confirm),
+            FullScreenPanel.StorageBox => typeof(StorageBox),
+            FullScreenPanel.ShopPanel => typeof(ShopPanel),
+            FullScreenPanel.Leaderboard => typeof(Leaderboard),
+            FullScreenPanel.MissonPanel => typeof(Lobby),
+            _ => typeof(InGameHud)
+        };
+    }
 
     public static bool Is(FullScreenPanel mode)
 		=> FullScreenManager.Instance?.ActivePanel == mode;
 
     protected override int BuildHash()
-		=> HashCode.Combine(ActivePanel.GetHashCode()); // Ändern Sie "Hud" zu "Hudmaster"
+    => HashCode.Combine(ActivePanel.GetHashCode(), IsTransitioning, TimeSinceTransition);
 }

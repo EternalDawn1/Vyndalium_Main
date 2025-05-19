@@ -785,6 +785,31 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 						int burnDuration = random2.Next( 1, 6 );
 						ApplyBurn( player, burnDuration );
 					}
+					var boneAnimController = GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
+					if ( boneAnimController == null && Player.Local?.GameObject != null )
+					{
+						boneAnimController = Player.Local.GameObject.Components.GetInDescendantsOrSelf<BoneAnimationController>();
+					}
+					if ( boneAnimController != null )
+					{
+						string hitAnimation = "Hit";
+
+						if ( boneAnimController.HasSequence( hitAnimation ) )
+						{
+							boneAnimController.PlaySequence( hitAnimation );
+
+
+						}
+						else
+						{
+							Log.Warning( $"Animation '{hitAnimation}' not found in BoneAnimationController." );
+						}
+					}
+					else
+					{
+						Log.Warning( "BoneAnimationController not found." );
+					}
+					
 					AnimationHelper.Target.Set( "b_attack", true );
 
 					if ( Model != null && isPrometheus )

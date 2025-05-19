@@ -66,6 +66,7 @@
                         </div>
                         
                         <div class="Hello2" @onclick="@(() => ShowPanel(PanelType.Food))">Player</div>
+                        <div class="Hello3" @onclick="@(() => ShowPanel(PanelType.Abilities))">Abilities</div>
                         <div class="items ">
                             @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
                             {
@@ -106,6 +107,11 @@
             case PanelType.Food:
                 <div class="Food" style="display: flex;">
                     <CharacterMenu/>
+                </div>
+                break;
+            case PanelType.Abilities:
+                <div class="Abilities" style="display: flex;">
+                    <Abilities/>
                 </div>
                 break;
             // Fügen Sie hier weitere Fälle für andere Paneltypen hinzu
@@ -150,6 +156,7 @@
         Inventory,
         Food,
         Weapons,
+        Abilities,
         Armor,
         Materials,
         Potions

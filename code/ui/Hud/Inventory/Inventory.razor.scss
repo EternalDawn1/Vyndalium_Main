@@ -20,21 +20,7 @@ Inventory {
         transition: opacity 2s ease;
     }
 
-    .sidehud {
-        position: absolute;
-        
-            height: 100%;
-            width: 100%;
-            z-index: 10;
-            padding: 10px;
-            background-color: rgba(51, 51, 51, 0);
-            margin-top: 50px;
-            
-            justify-content: flex-start;
-            border-radius: 10px;
-            margin-top: 10px;
-            gap: 30px;
-    }
+    
 
     .list {
         position: absolute;
@@ -60,12 +46,12 @@ Inventory {
             position: relative;
             width: 100%;
             height: 100%;
-            flex-direction: row-reverse;
+            flex-direction: column;
             transition: opacity 0.5s ease;
             
-                &:intro {
-                    opacity: 0;
-                }
+            &:intro {
+                opacity: 0;
+            }
             
            
 
@@ -73,7 +59,7 @@ Inventory {
             
             
 
-        .section2 {
+                .section2 {
         
                 flex-direction: column;
                 overflow-x: hidden;
@@ -90,27 +76,30 @@ Inventory {
                 
                         gap: 10px;
                         position: absolute;
-                        left: 5%;
-                        top: 7.5%;
-                        width: 32%;
+                        left: 3%;
+                        top: 14%;
+                        width: 2%;
                         
-                        height: 3%;
+                        height: 20%;
                         z-index: 100;
-                        
+                        flex-direction: column;
+                      
                         align-items: center;
                 
                         .sort {
                             
                             position: relative;
                             font-size: 20%;
-                        
+                            
+
                             font-weight: bold;
                         
                             color: rgb(255, 255, 255);
-                            width: 20%;
-                            height: 70%;
+                            width: 100%;
+                            height: 100%;
                             background-color: rgb(0, 0, 0);
-                            border-color: rgba(255, 255, 255, 0.034);
+                            border-color: rgba(85, 85, 85, 0.918);
+                            
                             border-width: 1px;
                             justify-content: center;
                             align-items: center;
@@ -128,7 +117,7 @@ Inventory {
                                     opacity: 0;
                                     transition: opacity 0.3s;
                                     background-color: rgb(121, 14, 14);
-                                    box-shadow: 2px 2px 2px rgba(160, 154, 154, 0.932);
+                                    box-shadow: 5px 5px 0px rgb(0, 0, 0);
                                     width: 100%;
                                     justify-content: center;
                                     text-shadow: 3px 1px 0px black;
@@ -137,17 +126,18 @@ Inventory {
                                     padding: 5px;
                                     border-radius: 5px;
                                     position: absolute;
-                                    top: -50px;
+                                    top: 0%;
                                     /* Position über dem Button */
-                                    left: 50%;
-                                    transform: translateX(-50%);
+                                    left: 0%;
+                                    transform: translateX(-100%);
                                     white-space: nowrap;
+                                    width: 150%;
                                     z-index: 1000;
-                                    font-size: 18px;
+                                    font-size: 15px;
                                     font-weight: bold;
                                     font-family: 'Geneva';
                                     border-width: 1px;
-                                    border-color: rgb(255, 255, 255);
+                                    border-color: rgb(0, 0, 0);
                             
                                 }
                             
@@ -271,13 +261,14 @@ Inventory {
                                     position: absolute;
                                     width: 9%;
                                     height: 4%;
-                                    top:16%;
-                                    left: -0.6%;
+                                    top:3%;
+                                    left: 5%;
                                     font-size: 26px;
                                     font-family: 'Geneva', sans-serif;
                                     color: white;
                                     z-index: 100;
-                                    transform: rotate(270deg);
+                                    box-shadow: 5px 5px 0px rgb(0, 0, 0);
+                                  
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
@@ -286,29 +277,57 @@ Inventory {
                                     opacity: 1;
                                     text-align: center;
                                     text-shadow: 2px 2px 0px rgb(0, 0, 0);
-                                    font-style: italic;
-                                    background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(3, 110, 35) 50%, rgb(0, 116, 25) 100%);
+                                    border-radius: 5px;
+                                    border-width: 1px;
+                                    border-color: rgba(255, 255, 255, 0.034);
+                                    background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgba(3, 110, 35, 0.432) 50%, rgb(23, 116, 0) 100%);
                                    
+                                }
+                                .Hello3 {
+                                    position: absolute;
+                                    width: 9%;
+                                    height: 4%;
+                                    top:3%;
+                                    left: 15%;
+                                    font-size: 26px;
+                                    font-family: 'Geneva', sans-serif;
+                                    color: white;
+                                    z-index: 100;
+                                    box-shadow: 5px 5px 0px rgb(0, 0, 0);
+                                  
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    background-position: center;
+                                    background-size: 100%;
+                                    opacity: 1;
+                                    text-align: center;
+                                    text-shadow: 2px 2px 0px rgb(0, 0, 0);
+                                    border-radius: 5px;
+                                    border-width: 1px;
+                                    border-color: rgba(255, 255, 255, 0.034);
+                                    
                                 }
         
                 .items {
                     position: relative;
-                    
                     flex-wrap: wrap;
                     width: 700px;   
                     left: 5%;
-                    top:110px;
-                    gap: 1px;
-                   
+                    top:150px;
+                    gap: 4px;
+                    height: auto;
+                    box-shadow: 5px 5px 0px rgb(0, 0, 0);
+                    background-color: rgba(0, 0, 0, 0.5);
+                    border-radius: 5px;
+                    border-width: 1px;
+                    border-color: rgba(255, 255, 255, 0.034);
+                    justify-content: center;
+                    align-items: center;
                     
-        
-        
-        
-        
-        
                 }
               
-        
+
         
         
             }
