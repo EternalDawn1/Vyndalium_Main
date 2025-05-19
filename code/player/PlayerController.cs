@@ -90,7 +90,9 @@ public partial class Player : Component, IHealthComponent
 	[Property] public float CameraZoomSpeed { get; set; } = 10f;     // Zoom-Geschwindigkeit
 	[Property] public float FirstPersonThreshold { get; set; } = 20f; // Schwellenwert für First-Person
 	private float currentCameraDistance = 70f;                      // Aktuelle Kameradistanz
-
+	public bool IsAimingCamera { get; set; } = false;
+	public float DefaultCameraDistance { get; set; } = 150f;  // Standardwert für die Kameradistanz
+	public float AimingCameraDistance { get; set; } = 50f;
 
 	HiddenBodyGroup _hideBodygroups;
 
@@ -1045,8 +1047,37 @@ public partial class Player : Component, IHealthComponent
 
 				case 2: // Third-Person-Left
 					{
+						// Berechne die Zielposition mit fester Distanz
 						var offset = EyeAngles.ToRotation().Right * -30f; // Kamera links relativ zur Blickrichtung
-						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * currentCameraDistance + Vector3.Up * 50f + offset;
+						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * currentCameraDistance +
+											  Vector3.Up * 50f + offset;
+
+						// Sanfter FOV-Übergang statt Positionsänderung
+						if ( IsAimingCamera != wasAimingLastFrame )
+						{
+							// Beginne den Übergang
+							zoomTransitionTime = 0f;
+							wasAimingLastFrame = IsAimingCamera;
+						}
+
+						// Berechne das aktuelle FOV
+						float targetFov = IsAimingCamera ? AimingFov : DefaultFov;
+
+						// Berechne die interpolierte FOV während des Übergangs
+						if ( zoomTransitionTime < zoomTransitionDuration )
+						{
+							zoomTransitionTime += Time.Delta;
+							float progress = Math.Min( zoomTransitionTime / zoomTransitionDuration, 1.0f );
+							progress = EaseInOutCubic( progress ); // Sanfte Beschleunigung und Verzögerung
+
+							// Interpoliere das FOV
+							PlyCamera.FieldOfView = MathX.LerpTo( PlyCamera.FieldOfView, targetFov, progress );
+						}
+						else
+						{
+							// Setze direkt das Ziel-FOV, wenn die Übergangszeit abgelaufen ist
+							PlyCamera.FieldOfView = targetFov;
+						}
 
 						// Raycast von der Spielerposition zur gewünschten Kameraposition
 						var leftTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 50f, desiredPosition )
@@ -1063,13 +1094,39 @@ public partial class Player : Component, IHealthComponent
 
 				case 1: // Third-Person-Right
 					{
-						// Der Rest bleibt gleich, nur die Distanz ändern wir:
-						var offset = EyeAngles.ToRotation().Right * (CameraMode == 2 ? -30f : 30f);
-						// Verwende hier currentCameraDistance anstelle der festen Werte
+						// Berechne die Zielposition mit fester Distanz
+						var offset = EyeAngles.ToRotation().Right * 30f; // Kamera rechts relativ zur Blickrichtung
 						var desiredPosition = WorldPosition - EyeAngles.ToRotation().Forward * currentCameraDistance +
 											  Vector3.Up * 50f + offset;
 
-						// Der Rest des Codes bleibt unverändert
+						// Sanfter FOV-Übergang statt Positionsänderung
+						if ( IsAimingCamera != wasAimingLastFrame )
+						{
+							// Beginne den Übergang
+							zoomTransitionTime = 0f;
+							wasAimingLastFrame = IsAimingCamera;
+						}
+
+						// Berechne das aktuelle FOV
+						float targetFov = IsAimingCamera ? AimingFov : DefaultFov;
+
+						// Berechne die interpolierte FOV während des Übergangs
+						if ( zoomTransitionTime < zoomTransitionDuration )
+						{
+							zoomTransitionTime += Time.Delta;
+							float progress = Math.Min( zoomTransitionTime / zoomTransitionDuration, 1.0f );
+							progress = EaseInOutCubic( progress ); // Sanfte Beschleunigung und Verzögerung
+
+							// Interpoliere das FOV
+							PlyCamera.FieldOfView = MathX.LerpTo( PlyCamera.FieldOfView, targetFov, progress );
+						}
+						else
+						{
+							// Setze direkt das Ziel-FOV, wenn die Übergangszeit abgelaufen ist
+							PlyCamera.FieldOfView = targetFov;
+						}
+
+						// Raycast von der Spielerposition zur gewünschten Kameraposition
 						var cameraTrace = Scene.Trace.Ray( WorldPosition + Vector3.Up * 50f, desiredPosition )
 							.UsePhysicsWorld()
 							.IgnoreGameObjectHierarchy( GameObject )
@@ -1191,6 +1248,17 @@ public partial class Player : Component, IHealthComponent
 			animator.WithLook( EyeAngles.Forward );
 			animator.MoveStyle = (IsRunning && !IsCrouching) ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
 		}
+	}
+	
+	public float AimingFov { get; set; } = 60f;  // Zoom-FOV beim Zielen
+	private bool wasAimingLastFrame = false;
+	private float zoomTransitionTime = 0f;
+	private float zoomTransitionDuration = 0.3f;
+
+	// Hilfsfunktion für weichen Übergang
+	private float EaseInOutCubic( float t )
+	{
+		return t < 0.5 ? 4 * t * t * t : 1 - MathF.Pow( -2 * t + 2, 3 ) / 2;
 	}
 	[Rpc.Broadcast]
 	protected virtual void DoCrouchingInput()
