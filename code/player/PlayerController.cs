@@ -54,8 +54,7 @@ public partial class Player : Component, IHealthComponent
 	[Sync] public int Kills { get; private set; }
 	public string DisplayName { get; set; }
 	// Add a property to track respawn attempts
-	[Sync, Property]
-	public int RespawnAttempts { get; set; } = 3;
+	[Sync, Property] public int RespawnAttempts { get; set; } = 3;
 	public TimeSpan Playtime { get; set; }
 
 

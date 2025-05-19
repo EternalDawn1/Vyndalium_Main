@@ -107,6 +107,7 @@ public sealed partial class HealthEffects : Component
 		AimVignette.Enabled = true;
 		AimVignette.Color = Color.Lerp( Color.White, Color.Black, 1f ); // Weniger intensives Schwarz
 		AimVignette.Smoothness = 1f; // Weniger scharfer Rand
+		
 
 		while ( elapsed < duration && isFadingIn )
 		{

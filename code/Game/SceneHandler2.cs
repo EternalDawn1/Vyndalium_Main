@@ -31,10 +31,10 @@ public static class SceneHandler2
         if ( !HasRequiredLevel2( scene ) )
         {
             // Handle insufficient level
-         
+
             return;
         }
-       
+
         // Lösche die aktuelle Szene
         DeleteCurrentScene();
 
@@ -56,11 +56,7 @@ public static class SceneHandler2
 
             _ => null
         };
-        if ( scene == GeneralScene2.StartBase )
-        {
-            Player.Local.RespawnAttempts = 3;
-         
-        }
+
 
         if ( string.IsNullOrEmpty( path ) )
             return;
@@ -71,27 +67,27 @@ public static class SceneHandler2
         if ( stopSound )
         {
             Sound.StopAll( 5f );
-          
+
         }
 
         // If is game.
         if ( lobby.HasValue )
         {
-           
+
             Networking.Connect( lobby.Value );
             // Return if connection fails.
         }
-       
+
 
 
         Player.Setup();
-       
 
-     
+
+
 
 
         // Definieren und Initialisieren der neuen Szene
-        LoadNewScene( resource,scene );
+        LoadNewScene( resource, scene );
 
 
         // Zerstören der alten Szene
@@ -99,10 +95,32 @@ public static class SceneHandler2
 
         CurrentScene = scene;
 
-        
+        if ( scene == GeneralScene2.StartBase )
+        {
+            Player.Local.RespawnAttempts = 3;
+            ResetLives();
+        }
+        else
+        {
+            Log.Info( "Leben wurden nicht zurückgesetzt." );
+        }
+
 
     }
-    
+    public static void ResetLives()
+    {
+        if ( Player.Local != null )
+        {
+            // Setze die Leben auf 3
+            Player.Local.RespawnAttempts = 3;
+
+            // Sicherstellen, dass der Wert sofort gespeichert wird
+            Player.Save( Player.Local );
+
+            // Füge eine Log-Meldung hinzu, um zu bestätigen
+            Log.Info( $"Leben wurden manuell auf 3 zurückgesetzt. Aktueller Wert: {Player.Local.RespawnAttempts}" );
+        }
+    }
 
     [Rpc.Broadcast( NetFlags.SendImmediate )]
     public static void LoadNewScene( GameResource resource, GeneralScene2 scene )
@@ -110,6 +128,18 @@ public static class SceneHandler2
         // Logik zum Laden der neuen Szene
         Game.ActiveScene.Load( resource );
         CurrentScene = scene; // Aktualisieren der aktuellen Szene
+
+        if ( Player.Local != null )
+        {
+            Player.Local.RespawnAttempts = 3; // Beispiel: Setzen der Respawn-Versuche
+
+        }
+        else
+        {
+           
+            Log.Info( "Player.Local ist null." );
+        }
+
     }
 
     [Rpc.Broadcast( NetFlags.SendImmediate )]
