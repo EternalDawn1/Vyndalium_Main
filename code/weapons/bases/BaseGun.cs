@@ -544,6 +544,9 @@ public partial class BaseGun : WeaponComponent, IUse
 
 	[Property] public GameObject Ragdoll { get; set; }
 	private TimeUntil _animationCooldown = 0;
+
+	
+
 	public override void SecondaryAction()
 	{
 		Owner.IsAiming = true;
@@ -551,6 +554,10 @@ public partial class BaseGun : WeaponComponent, IUse
 		if ( Owner.CameraMode != 0 ) // Wenn wir im Third-Person-Modus sind
 		{
 			Owner.IsAimingCamera = true;
+			if ( Owner.healthEffects != null )
+			{
+				Owner.healthEffects.ApplyAimEffect();
+			}
 		}
 
 

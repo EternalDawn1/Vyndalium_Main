@@ -18,10 +18,121 @@ public sealed partial class HealthEffects : Component
 	[Property] private Vignette Poison { get; set; }
 
 	[Property] public Vignette Shadow { get; set; }
+	[Property] private Vignette AimVignette { get; set; }
 
+	private Task currentFadeTask = null;
+	private bool isFadingIn = false;
+	private bool isFadingOut = false;
 
+	public void ApplyAimEffect( float intensity = 0.6f )
+	{
+		if ( !AimVignette.IsValid() )
+		{
+			Log.Warning( "AimVignette ist nicht gültig" );
+			return;
+		}
 
-	
+		// Überprüfe, ob bereits ein Fade-Out im Gange ist
+		if ( isFadingOut )
+		{
+			// Breche den laufenden Fade-Out ab
+			isFadingOut = false;
+		}
+
+		// Wenn bereits ein Fade-In läuft, nichts weiter tun
+		if ( isFadingIn )
+			return;
+
+		// Starte eine sanfte Überblendung für den Zieleffekt
+		isFadingIn = true;
+		currentFadeTask = FadeInAimEffect( intensity );
+	}
+
+	public void RemoveAimEffect()
+	{
+		if ( !AimVignette.IsValid() )
+		{
+			return;
+		}
+
+		// Überprüfe, ob bereits ein Fade-In im Gange ist
+		if ( isFadingIn )
+		{
+			// Breche den laufenden Fade-In ab
+			isFadingIn = false;
+		}
+
+		// Wenn bereits ein Fade-Out läuft, nichts weiter tun
+		if ( isFadingOut )
+			return;
+
+		// Starte einen sanften Ausblend-Effekt
+		isFadingOut = true;
+		currentFadeTask = FadeOutAimEffect();
+	}
+
+	private async Task FadeOutAimEffect()
+	{
+		float duration = 0.3f; // Kürzere Ausblendung
+		float elapsed = 0.0f;
+		float startIntensity = AimVignette.Intensity;
+
+		while ( elapsed < duration && isFadingOut )
+		{
+			float t = elapsed / duration;
+			t = EaseInOutCubic( t );
+
+			AimVignette.Intensity = MathHelper.Lerp( startIntensity, 0.0f, t );
+
+			elapsed += Time.Delta;
+			await Task.Delay( (int)(Time.Delta * 1000) );
+		}
+
+		// Nur wenn die Ausblendung nicht abgebrochen wurde
+		if ( isFadingOut )
+		{
+			AimVignette.Enabled = false;
+			AimVignette.Intensity = 0.0f;
+			isFadingOut = false;
+		}
+	}
+
+	private async Task FadeInAimEffect( float targetIntensity )
+	{
+		float duration = 0.2f;
+		float elapsed = 0.0f;
+		float startIntensity = AimVignette.Intensity;
+
+		// Sofort aktivieren
+		AimVignette.Enabled = true;
+		AimVignette.Color = Color.Lerp( Color.White, Color.Black, 1f ); // Weniger intensives Schwarz
+		AimVignette.Smoothness = 1f; // Weniger scharfer Rand
+
+		while ( elapsed < duration && isFadingIn )
+		{
+			float t = elapsed / duration;
+			t = EaseInOutCubic( t );
+
+			AimVignette.Intensity = MathHelper.Lerp( startIntensity, targetIntensity, t );
+
+			elapsed += Time.Delta;
+			await Task.Delay( (int)(Time.Delta * 1000) );
+		}
+
+		// Nur wenn die Einblendung nicht abgebrochen wurde
+		if ( isFadingIn )
+		{
+			AimVignette.Intensity = targetIntensity;
+			isFadingIn = false;
+		}
+	}
+
+	// Füge diese Hilfsmethode hinzu, wenn sie noch nicht existiert
+	private float EaseInOutCubic( float t )
+	{
+		return t < 0.5 ? 4 * t * t * t : 1 - MathF.Pow( -2 * t + 2, 3 ) / 2;
+	}
+
 	public HealthEffects()
 	{
 		Adjustments = new ColorAdjustments();
@@ -37,6 +148,7 @@ public sealed partial class HealthEffects : Component
 			Freeze = vignettes.ElementAt( 2 );
 			Poison = vignettes.ElementAt( 3 );
 			Shadow = vignettes.ElementAt( 4 );
+			AimVignette = vignettes.ElementAt( 0 );
 
 		}
 		else

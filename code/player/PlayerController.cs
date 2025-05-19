@@ -713,7 +713,7 @@ public partial class Player : Component, IHealthComponent
 		if ( IsProxy )
 			return;
 
-
+		healthEffects = Scene.GetAllComponents<HealthEffects>().FirstOrDefault();
 
 
 
@@ -950,7 +950,7 @@ public partial class Player : Component, IHealthComponent
 			}
 		}
 	}
-
+	public HealthEffects healthEffects;
 	protected override void OnUpdate()
 	{
 
@@ -1057,6 +1057,19 @@ public partial class Player : Component, IHealthComponent
 							// Beginne den Übergang
 							zoomTransitionTime = 0f;
 							wasAimingLastFrame = IsAimingCamera;
+
+							// Aktiviere oder deaktiviere den Vignette-Effekt
+							if ( healthEffects != null )
+							{
+								if ( IsAimingCamera )
+								{
+									healthEffects.ApplyAimEffect();
+								}
+								else
+								{
+									healthEffects.RemoveAimEffect();
+								}
+							}
 						}
 
 						// Berechne das aktuelle FOV
@@ -1104,6 +1117,19 @@ public partial class Player : Component, IHealthComponent
 							// Beginne den Übergang
 							zoomTransitionTime = 0f;
 							wasAimingLastFrame = IsAimingCamera;
+
+							// Aktiviere oder deaktiviere den Vignette-Effekt
+							if ( healthEffects != null )
+							{
+								if ( IsAimingCamera )
+								{
+									healthEffects.ApplyAimEffect();
+								}
+								else
+								{
+									healthEffects.RemoveAimEffect();
+								}
+							}
 						}
 
 						// Berechne das aktuelle FOV
