@@ -333,7 +333,7 @@ public partial class Player : Component, IHealthComponent
 		// Stelle sicher, dass die Kamera am Ende wieder stabil ist
 		PlyCamera.WorldRotation = PlyCamera.WorldRotation.Normal;
 	}
-
+	[Property] public bool ShowNpcUI { get; set; } = false;
 
 	private int currentRecoilIndex = 0;
 	private float recoilResetSpeed = 15f; // Geschwindigkeit, mit der das Recoil zurückgesetzt wird

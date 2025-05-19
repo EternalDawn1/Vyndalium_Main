@@ -320,10 +320,12 @@ public partial class BaseGun : WeaponComponent, IUse
 		}
 
 		Owner.IsAiming = false;
+		Owner.ShowNpcUI = false;
 		if ( Owner.CameraMode != 0 )
 		{
 			Owner.IsAimingCamera = false;
 		}
+		
 
 		// Beende das Aufladen, wenn die rechte Maustaste losgelassen wird
 		StopCharging();
@@ -550,10 +552,12 @@ public partial class BaseGun : WeaponComponent, IUse
 	public override void SecondaryAction()
 	{
 		Owner.IsAiming = true;
+		
 
 		if ( Owner.CameraMode != 0 ) // Wenn wir im Third-Person-Modus sind
 		{
 			Owner.IsAimingCamera = true;
+			Owner.ShowNpcUI = true;
 			if ( Owner.healthEffects != null )
 			{
 				Owner.healthEffects.ApplyAimEffect();

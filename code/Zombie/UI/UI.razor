@@ -4,9 +4,9 @@
 
 
 <root >
-    @if (npc != null)
+    @if (npc != null && (isTakingDamage || ShouldShowNpcUI))
     {
-        <div class="npc @(isTakingDamage ? "show" : "")">
+        <div class="npc @(isTakingDamage || ShouldShowNpcUI ? "show" : "")">
           
             <div class="npc-level @GetLevelClass(npc.Level)">Lvl.@npc.Level</div>
             <div class="npc-name">@npc.Name</div>
@@ -33,7 +33,7 @@
                
             </div>
 
-            <div class="zombie-healthbar-container @(isTakingDamage ? "show" : "")">
+            <div class="zombie-healthbar-container @(isTakingDamage || ShouldShowNpcUI ? "show" : "") ">
                 <div class="zombie-healthbar">
                     <div class="inner">
                         <div class="fill" style="width: @(npc.Health / npc.MaxHealth * 100f)%"></div>
@@ -81,7 +81,7 @@
     }
     [Property] private float _damageTimer = 0f;
     private bool isEventRegistered = false;
-
+    private bool ShouldShowNpcUI => Player.Local?.ShowNpcUI ?? false;
     protected override void OnUpdate()
     {
         if (npc != null && !isEventRegistered)
@@ -107,11 +107,15 @@
                 StateHasChanged();
             }
         }
+        if (ShouldShowNpcUI || isTakingDamage)
+        {
+            StateHasChanged();
+        }
     }
     [Property] private bool isTakingDamage = false;
     [Property] private Npc npc { get; set; } = new Npc();
 
-    protected override int BuildHash() => HashCode.Combine(RealTime.Now, isTakingDamage );
+    protected override int BuildHash() => HashCode.Combine(RealTime.Now, isTakingDamage , ShouldShowNpcUI );
 
     [Rpc.Broadcast]
    
