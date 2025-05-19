@@ -323,6 +323,23 @@ Inventory {
                                     width: 25.2%;
                                     height: 80%;
 
+                                    .playic {
+                                            position: absolute;
+                                            bottom: 3.2%;
+                                            left: 28%;
+                                            width: 32px;
+                                            height: 32px;
+                                            z-index: 100;
+                                           
+                                            background-image: url("/ui/hud/vynd.png");
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                            
+                                            filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
+                                            transform-origin: center;
+                                            animation: coinRotate 4s infinite ease-in-out;
+                                        }
+
                                     .playe4{
                                         position: absolute;
                                         flex-direction: column;
@@ -543,5 +560,18 @@ Inventory {
 
     100% {
         color: red;
+    }
+}
+@keyframes coinRotate {
+    0% {
+        transform: rotate(-5deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(5deg) scale(1.15);
+    }
+
+    100% {
+        transform: rotate(-5deg) scale(1);
     }
 }
