@@ -69,10 +69,11 @@
                         <div class="Hello2" @onclick="@(() => ShowPanel(PanelType.Food))">Player</div>
                         <div class="Hello3" @onclick="@(() => ShowPanel(PanelType.Abilities))">Abilities</div>
                         <div class="char2">
+                            
                             <div class="playe2">
-                            <div class="playic"></div>
-                            <span class="Vyndn">&nbsp;@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
-                        </div>
+                                <div class="playic"></div>
+                                <span class="Vyndn">&nbsp;@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
+                            </div>
                             <div class="playe4">
 							@foreach (var entry in Connection.All)
 							{
