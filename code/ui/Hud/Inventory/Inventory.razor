@@ -17,33 +17,49 @@
                         <div class="character">
                             <div class="char"><CharacterRenderer @ref=_renderer /></div>
                             <div class="box">
-                                <div class="EquippedItems">
-                                    <div class="helmet">
-                                        <InventorySlot EquipSlotIndex=@EquipSlot.Head style="background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-                                        Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head] />
-                                        <InventorySlot EquipSlotIndex=@EquipSlot.Face style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-                                        Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
+                            <div class="equipment-wrapper">
+                                <div class="equipment-title">Equipment</div>
+                                <div class="equipment-slots">
+                                    <div class="equipment-row helmet-row">
+                                        <InventorySlot EquipSlotIndex=@EquipSlot.Head 
+                                                    class="slot head-slot"
+                                                    Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head] />
+                                        <InventorySlot EquipSlotIndex=@EquipSlot.Face 
+                                                    class="slot face-slot"
+                                                    Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
                                     </div>
-                                    <div class="armor">
-                                        <InventorySlot EquipSlotIndex=@EquipSlot.Hand style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-                                        Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] />
-                                        <InventorySlot EquipSlotIndex=@EquipSlot.Body style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-                                        Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Body] />
-                                        <InventorySlot EquipSlotIndex=@EquipSlot.Back style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-                                        Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back] />
-                                        <InventorySlot EquipSlotIndex=@EquipSlot.Bracer style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-                                        Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Bracer] />
+                                    <div class="equipment-row armor-row">
+                                        <InventorySlot EquipSlotIndex=@EquipSlot.Hand 
+                                                    class="slot hand-slot"
+                                                    Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] />
+                                        <InventorySlot EquipSlotIndex=@EquipSlot.Body 
+                                                    class="slot body-slot"
+                                                    Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Body] />
+                                        
+                                        <InventorySlot EquipSlotIndex=@EquipSlot.Back 
+                                                    class="slot back-slot"
+                                                    Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back] />
+                                        <InventorySlot EquipSlotIndex=@EquipSlot.Bracer 
+                                                    class="slot bracer-slot"
+                                                    Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Bracer] />
                                     </div>
-                                    <div class="pants">
-                                        <InventorySlot EquipSlotIndex=@EquipSlot.Legs style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-                                        Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Legs] />
-                                        <InventorySlot EquipSlotIndex=@EquipSlot.Belt style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-                                        Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt] />
+                                    <div class="equipment-row legs-row">
+                                        <InventorySlot EquipSlotIndex=@EquipSlot.Legs 
+                                                    class="slot legs-slot"
+                                                    Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Legs] />
+                                        <InventorySlot EquipSlotIndex=@EquipSlot.Belt 
+                                                    class="slot belt-slot"
+                                                    Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt] />
                                     </div>
-                                    <InventorySlot EquipSlotIndex=@EquipSlot.Feet style="background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.774) 50%, rgba(8, 0, 0, 0.767) 100%);"
-                                    Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Feet] />
+                                    <div class="equipment-row feet-row">
+                                        <InventorySlot EquipSlotIndex=@EquipSlot.Feet 
+                                                    class="slot feet-slot"
+                                                    Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Feet] />
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+
                         </div>
                     </div>
                     <div class="section2" CanDragScroll="false">

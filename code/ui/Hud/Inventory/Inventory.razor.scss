@@ -319,7 +319,7 @@ Inventory {
                                 .char2 {
                                     position: absolute;
                                     bottom: 12%;
-                                    right: 24%;
+                                    left: 50%;
                                     width: 25.2%;
                                     height: 80%;
 
@@ -478,67 +478,147 @@ Inventory {
                         }
                     
                     
-                    .box
-                    
-                    {
-                        
-              
-                   
-            
-                    .Equippeditems
-                    {
-                        
-                        right: -100%;
-                        top:15%;
-                        z-index: 1000;
-                        position: absolute;
-                        flex-direction: column;
-                        gap: 30px;
-                        .helmet {
-                                position: relative;
-                                width: 150%;
-                            }
-                        
-                            .armor {
-                                position: relative;
-                                width: 150%;
-                                right: 20%;
-                            }
-                        
-                            .pants {
-                                position: relative;
-                                width: 150%;
-                            }
-                    }
-                    .Access
-                    {
-                        position: relative;
-                        top: -50px;
-                        gap: 20px;
-                       
-                        
-                    }
-                    .hands{
-                        position: relative;
-                        top: -126px;
-                        right: -500px;
-                    }
-                    .back{
-                        position: relative;
-                        top: -330px;
-                        right: -500px;
-                    }
-                    .backpack{
-                        position: relative;
-                        top: -530px;
-                        right: -500px;
-                    }
+                        .box {
+                            position: absolute;
+                            width: 80%;
+                            height: 83%;
+                            top: 5%;
+                            left: 100%;
+                            z-index: -100;
+                            background: linear-gradient(to right,
+                                    rgba(36, 45, 179, 0.8) 0%,
+                                    rgba(41, 78, 146, 0.8) 50%,
+                                    rgba(0, 0, 0, 0.8) 100%);
+                            border-radius: 8px;
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                            justify-content: center;
+                            align-items: center;
+                            box-shadow: 5 5 0px rgb(0, 0, 0);
 
-                    
-                    
-
-
-                }
+                            
+                            .equipment-wrapper {
+                               
+                                right: -100%;
+                                top: 15%;
+                                width: 100%;
+                                z-index: 1000;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 10px;
+                               
+                                border-radius: 8px;
+                                justify-content: center;
+                                align-items: center;
+                               
+                               
+                                
+                                .equipment-title {
+                                    position: absolute;
+                                    top: 1%;
+                                    font-family: 'Geneva', sans-serif;
+                                    font-size: 24px;
+                                    color: white;
+                                    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+                                    text-align: center;
+                                    
+                                    font-weight: bold;
+                                    background: linear-gradient(to right,
+                                            rgba(0, 0, 0, 0.8) 0%,
+                                            rgba(50, 50, 50, 0.8) 50%,
+                                            rgba(0, 0, 0, 0.8) 100%);
+                                    border-radius: 8px;
+                                    padding: 0 10px;
+                                    transition: all 0.3s ease;
+                                    box-shadow: 5 5 0px rgb(0, 0, 0);
+                                    
+                                }
+                                
+                                .equipment-slots {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 15px;
+                                    width: 100%;
+                                    
+                                    .equipment-row {
+                                        display: flex;
+                                        justify-content: center;
+                                        gap: 10px;
+                                        
+                                        
+                                        .slot {
+                                            border-radius: 6px;
+                                           
+                                            box-shadow: 5 5 10 3 rgb(0, 0, 0);
+                                            transition: all 0.2s ease;
+                                            
+                                            &:hover {
+                                                transform: scale(1.05);
+                                                border-color: rgba(255, 100, 100, 0.8);
+                                            }
+                                            
+                                            &.head-slot {
+                                                background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(40, 40, 40, 0.8) 50%, rgba(60, 0, 0, 0.8) 100%);
+                                                
+                                            }
+                                            
+                                            &.face-slot {
+                                                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.8) 50%, rgba(30, 0, 0, 0.8) 100%);
+                                            }
+                                            
+                                            &.body-slot {
+                                                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.8) 50%, rgba(30, 0, 0, 0.8) 100%);
+                                            }
+                                            
+                                            &.hand-slot {
+                                                background: linear-gradient(to right, rgba(60, 7, 7, 0.8) 0%, rgba(45, 9, 9, 0.8) 50%, rgba(20, 0, 0, 0.8) 100%);
+                                            }
+                                            
+                                            &.back-slot {
+                                                background: linear-gradient(to right, rgba(90, 10, 10, 0.8) 0%, rgba(70, 12, 12, 0.8) 50%, rgba(40, 0, 0, 0.8) 100%);
+                                            }
+                                            
+                                            &.bracer-slot {
+                                                background: linear-gradient(to right, rgba(70, 7, 7, 0.8) 0%, rgba(55, 9, 9, 0.8) 50%, rgba(25, 0, 0, 0.8) 100%);
+                                            }
+                                            
+                                            &.legs-slot {
+                                                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.8) 50%, rgba(30, 0, 0, 0.8) 100%);
+                                            }
+                                            
+                                            &.belt-slot {
+                                                background: linear-gradient(to right, rgba(60, 7, 7, 0.8) 0%, rgba(45, 9, 9, 0.8) 50%, rgba(20, 0, 0, 0.8) 100%);
+                                            }
+                                            
+                                            &.feet-slot {
+                                                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.8) 50%, rgba(30, 0, 0, 0.8) 100%);
+                                            }
+                                        }
+                                    }
+                                    
+                                    .helmet-row {
+                                        width: 100%;
+                                        filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.5));
+                                        
+                                    }
+                                    
+                                    .armor-row {
+                                        width: 100%;
+                                        filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.5));
+                                    }
+                                    
+                                    .legs-row {
+                                        width: 100%;
+                                        filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.5));
+                                    }
+                                    
+                                    .feet-row {
+                                        width: 100%;
+                                        justify-content: center;
+                                        filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.5));
+                                    }
+                                }
+                            }
+                        }
                 
                     
                 }
