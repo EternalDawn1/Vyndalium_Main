@@ -75,22 +75,22 @@
                                 <span class="Vyndn">&nbsp;@String.Format("{0:n0}", Math.Round(Player.Local.Vyndalium, 2))</span>
                             </div>
                             <div class="playe4">
-							@foreach (var entry in Connection.All)
-							{
-							var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.Owner ==
-							entry);
+                                @foreach (var entry in Connection.All)
+                                {
+                                var player = Scene.GetAllComponents<Player>().FirstOrDefault(p => p.Network.Owner ==
+                                entry);
 
-							<div class="nu">
-								@if (entry.IsHost)
-								{
-									<div>👑</div>
-								}
-							</div>
-							<span class="nu">
-									@entry.DisplayName
-								</span>
+                                <div class="nu">
+                                    @if (entry.IsHost)
+                                    {
+                                        <div>👑</div>
+                                    }
+                                </div>
+                                <span class="nu">
+                                        @entry.DisplayName
+                                    </span>
 							
-						}</div>
+						}   </div>
                         </div>
 
                         <div class="items ">
