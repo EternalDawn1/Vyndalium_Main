@@ -1959,7 +1959,7 @@ public partial class BaseGun : WeaponComponent, IUse
 
 
 	}
-	[Rpc.Broadcast]
+	
 	private void SendAttackMessage( Vector3 startPos, Vector3 endPos, float distance, SceneTraceResult trace )
 	{
 		if ( Player.Local == null || Player.Local.LifeState == LifeState.Dead && !IsMelee )
