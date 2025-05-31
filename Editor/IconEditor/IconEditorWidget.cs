@@ -24,17 +24,17 @@ public class IconEditorWidget : ControlWidget
 		var rect = LocalRect.Shrink( 8, 0 );
 		var alpha = Paint.HasMouseOver ? 1f : 0.7f;
 
-		Paint.SetBrush( Theme.ButtonDefault.Darken( 0.2f ) );
+		Paint.SetBrush( Theme.ButtonBackground.Darken( 0.2f ) );
 		Paint.DrawRect( LocalRect, 2 );
 
 		// icon
 		{
-			Paint.SetPen( Theme.ControlText.WithAlphaMultiplied( alpha ) );
+			Paint.SetPen( Theme.TextControl.WithAlphaMultiplied( alpha ) );
 			var r = Paint.DrawIcon( rect, "track_changes", 17, TextFlag.LeftCenter );
 			rect.Left += r.Width + 8;
 		}
 
-		Paint.SetPen( Theme.ControlText.WithAlphaMultiplied( alpha ) );
+		Paint.SetPen( Theme.TextControl.WithAlphaMultiplied( alpha ) );
 		Paint.DrawText( rect, "Open Icon Editor", TextFlag.LeftCenter );
 	}
 
