@@ -3,132 +3,218 @@
 @inherits Panel
 
 <root>
-	<SideButton 
-		Title="Inventory" 
-		Subtitle="Click here to return"
-		 OnClick=@(() => Delete()) 
-		 style="position: absolute; top: 50px;" 
-	/>
-	<ScenePanel class="scene" @ref=_scenePanel />
-	<div class="info">
-		<ItemInformation Item=@_item style="max-width: 500px;" />
-	</div>
+    <SideButton 
+        Title="Inventory" 
+        Subtitle="Click here to return"
+         OnClick=@(() => Delete()) 
+         style="position: absolute; top: 50px;" 
+    />
+    <ScenePanel class="scene" @ref=_scenePanel />
+    <div class="info">
+        <ItemInformation Item=@_item style="max-width: 500px;" />
+    </div>
 </root>
 
 @code {
-	private static InspectItem _instance;
+    private static InspectItem _instance;
 
-	private ItemComponent _item;
-	private SceneWorld _sceneWorld;
-	private ScenePanel _scenePanel;
-	private SceneModel _child;
-	private SceneModel _model;
-	private SceneLight _sceneLight;
-	private SceneDirectionalLight _sceneDirectionalLight;
-	private bool _isDragging = false;
-	private Transform _cameraTransform;
-	private float _scrollDelta;
-	private float _distance;
+    private ItemComponent _item;
+    private Scene _scene;
+    private ScenePanel _scenePanel;
+    private GameObject _characterObject;
+    private GameObject _itemObject;
+    private ModelRenderer _characterRenderer;
+    private ModelRenderer _itemRenderer;
+    private bool _isDragging = false;
+    private Vector3 _cameraPosition;
+    private Rotation _cameraRotation;
+    private float _scrollDelta;
+    private float _distance;
 
-	private bool HasDescription => !String.IsNullOrEmpty(_item.Description);
+    private CameraComponent _camera;
 
-	public InspectItem(ItemComponent item)
-	{
-		_instance?.Delete();
-		_instance = null;
-		_instance = this;
-		_item = item;
-	}
+    private bool HasDescription => !String.IsNullOrEmpty(_item.Description);
 
-	protected override void OnAfterTreeRender(bool firstTime)
-	{
-		base.OnAfterTreeRender(firstTime);
+    public InspectItem(ItemComponent item)
+    {
+        _instance?.Delete();
+        _instance = null;
+        _instance = this;
+        _item = item;
+    }
 
-		_sceneWorld ??= new SceneWorld();
-		_sceneLight ??= new SceneLight( _sceneWorld, Vector3.Forward * 15f, 1000f, Color.White * 4f );
-		_sceneDirectionalLight ??= new SceneDirectionalLight( _sceneWorld, global::Rotation.From( 45, -45, 45 ), Color.White * 10f );
+    protected override void OnAfterTreeRender(bool firstTime)
+    {
+        base.OnAfterTreeRender(firstTime);
 
-		var renderer = _item.Components.Get<ModelRenderer>(FindMode.EverythingInSelfAndDescendants);
-		if ( _item is ItemEquipment equipment && equipment.IsClothing && !equipment.IsAccessory && !equipment.IsAspect && !equipment.IsWeapon && !equipment.IsArmor )
-		{
-			_model ??= new SceneModel( _sceneWorld, "models/citizen/citizen.vmdl", global::Transform.Zero );
-			_child ??= new SceneModel( _sceneWorld, renderer.Model, global::Transform.Zero );
-			_model.ColorTint = Color.Gray;
-			if ( equipment.UseSkinTint )
-				_child.ColorTint = Color.Gray;
-			else
-				_child.ColorTint = renderer.Tint;
+        if (_scene == null)
+        {
+            _scene = new Scene();
+            
+            // Erstelle Lichter
+            var lightObject = _scene.CreateObject();
+            var pointLight = lightObject.Components.Create<PointLight>();
+            pointLight.LightColor = Color.White * 4f;
+            pointLight.Radius = 1000f;
+            lightObject.WorldPosition = Vector3.Forward * 15f;
+            
+            var dirLightObject = _scene.CreateObject();
+            var dirLight = dirLightObject.Components.Create<DirectionalLight>();
+            dirLight.LightColor = Color.White * 10f;
+            dirLightObject.WorldRotation = Rotation.From(45, -45, 45);
+            
+            // Erstelle Kamera
+            var cameraObject = _scene.CreateObject();
+            _camera = cameraObject.Components.Create<CameraComponent>();
+            _camera.FieldOfView = 120f;
+            _camera.ZNear = 1f;
+            
+            var renderer = _item.Components.Get<ModelRenderer>(FindMode.EverythingInSelfAndDescendants);
+            if (_item is ItemEquipment equipment && equipment.IsClothing && !equipment.IsAccessory && 
+                !equipment.IsAspect && !equipment.IsWeapon && !equipment.IsArmor)
+            {
+                // Erstelle Citizen Model
+                _characterObject = _scene.CreateObject();
+                _characterRenderer = _characterObject.Components.Create<ModelRenderer>();
+                _characterRenderer.Model = Model.Load("models/citizen/citizen.vmdl");
+                _characterRenderer.Tint = Color.Gray;
+                
+                // Erstelle Kleidung
+                _itemObject = _scene.CreateObject();
+                _itemRenderer = _itemObject.Components.Create<ModelRenderer>();
+                _itemRenderer.Model = renderer.Model;
+                
+                if (equipment.UseSkinTint)
+                    _itemRenderer.Tint = Color.Gray;
+                else
+                    _itemRenderer.Tint = renderer.Tint;
+                
+                _itemRenderer.MaterialGroup = renderer.MaterialGroup;
+                
+                // Parent-Child Beziehung einrichten
+                _itemObject.Parent = _characterObject;
+                
+                // Rotation setzen
+                _characterObject.WorldRotation = Rotation.From(0, 90, 0);
+                
+                // Bodygroups setzen
+                var bg = equipment.HideBodygroups;
+                _characterRenderer.SetBodyGroup("head", bg.HasFlag(HiddenBodyGroup.Head) ? 1 : 0);
+                _characterRenderer.SetBodyGroup("torso", bg.HasFlag(HiddenBodyGroup.Torso) ? 1 : 0);
+                _characterRenderer.SetBodyGroup("hands", bg.HasFlag(HiddenBodyGroup.Hands) ? 1 : 0);
+                _characterRenderer.SetBodyGroup("legs", bg.HasFlag(HiddenBodyGroup.Legs) ? 1 : 0);
+                _characterRenderer.SetBodyGroup("feet", bg.HasFlag(HiddenBodyGroup.Feet) ? 1 : 0);
+            }
+            else
+            {
+                // Normales Item-Modell
+                _itemObject = _scene.CreateObject();
+                _itemRenderer = _itemObject.Components.Create<ModelRenderer>();
+                _itemRenderer.Model = renderer.Model;
+                _itemRenderer.MaterialGroup = renderer.MaterialGroup;
+            }
+            
+            // Kamera positionieren
+            FitCameraToModel();
+        }
 
-			_child.SetMaterialGroup( renderer.MaterialGroup );
-			_model.AddChild( "cloth", _child );
+        if (_scenePanel != null && firstTime)
+        {
+            _scenePanel.Scene = _scene;
+        }
+    }
 
-			var rotation = global::Rotation.From(0, 90, 0);
+    private void FitCameraToModel()
+    {
+        var target = _itemObject ?? _characterObject;
+        if (target == null || _camera == null) return;
+        
+        var bounds = _itemRenderer?.Model?.Bounds ?? _characterRenderer?.Model?.Bounds;
+        if (bounds == null) return;
+        
+        var size = bounds.Value.Size.Length;
+        var center = target.WorldPosition + bounds.Value.Center;
+        
+        // Kameraabstand berechnen basierend auf Modellgröße
+        _distance = size * 2.0f;
+        
+        // Kamera positionieren
+        _cameraRotation = Rotation.Identity;
+        _cameraPosition = center - _cameraRotation.Forward * _distance;
+        
+        // Kamera initialisieren
+        _camera.GameObject.WorldPosition = _cameraPosition;
+        _camera.GameObject.WorldRotation = _cameraRotation;
+        
+        // Blickpunkt auf das Modell
+        RotateToLookAt(_camera.GameObject, center);
+    }
+    
+    private void RotateToLookAt(GameObject obj, Vector3 target)
+    {
+        var direction = (target - obj.WorldPosition).Normal;
+        obj.WorldRotation = Rotation.LookAt(direction);
+    }
 
-			_model.Transform = new global::Transform(_child.Transform.Position, rotation);
+    public override void OnButtonEvent(ButtonEvent e)
+    {
+        if (e.Button == "mouseleft")
+            _isDragging = e.Pressed;
 
-			_model.Update( Time.Delta );
-			_child.Update( Time.Delta );
+        base.OnButtonEvent(e);
+    }
 
-			var bg = equipment.HideBodygroups;
-			_model.SetBodyGroup( "head", bg.HasFlag( HiddenBodyGroup.Head ) ? 1 : 0 );
-			_model.SetBodyGroup( "torso", bg.HasFlag( HiddenBodyGroup.Torso ) ? 1 : 0 );
-			_model.SetBodyGroup( "hands", bg.HasFlag( HiddenBodyGroup.Hands ) ? 1 : 0 );
-			_model.SetBodyGroup( "legs", bg.HasFlag( HiddenBodyGroup.Legs ) ? 1 : 0 );
-			_model.SetBodyGroup( "feet", bg.HasFlag( HiddenBodyGroup.Feet ) ? 1 : 0 );
-		}
-		else
-		{
-			_model ??= new SceneModel( _sceneWorld, renderer.Model, global::Transform.Zero );
-			_model.SetMaterialGroup( renderer.MaterialGroup );
-		}
+    public override void OnMouseWheel(Vector2 value)
+    {
+        _scrollDelta = value.y;
 
-		_scenePanel.World = _sceneWorld;
-		_scenePanel.Camera.FieldOfView = 120f;
+        base.OnMouseWheel(value);
+    }
 
-		if (_cameraTransform.Position == Vector3.Zero)
-		{
-			_scenePanel.Camera.FitModel(_child ?? _model);
-			_distance = _scenePanel.Camera.Position.Distance(_model.Model.Bounds.Center);
-			_cameraTransform = new Transform(_scenePanel.Camera.Position, _scenePanel.Camera.Rotation);
-		}
-	}
+    public override void Tick() 
+    {
+        var target = _itemObject ?? _characterObject;
+        if (target == null || _camera == null) return;
 
-	public override void OnButtonEvent( ButtonEvent e )
-	{
-		if ( e.Button == "mouseleft" )
-			_isDragging = e.Pressed;
+        var bounds = _itemRenderer?.Model?.Bounds ?? _characterRenderer?.Model?.Bounds;
+        if (bounds == null) return;
+        
+        var center = target.WorldPosition + bounds.Value.Center;
 
-		base.OnButtonEvent( e );
-	}
+        if (_isDragging)
+        {
+            // Kamerarotation durch Mausbewegung
+            var currentRotation = _camera.GameObject.WorldRotation;
+            var rightVector = currentRotation.Right;
+            var upVector = currentRotation.Up;
+            
+            // Horizontale und vertikale Rotation
+            var horizontalRotation = Rotation.FromAxis(Vector3.Up, -Mouse.Delta.x * 0.20f);
+            var verticalRotation = Rotation.FromAxis(rightVector, -Mouse.Delta.y * 0.20f);
+            
+            // Kombinierte Rotation
+            var newRotation = horizontalRotation * verticalRotation * currentRotation;
+            
+            // Neue Kameraposition berechnen
+            _cameraRotation = newRotation;
+            _cameraPosition = center - newRotation.Forward * _distance;
+        }
 
-	public override void OnMouseWheel(Vector2 value)
-	{
-		_scrollDelta = value.y;
+        // Zoom mit Mausrad
+        _distance += _scrollDelta * 3f;
+        _distance = _distance.Clamp(10f, 100f);
+        _cameraPosition = center - _camera.GameObject.WorldRotation.Forward * _distance;
+        _scrollDelta = 0;
 
-		base.OnMouseWheel(value);
-	}
-
-	public override void Tick() 
-	{
-		var target = _child ?? _model;
-		if (target is null)
-			return;
-
-		if (_isDragging)
-		{
-			_cameraTransform = _cameraTransform.RotateAround(target.Model.Bounds.Center, Rotation.FromAxis(_cameraTransform.Up, -Mouse.Delta.x * 0.20f));
-			_cameraTransform = _cameraTransform.RotateAround(target.Model.Bounds.Center, Rotation.FromAxis(_cameraTransform.Right, -Mouse.Delta.y * 0.20f));
-		}
-
-		_distance += _scrollDelta * 3f;
-		_distance = _distance.Clamp(10f, 100f);
-		_cameraTransform.Position = target.Model.Bounds.Center - _cameraTransform.Forward * _distance;
-		_scrollDelta = 0;
-
-		_scenePanel.Camera.Position = Vector3.Lerp(_scenePanel.Camera.Position, _cameraTransform.Position, RealTime.Delta * 40.0f);
-		_scenePanel.Camera.Rotation = Rotation.Lerp(_scenePanel.Camera.Rotation, _cameraTransform.Rotation, RealTime.Delta * 50.0f);
-		_sceneLight.Position = _scenePanel.Camera.Position;
-
-		target.Update(RealTime.Delta);
-	}
+        // Sanfte Kamerabewegung
+        _camera.GameObject.WorldPosition = Vector3.Lerp(_camera.GameObject.WorldPosition, _cameraPosition, RealTime.Delta * 40.0f);
+        _camera.GameObject.WorldRotation = Rotation.Slerp(_camera.GameObject.WorldRotation, _cameraRotation, RealTime.Delta * 50.0f);
+        
+        // Licht mit Kamera bewegen
+        var pointLight = _scene.Components.GetAll<PointLight>().FirstOrDefault();
+        if (pointLight != null)
+        {
+            pointLight.GameObject.WorldPosition = _camera.GameObject.WorldPosition;
+        }
+    }
 }

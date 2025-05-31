@@ -50,7 +50,7 @@ public partial class BaseGun : WeaponComponent, IUse
 	[Property, Category( "Effects" )] public PrefabFile Trail { get; set; }
 	[Property, Category( "Effects" )] public PrefabFile ImpactArea { get; set; }
 	[Property, Category( "Effects" )] public PrefabFile MuzzleFlash { get; set; }
-	[Property, Category( "Effects" )] public ParticleSystem ImpactEffect { get; set; }
+	
 	[Property, Category( "Effects" )] public LineRenderer lineRenderer { get; set; }
 
 	[Property, Category( "Audio" ), Feature( "Weapon Properties" )] public SoundEvent FireSound { get; set; }
@@ -1791,7 +1791,7 @@ public partial class BaseGun : WeaponComponent, IUse
 		{
 			throw new InvalidOperationException( "SceneWorld is null." );
 		}
-		if ( ImpactEffect is null ) return;
+		
 
 
 		/* 

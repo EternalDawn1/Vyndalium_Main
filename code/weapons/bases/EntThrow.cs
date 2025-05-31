@@ -7,7 +7,7 @@ namespace GeneralGame;
 
 public class EntThrow : Component
 {
-	[Property] public ParticleSystem explosionEffect { get; set; }
+	
 	[Property] public SoundEvent explodeSound { get; set; }
 	[Property] public SoundEvent colideSound { get; set; }
 	[Property] public float range { get; set; }
