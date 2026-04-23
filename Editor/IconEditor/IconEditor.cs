@@ -126,13 +126,7 @@ public class IconEditor : GraphicsView
 		var row = Layout.Add( Layout.Row() );
 		row.Alignment = TextFlag.CenterHorizontally;
 		{
-			// Scene
-			var renderer = row.Add( new NativeRenderingWidget( this )
-			{
-				Camera = _camera,
-				FixedSize = _camera.Size / 2f,
-				TranslucentBackground = true
-			}, 1 );
+			
 		}
 
 		Layout.AddSpacingCell( 4 );

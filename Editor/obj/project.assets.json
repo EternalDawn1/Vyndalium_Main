@@ -4,10 +4,7 @@
     "net9.0": {
       "actiongraph/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
-          "Base Editor Library": "1.0.0"
-        },
+        "framework": "Unsupported,Version=v0.0",
         "compile": {
           "bin/placeholder/actiongraph.dll": {}
         },
@@ -17,7 +14,7 @@
       },
       "Base Editor Library/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
+        "framework": "Unsupported,Version=v0.0",
         "compile": {
           "bin/placeholder/Base Editor Library.dll": {}
         },
@@ -27,7 +24,7 @@
       },
       "Base Library/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
+        "framework": "Unsupported,Version=v0.0",
         "compile": {
           "bin/placeholder/Base Library.dll": {}
         },
@@ -37,10 +34,7 @@
       },
       "hammer/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
-          "Base Editor Library": "1.0.0"
-        },
+        "framework": "Unsupported,Version=v0.0",
         "compile": {
           "bin/placeholder/hammer.dll": {}
         },
@@ -50,10 +44,7 @@
       },
       "shadergraph/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
-          "Base Editor Library": "1.0.0"
-        },
+        "framework": "Unsupported,Version=v0.0",
         "compile": {
           "bin/placeholder/shadergraph.dll": {}
         },
@@ -172,7 +163,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net9.0": {
@@ -188,13 +179,55 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200-preview.0.26103.119/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Das Projekt actiongraph ist nicht mit net9.0 (.NETCoreApp,Version=v9.0) kompatibel. Das Projekt actiongraph unterstützt Folgendes: net10.0 (.NETCoreApp,Version=v10.0)",
+      "libraryId": "actiongraph",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Das Projekt Base Editor Library ist nicht mit net9.0 (.NETCoreApp,Version=v9.0) kompatibel. Das Projekt Base Editor Library unterstützt Folgendes: net10.0 (.NETCoreApp,Version=v10.0)",
+      "libraryId": "Base Editor Library",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Das Projekt shadergraph ist nicht mit net9.0 (.NETCoreApp,Version=v9.0) kompatibel. Das Projekt shadergraph unterstützt Folgendes: net10.0 (.NETCoreApp,Version=v10.0)",
+      "libraryId": "shadergraph",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Das Projekt hammer ist nicht mit net9.0 (.NETCoreApp,Version=v9.0) kompatibel. Das Projekt hammer unterstützt Folgendes: net10.0 (.NETCoreApp,Version=v10.0)",
+      "libraryId": "hammer",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Das Projekt Base Library ist nicht mit net9.0 (.NETCoreApp,Version=v9.0) kompatibel. Das Projekt Base Library unterstützt Folgendes: net10.0 (.NETCoreApp,Version=v10.0)",
+      "libraryId": "Base Library",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }

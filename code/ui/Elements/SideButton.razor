@@ -17,8 +17,22 @@
 >
 	<image src=@ImagePath />
 	<div class="text-container">
-		<text class="text-title" style="@TitleStyle">@Title</text>
-		<text class="text-subtitle" style="@SubtitleStyle">@Subtitle</text>
+		@if (!string.IsNullOrEmpty(TitleStyle))
+		{
+			<text class="text-title" style="@TitleStyle">@Title</text>
+		}
+		else
+		{
+			<text class="text-title">@Title</text>
+		}
+		@if (!string.IsNullOrEmpty(SubtitleStyle))
+		{
+			<text class="text-subtitle" style="@SubtitleStyle">@Subtitle</text>
+		}
+		else
+		{
+			<text class="text-subtitle">@Subtitle</text>
+		}
 	</div>
 </root>
 
