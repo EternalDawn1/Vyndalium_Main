@@ -4,21 +4,356 @@ Inventory {
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: $fullscreen-bg;
-    backdrop-filter: $fullscreen-blur;
+    background: linear-gradient(135deg, rgba(20, 20, 25, 0.95) 0%, rgba(25, 30, 40, 0.95) 100%);
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
     pointer-events: all;
     opacity: 1;
-    background-color: rgba(0, 0, 0, 0.945);
     transition: opacity 0.5s ease;
 
     &:intro {
-            opacity: 0;
-            transition: opacity 2s ease;
+        opacity: 0;
+        transition: opacity 2s ease;
     }
     &:outro {
         opacity: 1;
         transition: opacity 2s ease;
     }
+}
+
+.inventory-panel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.inventory-list {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.inventory-content {
+    display: flex;
+    height: 100%;
+    gap: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(15, 15, 20, 0.8) 0%, rgba(30, 25, 40, 0.8) 100%);
+    overflow: hidden;
+}
+
+/* LEFT PANEL: CHARACTER & EQUIPMENT */
+.character-panel {
+    flex: 0 0 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 16px;
+    backdrop-filter: blur(10px);
+    overflow-y: auto;
+}
+
+.character-viewport {
+    width: 100%;
+    aspect-ratio: 0.75;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(50, 40, 60, 0.3) 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(100, 150, 255, 0.15);
+    overflow: hidden;
+
+    > * {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* EQUIPMENT SECTION */
+.equipment-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.section-header {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(200, 220, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+.equipment-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.equipment-slot-wrapper {
+    flex: 1;
+    min-width: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+
+    &.full-width {
+        flex: 1 1 100%;
+    }
+}
+
+.slot-label {
+    font-size: 11px;
+    color: rgba(200, 220, 255, 0.6);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.equipment-slot {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    border: 2px solid rgba(100, 150, 200, 0.3);
+    background: rgba(50, 70, 100, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        border-color: rgba(100, 200, 255, 0.6);
+        background: rgba(50, 100, 150, 0.3);
+        box-shadow: 0 0 12px rgba(100, 200, 255, 0.2);
+    }
+}
+
+/* PLAYER INFO CARD */
+.player-info-card {
+    background: linear-gradient(135deg, rgba(80, 120, 200, 0.1) 0%, rgba(150, 100, 200, 0.1) 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(100, 150, 255, 0.2);
+    padding: 12px;
+    margin-top: auto;
+}
+
+.player-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(100, 150, 200, 0.1);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: rgba(200, 220, 255, 0.7);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(100, 200, 255, 0.95);
+}
+
+.online-players {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.players-header {
+    font-size: 11px;
+    color: rgba(200, 220, 255, 0.6);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 4px;
+}
+
+.player-entry {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: rgba(200, 220, 255, 0.8);
+    padding: 4px 8px;
+    background: rgba(100, 150, 200, 0.05);
+    border-radius: 4px;
+}
+
+.host-badge {
+    font-size: 10px;
+}
+
+.player-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* RIGHT PANEL: INVENTORY */
+.inventory-panel-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 16px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+/* TABS */
+.inventory-tabs {
+    display: flex;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: rgba(200, 220, 255, 0.6);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+
+    &:hover {
+        background: rgba(100, 150, 200, 0.1);
+        color: rgba(200, 220, 255, 0.8);
+    }
+
+    &.active {
+        background: rgba(100, 200, 255, 0.2);
+        color: rgba(100, 200, 255, 0.95);
+        border-color: rgba(100, 200, 255, 0.3);
+        box-shadow: 0 0 8px rgba(100, 200, 255, 0.15);
+    }
+}
+
+/* INVENTORY SECTION */
+.inventory-section,
+.bagpack-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.bagpack-section {
+    border-top: 1px solid rgba(100, 150, 200, 0.1);
+    padding-top: 12px;
+    flex: 0 0 auto;
+}
+
+/* INVENTORY CONTROLS */
+.inventory-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 0 4px;
+}
+
+.bagpack-header {
+    background: linear-gradient(90deg, rgba(82, 74, 74, 0.3) 0%, rgba(3, 110, 35, 0.2) 50%, rgba(10, 211, 53, 0.15) 100%);
+    color: rgba(100, 220, 120, 0.9);
+}
+
+/* SORT BUTTONS */
+.sort-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.sort-btn {
+    padding: 6px 8px;
+    background: rgba(100, 150, 200, 0.1);
+    border: 1px solid rgba(100, 150, 200, 0.2);
+    border-radius: 4px;
+    color: rgba(200, 220, 255, 0.7);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 36px;
+    text-align: center;
+
+    &:hover {
+        background: rgba(100, 150, 200, 0.2);
+        border-color: rgba(100, 200, 255, 0.4);
+        color: rgba(100, 200, 255, 0.9);
+    }
+}
+
+.sort-icon {
+    display: inline-block;
+    font-weight: 700;
+}
+
+/* INVENTORY GRIDS */
+.inventory-grid,
+.bagpack-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+.bagpack-grid {
+    overflow: hidden;
+    flex-wrap: wrap;
+    max-height: 140px;
+}
+
+.inventory-grid-item {
+    min-width: 60px;
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+}
+
+
+@keyframes coinRotate {
+    0% {
+        transform: rotate(-5deg) scale(1);
+    }
+    50% {
+        transform: rotate(5deg) scale(1.15);
+    }
+    100% {
+        transform: rotate(-5deg) scale(1);
+    }
+}
 
     
 
@@ -146,18 +481,12 @@ Inventory {
                                 }
                 
                             :hover:not(.disabled) {
+                                    cursor: pointer;
+                                    border-radius: 5%;
+                                    transform: scale(1.1);
+                                }
                 
-                
-                                cursor: pointer;
-                                sound-in: 'hover';
-                
-                                border-radius: 5%;
-                                transform: scale(1.1);
-                            }
-                
-                            &:active:not(.disabled) {
-                                sound-in: 'sound4';
-                                background-color: rgb(250, 134, 39);
+                                &:active:not(.disabled) {
                                 padding: 0 1%;
                                 border-radius: 5%;
                                 align-items: center;
@@ -234,18 +563,11 @@ Inventory {
                             }
         
                         :hover:not(.disabled) {
-        
-        
                             cursor: pointer;
-                            sound-in: 'hover';
-                            
-                           
                             border-radius: 5%;
-                            
                         }
         
                         &:active:not(.disabled) {
-                            sound-in: 'sound4';
                             background-color: rgb(250, 134, 39);
                             transform: scale(1.1);
                             align-items: center;
@@ -637,7 +959,7 @@ Inventory {
 
 
 
-}
+
 
 @keyframes blink {
     0% {
