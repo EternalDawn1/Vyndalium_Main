@@ -2,19 +2,14 @@
 @using System.Linq
 @using Sandbox;
 @using Sandbox.UI
-
 @using GeneralGame
 @inherits Panel
 @namespace GeneralGame.HUD
 
 <root>
-    
-    
     <div class="confirm-dialog">
         <p class="message">@dialogMessage</p>
         <button class="button" @onclick="@ConfirmAction">Yes</button>
         <button class="button" @onclick="CancelAction">No</button>
     </div>
-    
 </root>
-

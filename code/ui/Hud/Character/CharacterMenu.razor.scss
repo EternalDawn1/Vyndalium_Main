@@ -5,7 +5,7 @@ CharacterMenu {
     width: 100%;
     height: 100%;
     z-index: 0;
-    background-color: $fullscreen-bg;
+    background: $panel-bg;
     backdrop-filter: $fullscreen-blur;
     pointer-events: all;
     transition: opacity 0.5s ease-in-out;
@@ -23,50 +23,15 @@ CharacterMenu {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        opacity: 0.85;
+        opacity: 0.15;
         z-index: -10;
-
-        
-
-        .top2 {
-            position: absolute;
-            top: 5%;
-            left: 12.5%;
-            width: 20.5%;
-            height: 85%;
-            background-image: url('/ui/hud/background3.gif');
-            opacity: 0.6;
-            z-index: -5;
-            border-radius: 12px;
-           
-            backdrop-filter: blur(3px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .top3 {
-            position: absolute;
-            top: 5%;
-            left: 35%;
-            width: 41.5%;
-            height: 85%;
-            background-image: url('/ui/hud/background2.gif');
-            opacity: 0.6;
-            z-index: -5;
-            border-radius: 12px;
-        
-            backdrop-filter: blur(3px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
     }
 
     .section {
         position: absolute;
         height: 100%;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.3);
         z-index: 10;
-
-        
 
         .char {
             position: absolute;
@@ -74,22 +39,15 @@ CharacterMenu {
             left: 50%;
             width: 25%;
             height: 55%;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
+            @include frosted-panel;
             overflow: hidden;
-          
-            border: 1px solid rgba(0, 157, 255, 0.3);
-
-            
         }
-
-        
     }
 
     .header2 {
         top: 3.2%;
         left: 35.9%;
-        gap: 15px;
+        gap: 12px;
         position: absolute;
         height: 5%;
         width: 25%;
@@ -102,31 +60,22 @@ CharacterMenu {
         .resist {
             position: relative;
             height: 50%;
-            font-size: 16px;
+            font-size: 14px;
             top: -20%;
             gap: 5px;
-            padding: 10px 15px;
-            background: linear-gradient(to bottom,
-                    rgba(60, 60, 90, 0.7) 0%,
-                    rgba(20, 20, 40, 0.5) 100%);
-            border-radius: 10px 10px 0 0;
-            color: rgb(255, 255, 255);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-           
+            padding: 8px 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: $item-radius $item-radius 0 0;
+            color: $color-text-muted;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             font-weight: 600;
             transition: all 0.2s ease;
-          
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(2px);
+            cursor: pointer;
 
             &:hover {
-                color: rgb(255, 255, 255);
-                background: linear-gradient(to bottom,
-                        rgba(80, 80, 150, 0.7) 0%,
-                        rgba(40, 40, 100, 0.5) 100%);
-                transform: translateY(-3px);
-             
-                text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+                color: $color-text-primary;
+                background: rgba(100, 150, 200, 0.1);
+                transform: translateY(-2px);
             }
         }
     }
@@ -141,7 +90,7 @@ CharacterMenu {
         z-index: 1;
         left: 35.5%;
         top: 6%;
-        gap: 15px;
+        gap: 8px;
         transition: opacity 0.3s ease;
 
         &:intro {
@@ -154,41 +103,31 @@ CharacterMenu {
             position: relative;
             align-items: center;
             justify-content: space-between;
-            font-size: 16px;
-            padding: 12px;
-            background: linear-gradient(to right,
-                    rgba(20, 20, 30, 0.7) 0%,
-                    rgba(40, 40, 60, 0.7) 50%,
-                    rgba(8, 0, 0, 0.7) 100%);
-            border-radius: 10px;
-            color: rgb(255, 254, 254);
-            border: 1px solid rgba(143, 143, 143, 0.2);
+            font-size: 14px;
+            padding: 10px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: $item-radius;
+            color: $color-text-primary;
+            border: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.2s ease;
-          
-            backdrop-filter: blur(4px);
 
             &:hover {
-                transform: translateX(5px);
-                
-                border: 1px solid rgba(200, 200, 255, 0.3);
-                background: linear-gradient(to right,
-                        rgba(30, 30, 50, 0.8) 0%,
-                        rgba(50, 50, 80, 0.8) 50%,
-                        rgba(20, 0, 0, 0.8) 100%);
+                transform: translateX(4px);
+                border-color: rgba(100, 200, 255, 0.2);
+                background: rgba(100, 150, 200, 0.08);
             }
 
             .n {
                 position: relative;
-                color: rgb(255, 255, 255);
-                font-size: 20px;
+                color: $color-accent-blue;
+                font-size: 16px;
                 font-weight: 700;
-                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
             }
 
             li {
                 display: flex;
                 align-items: center;
-                gap: 8px;
+                gap: 6px;
             }
         }
 
@@ -198,38 +137,33 @@ CharacterMenu {
             justify-content: center;
             align-items: center;
             z-index: 100;
-            left: 110%;
-            width: 160%;
-            gap: 10px;
-            color: rgb(255, 255, 255);
-            font-size: 13px;
-            background: linear-gradient(135deg,
-                    rgba(60, 60, 90, 0.95) 0%,
-                    rgba(30, 30, 60, 0.95) 100%);
-            border-radius: 10px;
-            padding: 15px;
-           
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            left: 105%;
+            width: 180%;
+            gap: 8px;
+            color: $color-text-primary;
+            font-size: 12px;
+            background: rgba(20, 25, 35, 0.95);
+            border-radius: $item-radius;
+            padding: 12px;
+            border: 1px solid rgba(100, 150, 200, 0.15);
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            transform: translateX(-10px);
+            transform: translateX(-8px);
             pointer-events: none;
 
             .header {
-                font-size: 20px;
-                color: rgb(180, 210, 255);
+                font-size: 14px;
+                color: $color-accent-blue;
                 font-weight: 700;
-                margin-bottom: 10px;
-                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+                margin-bottom: 6px;
                 text-align: center;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                padding-bottom: 8px;
+                border-bottom: 1px solid rgba(100, 150, 200, 0.1);
+                padding-bottom: 6px;
             }
 
             p {
-                margin: 5px 0;
-                color: rgba(255, 255, 255, 0.9);
-                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+                margin: 3px 0;
+                color: $color-text-secondary;
             }
         }
 
@@ -238,7 +172,6 @@ CharacterMenu {
         .stats4:hover .tooltip-text {
             opacity: 1;
             transform: translateX(0);
-            z-index: 100;
             flex-direction: column;
         }
     }
@@ -252,7 +185,6 @@ CharacterMenu {
         z-index: 10;
 
         .items {
-            background-color: rgba(222, 218, 211, 0);
             flex-direction: column;
             z-index: 10;
 
@@ -260,10 +192,10 @@ CharacterMenu {
                 width: 100%;
                 height: 98%;
                 z-index: 10;
-                gap: 15px;
-                font-family: Geneva;
+                gap: 10px;
+                font-family: 'Geneva', sans-serif;
                 flex-direction: column;
-                font-size: 15px;
+                font-size: 14px;
                 justify-content: center;
 
                 .playe1,
@@ -273,103 +205,54 @@ CharacterMenu {
                     z-index: 10;
                     flex-direction: column;
                     width: 100%;
-                    gap: 8px;
-                    padding: 15px;
-                    background: linear-gradient(to right,
-                            rgba(0, 0, 0, 0.6) 0%,
-                            rgba(15, 21, 75, 0.5) 50%,
-                            rgba(0, 0, 0, 0.6) 100%);
-                    border-radius: 12px;
-                    color: rgb(255, 254, 254);
-                    border: 1px solid rgba(100, 100, 255, 0.2);
+                    gap: 6px;
+                    padding: 12px;
+                    background: rgba(0, 0, 0, 0.3);
+                    border-radius: $section-radius;
+                    color: $color-text-primary;
+                    border: 1px solid rgba(100, 150, 200, 0.1);
                     justify-content: center;
-                    
-                    backdrop-filter: blur(3px);
                     transition: all 0.2s ease;
 
                     &:hover {
-                        transform: translateY(-3px);
-                       
-                        background: linear-gradient(to right,
-                                rgba(0, 0, 0, 0.7) 0%,
-                                rgba(25, 35, 100, 0.6) 50%,
-                                rgba(0, 0, 0, 0.7) 100%);
+                        transform: translateY(-2px);
+                        background: rgba(100, 150, 200, 0.06);
+                        border-color: rgba(100, 200, 255, 0.15);
                     }
 
                     .li {
                         width: 100%;
-                        font-size: 20px;
-                        color: rgb(200, 220, 255);
-                        font-weight: bold;
+                        font-size: 14px;
+                        color: $color-text-muted;
+                        font-weight: 600;
                         justify-content: center;
-                        font-style: italic;
                         text-align: center;
-                        
                         text-transform: uppercase;
-                        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.8), 0 0 10px rgba(100, 150, 255, 0.5);
-                        letter-spacing: 1px;
-                        padding: 5px 0;
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                        margin-bottom: 5px;
+                        letter-spacing: 0.5px;
+                        padding: 4px 0;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                        margin-bottom: 4px;
                     }
 
                     .nu {
                         width: 100%;
-                        font-size: 18px;
-                        color: rgb(255, 200, 50);
+                        font-size: 16px;
+                        color: $color-accent-blue;
                         font-weight: 700;
                         justify-content: center;
-                        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
                         text-align: center;
                     }
 
                     .Vyndn {
                         width: 100%;
-                        font-size: 24px;
-                        color: rgb(0, 180, 220);
+                        font-size: 20px;
+                        color: $color-accent-blue;
                         justify-content: center;
-                        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 180, 220, 0.5);
                         text-align: center;
-                        padding: 5px;
+                        padding: 4px;
                     }
                 }
             }
         }
     }
-}
-
-@keyframes blink {
-    0% {
-        color: rgb(255, 255, 255);
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-    }
-
-    50% {
-        color: rgb(0, 255, 100);
-        text-shadow: 0 0 20px rgba(0, 255, 100, 0.6), 0 0 30px rgba(0, 255, 100, 0.4);
-    }
-
-    100% {
-        color: rgb(255, 255, 255);
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-    }
-}
-
-// Zusätzliche Animationen für Hover-Effekte
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.03);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-.n:hover {
-    animation: pulse 1s infinite ease-in-out;
 }

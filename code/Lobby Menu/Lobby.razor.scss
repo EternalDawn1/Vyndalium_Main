@@ -1,71 +1,49 @@
+@import "/ui/Hud/Style.scss";
+
 Lobby {
     position: relative;
     width: 100%;
     height: 100%;
     pointer-events: all;
-    font-family: Geneva;
+    font-family: 'Geneva', sans-serif;
     transition: opacity 0.5s ease;
-    
-        &:intro {
-            opacity: 0;
-        }
+    background: $panel-bg;
+    backdrop-filter: $fullscreen-blur;
+
+    &:intro {
+        opacity: 0;
+    }
 
     .sidehud {
         position: absolute;
-        right: 88%;
-        top: 9%;
-        height: 80%;
-        width: 7%;
-        font-size: 20px;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 80px;
         z-index: 10;
-        padding: 20px;
-        background-color: rgb(56, 54, 54);
-
+        padding: 8px;
+        @include frosted-panel;
         flex-direction: column;
-
-        border-radius: 10px;
-        margin-top: 10px;
-        gap: 45px;
-
-
-
+        gap: 8px;
     }
 
     .exit-button {
-
-
-
-        z-index: 100;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        font-size: 32px;
-        align-items: center;
-        justify-content: center;
         position: absolute;
+        z-index: 100;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         background-image: url(/ui/hud/exit.gif);
         background-position: center;
         background-size: cover;
-
-        color: white;
-        border-width: 5px;
-        border-color: black;
-        right: 5%;
-        top: 5%;
-        padding: 5px;
+        right: 20px;
+        top: 20px;
         cursor: pointer;
+        border: 2px solid rgba(0, 0, 0, 0.5);
+        transition: all 0.2s ease;
 
-        :hover {
-
-
-
-            position: relative;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            align-items: center;
-            justify-content: center;
-
+        &:hover {
+            transform: scale(1.1);
         }
     }
 
@@ -73,76 +51,47 @@ Lobby {
         position: absolute;
         width: 100%;
         height: 100%;
-        font-family: Geneva;
-        flex-direction: row;
-        
-       
-            background-color: rgba(0, 0, 0, 0.596);
+        padding: 20px 120px 20px 120px;
+        transition: opacity 0.3s ease;
+
         .panel-content-text {
             position: relative;
             width: 100%;
             height: 100%;
-           
 
             .panel-content-layout {
                 flex-direction: column;
                 position: relative;
-                
-                width: 50%;
+                width: 100%;
                 height: 100%;
-                left: 20%;
-             
-                background-color: rgba(97, 97, 97, 0.288);
-                border-radius: 10px;
-            overflow-y: scroll;
-              
-                
-                .main-panel{
-                    flex-direction: column;
-                    position: absolute;
-                    width: 100%;
-                  
-                 margin-top: 20px;
-              
-                   
-                    padding: 5px;
-                    gap: 20px;
-                    height: 5000px;
-                    overflow-y: scroll;
-                    
-                    .box{
-                        flex-direction: column;
-                        margin-right: 10px;
-                        margin-left: 10px;
-                        margin-top: 10px;
-                        gap: 10px;
-                        box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
-                        border-radius: 10px;
-                        background-color: rgba(0, 0, 0, 0.5);
-                        padding: 10px;
-                        
-                        
-                    }
-                    .title{
-                        color:white;
-                        position: relative;
-                        margin-left: 20px;
-                        background-color: rgb(141, 141, 141);
-                        box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
-                        align-items: center;
-                        font-size: 34px;
-                        font-weight: bold;
-                        font-style: italc;
-                        border-radius: 10px;
-                        text-shadow: 3px 3px 0px rgb(0, 0, 0);
-                        padding: 5px;
-                        
-                        
+                @include frosted-panel;
+                padding: 16px;
+                overflow-y: auto;
+                gap: 12px;
 
+                .main-panel {
+                    flex-direction: column;
+                    position: relative;
+                    width: 100%;
+                    gap: 12px;
+
+                    .box {
+                        @include frosted-panel;
+                        padding: 14px;
+                        gap: 10px;
+                        flex-shrink: 0;
+
+                        .title {
+                            @include section-header;
+                            font-size: 16px;
+                            text-align: center;
+                            padding: 8px;
+                            background: rgba(100, 150, 200, 0.08);
+                            border-radius: $item-radius;
+                            color: $color-accent-blue;
+                        }
                     }
-                    
                 }
-                
             }
         }
     }

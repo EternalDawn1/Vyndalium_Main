@@ -1,58 +1,49 @@
 @inherits Panel
 @namespace GeneralGame.HUD
 
-
-
 <root>
     <div class="main-panel">
-            <div class="Panel">
-                <div class="section2" >
-                    <div class="title">Inventory</div>
-                        <div class="items2 " CanDragScroll="false">
-                            @{
-                            var backpackBagItems = Player.Local.Inventory.BackpackBagItems;
-                            }
-                            @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
-                            {
-                                var item = Player.Local.Inventory.BackpackItems[index];
-                                <InventorySlot Item=@item BackpackSlotIndex=@index />
-                            }
-                            @if (backpackBagItems.Count > 0)
-                            {
-                                <div class="b">Bag</div>
-                                @for (var index = 0; index < backpackBagItems.Count; index++)
-                                {
-                                    var item = backpackBagItems[index];
-                                    <InventorySlot Item=@item BackpackPackSlotIndex=@index />
-                                }
-                            }
-                        </div>
-                    <div style="align-items: center; margin: 20px 5px;"></div>
+        <div class="Panel">
+            <div class="section2">
+                <div class="title">Inventory</div>
+                <div class="items2" CanDragScroll="false">
+                    @{
+                        var backpackBagItems = Player.Local.Inventory.BackpackBagItems;
+                    }
+                    @for (var index = 0; index < Player.Local.Inventory.BackpackItems.Count; index++)
+                    {
+                        var item = Player.Local.Inventory.BackpackItems[index];
+                        <InventorySlot Item=@item BackpackSlotIndex=@index />
+                    }
+                    @if (backpackBagItems.Count > 0)
+                    {
+                        <div class="b">Bag</div>
+                        @for (var index = 0; index < backpackBagItems.Count; index++)
+                        {
+                            var item = backpackBagItems[index];
+                            <InventorySlot Item=@item BackpackPackSlotIndex=@index />
+                        }
+                    }
                 </div>
             </div>
+        </div>
 
         <div class="Panel2">
             <div class="chest-inventory">
                 <div class="title2">Chest</div>
                 <button class="exit-button" @onclick="@(() => @itemStorage.CloseInventory())"></button>
                 <button class="take-all-button" @onclick="@TakeAllItems">Take All</button>
-                <button class="selecteditems" @onclick="@TakeSelectedItems">Take Selected</button>
-                  
-                
-               
                 <div class="items2 @((StorageBox.IsDragging ? "dragging" : "inventory-scrollable"))">
-                    @for (var index = 0; index < itemStorage.Items.Count; index++) // Zeige alle Items an
+                    @for (var index = 0; index < itemStorage.Items.Count; index++)
                     {
                         var item = itemStorage.Items[index];
                         <InventorySlot Item=@item IndependentSlotIndex=@index IsSelected=@selectedItems.Contains(item) />
                     }
                 </div>
-                <div style="align-items: center; margin: 20px 5px;"></div>
             </div>
-            
+
             <div class="box-information-main">
                 <div class="box-information">
-
                     <div class="box-description">
                         <div class="icon"></div>
                         <div class="text1">to Select Items</div>
@@ -61,12 +52,10 @@
                         <div class="icon2"></div>
                         <div class="text2">to Take</div>
                     </div>
-
-
                 </div>
             </div>
+
+            <button class="selecteditems" @onclick="@TakeSelectedItems">Take Selected</button>
         </div>
     </div>
 </root>
-
-

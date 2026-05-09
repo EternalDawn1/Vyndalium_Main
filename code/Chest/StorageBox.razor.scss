@@ -1,397 +1,185 @@
-StorageBox
-{
+@import "/ui/Hud/Style.scss";
+
+StorageBox {
     position: relative;
     width: 100%;
     height: 100%;
     pointer-events: all;
-    font-family: Geneva;
+    font-family: 'Geneva', sans-serif;
     transition: opacity 0.5s ease-in-out;
-    
-        &:intro {
-            opacity: 0;
-            
-        }
-    
-    .main-panel{
+    background: $panel-bg;
+    backdrop-filter: $fullscreen-blur;
 
+    &:intro {
+        opacity: 0;
+    }
+
+    .main-panel {
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: #000000be;
-        border-radius: 10px;
-        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        padding: 20px;
 
-        .Panel{
-            position: relative;
-            justify-content: center;
-            
-            
-            background-color: #da2f2f00;
-            
-           
-            width: 100%;
-            height: 100%;
+        .Panel {
+            flex: 1;
+            @include frosted-panel;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
 
-            .section2{
-                top:0%;
-                left: 5%;
-                justify-content: center;
-                align-items: center;
-               flex-direction: column;
-               position: absolute;
-                width: 70%;
-              
-                max-height: 100%;
-                background-image: url('/ui/hud/background2.gif');
-                
-                
-                border-radius: 10px;
-                border-width: 1px;
-                border-color: #da4141;
-               
-                .title{
-                    position: relative;
-                   top: 1%;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: #1996628c;
-                    border-width: 1px;
-                    border-color: #000000;
-                    color: #ffffff;
-                    font-size: 30px;
-                    font-weight: bold;
-                    font-style: italic;
-                    width: 90%;
-                    height: 5%;
-                    text-shadow: 2px 2px 4px #1eff00;
-                    padding: 10px;
-                    border-radius: 10px;
-                    margin-bottom: 10px;
-                    
+            .section2 {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                flex: 1;
+                overflow: hidden;
+
+                .title {
+                    @include section-header;
+                    font-size: 16px;
+                    text-align: center;
+                    padding: 8px;
+                    background: rgba(100, 150, 200, 0.08);
+                    border-radius: $item-radius;
                 }
-                .items2 
-                    {
-                        
-                        padding: 4%;
-                        flex-wrap: wrap;
-                        width: 600px;
-                    
-                        border-color: #ffffff00;
-                        background-color: #00000091;
-                        border-width: 1px;
-                        overflow-y: scroll;
 
-                        .b{
-                            position: relative;
-                                top: 1%;
-                                justify-content: center;
-                                align-items: center;
-                                background-color: #1996628c;
-                                border-width: 1px;
-                                border-color: #000000;
-                                color: #ffffff;
-                                font-size: 30px;
-                                font-weight: bold;
-                                font-style: italic;
-                                width: 100%;
-                                height: 5%;
-                                text-shadow: 2px 2px 4px #1eff00;
-                                padding: 10px;
-                                border-radius: 10px;
-                                margin-bottom: 10px;
-                            
-                            
-                        }
-                       
+                .items2 {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 6px;
+                    overflow-y: auto;
+                    padding: 8px;
+                    background: rgba(0, 0, 0, 0.2);
+                    border-radius: $item-radius;
+                    flex: 1;
+
+                    .b {
+                        width: 100%;
+                        @include section-header;
+                        text-align: center;
+                        padding: 6px;
+                        background: rgba(100, 150, 200, 0.08);
+                        border-radius: $item-radius;
+                        margin-top: 4px;
                     }
+                }
             }
-
         }
-        .Panel2{
+
+        .Panel2 {
+            flex: 1;
+            @include frosted-panel;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            .chest-inventory {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                flex: 1;
+                overflow: hidden;
                 position: relative;
-                    justify-content: center;
-                    
-                
-                    background-color: #75464600;
-                
-                
-                    width: 100%;
-                    height: 100%;
-                    z-index: 10;
-                .box-information-main {
-                        position: absolute;
-                        flex-direction: column;
-                        width: 25%;
-                        height: 20%;
-                        top: 53%;
-                        right: 25%;
-                        transition: ease-in-out 5.5s;
-                        z-index: 9;
-                        background-color: rgba(0, 0, 0, 0.205);
-                      
-                        
-                
-                        .box-information {
-                            position: relative;
-                            width: 100%;
-                            height: 100%;
-                            gap: 50px;
-                           
-                            color: #ffffff;
-                            font-size: 20px;
-                            font-weight: bold;
-                            font-style: italic;
-                            padding: 10px;
-                            border-radius: 10px;
-                            margin-bottom: 10px;
-                            flex-direction: column;
-                
-                
-                            .box-description {
-                                position: relative;
-                                width: 100%;
-                                height: 100%;
-                                justify-content: center;
-                                align-items: center;
-                         
-                             
 
-                                .text1{
-                                    position: relative;
-                                    width: 100%;
-                                    height: 100%;
-                                    justify-content: center;
-                                    align-items: center;
-                                    gap: 30px;
-                                }
-                                .text2{
-                                    position: relative;
-                                    width: 100%;
-                                    height: 100%;
-                                    justify-content: center;
-                                    align-items: center;
-                                    gap: 30px;
-                                }
-                
-                                .icon {
-                                    
-                                    width: 100%;
-                                    transform: scale(0.6);
-                                    
-                                  
-                                    height: 220%;
-                                    position: relative;
-                                    background-image: url('/ui/textures/left-click.png');
-                                    background-position: center;
-                                    background-size: cover;
-                                    background-repeat: no-repeat;
-                                    justify-content: center;
-                                    align-items: center;
-                                }
-                
-                                .icon2 {
-                
-                                    width: 100%;
-                                        transform: scale(0.6);
-                                      
-                                     
-                                        height: 220%;
-                                        position: relative;
-                                        background-image: url('/ui/textures/rightclick2.png');
-                                        background-position: center;
-                                        background-size: cover;
-                                        background-repeat: no-repeat;
-                                        justify-content: center;
-                                        align-items: center;
-                                }
-                            }
-                        }
-                
-                    }
-                .selecteditems{
+                .title2 {
+                    @include section-header;
+                    font-size: 16px;
+                    text-align: center;
+                    padding: 8px;
+                    background: rgba(100, 150, 200, 0.08);
+                    border-radius: $item-radius;
+                }
+
+                .exit-button {
                     position: absolute;
-                        bottom: 3%;
-                        left: 25%;
-                        width: 200px;
-                        height: 50px;
-                        background-color: #1fbb00;
-                        color: #000000;
-                        box-shadow: 5 5 10px 0 #000000;
-                        text-shadow: 2px 2px 0px #b3b3b3;
-                    z-index: 10;
-                        font-size: 20px;
-                        font-weight: bold;
-                        border-radius: 10px;
-                        border-width: 1px;
-                        border-color: rgba(255, 255, 255, 0.904);
-                    
-                        cursor: pointer;
-                        padding: 10px;
-                        text-align: center;
-                        justify-content: center;
-                        align-items: center;
-                    
-                        :hover:not(.disabled) {
-                    
-                    
-                            cursor: pointer;
-                            sound-in: 'hover';
-                    
-                            background-color: #ffffff21;
-                            position: absolute;
-                            justify-content: center;
-                            align-items: center;
-                            width: 100%;
-                            height: 100%;
-                            color: #000000;
-                            box-shadow: none;
-                        }
-                    
-                        &:active:not(.disabled) {
-                            sound-in: 'light_click';
-                            background-color: rgb(250, 134, 39);
-                            padding: 0 1%;
-                            border-radius: 5%;
-                            align-items: center;
-                        }
-                }   
-                
-                .chest-inventory
-                {
-                        top: 15%;
-                        right: 5%;
-                        padding: 5%;
-                        flex-direction: column;
-                        position: relative;
-                        width: 70%;
-                        height: 60%;
-                        background-image: url('/ui/hud/background2.gif');
-                        background-size: cover;
-                        background-position: center;
-                        border-radius: 10px;
-                        border-width: 1px;
-                        border-color: #0077ff3b;
-
-
-                    .take-all-button{
-                        position: absolute;
-                        bottom: 3%;
-                        left: 5%;
-                        width: 100px;
-                        height: 50px;
-                        background-color: #616161c0;
-                        color: #ffa375;
-
-                        font-size: 20px;
-                        font-weight: bold;
-                        border-radius: 10px;
-                        border-width: 1px;
-                        border-color: rgba(255, 255, 255, 0.37);
-                       
-                        cursor: pointer;
-                        padding: 10px;
-                        text-align: center;
-                        justify-content: center;
-                        align-items: center;
-                        
-                        :hover:not(.disabled) {
-                        
-                        
-                                cursor: pointer;
-                                sound-in: 'hover';
-                        
-                                background-color: #ffffff21;
-                                position: absolute;
-                                justify-content: center;
-                                align-items: center;
-                                width: 100%;
-                                height: 100%;
-                                color: #000000;
-                                box-shadow: none;
-                            }
-                        
-                            &:active:not(.disabled) {
-                                sound-in: 'light_click';
-                                background-color: rgb(250, 134, 39);
-                                padding: 0 1%;
-                                border-radius: 5%;
-                                align-items: center;
-                            }
-                        
-                    }
-                   
-                    .title2{
-                        justify-content: center;
-                            align-items: center;
-                            background-color: #06b87db2;
-                            border-width: 1px;
-                            border-color: #000000;
-                            color: #ffffff;
-                            font-size: 30px;
-                            font-weight: bold;
-                            font-style: italic;
-                            width: 90%;
-                        
-                            padding: 10px;
-                            border-radius: 10px;
-                            margin-bottom: 10px;
-                    }
-                    .exit-button 
-                    
-                    {
-
-                    
-                
                     z-index: 100;
-                    width: 50px;
-                    height: 50px;
+                    width: 40px;
+                    height: 40px;
                     border-radius: 50%;
-                    font-size: 32px;
-                    align-items: center;
-                    justify-content: center;
-                    position: absolute;
                     background-image: url(/ui/hud/exit.gif);
                     background-position: center;
                     background-size: cover;
-                    
-                    color: white;
-                    border-width: 5px;
-                    border-color: black;
-                    right: 10;
-                    top: 10;
-                    padding: 5px;
+                    right: 8px;
+                    top: 8px;
                     cursor: pointer;
-        
-                    :hover {
-                        
-                      
-                       
-                        position: relative;
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 50%;
-                        align-items: center;
-                        justify-content: center;
+                    border: 2px solid rgba(0, 0, 0, 0.5);
+                    transition: all 0.2s ease;
 
+                    &:hover {
+                        transform: scale(1.1);
                     }
-                    
+                }
+
+                .items2 {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 6px;
+                    overflow-y: auto;
+                    padding: 8px;
+                    background: rgba(0, 0, 0, 0.2);
+                    border-radius: $item-radius;
+                    flex: 1;
+                }
+
+                .take-all-button {
+                    @include sort-button;
+                    align-self: flex-start;
+                    padding: 8px 16px;
+                    font-size: 13px;
                 }
             }
-                .items2 
-                    {
-                        padding: 4%;
-                        flex-wrap: wrap;
-                        width: 600px;
-                        
-                        border-color: #000000;
-                        background-color: #00000091;
-                        border-width: 1px;
-                    }
-        }
-       
-    }
-    
-    
 
-    
+            .selecteditems {
+                @include sort-button;
+                align-self: flex-start;
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .box-information-main {
+                @include frosted-panel;
+                padding: 12px;
+                margin-top: auto;
+
+                .box-information {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    color: $color-text-secondary;
+                    font-size: 13px;
+
+                    .box-description {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+
+                        .icon {
+                            width: 32px;
+                            height: 32px;
+                            background-image: url('/ui/textures/left-click.png');
+                            background-position: center;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            flex-shrink: 0;
+                        }
+
+                        .icon2 {
+                            width: 32px;
+                            height: 32px;
+                            background-image: url('/ui/textures/rightclick2.png');
+                            background-position: center;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            flex-shrink: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

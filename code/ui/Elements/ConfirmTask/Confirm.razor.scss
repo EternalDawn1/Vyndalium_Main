@@ -1,55 +1,47 @@
-Confirm
-{
+@import "/ui/Hud/Style.scss";
+
+Confirm {
     position: relative;
-   
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.76);
-    pointer-events:all; 
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    pointer-events: all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    .confirm-dialog
-    {
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        width: 50%;
-        height: 50%;
-        background-color: rgb(36, 36, 36);
-        z-index: 100;
-        border-radius: 10px;
-        flex-direction: column;
-        .message{
-            position: relative;
-            width: 50%;
-            height: 50%;
-            color: rgb(255, 255, 255);
-            font-size: 20px;
-          
+    .confirm-dialog {
+        @include frosted-panel;
+        padding: 32px;
+        gap: 20px;
+        max-width: 500px;
+        text-align: center;
 
+        .message {
+            color: $color-text-primary;
+            font-size: 18px;
+            font-family: 'Geneva', sans-serif;
+            line-height: 1.5;
         }
-        .button
-        {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px;
-            width: 100px;
-            color:rgb(255, 255, 255);
-            height: 50px;
-            font-size: 32px;
-           
-            
+
+        .button {
+            @include sort-button;
+            padding: 12px 32px;
+            font-size: 16px;
+            min-width: 100px;
+            background: rgba(100, 150, 200, 0.1);
+            border-color: rgba(100, 150, 200, 0.25);
+            color: $color-text-primary;
+            border-radius: $item-radius;
             cursor: pointer;
-                &:hover{
-                    background-color: rgba(28, 56, 133, 0.5);
-                }
-            
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: rgba(100, 200, 255, 0.15);
+                border-color: rgba(100, 200, 255, 0.35);
+                color: $color-accent-blue;
+            }
         }
     }
-    
-    
-    
-    
-   
-    
 }

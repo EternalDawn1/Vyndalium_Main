@@ -6,9 +6,8 @@
     <SideButton OnClick=@(() =>
         FullScreenManager.Instance.Display(FullScreenManager.FullScreenPanel.InGameHud)) IsInverted=@(true)
         ImagePath="ui/hud/exit.gif" style="position: absolute; top: 30px; right: 0px; z-index: 100;" />
-    
-   
-    <div class="inventory-list" CanDragScroll="false" >
+
+    <div class="inventory-list" CanDragScroll="false">
         @switch (ActivePanel)
         {
             case PanelType.Inventory:
@@ -18,21 +17,21 @@
                         <div class="character-viewport">
                             <CharacterRenderer @ref=_renderer />
                         </div>
-                        
+
                         <div class="equipment-section">
-                            <div class="section-header">Ausrüstung</div>
-                            
+                            <div class="section-header">Equipment</div>
+
                             <!-- Head & Face Row -->
                             <div class="equipment-row">
                                 <div class="equipment-slot-wrapper">
-                                    <label class="slot-label">Kopf</label>
-                                    <InventorySlot EquipSlotIndex=@EquipSlot.Head 
+                                    <label class="slot-label">Head</label>
+                                    <InventorySlot EquipSlotIndex=@EquipSlot.Head
                                                 class="slot equipment-slot"
                                                 Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Head] />
                                 </div>
                                 <div class="equipment-slot-wrapper">
-                                    <label class="slot-label">Gesicht</label>
-                                    <InventorySlot EquipSlotIndex=@EquipSlot.Face 
+                                    <label class="slot-label">Face</label>
+                                    <InventorySlot EquipSlotIndex=@EquipSlot.Face
                                                 class="slot equipment-slot"
                                                 Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Face] />
                                 </div>
@@ -41,20 +40,20 @@
                             <!-- Body & Arms Row -->
                             <div class="equipment-row">
                                 <div class="equipment-slot-wrapper">
-                                    <label class="slot-label">Körper</label>
-                                    <InventorySlot EquipSlotIndex=@EquipSlot.Body 
+                                    <label class="slot-label">Body</label>
+                                    <InventorySlot EquipSlotIndex=@EquipSlot.Body
                                                 class="slot equipment-slot"
                                                 Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Body] />
                                 </div>
                                 <div class="equipment-slot-wrapper">
-                                    <label class="slot-label">Hände</label>
-                                    <InventorySlot EquipSlotIndex=@EquipSlot.Hand 
+                                    <label class="slot-label">Hands</label>
+                                    <InventorySlot EquipSlotIndex=@EquipSlot.Hand
                                                 class="slot equipment-slot"
                                                 Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Hand] />
                                 </div>
                                 <div class="equipment-slot-wrapper">
-                                    <label class="slot-label">Spange</label>
-                                    <InventorySlot EquipSlotIndex=@EquipSlot.Bracer 
+                                    <label class="slot-label">Bracer</label>
+                                    <InventorySlot EquipSlotIndex=@EquipSlot.Bracer
                                                 class="slot equipment-slot"
                                                 Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Bracer] />
                                 </div>
@@ -63,20 +62,20 @@
                             <!-- Legs & Feet Row -->
                             <div class="equipment-row">
                                 <div class="equipment-slot-wrapper">
-                                    <label class="slot-label">Beine</label>
-                                    <InventorySlot EquipSlotIndex=@EquipSlot.Legs 
+                                    <label class="slot-label">Legs</label>
+                                    <InventorySlot EquipSlotIndex=@EquipSlot.Legs
                                                 class="slot equipment-slot"
                                                 Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Legs] />
                                 </div>
                                 <div class="equipment-slot-wrapper">
-                                    <label class="slot-label">Füße</label>
-                                    <InventorySlot EquipSlotIndex=@EquipSlot.Feet 
+                                    <label class="slot-label">Feet</label>
+                                    <InventorySlot EquipSlotIndex=@EquipSlot.Feet
                                                 class="slot equipment-slot"
                                                 Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Feet] />
                                 </div>
                                 <div class="equipment-slot-wrapper">
-                                    <label class="slot-label">Gürtel</label>
-                                    <InventorySlot EquipSlotIndex=@EquipSlot.Belt 
+                                    <label class="slot-label">Belt</label>
+                                    <InventorySlot EquipSlotIndex=@EquipSlot.Belt
                                                 class="slot equipment-slot"
                                                 Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Belt] />
                                 </div>
@@ -85,8 +84,8 @@
                             <!-- Back/Cape Row -->
                             <div class="equipment-row">
                                 <div class="equipment-slot-wrapper full-width">
-                                    <label class="slot-label">Rücken</label>
-                                    <InventorySlot EquipSlotIndex=@EquipSlot.Back 
+                                    <label class="slot-label">Back</label>
+                                    <InventorySlot EquipSlotIndex=@EquipSlot.Back
                                                 class="slot equipment-slot"
                                                 Item=@Player.Local.Inventory.EquippedItems[(int)EquipSlot.Back] />
                                 </div>
@@ -106,7 +105,7 @@
                                     <div class="player-entry">
                                         @if (entry.IsHost)
                                         {
-                                            <span class="host-badge">👑</span>
+                                            <span class="host-badge">&#x1F451;</span>
                                         }
                                         <span class="player-name">@entry.DisplayName</span>
                                     </div>
@@ -118,30 +117,30 @@
                     <!-- RIGHT PANEL: Inventory & Tabs -->
                     <div class="inventory-panel-right">
                         <div class="inventory-tabs">
-                            <button class="tab-button @(true ? "active" : "")" @onclick="@(() => ShowPanel(PanelType.Inventory))">Rucksack</button>
-                            <button class="tab-button" @onclick="@(() => ShowPanel(PanelType.Food))">Charakter</button>
-                            <button class="tab-button" @onclick="@(() => ShowPanel(PanelType.Abilities))">Fähigkeiten</button>
+                            <button class="tab-button @(true ? "active" : "")" @onclick="@(() => ShowPanel(PanelType.Inventory))">Backpack</button>
+                            <button class="tab-button" @onclick="@(() => ShowPanel(PanelType.Food))">Character</button>
+                            <button class="tab-button" @onclick="@(() => ShowPanel(PanelType.Abilities))">Abilities</button>
                         </div>
 
                         <!-- INVENTORY GRID -->
                         <div class="inventory-section">
                             <div class="inventory-controls">
-                                <span class="section-header">Gegenstände (@Player.Local.Inventory.BackpackItems.Count)</span>
+                                <span class="section-header">Items (@Player.Local.Inventory.BackpackItems.Count)</span>
                                 <div class="sort-buttons">
-                                    <button class="sort-btn" @onclick="@(() => SortBackpackItems(SortOption.Tier))" title="Nach Seltenheit sortieren">
-                                        <span class="sort-icon">▲▼</span>
+                                    <button class="sort-btn" @onclick="@(() => SortBackpackItems(SortOption.Tier))" title="Sort by rarity">
+                                        <span class="sort-icon">&#x25B2;&#x25BC;</span>
                                     </button>
-                                    <button class="sort-btn" @onclick="@(() => SortBackpackItems(SortOption.ItemLevel))" title="Nach Gegenstandsstufe sortieren">
+                                    <button class="sort-btn" @onclick="@(() => SortBackpackItems(SortOption.ItemLevel))" title="Sort by item level">
                                         <span class="sort-icon">Lvl</span>
                                     </button>
-                                    <button class="sort-btn" @onclick="@(() => SortBackpackItems(SortOption.RequiredLevel))" title="Nach erforderlicher Stufe sortieren">
+                                    <button class="sort-btn" @onclick="@(() => SortBackpackItems(SortOption.RequiredLevel))" title="Sort by required level">
                                         <span class="sort-icon">Req</span>
                                     </button>
-                                    <button class="sort-btn" @onclick="@(() => SortBackpackItems(SortOption.Material))" title="Nach Material sortieren">
+                                    <button class="sort-btn" @onclick="@(() => SortBackpackItems(SortOption.Material))" title="Sort by material">
                                         <span class="sort-icon">Mat</span>
                                     </button>
-                                    <button class="sort-btn" @onclick="@(() => SortBackpackItems(SortOption.Favorite))" title="Favoriten anzeigen">
-                                        <span class="sort-icon">★</span>
+                                    <button class="sort-btn" @onclick="@(() => SortBackpackItems(SortOption.Favorite))" title="Show favorites">
+                                        <span class="sort-icon">&#x2605;</span>
                                     </button>
                                 </div>
                             </div>
@@ -163,22 +162,22 @@
                         {
                             <div class="bagpack-section">
                                 <div class="inventory-controls">
-                                    <span class="section-header bagpack-header">Tasche (@backpackBagItems.Count)</span>
+                                    <span class="section-header bagpack-header">Bag (@backpackBagItems.Count)</span>
                                     <div class="sort-buttons">
-                                        <button class="sort-btn" @onclick="@(() => SortBackpackBagItems(SortOption.Tier))" title="Nach Seltenheit sortieren">
-                                            <span class="sort-icon">▲▼</span>
+                                        <button class="sort-btn" @onclick="@(() => SortBackpackBagItems(SortOption.Tier))" title="Sort by rarity">
+                                            <span class="sort-icon">&#x25B2;&#x25BC;</span>
                                         </button>
-                                        <button class="sort-btn" @onclick="@(() => SortBackpackBagItems(SortOption.ItemLevel))" title="Nach Gegenstandsstufe sortieren">
+                                        <button class="sort-btn" @onclick="@(() => SortBackpackBagItems(SortOption.ItemLevel))" title="Sort by item level">
                                             <span class="sort-icon">Lvl</span>
                                         </button>
-                                        <button class="sort-btn" @onclick="@(() => SortBackpackBagItems(SortOption.RequiredLevel))" title="Nach erforderlicher Stufe sortieren">
+                                        <button class="sort-btn" @onclick="@(() => SortBackpackBagItems(SortOption.RequiredLevel))" title="Sort by required level">
                                             <span class="sort-icon">Req</span>
                                         </button>
-                                        <button class="sort-btn" @onclick="@(() => SortBackpackBagItems(SortOption.Material))" title="Nach Material sortieren">
+                                        <button class="sort-btn" @onclick="@(() => SortBackpackBagItems(SortOption.Material))" title="Sort by material">
                                             <span class="sort-icon">Mat</span>
                                         </button>
-                                        <button class="sort-btn" @onclick="@(() => SortBackpackBagItems(SortOption.Favorite))" title="Favoriten anzeigen">
-                                            <span class="sort-icon">★</span>
+                                        <button class="sort-btn" @onclick="@(() => SortBackpackBagItems(SortOption.Favorite))" title="Show favorites">
+                                            <span class="sort-icon">&#x2605;</span>
                                         </button>
                                     </div>
                                 </div>
@@ -215,7 +214,6 @@
 
     private void SortBackpackItems(SortOption sortOption)
     {
-        // Umschalten der Sortierrichtung
         currentSortDirection = currentSortDirection == SortDirection.Ascending
         ? SortDirection.Descending
         : SortDirection.Ascending;
@@ -224,7 +222,6 @@
     }
     private void SortBackpackBagItems(SortOption sortOption)
     {
-        // Umschalten der Sortierrichtung
         currentSortDirection = currentSortDirection == SortDirection.Ascending
         ? SortDirection.Descending
         : SortDirection.Ascending;
@@ -266,7 +263,6 @@
     }
     public void OnChanged()
     {
-        // _renderer.Refresh();
     }
 
     protected override int BuildHash()

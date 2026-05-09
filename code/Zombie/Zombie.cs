@@ -54,7 +54,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Property]
 	[Category( "Stats" )]
 
-	[Range( 0f, 600f, 10f, false )]
+	[Range( 0f, 600f ), Step( 10f )]
 	public float WalkSpeed { get; set; } = 90f;
 
 	/// <summary>
@@ -63,7 +63,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Property]
 	[Category( "Stats" )]
 
-	[Range( 0f, 600f, 10f, false )]
+	[Range( 0f, 600f ), Step( 10f )]
 	public float RunSpeed { get; set; } = 180f;
 
 	/// <summary>
@@ -79,7 +79,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[Range( 30f, 2000f, 10f, false )]
+	[Range( 30f, 2000f ), Step( 10f )]
 	public float AttackRange { get; private set; } = 80f;
 
 	/// <summary>
@@ -87,7 +87,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[Range( 0.5f, 10f, 0.1f, false )]
+	[Range( 0.5f, 10f ), Step( 0.1f )]
 	public float AttackCooldown { get; private set; } = 5f;
 
 	/// <summary>
@@ -103,7 +103,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[Range( 0f, 1024f, 16f, false )]
+	[Range( 0f, 1024f ), Step( 16f )]
 	public float DetectRange { get; set; } = 356f;
 
 	/// <summary>
@@ -111,7 +111,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	/// </summary>
 	[Property]
 	[Category( "Stats" )]
-	[Range( 0f, 2024f, 16f, false )]
+	[Range( 0f, 2024f ), Step( 16f )]
 	public float VisionRange { get; set; } = 512f;
 
 	/// <summary>
@@ -134,7 +134,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Property]
 	[Category( "Stats" )]
 	[ShowIf( "Idle", true )]
-	[Range( 0.1f, 10f, 0.1f, false )]
+	[Range( 0.1f, 10f ), Step( 0.1f )]
 	public float MinimumIdleCooldown { get; set; } = 4;
 
 	/// <summary>
@@ -143,7 +143,7 @@ public partial class Npc : Component, IHealthComponent ,IMinimapElement
 	[Property]
 	[Category( "Stats" )]
 	[ShowIf( "Idle", true )]
-	[Range( 0.1f, 20f, 0.1f, false )]
+	[Range( 0.1f, 20f ), Step( 0.1f )]
 	public float MaximumIdleCooldown { get; set; } = 6;
 
 	/// <summary>

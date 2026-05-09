@@ -4,7 +4,7 @@ Inventory {
     position: relative;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(20, 20, 25, 0.95) 0%, rgba(25, 30, 40, 0.95) 100%);
+    background: $panel-bg;
     flex-direction: column;
     padding: 0;
     overflow: hidden;
@@ -45,17 +45,13 @@ Inventory {
     overflow: hidden;
 }
 
-/* LEFT PANEL: CHARACTER & EQUIPMENT */
 .character-panel {
     flex: 0 0 350px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    @include frosted-panel;
     padding: 16px;
-    backdrop-filter: blur(10px);
     overflow-y: auto;
 }
 
@@ -63,7 +59,7 @@ Inventory {
     width: 100%;
     aspect-ratio: 0.75;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(50, 40, 60, 0.3) 100%);
-    border-radius: 8px;
+    border-radius: $section-radius;
     border: 1px solid rgba(100, 150, 255, 0.15);
     overflow: hidden;
 
@@ -73,7 +69,6 @@ Inventory {
     }
 }
 
-/* EQUIPMENT SECTION */
 .equipment-section {
     display: flex;
     flex-direction: column;
@@ -81,12 +76,7 @@ Inventory {
 }
 
 .section-header {
-    font-size: 13px;
-    font-weight: 700;
-    color: rgba(200, 220, 255, 0.9);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    opacity: 0.8;
+    @include section-header;
 }
 
 .equipment-row {
@@ -114,35 +104,19 @@ Inventory {
 
 .slot-label {
     font-size: 11px;
-    color: rgba(200, 220, 255, 0.6);
+    color: $color-text-muted;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
 
 .equipment-slot {
-    width: 60px;
-    height: 60px;
-    border-radius: 8px;
-    border: 2px solid rgba(100, 150, 200, 0.3);
-    background: rgba(50, 70, 100, 0.2);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover {
-        border-color: rgba(100, 200, 255, 0.6);
-        background: rgba(50, 100, 150, 0.3);
-        box-shadow: 0 0 12px rgba(100, 200, 255, 0.2);
-    }
+    @include slot-base(60px);
 }
 
-/* PLAYER INFO CARD */
 .player-info-card {
     background: linear-gradient(135deg, rgba(80, 120, 200, 0.1) 0%, rgba(150, 100, 200, 0.1) 100%);
-    border-radius: 8px;
+    border-radius: $section-radius;
     border: 1px solid rgba(100, 150, 255, 0.2);
     padding: 12px;
     margin-top: auto;
@@ -159,7 +133,7 @@ Inventory {
 
 .stat-label {
     font-size: 12px;
-    color: rgba(200, 220, 255, 0.7);
+    color: $color-text-secondary;
     font-weight: 600;
     text-transform: uppercase;
 }
@@ -167,7 +141,7 @@ Inventory {
 .stat-value {
     font-size: 16px;
     font-weight: 700;
-    color: rgba(100, 200, 255, 0.95);
+    color: $color-accent-blue;
 }
 
 .online-players {
@@ -178,7 +152,7 @@ Inventory {
 
 .players-header {
     font-size: 11px;
-    color: rgba(200, 220, 255, 0.6);
+    color: $color-text-muted;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.3px;
@@ -190,10 +164,10 @@ Inventory {
     align-items: center;
     gap: 6px;
     font-size: 12px;
-    color: rgba(200, 220, 255, 0.8);
+    color: $color-text-secondary;
     padding: 4px 8px;
     background: rgba(100, 150, 200, 0.05);
-    border-radius: 4px;
+    border-radius: $item-radius - 2px;
 }
 
 .host-badge {
@@ -207,58 +181,29 @@ Inventory {
     white-space: nowrap;
 }
 
-/* RIGHT PANEL: INVENTORY */
 .inventory-panel-right {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    @include frosted-panel;
     padding: 16px;
-    backdrop-filter: blur(10px);
     overflow: hidden;
 }
 
-/* TABS */
 .inventory-tabs {
     display: flex;
     gap: 8px;
     background: rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+    border-radius: $section-radius;
     padding: 4px;
+    flex-shrink: 0;
 }
 
 .tab-button {
-    flex: 1;
-    padding: 10px 12px;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    color: rgba(200, 220, 255, 0.6);
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-
-    &:hover {
-        background: rgba(100, 150, 200, 0.1);
-        color: rgba(200, 220, 255, 0.8);
-    }
-
-    &.active {
-        background: rgba(100, 200, 255, 0.2);
-        color: rgba(100, 200, 255, 0.95);
-        border-color: rgba(100, 200, 255, 0.3);
-        box-shadow: 0 0 8px rgba(100, 200, 255, 0.15);
-    }
+    @include tab-button;
 }
 
-/* INVENTORY SECTION */
 .inventory-section,
 .bagpack-section {
     display: flex;
@@ -274,44 +219,27 @@ Inventory {
     flex: 0 0 auto;
 }
 
-/* INVENTORY CONTROLS */
 .inventory-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
     padding: 0 4px;
+    flex-shrink: 0;
 }
 
 .bagpack-header {
     background: linear-gradient(90deg, rgba(82, 74, 74, 0.3) 0%, rgba(3, 110, 35, 0.2) 50%, rgba(10, 211, 53, 0.15) 100%);
-    color: rgba(100, 220, 120, 0.9);
+    color: $color-accent-green;
 }
 
-/* SORT BUTTONS */
 .sort-buttons {
     display: flex;
     gap: 4px;
 }
 
 .sort-btn {
-    padding: 6px 8px;
-    background: rgba(100, 150, 200, 0.1);
-    border: 1px solid rgba(100, 150, 200, 0.2);
-    border-radius: 4px;
-    color: rgba(200, 220, 255, 0.7);
-    font-size: 11px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    min-width: 36px;
-    text-align: center;
-
-    &:hover {
-        background: rgba(100, 150, 200, 0.2);
-        border-color: rgba(100, 200, 255, 0.4);
-        color: rgba(100, 200, 255, 0.9);
-    }
+    @include sort-button;
 }
 
 .sort-icon {
@@ -319,7 +247,6 @@ Inventory {
     font-weight: 700;
 }
 
-/* INVENTORY GRIDS */
 .inventory-grid,
 .bagpack-grid {
     display: flex;
@@ -339,9 +266,8 @@ Inventory {
     min-width: 60px;
     width: 60px;
     height: 60px;
-    border-radius: 6px;
+    border-radius: $item-radius;
 }
-
 
 @keyframes coinRotate {
     0% {
@@ -350,635 +276,6 @@ Inventory {
     50% {
         transform: rotate(5deg) scale(1.15);
     }
-    100% {
-        transform: rotate(-5deg) scale(1);
-    }
-}
-
-    
-
-    .list {
-        position: absolute;
-        
-        width: 100%;
-        height: 100%;
-        
-
-        .food {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                 transition: opacity 0.5s ease;
-        
-                &:intro {
-                    opacity: 0;
-                }
-            }
-           
-        .inventory 
-        {
-            
-            position: relative;
-            width: 100%;
-            height: 100%;
-            flex-direction: column;
-            transition: opacity 0.5s ease;
-            
-            &:intro {
-                opacity: 0;
-            }
-            
-           
-
-            
-            
-            
-
-                .section2 {
-        
-                flex-direction: column;
-                overflow-x: hidden;
-                overflow-y: scroll;
-                position: absolute;
-                
-                width: 100%;
-                height: 100%;
-                background-color: rgba(131, 131, 131, 0);
-               
-                z-index: -100;
-
-                .box {
-                
-                        gap: 10px;
-                        position: absolute;
-                        left: 3%;
-                        top: 14%;
-                        width: 2%;
-                        
-                        height: 20%;
-                        z-index: 100;
-                        flex-direction: column;
-                      
-                        align-items: center;
-                
-                        .sort {
-                            
-                            position: relative;
-                            font-size: 20%;
-                            
-
-                            font-weight: bold;
-                        
-                            color: rgb(255, 255, 255);
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgb(0, 0, 0);
-                            border-color: rgba(85, 85, 85, 0.918);
-                            
-                            border-width: 1px;
-                            justify-content: center;
-                            align-items: center;
-                            background-size: 100%;
-                        
-                        
-                            background-position: center;
-                            border-radius: 5px;
-                
-                
-                            background-position: center;
-                            border-radius: 5px;
-
-                            .tooltip {
-                                    opacity: 0;
-                                    transition: opacity 0.3s;
-                                    background-color: rgb(121, 14, 14);
-                                    box-shadow: 5px 5px 0px rgb(0, 0, 0);
-                                    width: 100%;
-                                    justify-content: center;
-                                    text-shadow: 3px 1px 0px black;
-                                    color: #fff;
-                                    text-align: center;
-                                    padding: 5px;
-                                    border-radius: 5px;
-                                    position: absolute;
-                                    top: 0%;
-                                    /* Position über dem Button */
-                                    left: 0%;
-                                    transform: translateX(-100%);
-                                    white-space: nowrap;
-                                    width: 150%;
-                                    z-index: 1000;
-                                    font-size: 15px;
-                                    font-weight: bold;
-                                    font-family: 'Geneva';
-                                    border-width: 1px;
-                                    border-color: rgb(0, 0, 0);
-                            
-                                }
-                            
-                                &:hover .tooltip {
-                                    opacity: 1;
-                                }
-                
-                            :hover:not(.disabled) {
-                                    cursor: pointer;
-                                    border-radius: 5%;
-                                    transform: scale(1.1);
-                                }
-                
-                                &:active:not(.disabled) {
-                                padding: 0 1%;
-                                border-radius: 5%;
-                                align-items: center;
-                            }
-                
-                        }
-                
-                
-                    }
-        
-                .box2 {
-                    
-                    gap: 10px;
-                    position: absolute;
-                    left: 5%;
-                    top: 44.5%;
-                    width: 90%;
-                   
-                    height: 3%;
-                    z-index: 100;
-                    
-                    align-items: center;
-                    
-                    .sort {
-                        
-                        flex-direction: row;
-                        position: relative;
-                        font-size: 20%;
-                       
-                        font-weight: bold;
-                        
-                        color: rgb(255, 255, 255);
-                        width: 5%;
-                        height: 70%;
-                        background-color: rgb(0, 0, 0);
-                        border-width: 1px;
-                        justify-content: center;
-                        align-items: center;
-                        background-size: 100%;
-                        border-color: rgba(255, 255, 255, 0.034);
-        
-                        background-position: center;
-                        border-radius: 5px;
-
-                        .tooltip {
-                                opacity: 0;
-                                transition: opacity 0.3s;
-                                background-color: rgb(121, 14, 14);
-                                box-shadow: 2px 2px 2px rgba(160, 154, 154, 0.932);
-                                width: 100%;
-                                justify-content: center;
-                                text-shadow: 3px 1px 0px black;
-                                color: #fff;
-                                text-align: center;
-                                padding: 5px;
-                                border-radius: 5px;
-                                position: absolute;
-                                top: -50px;
-                                /* Position über dem Button */
-                                left: 50%;
-                                transform: translateX(-50%);
-                                white-space: nowrap;
-                                z-index: 1000;
-                                font-size: 18px;
-                                font-weight: bold;
-                                font-family: 'Geneva';
-                                border-width: 1px;
-                                border-color: rgba(255, 0, 0, 0.685);
-                                
-                            }
-                        
-                            &:hover .tooltip {
-                                opacity: 1;
-                            }
-        
-                        :hover:not(.disabled) {
-                            cursor: pointer;
-                            border-radius: 5%;
-                        }
-        
-                        &:active:not(.disabled) {
-                            background-color: rgb(250, 134, 39);
-                            transform: scale(1.1);
-                            align-items: center;
-                        }
-        
-                    }
-                    
-        
-                }
-        
-                                
-                                .Hello2 {
-                                    position: absolute;
-                                    width: 9%;
-                                    height: 4%;
-                                    top:3%;
-                                    left: 5%;
-                                    font-size: 26px;
-                                    font-family: 'Geneva', sans-serif;
-                                    color: white;
-                                    z-index: 100;
-                                    box-shadow: 5px 5px 0px rgb(0, 0, 0);
-                                  
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    background-position: center;
-                                    background-size: 100%;
-                                    opacity: 1;
-                                    text-align: center;
-                                    text-shadow: 2px 2px 0px rgb(0, 0, 0);
-                                    border-radius: 5px;
-                                    border-width: 1px;
-                                    border-color: rgba(255, 255, 255, 0.034);
-                                    background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgba(3, 110, 35, 0.432) 50%, rgb(23, 116, 0) 100%);
-
-                                    &:hover {
-                                            background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgba(110, 108, 3, 0.432) 50%, rgb(116, 104, 0) 100%);
-                                        }
-                                   
-                                }
-                                .Hello3 {
-                                    position: absolute;
-                                    width: 9%;
-                                    height: 4%;
-                                    top:3%;
-                                    left: 15%;
-                                    font-size: 26px;
-                                    font-family: 'Geneva', sans-serif;
-                                    color: white;
-                                    z-index: 100;
-                                    box-shadow: 5px 5px 0px rgb(0, 0, 0);
-                                  
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    background-position: center;
-                                    background-size: 100%;
-                                    opacity: 1;
-                                    text-align: center;
-                                    text-shadow: 2px 2px 0px rgb(0, 0, 0);
-                                    border-radius: 5px;
-                                    border-width: 1px;
-                                    border-color: rgba(255, 255, 255, 0.034);
-
-                                    &:hover{
-                                        background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgba(110, 108, 3, 0.432) 50%, rgb(116, 104, 0) 100%);
-                                    }
-                                    
-                                }
-                                .char2 {
-                                    position: absolute;
-                                    bottom: 12%;
-                                    left: 50%;
-                                    width: 25.2%;
-                                    height: 80%;
-
-                                    .playic {
-                                            position: absolute;
-                                            bottom: 3.2%;
-                                            left: 28%;
-                                            width: 32px;
-                                            height: 32px;
-                                            z-index: 100;
-                                           
-                                            background-image: url("/ui/hud/vynd.png");
-                                            background-size: contain;
-                                            background-repeat: no-repeat;
-                                            
-                                            filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
-                                            transform-origin: center;
-                                            animation: coinRotate 4s infinite ease-in-out;
-                                        }
-
-                                    .playe4{
-                                        position: absolute;
-                                     
-                                        
-                                       z-index: 1000;
-                                        
-                                        width: 100%;
-                                        height:5%;
-                                        font-size: 32px;
-                                        font-family: 'Geneva', sans-serif;
-                                        color: white;
-                                        flex-direction: column;
-                                        display: flex;
-                                        justify-content: center;
-                                        align-items: center;
-                                        background-image: url("/ui/textures/b.png");
-                                        background: linear-gradient(to right,
-                                                rgba(0, 0, 0, 0.6) 0%,
-                                                rgba(25, 0, 255, 0.726) 50%,
-                                                rgba(0, 0, 0, 0.6) 100%);
-                                        border-radius: 12px;
-                                        color: rgb(255, 254, 254);
-                                        border: 1px solid rgba(46, 46, 252, 0.534);
-                                        
-                                      
-                                        
-                                        
-                                       
-                                        
-                                    }
-                                    
-                                    .playe2 {
-                                        z-index: 10; 
-                                        flex-direction: column-reverse;
-                                        width: 100%;
-                                        gap: 8px;
-                                        padding: 16px;
-                                        background-image: url("/ui/textures/b.png");
-                                        background: linear-gradient(to right,
-                                                rgba(0, 0, 0, 0.6) 0%,
-                                                rgba(25, 0, 255, 0.726) 50%,
-                                                rgba(0, 0, 0, 0.6) 100%);
-                                        border-radius: 12px;
-                                        color: rgb(255, 254, 254);
-                                        border: 1px solid rgba(46, 46, 252, 0.534);
-                                        backdrop-filter: blur(5px);
-                                        
-
-                                        
-                                        .Vyndn {
-                                            width: 100%;
-                                            font-size: 28px;
-                                            color: rgba(204, 184, 0, 0.74);
-                                            justify-content: center;
-                                            font-family: Geneva;
-                                            text-align: center;
-                                            text-shadow: 1px 1px 0px rgb(0, 0, 0);
-                                            font-weight: bold;
-                                            
-                                            background: linear-gradient(to right,
-                                                    rgba(0, 0, 0, 0.8) 0%,
-                                                    rgba(50, 50, 0, 0.6) 50%,
-                                                    rgba(0, 0, 0, 0.8) 100%);
-                                          
-                                            border-radius: 8px;
-                                            padding: 10px;
-                                            transition: all 0.3s ease;
-                        
-                                            &:hover {
-                                                transform: scale(1.03);
-                                                
-                                            }
-                                        }
-                                    }
-                                }
-        
-                .items {
-                    position: relative;
-                    flex-wrap: wrap;
-                    width: 700px;   
-                    left: 5%;
-                    top:150px;
-                    gap: 4px;
-                    height: auto;
-                    box-shadow: 5px 5px 0px rgb(0, 0, 0);
-                    background-color: rgba(0, 0, 0, 0.5);
-                    border-radius: 5px;
-                    border-width: 1px;
-                    border-color: rgba(255, 255, 255, 0.034);
-                    justify-content: center;
-                    align-items: center;
-                    
-                }
-              
-
-        
-        
-            }
-
-
-
-            .section 
-            {
-               
-                position: absolute;
-                    right: 24%;
-                    bottom: 20%;
-                    width: 25%;
-                    height: 60%;
-                    top: 10%;
-                    z-index: -10;
-                
-              
-              
-               
-
-                .character
-                {
-                   
-                    justify-content: space-between;
-                    
-                   
-
-                        .char
-                        {
-                            position: relative;
-                               top: 13%;
-                                z-index: -100;
-                                width: 100%;
-                                height: 100%;
-                                    
-                                
-                                   
-                                    
-                            
-                        }
-                    
-                    
-                        .box {
-                            position: absolute;
-                            width: 80%;
-                            height: 83%;
-                            top: 5%;
-                            left: 100%;
-                            z-index: -100;
-                            background: linear-gradient(to right,
-                                    rgba(36, 45, 179, 0.8) 0%,
-                                    rgba(41, 78, 146, 0.8) 50%,
-                                    rgba(0, 0, 0, 0.8) 100%);
-                            border-radius: 8px;
-                            border: 1px solid rgba(255, 255, 255, 0.1);
-                            justify-content: center;
-                            align-items: center;
-                            box-shadow: 5 5 0px rgb(0, 0, 0);
-
-                            
-                            .equipment-wrapper {
-                               
-                                right: -100%;
-                                top: 15%;
-                                width: 100%;
-                                z-index: 1000;
-                                display: flex;
-                                flex-direction: column;
-                                gap: 10px;
-                               
-                                border-radius: 8px;
-                                justify-content: center;
-                                align-items: center;
-                               
-                               
-                                
-                                .equipment-title {
-                                    position: absolute;
-                                    top: 1%;
-                                    font-family: 'Geneva', sans-serif;
-                                    font-size: 24px;
-                                    color: white;
-                                    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-                                    text-align: center;
-                                    
-                                    font-weight: bold;
-                                    background: linear-gradient(to right,
-                                            rgba(0, 0, 0, 0.8) 0%,
-                                            rgba(50, 50, 50, 0.8) 50%,
-                                            rgba(0, 0, 0, 0.8) 100%);
-                                    border-radius: 8px;
-                                    padding: 0 10px;
-                                    transition: all 0.3s ease;
-                                    box-shadow: 5 5 0px rgb(0, 0, 0);
-                                    
-                                }
-                                
-                                .equipment-slots {
-                                    display: flex;
-                                    flex-direction: column;
-                                    gap: 15px;
-                                    width: 100%;
-                                    
-                                    .equipment-row {
-                                        display: flex;
-                                        justify-content: center;
-                                        gap: 10px;
-                                        
-                                        
-                                        .slot {
-                                            border-radius: 6px;
-                                           
-                                            box-shadow: 5 5 10 3 rgb(0, 0, 0);
-                                            transition: all 0.2s ease;
-                                            
-                                            &:hover {
-                                                transform: scale(1.05);
-                                                border-color: rgba(255, 100, 100, 0.8);
-                                            }
-                                            
-                                            &.head-slot {
-                                                background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(40, 40, 40, 0.8) 50%, rgba(60, 0, 0, 0.8) 100%);
-                                                
-                                            }
-                                            
-                                            &.face-slot {
-                                                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.8) 50%, rgba(30, 0, 0, 0.8) 100%);
-                                            }
-                                            
-                                            &.body-slot {
-                                                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.8) 50%, rgba(30, 0, 0, 0.8) 100%);
-                                            }
-                                            
-                                            &.hand-slot {
-                                                background: linear-gradient(to right, rgba(60, 7, 7, 0.8) 0%, rgba(45, 9, 9, 0.8) 50%, rgba(20, 0, 0, 0.8) 100%);
-                                            }
-                                            
-                                            &.back-slot {
-                                                background: linear-gradient(to right, rgba(90, 10, 10, 0.8) 0%, rgba(70, 12, 12, 0.8) 50%, rgba(40, 0, 0, 0.8) 100%);
-                                            }
-                                            
-                                            &.bracer-slot {
-                                                background: linear-gradient(to right, rgba(70, 7, 7, 0.8) 0%, rgba(55, 9, 9, 0.8) 50%, rgba(25, 0, 0, 0.8) 100%);
-                                            }
-                                            
-                                            &.legs-slot {
-                                                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.8) 50%, rgba(30, 0, 0, 0.8) 100%);
-                                            }
-                                            
-                                            &.belt-slot {
-                                                background: linear-gradient(to right, rgba(60, 7, 7, 0.8) 0%, rgba(45, 9, 9, 0.8) 50%, rgba(20, 0, 0, 0.8) 100%);
-                                            }
-                                            
-                                            &.feet-slot {
-                                                background: linear-gradient(to right, rgba(80, 7, 7, 0.8) 0%, rgba(65, 9, 9, 0.8) 50%, rgba(30, 0, 0, 0.8) 100%);
-                                            }
-                                        }
-                                    }
-                                    
-                                    .helmet-row {
-                                        width: 100%;
-                                        filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.5));
-                                        
-                                    }
-                                    
-                                    .armor-row {
-                                        width: 100%;
-                                        filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.5));
-                                    }
-                                    
-                                    .legs-row {
-                                        width: 100%;
-                                        filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.5));
-                                    }
-                                    
-                                    .feet-row {
-                                        width: 100%;
-                                        justify-content: center;
-                                        filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.5));
-                                    }
-                                }
-                            }
-                        }
-                
-                    
-                }
-                
-            }
-
-        }
-
-    }
-
-    
-    
-    
-    
-        
-
-
-
-
-
-@keyframes blink {
-    0% {
-        color: white;
-    }
-
-    100% {
-        color: red;
-    }
-}
-@keyframes coinRotate {
-    0% {
-        transform: rotate(-5deg) scale(1);
-    }
-
-    50% {
-        transform: rotate(5deg) scale(1.15);
-    }
-
     100% {
         transform: rotate(-5deg) scale(1);
     }

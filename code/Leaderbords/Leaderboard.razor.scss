@@ -1,190 +1,129 @@
+@import "/ui/Hud/Style.scss";
+
 Leaderboard {
     position: relative;
     width: 100%;
     height: 100%;
     pointer-events: all;
     flex-direction: column;
+    background: $panel-bg;
+    backdrop-filter: $fullscreen-blur;
+    font-family: 'Geneva', sans-serif;
+
     .exit-button {
-    
-    
-    
-            z-index: 100;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 32px;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            background-image: url(/ui/hud/exit.gif);
-            background-position: center;
-            background-size: cover;
-    
-            color: white;
-            border-width: 5px;
-            border-color: black;
-            right: 5%;
-            top: 5%;
-            padding: 5px;
-            cursor: pointer;
-    
-            :hover {
-    
-    
-    
-                position: relative;
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                align-items: center;
-                justify-content: center;
-    
-            }
+        position: absolute;
+        z-index: 100;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-image: url(/ui/hud/exit.gif);
+        background-position: center;
+        background-size: cover;
+        right: 20px;
+        top: 20px;
+        cursor: pointer;
+        border: 2px solid rgba(0, 0, 0, 0.5);
+        transition: all 0.2s ease;
+
+        &:hover {
+            transform: scale(1.1);
         }
+    }
 
     .header {
-        position: relative;
+        @include frosted-panel;
         width: 100%;
-        bottom: 0%;
-        height: 25%;
-        background-color: #ffffff00;
-        font-size: 48px;
-        color:white;
+        padding: 16px;
+        font-size: 32px;
+        color: $color-accent-blue;
         justify-content: center;
         align-items: center;
-        display: flex;
-        border-width: 10px;
-        font-weight: bold;
-        border-radius: 100px;
-        border-top-color: rgb(255, 255, 255);
-        border-top-width: 16px;
-        border-bottom-color: rgba(255, 255, 255, 0.863);
-        border-bottom-width: 16px;
-        border-right-color: rgba(245, 222, 179, 0);
-        border-left-color: rgba(245, 222, 179, 0);
-
-        
+        font-weight: 700;
+        flex-shrink: 0;
     }
 
     .main-panel {
-        position: relative;
-        width: 100%;
-        height: 100%;
+        flex: 1;
+        display: flex;
         flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-        
+        gap: 20px;
+        padding: 20px;
+        overflow: hidden;
 
         .header2 {
-            position: relative;
-            width:100%;
-            height: 100%;
-            color:white;
-            background-color: rgba(0, 36, 82, 0.39);
-            background-image: url("/ui/hud/background.gif");
-            gap: 50px;
-            background-size: 100%;
-            font-size: 45px;
-            border-width: 50px;
-            padding: 50px;
-            align-items: center;
-            font-weight: bold;
-            border-width: 10px;
-            border-color: #000000;
+            flex: 1;
+            @include frosted-panel;
+            padding: 16px;
+            display: flex;
             flex-direction: column;
-           
-            pointer-events: all;
+            gap: 12px;
+            overflow: hidden;
 
-           
-            
+            > :first-child {
+                @include section-header;
+                font-size: 18px;
+                text-align: center;
+                color: $color-accent-blue;
+                flex-shrink: 0;
+            }
 
             .entries {
-                position: relative;
-                
+                display: flex;
                 flex-direction: column;
-                width: 100%;
-                
-                height: 100%;
-               
-                font-size: 25px;
-                gap: 25px;
-                overflow-y: scroll;
-                
+                gap: 4px;
+                overflow-y: auto;
+                flex: 1;
 
                 .entry {
-                    height: 5%;
-                    font-size: 25px;
-                    justify-content: space-between;
+                    display: flex;
                     align-items: center;
-                   
-                    padding: 5px 50px;
-                        align-items: center;
-                        border-radius: 10px;
+                    padding: 6px 12px;
+                    background: rgba(0, 0, 0, 0.2);
+                    border-radius: $item-radius;
+                    border: 1px solid rgba(255, 255, 255, 0.04);
+                    transition: all 0.2s ease;
+                    flex-shrink: 0;
+
+                    &:hover {
+                        background: rgba(100, 150, 200, 0.06);
+                        border-color: rgba(100, 200, 255, 0.1);
+                    }
 
                     .rank {
-                        font-size: 25px;
-                        color: rgb(255, 255, 255);
-                      
-                        padding: 5px 50px;
-                            align-items: center;
-                            border-radius: 10px;
+                        width: 60px;
+                        color: $color-text-muted;
+                        font-size: 14px;
+                        font-weight: 600;
                     }
 
                     .name {
-                        font-size: 25px;
-                        color: rgb(255, 255, 255);
-                       
-                        padding: 5px 50px;
-                            align-items: center;
-                            border-radius: 10px;
+                        flex: 1;
+                        color: $color-text-primary;
+                        font-size: 14px;
+                        font-weight: 600;
                     }
 
                     .value {
-                        font-size: 25px;
-                        color: rgb(255, 255, 255);
-                   
-                        padding: 5px 50px;
-                            align-items: center;
-                            border-radius: 10px;
-                        
+                        width: 100px;
+                        text-align: right;
+                        color: $color-accent-blue;
+                        font-size: 14px;
+                        font-weight: 700;
                     }
 
                     &.top-rank {
+                        background: rgba(255, 215, 0, 0.08);
+                        border-color: rgba(255, 215, 0, 0.2);
+
                         .rank, .name, .value {
-                            color: gold;
-                            background-image: url("/ui/hud/gold3.gif");
-                            padding: 10px 50px;
-                            border-radius: 10px;
-                            font-style: oblique;
-                            font-weight: bolder;
-                            align-items: center;
-                         
-                            
+                            color: $color-accent-gold;
                         }
                     }
 
                     &.top-ten {
-                        .rank, .name, .value {
-                            color: rgb(255, 255, 255);
-                            font-size: 25px;
-                            background-image: url("/ui/hud/pink.gif");
-                            padding: 5px 50px;
-                            align-items: center;
-                            border-radius: 10px;
-                          
-                        }
+                        background: rgba(100, 150, 200, 0.05);
+                        border-color: rgba(100, 150, 200, 0.12);
                     }
-
-                    &.rank-2 { .rank, .name, .value { opacity: 1; } }
-                    &.rank-3 { .rank, .name, .value { opacity: 0.9; } }
-                    &.rank-4 { .rank, .name, .value { opacity: 0.8; } }
-                    &.rank-5 { .rank, .name, .value { opacity: 0.7; } }
-                    &.rank-6 { .rank, .name, .value { opacity: 0.6; } }
-                    &.rank-7 { .rank, .name, .value { opacity: 0.5; } }
-                    &.rank-8 { .rank, .name, .value { opacity: 0.4; } }
-                    &.rank-9 { .rank, .name, .value { opacity: 0.3; } }
-                    &.rank-10 { .rank, .name, .value { opacity: 0.2; } }
                 }
             }
         }

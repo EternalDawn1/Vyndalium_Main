@@ -48,7 +48,7 @@ public partial class Player : Component, IHealthComponent
 	[Sync] public LifeState LifeState { get; private set; } = LifeState.Alive;
 	[Sync] public Angles EyeAngles { get; set; }
 	[Sync] public bool IsAiming { get; set; }
-	[Sync] public bool IsRunning { get; set; }
+	[Sync] new public bool IsRunning { get; set; }
 	[Sync] public bool IsCrouching { get; set; }
 	[Sync] public int Deaths { get; private set; }
 	[Sync] public int Kills { get; private set; }

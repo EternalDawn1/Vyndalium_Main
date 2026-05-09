@@ -16,7 +16,7 @@ public enum NavigationType
 
 public partial class Npc
 {
-    public bool IsRunning => TargetObject != null;
+    new public bool IsRunning => TargetObject != null;
     public float WishSpeed => (IsRunning ? RunSpeed : WalkSpeed) * Scale;
 
     [Sync]
