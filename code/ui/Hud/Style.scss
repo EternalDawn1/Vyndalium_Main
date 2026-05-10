@@ -1,3 +1,8 @@
+// ═══════════════════════════════════════════════════════════════
+// Shared HUD Styles & Variables
+// ═══════════════════════════════════════════════════════════════
+
+// Colors
 $orange: #fbaf3e;
 $gray: #8f8f8f;
 $gold: #fbcf3e;
@@ -6,16 +11,17 @@ $egg-shell: #ffd29d;
 $green: #6b9d0f;
 $blood-red: #883232;
 $blue: #0e599f;
-$orange: #bc4d2a;
 
-$box-shadow-sm: 4px 4px 2px black;
-$text-shadow-sm: 3px 3px 0px black;
+// Shadows
+$box-shadow-sm: 2px 2px 4px rgba(0, 0, 0, 0.6);
+$text-shadow-sm: 1px 1px 2px rgba(0, 0, 0, 0.8);
 
+// Fullscreen
 $fullscreen-blur: blur(20px);
-$fullscreen-bg: #00000068;
+$fullscreen-bg: rgba(0, 0, 0, 0.4);
+$black-bg: rgba(0, 0, 0, 0.83);
 
-$black-bg: #000000d4;
-
+// Panel
 $panel-bg: linear-gradient(135deg, rgba(20, 20, 25, 0.95) 0%, rgba(25, 30, 40, 0.95) 100%);
 $panel-content-bg: rgba(255, 255, 255, 0.02);
 $panel-border: rgba(255, 255, 255, 0.05);
@@ -23,14 +29,16 @@ $panel-radius: 12px;
 $section-radius: 8px;
 $item-radius: 6px;
 
-$color-text-primary: rgba(200, 220, 255, 0.9);
-$color-text-secondary: rgba(200, 220, 255, 0.7);
-$color-text-muted: rgba(200, 220, 255, 0.6);
+// Text
+$color-text-primary: rgba(255, 255, 255, 0.95);
+$color-text-secondary: rgba(255, 255, 255, 0.7);
+$color-text-muted: rgba(255, 255, 255, 0.5);
 $color-accent-blue: rgba(100, 200, 255, 0.95);
 $color-accent-blue-dim: rgba(100, 200, 255, 0.15);
 $color-accent-gold: rgba(255, 215, 0, 0.9);
 $color-accent-green: rgba(100, 220, 120, 0.9);
 
+// Tier Colors
 $tier-c: #b3b3b3;
 $tier-b: #4f9734;
 $tier-a: #02f2ff;
@@ -38,6 +46,8 @@ $tier-s: #ff0000;
 $tier-ss: #ff02dd;
 $tier-sss: #ffd000;
 $tier-ultimate: #dfd7d7;
+
+// ── Mixins ──────────────────────────────────────────────────
 
 @mixin frosted-panel {
     background: $panel-content-bg;
@@ -81,15 +91,12 @@ $tier-ultimate: #dfd7d7;
     border: none;
     border-radius: $item-radius - 2px;
     color: $color-text-muted;
-    font-size: 22px;
-    border-width: 1px;
-    border-color: white;
+    font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.3px;
     cursor: pointer;
     transition: all 0.2s ease;
-    
 
     &:hover {
         background: rgba(100, 150, 200, 0.1);
@@ -99,7 +106,7 @@ $tier-ultimate: #dfd7d7;
     &.active {
         background: $color-accent-blue-dim;
         color: $color-accent-blue;
-        border-color: rgba(100, 200, 255, 0.3);
+        border: 1px solid rgba(100, 200, 255, 0.3);
         box-shadow: 0 0 8px rgba(100, 200, 255, 0.15);
     }
 }
@@ -131,7 +138,7 @@ $tier-ultimate: #dfd7d7;
     color: $color-text-primary;
     padding: 8px 12px;
     font-size: 13px;
-    font-family: 'Geneva', sans-serif;
+    font-family: Poppins, Geneva, sans-serif;
     transition: all 0.2s ease;
 
     &:hover {

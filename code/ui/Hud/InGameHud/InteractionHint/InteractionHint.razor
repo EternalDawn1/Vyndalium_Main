@@ -1,5 +1,5 @@
 @namespace GeneralGame.HUD
-@using GeneralGame.Event 
+@using GeneralGame.Event
 @attribute [StyleSheet]
 @inherits Panel
 
@@ -8,73 +8,64 @@
     {
         <image src="ui/hud/interaction-pointer.png" class="icon" />
     }
-    
+
     <div class="content">
-        
         <div class="interactions">
-            @foreach(var interaction in _interactions) // Stellen Sie sicher, dass _interactions korrekt initialisiert ist
+            @foreach (var interaction in _interactions)
             {
                 if (interaction is null || !WithinBounds(interaction) || !IsAccessible(interaction))
                     continue;
 
                 var coolDown = !interaction.Cooldown || interaction.CooldownTimer;
-                var canInteract = !interaction.Disabled.InvokeOrDefault() && coolDown ;
+                var canInteract = !interaction.Disabled.InvokeOrDefault() && coolDown;
 
-                
-
-                // Annahme: shouldHighlight ist eine boolsche Variable, die bestimmt, ob hervorgehoben werden soll oder nicht // Diese Logik muss entsprechend Ihrer Anforderungen angepasst werden
-
-                // Ändern Sie den Aufruf von Highlight, um korrekt mit Ihrer Implementierung zu arbeiten
-                // Beispiel: if (canInteract || interaction.ShowWhenDisabled() || HighlightProperty) // Angenommen, Highlight ist eine Eigenschaft
-                if (canInteract || interaction.ShowWhenDisabled()) // Angenommen, Highlight ist nicht erforderlich oder bereits berücksichtigt
+                if (canInteract || interaction.ShowWhenDisabled())
                 {
                     var isActive = HasPriority(interaction.Keybind) && canInteract;
-                    
+
                     <div class="interaction">
-                        <div>
+                        <div class="interaction-left">
                             <inputhint class="hint" input=@interaction.Keybind DarkMode=@(!isActive) />
-                            <text class="description" style="color: @(isActive ? @interaction.Color.Hex : "#883232")">@interaction.Text</text>
+                            <text class="description" style="color: @(isActive ? interaction.Color.Hex : "#888")">@interaction.Text</text>
                         </div>
 
-                        @if(interaction.Cooldown && !interaction.CooldownTimer || IsAccessible(interaction))
+                        @if (interaction.Cooldown && !interaction.CooldownTimer || IsAccessible(interaction))
                         {
                             <img class="circle" src="ui/hud/circle/circle_@(TimerIndex(interaction)).png" />
                         }
-						
                     </div>
-					
                 }
-				<div class="item">
-					@if(Item != null)
-					{
-						<ItemInformation Item=@Item style="max-width: 700px;" />
-					}
-							
-				</div>
+
+                <div class="item">
+                    @if (Item != null)
+                    {
+                        <ItemInformation Item=@Item style="max-width: 700px;" />
+                    }
+                </div>
             }
         </div>
     </div>
 </root>
 
-@code {
-    public bool FromHands { get; set; } 
-
-
+@code
+{
+    public bool FromHands { get; set; }
     public ItemComponent Item { get; set; }
-    
-   
+
     private string DisplayName => _targetObject?.Components?.Get<ItemComponent>()?.Name ?? _targetObject?.Name;
     private GameObject _targetObject => FromHands
         ? Player.Local?.Inventory?.EquippedItems?[(int)EquipSlot.Hand]?.GameObject
         : Player.Local?.TargetedGameObject;
 
     private static Dictionary<string, Interaction> priorityList = new();
-    private IEnumerable<Interaction> _interactions => 
+    private IEnumerable<Interaction> _interactions =>
         _targetObject == Player.Local?.Inventory?.EquippedItems?[(int)EquipSlot.Hand]?.GameObject
             ? new List<Interaction>()
             : _targetObject?.GetInteractions() ?? new List<Interaction>();
+
     private bool WithinBounds(Interaction interaction) => !interaction.HasBounds || GetInteractionBounds(interaction).Contains(Player.Local.InteractionTrace.EndPosition);
     private bool HasPriority(string key) => FromHands || !priorityList.ContainsKey(key.ToLower());
+
     private BBox GetInteractionBounds(Interaction interaction)
         => new BBox(interaction.Position - interaction.Extents / 12f, interaction.Position + interaction.Extents / 12f)
             .Transform(Player.Local.TargetedGameObject.Transform.World);
@@ -84,13 +75,10 @@
 
     private void AddToPriority(Interaction interaction, bool forced = false)
     {
-        if (!FromHands && !forced)
-            return;
+        if (!FromHands && !forced) return;
 
         var key = interaction.Keybind.ToLower();
-        var contains = priorityList.ContainsKey(key);
-        if (contains)
-            return;
+        if (priorityList.ContainsKey(key)) return;
 
         priorityList.Add(key, interaction);
     }
@@ -100,30 +88,23 @@
         if (FromHands) priorityList.Clear();
 
         SetClass("visible", ShowHint());
-        if (!HasClass("visible"))
-            return;
-
-        if (Player.Local == null)
-            return;
+        if (!HasClass("visible")) return;
+        if (Player.Local == null) return;
 
         var pos = FromHands ? 1 : (Player.Local.InteractionBounds == null ? Player.Local.TargetedGameObject.WorldPosition : Player.Local.TargetedGameObject.Transform.World.PointToWorld(Player.Local.InteractionBounds.Value.Center));
 
         foreach (var interaction in _interactions)
         {
-            if (interaction is null || !WithinBounds(interaction) || !IsAccessible(interaction))
-                continue;
+            if (interaction is null || !WithinBounds(interaction) || !IsAccessible(interaction)) continue;
 
             var canInteract = !interaction.Disabled.InvokeOrDefault();
-            
+
             if (canInteract)
-                
-                //HighlightObject();
                 AddToPriority(interaction);
-                
+
             Item = _targetObject?.Components?.Get<ItemComponent>();
 
-            if (!HasPriority(interaction.Keybind))
-                continue;
+            if (!HasPriority(interaction.Keybind)) continue;
 
             if (interaction.HasBounds && !FromHands)
             {
@@ -139,18 +120,12 @@
             {
                 _targetObject?.Network.TakeOwnership();
                 interaction.Action?.Invoke(Player.Local, _targetObject);
-
                 interaction.CooldownTimer = interaction.CooldownTime;
 
-                
-                if (_targetObject == null || !_targetObject.IsValid())
-                    return;
-
-                if (interaction.InputMode != InputMode.Down)
-                    Input.Clear(interaction.Keybind);
-
+                if (_targetObject == null || !_targetObject.IsValid()) return;
+                if (interaction.InputMode != InputMode.Down) Input.Clear(interaction.Keybind);
                 if (interaction.Identifier != String.Empty)
-                    EventMaster.InteractionInvoked(interaction.Identifier, _targetObject.Id, Player.Local.GameObject.Id); // Pass off this interaction for events to find
+                    EventMaster.InteractionInvoked(interaction.Identifier, _targetObject.Id, Player.Local.GameObject.Id);
 
                 var vector = (pos - Player.Local.WorldPosition) * Player.Local.WorldRotation.Inverse;
                 Player.Local.BroadcastInteraction(
@@ -161,24 +136,21 @@
                     interaction.Sound?.InvokeOrDefault()?.ResourceId ?? -1,
                     interaction.PlaySoundFromPlayer
                 );
-                
-                
             }
         }
-        
+
         pos = Scene.Camera.PointToScreenPixels(pos);
         pos *= ScaleFromScreen;
 
         Style.Position = PositionMode.Absolute;
         Style.Left = Length.Pixels(pos.x);
         Style.Top = Length.Pixels(pos.y);
-    
 
         StateHasChanged();
     }
+
     private Interactions _lastHighlightedInteraction;
-    
-    
+
     private void RemoveHighlight()
     {
         if (_lastHighlightedInteraction != null && _lastHighlightedInteraction.IsHighlighted())
@@ -187,56 +159,35 @@
             _lastHighlightedInteraction = null;
         }
     }
+
     public bool ShowHint()
     {
-        // Prüfen, ob das Zielobjekt gültig ist
-        if (!_targetObject.IsValid())
-            return false;
-
-        // Prüfen, ob Interaktionen vorhanden sind
-        if (!_targetObject.Components.TryGet<Interactions>(out var interactions))
-            return false;
-
-        // Prüfen, ob die Liste der Interaktionen leer ist
-        if (!interactions.AllInteractions.Any())
-            return false; // Keine Interaktionen vorhanden, also kein Hinweis
-
-        // Überprüfen, ob der Spieler eine Waffe in der Hand trägt, die einem anderen Spieler gehört
-        // Die Waffe gehört einem anderen Spieler, also kein Hinweis
-
+        if (!_targetObject.IsValid()) return false;
+        if (!_targetObject.Components.TryGet<Interactions>(out var interactions)) return false;
+        if (!interactions.AllInteractions.Any()) return false;
         return true;
     }
 
     private bool IsAccessible(Interaction interaction)
     {
-        if (Player.Local.CameraMode != 0) // Nicht First-Person
-        {
-            return true;
-        }
-        if (interaction.Accessibility.HasFlag(AccessibleFrom.World))
-            return true;
+        if (Player.Local.CameraMode != 0) return true;
+        if (interaction.Accessibility.HasFlag(AccessibleFrom.World)) return true;
 
         var playerHasWeaponEquipped = Player.Local?.Inventory?.EquippedItems?[(int)EquipSlot.Hand]?.GameObject != null;
-        if (playerHasWeaponEquipped && interaction.Accessibility.HasFlag(AccessibleFrom.Hands))
-            return true;
+        if (playerHasWeaponEquipped && interaction.Accessibility.HasFlag(AccessibleFrom.Hands)) return true;
 
         return false;
     }
-    
-    
 
     private bool WithinRange(Interaction interaction)
     {
-        // Berechnet die Distanz zwischen dem Spieler und dem Zielobjekt
         var distance = Player.Local.ViewRay.Position.Distance(_targetObject.WorldPosition);
-        // Überprüft, ob die Distanz innerhalb der Interaktionsdistanz liegt
         return FromHands || distance < interaction.InteractDistance;
     }
 
     protected override int BuildHash()
     {
-        return HashCode.Combine
-        (
+        return HashCode.Combine(
             DisplayName,
             _targetObject.IsValid(),
             _interactions.HashCombine(i => HashCode.Combine(i.Text, i.Disabled.InvokeOrDefault(), (bool)i.CooldownTimer, TimerIndex(i), WithinBounds(i), HasPriority(i.Keybind)))

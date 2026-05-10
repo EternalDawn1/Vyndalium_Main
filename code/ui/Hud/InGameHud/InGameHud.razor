@@ -5,39 +5,34 @@
 @using Sandbox;
 @using Sandbox.UI;
 
-
 <root>
     <InteractionHint />
 
-    <div class="lobby" style="opacity: @(ShowRespawnOption ? 1 : 0);">
+    <div class="lobby-overlay" style="opacity: @(ShowRespawnOption ? 1 : 0);">
         @if (ShowReturnToLobby)
         {
-            <div class="return-to-lobby">
-                <h1 class="h1">Game Over</h1>
-                <p2 class="h2">No Hearts left</p2>
-                <button class="button" @onclick="@ReturnToLobby">Restart</button>
+            <div class="lobby-content">
+                <h1 class="game-over-title">Game Over</h1>
+                <p class="game-over-subtitle">No Hearts left</p>
+                <button class="restart-button" @onclick="@ReturnToLobby">Restart</button>
             </div>
         }
-        
     </div>
 </root>
 
 @code
 {
     public static InGameHud Instance { get; private set; }
-  
+
     public InGameHud()
     {
         Instance = this;
-    
     }
+
     [Property]
     public GeneralScene2 SceneToLoad { get; set; } = GeneralScene2.StartBase;
     [Property] public bool ShowReturnToLobby { get; set; } = false;
     [Property] public bool ShowRespawnOption { get; set; } = false;
-
-  
-  
 
     private void ReturnToLobby()
     {
@@ -53,15 +48,14 @@
             Log.Error("Player is not the host.");
             return;
         }
-      
-        this.ShowReturnToLobby = false; // Zugriff auf die Eigenschaft der aktuellen Klasse
-        this.ShowRespawnOption = false; // Zugriff auf die Eigenschaft der aktuellen Klasse
-         SceneHandler2.ChangeScene2( SceneToLoad );
+
+        ShowReturnToLobby = false;
+        ShowRespawnOption = false;
+        SceneHandler2.ChangeScene2(SceneToLoad);
     }
+
     protected override int BuildHash()
     {
         return HashCode.Combine(ShowReturnToLobby, ShowRespawnOption);
     }
-    
-
 }

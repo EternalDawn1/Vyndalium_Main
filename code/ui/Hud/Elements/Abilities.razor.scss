@@ -1,7 +1,7 @@
 @import "/ui/Hud/Style.scss";
 
 Abilities {
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 100%;
     z-index: 0;
@@ -39,21 +39,22 @@ Abilities {
         position: absolute;
         left: 20px;
         top: 50%;
-        transform: translateY(-50%);
-        width: 80px;
+        bottom: 0;
+        top: 0;
+     
+  
+        width: 10%;
         z-index: 10;
         padding: 8px;
         @include frosted-panel;
         flex-direction: column;
-        gap: 8px;
+           gap: 30px;
     }
 
     .main {
-        position: absolute;
-        top: 80px;
-        left: 120px;
-        right: 20px;
-        bottom: 20px;
+        position:relative;
+        width: 100%;
+        height: 100%;
         @include frosted-panel;
         padding: 16px;
 
@@ -65,7 +66,7 @@ Abilities {
             .panel-header {
                 position: absolute;
                 width: 100%;
-                top: -50px;
+               
                 justify-content: center;
                 align-items: center;
                 height: 40px;
@@ -94,13 +95,18 @@ Abilities {
             .panel-content {
                 position: absolute;
                 width: 100%;
+                bottom: 0;
+                top: 0;
+                left: 0;
+                right: 0;
                 height: 100%;
                 padding: 12px;
                 transition: opacity 0.3s ease;
 
                 .panel-content-text {
-                    position: relative;
+                    position: absolute;
                     width: 55%;
+                    left: 20%;
                     height: 100%;
                 }
 
@@ -125,6 +131,7 @@ Abilities {
                         .box {
                             position: relative;
                             width: 100%;
+                            height: 10%;
                             min-height: 42px;
                             display: flex;
                             align-items: center;
@@ -142,14 +149,14 @@ Abilities {
 
                             .txt {
                                 flex: 1;
-                                font-size: 14px;
+                                font-size: 24px;
                                 color: $color-text-secondary;
                                 justify-content: center;
                             }
 
                             .txt2 {
                                 flex: 1;
-                                font-size: 14px;
+                                font-size: 24px;
                                 color: $color-accent-blue;
                                 font-weight: 600;
                                 justify-content: center;
@@ -215,9 +222,9 @@ Abilities {
                 .panel-content-context {
                     position: absolute;
                     right: 0;
-                    top: 0;
-                    width: 42%;
-                    height: 100%;
+                    top: 30%;
+                    width: 22%;
+                    height: 20%;
                     flex-direction: column;
                     background: rgba(0, 0, 0, 0.3);
                     border-radius: $section-radius;
@@ -238,16 +245,16 @@ Abilities {
                     }
 
                     .text {
-                        font-size: 13px;
+                        font-size: 33px;
                         color: $color-text-secondary;
-                        line-height: 1.5;
+                       
                         margin-bottom: 8px;
                     }
 
                     .text2 {
-                        font-size: 12px;
+                        font-size: 32px;
                         color: $color-accent-gold;
-                        line-height: 1.4;
+                        
                     }
                 }
             }

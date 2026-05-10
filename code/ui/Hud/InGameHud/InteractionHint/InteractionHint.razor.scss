@@ -1,102 +1,73 @@
-@import "/ui/Hud/Style.scss";
-
 InteractionHint {
-    
+    position: absolute;
     flex-direction: row;
+    align-items: flex-start;
     transform-origin: left top;
     opacity: 0;
-    font-family: Geneva;
-  
-    
-
-   
+    transition: opacity 0.15s ease-in-out;
+    pointer-events: none;
 
     .content {
         position: relative;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        
-        
     }
 
     .icon {
         position: relative;
-        width: 25px;
-        aspect-ratio: 1;
-        margin-right: 25px;
-        transform: translateX(-50%);
-        transition: all 0.2s;
-
-        
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+        margin-top: 4px;
     }
 
     .interactions {
         position: relative;
-        padding: 5px;
-        bottom:  5px;
-        background-color: rgba(0, 0, 0, 0.288);
-        box-shadow: 5 0 0px 0 rgba(0, 0, 0, 0.5);
-        gap: 2px;
+        padding: 8px 12px;
+        background-color: rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 6px;
+        gap: 6px;
         flex-direction: column-reverse;
-        border-width: 5px;
-        border-color: rgb(0, 0, 0);
-        
+        backdrop-filter: blur(4px);
+    }
 
-        
-        
-    }
-    .item{
+    .item {
         position: absolute;
-        bottom: -250px;
-        left: 250px;
+        bottom: -260px;
+        left: 260px;
     }
-   
+
     .interaction {
-        position: relative;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        font-size:20px;
-        top: 1%;
-        font-family: Geneva;
-        margin-left: 10px;
-        margin-right: 5px;
+        gap: 12px;
+        min-width: 200px;
 
-        
-        
+        .interaction-left {
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+        }
 
         .circle {
-            position: relative;
-            justify-content: center;
-            align-items: center;
-            margin-right: 0px;
-            margin-left: 0px;
-            width: 20px;
-            aspect-ratio: 1;
-          
-          
-            
-           
+            width: 18px;
+            height: 18px;
         }
 
         .description {
-            position: relative;
-            text-shadow: $text-shadow-sm;
-            font-weight: 700;
-            margin-top: 5px;
-            max-width: 425px;
-            transition: all 0.2s;
-            font-family: Geneva;
-            font-size: 20px;
-            letter-spacing: 2px;
-            
+            font-family: Poppins;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            transition: color 0.15s ease-in-out;
         }
 
         .hint {
-            position: relative;
-            margin-right: 12px;
-           
+            flex-shrink: 0;
         }
     }
 
